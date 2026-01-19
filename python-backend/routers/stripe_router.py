@@ -104,9 +104,71 @@ async def get_subscription(athlynx_token: Optional[str] = Cookie(None)):
         cursor.close()
         conn.close()
 
+from fastapi import Request, Header
+from services.aws_services import send_email, send_sms
+
 @router.post("/webhook")
-async def stripe_webhook(request: dict):
-    """Handle Stripe webhooks"""
-    # This would handle Stripe webhook events
-    # For now, just return success
+async def stripe_webhook(request: Request, stripe_signature: str = Header(None)):
+    """Handle Stripe webhooks with Email & SMS integration"""
+    webhook_secret = os.getenv("STRIPE_WEBHOOK_SECRET")
+    payload = await request.body()
+
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, stripe_signature, webhook_secret
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail="Invalid payload")
+    except stripe.error.SignatureVerificationError as e:
+        raise HTTPException(status_code=400, detail="Invalid signature")
+
+    # Handle the checkout.session.completed event
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+        customer_email = session.get('customer_details', {}).get('email')
+        customer_name = session.get('customer_details', {}).get('name', 'Athlete')
+        
+        # 1. Update Database (Unlock Account)
+        conn = get_db_connection()
+        cursor = conn.cursor(dictionary=True)
+        try:
+            cursor.execute(
+                "UPDATE users SET subscription_status = 'active', stripe_subscription_id = %s WHERE email = %s",
+                (session.get('subscription'), customer_email)
+            )
+            conn.commit()
+            
+            # Get user phone number for SMS
+            cursor.execute("SELECT phone_number FROM users WHERE email = %s", (customer_email,))
+            user = cursor.fetchone()
+            phone_number = user['phone_number'] if user else None
+            
+        finally:
+            cursor.close()
+            conn.close()
+
+        # 2. Send Welcome Email (AWS SES)
+        if customer_email:
+            email_subject = "Welcome to ATHLYNX AI - Subscription Active"
+            email_body = f"""
+            <h1>Welcome to the Team, {customer_name}!</h1>
+            <p>Your subscription to ATHLYNX AI is now active.</p>
+            <p>You have full access to our elite analytics platform.</p>
+            <br>
+            <p>Login now: <a href="https://athlynx.ai/login">https://athlynx.ai/login</a></p>
+            <br>
+            <p>Best regards,</p>
+            <p>The ATHLYNX Team</p>
+            """
+            await send_email(
+                to_addresses=[customer_email],
+                subject=email_subject,
+                html_body=email_body
+            )
+
+        # 3. Send Confirmation SMS (AWS SNS)
+        if phone_number:
+            sms_message = f"ATHLYNX: Welcome {customer_name}! Your subscription is active. Access your dashboard now at athlynx.ai"
+            await send_sms(phone_number, sms_message)
+
     return {"success": True}
