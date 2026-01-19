@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transforming Taylorsville</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        
+        .slide-container {
+            width: 1280px;
+            min-height: 720px; /* keep this as required */
+            background-color: #FFFFFF;
+            color: #0A1F1C;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 1fr;
+        }
+
+        /* Header Section */
+        .header {
+            grid-column: 1 / -1;
+            /* keep top padding (40px) per requirement; reduce bottom padding to save height */
+            padding: 40px 60px 8px 60px;
+            border-bottom: 4px solid #00CC66;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.1;
+            text-transform: uppercase;
+            color: #0A1F1C;
+            max-width: 90%;
+        }
+
+        /* Left Content Column */
+        .content-col {
+            /* reduce vertical padding to save space */
+            padding: 24px 48px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sub-headline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 500;
+            color: #00CC66;
+            margin-bottom: 20px; /* reduced from 40 */
+            line-height: 1.3;
+        }
+
+        .key-points {
+            list-style: none;
+        }
+
+        .key-point {
+            margin-bottom: 12px; /* reduced from 25 */
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .bullet {
+            min-width: 12px;
+            height: 12px;
+            background-color: #FFD700; /* Solar Yellow */
+            margin-top: 6px;
+            margin-right: 20px;
+        }
+
+        .point-content strong {
+            display: block;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #0A1F1C;
+        }
+
+        .point-content {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #444;
+        }
+
+        /* Right Image Column */
+        .image-col {
+            position: relative;
+            height: 100%;
+            background-color: #F5F5F5;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* fix image to a safe pixel height so the column doesn't grow beyond target */
+        .image-wrapper {
+            height: 360px; /* reduced from ~65% to a fixed value to control total height */
+            width: 100%;
+            position: relative;
+        }
+
+        .feature-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .legacy-box {
+            background-color: #0A1F1C;
+            color: #FFFFFF;
+            padding: 24px; /* reduced from 40 to shrink height */
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .legacy-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            color: #FFD700;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .legacy-text {
+            font-size: 15px;
+            line-height: 1.6;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        /* Page Number */
+        .page-num {
+            position: absolute;
+            bottom: 30px;
+            left: 60px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: #999;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <h2>Transforming Taylorsville into Mississippi's AI Infrastructure Hub</h2>
+        </div>
+
+        <div class="content-col">
+            <div class="sub-headline">
+                $50 Million Investment Positions Taylorsville as the Gateway to Mississippi's AI Economy
+            </div>
+
+            <ul class="key-points">
+                <li class="key-point">
+                    <div class="bullet"></div>
+                    <div class="point-content">
+                        <strong>Strategic Location</strong>
+                        Taylorsville selected as flagship facility for statewide AI data center expansion.
+                    </div>
+                </li>
+                <li class="key-point">
+                    <div class="bullet"></div>
+                    <div class="point-content">
+                        <strong>Launch Timeline</strong>
+                        April 1, 2026 operational date with immediate economic impact.
+                    </div>
+                </li>
+                <li class="key-point">
+                    <div class="bullet"></div>
+                    <div class="point-content">
+                        <strong>Regional Leadership</strong>
+                        First major AI computation facility in Mississippi, establishing market precedent.
+                    </div>
+                </li>
+            </ul>
+            
+            <div class="page-num">02</div>
+        </div>
+
+        <div class="image-col">
+            <div class="image-wrapper">
+                <img src="/home/ubuntu/project_phoenix_slides/images/slide2_datacenter.jpeg" alt="Data Center Facility" class="feature-image">
+            </div>
+            <div class="legacy-box">
+                <div class="legacy-title">Legacy & Innovation</div>
+                <div class="legacy-text">
+                    "Chad Dozier's grandfather, Wes Simpson, served as Plant Manager at Georgia-Pacific and VP of Manufacturing at La-Z-Boy in Taylorsville—this project represents both honoring that industrial legacy and creating transformational economic opportunity."
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Specifications</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #FFFFFF;
+            color: #0A1F1C;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            grid-template-rows: auto 1fr;
+        }
+
+        /* Header */
+        .header {
+            grid-column: 1 / -1;
+            padding: 40px 60px 20px 60px;
+            border-bottom: 4px solid #00CC66;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #0A1F1C;
+            margin-bottom: 10px;
+        }
+
+        .sub-headline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            color: #00CC66;
+            letter-spacing: 1px;
+        }
+
+        /* Left Content: Data Grid */
+        .data-grid {
+            padding: 40px 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .data-item {
+            border-top: 2px solid #E6E6E6;
+            padding-top: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .data-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .data-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #0A1F1C;
+            line-height: 1.1;
+        }
+
+        .data-value.highlight {
+            color: #00CC66;
+        }
+
+        .data-desc {
+            font-size: 14px;
+            color: #444;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+
+        /* Right Column: Image */
+        .image-col {
+            grid-column: 2;
+            grid-row: 2;
+            position: relative;
+            height: 100%;
+        }
+
+        .feature-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 31, 28, 0.2);
+        }
+
+        /* Page Number */
+        .page-num {
+            position: absolute;
+            bottom: 30px;
+            left: 60px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: #999;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <h2>Comprehensive Project Specifications</h2>
+            <div class="sub-headline">State-of-the-Art AI Computation Facility with Significant Economic Impact</div>
+        </div>
+
+        <div class="data-grid">
+            <!-- Item 1 -->
+            <div class="data-item">
+                <div class="data-label">Total Investment</div>
+                <div class="data-value highlight">$50,000,000</div>
+                <div class="data-desc">Capital deployment for infrastructure and technology.</div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="data-item">
+                <div class="data-label">Launch Date</div>
+                <div class="data-value">April 1, 2026</div>
+                <div class="data-desc">Operational commencement target.</div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="data-item">
+                <div class="data-label">Facility Type</div>
+                <div class="data-value">AI Data Center</div>
+                <div class="data-desc">Advanced computation facility with enterprise-grade infrastructure.</div>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="data-item">
+                <div class="data-label">Power Requirements</div>
+                <div class="data-value">Substantial 24/7</div>
+                <div class="data-desc">Continuous capacity with redundancy and reliability guarantees.</div>
+            </div>
+
+            <!-- Item 5 -->
+            <div class="data-item">
+                <div class="data-label">Renewable Component</div>
+                <div class="data-value">On-site Solar</div>
+                <div class="data-desc">Integrated array via Softmor/RunSun partnership.</div>
+            </div>
+
+            <!-- Item 6 -->
+            <div class="data-item">
+                <div class="data-label">Job Creation</div>
+                <div class="data-value">50+ Direct</div>
+                <div class="data-desc">Plus 200+ indirect jobs in vendor ecosystem.</div>
+            </div>
+            
+            <div class="page-num">06</div>
+        </div>
+
+        <div class="image-col">
+            <img src="/home/ubuntu/project_phoenix_slides/images/slide6_infrastructure.jpg" alt="Infrastructure" class="feature-image">
+            <div class="overlay"></div>
+        </div>
+    </div>
+</body>
+</html>

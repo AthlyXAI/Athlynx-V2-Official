@@ -1,0 +1,156 @@
+{
+  "project_info": {
+    "title": "Project Phoenix Title Slide",
+    "created": 1768845266.9308112,
+    "last_updated": 1768845840.2171953,
+    "total_slides": 12
+  },
+  "slides": [
+    {
+      "id": "slide_1_title",
+      "state": "edited",
+      "pageNum": 1
+    },
+    {
+      "id": "slide_2_taylorsville_hub",
+      "state": "edited",
+      "pageNum": 2
+    },
+    {
+      "id": "slide_3_corporate_structure",
+      "state": "edited",
+      "pageNum": 3
+    },
+    {
+      "id": "slide_4_jimmy_boyd_role",
+      "state": "edited",
+      "pageNum": 4
+    },
+    {
+      "id": "slide_5_southern_pine_growth",
+      "state": "edited",
+      "pageNum": 5
+    },
+    {
+      "id": "slide_6_project_specifications",
+      "state": "edited",
+      "pageNum": 6
+    },
+    {
+      "id": "slide_7_partnership_framework",
+      "state": "edited",
+      "pageNum": 7
+    },
+    {
+      "id": "slide_8_runsun_integration",
+      "state": "edited",
+      "pageNum": 8
+    },
+    {
+      "id": "slide_9_market_positioning",
+      "state": "edited",
+      "pageNum": 9
+    },
+    {
+      "id": "slide_10_next_steps",
+      "state": "edited",
+      "pageNum": 10
+    },
+    {
+      "id": "slide_11_contact_info",
+      "state": "edited",
+      "pageNum": 11
+    },
+    {
+      "id": "slide_12_closing",
+      "state": "edited",
+      "pageNum": 12
+    }
+  ],
+  "outline": [
+    {
+      "id": "slide_1_title",
+      "title": "Project Phoenix Title Slide",
+      "summary": "Title slide introducing Project Phoenix AI Data Center Development in Taylorsville, Mississippi, presented by Dozier Holdings Group & Softmor in partnership with RunSun Energy Solutions.",
+      "image_plan": "/home/ubuntu/upload/search_images/7uftm2JVXLhN.jpg - Image 3 is a clear, modern aerial view of a large data center facility, suitable for a title slide about AI data center development.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_2_taylorsville_hub",
+      "title": "Transforming Taylorsville into AI Hub",
+      "summary": "Overview of the $50 million investment positioning Taylorsville as the gateway to Mississippi's AI economy, highlighting strategic location and launch timeline.",
+      "image_plan": "/home/ubuntu/upload/search_images/XiCJIHufmXZG.jpg - Image 6 is another excellent aerial view of a large, modern data center complex, fitting the theme of a $50 million investment and AI infrastructure hub.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_3_corporate_structure",
+      "title": "Corporate Structure & Strategic Partnerships",
+      "summary": "Explanation of the integrated investment and operations structure involving Dozier Holdings Group, Softmor, and RunSun Energy Solutions.",
+      "image_plan": "/home/ubuntu/upload/search_images/192IWv9sPIWS.jpg; /home/ubuntu/upload/search_images/dMB0hlSxuIHS.jpg - Images 11 and 12 are professional handshakes, symbolizing the integrated corporate structure and strategic partnerships mentioned on the slide.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_4_jimmy_boyd_role",
+      "title": "Jimmy Boyd's Leadership Role",
+      "summary": "Detailing Jimmy Boyd's authority as Director of Real Estate & Contract Development, including negotiation powers and contact information.",
+      "image_plan": "",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_5_southern_pine_growth",
+      "title": "Industrial Growth for Southern Pine Electric",
+      "summary": "Outlining the strategic opportunity for Southern Pine Electric, focusing on substantial power requirements and long-term revenue stability.",
+      "image_plan": "/home/ubuntu/upload/search_images/QdGOEsbaMykE.jpg - Image 4 is a diagram showing the internal components and design of a data hall, which is relevant to the substantial power requirements and infrastructure of an AI data center.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_6_project_specifications",
+      "title": "Comprehensive Project Specifications",
+      "summary": "Detailed specifications of the facility, including investment amount, launch date, power requirements, and job creation impact.",
+      "image_plan": "/home/ubuntu/upload/search_images/1LNTXZYdmSrQ.jpeg - Image 5 is a large, modern data center facility with solar panels visible, which aligns with the project specifications including the $50M investment and renewable component.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_7_partnership_framework",
+      "title": "Four-Pillar Partnership Framework",
+      "summary": "Breakdown of the comprehensive agreements covering power infrastructure, real estate, renewable energy, and economic development.",
+      "image_plan": "/home/ubuntu/upload/search_images/j07FyQevFKAw.jpg - Image 17 shows a group of people collaborating around a table, which represents the \"Four-Pillar Partnership Framework\" and collaboration theme.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_8_runsun_integration",
+      "title": "RunSun Renewable Energy Integration",
+      "summary": "Highlighting the benefits of the on-site solar array provided by RunSun Energy Solutions for load management and sustainability.",
+      "image_plan": "/home/ubuntu/upload/search_images/Ift8yO9Jziao.jpg; /home/ubuntu/upload/search_images/StGf7VD2LbIj.jpg - Images 20 and 24 are clear visuals of solar arrays/farms, directly supporting the content about RunSun Energy Solutions and on-site solar integration.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_9_market_positioning",
+      "title": "Market Positioning & Expansion",
+      "summary": "Discussing the strategic vision for multi-site development and the opportunity for Southern Pine Electric to be a primary partner.",
+      "image_plan": "/home/ubuntu/upload/search_images/m96mqzkvCMMI.jpg; /home/ubuntu/upload/search_images/Yscz6Sn8CP3m.png - Images 29 and 30 are strategic diagrams (Strategic Opportunity Matrix and Market Growth) that visually support the concept of market positioning, multi-site partnership opportunity, and strategic vision.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_10_next_steps",
+      "title": "Immediate Next Steps & Meeting Request",
+      "summary": "Request for a 30-45 minute meeting to discuss partnership parameters, with proposed agenda and meeting options.",
+      "image_plan": "",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_11_contact_info",
+      "title": "Contact Information",
+      "summary": "Contact details for Jimmy Boyd, Chad Dozier, and Chris K. Rhodes to facilitate rapid communication and agreement execution.",
+      "image_plan": "/home/ubuntu/upload/79053003290__E160BE0C-DA91-461E-8E5A-321313F7E4F2.jpeg - Image 2 is a business card for the Southern Pine Electric CEO, which is highly relevant for a contact information slide that includes his details.",
+      "slide_template_key": ""
+    },
+    {
+      "id": "slide_12_closing",
+      "title": "Closing Statement",
+      "summary": "Final vision statement emphasizing the transformational nature of the project and the call to action for partnership development.",
+      "image_plan": "/home/ubuntu/upload/search_images/ikBd6KSGfnK7.webp - Image 32 is a graphic about measuring success, which aligns with the closing statement's focus on co-developing transformational infrastructure and economic future.",
+      "slide_template_key": ""
+    }
+  ]
+}

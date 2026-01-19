@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Positioning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #0A1F1C;
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 60% 40%;
+            grid-template-rows: auto 1fr;
+        }
+        .header {
+            grid-column: 1 / -1;
+            padding: 40px 60px 20px 60px; /* keep title top padding */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+        .sub-headline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 400;
+            color: #00CC66;
+            letter-spacing: 0.5px;
+        }
+        /* Left Content: Strategic Points */
+        .content-col {
+            padding: 24px 60px; /* reduced top/bottom padding to save vertical space */
+            display: flex;
+            flex-direction: column;
+        }
+        .strategy-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px; /* reduced gap */
+        }
+        .strategy-item {
+            display: flex;
+            align-items: flex-start;
+        }
+        .strategy-icon {
+            min-width: 40px;
+            height: 40px;
+            background-color: rgba(255, 215, 0, 0.1);
+            border: 1px solid #FFD700;
+            color: #FFD700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            margin-right: 16px; /* slightly reduced */
+        }
+        .strategy-content { flex: 1; }
+        .strategy-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 3px; /* small reduction */
+        }
+        .strategy-desc {
+            font-size: 15px;
+            color: #E6E6E6;
+            line-height: 1.4;
+            opacity: 0.8;
+        }
+        /* Right Content: Image/Matrix */
+        .image-col {
+            background-color: #0F2A26;
+            padding: 20px; /* reduced padding */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-container {
+            width: 100%;
+            background-color: #FFFFFF;
+            padding: 8px; /* reduced */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .feature-image { width: 100%; height: auto; display: block; }
+        .caption {
+            margin-top: 12px; /* reduced */
+            font-size: 14px;
+            color: #00CC66;
+            text-align: center;
+            font-style: italic;
+        }
+        /* Page Number */
+        .page-num {
+            position: absolute;
+            bottom: 30px;
+            left: 60px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <h2>Market Positioning Creates Multi-Site Partnership Opportunity</h2>
+            <div class="sub-headline">Taylorsville Flagship Facility Opens Door to Regional Energy Infrastructure Partnership</div>
+        </div>
+
+        <div class="content-col">
+            <div class="strategy-list">
+                <div class="strategy-item">
+                    <div class="strategy-icon">01</div>
+                    <div class="strategy-content">
+                        <div class="strategy-title">Mississippi Market Control</div>
+                        <div class="strategy-desc">Positioned to dominate state's AI data center expansion.</div>
+                    </div>
+                </div>
+
+                <div class="strategy-item">
+                    <div class="strategy-icon">02</div>
+                    <div class="strategy-content">
+                        <div class="strategy-title">Multi-Site Development</div>
+                        <div class="strategy-desc">Planning additional facilities across Mississippi and Southeast.</div>
+                    </div>
+                </div>
+
+                <div class="strategy-item">
+                    <div class="strategy-icon">03</div>
+                    <div class="strategy-content">
+                        <div class="strategy-title">Primary Energy Partner</div>
+                        <div class="strategy-desc">Southern Pine Electric opportunity for preferred partnership across portfolio.</div>
+                    </div>
+                </div>
+
+                <div class="strategy-item">
+                    <div class="strategy-icon">04</div>
+                    <div class="strategy-content">
+                        <div class="strategy-title">First-Mover Advantage</div>
+                        <div class="strategy-desc">Early engagement establishes framework for future projects.</div>
+                    </div>
+                </div>
+
+                <div class="strategy-item">
+                    <div class="strategy-icon">05</div>
+                    <div class="strategy-content">
+                        <div class="strategy-title">Regional Economic Impact</div>
+                        <div class="strategy-desc">Coordinated development strategy benefiting multiple communities.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-num">09</div>
+        </div>
+
+        <div class="image-col">
+            <div class="image-container">
+                <img src="/home/ubuntu/upload/search_images/m96mqzkvCMMI.jpg" alt="Strategic Opportunity Matrix" class="feature-image">
+            </div>
+            <div class="caption">Strategic Opportunity Matrix: Identifying Growth Vectors</div>
+        </div>
+    </div>
+</body>
+</html>

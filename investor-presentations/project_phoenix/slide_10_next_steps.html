@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Next Steps</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #0A1F1C; /* Deep Emerald Green */
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 1fr;
+        }
+
+        /* Header */
+        .header {
+            grid-column: 1 / -1;
+            padding: 40px 60px 20px 60px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+
+        .sub-headline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            color: #FFD700; /* Solar Yellow */
+            letter-spacing: 1px;
+        }
+
+        /* Content Columns */
+        .col-left {
+            padding: 40px 60px;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .col-right {
+            padding: 40px 60px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #00CC66; /* Emerald Green */
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Lists */
+        .agenda-list, .options-list {
+            list-style: none;
+        }
+
+        .list-item {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .bullet {
+            min-width: 10px;
+            height: 10px;
+            background-color: #FFD700;
+            margin-top: 8px;
+            margin-right: 20px;
+        }
+
+        .item-text {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #E6E6E6;
+        }
+
+        /* Urgency Box */
+        .urgency-box {
+            margin-top: auto;
+            background: rgba(255, 215, 0, 0.1); /* Low opacity yellow */
+            border-left: 4px solid #FFD700;
+            padding: 25px;
+        }
+
+        .urgency-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #FFD700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .urgency-text {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #FFFFFF;
+            font-style: italic;
+        }
+
+        /* Page Number */
+        .page-num {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: #555;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <h2>Immediate Next Steps & Meeting Request</h2>
+            <div class="sub-headline">30-45 Minute Presentation to Discuss Partnership Parameters</div>
+        </div>
+
+        <div class="col-left">
+            <div class="section-title">Proposed Meeting Agenda</div>
+            <ul class="agenda-list">
+                <li class="list-item">
+                    <div class="bullet"></div>
+                    <div class="item-text">Project Phoenix overview and technical specifications</div>
+                </li>
+                <li class="list-item">
+                    <div class="bullet"></div>
+                    <div class="item-text">Power capacity requirements and infrastructure needs</div>
+                </li>
+                <li class="list-item">
+                    <div class="bullet"></div>
+                    <div class="item-text">Renewable energy integration opportunities via RunSun partnership</div>
+                </li>
+                <li class="list-item">
+                    <div class="bullet"></div>
+                    <div class="item-text">Contract framework and partnership structure</div>
+                </li>
+                <li class="list-item">
+                    <div class="bullet"></div>
+                    <div class="item-text">Timeline coordination and immediate next steps</div>
+                </li>
+                <li class="list-item">
+                    <div class="bullet"></div>
+                    <div class="item-text">Economic impact analysis for Taylorsville</div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-right">
+            <div class="section-title">Meeting Options</div>
+            <ul class="options-list">
+                <li class="list-item">
+                    <div class="bullet" style="background-color: #00CC66;"></div>
+                    <div class="item-text">Southern Pine Electric Taylorsville office<br><span style="font-size: 14px; opacity: 0.7;">P.O. Box 60, 13491 Hwy 28, Taylorsville, MS 39168</span></div>
+                </li>
+                <li class="list-item">
+                    <div class="bullet" style="background-color: #00CC66;"></div>
+                    <div class="item-text">Softmor Houston headquarters<br><span style="font-size: 14px; opacity: 0.7;">12306 Lake Portal Drive, Houston, TX 77047</span></div>
+                </li>
+                <li class="list-item">
+                    <div class="bullet" style="background-color: #00CC66;"></div>
+                    <div class="item-text">Virtual conference call</div>
+                </li>
+                <li class="list-item">
+                    <div class="bullet" style="background-color: #00CC66;"></div>
+                    <div class="item-text">Location of your preference</div>
+                </li>
+            </ul>
+
+            <div class="urgency-box">
+                <div class="urgency-title">Critical Timeline</div>
+                <div class="urgency-text">
+                    Given our April 2026 timeline, early engagement on power infrastructure planning and contract development is critical to project success.
+                </div>
+            </div>
+            
+            <div class="page-num">10</div>
+        </div>
+    </div>
+</body>
+</html>

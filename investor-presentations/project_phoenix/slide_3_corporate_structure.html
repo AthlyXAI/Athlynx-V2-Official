@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Structure</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #0A1F1C; /* Deep Emerald Green */
+            color: #FFFFFF;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            grid-template-rows: auto 1fr;
+        }
+
+        /* Header */
+        .header {
+            grid-column: 1 / -1;
+            padding: 40px 60px 12px 60px; /* keep top padding unchanged */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 42px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #FFFFFF;
+            margin-bottom: 10px;
+        }
+
+        .sub-headline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            color: #00CC66;
+            letter-spacing: 1px;
+        }
+
+        /* Left Column: Entities */
+        .entities-col {
+            padding: 20px 60px; /* reduced vertical padding */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 18px; /* reduced gap to save vertical space */
+        }
+
+        .entity-block {
+            border-left: 4px solid #FFD700; /* Solar Yellow */
+            padding-left: 20px;
+        }
+
+        .entity-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 5px;
+        }
+
+        .entity-role {
+            font-size: 16px;
+            color: #00CC66;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        .entity-desc {
+            font-size: 15px;
+            color: #E6E6E6;
+            line-height: 1.4;
+            opacity: 0.8;
+        }
+
+        /* Right Column: Visual & Leadership */
+        .visual-col {
+            background-color: #0F2A26; /* Slightly lighter green */
+            padding: 20px; /* reduced vertical padding */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .image-container {
+            width: 100%;
+            height: 240px; /* reduced image height */
+            margin-bottom: 20px; /* reduced spacing below image */
+            position: relative;
+        }
+
+        .feature-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(50%);
+        }
+
+        .leadership-block {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px; /* slightly reduced padding */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .leadership-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: #FFD700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .leader-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .leader-title {
+            font-size: 14px;
+            opacity: 0.7;
+            line-height: 1.4;
+        }
+
+        /* Page Number */
+        .page-num {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: #555;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="header">
+            <h2>Corporate Structure & Strategic Partnerships</h2>
+            <div class="sub-headline">Integrated Investment, Operations, and Renewable Energy Expertise</div>
+        </div>
+
+        <div class="entities-col">
+            <div class="entity-block">
+                <div class="entity-name">Dozier Holdings Group</div>
+                <div class="entity-role">Primary Investment Entity</div>
+                <div class="entity-desc">Providing $50M capital deployment for Project Phoenix infrastructure.</div>
+            </div>
+
+            <div class="entity-block">
+                <div class="entity-name">Softmor</div>
+                <div class="entity-role">Operating Company</div>
+                <div class="entity-desc">Houston-based infrastructure development and operations management.<br>12306 Lake Portal Drive, Houston, TX 77047</div>
+            </div>
+
+            <div class="entity-block">
+                <div class="entity-name">RunSun Energy Solutions</div>
+                <div class="entity-role">Renewable Energy Partner</div>
+                <div class="entity-desc">Delivering advanced solar solutions and renewable energy integration.</div>
+            </div>
+
+            <div class="entity-block">
+                <div class="entity-name">ATHLYNX AI Corporation</div>
+                <div class="entity-role">Technology Platform</div>
+                <div class="entity-desc">AI technology and computational services provider.</div>
+            </div>
+        </div>
+
+        <div class="visual-col">
+            <div class="image-container">
+                <img src="/home/ubuntu/project_phoenix_slides/images/slide3_partnership.jpg" alt="Strategic Partnership" class="feature-image">
+            </div>
+
+            <div class="leadership-block">
+                <div class="leadership-label">Executive Leadership</div>
+                <div class="leader-name">Chad Dozier</div>
+                <div class="leader-title">Chief Executive Officer<br>Extensive infrastructure development experience</div>
+            </div>
+            
+            <div class="page-num">03</div>
+        </div>
+    </div>
+</body>
+</html>

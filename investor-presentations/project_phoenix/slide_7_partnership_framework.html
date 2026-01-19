@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partnership Framework</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #FFFFFF;
+            color: #0A1F1C;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 65% 35%;
+        }
+
+        /* Left Content Side */
+        .content-side {
+            padding: 40px 50px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            margin-bottom: 30px;
+            border-bottom: 4px solid #00CC66;
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #0A1F1C;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .sub-headline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: #00CC66;
+            letter-spacing: 0.5px;
+        }
+
+        /* 2x2 Grid for Pillars */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 30px;
+            flex-grow: 1;
+        }
+
+        .pillar-card {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pillar-header {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #E6E6E6;
+            padding-bottom: 8px;
+        }
+
+        .pillar-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: #FFD700; /* Solar Yellow */
+            margin-right: 10px;
+            line-height: 1;
+        }
+
+        .pillar-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: #0A1F1C;
+            line-height: 1.2;
+        }
+
+        .pillar-list {
+            list-style: none;
+        }
+
+        .pillar-list li {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #444;
+            margin-bottom: 6px;
+            padding-left: 12px;
+            position: relative;
+        }
+
+        .pillar-list li::before {
+            content: "•";
+            color: #00CC66;
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        /* Right Image Side */
+        .image-side {
+            position: relative;
+            height: 100%;
+            background-color: #0A1F1C;
+        }
+
+        .feature-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            mix-blend-mode: luminosity;
+        }
+
+        .overlay-text {
+            position: absolute;
+            bottom: 40px;
+            left: 30px;
+            right: 30px;
+            color: #FFFFFF;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .page-num {
+            position: absolute;
+            bottom: 20px;
+            left: 50px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 12px;
+            color: #999;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="content-side">
+            <div class="header">
+                <h2>Four-Pillar Partnership Framework</h2>
+                <div class="sub-headline">Comprehensive Agreements Covering Power, Infrastructure, Renewables, and Economic Development</div>
+            </div>
+
+            <div class="pillars-grid">
+                <!-- Pillar 1 -->
+                <div class="pillar-card">
+                    <div class="pillar-header">
+                        <span class="pillar-num">01</span>
+                        <span class="pillar-title">Power Infrastructure</span>
+                    </div>
+                    <ul class="pillar-list">
+                        <li>Capacity assessment & expansion planning</li>
+                        <li>Long-term PPA structure</li>
+                        <li>Redundancy & reliability guarantees</li>
+                        <li>Competitive rate structure development</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 2 -->
+                <div class="pillar-card">
+                    <div class="pillar-header">
+                        <span class="pillar-num">02</span>
+                        <span class="pillar-title">Real Estate & Infra</span>
+                    </div>
+                    <ul class="pillar-list">
+                        <li>Site infrastructure requirements</li>
+                        <li>Utility easements & access agreements</li>
+                        <li>Construction coordination timelines</li>
+                        <li>Ongoing operational relationships</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="pillar-card">
+                    <div class="pillar-header">
+                        <span class="pillar-num">03</span>
+                        <span class="pillar-title">Renewable Integration</span>
+                    </div>
+                    <ul class="pillar-list">
+                        <li>Solar array development agreements</li>
+                        <li>Net metering framework</li>
+                        <li>Battery storage integration</li>
+                        <li>Sustainability compliance documentation</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 4 -->
+                <div class="pillar-card">
+                    <div class="pillar-header">
+                        <span class="pillar-num">04</span>
+                        <span class="pillar-title">Economic Development</span>
+                    </div>
+                    <ul class="pillar-list">
+                        <li>Joint community investment initiatives</li>
+                        <li>Workforce development collaboration</li>
+                        <li>Public relations & announcement coordination</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="page-num">07</div>
+        </div>
+
+        <div class="image-side">
+            <img src="/home/ubuntu/project_phoenix_slides/images/slide7_collaboration.webp" alt="Collaboration" class="feature-image">
+            <div class="overlay-text">
+                Mutual Success Through Strategic Alignment
+            </div>
+        </div>
+    </div>
+</body>
+</html>

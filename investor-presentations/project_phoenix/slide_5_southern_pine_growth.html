@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industrial Growth</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        
+        .slide-container {
+            width: 1280px;
+            min-height: 720px;
+            background-color: #FFFFFF;
+            color: #0A1F1C;
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 38% 62%;
+        }
+
+        /* Left Column (Dark) */
+        .left-col {
+            background-color: #0A1F1C;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 45%;
+            position: relative;
+        }
+
+        .feature-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Adding a slight green tint to blend with the brand */
+            filter: sepia(20%) hue-rotate(100deg) contrast(110%); 
+        }
+
+        .insight-box {
+            padding: 40px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .insight-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: #FFD700; /* Solar Yellow */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #FFD700;
+            padding-bottom: 10px;
+            display: inline-block;
+            width: fit-content;
+        }
+
+        .insight-text {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #FFFFFF;
+            font-weight: 300;
+        }
+
+        /* Right Column (Light) */
+        .right-col {
+            padding: 50px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.1;
+            color: #0A1F1C;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .sub-headline {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 20px;
+            font-weight: 500;
+            color: #00CC66; /* Emerald Green */
+            margin-bottom: 40px;
+            line-height: 1.4;
+        }
+
+        .points-list {
+            list-style: none;
+        }
+
+        .point-item {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .point-marker {
+            min-width: 16px;
+            height: 16px;
+            background-color: #0A1F1C;
+            margin-top: 5px;
+            margin-right: 20px;
+            position: relative;
+        }
+        
+        .point-marker::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            width: 100%;
+            height: 100%;
+            border: 1px solid #FFD700;
+        }
+
+        .point-content strong {
+            display: block;
+            font-size: 18px;
+            font-weight: 700;
+            color: #0A1F1C;
+            margin-bottom: 4px;
+        }
+
+        .point-content {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #444;
+        }
+
+        /* Page Number */
+        .page-num {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            color: #999;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <div class="left-col">
+            <div class="image-wrapper">
+                <img src="/home/ubuntu/project_phoenix_slides/images/slide5_ai_datacenter.jpg" alt="AI Data Center Infrastructure" class="feature-image">
+            </div>
+            <div class="insight-box">
+                <div class="insight-label">Strategic Insight</div>
+                <div class="insight-text">
+                    "AI data centers require uninterrupted power with redundancy guarantees—representing a premium industrial customer with a sustained demand profile unlike traditional commercial accounts."
+                </div>
+            </div>
+        </div>
+
+        <div class="right-col">
+            <h2>Project Phoenix Represents Major Industrial Growth</h2>
+            <div class="sub-headline">Substantial 24/7 Power Requirements with Long-Term Commitment and Revenue Stability</div>
+
+            <ul class="points-list">
+                <li class="point-item">
+                    <div class="point-marker"></div>
+                    <div class="point-content">
+                        <strong>Major Industrial Customer</strong>
+                        Significant capacity expansion within service territory (13491 Hwy 28 area).
+                    </div>
+                </li>
+                <li class="point-item">
+                    <div class="point-marker"></div>
+                    <div class="point-content">
+                        <strong>Revenue Stability</strong>
+                        Long-term power purchase agreement with predictable 24/7 consumption.
+                    </div>
+                </li>
+                <li class="point-item">
+                    <div class="point-marker"></div>
+                    <div class="point-content">
+                        <strong>Infrastructure Investment</strong>
+                        Capacity expansion funding and grid modernization opportunity.
+                    </div>
+                </li>
+                <li class="point-item">
+                    <div class="point-marker"></div>
+                    <div class="point-content">
+                        <strong>Renewable Integration</strong>
+                        Advanced solar solutions through RunSun partnership.
+                    </div>
+                </li>
+                <li class="point-item">
+                    <div class="point-marker"></div>
+                    <div class="point-content">
+                        <strong>Cooperative Mission Alignment</strong>
+                        High-tech job creation and economic development for members.
+                    </div>
+                </li>
+            </ul>
+
+            <div class="page-num">05</div>
+        </div>
+    </div>
+</body>
+</html>
