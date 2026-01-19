@@ -1,0 +1,28 @@
+name: Neon Database Connector
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+  push:
+    branches: [main]
+
+jobs:
+  create-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create Neon Branch
+        uses: neondatabase/create-branch-action@v6
+        id: create-branch
+        with:
+          project_id: ${{ vars.NEON_PROJECT_ID }}
+          branch_name: ${{ github.head_ref || github.ref_name }}
+          api_key: ${{ secrets.NEON_API_KEY }}
+          get_auth_url: true
+          get_data_api_url: true
+
+      - name: Use outputs
+        run: |
+          echo "Auth URL: ${{ steps.create-branch.outputs.auth_url }}"
+          echo "Data API URL: ${{ steps.create-branch.outputs.data_api_url }}"
