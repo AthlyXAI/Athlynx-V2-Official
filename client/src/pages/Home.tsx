@@ -51,7 +51,7 @@ const DEMO_VIDEO_URL = "https://files.manuscdn.com/user_upload_by_module/session
 const CRAB_LOGO_VIDEO = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/vPzSRJlhrtDwiLwE.mp4";
 
 const VIDEOS = [
-  { file: CRAB_LOGO_VIDEO, title: "ATHLYNX — The Multi-Sport Empire", badge: "HOT" },
+  { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/uNvAfTsHrJRKHqRo.mp4", title: "ATHLYNX — The Multi-Sport Empire", badge: "HOT" },
   { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/aZeYhsTuOGhmLXeI.mp4", title: "NIL Portal Baseball", badge: "HOT" },
   { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/KXxibPEaqdpzwIEt.mp4", title: "NIL Portal Football", badge: "LIVE" },
   { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/DgDLYbTasSycVWgS.mp4", title: "Diamond Grind Baseball", badge: "NEW" },
