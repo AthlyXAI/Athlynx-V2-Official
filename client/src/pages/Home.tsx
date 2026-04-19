@@ -274,6 +274,42 @@ function VideoCard({ video }: { video: { file: string; title: string; badge: str
 
 const LAUNCH_TARGET_DATE = new Date("2026-07-01T00:00:00");
 
+function HeroVideo({ src }: { src: string }) {
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
+    vid.muted = true;
+    vid.playsInline = true;
+    const tryPlay = () => {
+      vid.play().catch(() => {
+        // Retry once after a short delay (handles iOS timing)
+        setTimeout(() => vid.play().catch(() => {}), 500);
+      });
+    };
+    if (vid.readyState >= 3) {
+      tryPlay();
+    } else {
+      vid.addEventListener('canplay', tryPlay, { once: true });
+    }
+    return () => vid.removeEventListener('canplay', tryPlay);
+  }, [src]);
+  return (
+    <video
+      ref={videoRef}
+      className="w-full h-full absolute inset-0 object-cover"
+      style={{ minHeight: '500px' }}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="auto"
+    >
+      <source src={src} type="video/mp4" />
+    </video>
+  );
+}
+
 function HeroSignupForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -434,18 +470,7 @@ export default function Home() {
 
       {/* Hero video — ATHLYNX Multi-Sport Empire */}
       <section className="relative bg-[#060e24] min-h-[500px] md:min-h-[600px]">
-        <video
-          className="w-full h-full absolute inset-0 object-cover"
-          style={{ minHeight: '500px' }}
-          autoPlay
-          muted
-          loop
-          playsInline
-          x-webkit-airplay="allow"
-          preload="auto"
-        >
-          <source src={CRAB_LOGO_VIDEO} type="video/mp4" />
-        </video>
+        <HeroVideo src={CRAB_LOGO_VIDEO} />
         <div className="absolute inset-0 bg-gradient-to-t from-[#060e24] via-[#0d1b3e]/40 to-transparent pointer-events-none"></div>
         <div className="relative z-10 min-h-[500px] md:min-h-[600px] flex flex-col items-center justify-center pt-6 pb-10 px-4 text-center">
 
