@@ -7,7 +7,7 @@ import { Link } from "wouter";
 const PLAN_LABELS: Record<string, { label: string; color: string }> = {
   athlete_pro: { label: "PRO", color: "#0066ff" },
   athlete_elite: { label: "ELITE", color: "#00c2ff" },
-  nil_vault: { label: "NIL VAULT", color: "#7c3aed" },
+  nil_vault: { label: "NIL VAULT", color: "#1e3a8a" },
 };
 
 function SubscriptionBadge() {
@@ -247,7 +247,7 @@ export default function Profile() {
                 <div className="flex gap-2 mt-3 flex-wrap">
                   <span className={`text-xs px-3 py-1.5 rounded-full font-bold ${
                     recruitingStatus === "committed" ? "bg-green-900 text-green-400" :
-                    recruitingStatus === "signed" ? "bg-purple-900 text-purple-300" :
+                    recruitingStatus === "signed" ? "bg-blue-950 text-blue-300" :
                     "bg-blue-900 text-blue-300"
                   }`}>
                     {recruitingStatus === "available" ? "Available for Transfer" :
@@ -255,7 +255,7 @@ export default function Profile() {
                      recruitingStatus === "signed" ? "Signed" : "Recruiting Active"}
                   </span>
                   {nilDeals.length > 0 && <span className="text-xs bg-green-900 text-green-400 px-3 py-1.5 rounded-full font-bold">NIL Active</span>}
-                  <span className="text-xs bg-purple-900 text-purple-300 px-3 py-1.5 rounded-full font-bold">Verified Athlete</span>
+                  <span className="text-xs bg-blue-950 text-blue-300 px-3 py-1.5 rounded-full font-bold">Verified Athlete</span>
                 </div>
 
                 {/* Connections */}
@@ -375,7 +375,7 @@ export default function Profile() {
               <div className="text-blue-400 text-xs mb-1">Current Status</div>
               <div className={`text-xl font-black ${
                 recruitingStatus === "committed" ? "text-green-400" :
-                recruitingStatus === "signed" ? "text-purple-400" :
+                recruitingStatus === "signed" ? "text-blue-500" :
                 "text-blue-300"
               }`}>
                 {recruitingStatus === "available" ? "Available for Transfer" :

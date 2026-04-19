@@ -32,7 +32,7 @@ const ICC_PRODUCTS = [
         tagline: "8× NVIDIA H200 SXM5 · 141GB HBM3e · Next-Gen AI",
         specs: ["8× NVIDIA H200 SXM5 141GB HBM3e", "3.35 TB/s Memory Bandwidth", "NVLink 4.0 · NDR InfiniBand 800 Gbps", "Dual Intel Xeon Platinum 8592+", "Up to 4TB DDR5 ECC System RAM"],
         badge: "FLAGSHIP",
-        badgeColor: "bg-purple-600",
+        badgeColor: "bg-blue-700",
         featured: true,
       },
       {
@@ -64,7 +64,7 @@ const ICC_PRODUCTS = [
         tagline: "Supermicro 2U · Intel Xeon Platinum 8562Y+ · AI Workloads",
         specs: ["Supermicro SYS-221H-TNR", "2× Intel Xeon Platinum 8562Y+ (32C/64T, 300W)", "256GB DDR5 5600MHz ECC (32GB×8)", "8× 2.5\" NVMe/SATA/SAS + 2× M.2", "Enterprise-grade AI workloads"],
         badge: "PLATINUM",
-        badgeColor: "bg-purple-600",
+        badgeColor: "bg-blue-700",
         featured: true,
       },
       {
@@ -120,7 +120,7 @@ const ICC_PRODUCTS = [
   {
     category: "Financial Trading Systems",
     icon: <TrendingUp className="w-6 h-6" />,
-    color: "from-amber-600 to-amber-800",
+    color: "from-red-600 to-red-800",
     badge: "ULTRA-LOW LATENCY",
     products: [
       {
@@ -128,7 +128,7 @@ const ICC_PRODUCTS = [
         tagline: "Sub-microsecond latency · NYSE/NASDAQ co-location ready",
         specs: ["Intel Xeon w9-3595X (60C/120T)", "Ultra-low latency BIOS tuning", "Solarflare/Mellanox RDMA NICs", "FPGA acceleration option", "NYSE/NASDAQ co-location certified"],
         badge: "HFT READY",
-        badgeColor: "bg-amber-600",
+        badgeColor: "bg-red-600",
         featured: true,
       },
       {
@@ -136,7 +136,7 @@ const ICC_PRODUCTS = [
         tagline: "Maximum single-thread performance · Algorithmic trading",
         specs: ["Intel Core i9-14900KS Overclocked", "DDR5 7200MHz+ Tuned Memory", "Custom liquid cooling solution", "Redundant 10GbE + 25GbE", "24/7 mission-critical uptime"],
         badge: "OVERCLOCKED",
-        badgeColor: "bg-orange-600",
+        badgeColor: "bg-red-600",
         featured: false,
       },
     ],
@@ -172,10 +172,10 @@ const PARTNERS = [
   { name: "AMD", desc: "EPYC Processor Partner — Data Center CPUs", color: "text-red-400", icon: "🔴" },
   { name: "Dell Technologies", desc: "OEM Hardware Partner — Enterprise Servers", color: "text-blue-400", icon: "🔵" },
   { name: "Intel", desc: "Xeon Scalable & Core Platform Partner", color: "text-cyan-400", icon: "🔷" },
-  { name: "Supermicro", desc: "Primary Server Platform — Green Computing", color: "text-yellow-400", icon: "🟡" },
-  { name: "Micron", desc: "DDR5 ECC Memory & NVMe Storage Partner", color: "text-purple-400", icon: "🟣" },
+  { name: "Supermicro", desc: "Primary Server Platform — Green Computing", color: "text-red-400", icon: "🟡" },
+  { name: "Micron", desc: "DDR5 ECC Memory & NVMe Storage Partner", color: "text-blue-500", icon: "🟣" },
   { name: "Mellanox/NVIDIA", desc: "InfiniBand & 400G Ethernet Networking", color: "text-green-300", icon: "🌐" },
-  { name: "Solarflare", desc: "Ultra-Low Latency RDMA Networking", color: "text-orange-400", icon: "⚡" },
+  { name: "Solarflare", desc: "Ultra-Low Latency RDMA Networking", color: "text-red-400", icon: "⚡" },
 ];
 
 const AWARDS = [
@@ -267,7 +267,7 @@ export default function ICCUSAPartner() {
           <div className="flex flex-wrap justify-center gap-6">
             {AWARDS.map((award, i) => (
               <div key={i} className="flex items-center gap-3 bg-white/5 rounded-xl px-5 py-3 border border-white/10">
-                <Award className="w-5 h-5 text-yellow-400" />
+                <Award className="w-5 h-5 text-red-400" />
                 <div>
                   <div className="text-white font-bold text-sm">{award.title}</div>
                   <div className="text-slate-400 text-xs">{award.org} · {award.year} · {award.category}</div>
@@ -319,7 +319,7 @@ export default function ICCUSAPartner() {
                 >
                   {product.featured && (
                     <div className="absolute -top-2 -right-2">
-                      <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                      <Star className="w-5 h-5 text-red-400 fill-red-400" />
                     </div>
                   )}
                   <Badge className={`${product.badgeColor} text-white text-xs mb-3`}>

@@ -35,15 +35,15 @@ export default function ManusPartnership() {
 
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 via-cyan-500/20 to-blue-600/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-700/20 via-cyan-500/20 to-blue-600/20"></div>
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-purple-500/30 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-600/30 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/30 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }}></div>
         </div>
         
         <div className="relative max-w-6xl mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-8 mb-8">
-            <div className="bg-gradient-to-br from-purple-500 to-purple-700 rounded-3xl p-6 shadow-2xl shadow-purple-500/30">
+            <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-6 shadow-2xl shadow-blue-600/30">
               <span className="text-6xl">🤖</span>
               <p className="text-white font-bold mt-2">MANUS</p>
             </div>
@@ -55,14 +55,14 @@ export default function ManusPartnership() {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-black mb-6">
-            <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
               UNIFIED
             </span>
           </h1>
           
           <p className="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-8">
             Two powerhouses. One mission. <span className="text-cyan-400 font-semibold">Expert-grade AI</span> meets 
-            <span className="text-purple-400 font-semibold"> athlete empowerment</span>.
+            <span className="text-blue-500 font-semibold"> athlete empowerment</span>.
           </p>
           
           <p className="text-lg text-cyan-400 italic">
@@ -75,7 +75,7 @@ export default function ManusPartnership() {
       <section className="py-20 bg-slate-800/50">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-4">
-            What <span className="text-purple-400">Manus</span> Does for <span className="text-cyan-400">ATHLYNX</span>
+            What <span className="text-blue-500">Manus</span> Does for <span className="text-cyan-400">ATHLYNX</span>
           </h2>
           <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
             Manus is our trusted AI partner, powering the intelligence behind every feature
@@ -122,12 +122,12 @@ export default function ManusPartnership() {
             ].map((feature, index) => (
               <div 
                 key={index}
-                className="bg-gradient-to-br from-slate-700/50 to-slate-800/50 rounded-2xl p-6 border border-slate-600/50 hover:border-purple-500/50 transition-all hover:shadow-lg hover:shadow-purple-500/10"
+                className="bg-gradient-to-br from-slate-700/50 to-slate-800/50 rounded-2xl p-6 border border-slate-600/50 hover:border-blue-600/50 transition-all hover:shadow-lg hover:shadow-blue-600/10"
               >
                 <div className="text-4xl mb-4">{feature.icon}</div>
                 <h3 className="text-xl font-bold text-white mb-2">{feature.title}</h3>
                 <p className="text-slate-400 text-sm mb-4">{feature.description}</p>
-                <div className="inline-block bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-xs font-medium">
+                <div className="inline-block bg-blue-600/20 text-blue-500 px-3 py-1 rounded-full text-xs font-medium">
                   Powered by Manus • {feature.credits}
                 </div>
               </div>
@@ -140,7 +140,7 @@ export default function ManusPartnership() {
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-4">
-            Powering the <span className="text-yellow-400">DHG Empire</span>
+            Powering the <span className="text-red-400">DHG Empire</span>
           </h2>
           <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
             Manus AI infrastructure supports all Dozier Holdings Group companies
@@ -197,10 +197,10 @@ export default function ManusPartnership() {
       </section>
 
       {/* Credit System Section */}
-      <section className="py-20 bg-gradient-to-r from-purple-900/30 via-slate-900 to-cyan-900/30">
+      <section className="py-20 bg-gradient-to-r from-blue-950/30 via-slate-900 to-cyan-900/30">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-4">
-            <span className="text-purple-400">AI Credits</span> System
+            <span className="text-blue-500">AI Credits</span> System
           </h2>
           <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
             Powered by Manus • Use credits for AI features across the platform
@@ -217,12 +217,12 @@ export default function ManusPartnership() {
                 key={i}
                 className={`relative rounded-2xl p-6 border ${
                   pack.popular 
-                    ? "bg-gradient-to-br from-purple-600/30 to-cyan-600/30 border-purple-500" 
+                    ? "bg-gradient-to-br from-blue-700/30 to-cyan-600/30 border-blue-600" 
                     : "bg-slate-800/50 border-slate-700"
                 }`}
               >
                 {pack.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 to-cyan-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                     MOST POPULAR
                   </div>
                 )}
@@ -307,7 +307,7 @@ export default function ManusPartnership() {
             <span className="text-3xl">🦁</span>
           </div>
           <p className="text-slate-400 mb-2">
-            <span className="text-purple-400 font-semibold">Manus</span> × <span className="text-cyan-400 font-semibold">ATHLYNX</span> Unified
+            <span className="text-blue-500 font-semibold">Manus</span> × <span className="text-cyan-400 font-semibold">ATHLYNX</span> Unified
           </p>
           <p className="text-slate-500 text-sm mb-4">
             A Dozier Holdings Group Company

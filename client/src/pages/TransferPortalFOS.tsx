@@ -149,7 +149,7 @@ function NewsCard({ news }: { news: typeof breakingNews[0] }) {
                 news.type === "commitment" 
                   ? "border-green-400 text-green-400" 
                   : news.type === "portal"
-                  ? "border-amber-400 text-amber-400"
+                  ? "border-red-400 text-red-400"
                   : "border-blue-400 text-blue-400"
               }`}
             >
@@ -339,7 +339,7 @@ export default function TransferPortalFOS() {
             <Card className="bg-slate-900 border-slate-700">
               <CardContent className="p-4">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <Star className="w-5 h-5 text-amber-400" />
+                  <Star className="w-5 h-5 text-red-400" />
                   Top Available Players
                 </h3>
                 <div className="space-y-3">

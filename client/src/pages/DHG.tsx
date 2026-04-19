@@ -207,9 +207,9 @@ export default function DHG() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-black text-white">{co.name}</span>
-                    {co.isCrown && <span className="text-xs bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 px-2 py-0.5 rounded-full font-bold">👑 CROWN</span>}
-                    {co.isEngine && <span className="text-xs bg-orange-500/20 text-orange-400 border border-orange-500/30 px-2 py-0.5 rounded-full font-bold">⚙️ ENGINE</span>}
-                    {(co as any).isRobot && <span className="text-xs bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 px-2 py-0.5 rounded-full font-bold">🤖 ROBOT</span>}
+                    {co.isCrown && <span className="text-xs bg-red-500/20 text-red-400 border border-red-500/30 px-2 py-0.5 rounded-full font-bold">👑 CROWN</span>}
+                    {co.isEngine && <span className="text-xs bg-red-500/20 text-red-400 border border-red-500/30 px-2 py-0.5 rounded-full font-bold">⚙️ ENGINE</span>}
+                    {(co as any).isRobot && <span className="text-xs bg-red-500/20 text-red-400 border border-red-500/30 px-2 py-0.5 rounded-full font-bold">🤖 ROBOT</span>}
                     <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${
                       co.status === "LIVE" ? "bg-green-900 text-green-400" :
                       co.status === "BUILDING" ? "bg-blue-900 text-blue-400" :

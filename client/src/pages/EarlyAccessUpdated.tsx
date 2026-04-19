@@ -169,7 +169,7 @@ export default function EarlyAccess() {
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 blur-[80px] opacity-50 animate-pulse"></div>
             {/* Crown badge */}
             <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 z-10">
-              <div className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-black font-black text-xs px-4 py-1 rounded-full shadow-2xl border-2 border-yellow-500 animate-pulse">
+              <div className="bg-gradient-to-r from-red-400 via-red-300 to-red-400 text-black font-black text-xs px-4 py-1 rounded-full shadow-2xl border-2 border-red-500 animate-pulse">
                 👑 CROWN
               </div>
             </div>
@@ -195,7 +195,7 @@ export default function EarlyAccess() {
         <div className="text-center space-y-4">
           {/* Kingdom badge */}
           <div className="flex justify-center">
-            <div className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-black font-black text-sm px-6 py-2 rounded-full shadow-2xl border-2 border-yellow-500 animate-pulse">
+            <div className="bg-gradient-to-r from-red-400 via-red-300 to-red-400 text-black font-black text-sm px-6 py-2 rounded-full shadow-2xl border-2 border-red-500 animate-pulse">
               👑 THE KINGDOM
             </div>
           </div>
@@ -227,7 +227,7 @@ export default function EarlyAccess() {
             <div className="relative group cursor-pointer bg-slate-900/60 backdrop-blur-md border-4 border-cyan-500/70 rounded-2xl p-6 hover:border-cyan-400 transition-all">
               {/* LAUNCHING FIRST badge */}
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                <div className="bg-gradient-to-r from-orange-500 via-red-500 to-orange-500 text-white font-black text-xs px-4 py-1 rounded-full shadow-2xl border-2 border-orange-600 animate-bounce">
+                <div className="bg-gradient-to-r from-red-500 via-red-500 to-red-500 text-white font-black text-xs px-4 py-1 rounded-full shadow-2xl border-2 border-red-600 animate-bounce">
                   🚀 LAUNCHING FIRST
                 </div>
               </div>
@@ -306,7 +306,7 @@ export default function EarlyAccess() {
           <Link href="/transfer-portal">
             <div className="relative group cursor-pointer bg-slate-900/60 backdrop-blur-md border-2 border-cyan-400/50 rounded-2xl p-4 hover:border-cyan-300 transition-all">
               <div className="absolute -top-3 right-4 z-10">
-                <div className="bg-orange-500 text-white font-bold text-xs px-3 py-1 rounded-full shadow-lg animate-pulse">
+                <div className="bg-red-500 text-white font-bold text-xs px-3 py-1 rounded-full shadow-lg animate-pulse">
                   ⏰ IT'S TIME
                 </div>
               </div>
@@ -379,7 +379,7 @@ export default function EarlyAccess() {
 
             <Link href="/apps">
               <div className="relative group cursor-pointer text-center">
-                <div className="absolute inset-0 bg-purple-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
+                <div className="absolute inset-0 bg-blue-600 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
                   src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/aZXZLwryoTRrDQBs.png" 
                   alt="AI Sales" 
@@ -391,7 +391,7 @@ export default function EarlyAccess() {
 
             <Link href="/apps">
               <div className="relative group cursor-pointer text-center">
-                <div className="absolute inset-0 bg-pink-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
+                <div className="absolute inset-0 bg-red-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
                   src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/jmJopPCZNYcSzojv.png" 
                   alt="AI Recruiter" 

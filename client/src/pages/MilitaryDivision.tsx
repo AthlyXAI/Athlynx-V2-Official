@@ -267,7 +267,7 @@ export default function MilitaryDivision() {
                   and only 2-4% go pro.
                 </p>
                 <p className="text-gray-400 text-sm">
-                  That means <span className="text-yellow-400 font-bold">96%</span> of college athletes need a career path after college.
+                  That means <span className="text-red-400 font-bold">96%</span> of college athletes need a career path after college.
                 </p>
               </div>
             </div>
@@ -290,9 +290,9 @@ export default function MilitaryDivision() {
           </div>
 
           {/* The Gap */}
-          <div className="bg-gradient-to-r from-yellow-900/20 to-orange-900/20 rounded-2xl border border-yellow-500/20 p-8 mb-10">
+          <div className="bg-gradient-to-r from-red-900/20 to-red-900/20 rounded-2xl border border-red-500/20 p-8 mb-10">
             <h2 className="text-2xl font-bold text-white mb-4 text-center">
-              THE <span className="text-yellow-400">GAP</span> WE FILL
+              THE <span className="text-red-400">GAP</span> WE FILL
             </h2>
             <p className="text-gray-300 text-center mb-6">No platform exists that:</p>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -302,15 +302,15 @@ export default function MilitaryDivision() {
                 { num: "3", text: "Supports veterans with benefits navigation" },
                 { num: "4", text: "Creates a mentorship pipeline from veterans to athletes" },
               ].map((item) => (
-                <div key={item.num} className="bg-black/30 rounded-xl p-4 border border-yellow-500/20">
-                  <span className="inline-block w-8 h-8 bg-yellow-500 text-black font-bold rounded-full flex items-center justify-center mb-2">
+                <div key={item.num} className="bg-black/30 rounded-xl p-4 border border-red-500/20">
+                  <span className="inline-block w-8 h-8 bg-red-500 text-black font-bold rounded-full flex items-center justify-center mb-2">
                     {item.num}
                   </span>
                   <p className="text-gray-300 text-sm">{item.text}</p>
                 </div>
               ))}
             </div>
-            <p className="text-center mt-6 text-xl font-bold text-yellow-400">
+            <p className="text-center mt-6 text-xl font-bold text-red-400">
               ATHLYNX fills this gap. YOU lead this mission.
             </p>
           </div>
@@ -510,18 +510,18 @@ export default function MilitaryDivision() {
           {/* Mission Objectives Timeline */}
           <div className="mb-10">
             <h2 className="text-2xl font-bold text-white mb-6 text-center">
-              MISSION <span className="text-yellow-400">OBJECTIVES</span>
+              MISSION <span className="text-red-400">OBJECTIVES</span>
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               {missionPhases.map((phase, index) => (
-                <div key={phase.phase} className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-6 hover:border-yellow-500/50 transition-all">
+                <div key={phase.phase} className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-6 hover:border-red-500/50 transition-all">
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="w-8 h-8 bg-yellow-500 text-black font-bold rounded-full flex items-center justify-center text-sm">
+                    <span className="w-8 h-8 bg-red-500 text-black font-bold rounded-full flex items-center justify-center text-sm">
                       {index + 1}
                     </span>
                     <div>
                       <h3 className="font-bold text-white">{phase.phase}</h3>
-                      <p className="text-yellow-400 text-xs">{phase.timeline}</p>
+                      <p className="text-red-400 text-xs">{phase.timeline}</p>
                     </div>
                   </div>
                   <h4 className="text-white font-semibold mb-3">{phase.title}</h4>

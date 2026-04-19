@@ -91,8 +91,8 @@ export default function SocialProofCounter({ baseCount = 847 }: CounterProps) {
           </div>
 
           <div className="flex items-center gap-1 bg-green-400/20 px-3 py-1 rounded-full">
-            <Zap className="w-4 h-4 text-amber-400" />
-            <span className="text-amber-400 text-xs font-bold">LIVE</span>
+            <Zap className="w-4 h-4 text-red-400" />
+            <span className="text-red-400 text-xs font-bold">LIVE</span>
           </div>
         </div>
 

@@ -22,7 +22,7 @@ export default function InvestorDeck() {
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 px-6 py-4">
-                <div className="text-3xl font-bold text-yellow-400">$180M+</div>
+                <div className="text-3xl font-bold text-red-400">$180M+</div>
                 <div className="text-gray-400 text-sm">Market Opportunity</div>
               </div>
               <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 px-6 py-4">
@@ -55,7 +55,7 @@ export default function InvestorDeck() {
                 <li>• AI Training Bots</li>
               </ul>
             </div>
-            <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl border border-purple-500/30 p-8 text-center">
+            <div className="bg-gradient-to-br from-blue-600/20 to-red-500/20 rounded-2xl border border-blue-600/30 p-8 text-center">
               <div className="text-5xl mb-4">🧠</div>
               <h3 className="text-xl font-bold text-white mb-2">SOFTMOR INC</h3>
               <p className="text-gray-400 text-sm mb-4">AI & Data Center Solutions</p>
@@ -67,7 +67,7 @@ export default function InvestorDeck() {
                 <li>• Geothermal power integration</li>
               </ul>
             </div>
-            <div className="bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-2xl border border-yellow-500/30 p-8 text-center">
+            <div className="bg-gradient-to-br from-red-500/20 to-red-500/20 rounded-2xl border border-red-500/30 p-8 text-center">
               <div className="text-5xl mb-4">🤖</div>
               <h3 className="text-xl font-bold text-white mb-2">FUEL BOTS</h3>
               <p className="text-gray-400 text-sm mb-4">AI Companions Division</p>
@@ -99,7 +99,7 @@ export default function InvestorDeck() {
               </p>
             </div>
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8">
-              <div className="text-4xl font-bold text-yellow-400 mb-2">$180M</div>
+              <div className="text-4xl font-bold text-red-400 mb-2">$180M</div>
               <div className="text-white font-semibold mb-2">Fuel Bots Market</div>
               <p className="text-gray-400 text-sm">
                 Annual market opportunity for AI companions in sports, data centers, and energy sectors.
@@ -136,9 +136,9 @@ export default function InvestorDeck() {
                   <li>• Enterprise: Custom pricing</li>
                 </ul>
               </div>
-              <div className="bg-gradient-to-r from-yellow-500/10 to-transparent rounded-xl border border-yellow-500/20 p-6">
+              <div className="bg-gradient-to-r from-red-500/10 to-transparent rounded-xl border border-red-500/20 p-6">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-yellow-500/20 rounded-lg flex items-center justify-center text-2xl">🖥️</div>
+                  <div className="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center text-2xl">🖥️</div>
                   <div>
                     <h3 className="text-white font-bold">Hardware Sales</h3>
                     <p className="text-gray-400 text-sm">Enterprise infrastructure</p>
@@ -150,9 +150,9 @@ export default function InvestorDeck() {
                   <li>• ICC partnership (NVIDIA Elite)</li>
                 </ul>
               </div>
-              <div className="bg-gradient-to-r from-purple-500/10 to-transparent rounded-xl border border-purple-500/20 p-6">
+              <div className="bg-gradient-to-r from-blue-600/10 to-transparent rounded-xl border border-blue-600/20 p-6">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center text-2xl">🤖</div>
+                  <div className="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center text-2xl">🤖</div>
                   <div>
                     <h3 className="text-white font-bold">Fuel Bots Leasing</h3>
                     <p className="text-gray-400 text-sm">AI companion contracts</p>
@@ -231,7 +231,7 @@ export default function InvestorDeck() {
           <div className="max-w-4xl mx-auto">
             <div className="relative">
               {/* Timeline line */}
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500 via-yellow-500 to-green-500" />
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500 via-red-500 to-green-500" />
               
               {/* Phase 1 */}
               <div className="relative pl-20 pb-12">
@@ -250,9 +250,9 @@ export default function InvestorDeck() {
 
               {/* Phase 2 */}
               <div className="relative pl-20 pb-12">
-                <div className="absolute left-4 w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold">2</div>
+                <div className="absolute left-4 w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold">2</div>
                 <div className="bg-white/5 rounded-xl border border-white/10 p-6">
-                  <div className="text-yellow-400 font-semibold mb-1">Q2-Q4 2026</div>
+                  <div className="text-red-400 font-semibold mb-1">Q2-Q4 2026</div>
                   <h3 className="text-white font-bold text-lg mb-2">Scale & Expand</h3>
                   <ul className="text-gray-400 text-sm space-y-1">
                     <li>• Roll out 15+ sport platforms</li>
@@ -299,11 +299,11 @@ export default function InvestorDeck() {
               </p>
             </div>
             <div className="bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-8 text-center">
-              <div className="w-24 h-24 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
+              <div className="w-24 h-24 bg-gradient-to-br from-red-500 to-red-500 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
                 
               </div>
               <h3 className="text-xl font-bold text-white">Glenn Tse</h3>
-              <p className="text-yellow-400 mb-4">CFO & VP Business Development</p>
+              <p className="text-red-400 mb-4">CFO & VP Business Development</p>
               <p className="text-gray-400 text-sm">
                 Strategic financial partner with extensive experience in US-Asia business operations. 
                 Based in Hong Kong with connections across China and the United States.
@@ -314,7 +314,7 @@ export default function InvestorDeck() {
       </section>
 
       {/* Investment CTA */}
-      <section className="py-20 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-yellow-500/20">
+      <section className="py-20 bg-gradient-to-r from-cyan-500/20 via-blue-600/20 to-red-500/20">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold text-white mb-4">Join the Future</h2>
           <p className="text-gray-300 mb-8 max-w-2xl mx-auto">

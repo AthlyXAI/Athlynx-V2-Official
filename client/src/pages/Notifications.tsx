@@ -85,7 +85,7 @@ export default function Notifications() {
                     <div className="mt-1">
                       <span className={`text-[10px] px-2 py-0.5 rounded-full font-semibold ${
                         n.type === "success" ? "bg-green-900 text-green-400" :
-                        n.type === "warning" ? "bg-yellow-900 text-yellow-400" :
+                        n.type === "warning" ? "bg-red-900 text-red-400" :
                         n.type === "error" ? "bg-red-900 text-red-400" :
                         "bg-blue-900 text-blue-400"
                       }`}>

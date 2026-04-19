@@ -19,13 +19,13 @@ export default function NILVault() {
   return (
     <PlatformLayout title="NIL Vault">
       <div className="space-y-4 pb-20 lg:pb-4">
-        <div className="bg-gradient-to-r from-[#1a3a8f] to-[#1a2a4a] border border-purple-700 rounded-xl p-5">
+        <div className="bg-gradient-to-r from-[#1a3a8f] to-[#1a2a4a] border border-blue-800 rounded-xl p-5">
           <div className="flex items-center gap-4">
             <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/aDzQEREXtGvMmnFc.png" alt="NIL Vault" className="w-14 h-14 rounded-2xl object-cover shadow-lg" />
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-2xl font-black text-white">NIL VAULT</h2>
-                <span className="text-xs bg-purple-600 text-white px-2 py-0.5 rounded-full font-bold">ELITE</span>
+                <span className="text-xs bg-blue-700 text-white px-2 py-0.5 rounded-full font-bold">ELITE</span>
               </div>
               <p className="text-blue-300 text-sm">Secure storage for all your NIL contracts, documents, and earnings history</p>
             </div>
@@ -34,7 +34,7 @@ export default function NILVault() {
         <div className="flex gap-1 bg-[#1a3a8f] border border-blue-900 rounded-xl p-1 mb-1">
           {["documents", "deals", "earnings"].map(tab => (
             <button key={tab} onClick={() => setActiveTab(tab)}
-              className={`flex-1 py-2 text-xs font-bold rounded-lg capitalize transition-colors ${activeTab === tab ? 'bg-purple-600 text-white' : 'text-blue-400 hover:text-white'}`}>
+              className={`flex-1 py-2 text-xs font-bold rounded-lg capitalize transition-colors ${activeTab === tab ? 'bg-blue-700 text-white' : 'text-blue-400 hover:text-white'}`}>
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>
           ))}
@@ -43,7 +43,7 @@ export default function NILVault() {
           {[{ label: "Active Deals", value: user ? String(activeDeals) : "4", icon: "📝" }, { label: "Total Value", value: user ? "$" + totalValue.toLocaleString() : "$39,700", icon: "💰" }, { label: "Documents", value: "14", icon: "📄" }].map((s, i) => (
             <div key={i} className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-3 text-center">
               <div className="text-2xl mb-1">{s.icon}</div>
-              <div className="text-xl font-black text-purple-400">{s.value}</div>
+              <div className="text-xl font-black text-blue-500">{s.value}</div>
               <div className="text-blue-500 text-xs">{s.label}</div>
             </div>
           ))}
@@ -59,7 +59,7 @@ export default function NILVault() {
               </div>
             ))}
           </div>
-          <button className="w-full mt-3 border-2 border-dashed border-purple-700 text-purple-400 hover:text-white hover:border-purple-500 text-sm font-bold py-4 rounded-xl transition-colors">
+          <button className="w-full mt-3 border-2 border-dashed border-blue-800 text-blue-500 hover:text-white hover:border-blue-600 text-sm font-bold py-4 rounded-xl transition-colors">
             + Upload Document
           </button>
         </div>
@@ -68,7 +68,7 @@ export default function NILVault() {
             <h3 className="text-white font-bold mb-3">My NIL Deals</h3>
             {!user ? (
               <div className="text-center py-6">
-                <a href="/signin" className="bg-purple-600 hover:bg-purple-500 text-white font-bold px-6 py-2.5 rounded-xl transition-colors">Sign In to View Deals</a>
+                <a href="/signin" className="bg-blue-700 hover:bg-blue-600 text-white font-bold px-6 py-2.5 rounded-xl transition-colors">Sign In to View Deals</a>
               </div>
             ) : deals.length === 0 ? (
               <div className="text-center py-6 text-blue-400 text-sm">No deals yet. Visit the NIL Portal to explore opportunities.</div>
@@ -95,7 +95,7 @@ export default function NILVault() {
             <h3 className="text-white font-bold mb-3">Earnings History</h3>
             {!user ? (
               <div className="text-center py-6">
-                <a href="/signin" className="bg-purple-600 hover:bg-purple-500 text-white font-bold px-6 py-2.5 rounded-xl transition-colors">Sign In to View Earnings</a>
+                <a href="/signin" className="bg-blue-700 hover:bg-blue-600 text-white font-bold px-6 py-2.5 rounded-xl transition-colors">Sign In to View Earnings</a>
               </div>
             ) : deals.length === 0 ? (
               <div className="text-center py-6 text-blue-400 text-sm">No earnings data yet. Add deals in the NIL Portal to track earnings.</div>
@@ -110,9 +110,9 @@ export default function NILVault() {
                     <span className="text-green-400 font-bold">${(deal.dealValue || 0).toLocaleString()}</span>
                   </div>
                 ))}
-                <div className="flex items-center justify-between bg-purple-900/30 border border-purple-700 rounded-xl p-3 mt-2">
+                <div className="flex items-center justify-between bg-blue-950/30 border border-blue-800 rounded-xl p-3 mt-2">
                   <span className="text-white font-bold">Total NIL Value</span>
-                  <span className="text-purple-400 font-black text-lg">${totalValue.toLocaleString()}</span>
+                  <span className="text-blue-500 font-black text-lg">${totalValue.toLocaleString()}</span>
                 </div>
               </div>
             )}

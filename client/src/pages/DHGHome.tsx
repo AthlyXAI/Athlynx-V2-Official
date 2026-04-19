@@ -28,7 +28,7 @@ export default function DHGHome() {
       name: "VC Technologies, LLC", 
       description: "Enterprise Software & AI Solutions",
       status: "ACTIVE",
-      color: "from-purple-500 to-indigo-600",
+      color: "from-blue-600 to-indigo-600",
       link: "/vc-tech"
     },
     { 
@@ -42,35 +42,35 @@ export default function DHGHome() {
       name: "The VIRT, LLC", 
       description: "Cryptocurrency & Blockchain",
       status: "ACTIVE",
-      color: "from-orange-500 to-amber-600",
+      color: "from-red-500 to-red-600",
       link: "/virt"
     },
     { 
       name: "VC Energy, LLC", 
       description: "Renewable Energy & Sustainability",
       status: "ACTIVE",
-      color: "from-yellow-500 to-orange-500",
+      color: "from-red-500 to-red-500",
       link: "/energy"
     },
     { 
       name: "Uma Real Estate Investment, LLC", 
       description: "Commercial & Residential Properties",
       status: "ACTIVE",
-      color: "from-rose-500 to-pink-600",
+      color: "from-red-500 to-red-600",
       link: "/real-estate"
     },
     { 
       name: "Villa Agape, LLC", 
       description: "Healthcare & Assisted Living",
       status: "ACTIVE",
-      color: "from-red-500 to-rose-600",
+      color: "from-red-500 to-red-600",
       link: "/villa-agape"
     },
     { 
       name: "Compassionate Care, LLC", 
       description: "Home Healthcare Services",
       status: "ACTIVE",
-      color: "from-pink-500 to-fuchsia-600",
+      color: "from-red-500 to-red-600",
       link: "/compassionate-care"
     },
     { 
@@ -84,14 +84,14 @@ export default function DHGHome() {
       name: "Venus Venue & Vineyard, LLC", 
       description: "Events, Wine & Agriculture",
       status: "DEVELOPMENT",
-      color: "from-violet-500 to-purple-600",
+      color: "from-blue-600 to-blue-700",
       link: "/venus-venue"
     },
     { 
       name: "Pomodoro Restaurant, LLC", 
       description: "Fine Dining & Culinary Excellence",
       status: "DEVELOPMENT",
-      color: "from-red-600 to-orange-500",
+      color: "from-red-600 to-red-500",
       link: "/pomodoro"
     },
     { 
@@ -143,7 +143,7 @@ export default function DHGHome() {
           </span>
           <span className="hidden md:inline text-gray-500">|</span>
           <span className="flex items-center gap-2">
-            <Trophy className="w-4 h-4 text-yellow-400" />
+            <Trophy className="w-4 h-4 text-red-400" />
             BUILDING EMPIRES
           </span>
         </div>
@@ -212,7 +212,7 @@ export default function DHGHome() {
             {/* Left Content */}
             <div className="flex-1 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
-                <Crown className="w-5 h-5 text-yellow-400" />
+                <Crown className="w-5 h-5 text-red-400" />
                 <span className="text-sm font-semibold">THE CANCER CRAB EMPIRE</span>
               </div>
               
@@ -257,7 +257,7 @@ export default function DHGHome() {
                 />
                 
                 {/* Badge */}
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-900 px-6 py-2 rounded-full font-black text-sm shadow-lg">
+                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-red-500 to-red-500 text-slate-900 px-6 py-2 rounded-full font-black text-sm shadow-lg">
                   THE KING
                 </div>
               </div>
@@ -302,7 +302,7 @@ export default function DHGHome() {
                     <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${
                       company.status === "FLAGSHIP" ? "bg-cyan-100 text-cyan-700" :
                       company.status === "EXPANDING" ? "bg-green-100 text-green-700" :
-                      company.status === "DEVELOPMENT" ? "bg-amber-100 text-amber-700" :
+                      company.status === "DEVELOPMENT" ? "bg-red-100 text-red-700" :
                       "bg-gray-100 text-gray-700"
                     }`}>
                       {company.status}

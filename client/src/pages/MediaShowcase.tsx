@@ -26,21 +26,21 @@ export default function MediaShowcase() {
       <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
         {/* Background gradient with golden glow */}
         <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black">
-          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-r from-yellow-600/20 via-yellow-500/30 to-yellow-600/20 blur-[100px] rounded-full"></div>
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-r from-red-600/20 via-red-500/30 to-red-600/20 blur-[100px] rounded-full"></div>
         </div>
 
         {/* Content */}
         <div className="relative z-10 text-center px-4">
           {/* Trophy Badge */}
-          <div className="inline-flex items-center gap-2 px-6 py-3 border-2 border-yellow-500/50 rounded-full mb-8 bg-black/50">
-            <span className="text-yellow-500 text-xl"></span>
-            <span className="text-yellow-500 font-bold tracking-[0.3em] text-sm">INTRODUCING</span>
+          <div className="inline-flex items-center gap-2 px-6 py-3 border-2 border-red-500/50 rounded-full mb-8 bg-black/50">
+            <span className="text-red-500 text-xl"></span>
+            <span className="text-red-500 font-bold tracking-[0.3em] text-sm">INTRODUCING</span>
           </div>
 
           {/* Main Title */}
           <h1 className="text-6xl md:text-8xl font-black text-white mb-4 tracking-tight" style={{ textShadow: '0 0 60px rgba(234, 179, 8, 0.3)' }}>
             THE<br />
-            <span className="bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-200 bg-clip-text text-transparent">ATHLETE'S</span><br />
+            <span className="bg-gradient-to-r from-red-200 via-red-400 to-red-200 bg-clip-text text-transparent">ATHLETE'S</span><br />
             PLAYBOOK
           </h1>
 

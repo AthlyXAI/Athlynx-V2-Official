@@ -61,7 +61,7 @@ export default function Journey() {
       emoji: "👨‍👩‍👧‍👦",
       icon: Users,
       tagline: "Supporting your athlete, supporting you",
-      color: "from-purple-500 to-indigo-600",
+      color: "from-blue-600 to-indigo-600",
       description: "Being a sports parent is a journey of its own. We provide the tools, resources, and community to help you support your athlete while maintaining balance in your family life.",
       features: [
         { title: "Financial Planning", desc: "Understand costs and plan for your athlete's future" },
@@ -99,7 +99,7 @@ export default function Journey() {
       emoji: "",
       icon: Briefcase,
       tagline: "Represent the best",
-      color: "from-amber-500 to-orange-600",
+      color: "from-red-500 to-red-600",
       description: "Connect with top athletic talent and manage your client relationships effectively. Our platform provides the tools you need to represent athletes at the highest level.",
       features: [
         { title: "Talent Discovery", desc: "Find emerging athletes before anyone else" },
@@ -137,7 +137,7 @@ export default function Journey() {
       emoji: "",
       icon: Dumbbell,
       tagline: "Build champions",
-      color: "from-red-500 to-pink-600",
+      color: "from-red-500 to-red-600",
       description: "Whether you're a strength coach, skills trainer, or performance specialist, connect with athletes who need your expertise and grow your training business.",
       features: [
         { title: "Client Acquisition", desc: "Connect with athletes seeking training" },
@@ -175,7 +175,7 @@ export default function Journey() {
       emoji: "",
       icon: Heart,
       tagline: "Faith in the game",
-      color: "from-indigo-500 to-violet-600",
+      color: "from-indigo-500 to-blue-700",
       description: "Spiritual support is a vital part of many athletes' lives. Connect with athletes and teams who value faith-based guidance and support.",
       features: [
         { title: "Team Connections", desc: "Connect with teams seeking chaplaincy" },
@@ -219,7 +219,7 @@ export default function Journey() {
       <section className="pt-32 pb-20 px-4 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-3xl" />
         </div>
 
         <div className="container mx-auto text-center relative z-10">
@@ -229,7 +229,7 @@ export default function Journey() {
             variants={staggerContainer}
           >
             <motion.div variants={fadeInUp} className="mb-6">
-              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-cyan-500/20 to-yellow-500/20 border border-cyan-500/30">
+              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-cyan-500/20 to-red-500/20 border border-cyan-500/30">
                 <Target className="w-12 h-12 text-cyan-400" />
               </div>
             </motion.div>
@@ -239,7 +239,7 @@ export default function Journey() {
             </motion.p>
             
             <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-black text-white mb-6">
-              THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-yellow-400">JOURNEY</span>
+              THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-red-400">JOURNEY</span>
             </motion.h1>
             
             <motion.p variants={fadeInUp} className="text-xl text-white/70 max-w-3xl mx-auto mb-8">
@@ -332,14 +332,14 @@ export default function Journey() {
       ))}
 
       {/* The Vision */}
-      <section className="py-20 px-4 bg-gradient-to-r from-cyan-500/10 to-yellow-500/10">
+      <section className="py-20 px-4 bg-gradient-to-r from-cyan-500/10 to-red-500/10">
         <div className="container mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <Star className="w-16 h-16 text-yellow-400 mx-auto mb-6" />
+            <Star className="w-16 h-16 text-red-400 mx-auto mb-6" />
             <h2 className="text-3xl md:text-4xl font-black text-white mb-6">
               ONE PLATFORM. <span className="text-cyan-400">INFINITE POSSIBILITIES.</span>
             </h2>

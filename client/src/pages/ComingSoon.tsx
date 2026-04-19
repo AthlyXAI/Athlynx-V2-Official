@@ -14,13 +14,13 @@ export default function ComingSoon({ title, description, icon }: ComingSoonProps
         <div className="text-8xl">{icon}</div>
         
         {/* Title */}
-        <h1 className="text-5xl font-bold text-yellow-400">{title}</h1>
+        <h1 className="text-5xl font-bold text-red-400">{title}</h1>
         
         {/* Description */}
         <p className="text-xl text-gray-300">{description}</p>
         
         {/* Coming Soon Badge */}
-        <div className="inline-block bg-gradient-to-r from-yellow-500 to-yellow-600 px-8 py-4 rounded-full shadow-2xl">
+        <div className="inline-block bg-gradient-to-r from-red-500 to-red-600 px-8 py-4 rounded-full shadow-2xl">
           <p className="text-black font-bold text-2xl">COMING SOON</p>
         </div>
         

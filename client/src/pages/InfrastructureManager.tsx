@@ -36,8 +36,8 @@ import { useToast } from "@/hooks/use-toast";
 const GPU_TYPES = {
   H100: { name: "NVIDIA H100", memory: 80, price: 2.00, color: "bg-green-500" },
   H200: { name: "NVIDIA H200", memory: 141, price: 2.30, color: "bg-blue-500" },
-  B200: { name: "NVIDIA B200", memory: 180, price: 3.00, color: "bg-purple-500" },
-  GB200: { name: "NVIDIA GB200 NVL72", memory: 288, price: 5.00, color: "bg-amber-500" },
+  B200: { name: "NVIDIA B200", memory: 180, price: 3.00, color: "bg-blue-600" },
+  GB200: { name: "NVIDIA GB200 NVL72", memory: 288, price: 5.00, color: "bg-red-500" },
 };
 
 // Mock data for clusters
@@ -241,7 +241,7 @@ export default function InfrastructureManager() {
       case "creating":
         return <Badge className="bg-blue-500">Creating</Badge>;
       case "partial":
-        return <Badge className="bg-amber-500">Partial</Badge>;
+        return <Badge className="bg-red-500">Partial</Badge>;
       case "queued":
         return <Badge variant="outline">Queued</Badge>;
       case "completed":
@@ -451,8 +451,8 @@ export default function InfrastructureManager() {
           <Card className="bg-slate-900/50 border-slate-800">
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-purple-500/20 rounded-lg">
-                  <TrendingUp className="h-5 w-5 text-purple-400" />
+                <div className="p-2 bg-blue-600/20 rounded-lg">
+                  <TrendingUp className="h-5 w-5 text-blue-500" />
                 </div>
                 <div>
                   <p className="text-2xl font-bold">{Math.round(runningGpus / totalGpus * 100)}%</p>
@@ -465,8 +465,8 @@ export default function InfrastructureManager() {
           <Card className="bg-slate-900/50 border-slate-800">
             <CardContent className="p-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-amber-500/20 rounded-lg">
-                  <Server className="h-5 w-5 text-amber-400" />
+                <div className="p-2 bg-red-500/20 rounded-lg">
+                  <Server className="h-5 w-5 text-red-400" />
                 </div>
                 <div>
                   <p className="text-2xl font-bold">{clusters.length}</p>
@@ -571,7 +571,7 @@ export default function InfrastructureManager() {
               <Card className="bg-slate-900/50 border-slate-800">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Zap className="h-5 w-5 text-amber-400" />
+                    <Zap className="h-5 w-5 text-red-400" />
                     Active Jobs
                   </CardTitle>
                   <CardDescription>Currently running workloads</CardDescription>
@@ -639,7 +639,7 @@ export default function InfrastructureManager() {
               <Card className="bg-slate-900/50 border-slate-800">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Settings className="h-5 w-5 text-purple-400" />
+                    <Settings className="h-5 w-5 text-blue-500" />
                     Quick Actions
                   </CardTitle>
                   <CardDescription>Common infrastructure tasks</CardDescription>
@@ -651,7 +651,7 @@ export default function InfrastructureManager() {
                       <span>Scale Cluster</span>
                     </Button>
                     <Button variant="outline" className="h-auto py-4 flex-col border-slate-700 hover:bg-slate-800">
-                      <Zap className="h-6 w-6 mb-2 text-amber-400" />
+                      <Zap className="h-6 w-6 mb-2 text-red-400" />
                       <span>Submit Job</span>
                     </Button>
                     <Button variant="outline" className="h-auto py-4 flex-col border-slate-700 hover:bg-slate-800">
@@ -659,7 +659,7 @@ export default function InfrastructureManager() {
                       <span>Add Storage</span>
                     </Button>
                     <Button variant="outline" className="h-auto py-4 flex-col border-slate-700 hover:bg-slate-800">
-                      <HardDrive className="h-6 w-6 mb-2 text-purple-400" />
+                      <HardDrive className="h-6 w-6 mb-2 text-blue-500" />
                       <span>Order Hardware</span>
                     </Button>
                   </div>
@@ -751,11 +751,11 @@ export default function InfrastructureManager() {
                         <div className={`p-3 rounded-lg ${
                           job.status === "running" ? "bg-green-500/20" :
                           job.status === "completed" ? "bg-cyan-500/20" :
-                          job.status === "queued" ? "bg-amber-500/20" : "bg-slate-700"
+                          job.status === "queued" ? "bg-red-500/20" : "bg-slate-700"
                         }`}>
                           {job.status === "running" ? <Loader2 className="h-6 w-6 animate-spin" /> :
                            job.status === "completed" ? <CheckCircle className="h-6 w-6 text-green-400" /> :
-                           job.status === "queued" ? <Clock className="h-6 w-6 text-amber-400" /> :
+                           job.status === "queued" ? <Clock className="h-6 w-6 text-red-400" /> :
                            <AlertCircle className="h-6 w-6" />}
                         </div>
                         <div>
@@ -880,7 +880,7 @@ export default function InfrastructureManager() {
 
               <Card className="bg-slate-900/50 border-slate-800">
                 <CardHeader>
-                  <CardTitle className="text-purple-400">Colocation</CardTitle>
+                  <CardTitle className="text-blue-500">Colocation</CardTitle>
                   <CardDescription>ICC-USA data center</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -899,7 +899,7 @@ export default function InfrastructureManager() {
 
               <Card className="bg-slate-900/50 border-slate-800">
                 <CardHeader>
-                  <CardTitle className="text-amber-400">Hardware CapEx</CardTitle>
+                  <CardTitle className="text-red-400">Hardware CapEx</CardTitle>
                   <CardDescription>One-time purchases</CardDescription>
                 </CardHeader>
                 <CardContent>

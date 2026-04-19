@@ -73,11 +73,11 @@ export default function AdminDashboard() {
 
   const getStatusBadge = (status: string) => {
     const colors: Record<string, string> = {
-      pending: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
+      pending: "bg-red-500/20 text-red-400 border-red-500/30",
       contacted: "bg-blue-500/20 text-blue-400 border-blue-500/30",
       closed: "bg-green-500/20 text-green-400 border-green-500/30",
       processing: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-      shipped: "bg-purple-500/20 text-purple-400 border-purple-500/30",
+      shipped: "bg-blue-600/20 text-blue-500 border-blue-600/30",
       delivered: "bg-green-500/20 text-green-400 border-green-500/30",
       cancelled: "bg-red-500/20 text-red-400 border-red-500/30",
       active: "bg-green-500/20 text-green-400 border-green-500/30",
@@ -105,7 +105,7 @@ export default function AdminDashboard() {
               </button>
             </Link>
             <Link href="/admin/users">
-              <button className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-xl text-sm hover:from-purple-500 hover:to-indigo-500 transition-all flex items-center gap-2">
+              <button className="px-4 py-2 bg-gradient-to-r from-blue-700 to-indigo-600 text-white font-bold rounded-xl text-sm hover:from-blue-600 hover:to-indigo-500 transition-all flex items-center gap-2">
                 <Users className="w-4 h-4" /> User Tracker
               </button>
             </Link>
@@ -152,25 +152,25 @@ export default function AdminDashboard() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="bg-[#0d2847] border-yellow-500/20">
+            <Card className="bg-[#0d2847] border-red-500/20">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-gray-400 text-sm">Inquiries</p>
-                    <p className="text-2xl font-bold text-yellow-400">{stats?.totalInquiries || 0}</p>
+                    <p className="text-2xl font-bold text-red-400">{stats?.totalInquiries || 0}</p>
                   </div>
-                  <MessageSquare className="h-8 w-8 text-yellow-400" />
+                  <MessageSquare className="h-8 w-8 text-red-400" />
                 </div>
               </CardContent>
             </Card>
-            <Card className="bg-[#0d2847] border-purple-500/20">
+            <Card className="bg-[#0d2847] border-blue-600/20">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-gray-400 text-sm">Products</p>
-                    <p className="text-2xl font-bold text-purple-400">{stats?.totalProducts || 0}</p>
+                    <p className="text-2xl font-bold text-blue-500">{stats?.totalProducts || 0}</p>
                   </div>
-                  <Package className="h-8 w-8 text-purple-400" />
+                  <Package className="h-8 w-8 text-blue-500" />
                 </div>
               </CardContent>
             </Card>
@@ -185,14 +185,14 @@ export default function AdminDashboard() {
                 </div>
               </CardContent>
             </Card>
-            <Card className="bg-[#0d2847] border-pink-500/20">
+            <Card className="bg-[#0d2847] border-red-500/20">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-gray-400 text-sm">Users</p>
-                    <p className="text-2xl font-bold text-pink-400">{stats?.totalUsers || 0}</p>
+                    <p className="text-2xl font-bold text-red-400">{stats?.totalUsers || 0}</p>
                   </div>
-                  <Users className="h-8 w-8 text-pink-400" />
+                  <Users className="h-8 w-8 text-red-400" />
                 </div>
               </CardContent>
             </Card>
@@ -251,7 +251,7 @@ export default function AdminDashboard() {
               <Card className="bg-[#0d2847] border-cyan-500/20">
                 <CardHeader>
                   <CardTitle className="text-white flex items-center gap-2">
-                    <AlertCircle className="h-5 w-5 text-yellow-400" />
+                    <AlertCircle className="h-5 w-5 text-red-400" />
                     Quick Actions
                   </CardTitle>
                 </CardHeader>
@@ -466,7 +466,7 @@ export default function AdminDashboard() {
                           </td>
                           <td className="py-3 px-4">
                             {product.requires_quote === "yes" ? (
-                              <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">
+                              <Badge className="bg-red-500/20 text-red-400 border-red-500/30">
                                 Required
                               </Badge>
                             ) : (
@@ -594,7 +594,7 @@ export default function AdminDashboard() {
                           </td>
                           <td className="py-3 px-4 text-gray-300">{u.email}</td>
                           <td className="py-3 px-4">
-                            <Badge className={u.role === "admin" ? "bg-purple-500/20 text-purple-400 border-purple-500/30" : "bg-gray-500/20 text-gray-400 border-gray-500/30"}>
+                            <Badge className={u.role === "admin" ? "bg-blue-600/20 text-blue-500 border-blue-600/30" : "bg-gray-500/20 text-gray-400 border-gray-500/30"}>
                               {u.role}
                             </Badge>
                           </td>

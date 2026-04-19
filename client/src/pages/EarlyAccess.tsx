@@ -346,7 +346,7 @@ export default function EarlyAccess() {
         <div className="relative z-10 mt-6 flex flex-wrap items-center justify-center gap-4 text-blue-700 text-xs">
           <span className="flex items-center gap-1.5"><span className="text-blue-500">🔒</span> Secure & Private</span>
           <span className="flex items-center gap-1.5"><span className="text-green-500">⚡</span> 7 Days Free</span>
-          <span className="flex items-center gap-1.5"><span className="text-yellow-500">🏆</span> 20+ Tools</span>
+          <span className="flex items-center gap-1.5"><span className="text-red-500">🏆</span> 20+ Tools</span>
           <span className="flex items-center gap-1.5"><span className="text-cyan-500">🤝</span> Cancel Anytime</span>
         </div>
       )}

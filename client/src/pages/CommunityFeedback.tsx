@@ -13,8 +13,8 @@ const feedbackCategories = [
 
 const statusColors: Record<string, string> = {
   pending: "bg-gray-600",
-  reviewing: "bg-yellow-500",
-  planned: "bg-purple-500",
+  reviewing: "bg-red-500",
+  planned: "bg-blue-600",
   in_progress: "bg-blue-500",
   completed: "bg-green-500",
   declined: "bg-red-600",

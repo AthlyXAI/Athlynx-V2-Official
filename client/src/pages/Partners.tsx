@@ -3,43 +3,43 @@ import { Handshake, Users, DollarSign, BarChart3, Shield, Zap, Globe, Code, Buil
 
 const TECH_STACK = [
   // AI & Intelligence
-  { name: "Manus AI", category: "AI Platform", role: "Autonomous AI Development & Automation", status: "LIVE", color: "from-purple-600 to-violet-700", badge: "AI" },
+  { name: "Manus AI", category: "AI Platform", role: "Autonomous AI Development & Automation", status: "LIVE", color: "from-blue-700 to-blue-800", badge: "AI" },
   { name: "Nebius AI", category: "AI Infrastructure", role: "GPU Cloud & AI Model Hosting", status: "LIVE", color: "from-blue-600 to-indigo-700", badge: "AI" },
-  { name: "Claude (Anthropic)", category: "AI Platform", role: "AI Language Model & Reasoning", status: "LIVE", color: "from-orange-500 to-amber-600", badge: "AI" },
+  { name: "Claude (Anthropic)", category: "AI Platform", role: "AI Language Model & Reasoning", status: "LIVE", color: "from-red-500 to-red-600", badge: "AI" },
   { name: "NVIDIA", category: "Hardware", role: "H100/H200/B200/GB200 GPU Infrastructure", status: "LIVE", color: "from-green-600 to-emerald-700", badge: "GPU" },
   { name: "ICC-USA", category: "Hardware Partner", role: "Enterprise Server & GPU Hardware", status: "LIVE", color: "from-slate-600 to-gray-700", badge: "HW" },
   { name: "RunSun Cloud", category: "GPU Cloud", role: "NVIDIA Cloud Partner — H200/B200/GB200 Clusters", status: "LIVE", color: "from-cyan-600 to-blue-700", badge: "GPU" },
 
   // Hosting & Infrastructure
   { name: "Vercel", category: "Hosting", role: "Production Deployment & Edge Network", status: "LIVE", color: "from-slate-700 to-black", badge: "HOST" },
-  { name: "Cloudflare", category: "CDN & Security", role: "DNS, CDN, DDoS Protection & Zero Trust", status: "LIVE", color: "from-orange-500 to-yellow-600", badge: "CDN" },
-  { name: "AWS", category: "Cloud", role: "S3 Storage, Lambda & Cloud Services", status: "LIVE", color: "from-yellow-500 to-orange-600", badge: "CLOUD" },
-  { name: "Railway", category: "Backend Hosting", role: "Server & API Deployment", status: "LIVE", color: "from-violet-600 to-purple-700", badge: "HOST" },
+  { name: "Cloudflare", category: "CDN & Security", role: "DNS, CDN, DDoS Protection & Zero Trust", status: "LIVE", color: "from-red-500 to-red-600", badge: "CDN" },
+  { name: "AWS", category: "Cloud", role: "S3 Storage, Lambda & Cloud Services", status: "LIVE", color: "from-red-500 to-red-600", badge: "CLOUD" },
+  { name: "Railway", category: "Backend Hosting", role: "Server & API Deployment", status: "LIVE", color: "from-blue-700 to-blue-800", badge: "HOST" },
   { name: "Netlify", category: "Hosting", role: "Static Site & JAMstack Deployment", status: "LIVE", color: "from-teal-500 to-cyan-600", badge: "HOST" },
 
   // Database
   { name: "Neon", category: "Database", role: "Serverless Postgres — Primary Database", status: "LIVE", color: "from-green-500 to-teal-600", badge: "DB" },
-  { name: "PlanetScale", category: "Database", role: "MySQL Serverless — Scale Database", status: "LIVE", color: "from-pink-600 to-rose-700", badge: "DB" },
+  { name: "PlanetScale", category: "Database", role: "MySQL Serverless — Scale Database", status: "LIVE", color: "from-red-600 to-red-700", badge: "DB" },
 
   // Communication
-  { name: "Twilio", category: "Communications", role: "SMS, Voice & Messaging API", status: "LIVE", color: "from-red-600 to-rose-700", badge: "COMM" },
+  { name: "Twilio", category: "Communications", role: "SMS, Voice & Messaging API", status: "LIVE", color: "from-red-600 to-red-700", badge: "COMM" },
   { name: "Resend", category: "Email", role: "Transactional Email API", status: "LIVE", color: "from-blue-500 to-cyan-600", badge: "EMAIL" },
-  { name: "Gmail / Google Workspace", category: "Productivity", role: "Business Email, Docs, Drive & Calendar", status: "LIVE", color: "from-red-500 to-yellow-500", badge: "GSUITE" },
-  { name: "Zapier", category: "Automation", role: "Workflow Automation & App Integration", status: "LIVE", color: "from-orange-500 to-red-600", badge: "AUTO" },
+  { name: "Gmail / Google Workspace", category: "Productivity", role: "Business Email, Docs, Drive & Calendar", status: "LIVE", color: "from-red-500 to-red-500", badge: "GSUITE" },
+  { name: "Zapier", category: "Automation", role: "Workflow Automation & App Integration", status: "LIVE", color: "from-red-500 to-red-600", badge: "AUTO" },
 
   // Dev & Source Control
   { name: "GitHub", category: "Source Control", role: "Code Repository & CI/CD Pipelines", status: "LIVE", color: "from-gray-700 to-slate-800", badge: "DEV" },
 
   // Domain & DNS
   { name: "GoDaddy", category: "Domain Registrar", role: "Domain Registration & Management", status: "LIVE", color: "from-green-600 to-lime-700", badge: "DNS" },
-  { name: "Hostinger", category: "Domain & Hosting", role: "Domain Registration & Web Hosting", status: "LIVE", color: "from-violet-500 to-purple-600", badge: "DNS" },
+  { name: "Hostinger", category: "Domain & Hosting", role: "Domain Registration & Web Hosting", status: "LIVE", color: "from-blue-600 to-blue-700", badge: "DNS" },
 
   // Payments
   { name: "Stripe", category: "Payments", role: "Payment Processing & Subscription Billing", status: "LIVE", color: "from-indigo-600 to-blue-700", badge: "PAY" },
 
   // Development Languages
-  { name: "Python", category: "Language", role: "AI/ML, Data Science & Backend Scripting", status: "LIVE", color: "from-blue-500 to-yellow-500", badge: "LANG" },
-  { name: "Julia", category: "Language", role: "High-Performance Scientific Computing", status: "LIVE", color: "from-green-500 to-purple-600", badge: "LANG" },
+  { name: "Python", category: "Language", role: "AI/ML, Data Science & Backend Scripting", status: "LIVE", color: "from-blue-500 to-red-500", badge: "LANG" },
+  { name: "Julia", category: "Language", role: "High-Performance Scientific Computing", status: "LIVE", color: "from-green-500 to-blue-700", badge: "LANG" },
 ];
 
 const CATEGORY_ICONS: Record<string, React.ElementType> = {
@@ -65,19 +65,19 @@ const CATEGORY_ICONS: Record<string, React.ElementType> = {
 };
 
 const BADGE_COLORS: Record<string, string> = {
-  AI: "bg-purple-600",
+  AI: "bg-blue-700",
   GPU: "bg-green-600",
   HW: "bg-slate-600",
   HOST: "bg-blue-600",
-  CDN: "bg-orange-600",
-  CLOUD: "bg-yellow-600",
+  CDN: "bg-red-600",
+  CLOUD: "bg-red-600",
   DB: "bg-teal-600",
   COMM: "bg-red-600",
   EMAIL: "bg-cyan-600",
   GSUITE: "bg-red-500",
-  AUTO: "bg-orange-500",
+  AUTO: "bg-red-500",
   DEV: "bg-gray-700",
-  DNS: "bg-violet-600",
+  DNS: "bg-blue-700",
   PAY: "bg-indigo-600",
   LANG: "bg-blue-500",
 };
@@ -85,7 +85,7 @@ const BADGE_COLORS: Record<string, string> = {
 const PARTNER_TIERS = [
   { name: "Affiliate", commission: "10%", requirements: "No minimum", benefits: ["Referral tracking", "Monthly payouts", "Marketing materials"], color: "from-slate-500 to-gray-600" },
   { name: "Silver", commission: "15%", requirements: "$5K/month revenue", benefits: ["Everything in Affiliate", "Dedicated support", "Co-marketing opportunities"], color: "from-slate-400 to-slate-500" },
-  { name: "Gold", commission: "20%", requirements: "$25K/month revenue", benefits: ["Everything in Silver", "API access", "White-label options", "Priority features"], color: "from-amber-500 to-yellow-500" },
+  { name: "Gold", commission: "20%", requirements: "$25K/month revenue", benefits: ["Everything in Silver", "API access", "White-label options", "Priority features"], color: "from-red-500 to-red-500" },
   { name: "Platinum", commission: "25%", requirements: "$100K/month revenue", benefits: ["Everything in Gold", "Revenue share", "Board advisory", "Equity options"], color: "from-cyan-400 to-blue-500" },
 ];
 
@@ -151,9 +151,9 @@ export default function Partners() {
       <section className="py-8 px-4 bg-white/5 border-y border-blue-900">
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div><div className="text-3xl font-black text-cyan-400">23+</div><div className="text-blue-300 text-sm">Technology Partners</div></div>
-          <div><div className="text-3xl font-black text-yellow-400">$180M+</div><div className="text-blue-300 text-sm">Market Opportunity</div></div>
+          <div><div className="text-3xl font-black text-red-400">$180M+</div><div className="text-blue-300 text-sm">Market Opportunity</div></div>
           <div><div className="text-3xl font-black text-green-400">15+</div><div className="text-blue-300 text-sm">Sport Platforms</div></div>
-          <div><div className="text-3xl font-black text-purple-400">7</div><div className="text-blue-300 text-sm">Days Since Launch</div></div>
+          <div><div className="text-3xl font-black text-blue-500">7</div><div className="text-blue-300 text-sm">Days Since Launch</div></div>
         </div>
       </section>
 
@@ -227,7 +227,7 @@ export default function Partners() {
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-white/5 rounded-2xl p-8 border border-blue-900">
-              <Code className="w-12 h-12 text-purple-400 mb-4" />
+              <Code className="w-12 h-12 text-blue-500 mb-4" />
               <h3 className="text-2xl font-black mb-4 text-white">API Access</h3>
               <p className="text-blue-300 mb-6">
                 Integrate ATHLYNX™ data into your applications. Access athlete profiles, NIL valuations, transfer portal data, and more.
@@ -235,12 +235,12 @@ export default function Partners() {
               <ul className="space-y-2 mb-6">
                 {["RESTful API & GraphQL", "Python & Julia SDKs", "Webhooks & Real-time events", "Zapier Integration", "CRM & Workflow Automation"].map(item => (
                   <li key={item} className="flex items-center gap-2 text-blue-200 text-sm">
-                    <CheckCircle className="w-4 h-4 text-purple-400" />
+                    <CheckCircle className="w-4 h-4 text-blue-500" />
                     {item}
                   </li>
                 ))}
               </ul>
-              <a href="mailto:cdozier@dozierholdingsgroup.com" className="bg-purple-600 hover:bg-purple-500 text-white px-6 py-3 rounded-lg font-bold inline-block transition-colors">
+              <a href="mailto:cdozier@dozierholdingsgroup.com" className="bg-blue-700 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-bold inline-block transition-colors">
                 Request API Access
               </a>
             </div>
@@ -287,13 +287,13 @@ export default function Partners() {
       <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <div className="inline-flex items-center gap-2 bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 px-4 py-2 rounded-full text-sm font-black tracking-widest uppercase mb-6">
+            <div className="inline-flex items-center gap-2 bg-red-500/20 border border-red-500/30 text-red-400 px-4 py-2 rounded-full text-sm font-black tracking-widest uppercase mb-6">
               <Star className="w-4 h-4" />
               Strategic Partnerships
             </div>
             <h2 className="text-5xl font-black text-white mb-4">
               WELCOMING NEW<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">PARTNERSHIPS</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-500">PARTNERSHIPS</span>
             </h2>
             <p className="text-blue-300 text-lg max-w-2xl mx-auto">
               ATHLYNX™ is actively building strategic alliances across sports brands, media, technology, retail, and data. All partnership categories are open.
@@ -311,24 +311,24 @@ export default function Partners() {
               { category: "Universities & Athletic Programs", icon: "🎓", desc: "Colleges, universities, and athletic departments building the next generation." },
               { category: "Investors & Venture Capital", icon: "📈", desc: "Strategic investors aligned with the future of sports technology and athlete empowerment." },
             ].map((item) => (
-              <div key={item.category} className="bg-gradient-to-br from-[#0d1b3e] to-[#080d1a] border border-blue-900/60 hover:border-yellow-500/50 rounded-2xl p-6 transition-all group relative overflow-hidden">
+              <div key={item.category} className="bg-gradient-to-br from-[#0d1b3e] to-[#080d1a] border border-blue-900/60 hover:border-red-500/50 rounded-2xl p-6 transition-all group relative overflow-hidden">
                 <div className="absolute top-3 right-3">
-                  <span className="bg-yellow-500/20 border border-yellow-500/40 text-yellow-400 text-xs font-black px-2 py-1 rounded-lg">COMING SOON</span>
+                  <span className="bg-red-500/20 border border-red-500/40 text-red-400 text-xs font-black px-2 py-1 rounded-lg">COMING SOON</span>
                 </div>
                 <div className="text-4xl mb-4">{item.icon}</div>
                 <h3 className="text-white font-black text-base mb-2">{item.category}</h3>
                 <p className="text-blue-300/70 text-sm leading-relaxed">{item.desc}</p>
                 <div className="mt-4 flex items-center gap-2">
-                  <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
-                  <span className="text-yellow-400 text-xs font-bold">Accepting Applications</span>
+                  <div className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></div>
+                  <span className="text-red-400 text-xs font-bold">Accepting Applications</span>
                 </div>
               </div>
             ))}
           </div>
-          <div className="bg-gradient-to-r from-yellow-600/10 to-orange-600/10 border border-yellow-500/20 rounded-2xl p-8 text-center">
+          <div className="bg-gradient-to-r from-red-600/10 to-red-600/10 border border-red-500/20 rounded-2xl p-8 text-center">
             <h3 className="text-2xl font-black text-white mb-3">Ready to Build Together?</h3>
             <p className="text-blue-300 mb-6 max-w-xl mx-auto">We are selectively onboarding founding partners across every category. First movers get preferred terms, co-branding, and revenue share.</p>
-            <a href="mailto:cdozier@dozierholdingsgroup.com?subject=Partnership%20Inquiry%20-%20ATHLYNX" className="inline-block bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-black px-10 py-4 rounded-xl text-lg hover:scale-105 transition-transform">
+            <a href="mailto:cdozier@dozierholdingsgroup.com?subject=Partnership%20Inquiry%20-%20ATHLYNX" className="inline-block bg-gradient-to-r from-red-500 to-red-500 text-black font-black px-10 py-4 rounded-xl text-lg hover:scale-105 transition-transform">
               Apply for Partnership →
             </a>
           </div>

@@ -47,7 +47,7 @@ const NotificationItem = ({ notification, onClose }: NotificationProps) => {
       case 'error':
         return <AlertCircle className="w-5 h-5 text-red-400" />;
       case 'warning':
-        return <AlertTriangle className="w-5 h-5 text-yellow-400" />;
+        return <AlertTriangle className="w-5 h-5 text-red-400" />;
       case 'info':
       default:
         return <Info className="w-5 h-5 text-blue-400" />;
@@ -61,7 +61,7 @@ const NotificationItem = ({ notification, onClose }: NotificationProps) => {
       case 'error':
         return 'bg-gradient-to-r from-red-900/90 to-red-800/90 border-red-500';
       case 'warning':
-        return 'bg-gradient-to-r from-yellow-900/90 to-yellow-800/90 border-yellow-500';
+        return 'bg-gradient-to-r from-red-900/90 to-red-800/90 border-red-500';
       case 'info':
       default:
         return 'bg-gradient-to-r from-blue-900/90 to-blue-800/90 border-blue-500';

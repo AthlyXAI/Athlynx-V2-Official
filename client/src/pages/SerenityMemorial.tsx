@@ -102,7 +102,7 @@ export default function SerenityMemorial() {
         
         <div className="container relative px-4 md:px-5">
           <div className="text-center max-w-4xl mx-auto">
-            <Badge className="bg-amber-500/20 text-amber-400 border-amber-500/30 mb-4">
+            <Badge className="bg-red-500/20 text-red-400 border-red-500/30 mb-4">
               <Building className="w-3 h-3 mr-1" /> A DOZIER HOLDINGS GROUP SUBSIDIARY
             </Badge>
             <div className="flex items-center justify-center gap-3 mb-4">
@@ -112,7 +112,7 @@ export default function SerenityMemorial() {
               </h1>
               <Leaf className="w-10 h-10 text-emerald-400 transform scale-x-[-1]" />
             </div>
-            <p className="text-2xl text-amber-400 font-light mb-4">Services</p>
+            <p className="text-2xl text-red-400 font-light mb-4">Services</p>
             <p className="text-xl text-white/70 italic mb-8">
               "Honoring Life with Grace"
             </p>
@@ -143,7 +143,7 @@ export default function SerenityMemorial() {
           ].map((stat, i) => (
             <Card key={i} className="bg-white/5 border-white/10 text-center">
               <CardContent className="p-6">
-                <p className="text-3xl font-bold text-amber-400 mb-2">{stat.value}</p>
+                <p className="text-3xl font-bold text-red-400 mb-2">{stat.value}</p>
                 <p className="text-white font-semibold">{stat.label}</p>
                 <p className="text-white/50 text-sm">{stat.sub}</p>
               </CardContent>
@@ -152,7 +152,7 @@ export default function SerenityMemorial() {
         </div>
 
         {/* Orange Beach Advantage */}
-        <Card className="bg-gradient-to-r from-emerald-500/20 to-amber-500/20 border-emerald-500/30">
+        <Card className="bg-gradient-to-r from-emerald-500/20 to-red-500/20 border-emerald-500/30">
           <CardContent className="p-8">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
@@ -201,7 +201,7 @@ export default function SerenityMemorial() {
                 <h3 className="text-xl font-bold text-white mb-3">{phase.phase}</h3>
                 <p className="text-white/60 text-sm mb-4">{phase.description}</p>
                 <div className="pt-4 border-t border-white/10">
-                  <p className="text-amber-400 font-semibold">Target: {phase.target}</p>
+                  <p className="text-red-400 font-semibold">Target: {phase.target}</p>
                 </div>
               </CardContent>
             </Card>
@@ -251,7 +251,7 @@ export default function SerenityMemorial() {
               <tr className="border-b border-white/10">
                 <td className="py-4 px-4 text-white">Net Profit Margin</td>
                 {financials.map((f, i) => (
-                  <td key={i} className="text-center py-4 px-4 text-amber-400 font-semibold">{f.margin}</td>
+                  <td key={i} className="text-center py-4 px-4 text-red-400 font-semibold">{f.margin}</td>
                 ))}
               </tr>
               <tr>
@@ -294,7 +294,7 @@ export default function SerenityMemorial() {
         <div className="grid md:grid-cols-2 gap-8">
           <Card className="bg-white/5 border-white/10">
             <CardContent className="p-8">
-              <Badge className="bg-amber-500/20 text-amber-400 mb-4">FOUNDER & CEO</Badge>
+              <Badge className="bg-red-500/20 text-red-400 mb-4">FOUNDER & CEO</Badge>
               <h3 className="text-2xl font-bold text-white mb-4">Bailey Boyd</h3>
               <p className="text-white/70">
                 Experienced leader focused on compassionate service and community impact, 
@@ -322,8 +322,8 @@ export default function SerenityMemorial() {
           {competitiveAdvantages.map((adv, i) => (
             <Card key={i} className="bg-white/5 border-white/10">
               <CardContent className="p-6">
-                <div className="w-12 h-12 bg-amber-500/20 rounded-xl flex items-center justify-center mb-4">
-                  <adv.icon className="w-6 h-6 text-amber-400" />
+                <div className="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center mb-4">
+                  <adv.icon className="w-6 h-6 text-red-400" />
                 </div>
                 <h3 className="text-white font-semibold mb-2">{adv.title}</h3>
                 <p className="text-white/60 text-sm">{adv.description}</p>
@@ -335,13 +335,13 @@ export default function SerenityMemorial() {
 
       {/* Investment Opportunity */}
       <section className="container px-4 md:px-5 pb-16">
-        <Card className="bg-gradient-to-r from-amber-500/20 to-emerald-500/20 border-amber-500/30">
+        <Card className="bg-gradient-to-r from-red-500/20 to-emerald-500/20 border-red-500/30">
           <CardContent className="p-8 md:p-12">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <Badge className="bg-amber-500/20 text-amber-400 mb-4">INVESTMENT OPPORTUNITY</Badge>
+                <Badge className="bg-red-500/20 text-red-400 mb-4">INVESTMENT OPPORTUNITY</Badge>
                 <h2 className="text-3xl font-bold text-white mb-4">Initial Capital Ask</h2>
-                <p className="text-5xl font-bold text-amber-400 mb-6">$650,000</p>
+                <p className="text-5xl font-bold text-red-400 mb-6">$650,000</p>
                 
                 <h3 className="text-white font-semibold mb-4">Investment Highlights</h3>
                 <ul className="space-y-3 text-white/70">
@@ -377,7 +377,7 @@ export default function SerenityMemorial() {
                 
                 <div className="mt-6">
                   <Link href="/investor-hub">
-                    <Button className="w-full bg-amber-500 hover:bg-amber-400 text-black font-bold py-3">
+                    <Button className="w-full bg-red-500 hover:bg-red-400 text-black font-bold py-3">
                       Contact for Investment Details
                     </Button>
                   </Link>
@@ -397,12 +397,12 @@ export default function SerenityMemorial() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/contact">
-              <Button className="bg-amber-500 hover:bg-amber-400 text-black font-bold">
+              <Button className="bg-red-500 hover:bg-red-400 text-black font-bold">
                 <Phone className="w-4 h-4 mr-2" /> Contact Us
               </Button>
             </Link>
             <Link href="/investor-deck">
-              <Button variant="outline" className="border-amber-500/50 text-amber-400 hover:bg-amber-500/20">
+              <Button variant="outline" className="border-red-500/50 text-red-400 hover:bg-red-500/20">
                 View Full Investor Deck
               </Button>
             </Link>

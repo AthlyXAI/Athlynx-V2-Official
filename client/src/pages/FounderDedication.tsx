@@ -22,19 +22,19 @@ export default function FounderDedication() {
         
         {/* Glowing orbs */}
         <div className="absolute top-20 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-3xl" />
         
         <div className="container relative px-4 md:px-5">
           <div className="text-center max-w-4xl mx-auto">
             {/* Historic Timestamp */}
-            <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30 mb-4 text-sm">
+            <Badge className="bg-red-500/20 text-red-400 border-red-500/30 mb-4 text-sm">
               <Clock className="w-3 h-3 mr-1" /> {timestamp} • USER #1 • HISTORIC MOMENT
             </Badge>
             
             {/* Crown Icon */}
             <div className="w-24 h-24 mx-auto mb-6 relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-full blur-xl opacity-50 animate-pulse" />
-              <div className="relative w-full h-full bg-gradient-to-br from-yellow-500 to-amber-600 rounded-full flex items-center justify-center">
+              <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-500 rounded-full blur-xl opacity-50 animate-pulse" />
+              <div className="relative w-full h-full bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center">
                 <Crown className="w-12 h-12 text-white" />
               </div>
             </div>
@@ -55,11 +55,11 @@ export default function FounderDedication() {
 
       {/* The Number 1 - God */}
       <section className="container px-4 md:px-5 pb-16">
-        <Card className="bg-gradient-to-r from-yellow-500/10 to-amber-500/10 border-yellow-500/30 overflow-hidden">
+        <Card className="bg-gradient-to-r from-red-500/10 to-red-500/10 border-red-500/30 overflow-hidden">
           <CardContent className="p-8 md:p-12">
             <div className="text-center max-w-3xl mx-auto">
-              <Cross className="w-16 h-16 text-yellow-400 mx-auto mb-6" />
-              <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30 mb-4">
+              <Cross className="w-16 h-16 text-red-400 mx-auto mb-6" />
+              <Badge className="bg-red-500/20 text-red-400 border-red-500/30 mb-4">
                 #1 - ABOVE ALL
               </Badge>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
@@ -69,8 +69,8 @@ export default function FounderDedication() {
                 The number one is the Good Lord up above that gave me so many chances I didn't deserve. 
                 But now I see His purpose and I will never lose sight.
               </p>
-              <blockquote className="border-l-4 border-yellow-500 pl-6 py-4 bg-slate-900/50 rounded-r-xl">
-                <p className="text-yellow-400 text-xl italic mb-4">
+              <blockquote className="border-l-4 border-red-500 pl-6 py-4 bg-slate-900/50 rounded-r-xl">
+                <p className="text-red-400 text-xl italic mb-4">
                   "Each of you should use whatever gift you have received to serve others, 
                   as faithful stewards of God's grace."
                 </p>
@@ -83,11 +83,11 @@ export default function FounderDedication() {
 
       {/* Nanny - The One Who Saved His Life */}
       <section className="container px-4 md:px-5 pb-16">
-        <Card className="bg-gradient-to-r from-pink-500/10 to-rose-500/10 border-pink-500/30 overflow-hidden">
+        <Card className="bg-gradient-to-r from-red-500/10 to-red-500/10 border-red-500/30 overflow-hidden">
           <CardContent className="p-8 md:p-12">
             <div className="text-center max-w-3xl mx-auto">
-              <Heart className="w-16 h-16 text-pink-400 mx-auto mb-6 animate-pulse" />
-              <Badge className="bg-pink-500/20 text-pink-400 border-pink-500/30 mb-4">
+              <Heart className="w-16 h-16 text-red-400 mx-auto mb-6 animate-pulse" />
+              <Badge className="bg-red-500/20 text-red-400 border-red-500/30 mb-4">
                 THE ONE WHO SAVED MY LIFE
               </Badge>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
@@ -98,8 +98,8 @@ export default function FounderDedication() {
                 Everything I am today, everything I've built, it all started with her love, her sacrifice, 
                 her belief in me when no one else did.
               </p>
-              <div className="bg-slate-900/50 rounded-xl p-6 border border-pink-500/30">
-                <p className="text-pink-400 text-2xl font-bold">
+              <div className="bg-slate-900/50 rounded-xl p-6 border border-red-500/30">
+                <p className="text-red-400 text-2xl font-bold">
                   "Look Ma and Nanny, I Made It"
                 </p>
               </div>
@@ -110,11 +110,11 @@ export default function FounderDedication() {
 
       {/* Mother - The Reason */}
       <section className="container px-4 md:px-5 pb-16">
-        <Card className="bg-gradient-to-r from-purple-500/10 to-violet-500/10 border-purple-500/30 overflow-hidden">
+        <Card className="bg-gradient-to-r from-blue-600/10 to-blue-600/10 border-blue-600/30 overflow-hidden">
           <CardContent className="p-8 md:p-12">
             <div className="text-center max-w-3xl mx-auto">
-              <Home className="w-16 h-16 text-purple-400 mx-auto mb-6" />
-              <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30 mb-4">
+              <Home className="w-16 h-16 text-blue-500 mx-auto mb-6" />
+              <Badge className="bg-blue-600/20 text-blue-500 border-blue-600/30 mb-4">
                 THE REASON FOR EVERYTHING
               </Badge>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
@@ -169,7 +169,7 @@ export default function FounderDedication() {
       {/* The Team Who Stayed */}
       <section className="container px-4 md:px-5 pb-16">
         <h2 className="text-2xl font-bold text-white text-center mb-4">
-          <Trophy className="w-6 h-6 inline mr-2 text-yellow-400" /> The Team Who Stayed
+          <Trophy className="w-6 h-6 inline mr-2 text-red-400" /> The Team Who Stayed
         </h2>
         <p className="text-white/60 text-center mb-8 max-w-2xl mx-auto">
           After every person let me down and gave me empty promises, these men stood by me.
@@ -182,13 +182,13 @@ export default function FounderDedication() {
             { name: 'Andrew Kustes', role: 'VP Technology', initials: 'AK' },
             { name: 'David Ford Sr.', role: 'Trusted Partner', initials: 'DF' }
           ].map((person, i) => (
-            <Card key={i} className="bg-white/5 border-yellow-500/20">
+            <Card key={i} className="bg-white/5 border-red-500/20">
               <CardContent className="p-4 text-center">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-r from-yellow-500 to-amber-500 mx-auto mb-3 flex items-center justify-center text-white font-bold">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-r from-red-500 to-red-500 mx-auto mb-3 flex items-center justify-center text-white font-bold">
                   {person.initials}
                 </div>
                 <h3 className="text-white font-bold text-sm">{person.name}</h3>
-                <p className="text-yellow-400 text-xs">{person.role}</p>
+                <p className="text-red-400 text-xs">{person.role}</p>
               </CardContent>
             </Card>
           ))}
@@ -197,11 +197,11 @@ export default function FounderDedication() {
 
       {/* Best Friends - Westin & Diesel */}
       <section className="container px-4 md:px-5 pb-16">
-        <Card className="bg-gradient-to-r from-orange-500/10 to-amber-500/10 border-orange-500/30 overflow-hidden">
+        <Card className="bg-gradient-to-r from-red-500/10 to-red-500/10 border-red-500/30 overflow-hidden">
           <CardContent className="p-8 md:p-12">
             <div className="text-center max-w-3xl mx-auto">
-              <Dog className="w-16 h-16 text-orange-400 mx-auto mb-6" />
-              <Badge className="bg-orange-500/20 text-orange-400 border-orange-500/30 mb-4">
+              <Dog className="w-16 h-16 text-red-400 mx-auto mb-6" />
+              <Badge className="bg-red-500/20 text-red-400 border-red-500/30 mb-4">
                 MY BOYS • MY DOGS • MY LIFE
               </Badge>
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
@@ -242,7 +242,7 @@ export default function FounderDedication() {
                   the testimony that now helps others avoid the same path.
                 </p>
                 <p className="text-white/80 leading-relaxed">
-                  To <span className="text-yellow-400 font-bold">TODAY</span> - building an empire not for money, 
+                  To <span className="text-red-400 font-bold">TODAY</span> - building an empire not for money, 
                   but to help that ONE child who had a childhood like mine never make the same mistakes.
                 </p>
               </div>

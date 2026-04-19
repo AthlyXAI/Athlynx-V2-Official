@@ -227,11 +227,11 @@ const COMPANIES: Company[] = [
 const DIVISIONS = [
   { id: "all", label: "All Companies", icon: <Layers className="w-4 h-4" />, color: "from-blue-500 to-indigo-600" },
   { id: "sports", label: "Sports & Media", icon: <Trophy className="w-4 h-4" />, color: "from-cyan-500 to-blue-600" },
-  { id: "technology", label: "Technology", icon: <Cpu className="w-4 h-4" />, color: "from-violet-500 to-purple-600" },
-  { id: "finance", label: "Finance & Crypto", icon: <Bitcoin className="w-4 h-4" />, color: "from-amber-500 to-yellow-600" },
+  { id: "technology", label: "Technology", icon: <Cpu className="w-4 h-4" />, color: "from-blue-600 to-blue-700" },
+  { id: "finance", label: "Finance & Crypto", icon: <Bitcoin className="w-4 h-4" />, color: "from-red-500 to-red-600" },
   { id: "realestate", label: "Real Estate", icon: <Building2 className="w-4 h-4" />, color: "from-emerald-500 to-green-600" },
-  { id: "healthcare", label: "Healthcare", icon: <Heart className="w-4 h-4" />, color: "from-rose-500 to-pink-600" },
-  { id: "hospitality", label: "Hospitality", icon: <TreePine className="w-4 h-4" />, color: "from-amber-500 to-orange-600" },
+  { id: "healthcare", label: "Healthcare", icon: <Heart className="w-4 h-4" />, color: "from-red-500 to-red-600" },
+  { id: "hospitality", label: "Hospitality", icon: <TreePine className="w-4 h-4" />, color: "from-red-500 to-red-600" },
   { id: "trading", label: "Global Trading", icon: <Globe className="w-4 h-4" />, color: "from-teal-500 to-cyan-600" },
 ];
 
@@ -245,23 +245,23 @@ const STATS = [
 const LEADERSHIP = [
   { name: "Chad A. Dozier", title: "Chairman & CEO", initials: "CD", bio: "Visionary founder and driving force behind the DHG empire. Chad built this company from a hospital room at Hope Lodge in Houston — turning adversity into an empire. Iron Sharpens Iron.", color: "from-blue-500 to-cyan-500", phone: "+1-601-498-5282", email: "cdozier@dozierholdingsgroup.com" },
   { name: "Glenn Tse", title: "CFO & VP of Business Operations", initials: "GT", bio: "Co-founder and financial architect of DHG. Glenn's expertise in financial strategy and operations management has been instrumental in building DHG's diversified portfolio.", color: "from-emerald-500 to-teal-500", phone: "+1-832-620-6389", email: "gtse@dozierholdingsgroup.com" },
-  { name: "Jimmy Boyd", title: "Chief Operating Officer", initials: "JB", bio: "Operations leader ensuring every DHG company runs at peak performance. Jimmy brings military-grade discipline and execution to the DHG portfolio.", color: "from-orange-500 to-amber-500", phone: "", email: "" },
-  { name: "Lee Marshall", title: "VP of Sales & Partnerships", initials: "LM", bio: "Sales powerhouse driving revenue and strategic partnerships across the DHG portfolio. Lee brings elite-level relationship building and deal-closing expertise.", color: "from-purple-500 to-violet-500", phone: "", email: "" },
+  { name: "Jimmy Boyd", title: "Chief Operating Officer", initials: "JB", bio: "Operations leader ensuring every DHG company runs at peak performance. Jimmy brings military-grade discipline and execution to the DHG portfolio.", color: "from-red-500 to-red-500", phone: "", email: "" },
+  { name: "Lee Marshall", title: "VP of Sales & Partnerships", initials: "LM", bio: "Sales powerhouse driving revenue and strategic partnerships across the DHG portfolio. Lee brings elite-level relationship building and deal-closing expertise.", color: "from-blue-600 to-blue-600", phone: "", email: "" },
 ];
 
 const statusConfig = {
   active: { label: "ACTIVE", bg: "bg-emerald-500/20", text: "text-emerald-400", dot: "bg-emerald-400" },
-  development: { label: "IN DEVELOPMENT", bg: "bg-amber-500/20", text: "text-amber-400", dot: "bg-amber-400" },
+  development: { label: "IN DEVELOPMENT", bg: "bg-red-500/20", text: "text-red-400", dot: "bg-red-400" },
   planned: { label: "PLANNED", bg: "bg-blue-500/20", text: "text-blue-400", dot: "bg-blue-400" },
 };
 
 const divisionGradients: Record<string, string> = {
   sports: "from-cyan-900/40 to-blue-900/20 border-cyan-800/40",
-  technology: "from-violet-900/40 to-purple-900/20 border-violet-800/40",
-  finance: "from-amber-900/40 to-yellow-900/20 border-amber-800/40",
+  technology: "from-blue-950/40 to-blue-950/20 border-blue-900/40",
+  finance: "from-red-900/40 to-red-900/20 border-red-800/40",
   realestate: "from-emerald-900/40 to-green-900/20 border-emerald-800/40",
-  healthcare: "from-rose-900/40 to-pink-900/20 border-rose-800/40",
-  hospitality: "from-amber-900/40 to-orange-900/20 border-amber-800/40",
+  healthcare: "from-red-900/40 to-red-900/20 border-red-800/40",
+  hospitality: "from-red-900/40 to-red-900/20 border-red-800/40",
   trading: "from-teal-900/40 to-cyan-900/20 border-teal-800/40",
 };
 
@@ -273,7 +273,7 @@ export default function DHGEmpire() {
   return (
     <div className="min-h-screen bg-[#060d1f] text-white">
       {/* Gold top accent */}
-      <div className="h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent" />
+      <div className="h-1 bg-gradient-to-r from-transparent via-red-500 to-transparent" />
 
       {/* Hero */}
       <div className="relative overflow-hidden">
@@ -283,21 +283,21 @@ export default function DHGEmpire() {
           <div className="text-center">
             <div className="flex justify-center mb-6">
               <div className="relative">
-                <div className="absolute inset-0 rounded-3xl bg-yellow-500/20 blur-xl scale-150" />
-                <img src={"/logos/dhg-crab-logo.png"} alt="Dozier Holdings Group" className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-3xl object-cover shadow-2xl border-2 border-yellow-500/50" />
+                <div className="absolute inset-0 rounded-3xl bg-red-500/20 blur-xl scale-150" />
+                <img src={"/logos/dhg-crab-logo.png"} alt="Dozier Holdings Group" className="relative w-28 h-28 sm:w-36 sm:h-36 rounded-3xl object-cover shadow-2xl border-2 border-red-500/50" />
               </div>
             </div>
-            <div className="text-yellow-400 text-xs sm:text-sm uppercase tracking-[0.4em] font-bold mb-3">Dozier Holdings Group</div>
+            <div className="text-red-400 text-xs sm:text-sm uppercase tracking-[0.4em] font-bold mb-3">Dozier Holdings Group</div>
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white mb-4 leading-none">THE DHG EMPIRE</h1>
             <div className="text-blue-300 text-lg sm:text-xl font-semibold mb-6 tracking-wide">Iron Sharpens Iron</div>
-            <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-yellow-500 to-transparent mx-auto mb-8" />
+            <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-red-500 to-transparent mx-auto mb-8" />
             <p className="text-blue-200 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto mb-10">
               Founded in Houston, TX — November 2024. Born at Hope Lodge, where cancer brought together a group of visionaries who refused to let adversity define their story. Today, <strong className="text-white">20+ companies</strong> across 7 divisions form one unstoppable empire.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto">
               {STATS.map((s, i) => (
                 <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-sm">
-                  <div className="flex justify-center mb-2 text-yellow-400">{s.icon}</div>
+                  <div className="flex justify-center mb-2 text-red-400">{s.icon}</div>
                   <div className="text-2xl sm:text-3xl font-black text-white">{s.value}</div>
                   <div className="text-white/80 text-sm font-semibold">{s.label}</div>
                   <div className="text-white/40 text-xs">{s.sub}</div>
@@ -310,13 +310,13 @@ export default function DHGEmpire() {
 
       {/* Origin Story */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
-        <div className="bg-gradient-to-br from-[#0a1628] to-[#0d1f4a] border border-yellow-500/20 rounded-3xl p-8 sm:p-12">
+        <div className="bg-gradient-to-br from-[#0a1628] to-[#0d1f4a] border border-red-500/20 rounded-3xl p-8 sm:p-12">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div>
-              <div className="text-yellow-400 text-xs uppercase tracking-[0.3em] font-bold mb-3">The Origin</div>
+              <div className="text-red-400 text-xs uppercase tracking-[0.3em] font-bold mb-3">The Origin</div>
               <h2 className="text-3xl sm:text-4xl font-black text-white mb-6">The Crab.<br />The Cancer.<br />The Crown.</h2>
               <div className="space-y-4 text-blue-200 text-base leading-relaxed">
-                <p>The crab is not just a logo. It is the <strong className="text-yellow-400">Cancer</strong> — the shared diagnosis that brought Chad A. Dozier and every one of his partners together. At Hope Lodge in Houston, strangers became brothers. Survivors became builders.</p>
+                <p>The crab is not just a logo. It is the <strong className="text-red-400">Cancer</strong> — the shared diagnosis that brought Chad A. Dozier and every one of his partners together. At Hope Lodge in Houston, strangers became brothers. Survivors became builders.</p>
                 <p><strong className="text-white">The crown in the center is ATHLYNX</strong> — the crown jewel of the empire. Every athlete deserves a crown. Every athlete deserves a platform built for them.</p>
                 <p><strong className="text-white">Each leg of the crab is a company</strong> — built together, through the bond of that shared journey. Softmor is the engine. ATHLYNX is the crown. Every company strengthens the whole.</p>
                 <p className="text-white font-bold text-lg">Iron sharpens iron. One solid piece. One mission. One empire.</p>
@@ -330,7 +330,7 @@ export default function DHGEmpire() {
                 { icon: <Rocket className="w-6 h-6" />, title: "Unstoppable Growth", desc: "From 0 to 20+ companies in under 12 months. The empire is just getting started." },
               ].map((item, i) => (
                 <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-5">
-                  <div className="text-yellow-400 mb-3">{item.icon}</div>
+                  <div className="text-red-400 mb-3">{item.icon}</div>
                   <div className="text-white font-bold text-sm mb-1">{item.title}</div>
                   <div className="text-blue-300 text-xs leading-relaxed">{item.desc}</div>
                 </div>
@@ -343,7 +343,7 @@ export default function DHGEmpire() {
       {/* Companies */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
         <div className="text-center mb-10">
-          <div className="text-yellow-400 text-xs uppercase tracking-[0.3em] font-bold mb-3">The Portfolio</div>
+          <div className="text-red-400 text-xs uppercase tracking-[0.3em] font-bold mb-3">The Portfolio</div>
           <h2 className="text-3xl sm:text-4xl font-black text-white mb-3">All DHG Companies</h2>
           <p className="text-blue-300 text-base max-w-xl mx-auto">{activeCount} active companies. 20+ total. Every one built with purpose.</p>
         </div>
@@ -362,7 +362,7 @@ export default function DHGEmpire() {
               <div className={`group relative bg-gradient-to-br ${dg} border rounded-2xl p-6 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-900/30 h-full ${company.link ? "cursor-pointer" : ""}`}>
                 {company.highlight && (
                   <div className="absolute top-4 right-4">
-                    <span className="bg-yellow-500 text-black text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">{company.highlight}</span>
+                    <span className="bg-red-500 text-black text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider">{company.highlight}</span>
                   </div>
                 )}
                 <div className="flex items-start gap-4 mb-4">
@@ -394,7 +394,7 @@ export default function DHGEmpire() {
       <div className="bg-gradient-to-b from-[#060d1f] to-[#0a1628] border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
           <div className="text-center mb-10">
-            <div className="text-yellow-400 text-xs uppercase tracking-[0.3em] font-bold mb-3">The Team</div>
+            <div className="text-red-400 text-xs uppercase tracking-[0.3em] font-bold mb-3">The Team</div>
             <h2 className="text-3xl sm:text-4xl font-black text-white mb-3">Leadership</h2>
             <p className="text-blue-300 text-base max-w-xl mx-auto">The team that built an empire from a hospital room.</p>
           </div>
@@ -403,7 +403,7 @@ export default function DHGEmpire() {
               <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:bg-white/8 transition-all">
                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${leader.color} flex items-center justify-center text-white font-black text-xl mx-auto mb-4 shadow-lg`}>{leader.initials}</div>
                 <div className="text-white font-bold text-base mb-1">{leader.name}</div>
-                <div className="text-yellow-400 text-xs font-semibold mb-3 uppercase tracking-wide">{leader.title}</div>
+                <div className="text-red-400 text-xs font-semibold mb-3 uppercase tracking-wide">{leader.title}</div>
                 <p className="text-white/50 text-xs leading-relaxed mb-3">{leader.bio}</p>
                 {leader.phone && <div className="text-white/30 text-xs flex items-center justify-center gap-1"><Phone className="w-3 h-3" />{leader.phone}</div>}
                 {leader.email && <div className="text-blue-400/60 text-xs flex items-center justify-center gap-1 mt-1"><Mail className="w-3 h-3" />{leader.email}</div>}
@@ -415,10 +415,10 @@ export default function DHGEmpire() {
 
       {/* Mission */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
-        <div className="relative bg-gradient-to-br from-yellow-500/10 to-orange-500/5 border border-yellow-500/20 rounded-3xl p-8 sm:p-12 text-center overflow-hidden">
-          <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "radial-gradient(circle at 50% 50%, #f59e0b 0%, transparent 70%)" }} />
+        <div className="relative bg-gradient-to-br from-red-500/10 to-red-500/5 border border-red-500/20 rounded-3xl p-8 sm:p-12 text-center overflow-hidden">
+          <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "radial-gradient(circle at 50% 50%, #dc2626 0%, transparent 70%)" }} />
           <div className="relative">
-            <Crown className="w-10 h-10 text-yellow-400 mx-auto mb-4" />
+            <Crown className="w-10 h-10 text-red-400 mx-auto mb-4" />
             <h2 className="text-3xl sm:text-4xl font-black text-white mb-4">One Mission. One Empire.</h2>
             <p className="text-blue-200 text-lg leading-relaxed max-w-2xl mx-auto mb-8">Every company in the DHG portfolio exists to create opportunity, build generational wealth, and prove that adversity is not an obstacle — it is the foundation.</p>
             <div className="flex flex-wrap gap-4 justify-center">

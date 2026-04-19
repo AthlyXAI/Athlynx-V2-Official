@@ -30,20 +30,20 @@ const APPS = [
 const BADGE_COLORS: Record<string, string> = {
   LIVE: "bg-green-600",
   NEW: "bg-blue-600",
-  HOT: "bg-orange-500",
-  ELITE: "bg-purple-600",
+  HOT: "bg-red-500",
+  ELITE: "bg-blue-700",
   AI: "bg-cyan-600",
-  BLEND: "bg-pink-600",
-  SOON: "bg-yellow-600",
+  BLEND: "bg-red-600",
+  SOON: "bg-red-600",
   TECH: "bg-emerald-700",
   FOOTBALL: "bg-red-700",
   SOCCER: "bg-green-700",
-  HOOPS: "bg-purple-700",
+  HOOPS: "bg-blue-800",
   FISHING: "bg-cyan-700",
   SHOP: "bg-blue-700",
   PERSONAL: "bg-indigo-700",
-  VOICE: "bg-pink-700",
-  BETA: "bg-orange-700",
+  VOICE: "bg-red-700",
+  BETA: "bg-red-700",
 };
 
 const DEMO_VIDEO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/kmXGpMmslwPdeWYO.mp4";
@@ -150,7 +150,7 @@ function MobileNavMenu({ onClose, onInstall }: { onClose: () => void; onInstall:
       {/* Quick links */}
       <div className="px-4 py-3 flex flex-col gap-0">
         <Link href="/feed" className="flex items-center gap-3 text-white font-bold py-3.5 border-b border-blue-900/40 text-sm" onClick={onClose}>ENTER PLATFORM</Link>
-        <Link href="/demo" className="flex items-center gap-3 text-yellow-300 font-bold py-3.5 border-b border-blue-900/40 text-sm" onClick={onClose}>HOW IT WORKS</Link>
+        <Link href="/demo" className="flex items-center gap-3 text-red-300 font-bold py-3.5 border-b border-blue-900/40 text-sm" onClick={onClose}>HOW IT WORKS</Link>
         <Link href="/pricing" className="flex items-center gap-3 text-white py-3.5 border-b border-blue-900/40 text-sm" onClick={onClose}>PRICING</Link>
         <Link href="/founders" className="flex items-center gap-3 text-white py-3.5 border-b border-blue-900/40 text-sm" onClick={onClose}>FOUNDERS</Link>
       </div>
@@ -182,7 +182,7 @@ function MobileNavMenu({ onClose, onInstall }: { onClose: () => void; onInstall:
       ))}
       {/* Auth buttons */}
       <div className="px-4 py-4 flex flex-col gap-2 border-t border-blue-900">
-        <Link href="/signup" className="flex items-center justify-center gap-2 bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black px-4 py-4 rounded-2xl text-base" onClick={onClose}>JOIN FREE — 7 DAYS</Link>
+        <Link href="/signup" className="flex items-center justify-center gap-2 bg-gradient-to-r from-red-400 to-red-500 text-black font-black px-4 py-4 rounded-2xl text-base" onClick={onClose}>JOIN FREE — 7 DAYS</Link>
         <Link href="/signin" className="flex items-center justify-center gap-2 bg-blue-600 text-white font-bold px-4 py-4 rounded-2xl text-base" onClick={onClose}>SIGN IN</Link>
       </div>
     </div>
@@ -363,7 +363,7 @@ function HeroSignupForm() {
       <button
         type="submit"
         disabled={joinMutation.isPending}
-        className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-300 hover:to-orange-400 text-black font-black text-lg py-4 rounded-xl transition-all shadow-xl hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed tracking-wide"
+        className="w-full bg-gradient-to-r from-red-400 to-red-500 hover:from-red-300 hover:to-red-400 text-black font-black text-lg py-4 rounded-xl transition-all shadow-xl hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed tracking-wide"
       >
         {joinMutation.isPending ? "JOINING..." : "GET INSTANT ACCESS →"}
       </button>
@@ -476,7 +476,7 @@ export default function Home() {
           </div>
           {/* Desktop nav buttons */}
           <div className="hidden md:flex items-center gap-2">
-            <Link href="/demo" className="text-xs border border-yellow-600 text-yellow-300 hover:bg-yellow-900 px-3 py-1.5 rounded-lg transition-colors font-bold">
+            <Link href="/demo" className="text-xs border border-red-600 text-red-300 hover:bg-red-900 px-3 py-1.5 rounded-lg transition-colors font-bold">
               HOW IT WORKS
             </Link>
             <Link href="/pricing" className="text-xs border border-blue-700 text-blue-300 hover:bg-blue-800 px-3 py-1.5 rounded-lg transition-colors">
@@ -485,7 +485,7 @@ export default function Home() {
             <Link href="/founders" className="text-xs border border-blue-700 text-blue-300 hover:bg-blue-800 px-3 py-1.5 rounded-lg transition-colors">
               FOUNDERS
             </Link>
-            <Link href="/signup" className="text-xs bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-300 hover:to-orange-400 text-black px-4 py-1.5 rounded-lg font-black transition-all shadow-lg shadow-orange-900/40 hover:scale-105">
+            <Link href="/signup" className="text-xs bg-gradient-to-r from-red-400 to-red-500 hover:from-red-300 hover:to-red-400 text-black px-4 py-1.5 rounded-lg font-black transition-all shadow-lg shadow-red-900/40 hover:scale-105">
               JOIN FREE — 7 DAYS
             </Link>
             <Link href="/signin" className="text-xs bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg font-bold transition-colors">
@@ -538,8 +538,8 @@ export default function Home() {
         <div className="relative z-10 min-h-[500px] md:min-h-[600px] flex flex-col items-center justify-center pt-6 pb-10 px-4 text-center">
 
           <div>
-          <div className="inline-flex items-center gap-2 bg-yellow-500/20 border border-yellow-500 text-yellow-300 text-xs font-black px-4 py-1.5 rounded-full mb-4 tracking-widest">
-            <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+          <div className="inline-flex items-center gap-2 bg-red-500/20 border border-red-500 text-red-300 text-xs font-black px-4 py-1.5 rounded-full mb-4 tracking-widest">
+            <span className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></span>
             OFFICIAL PLATFORM DEMO
           </div>
           <h1 className="text-4xl md:text-6xl font-black text-white tracking-tight drop-shadow-2xl">
@@ -550,7 +550,7 @@ export default function Home() {
             <Link href="/feed" className="inline-block bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-black text-lg px-8 py-3 rounded-xl transition-all shadow-xl hover:scale-105">
               ENTER THE PLATFORM →
             </Link>
-            <Link href="/demo" className="inline-block bg-yellow-500 hover:bg-yellow-400 text-black font-black text-lg px-8 py-3 rounded-xl transition-all shadow-xl hover:scale-105">
+            <Link href="/demo" className="inline-block bg-red-500 hover:bg-red-400 text-black font-black text-lg px-8 py-3 rounded-xl transition-all shadow-xl hover:scale-105">
               HOW IT WORKS
             </Link>
           </div>
@@ -561,8 +561,8 @@ export default function Home() {
       {/* === SIGN UP CTA — Above the fold, immediate access === */}
       <section className="bg-gradient-to-b from-[#060e24] to-[#0d1b3e] py-10 px-4 border-b border-blue-900">
         <div className="max-w-lg mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-yellow-500/20 border border-yellow-500 text-yellow-300 text-xs font-black px-4 py-1.5 rounded-full mb-4 tracking-widest">
-            <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+          <div className="inline-flex items-center gap-2 bg-red-500/20 border border-red-500 text-red-300 text-xs font-black px-4 py-1.5 rounded-full mb-4 tracking-widest">
+            <span className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></span>
             FREE 7-DAY ACCESS — NO CREDIT CARD
           </div>
           <h2 className="text-3xl md:text-4xl font-black text-white mb-2">JOIN ATHLYNX FREE</h2>
@@ -738,11 +738,11 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             {[
-              { label: "Dozier Holdings Group", url: "/dhg", tag: "PARENT CO", color: "border-yellow-600 text-yellow-400", tagColor: "bg-yellow-700" },
+              { label: "Dozier Holdings Group", url: "/dhg", tag: "PARENT CO", color: "border-red-600 text-red-400", tagColor: "bg-red-700" },
               { label: "NIL Portal", url: "https://nilportals.com", tag: "LIVE", color: "border-green-600 text-green-400", tagColor: "bg-green-700" },
               { label: "NIL Portal AI", url: "https://nilportal.ai", tag: "AI", color: "border-cyan-600 text-cyan-400", tagColor: "bg-cyan-700" },
               { label: "Transfer Portal", url: "https://transferportal.ai", tag: "LIVE", color: "border-green-600 text-green-400", tagColor: "bg-green-700" },
-              { label: "ATHLYNX App", url: "https://athlynx.ai", tag: "VIP", color: "border-purple-600 text-purple-400", tagColor: "bg-purple-700" },
+              { label: "ATHLYNX App", url: "https://athlynx.ai", tag: "VIP", color: "border-blue-700 text-blue-500", tagColor: "bg-blue-800" },
               { label: "ATHLYNX Pro", url: "https://athlynx.pro", tag: "PRO", color: "border-blue-500 text-blue-300", tagColor: "bg-blue-700" },
               { label: "ATHLYNX Net", url: "https://athlynx.net", tag: "NET", color: "border-blue-500 text-blue-300", tagColor: "bg-blue-700" },
               { label: "ATHLYNX IO", url: "https://athlynx.io", tag: "IO", color: "border-blue-500 text-blue-300", tagColor: "bg-blue-700" },
@@ -830,8 +830,8 @@ export default function Home() {
       {/* ===== APP STORE + GOOGLE PLAY COMING SOON ===== */}
       <section className="py-16 px-4 bg-gradient-to-b from-[#080d1a] to-[#0a1020] border-t border-blue-900">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-yellow-500/20 border border-yellow-500 text-yellow-300 text-xs font-black px-4 py-1.5 rounded-full mb-6 tracking-widest">
-            <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
+          <div className="inline-flex items-center gap-2 bg-red-500/20 border border-red-500 text-red-300 text-xs font-black px-4 py-1.5 rounded-full mb-6 tracking-widest">
+            <span className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></span>
             COMING SOON — NATIVE APPS
           </div>
           <h2 className="text-3xl md:text-5xl font-black text-white mb-3 tracking-tight">
@@ -865,7 +865,7 @@ export default function Home() {
                     <div className="text-white font-black text-sm leading-tight">App Store</div>
                   </div>
                 </div>
-                <div className="text-yellow-400 text-xs font-bold tracking-widest">COMING SOON</div>
+                <div className="text-red-400 text-xs font-bold tracking-widest">COMING SOON</div>
               </div>
             </div>
 
@@ -896,7 +896,7 @@ export default function Home() {
                     <div className="text-white font-black text-sm leading-tight">Google Play</div>
                   </div>
                 </div>
-                <div className="text-yellow-400 text-xs font-bold tracking-widest">COMING SOON</div>
+                <div className="text-red-400 text-xs font-bold tracking-widest">COMING SOON</div>
               </div>
             </div>
           </div>

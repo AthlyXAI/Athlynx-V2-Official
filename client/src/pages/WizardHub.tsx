@@ -35,7 +35,7 @@ const wizards = [
     id: "lawyer",
     name: "Legal Advisor",
     icon: Scale,
-    color: "from-purple-500 to-pink-500",
+    color: "from-blue-600 to-red-500",
     description: "NIL compliance, contract review, legal protection guidance",
     features: ["Contract review", "NIL compliance", "Rights protection", "Legal templates"],
     href: "/wizard/lawyer",
@@ -55,7 +55,7 @@ const wizards = [
     id: "scholarship",
     name: "Scholarship Navigator",
     icon: GraduationCap,
-    color: "from-amber-500 to-orange-500",
+    color: "from-red-500 to-red-500",
     description: "NCAA rules, academic eligibility, scholarship opportunities",
     features: ["NCAA rules explained", "Eligibility tracker", "Scholarship finder", "Academic planning"],
     href: "/wizard/scholarship",
@@ -65,7 +65,7 @@ const wizards = [
     id: "scout",
     name: "Scout Simulator",
     icon: Eye,
-    color: "from-red-500 to-rose-500",
+    color: "from-red-500 to-red-500",
     description: "See yourself through a scout's eyes, improve your profile",
     features: ["Profile analysis", "Improvement tips", "Highlight review", "Combine prep"],
     href: "/wizard/scout",
@@ -85,7 +85,7 @@ const wizards = [
     id: "life",
     name: "Life Coach",
     icon: Heart,
-    color: "from-pink-500 to-rose-500",
+    color: "from-red-500 to-red-500",
     description: "Balance athletics, academics, and personal life",
     features: ["Time management", "Mental wellness", "Relationship advice", "Career planning"],
     href: "/wizard/life",
@@ -95,7 +95,7 @@ const wizards = [
     id: "career",
     name: "Career Transition",
     icon: Zap,
-    color: "from-indigo-500 to-purple-500",
+    color: "from-indigo-500 to-blue-600",
     description: "Prepare for life after sports, build your future",
     features: ["Resume building", "Interview prep", "Network building", "Industry connections"],
     href: "/wizard/career",
@@ -116,8 +116,8 @@ function WizardCard({ wizard }: { wizard: typeof wizards[0] }) {
               <Icon className="w-7 h-7 text-white" />
             </div>
             {wizard.popular && (
-              <span className="bg-amber-500/20 text-amber-400 text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
-                <Star className="w-3 h-3 fill-amber-400" />
+              <span className="bg-red-500/20 text-red-400 text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                <Star className="w-3 h-3 fill-red-400" />
                 POPULAR
               </span>
             )}
@@ -156,7 +156,7 @@ export default function WizardHub() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-900 to-blue-950">
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-gradient-to-r from-slate-900 to-purple-900 backdrop-blur-md border-b border-slate-800">
+      <header className="sticky top-0 z-50 bg-gradient-to-r from-slate-900 to-blue-950 backdrop-blur-md border-b border-slate-800">
         <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -177,7 +177,7 @@ export default function WizardHub() {
                       className="h-8 md:h-10 rounded-lg shadow-lg group-hover:scale-105 transition-all duration-300"
                     />
                   </div>
-                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-400 rounded-full border border-slate-900 animate-pulse"></div>
+                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-400 rounded-full border border-slate-900 animate-pulse"></div>
                 </div>
               </Link>
               
@@ -189,9 +189,9 @@ export default function WizardHub() {
                 <p className="text-cyan-400 text-xs">THE ATHLETE'S PLAYBOOK</p>
               </div>
             </div>
-            <div className="flex items-center gap-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 px-4 py-2 rounded-full border border-purple-500/30">
-              <Sparkles className="w-4 h-4 text-purple-400" />
-              <span className="text-purple-300 text-sm font-medium">Powered by Manus AI</span>
+            <div className="flex items-center gap-2 bg-gradient-to-r from-blue-600/20 to-red-500/20 px-4 py-2 rounded-full border border-blue-600/30">
+              <Sparkles className="w-4 h-4 text-blue-500" />
+              <span className="text-blue-300 text-sm font-medium">Powered by Manus AI</span>
             </div>
           </div>
         </div>
@@ -207,7 +207,7 @@ export default function WizardHub() {
           
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
             AI Advisors for{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
               Every Step
             </span>{" "}
             of Your Journey
@@ -229,11 +229,11 @@ export default function WizardHub() {
               <p className="text-slate-400 text-sm">Available</p>
             </div>
             <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700">
-              <p className="text-3xl font-black text-purple-400">FREE</p>
+              <p className="text-3xl font-black text-blue-500">FREE</p>
               <p className="text-slate-400 text-sm">For Athletes</p>
             </div>
             <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-700">
-              <p className="text-3xl font-black text-amber-400">∞</p>
+              <p className="text-3xl font-black text-red-400">∞</p>
               <p className="text-slate-400 text-sm">Questions</p>
             </div>
           </div>
@@ -268,7 +268,7 @@ export default function WizardHub() {
             </div>
             
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-red-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
                 <Sparkles className="w-8 h-8 text-white" />
               </div>
               <h4 className="text-white font-bold mb-2">2. Get Expert Guidance</h4>
@@ -293,7 +293,7 @@ export default function WizardHub() {
       {/* CTA */}
       <section className="py-16 px-4">
         <div className="container mx-auto text-center">
-          <div className="bg-gradient-to-r from-cyan-900/50 to-purple-900/50 rounded-3xl p-8 md:p-12 border border-cyan-400/30">
+          <div className="bg-gradient-to-r from-cyan-900/50 to-blue-950/50 rounded-3xl p-8 md:p-12 border border-cyan-400/30">
             <h3 className="text-3xl font-bold text-white mb-4">
               Ready to Build Your Dream Career?
             </h3>

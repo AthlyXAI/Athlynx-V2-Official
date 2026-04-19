@@ -306,7 +306,7 @@ export default function Store() {
                   <p className="text-gray-400">Your cart is empty</p>
                   <button
                     onClick={() => setShowCart(false)}
-                    className="mt-4 px-6 py-2 bg-yellow-500 text-black rounded-lg font-semibold hover:bg-yellow-400"
+                    className="mt-4 px-6 py-2 bg-red-500 text-black rounded-lg font-semibold hover:bg-red-400"
                   >
                     Continue Shopping
                   </button>
@@ -321,7 +321,7 @@ export default function Store() {
                         </div>
                         <div className="flex-1">
                           <p className="text-white font-semibold text-sm">{item.name}</p>
-                          <p className="text-yellow-400 font-bold">${item.price.toFixed(2)}</p>
+                          <p className="text-red-400 font-bold">${item.price.toFixed(2)}</p>
                           <div className="flex items-center gap-2 mt-2">
                             <button
                               onClick={() => updateQuantity(item.id, -1)}
@@ -372,7 +372,7 @@ export default function Store() {
                       setShowCart(false);
                       setShowCheckout(true);
                     }}
-                    className="w-full mt-6 py-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-black rounded-xl font-bold text-lg hover:opacity-90 transition-all"
+                    className="w-full mt-6 py-4 bg-gradient-to-r from-red-500 to-red-500 text-black rounded-xl font-bold text-lg hover:opacity-90 transition-all"
                   >
                     Proceed to Checkout
                   </button>
@@ -439,21 +439,21 @@ export default function Store() {
                 value={checkoutEmail}
                 onChange={(e) => setCheckoutEmail(e.target.value)}
                 placeholder="Email address"
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500"
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500"
               />
               <input
                 type="text"
                 value={checkoutName}
                 onChange={(e) => setCheckoutName(e.target.value)}
                 placeholder="Full name"
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500"
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500"
               />
               <input
                 type="text"
                 value={checkoutAddress}
                 onChange={(e) => setCheckoutAddress(e.target.value)}
                 placeholder="Street address"
-                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500"
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500"
               />
               <div className="grid grid-cols-2 gap-4">
                 <input
@@ -461,14 +461,14 @@ export default function Store() {
                   value={checkoutCity}
                   onChange={(e) => setCheckoutCity(e.target.value)}
                   placeholder="City"
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500"
+                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500"
                 />
                 <input
                   type="text"
                   value={checkoutZip}
                   onChange={(e) => setCheckoutZip(e.target.value)}
                   placeholder="ZIP code"
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500"
+                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-red-500"
                 />
               </div>
             </div>
@@ -485,7 +485,7 @@ export default function Store() {
             <button
               onClick={handleCheckout}
               disabled={isProcessing}
-              className="w-full py-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-black rounded-xl font-bold text-lg hover:opacity-90 transition-all disabled:opacity-50"
+              className="w-full py-4 bg-gradient-to-r from-red-500 to-red-500 text-black rounded-xl font-bold text-lg hover:opacity-90 transition-all disabled:opacity-50"
             >
               {isProcessing ? "Processing..." : `Pay $${orderTotal.toFixed(2)}`}
             </button>
@@ -505,12 +505,12 @@ export default function Store() {
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm">
             <Link href="/home" className="text-gray-400 hover:text-white">Platform</Link>
-            <Link href="/store" className="text-yellow-400 font-semibold">Store</Link>
+            <Link href="/store" className="text-red-400 font-semibold">Store</Link>
             <Link href="/pricing" className="text-gray-400 hover:text-white">Pricing</Link>
           </nav>
           <button
             onClick={() => setShowCart(true)}
-            className="relative flex items-center gap-2 bg-yellow-500 text-black px-4 py-2 rounded-lg font-semibold hover:bg-yellow-400 transition-all"
+            className="relative flex items-center gap-2 bg-red-500 text-black px-4 py-2 rounded-lg font-semibold hover:bg-red-400 transition-all"
           >
             <span>🛒</span>
             <span>${cartTotal.toFixed(2)}</span>
@@ -527,11 +527,11 @@ export default function Store() {
         <div className="container mx-auto max-w-7xl">
           {/* Hero */}
           <div className="text-center mb-10">
-            <span className="inline-block px-4 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-sm font-semibold mb-4">
+            <span className="inline-block px-4 py-1 bg-red-500/20 text-red-400 rounded-full text-sm font-semibold mb-4">
               🛒 OFFICIAL STORE
             </span>
             <h1 className="text-4xl md:text-6xl font-black text-white mb-4">
-              DHG <span className="text-yellow-400">Enterprise Store</span>
+              DHG <span className="text-red-400">Enterprise Store</span>
             </h1>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               From sports equipment to enterprise data center solutions. Hardware, software, AI companions, and everything in between.
@@ -546,7 +546,7 @@ export default function Store() {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl whitespace-nowrap transition-all ${
                   selectedCategory === cat.id
-                    ? "bg-yellow-500 text-black font-semibold"
+                    ? "bg-red-500 text-black font-semibold"
                     : "bg-white/10 text-gray-400 hover:bg-white/20"
                 }`}
               >
@@ -561,7 +561,7 @@ export default function Store() {
             {products.map((product: Product) => (
               <div
                 key={product.id}
-                className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden hover:border-yellow-500/50 transition-all group"
+                className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden hover:border-red-500/50 transition-all group"
               >
                 <div className="aspect-square bg-gradient-to-br from-white/10 to-white/5 flex items-center justify-center text-6xl">
                   {product.image}
@@ -572,7 +572,7 @@ export default function Store() {
                     <p className="text-gray-500 text-xs mb-2 line-clamp-2">{product.description}</p>
                   )}
                   <div className="flex items-center gap-1 mb-2">
-                    <span className="text-yellow-400 text-xs">★</span>
+                    <span className="text-red-400 text-xs">★</span>
                     <span className="text-gray-400 text-xs">{product.rating} ({product.reviewCount || 0})</span>
                   </div>
                   <div className="flex items-center justify-between">
@@ -584,7 +584,7 @@ export default function Store() {
                       className={`px-3 py-2 rounded-lg font-semibold text-sm transition-all ${
                         product.requiresQuote === 'yes' || parseFloat(product.price) === 0
                           ? "bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30"
-                          : "bg-yellow-500 text-black hover:bg-yellow-400"
+                          : "bg-red-500 text-black hover:bg-red-400"
                       }`}
                     >
                       {product.requiresQuote === 'yes' || parseFloat(product.price) === 0 ? "Get Quote" : "+"}

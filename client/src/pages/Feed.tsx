@@ -4,8 +4,8 @@ import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 
 const BADGE_COLORS: Record<string, string> = {
-  LIVE: "bg-green-600", NEW: "bg-blue-600", HOT: "bg-orange-500",
-  ELITE: "bg-purple-600", AI: "bg-cyan-600", BLEND: "bg-pink-600",
+  LIVE: "bg-green-600", NEW: "bg-blue-600", HOT: "bg-red-500",
+  ELITE: "bg-blue-700", AI: "bg-cyan-600", BLEND: "bg-red-600",
 };
 
 function PostCard({ post, currentUserId }: { post: any; currentUserId?: number }) {
@@ -185,7 +185,7 @@ export default function Feed() {
                 {[
                   { label: "Highlight", value: "achievement", color: "text-red-400" },
                   { label: "Training", value: "workout", color: "text-green-400" },
-                  { label: "NIL Deal", value: "nil_deal", color: "text-yellow-400" },
+                  { label: "NIL Deal", value: "nil_deal", color: "text-red-400" },
                   { label: "Update", value: "status", color: "text-blue-400" },
                 ].map(btn => (
                   <button

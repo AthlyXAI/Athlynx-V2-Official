@@ -89,8 +89,8 @@ export default function PartnerPortal() {
 
   const getAccessLevelColor = (level: string) => {
     switch (level) {
-      case "executive": return "bg-amber-500/20 text-amber-400 border-amber-500/30";
-      case "premium": return "bg-purple-500/20 text-purple-400 border-purple-500/30";
+      case "executive": return "bg-red-500/20 text-red-400 border-red-500/30";
+      case "premium": return "bg-blue-600/20 text-blue-500 border-blue-600/30";
       default: return "bg-cyan-500/20 text-cyan-400 border-cyan-500/30";
     }
   };
@@ -246,7 +246,7 @@ export default function PartnerPortal() {
                   <span className="text-sm">Last login: Just now</span>
                 </div>
                 <div className="flex items-center gap-3 text-gray-400">
-                  <FileText className="w-4 h-4 text-purple-400" />
+                  <FileText className="w-4 h-4 text-blue-500" />
                   <span className="text-sm">{documents?.length || 0} documents available</span>
                 </div>
               </CardContent>

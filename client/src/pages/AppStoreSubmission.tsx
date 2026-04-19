@@ -128,7 +128,7 @@ export default function AppStoreSubmission() {
             </Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">
               Download
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
                 ATHLYNX
               </span>
             </h1>
@@ -177,7 +177,7 @@ export default function AppStoreSubmission() {
         <div className="flex overflow-x-auto gap-4 pb-4 snap-x snap-mandatory">
           {screenshots.map((screen, i) => (
             <div key={i} className="flex-shrink-0 w-64 snap-center">
-              <div className="bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-2xl aspect-[9/16] flex items-center justify-center border border-white/10 mb-2">
+              <div className="bg-gradient-to-br from-cyan-500/20 to-blue-600/20 rounded-2xl aspect-[9/16] flex items-center justify-center border border-white/10 mb-2">
                 <div className="text-center p-4">
                   <Camera className="w-12 h-12 text-white/30 mx-auto mb-2" />
                   <p className="text-white/50 text-sm">{screen.title}</p>
@@ -283,7 +283,7 @@ export default function AppStoreSubmission() {
                     <p className="text-4xl font-bold text-white">4.9</p>
                     <div className="flex gap-1 my-2">
                       {[1,2,3,4,5].map(i => (
-                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                        <Star key={i} className="w-5 h-5 fill-red-400 text-red-400" />
                       ))}
                     </div>
                     <p className="text-white/50 text-sm">Based on 2,847 reviews</p>
@@ -304,7 +304,7 @@ export default function AppStoreSubmission() {
                       </div>
                       <div className="flex gap-0.5">
                         {[...Array(review.rating)].map((_, j) => (
-                          <Star key={j} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          <Star key={j} className="w-4 h-4 fill-red-400 text-red-400" />
                         ))}
                       </div>
                     </div>
@@ -444,7 +444,7 @@ export default function AppStoreSubmission() {
 
       {/* CTA Section */}
       <section className="container px-4 md:px-5 py-16 border-t border-white/10">
-        <div className="bg-gradient-to-r from-cyan-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center">
+        <div className="bg-gradient-to-r from-cyan-600 to-blue-700 rounded-2xl p-8 md:p-12 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Transform Your Athletic Career?
           </h2>

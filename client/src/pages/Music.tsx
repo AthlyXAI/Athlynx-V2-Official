@@ -55,7 +55,7 @@ export default function Music() {
           <nav className="hidden md:flex items-center gap-6 text-sm">
             <Link href="/home" className="text-gray-400 hover:text-white">Platform</Link>
             <Link href="/store" className="text-gray-400 hover:text-white">Store</Link>
-            <Link href="/music" className="text-purple-400 font-semibold">Music</Link>
+            <Link href="/music" className="text-blue-500 font-semibold">Music</Link>
             <Link href="/pricing" className="text-gray-400 hover:text-white">Pricing</Link>
           </nav>
         </div>
@@ -65,11 +65,11 @@ export default function Music() {
         <div className="container mx-auto max-w-7xl">
           {/* Hero */}
           <div className="text-center mb-10">
-            <span className="inline-block px-4 py-1 bg-purple-500/20 text-purple-400 rounded-full text-sm font-semibold mb-4">
+            <span className="inline-block px-4 py-1 bg-blue-600/20 text-blue-500 rounded-full text-sm font-semibold mb-4">
               🎵 ATHLYNX MUSIC
             </span>
             <h1 className="text-4xl md:text-6xl font-black text-white mb-4">
-              Fuel Your <span className="text-purple-400">Performance</span>
+              Fuel Your <span className="text-blue-500">Performance</span>
             </h1>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               Curated playlists for every workout, game day, and training session. Music that moves athletes.
@@ -77,21 +77,21 @@ export default function Music() {
           </div>
 
           {/* Now Playing Banner */}
-          <div className="bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl border border-purple-500/30 p-6 mb-10">
+          <div className="bg-gradient-to-r from-blue-600/20 to-red-500/20 rounded-2xl border border-blue-600/30 p-6 mb-10">
             <div className="flex items-center gap-6">
-              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-4xl animate-pulse">
+              <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-blue-600 to-red-500 flex items-center justify-center text-4xl animate-pulse">
                 🎵
               </div>
               <div className="flex-1">
                 <p className="text-gray-400 text-sm">NOW PLAYING</p>
                 <h3 className="text-xl font-bold text-white">Pre-Game Hype Mix</h3>
-                <p className="text-purple-400">45 tracks • 2hr 30min</p>
+                <p className="text-blue-500">45 tracks • 2hr 30min</p>
               </div>
               <div className="flex items-center gap-4">
                 <button className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-all">
                   <span className="text-xl">⏮️</span>
                 </button>
-                <button className="p-4 bg-purple-500 rounded-full hover:bg-purple-400 transition-all">
+                <button className="p-4 bg-blue-600 rounded-full hover:bg-blue-500 transition-all">
                   <span className="text-2xl">▶️</span>
                 </button>
                 <button className="p-3 bg-white/10 rounded-full hover:bg-white/20 transition-all">
@@ -109,7 +109,7 @@ export default function Music() {
                 onClick={() => setSelectedGenre(genre.id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-xl whitespace-nowrap transition-all ${
                   selectedGenre === genre.id
-                    ? "bg-purple-500 text-white font-semibold"
+                    ? "bg-blue-600 text-white font-semibold"
                     : "bg-white/10 text-gray-400 hover:bg-white/20"
                 }`}
               >
@@ -122,16 +122,16 @@ export default function Music() {
           {/* Playlists Grid */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white mb-6">
-              Workout <span className="text-purple-400">Playlists</span>
+              Workout <span className="text-blue-500">Playlists</span>
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {filteredPlaylists.map((playlist) => (
                 <div
                   key={playlist.id}
-                  className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden hover:border-purple-500/50 transition-all cursor-pointer group"
+                  className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden hover:border-blue-600/50 transition-all cursor-pointer group"
                   onClick={() => setIsPlaying(isPlaying === playlist.id ? null : playlist.id)}
                 >
-                  <div className="aspect-square bg-gradient-to-br from-purple-500/20 to-pink-500/10 flex items-center justify-center text-6xl relative">
+                  <div className="aspect-square bg-gradient-to-br from-blue-600/20 to-red-500/10 flex items-center justify-center text-6xl relative">
                     {playlist.image}
                     <div className={`absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all ${isPlaying === playlist.id ? 'opacity-100' : ''}`}>
                       <span className="text-4xl">{isPlaying === playlist.id ? '⏸️' : '▶️'}</span>
@@ -141,7 +141,7 @@ export default function Music() {
                     <h3 className="text-white font-semibold text-sm mb-1 line-clamp-1">{playlist.name}</h3>
                     <p className="text-gray-500 text-xs mb-2">{playlist.tracks} tracks • {playlist.duration}</p>
                     <div className="flex items-center justify-between">
-                      <span className="text-purple-400 text-xs">{playlist.plays} plays</span>
+                      <span className="text-blue-500 text-xs">{playlist.plays} plays</span>
                       <span className="text-gray-600 text-xs">{playlist.curator}</span>
                     </div>
                   </div>
@@ -153,21 +153,21 @@ export default function Music() {
           {/* Athlete Playlists */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white mb-6">
-              Pro Athlete <span className="text-purple-400">Playlists</span>
+              Pro Athlete <span className="text-blue-500">Playlists</span>
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               {athletePlaylists.map((playlist, i) => (
                 <div
                   key={i}
-                  className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-5 hover:border-purple-500/50 transition-all cursor-pointer"
+                  className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-5 hover:border-blue-600/50 transition-all cursor-pointer"
                 >
                   <div className="flex items-center gap-4 mb-3">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500/20 to-pink-500/10 flex items-center justify-center text-2xl">
+                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-600/20 to-red-500/10 flex items-center justify-center text-2xl">
                       {playlist.image}
                     </div>
                     <div>
                       <h3 className="text-white font-semibold">{playlist.name}</h3>
-                      <p className="text-purple-400 text-sm">{playlist.athlete}</p>
+                      <p className="text-blue-500 text-sm">{playlist.athlete}</p>
                     </div>
                   </div>
                   <div className="flex items-center justify-between text-sm">
@@ -182,15 +182,15 @@ export default function Music() {
           {/* Podcasts */}
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-white mb-6">
-              Sports <span className="text-purple-400">Podcasts</span>
+              Sports <span className="text-blue-500">Podcasts</span>
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
               {podcasts.map((podcast) => (
                 <div
                   key={podcast.id}
-                  className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-5 hover:border-purple-500/50 transition-all cursor-pointer"
+                  className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-5 hover:border-blue-600/50 transition-all cursor-pointer"
                 >
-                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/10 flex items-center justify-center text-3xl mb-4">
+                  <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-600/20 to-red-500/10 flex items-center justify-center text-3xl mb-4">
                     {podcast.image}
                   </div>
                   <h3 className="text-white font-semibold mb-1">{podcast.name}</h3>
@@ -198,7 +198,7 @@ export default function Music() {
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-gray-400">{podcast.episodes} episodes</span>
                     <div className="flex items-center gap-1">
-                      <span className="text-yellow-400">★</span>
+                      <span className="text-red-400">★</span>
                       <span className="text-white">{podcast.rating}</span>
                     </div>
                   </div>
@@ -208,10 +208,10 @@ export default function Music() {
           </div>
 
           {/* Premium Banner */}
-          <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8 text-center mb-10">
+          <div className="bg-gradient-to-r from-blue-700 to-red-600 rounded-2xl p-8 text-center mb-10">
             <h3 className="text-2xl font-bold text-white mb-2">🎵 ATHLYNX Music Premium</h3>
             <p className="text-white/80 mb-6">Ad-free listening, offline downloads, and exclusive athlete playlists</p>
-            <button className="px-8 py-3 bg-white text-purple-600 font-bold rounded-xl hover:bg-gray-100 transition-all">
+            <button className="px-8 py-3 bg-white text-blue-700 font-bold rounded-xl hover:bg-gray-100 transition-all">
               Upgrade to Premium
             </button>
           </div>

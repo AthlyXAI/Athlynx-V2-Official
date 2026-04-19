@@ -71,7 +71,7 @@ export default function CareerWizard() {
               <div className="grid grid-cols-2 gap-2">
                 {LEVELS.map(l => (
                   <button key={l} onClick={() => setLevel(l)}
-                    className={`py-2.5 px-3 rounded-xl text-sm font-semibold border transition-all ${level === l ? "bg-yellow-600 border-yellow-400 text-white" : "bg-[#0d1b3e] border-blue-900 text-blue-300 hover:border-blue-600"}`}>
+                    className={`py-2.5 px-3 rounded-xl text-sm font-semibold border transition-all ${level === l ? "bg-red-600 border-red-400 text-white" : "bg-[#0d1b3e] border-blue-900 text-blue-300 hover:border-blue-600"}`}>
                     {l}
                   </button>
                 ))}
@@ -108,23 +108,23 @@ export default function CareerWizard() {
               <div className="grid grid-cols-3 gap-2">
                 {["2025", "2026", "2027", "2028", "2029", "2030"].map(y => (
                   <button key={y} onClick={() => setGradYear(y)}
-                    className={`py-3 rounded-xl text-sm font-bold border transition-all ${gradYear === y ? "bg-yellow-600 border-yellow-400 text-white" : "bg-[#0d1b3e] border-blue-900 text-blue-300 hover:border-blue-600"}`}>
+                    className={`py-3 rounded-xl text-sm font-bold border transition-all ${gradYear === y ? "bg-red-600 border-red-400 text-white" : "bg-[#0d1b3e] border-blue-900 text-blue-300 hover:border-blue-600"}`}>
                     {y}
                   </button>
                 ))}
               </div>
               <div className="flex gap-2 mt-2">
                 <Button variant="outline" onClick={() => setStep(1)} className="flex-1 border-blue-700 text-blue-300">← Back</Button>
-                <Button onClick={() => { setStep(3); setDone(true); }} className="flex-1 bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-black">Generate My Playbook 🚀</Button>
+                <Button onClick={() => { setStep(3); setDone(true); }} className="flex-1 bg-gradient-to-r from-red-500 to-red-500 text-black font-black">Generate My Playbook 🚀</Button>
               </div>
             </CardContent>
           </Card>
         )}
         {done && (
           <div className="space-y-4">
-            <Card className="bg-gradient-to-r from-yellow-900/40 to-blue-900 border-yellow-600">
+            <Card className="bg-gradient-to-r from-red-900/40 to-blue-900 border-red-600">
               <CardContent className="p-5">
-                <div className="text-yellow-400 text-xs uppercase tracking-widest mb-1">Your Career Playbook</div>
+                <div className="text-red-400 text-xs uppercase tracking-widest mb-1">Your Career Playbook</div>
                 <h2 className="text-white text-2xl font-black mb-1">{sport} Athlete — {level}</h2>
                 <p className="text-blue-300 text-sm">Target Year: {gradYear}</p>
                 <div className="flex flex-wrap gap-2 mt-3">

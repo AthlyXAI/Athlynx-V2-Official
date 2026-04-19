@@ -15,32 +15,32 @@ const CDN = "https://files.manuscdn.com/user_upload_by_module/session_file/31041
 const PIPELINE_STAGES = ["New Lead", "Contacted", "Demo Scheduled", "Proposal Sent", "Closed Won", "Closed Lost"] as const;
 const STAGE_COLORS: Record<string, string> = {
   "New Lead": "bg-blue-900/60 border-blue-700",
-  "Contacted": "bg-yellow-900/60 border-yellow-700",
-  "Demo Scheduled": "bg-purple-900/60 border-purple-700",
-  "Proposal Sent": "bg-orange-900/60 border-orange-700",
+  "Contacted": "bg-red-900/60 border-red-700",
+  "Demo Scheduled": "bg-blue-950/60 border-blue-800",
+  "Proposal Sent": "bg-red-900/60 border-red-700",
   "Closed Won": "bg-green-900/60 border-green-700",
   "Closed Lost": "bg-red-900/60 border-red-700",
 };
 const STAGE_BADGE: Record<string, string> = {
   "New Lead": "bg-blue-800 text-blue-200",
-  "Contacted": "bg-yellow-800 text-yellow-200",
-  "Demo Scheduled": "bg-purple-800 text-purple-200",
-  "Proposal Sent": "bg-orange-800 text-orange-200",
+  "Contacted": "bg-red-800 text-red-200",
+  "Demo Scheduled": "bg-blue-900 text-blue-200",
+  "Proposal Sent": "bg-red-800 text-red-200",
   "Closed Won": "bg-green-800 text-green-200",
   "Closed Lost": "bg-red-800 text-red-200",
 };
 const STATUS_BADGE: Record<string, string> = {
   Lead: "bg-blue-900 text-blue-300",
   Active: "bg-green-900 text-green-300",
-  VIP: "bg-yellow-900 text-yellow-300",
+  VIP: "bg-red-900 text-red-300",
   Churned: "bg-red-900 text-red-300",
 };
 const ROLE_BADGE: Record<string, string> = {
   Athlete: "bg-cyan-900 text-cyan-300",
-  Coach: "bg-purple-900 text-purple-300",
-  Brand: "bg-orange-900 text-orange-300",
+  Coach: "bg-blue-950 text-blue-300",
+  Brand: "bg-red-900 text-red-300",
   Agent: "bg-teal-900 text-teal-300",
-  Investor: "bg-yellow-900 text-yellow-300",
+  Investor: "bg-red-900 text-red-300",
   Team: "bg-indigo-900 text-indigo-300",
 };
 
@@ -262,8 +262,8 @@ export default function AdminCRM() {
               {[
                 { label: "Total Users", value: stats?.totalSignups ?? 0, icon: Users, color: "text-[#00c2ff]", sub: `+${stats?.todaySignups ?? 0} today` },
                 { label: "This Week", value: stats?.weekSignups ?? 0, icon: TrendingUp, color: "text-green-400", sub: "new signups" },
-                { label: "Waitlist", value: stats?.waitlistCount ?? 0, icon: List, color: "text-yellow-400", sub: "pending" },
-                { label: "CRM Contacts", value: stats?.contactsCount ?? 0, icon: Star, color: "text-purple-400", sub: "tracked" },
+                { label: "Waitlist", value: stats?.waitlistCount ?? 0, icon: List, color: "text-red-400", sub: "pending" },
+                { label: "CRM Contacts", value: stats?.contactsCount ?? 0, icon: Star, color: "text-blue-500", sub: "tracked" },
               ].map(({ label, value, icon: Icon, color, sub }) => (
                 <div key={label} className="bg-[#0d1f3c] border border-white/10 rounded-2xl p-5">
                   <div className="flex items-center justify-between mb-3">

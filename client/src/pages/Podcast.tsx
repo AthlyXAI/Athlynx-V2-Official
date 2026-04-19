@@ -14,12 +14,12 @@ const SHOW_INFO = {
 };
 
 const PLATFORMS = [
-  { name: "Apple Podcasts", icon: "🎧", url: "#", color: "from-purple-600 to-purple-800" },
+  { name: "Apple Podcasts", icon: "🎧", url: "#", color: "from-blue-700 to-blue-900" },
   { name: "Spotify", icon: "🎵", url: "#", color: "from-green-600 to-green-800" },
   { name: "YouTube", icon: "▶️", url: "#", color: "from-red-600 to-red-800" },
   { name: "Google Podcasts", icon: "🎙️", url: "#", color: "from-blue-600 to-blue-800" },
   { name: "Amazon Music", icon: "🎶", url: "#", color: "from-cyan-600 to-cyan-800" },
-  { name: "iHeart Radio", icon: "📻", url: "#", color: "from-red-500 to-pink-700" },
+  { name: "iHeart Radio", icon: "📻", url: "#", color: "from-red-500 to-red-700" },
 ];
 
 const EPISODES = [
@@ -129,30 +129,30 @@ export default function Podcast() {
     <div className="min-h-screen bg-[#0a1628] text-white">
       {/* Hero */}
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/40 via-[#0a1628] to-cyan-900/30" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-950/40 via-[#0a1628] to-cyan-900/30" />
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 25% 25%, rgba(0,212,255,0.3) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(147,51,234,0.3) 0%, transparent 50%)' }} />
         
         <div className="container relative py-16 md:py-24">
           <div className="flex items-center gap-2 text-sm text-gray-400 mb-8">
             <Link href="/" className="hover:text-white transition">Home</Link>
             <ChevronRight className="w-4 h-4" />
-            <span className="text-purple-400">Podcast</span>
+            <span className="text-blue-500">Podcast</span>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center">
                   <Mic className="w-6 h-6" />
                 </div>
-                <div className="px-3 py-1 bg-purple-500/20 border border-purple-500/30 rounded-full text-xs text-purple-300 font-semibold">
+                <div className="px-3 py-1 bg-blue-600/20 border border-blue-600/30 rounded-full text-xs text-blue-300 font-semibold">
                   NEW EPISODES WEEKLY
                 </div>
               </div>
               
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-4 leading-tight">
                 The Athlete's<br />
-                <span className="bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
                   Playbook Podcast
                 </span>
               </h1>
@@ -163,7 +163,7 @@ export default function Podcast() {
 
               <div className="flex items-center gap-4 mb-8">
                 <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <Headphones className="w-4 h-4 text-purple-400" />
+                  <Headphones className="w-4 h-4 text-blue-500" />
                   <span>{EPISODES.length} Episodes</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-400">
@@ -171,7 +171,7 @@ export default function Podcast() {
                   <span>{SHOW_INFO.frequency}</span>
                 </div>
                 <div className="flex items-center gap-2 text-sm text-gray-400">
-                  <Star className="w-4 h-4 text-yellow-400" />
+                  <Star className="w-4 h-4 text-red-400" />
                   <span>Season 1</span>
                 </div>
               </div>
@@ -179,7 +179,7 @@ export default function Podcast() {
               <div className="flex flex-wrap gap-3">
                 <Button 
                   onClick={() => setPlayingEpisode(1)}
-                  className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white px-6 py-3 rounded-xl font-bold"
+                  className="bg-gradient-to-r from-blue-700 to-cyan-600 hover:from-blue-800 hover:to-cyan-700 text-white px-6 py-3 rounded-xl font-bold"
                 >
                   <Play className="w-5 h-5 mr-2" /> Play Latest Episode
                 </Button>
@@ -192,7 +192,7 @@ export default function Podcast() {
             {/* Podcast Cover Art */}
             <div className="flex justify-center">
               <div className="relative w-80 h-80 md:w-96 md:h-96">
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-cyan-600 rounded-3xl shadow-2xl shadow-purple-500/30 transform rotate-3" />
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-700 to-cyan-600 rounded-3xl shadow-2xl shadow-blue-600/30 transform rotate-3" />
                 <img
                   src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/nTYMGLkExngartwO.png"
                   alt="The Athlete's Playbook Podcast Cover Art"
@@ -224,20 +224,20 @@ export default function Podcast() {
       {/* Featured Episode */}
       {EPISODES.filter(e => e.featured).map(ep => (
         <div key={ep.id} className="container py-8">
-          <div className="bg-gradient-to-r from-purple-900/50 to-cyan-900/50 border border-purple-500/30 rounded-2xl p-8">
+          <div className="bg-gradient-to-r from-blue-950/50 to-cyan-900/50 border border-blue-600/30 rounded-2xl p-8">
             <div className="flex items-center gap-2 mb-4">
-              <Star className="w-5 h-5 text-yellow-400" />
-              <span className="text-yellow-400 text-sm font-bold">FEATURED EPISODE</span>
+              <Star className="w-5 h-5 text-red-400" />
+              <span className="text-red-400 text-sm font-bold">FEATURED EPISODE</span>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
               <div className="md:col-span-2">
-                <div className="text-purple-400 text-sm font-bold mb-2">{ep.number} · {ep.date}</div>
+                <div className="text-blue-500 text-sm font-bold mb-2">{ep.number} · {ep.date}</div>
                 <h3 className="text-2xl md:text-3xl font-bold mb-4">{ep.title}</h3>
                 <p className="text-gray-300 mb-6 leading-relaxed">{ep.description}</p>
                 <div className="flex flex-wrap items-center gap-4">
                   <Button 
                     onClick={() => setPlayingEpisode(playingEpisode === ep.id ? null : ep.id)}
-                    className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white rounded-xl"
+                    className="bg-gradient-to-r from-blue-700 to-cyan-600 hover:from-blue-800 hover:to-cyan-700 text-white rounded-xl"
                   >
                     {playingEpisode === ep.id ? <Pause className="w-4 h-4 mr-2" /> : <Play className="w-4 h-4 mr-2" />}
                     {playingEpisode === ep.id ? 'Pause' : 'Play Episode'}
@@ -272,8 +272,8 @@ export default function Podcast() {
           {EPISODES.map((ep) => (
             <div
               key={ep.id}
-              className={`bg-white/5 border rounded-xl p-6 transition-all cursor-pointer hover:border-purple-500/40 ${
-                playingEpisode === ep.id ? 'border-purple-500/60 bg-purple-900/20' : 'border-white/10'
+              className={`bg-white/5 border rounded-xl p-6 transition-all cursor-pointer hover:border-blue-600/40 ${
+                playingEpisode === ep.id ? 'border-blue-600/60 bg-blue-950/20' : 'border-white/10'
               }`}
               onClick={() => setExpandedEpisode(expandedEpisode === ep.id ? null : ep.id)}
             >
@@ -282,7 +282,7 @@ export default function Podcast() {
                   onClick={(e) => { e.stopPropagation(); setPlayingEpisode(playingEpisode === ep.id ? null : ep.id); }}
                   className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 transition ${
                     playingEpisode === ep.id 
-                      ? 'bg-gradient-to-br from-purple-500 to-cyan-500' 
+                      ? 'bg-gradient-to-br from-blue-600 to-cyan-500' 
                       : 'bg-white/10 hover:bg-white/20'
                   }`}
                 >
@@ -291,7 +291,7 @@ export default function Podcast() {
                 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-3 mb-1">
-                    <span className="text-purple-400 text-xs font-bold">{ep.number}</span>
+                    <span className="text-blue-500 text-xs font-bold">{ep.number}</span>
                     <span className="text-gray-500 text-xs">{ep.date}</span>
                     <span className="text-gray-500 text-xs flex items-center gap-1"><Clock className="w-3 h-3" /> {ep.duration}</span>
                   </div>
@@ -324,10 +324,10 @@ export default function Podcast() {
         <p className="text-gray-400 mb-8">Coming soon on The Athlete's Playbook</p>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
           {UPCOMING_GUESTS.map((guest, i) => (
-            <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-purple-500/30 transition">
+            <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-6 hover:border-blue-600/30 transition">
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500/30 to-cyan-500/30 flex items-center justify-center">
-                  <Mic className="w-5 h-5 text-purple-400" />
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600/30 to-cyan-500/30 flex items-center justify-center">
+                  <Mic className="w-5 h-5 text-blue-500" />
                 </div>
                 <div className="text-xs text-gray-500">{guest.date}</div>
               </div>
@@ -343,7 +343,7 @@ export default function Podcast() {
         <div className="bg-gradient-to-r from-[#0f1f3a] to-[#1a2a4a] border border-white/10 rounded-2xl p-8 md:p-12">
           <div className="grid md:grid-cols-3 gap-8 items-center">
             <div className="flex justify-center">
-              <div className="w-48 h-48 rounded-full bg-gradient-to-br from-purple-600 to-cyan-600 flex items-center justify-center text-6xl font-black">
+              <div className="w-48 h-48 rounded-full bg-gradient-to-br from-blue-700 to-cyan-600 flex items-center justify-center text-6xl font-black">
                 CD
               </div>
             </div>
@@ -374,7 +374,7 @@ export default function Podcast() {
             Subscribe to The Athlete's Playbook Podcast on your favorite platform and get new episodes every Tuesday.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/signup" className="px-8 py-3 bg-gradient-to-r from-purple-600 to-cyan-600 rounded-xl font-bold hover:opacity-90 transition">
+            <Link href="/signup" className="px-8 py-3 bg-gradient-to-r from-blue-700 to-cyan-600 rounded-xl font-bold hover:opacity-90 transition">
               Join ATHLYNX Free
             </Link>
             <Link href="/" className="px-8 py-3 bg-white/10 border border-white/20 rounded-xl font-bold hover:bg-white/20 transition">
@@ -386,9 +386,9 @@ export default function Podcast() {
 
       {/* Now Playing Bar */}
       {playingEpisode && (
-        <div className="fixed bottom-0 left-0 right-0 bg-[#0f1729]/95 backdrop-blur-xl border-t border-purple-500/30 px-4 py-3 z-50">
+        <div className="fixed bottom-0 left-0 right-0 bg-[#0f1729]/95 backdrop-blur-xl border-t border-blue-600/30 px-4 py-3 z-50">
           <div className="container flex items-center gap-4">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-600 to-cyan-600 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-700 to-cyan-600 flex items-center justify-center flex-shrink-0">
               <Headphones className="w-5 h-5" />
             </div>
             <div className="flex-1 min-w-0">
@@ -401,7 +401,7 @@ export default function Podcast() {
               <button className="text-gray-400 hover:text-white transition"><SkipBack className="w-5 h-5" /></button>
               <button 
                 onClick={() => setPlayingEpisode(null)}
-                className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 flex items-center justify-center"
+                className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center"
               >
                 <Pause className="w-5 h-5" />
               </button>
@@ -412,7 +412,7 @@ export default function Podcast() {
           {/* Progress bar */}
           <div className="container mt-2">
             <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-              <div className="h-full bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full w-1/3 transition-all" />
+              <div className="h-full bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full w-1/3 transition-all" />
             </div>
           </div>
         </div>

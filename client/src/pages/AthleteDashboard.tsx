@@ -5,7 +5,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 const nilDeals = [
   { brand: "Nike", type: "Sponsorship", duration: "12 months", value: 25000, status: "Active", statusColor: "bg-green-500" },
   { brand: "Gatorade", type: "Social Post", duration: "6 months", value: 5000, status: "Active", statusColor: "bg-green-500" },
-  { brand: "Local Auto Dealer", type: "Appearance", duration: "One-time", value: 2500, status: "Pending", statusColor: "bg-yellow-500" },
+  { brand: "Local Auto Dealer", type: "Appearance", duration: "One-time", value: 2500, status: "Pending", statusColor: "bg-red-500" },
   { brand: "Under Armour", type: "Equipment Deal", duration: "1 season", value: 3000, status: "Negotiating", statusColor: "bg-blue-500" },
   { brand: "Protein World", type: "Ambassador", duration: "6 months", value: 1500, status: "Completed", statusColor: "bg-gray-500" },
 ];
@@ -15,9 +15,9 @@ const fuelInsights = [
     title: "Speed Training Alert",
     desc: "Your 40-time can improve 0.05s with targeted drills",
     icon: "⚡",
-    color: "from-orange-900/50 to-red-900/30",
-    borderColor: "border-orange-700/40",
-    labelColor: "text-orange-400",
+    color: "from-red-900/50 to-red-900/30",
+    borderColor: "border-red-700/40",
+    labelColor: "text-red-400",
     cta: "View Plan",
   },
   {
@@ -43,8 +43,8 @@ const fuelInsights = [
 const stats = [
   { label: "Profile Views", value: "1,247", change: "+18%", icon: "👁️", color: "text-blue-400" },
   { label: "NIL Earnings", value: "$32,500", change: "+$5K", icon: "💵", color: "text-green-400" },
-  { label: "Recruiting Score", value: "94/100", change: "+3pts", icon: "📊", color: "text-purple-400" },
-  { label: "Social Reach", value: "48.2K", change: "+2.1K", icon: "📱", color: "text-orange-400" },
+  { label: "Recruiting Score", value: "94/100", change: "+3pts", icon: "📊", color: "text-blue-500" },
+  { label: "Social Reach", value: "48.2K", change: "+2.1K", icon: "📱", color: "text-red-400" },
 ];
 
 const upcomingEvents = [
@@ -151,7 +151,7 @@ export default function AthleteDashboard() {
                     <div className={`text-xs font-bold mb-2 ${insight.labelColor}`}>FUEL Bot Insight</div>
                     <h3 className="text-white font-bold text-lg mb-1">{insight.title}</h3>
                     <p className="text-gray-300 text-sm mb-4">{insight.desc}</p>
-                    <button className="bg-orange-500 hover:bg-orange-400 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">
+                    <button className="bg-red-500 hover:bg-red-400 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">
                       {insight.cta}
                     </button>
                   </div>
@@ -270,10 +270,10 @@ export default function AthleteDashboard() {
               <div className="bg-white/5 border border-blue-900/20 rounded-xl p-5">
                 <h3 className="text-white font-bold mb-4">Recruiting Score</h3>
                 <div className="text-center py-6">
-                  <div className="text-6xl font-black text-purple-400 mb-2">94</div>
+                  <div className="text-6xl font-black text-blue-500 mb-2">94</div>
                   <div className="text-gray-400 text-sm mb-4">out of 100</div>
                   <div className="w-full bg-gray-800 rounded-full h-3 mb-6">
-                    <div className="bg-gradient-to-r from-purple-600 to-blue-500 h-3 rounded-full" style={{ width: "94%" }} />
+                    <div className="bg-gradient-to-r from-blue-700 to-blue-500 h-3 rounded-full" style={{ width: "94%" }} />
                   </div>
                   <div className="grid grid-cols-2 gap-3 text-left">
                     {[
@@ -334,7 +334,7 @@ export default function AthleteDashboard() {
                     { day: "Friday", focus: "Recovery & Mobility", duration: "45 min", status: "Upcoming" },
                   ].map((session) => (
                     <div key={session.day} className={`bg-white/5 border rounded-xl p-4 flex items-center justify-between ${
-                      session.status === "Today" ? "border-orange-600/50 bg-orange-900/10" : "border-blue-900/20"
+                      session.status === "Today" ? "border-red-600/50 bg-red-900/10" : "border-blue-900/20"
                     }`}>
                       <div>
                         <div className="text-white font-bold text-sm">{session.day}</div>
@@ -342,7 +342,7 @@ export default function AthleteDashboard() {
                       </div>
                       <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
                         session.status === "Completed" ? "bg-green-500/20 text-green-400" :
-                        session.status === "Today" ? "bg-orange-500/20 text-orange-400" :
+                        session.status === "Today" ? "bg-red-500/20 text-red-400" :
                         "bg-gray-500/20 text-gray-400"
                       }`}>
                         {session.status}

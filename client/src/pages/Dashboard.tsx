@@ -62,7 +62,7 @@ export default function Dashboard() {
           <span className="text-6xl block mb-4"></span>
           <h1 className="text-2xl font-bold text-white mb-2">Sign In Required</h1>
           <p className="text-gray-400 mb-6">Please sign in to access your dashboard</p>
-          <LoginButton className="inline-block px-8 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold rounded-xl hover:opacity-90 transition-all">
+          <LoginButton className="inline-block px-8 py-3 bg-gradient-to-r from-red-500 to-red-500 text-black font-bold rounded-xl hover:opacity-90 transition-all">
             Sign In with ATHLYNX
           </LoginButton>
           <p className="text-gray-500 text-sm mt-4">
@@ -93,11 +93,11 @@ export default function Dashboard() {
           <nav className="hidden md:flex items-center gap-6 text-sm">
             <Link href="/home" className="text-gray-400 hover:text-white">Platform</Link>
             <Link href="/store" className="text-gray-400 hover:text-white">Store</Link>
-            <Link href="/dashboard" className="text-yellow-400 font-semibold">Dashboard</Link>
+            <Link href="/dashboard" className="text-red-400 font-semibold">Dashboard</Link>
           </nav>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-lg">
-              <span className="text-yellow-400">🤖</span>
+              <span className="text-red-400">🤖</span>
               <span className="text-white font-semibold">{subscription.aiCredits}</span>
               <span className="text-gray-400 text-sm">credits</span>
             </div>
@@ -128,7 +128,7 @@ export default function Dashboard() {
                     onClick={() => setActiveTab(tab.id)}
                     className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-all ${
                       activeTab === tab.id
-                        ? "bg-yellow-500 text-black font-semibold"
+                        ? "bg-red-500 text-black font-semibold"
                         : "text-gray-400 hover:bg-white/10 hover:text-white"
                     }`}
                   >
@@ -149,7 +149,7 @@ export default function Dashboard() {
                     <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-5">
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-gray-400 text-sm">Current Plan</span>
-                        <span className="px-2 py-1 bg-yellow-500/20 text-yellow-400 rounded text-xs font-semibold">
+                        <span className="px-2 py-1 bg-red-500/20 text-red-400 rounded text-xs font-semibold">
                           {subscription.plan}
                         </span>
                       </div>
@@ -172,7 +172,7 @@ export default function Dashboard() {
                     <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-5">
                       <div className="flex items-center justify-between mb-3">
                         <span className="text-gray-400 text-sm">Saved Players</span>
-                        <span className="text-yellow-400"></span>
+                        <span className="text-red-400"></span>
                       </div>
                       <p className="text-2xl font-bold text-white">{savedPlayers.length}</p>
                       <p className="text-gray-500 text-sm mt-1">Players on your watchlist</p>
@@ -221,15 +221,15 @@ export default function Dashboard() {
                       </span>
                     </div>
 
-                    <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-xl p-6 mb-6">
+                    <div className="bg-gradient-to-r from-red-500/20 to-red-500/20 rounded-xl p-6 mb-6">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-yellow-400 font-semibold mb-1">ATHLYNX Pro</p>
+                          <p className="text-red-400 font-semibold mb-1">ATHLYNX Pro</p>
                           <p className="text-3xl font-bold text-white">${subscription.price}<span className="text-lg text-gray-400">/month</span></p>
                         </div>
                         <button
                           onClick={handleUpgrade}
-                          className="px-6 py-2 bg-yellow-500 text-black font-semibold rounded-lg hover:bg-yellow-400 transition-all"
+                          className="px-6 py-2 bg-red-500 text-black font-semibold rounded-lg hover:bg-red-400 transition-all"
                         >
                           Upgrade to Elite
                         </button>

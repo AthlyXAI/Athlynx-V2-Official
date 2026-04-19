@@ -16,9 +16,9 @@ export default function WellnessPortal() {
 
   const audiences = [
     { id: 'athletes', label: 'Athletes', icon: Medal, color: 'from-cyan-500 to-blue-500' },
-    { id: 'executives', label: 'Executives', icon: Briefcase, color: 'from-purple-500 to-pink-500' },
+    { id: 'executives', label: 'Executives', icon: Briefcase, color: 'from-blue-600 to-red-500' },
     { id: 'military', label: 'Military', icon: Shield, color: 'from-green-500 to-emerald-500' },
-    { id: 'medical', label: 'Medical Professionals', icon: Stethoscope, color: 'from-red-500 to-rose-500' }
+    { id: 'medical', label: 'Medical Professionals', icon: Stethoscope, color: 'from-red-500 to-red-500' }
   ];
 
   const stats = [
@@ -81,7 +81,7 @@ export default function WellnessPortal() {
   const currentAudience = audiences.find(a => a.id === selectedAudience)!;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-purple-950/20 to-slate-950">
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-blue-950/20 to-slate-950">
       <UnifiedNav />
       
       {/* Hero Section */}
@@ -90,14 +90,14 @@ export default function WellnessPortal() {
         
         <div className="container relative px-4 md:px-5">
           <div className="text-center max-w-4xl mx-auto">
-            <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30 mb-4">
+            <Badge className="bg-blue-600/20 text-blue-500 border-blue-600/30 mb-4">
               <Brain className="w-3 h-3 mr-1" /> MENTAL HEALTH & PERFORMANCE
             </Badge>
             
             {/* Brain Icon */}
             <div className="w-24 h-24 mx-auto mb-6 relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full blur-xl opacity-50 animate-pulse" />
-              <div className="relative w-full h-full bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-red-500 rounded-full blur-xl opacity-50 animate-pulse" />
+              <div className="relative w-full h-full bg-gradient-to-br from-blue-600 to-red-600 rounded-full flex items-center justify-center">
                 <Brain className="w-12 h-12 text-white" />
               </div>
             </div>
@@ -105,7 +105,7 @@ export default function WellnessPortal() {
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
               Wellness & Performance Portal
             </h1>
-            <p className="text-xl text-purple-400 mb-6">
+            <p className="text-xl text-blue-500 mb-6">
               Your Mind is Your Greatest Asset
             </p>
             <p className="text-white/60 max-w-2xl mx-auto mb-8">
@@ -115,10 +115,10 @@ export default function WellnessPortal() {
             </p>
 
             <div className="flex flex-wrap justify-center gap-4">
-              <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold">
+              <Button className="bg-gradient-to-r from-blue-600 to-red-500 hover:from-blue-500 hover:to-red-400 text-white font-bold">
                 <Sparkles className="w-4 h-4 mr-2" /> Start Your Journey
               </Button>
-              <Button variant="outline" className="border-purple-500/50 text-purple-400 hover:bg-purple-500/20">
+              <Button variant="outline" className="border-blue-600/50 text-blue-500 hover:bg-blue-600/20">
                 <Phone className="w-4 h-4 mr-2" /> Crisis Support
               </Button>
             </div>
@@ -130,9 +130,9 @@ export default function WellnessPortal() {
       <section className="container px-4 md:px-5 pb-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {stats.map((stat, i) => (
-            <Card key={i} className="bg-white/5 border-purple-500/20">
+            <Card key={i} className="bg-white/5 border-blue-600/20">
               <CardContent className="p-6 text-center">
-                <stat.icon className="w-8 h-8 text-purple-400 mx-auto mb-2" />
+                <stat.icon className="w-8 h-8 text-blue-500 mx-auto mb-2" />
                 <p className="text-3xl font-bold text-white">{stat.value}</p>
                 <p className="text-white/60">{stat.label}</p>
               </CardContent>
@@ -157,7 +157,7 @@ export default function WellnessPortal() {
                     : 'bg-white/5 border-white/10 hover:bg-white/10'
                 }`}
               >
-                <Icon className={`w-8 h-8 mx-auto mb-2 ${selectedAudience === audience.id ? 'text-white' : 'text-purple-400'}`} />
+                <Icon className={`w-8 h-8 mx-auto mb-2 ${selectedAudience === audience.id ? 'text-white' : 'text-blue-500'}`} />
                 <p className={`font-bold ${selectedAudience === audience.id ? 'text-white' : 'text-white/80'}`}>
                   {audience.label}
                 </p>
@@ -169,7 +169,7 @@ export default function WellnessPortal() {
 
       {/* Programs for Selected Audience */}
       <section className="container px-4 md:px-5 pb-16">
-        <Card className={`bg-gradient-to-r ${currentAudience.color} bg-opacity-10 border-purple-500/30`}>
+        <Card className={`bg-gradient-to-r ${currentAudience.color} bg-opacity-10 border-blue-600/30`}>
           <CardHeader>
             <CardTitle className="text-white flex items-center gap-2">
               <currentAudience.icon className="w-6 h-6" /> Programs for {currentAudience.label}
@@ -181,7 +181,7 @@ export default function WellnessPortal() {
                 <div key={i} className="bg-slate-900/50 rounded-xl p-4 border border-white/10">
                   <div className="flex items-start justify-between mb-2">
                     <h3 className="text-white font-bold">{program.title}</h3>
-                    <Badge variant="outline" className="border-purple-500/50 text-purple-400">
+                    <Badge variant="outline" className="border-blue-600/50 text-blue-500">
                       {program.duration}
                     </Badge>
                   </div>
@@ -201,9 +201,9 @@ export default function WellnessPortal() {
         <h2 className="text-2xl font-bold text-white text-center mb-8">How We Support You</h2>
         <div className="grid md:grid-cols-4 gap-6">
           {features.map((feature, i) => (
-            <Card key={i} className="bg-white/5 border-purple-500/20 text-center">
+            <Card key={i} className="bg-white/5 border-blue-600/20 text-center">
               <CardContent className="p-6">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 mx-auto mb-4 flex items-center justify-center">
+                <div className="w-14 h-14 rounded-full bg-gradient-to-r from-blue-600 to-red-500 mx-auto mb-4 flex items-center justify-center">
                   <feature.icon className="w-7 h-7 text-white" />
                 </div>
                 <h3 className="text-white font-bold mb-2">{feature.title}</h3>
@@ -216,7 +216,7 @@ export default function WellnessPortal() {
 
       {/* Crisis Support Banner */}
       <section className="container px-4 md:px-5 pb-16">
-        <Card className="bg-gradient-to-r from-red-500/20 to-rose-500/20 border-red-500/30">
+        <Card className="bg-gradient-to-r from-red-500/20 to-red-500/20 border-red-500/30">
           <CardContent className="p-8 text-center">
             <Phone className="w-12 h-12 text-red-400 mx-auto mb-4" />
             <h2 className="text-2xl font-bold text-white mb-2">Need Immediate Support?</h2>
@@ -236,18 +236,18 @@ export default function WellnessPortal() {
       </section>
 
       {/* CTA */}
-      <section className="container px-4 md:px-5 py-16 border-t border-purple-500/20">
+      <section className="container px-4 md:px-5 py-16 border-t border-blue-600/20">
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-4">Start Your Wellness Journey Today</h2>
           <p className="text-white/60 mb-6">
             Join thousands of high-performers who have transformed their mental health and performance.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold">
+            <Button className="bg-gradient-to-r from-blue-600 to-red-500 hover:from-blue-500 hover:to-red-400 text-white font-bold">
               <GraduationCap className="w-4 h-4 mr-2" /> Enroll Now
             </Button>
             <Link href="/dhg-empire">
-              <Button variant="outline" className="border-purple-500/50 text-purple-400 hover:bg-purple-500/20">
+              <Button variant="outline" className="border-blue-600/50 text-blue-500 hover:bg-blue-600/20">
                 Back to DHG Empire
               </Button>
             </Link>

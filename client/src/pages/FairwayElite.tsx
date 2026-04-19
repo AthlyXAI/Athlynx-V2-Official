@@ -208,9 +208,9 @@ export default function FairwayElite() {
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                       <div className="flex items-center gap-3 md:gap-4">
                         <div className={`w-10 md:w-12 h-10 md:h-12 rounded-full flex items-center justify-center text-lg md:text-xl font-bold flex-shrink-0 ${
-                          golfer.rank === 1 ? 'bg-yellow-500 text-black' :
+                          golfer.rank === 1 ? 'bg-red-500 text-black' :
                           golfer.rank === 2 ? 'bg-gray-400 text-black' :
-                          golfer.rank === 3 ? 'bg-orange-600 text-white' :
+                          golfer.rank === 3 ? 'bg-red-600 text-white' :
                           'bg-green-500/20 text-green-400'
                         }`}>
                           #{golfer.rank}
@@ -230,7 +230,7 @@ export default function FairwayElite() {
                           <p className="text-white/50 text-xs">Wins</p>
                         </div>
                         <div className="flex items-center gap-1">
-                          <Star className="w-4 md:w-5 h-4 md:h-5 text-yellow-400 fill-yellow-400" />
+                          <Star className="w-4 md:w-5 h-4 md:h-5 text-red-400 fill-red-400" />
                           <span className="text-white font-bold text-sm md:text-base">{golfer.rating}</span>
                         </div>
                       </div>
@@ -268,9 +268,9 @@ export default function FairwayElite() {
                           <h3 className="text-lg md:text-xl font-bold text-white">{course.name}</h3>
                           <p className="text-white/50 text-sm">{course.location}</p>
                         </div>
-                        <div className="flex items-center gap-1 bg-yellow-500/20 px-2 py-1 rounded">
-                          <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                          <span className="text-yellow-400 font-bold">{course.rating}</span>
+                        <div className="flex items-center gap-1 bg-red-500/20 px-2 py-1 rounded">
+                          <Star className="w-4 h-4 text-red-400 fill-red-400" />
+                          <span className="text-red-400 font-bold">{course.rating}</span>
                         </div>
                       </div>
                       <div className="flex flex-wrap gap-2 mb-3 md:mb-4">
@@ -337,7 +337,7 @@ export default function FairwayElite() {
                       <h3 className="text-white font-bold text-sm md:text-base mb-1">{brand.name}</h3>
                       <p className="text-white/50 text-xs md:text-sm">{brand.products} items</p>
                       <div className="flex items-center justify-center gap-1 mt-2">
-                        <Star className="w-3 h-3 text-yellow-400 fill-yellow-400" />
+                        <Star className="w-3 h-3 text-red-400 fill-red-400" />
                         <span className="text-white text-xs">{brand.rating}</span>
                       </div>
                     </CardContent>
@@ -382,7 +382,7 @@ export default function FairwayElite() {
                       <p className="text-white text-xs md:text-sm">Club Fitting</p>
                     </div>
                     <div className="bg-white/10 rounded-lg p-3 md:p-4">
-                      <Award className="w-5 md:w-6 h-5 md:h-6 text-yellow-400 mx-auto mb-1 md:mb-2" />
+                      <Award className="w-5 md:w-6 h-5 md:h-6 text-red-400 mx-auto mb-1 md:mb-2" />
                       <p className="text-white text-xs md:text-sm">Practice Plans</p>
                     </div>
                   </div>

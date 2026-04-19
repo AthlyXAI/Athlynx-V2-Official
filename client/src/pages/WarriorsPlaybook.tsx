@@ -39,13 +39,13 @@ export default function WarriorsPlaybook() {
   return (
     <PlatformLayout title="Warriors Playbook">
       <div className="space-y-4 pb-20 lg:pb-4">
-        <div className="bg-gradient-to-r from-[#1a3a8f] to-[#1a2a4a] border border-orange-700 rounded-xl p-5">
+        <div className="bg-gradient-to-r from-[#1a3a8f] to-[#1a2a4a] border border-red-700 rounded-xl p-5">
           <div className="flex items-center gap-4">
             <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/HcanzWKcSkXMpmUO.png" alt="Warriors Playbook" className="w-14 h-14 rounded-2xl object-cover shadow-lg" />
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-2xl font-black text-white">WARRIORS PLAYBOOK</h2>
-                <span className="text-xs bg-orange-500 text-white px-2 py-0.5 rounded-full font-bold">HOT</span>
+                <span className="text-xs bg-red-500 text-white px-2 py-0.5 rounded-full font-bold">HOT</span>
               </div>
               <p className="text-blue-300 text-sm">Plays, film room, and team strategy — all in one place</p>
             </div>
@@ -54,7 +54,7 @@ export default function WarriorsPlaybook() {
         <div className="flex gap-1 bg-[#1a3a8f] border border-blue-900 rounded-xl p-1">
           {["playbook", "film", "strategy", "team"].map(tab => (
             <button key={tab} onClick={() => setActiveTab(tab)}
-              className={`flex-1 py-2 text-xs font-bold rounded-lg capitalize transition-colors ${activeTab === tab ? 'bg-orange-600 text-white' : 'text-blue-400 hover:text-white'}`}>
+              className={`flex-1 py-2 text-xs font-bold rounded-lg capitalize transition-colors ${activeTab === tab ? 'bg-red-600 text-white' : 'text-blue-400 hover:text-white'}`}>
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>
           ))}
@@ -79,7 +79,7 @@ export default function WarriorsPlaybook() {
                 </div>
               </div>
             ))}
-            <button className="w-full border-2 border-dashed border-orange-700 text-orange-400 hover:text-white hover:border-orange-500 text-sm font-bold py-4 rounded-xl transition-colors">
+            <button className="w-full border-2 border-dashed border-red-700 text-red-400 hover:text-white hover:border-red-500 text-sm font-bold py-4 rounded-xl transition-colors">
               + Add New Play
             </button>
           </div>
@@ -107,12 +107,12 @@ export default function WarriorsPlaybook() {
         )}
         {activeTab === "strategy" && (
           <div className="space-y-4">
-            <div className="bg-[#1a3a8f] border border-orange-700 rounded-xl p-5">
+            <div className="bg-[#1a3a8f] border border-red-700 rounded-xl p-5">
               <h3 className="text-white font-black text-lg mb-1">🤖 AI Strategy Advisor</h3>
               <p className="text-blue-400 text-sm mb-4">Ask the AI for game plans, play suggestions, or recruiting strategy</p>
               {!user ? (
                 <div className="text-center py-4">
-                  <a href="/signin" className="bg-orange-600 hover:bg-orange-500 text-white font-bold px-6 py-2.5 rounded-xl transition-colors">Sign In to Use AI Advisor</a>
+                  <a href="/signin" className="bg-red-600 hover:bg-red-500 text-white font-bold px-6 py-2.5 rounded-xl transition-colors">Sign In to Use AI Advisor</a>
                 </div>
               ) : (
                 <>
@@ -121,18 +121,18 @@ export default function WarriorsPlaybook() {
                     onChange={e => setStrategyInput(e.target.value)}
                     placeholder="e.g. What's the best strategy against a Cover 2 defense? Or: How do I improve my 40-yard dash time?"
                     rows={3}
-                    className="w-full bg-[#0d1f3c] border border-blue-800 text-white text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-orange-500 placeholder-blue-500 resize-none mb-3"
+                    className="w-full bg-[#0d1f3c] border border-blue-800 text-white text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-red-500 placeholder-blue-500 resize-none mb-3"
                   />
                   <button
                     onClick={() => strategyInput.trim() && getAdviceMutation.mutate({ sport: "Football", targetLevel: "D1", question: strategyInput })}
                     disabled={getAdviceMutation.isPending || !strategyInput.trim()}
-                    className="bg-orange-600 hover:bg-orange-500 disabled:opacity-50 text-white font-bold px-6 py-2.5 rounded-xl transition-colors"
+                    className="bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white font-bold px-6 py-2.5 rounded-xl transition-colors"
                   >
                     {getAdviceMutation.isPending ? "Analyzing..." : "Get AI Strategy"}
                   </button>
                   {strategyResult && (
-                    <div className="mt-4 bg-[#0d1f3c] border border-orange-700 rounded-xl p-4">
-                      <div className="text-orange-400 text-xs font-bold mb-2">AI STRATEGY ADVISOR</div>
+                    <div className="mt-4 bg-[#0d1f3c] border border-red-700 rounded-xl p-4">
+                      <div className="text-red-400 text-xs font-bold mb-2">AI STRATEGY ADVISOR</div>
                       <p className="text-blue-100 text-sm leading-relaxed whitespace-pre-wrap">{strategyResult}</p>
                     </div>
                   )}
@@ -147,7 +147,7 @@ export default function WarriorsPlaybook() {
             {user && trainingStats && (
               <div className="grid grid-cols-3 gap-3">
                 {[
-                  { label: "Sessions", value: trainingStats.totalSessions, color: "text-orange-400" },
+                  { label: "Sessions", value: trainingStats.totalSessions, color: "text-red-400" },
                   { label: "Minutes", value: trainingStats.totalMinutes, color: "text-green-400" },
                   { label: "Avg Perf", value: trainingStats.avgPerformance ? trainingStats.avgPerformance + "/10" : "N/A", color: "text-blue-400" },
                 ].map((stat, i) => (
@@ -163,7 +163,7 @@ export default function WarriorsPlaybook() {
               <h3 className="text-white font-black text-lg mb-4">📋 Log Workout</h3>
               {!user ? (
                 <div className="text-center py-4">
-                  <a href="/signin" className="bg-orange-600 hover:bg-orange-500 text-white font-bold px-6 py-2.5 rounded-xl transition-colors">Sign In to Log Workouts</a>
+                  <a href="/signin" className="bg-red-600 hover:bg-red-500 text-white font-bold px-6 py-2.5 rounded-xl transition-colors">Sign In to Log Workouts</a>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -171,7 +171,7 @@ export default function WarriorsPlaybook() {
                     value={workoutInput}
                     onChange={e => setWorkoutInput(e.target.value)}
                     placeholder="Workout name (e.g. Speed & Agility, Weight Room, Film Study)"
-                    className="w-full bg-[#0d1f3c] border border-blue-800 text-white text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-orange-500 placeholder-blue-500"
+                    className="w-full bg-[#0d1f3c] border border-blue-800 text-white text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-red-500 placeholder-blue-500"
                   />
                   <div className="flex gap-3">
                     <input
@@ -179,19 +179,19 @@ export default function WarriorsPlaybook() {
                       onChange={e => setWorkoutDuration(e.target.value)}
                       placeholder="Duration (mins)"
                       type="number"
-                      className="flex-1 bg-[#0d1f3c] border border-blue-800 text-white text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-orange-500 placeholder-blue-500"
+                      className="flex-1 bg-[#0d1f3c] border border-blue-800 text-white text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-red-500 placeholder-blue-500"
                     />
                     <input
                       value={workoutNotes}
                       onChange={e => setWorkoutNotes(e.target.value)}
                       placeholder="Notes (optional)"
-                      className="flex-1 bg-[#0d1f3c] border border-blue-800 text-white text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-orange-500 placeholder-blue-500"
+                      className="flex-1 bg-[#0d1f3c] border border-blue-800 text-white text-sm rounded-xl px-4 py-2.5 focus:outline-none focus:border-red-500 placeholder-blue-500"
                     />
                   </div>
                   <button
                     onClick={() => workoutInput.trim() && logWorkoutMutation.mutate({ workout: workoutInput, duration: workoutDuration ? parseInt(workoutDuration) : undefined, notes: workoutNotes || undefined })}
                     disabled={logWorkoutMutation.isPending || !workoutInput.trim()}
-                    className="bg-orange-600 hover:bg-orange-500 disabled:opacity-50 text-white font-bold px-6 py-2.5 rounded-xl transition-colors"
+                    className="bg-red-600 hover:bg-red-500 disabled:opacity-50 text-white font-bold px-6 py-2.5 rounded-xl transition-colors"
                   >
                     {logWorkoutMutation.isPending ? "Logging..." : "Log Workout"}
                   </button>
@@ -205,7 +205,7 @@ export default function WarriorsPlaybook() {
                 <div className="space-y-2">
                   {(trainingHistory as any[]).map((log: any) => (
                     <div key={log.id} className="flex items-center gap-3 py-2 border-b border-blue-900/50 last:border-0">
-                      <div className="w-8 h-8 rounded-lg bg-orange-600/20 flex items-center justify-center text-orange-400 text-lg">🏋️</div>
+                      <div className="w-8 h-8 rounded-lg bg-red-600/20 flex items-center justify-center text-red-400 text-lg">🏋️</div>
                       <div className="flex-1 min-w-0">
                         <div className="text-white text-sm font-semibold truncate">{log.workout}</div>
                         <div className="text-blue-400 text-xs">{log.duration ? log.duration + " min" : ""}{log.notes ? " • " + log.notes : ""}</div>

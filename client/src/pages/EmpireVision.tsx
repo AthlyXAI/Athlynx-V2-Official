@@ -32,7 +32,7 @@ export default function EmpireVision() {
       became: "The Everything Store",
       marketCap: "$1.5 Trillion",
       lesson: "Start with one vertical, perfect it, then expand into everything.",
-      color: "from-orange-500 to-yellow-500"
+      color: "from-red-500 to-red-500"
     },
     {
       name: "Ray Kroc",
@@ -41,7 +41,7 @@ export default function EmpireVision() {
       became: "World's Largest Real Estate Company",
       marketCap: "$200 Billion",
       lesson: "The product is the entry point. The real business is the ecosystem.",
-      color: "from-red-500 to-yellow-500"
+      color: "from-red-500 to-red-500"
     },
     {
       name: "Chad A. Dozier",
@@ -58,15 +58,15 @@ export default function EmpireVision() {
     { icon: Users, name: "Athletes", desc: "Core Platform", status: "LIVE", color: "cyan", detail: "ATHLYNX - The Athlete's Playbook" },
     { icon: Dumbbell, name: "Training", desc: "Fitness & Performance", status: "LIVE", color: "green", detail: "AI-powered training programs" },
     { icon: Heart, name: "Medical", desc: "Healthcare & Orthopedics", status: "LIVE", color: "red", detail: "Sports medicine network" },
-    { icon: ShoppingBag, name: "Commerce", desc: "Athlete Marketplace", status: "LIVE", color: "purple", detail: "Gear, merch, supplements" },
-    { icon: Music, name: "Entertainment", desc: "Music & Media", status: "LIVE", color: "pink", detail: "Athlete playlists & content" },
-    { icon: Shield, name: "Veterans", desc: "Military Services", status: "LIVE", color: "orange", detail: "Operation Warrior Pipeline" },
+    { icon: ShoppingBag, name: "Commerce", desc: "Athlete Marketplace", status: "LIVE", color: "blue", detail: "Gear, merch, supplements" },
+    { icon: Music, name: "Entertainment", desc: "Music & Media", status: "LIVE", color: "red", detail: "Athlete playlists & content" },
+    { icon: Shield, name: "Veterans", desc: "Military Services", status: "LIVE", color: "red", detail: "Operation Warrior Pipeline" },
     { icon: Cpu, name: "AI", desc: "FuelBots & Intelligence", status: "LIVE", color: "blue", detail: "AI companions for athletes" },
-    { icon: DollarSign, name: "NIL", desc: "Name, Image, Likeness", status: "LIVE", color: "yellow", detail: "NIL deals & management" },
+    { icon: DollarSign, name: "NIL", desc: "Name, Image, Likeness", status: "LIVE", color: "red", detail: "NIL deals & management" },
     { icon: GraduationCap, name: "Education", desc: "Athlete Academy", status: "2026", color: "indigo", detail: "Online courses & certifications" },
     { icon: Tv, name: "Broadcasting", desc: "ATHLYNX TV", status: "2026", color: "rose", detail: "Live sports & athlete content" },
     { icon: Landmark, name: "Financial", desc: "Athlete Banking", status: "2026", color: "emerald", detail: "NIL banking, loans, investments" },
-    { icon: Home, name: "Real Estate", desc: "Athlete Housing", status: "2027", color: "amber", detail: "Housing for athletes & families" },
+    { icon: Home, name: "Real Estate", desc: "Athlete Housing", status: "2027", color: "red", detail: "Housing for athletes & families" },
   ];
 
   const aiCapabilities = [
@@ -106,7 +106,7 @@ export default function EmpireVision() {
 
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 rounded-full px-4 py-2 mb-6">
-              <Crown className="w-4 h-4 text-yellow-400" />
+              <Crown className="w-4 h-4 text-red-400" />
               <span className="text-cyan-400 text-sm font-bold">THE EMPIRE VISION</span>
             </div>
             
@@ -128,7 +128,7 @@ export default function EmpireVision() {
       {/* Empire Builders Comparison */}
       <section className="container px-5 py-16">
         <h2 className="text-3xl font-bold text-white text-center mb-12">
-          <Sparkles className="inline w-8 h-8 text-yellow-400 mr-2" />
+          <Sparkles className="inline w-8 h-8 text-red-400 mr-2" />
           Learning From The Legends
         </h2>
         
@@ -197,7 +197,7 @@ export default function EmpireVision() {
                 <span className={`text-xs font-bold px-2 py-1 rounded ${
                   vertical.status === 'LIVE' 
                     ? 'bg-green-500/20 text-green-400' 
-                    : 'bg-yellow-500/20 text-yellow-400'
+                    : 'bg-red-500/20 text-red-400'
                 }`}>
                   {vertical.status}
                 </span>
@@ -248,14 +248,14 @@ export default function EmpireVision() {
 
       {/* Social Media Empire */}
       <section className="container px-5 py-16">
-        <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-2xl p-8 md:p-12">
+        <div className="bg-gradient-to-br from-blue-600/20 to-red-500/20 border border-blue-600/30 rounded-2xl p-8 md:p-12">
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <h2 className="text-3xl font-bold text-white mb-4">
                 🌐 The Social Media Empire
               </h2>
               <p className="text-white/70 mb-6">
-                ATHLYNX isn't just an app—it's the <strong className="text-purple-400">athlete social network</strong>. 
+                ATHLYNX isn't just an app—it's the <strong className="text-blue-500">athlete social network</strong>. 
                 Like Facebook connected the world, we're connecting every athlete, coach, brand, and fan.
               </p>
               <ul className="space-y-3">
@@ -268,7 +268,7 @@ export default function EmpireVision() {
                   "Influencer analytics dashboard"
                 ].map((item, i) => (
                   <li key={i} className="flex items-center gap-2 text-white/80">
-                    <Zap className="w-4 h-4 text-purple-400" />
+                    <Zap className="w-4 h-4 text-blue-500" />
                     {item}
                   </li>
                 ))}
@@ -276,11 +276,11 @@ export default function EmpireVision() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-white/10 rounded-xl p-5 text-center">
-                <p className="text-4xl font-black text-purple-400">10M+</p>
+                <p className="text-4xl font-black text-blue-500">10M+</p>
                 <p className="text-white/60 text-sm">Target Athletes</p>
               </div>
               <div className="bg-white/10 rounded-xl p-5 text-center">
-                <p className="text-4xl font-black text-pink-400">$50B</p>
+                <p className="text-4xl font-black text-red-400">$50B</p>
                 <p className="text-white/60 text-sm">NIL Market</p>
               </div>
               <div className="bg-white/10 rounded-xl p-5 text-center">
@@ -288,7 +288,7 @@ export default function EmpireVision() {
                 <p className="text-white/60 text-sm">Sports Covered</p>
               </div>
               <div className="bg-white/10 rounded-xl p-5 text-center">
-                <p className="text-4xl font-black text-yellow-400">∞</p>
+                <p className="text-4xl font-black text-red-400">∞</p>
                 <p className="text-white/60 text-sm">Possibilities</p>
               </div>
             </div>

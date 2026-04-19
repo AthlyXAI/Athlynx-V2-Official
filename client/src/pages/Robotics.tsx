@@ -23,16 +23,16 @@ const SCENARIOS = [
 const USE_CASES = [
   { icon: "🏟️", title: "In the Stands", subtitle: "Fan & Scout Companion", desc: "Your robot companion navigates the stadium, delivers merchandise, assists scouts with real-time player tracking, and keeps fans engaged with live stats and highlights.", sport: "All Sports", color: "from-blue-900 to-blue-800" },
   { icon: "🏋️", title: "In Training", subtitle: "Performance Coach", desc: "Acts as a ball machine, resistance partner, rep counter, and form coach. Analyzes your mechanics in real time and gives instant feedback to maximize every rep.", sport: "All Sports", color: "from-green-900 to-green-800" },
-  { icon: "🏈", title: "On the Field", subtitle: "Real-Time Performance Partner", desc: "Tracks your movement patterns, speed, and positioning during practice. Feeds data directly into your ATHLYNX profile for coaches and recruiters to see.", sport: "Football, Soccer, Lacrosse", color: "from-orange-900 to-orange-800" },
+  { icon: "🏈", title: "On the Field", subtitle: "Real-Time Performance Partner", desc: "Tracks your movement patterns, speed, and positioning during practice. Feeds data directly into your ATHLYNX profile for coaches and recruiters to see.", sport: "Football, Soccer, Lacrosse", color: "from-red-900 to-red-800" },
   { icon: "⚾", title: "Baseball Diamond", subtitle: "Diamond Grind Robot", desc: "Pitching machine, fielding drill partner, and swing analyzer. Connects directly with Diamond Grind to log every session and track your development over time.", sport: "Baseball, Softball", color: "from-red-900 to-red-800" },
-  { icon: "🏀", title: "On the Court", subtitle: "Shooting & Defense Trainer", desc: "Rebounds your shots, tracks your shooting percentage from every zone, runs defensive drills, and syncs your stats to your ATHLYNX Warriors Playbook.", sport: "Basketball", color: "from-purple-900 to-purple-800" },
+  { icon: "🏀", title: "On the Court", subtitle: "Shooting & Defense Trainer", desc: "Rebounds your shots, tracks your shooting percentage from every zone, runs defensive drills, and syncs your stats to your ATHLYNX Warriors Playbook.", sport: "Basketball", color: "from-blue-950 to-blue-900" },
   { icon: "💪", title: "In Recovery", subtitle: "Wellness & Rehab Companion", desc: "Monitors vitals, guides stretching routines, tracks sleep and hydration, and checks in on mental wellness. Your 24/7 recovery partner that never sleeps.", sport: "All Sports", color: "from-teal-900 to-teal-800" },
-  { icon: "🎓", title: "In Recruiting", subtitle: "Showcase & Highlight Tool", desc: "Records your best moments from every angle, auto-edits highlight reels, and sends them directly to coaches through your ATHLYNX AI Recruiter profile.", sport: "All Sports", color: "from-yellow-900 to-yellow-800" },
+  { icon: "🎓", title: "In Recruiting", subtitle: "Showcase & Highlight Tool", desc: "Records your best moments from every angle, auto-edits highlight reels, and sends them directly to coaches through your ATHLYNX AI Recruiter profile.", sport: "All Sports", color: "from-red-900 to-red-800" },
   { icon: "🏆", title: "In the Locker Room", subtitle: "Team Morale & Strategy", desc: "Reviews game film with the team, displays plays on screen, tracks team stats, and keeps morale high with motivational content tailored to your team.", sport: "All Sports", color: "from-indigo-900 to-indigo-800" },
-  { icon: "📊", title: "NIL Deal Assistant", subtitle: "Brand Partnership Robot", desc: "Represents you at brand events, captures content for social media, and helps execute NIL deal obligations — from appearances to product demos.", sport: "All Sports", color: "from-pink-900 to-pink-800" },
+  { icon: "📊", title: "NIL Deal Assistant", subtitle: "Brand Partnership Robot", desc: "Represents you at brand events, captures content for social media, and helps execute NIL deal obligations — from appearances to product demos.", sport: "All Sports", color: "from-red-900 to-red-800" },
   { icon: "🌙", title: "After Hours", subtitle: "Study & Mental Prep", desc: "Helps athletes stay on top of academics, reviews game film before bed, runs mental visualization exercises, and keeps your schedule organized.", sport: "All Sports", color: "from-slate-900 to-slate-800" },
   { icon: "🏊", title: "In the Pool", subtitle: "Aquatic Performance Tracker", desc: "Waterproof poolside companion that tracks lap times, stroke efficiency, and turn technique. Syncs directly with your ATHLYNX training log.", sport: "Swimming, Water Polo", color: "from-cyan-900 to-cyan-800" },
-  { icon: "🎯", title: "Pre-Game Ritual", subtitle: "Mental & Physical Warmup", desc: "Leads your warmup routine, plays your pre-game playlist, runs through your mental checklist, and gets you locked in before every competition.", sport: "All Sports", color: "from-rose-900 to-rose-800" },
+  { icon: "🎯", title: "Pre-Game Ritual", subtitle: "Mental & Physical Warmup", desc: "Leads your warmup routine, plays your pre-game playlist, runs through your mental checklist, and gets you locked in before every competition.", sport: "All Sports", color: "from-red-900 to-red-800" },
 ];
 
 const QUICK_PROMPTS = [
@@ -243,8 +243,8 @@ export default function Robotics() {
               The next frontier of athlete performance. An AI-powered robot companion that works alongside you — on the field, in the stands, in training, in recovery, and everywhere in between.
             </p>
             <div className="mt-4 inline-flex items-center gap-2 bg-blue-900/50 border border-blue-600 rounded-full px-4 py-2">
-              <div className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
-              <span className="text-yellow-400 text-xs font-bold uppercase tracking-wider">In Development — Guinness World Record Technology</span>
+              <div className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+              <span className="text-red-400 text-xs font-bold uppercase tracking-wider">In Development — Guinness World Record Technology</span>
             </div>
           </div>
         </div>

@@ -50,13 +50,13 @@ export default function ScoutWizard() {
         </Card>
 
         {/* Pro Tips */}
-        <Card className="bg-gradient-to-r from-yellow-900/30 to-[#1a3a8f] border-yellow-700">
+        <Card className="bg-gradient-to-r from-red-900/30 to-[#1a3a8f] border-red-700">
           <CardContent className="p-5">
-            <h3 className="text-yellow-400 font-bold mb-3">⚡ Pro Tips</h3>
+            <h3 className="text-red-400 font-bold mb-3">⚡ Pro Tips</h3>
             <div className="space-y-2">
               {tips.map((tip: string, i: number) => (
                 <div key={i} className="flex items-start gap-2 text-sm text-blue-200">
-                  <span className="text-yellow-400 mt-0.5 shrink-0">›</span>
+                  <span className="text-red-400 mt-0.5 shrink-0">›</span>
                   <span>{tip}</span>
                 </div>
               ))}
@@ -69,7 +69,7 @@ export default function ScoutWizard() {
           <Button className="bg-blue-600 hover:bg-blue-500 text-white font-bold">
             Save Progress
           </Button>
-          <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-black">
+          <Button className="bg-gradient-to-r from-red-500 to-red-500 text-black font-black">
             Get Expert Help
           </Button>
         </div>

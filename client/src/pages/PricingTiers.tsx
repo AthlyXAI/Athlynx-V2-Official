@@ -34,8 +34,8 @@ export default function PricingTiers() {
       name: "The Foundation",
       tagline: "Ages 3-13",
       icon: Heart,
-      color: "from-pink-500 to-rose-500",
-      borderColor: "border-pink-500/50",
+      color: "from-red-500 to-red-500",
+      borderColor: "border-red-500/50",
       price: "$49.99",
       priceNote: "One-Time Family Fee",
       focus: "For parents to track progress, save memories, and connect with other sports families.",
@@ -78,8 +78,8 @@ export default function PricingTiers() {
       name: "The NIL Athlete",
       tagline: "College (Ages 18-22)",
       icon: Trophy,
-      color: "from-purple-500 to-violet-500",
-      borderColor: "border-purple-500/50",
+      color: "from-blue-600 to-blue-600",
+      borderColor: "border-blue-600/50",
       price: "5%",
       priceNote: "of each deal done through the app",
       focus: "Actively making money from NIL deals and managing the business side of being an athlete.",
@@ -101,8 +101,8 @@ export default function PricingTiers() {
       name: "The Pro",
       tagline: "Professional Athlete",
       icon: Crown,
-      color: "from-yellow-500 to-amber-500",
-      borderColor: "border-yellow-500/50",
+      color: "from-red-500 to-red-500",
+      borderColor: "border-red-500/50",
       price: "$499",
       priceNote: "/month",
       focus: "Professional brand management and wealth growth.",
@@ -193,10 +193,10 @@ export default function PricingTiers() {
   const complianceBadges = [
     { icon: Shield, label: "NCAA Compliant", color: "text-green-400" },
     { icon: Lock, label: "AES-256 Encryption", color: "text-blue-400" },
-    { icon: FileText, label: "SOC 2 Type II", color: "text-purple-400" },
+    { icon: FileText, label: "SOC 2 Type II", color: "text-blue-500" },
     { icon: Users, label: "FERPA Compliant", color: "text-cyan-400" },
-    { icon: Heart, label: "You Own Your Data", color: "text-pink-400" },
-    { icon: Building, label: "HIPAA Compliant", color: "text-yellow-400" },
+    { icon: Heart, label: "You Own Your Data", color: "text-red-400" },
+    { icon: Building, label: "HIPAA Compliant", color: "text-red-400" },
   ];
 
   return (
@@ -214,7 +214,7 @@ export default function PricingTiers() {
             </Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4">
               One Platform.
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-red-400">
                 Lifetime Value.
               </span>
             </h1>
@@ -274,7 +274,7 @@ export default function PricingTiers() {
 
             {/* Lifetime Journey Visual */}
             <div className="relative mb-12">
-              <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-pink-500 via-purple-500 to-emerald-500 transform -translate-y-1/2 hidden md:block" />
+              <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-red-500 via-blue-600 to-emerald-500 transform -translate-y-1/2 hidden md:block" />
               <div className="grid grid-cols-5 gap-2 relative">
                 {lifetimeTiers.map((tier, i) => (
                   <div key={i} className="text-center">
@@ -334,7 +334,7 @@ export default function PricingTiers() {
                       <div className="flex flex-col justify-between">
                         <div className="bg-white/5 rounded-lg p-4 mb-4">
                           <h4 className="text-white font-semibold mb-2 flex items-center gap-2">
-                            <Zap className="w-4 h-4 text-yellow-400" /> Why This Works
+                            <Zap className="w-4 h-4 text-red-400" /> Why This Works
                           </h4>
                           <p className="text-white/60 text-sm">{tier.why}</p>
                         </div>
@@ -385,7 +385,7 @@ export default function PricingTiers() {
             </div>
 
             {/* Enterprise CTA */}
-            <Card className="mt-8 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border-cyan-500/30">
+            <Card className="mt-8 bg-gradient-to-r from-cyan-500/20 to-blue-600/20 border-cyan-500/30">
               <CardContent className="p-8 text-center">
                 <h3 className="text-2xl font-bold text-white mb-3">White-Label Licensing</h3>
                 <p className="text-white/70 mb-6 max-w-2xl mx-auto">
@@ -440,7 +440,7 @@ export default function PricingTiers() {
 
       {/* CTA Section */}
       <section className="container px-4 md:px-5 py-16">
-        <div className="bg-gradient-to-r from-cyan-600 to-purple-600 rounded-2xl p-8 md:p-12 text-center">
+        <div className="bg-gradient-to-r from-cyan-600 to-blue-700 rounded-2xl p-8 md:p-12 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Ready to Join the Ecosystem?
           </h2>

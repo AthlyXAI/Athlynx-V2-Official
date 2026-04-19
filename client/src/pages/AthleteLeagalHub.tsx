@@ -76,7 +76,7 @@ const ENDORSEMENT_DEALS = [
 const TIER_COLORS: Record<string, string> = {
   free: "bg-green-900/30 text-green-400 border-green-700/40",
   pro: "bg-blue-900/30 text-blue-400 border-blue-700/40",
-  elite: "bg-yellow-900/30 text-yellow-400 border-yellow-700/40",
+  elite: "bg-red-900/30 text-red-400 border-red-700/40",
 };
 
 export default function AthleteLeagalHub() {
@@ -198,7 +198,7 @@ export default function AthleteLeagalHub() {
                       <FileText className="w-5 h-5 text-blue-400" />
                     </div>
                     <div className="flex gap-2">
-                      {contract.popular && <Badge className="bg-orange-900/30 text-orange-400 border-orange-700/40 text-[10px]">POPULAR</Badge>}
+                      {contract.popular && <Badge className="bg-red-900/30 text-red-400 border-red-700/40 text-[10px]">POPULAR</Badge>}
                       <Badge className={`text-[10px] border ${TIER_COLORS[contract.tier]}`}>{contract.tier.toUpperCase()}</Badge>
                     </div>
                   </div>
@@ -216,7 +216,7 @@ export default function AthleteLeagalHub() {
             </div>
 
             {/* AI Contract Generator CTA */}
-            <div className="mt-8 bg-gradient-to-r from-indigo-900 to-purple-900 rounded-2xl border border-indigo-700/40 p-6 flex flex-col md:flex-row items-center gap-6">
+            <div className="mt-8 bg-gradient-to-r from-indigo-900 to-blue-950 rounded-2xl border border-indigo-700/40 p-6 flex flex-col md:flex-row items-center gap-6">
               <div className="bg-indigo-700/40 rounded-2xl p-4 shrink-0">
                 <Zap className="w-8 h-8 text-indigo-300" />
               </div>
@@ -224,7 +224,7 @@ export default function AthleteLeagalHub() {
                 <h3 className="text-xl font-black text-white mb-1">Need a Custom Contract?</h3>
                 <p className="text-indigo-200 text-sm">Our AI Contract Generator creates a fully customized, legally-reviewed contract in under 2 minutes. Just answer a few questions.</p>
               </div>
-              <Button className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-400 hover:to-purple-400 text-white font-black px-6 py-3 rounded-xl whitespace-nowrap shadow-lg">
+              <Button className="bg-gradient-to-r from-indigo-500 to-blue-600 hover:from-indigo-400 hover:to-blue-500 text-white font-black px-6 py-3 rounded-xl whitespace-nowrap shadow-lg">
                 Generate Custom Contract <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </div>
@@ -258,7 +258,7 @@ export default function AthleteLeagalHub() {
                         {agent.verified && <CheckCircle className="w-4 h-4 text-blue-400" />}
                       </div>
                       <Badge className="bg-blue-900/40 text-blue-300 border-blue-700/40 text-xs mb-1">{agent.cert}</Badge>
-                      <div className="flex items-center gap-1 text-yellow-400 text-sm">
+                      <div className="flex items-center gap-1 text-red-400 text-sm">
                         {"★".repeat(Math.floor(agent.rating))}
                         <span className="text-blue-400 ml-1">{agent.rating}</span>
                       </div>
@@ -315,7 +315,7 @@ export default function AthleteLeagalHub() {
                         {advisor.verified && <CheckCircle className="w-4 h-4 text-green-400" />}
                       </div>
                       <div className="text-xs text-green-300 mb-1">{advisor.cert} · {advisor.firm}</div>
-                      <div className="flex items-center gap-1 text-yellow-400 text-sm">
+                      <div className="flex items-center gap-1 text-red-400 text-sm">
                         {"★".repeat(Math.floor(advisor.rating))}
                         <span className="text-blue-400 ml-1">{advisor.rating}</span>
                       </div>
@@ -353,18 +353,18 @@ export default function AthleteLeagalHub() {
         {/* ── ENDORSEMENT DEALS ── */}
         {activeTab === "endorsements" && (
           <div>
-            <div className="bg-gradient-to-r from-yellow-900/30 to-orange-900/30 rounded-2xl border border-yellow-700/30 p-5 mb-6">
-              <h3 className="font-bold text-white mb-2 flex items-center gap-2"><Star className="w-5 h-5 text-yellow-400" />Live Endorsement Opportunities</h3>
-              <p className="text-yellow-200 text-sm">Browse active endorsement deals from national brands and local businesses. Apply directly through ATHLYNX — no agent required for most deals. Use our AI to match you with the best opportunities for your profile.</p>
+            <div className="bg-gradient-to-r from-red-900/30 to-red-900/30 rounded-2xl border border-red-700/30 p-5 mb-6">
+              <h3 className="font-bold text-white mb-2 flex items-center gap-2"><Star className="w-5 h-5 text-red-400" />Live Endorsement Opportunities</h3>
+              <p className="text-red-200 text-sm">Browse active endorsement deals from national brands and local businesses. Apply directly through ATHLYNX — no agent required for most deals. Use our AI to match you with the best opportunities for your profile.</p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {ENDORSEMENT_DEALS.map(deal => (
-                <div key={deal.id} className={`bg-[#0d1a3a] rounded-2xl border p-5 hover:border-yellow-600/40 transition-all ${deal.featured ? "border-yellow-700/40" : "border-blue-900/40"}`}>
+                <div key={deal.id} className={`bg-[#0d1a3a] rounded-2xl border p-5 hover:border-red-600/40 transition-all ${deal.featured ? "border-red-700/40" : "border-blue-900/40"}`}>
                   <div className="flex items-start justify-between mb-3">
                     <div className="text-3xl">{deal.logo}</div>
                     <div className="flex gap-1">
-                      {deal.featured && <Badge className="bg-yellow-900/30 text-yellow-400 border-yellow-700/40 text-[10px]">FEATURED</Badge>}
+                      {deal.featured && <Badge className="bg-red-900/30 text-red-400 border-red-700/40 text-[10px]">FEATURED</Badge>}
                       <Badge className="bg-blue-900/30 text-blue-400 border-blue-700/40 text-[10px]">{deal.category}</Badge>
                     </div>
                   </div>
@@ -384,7 +384,7 @@ export default function AthleteLeagalHub() {
                       <span className="text-white">{deal.deadline}</span>
                     </div>
                   </div>
-                  <Button size="sm" className="w-full bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-500 hover:to-orange-500 text-white font-bold rounded-lg">
+                  <Button size="sm" className="w-full bg-gradient-to-r from-red-600 to-red-600 hover:from-red-500 hover:to-red-500 text-white font-bold rounded-lg">
                     Apply Now <ArrowRight className="ml-1 w-3 h-3" />
                   </Button>
                 </div>
@@ -392,15 +392,15 @@ export default function AthleteLeagalHub() {
             </div>
 
             {/* Submit Your Deal CTA */}
-            <div className="mt-8 bg-gradient-to-r from-yellow-900/40 to-orange-900/40 rounded-2xl border border-yellow-700/30 p-6 flex flex-col md:flex-row items-center gap-6">
-              <div className="bg-yellow-700/30 rounded-2xl p-4 shrink-0">
-                <Building2 className="w-8 h-8 text-yellow-300" />
+            <div className="mt-8 bg-gradient-to-r from-red-900/40 to-red-900/40 rounded-2xl border border-red-700/30 p-6 flex flex-col md:flex-row items-center gap-6">
+              <div className="bg-red-700/30 rounded-2xl p-4 shrink-0">
+                <Building2 className="w-8 h-8 text-red-300" />
               </div>
               <div className="flex-1">
                 <h3 className="text-xl font-black text-white mb-1">Are You a Brand?</h3>
-                <p className="text-yellow-200 text-sm">Post your endorsement opportunity and connect with thousands of verified athletes across every sport and level.</p>
+                <p className="text-red-200 text-sm">Post your endorsement opportunity and connect with thousands of verified athletes across every sport and level.</p>
               </div>
-              <Button className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-black font-black px-6 py-3 rounded-xl whitespace-nowrap shadow-lg">
+              <Button className="bg-gradient-to-r from-red-500 to-red-500 hover:from-red-400 hover:to-red-400 text-black font-black px-6 py-3 rounded-xl whitespace-nowrap shadow-lg">
                 Post a Deal <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </div>

@@ -39,9 +39,9 @@ const socialLinks = [
   { name: "LinkedIn", href: "https://www.linkedin.com/in/chad-a-dozier-494391136", icon: Linkedin, color: "hover:text-blue-400" },
   { name: "Facebook", href: "https://www.facebook.com/chad.dozier.2025", icon: Facebook, color: "hover:text-blue-500" },
   { name: "Twitter", href: "https://twitter.com/ATHLYNX", icon: Twitter, color: "hover:text-sky-400" },
-  { name: "Instagram", href: "https://instagram.com/athlynx", icon: Instagram, color: "hover:text-pink-400" },
+  { name: "Instagram", href: "https://instagram.com/athlynx", icon: Instagram, color: "hover:text-red-400" },
   { name: "YouTube", href: "https://youtube.com/@ATHLYNX", icon: Youtube, color: "hover:text-red-500" },
-  { name: "TikTok", href: "https://tiktok.com/@athlynx", icon: Music2, color: "hover:text-pink-500" },
+  { name: "TikTok", href: "https://tiktok.com/@athlynx", icon: Music2, color: "hover:text-red-500" },
   { name: "WhatsApp", href: "https://wa.me/16014985282", icon: MessageCircle, color: "hover:text-green-400" },
   { name: "WeChat", href: "#", icon: MessageSquare, color: "hover:text-green-500", id: "ChadDozier14" },
 ];
@@ -150,12 +150,12 @@ export default function UnifiedFooter() {
         <div className="border-t border-white/10 pt-6 mb-6">
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-center">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-500 to-amber-500 flex items-center justify-center text-white text-xs font-bold">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-red-500 to-red-500 flex items-center justify-center text-white text-xs font-bold">
                 #1
               </div>
               <div className="text-left">
                 <p className="text-white text-sm font-bold">Chad A. Dozier</p>
-                <p className="text-yellow-400 text-xs">Founder & CEO • @Cdozier14</p>
+                <p className="text-red-400 text-xs">Founder & CEO • @Cdozier14</p>
               </div>
             </div>
             <p className="text-white/40 text-xs italic">"Look Ma and Nanny, I Made It"</p>

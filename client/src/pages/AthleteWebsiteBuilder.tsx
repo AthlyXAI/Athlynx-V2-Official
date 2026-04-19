@@ -52,7 +52,7 @@ const TEMPLATES = [
     description: "Designed for college athletes monetizing their brand",
     price: 29.99,
     features: ["Brand partnership section", "Social media integration", "NIL deal showcase", "Media kit download", "Analytics dashboard"],
-    color: "from-purple-500 to-pink-500",
+    color: "from-blue-600 to-red-500",
     popular: true,
     preview: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=400",
   },
@@ -62,7 +62,7 @@ const TEMPLATES = [
     description: "Complete solution for serious athletes",
     price: 49.99,
     features: ["Everything in NIL Ready", "Custom domain", "SEO optimization", "Email marketing", "Priority support", "Unlimited updates"],
-    color: "from-yellow-500 to-orange-500",
+    color: "from-red-500 to-red-500",
     preview: "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?w=400",
   },
 ];
@@ -124,12 +124,12 @@ export default function AthleteWebsiteBuilder() {
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/">
             <div className="flex items-center gap-3 cursor-pointer">
-              <div className="bg-gradient-to-r from-purple-600 to-pink-500 rounded-xl p-2">
+              <div className="bg-gradient-to-r from-blue-700 to-red-500 rounded-xl p-2">
                 <span className="text-2xl">🌐</span>
               </div>
               <div>
                 <h1 className="text-white font-bold text-lg">ATHLYNX</h1>
-                <p className="text-purple-400 text-xs">WEBSITE BUILDER</p>
+                <p className="text-blue-500 text-xs">WEBSITE BUILDER</p>
               </div>
             </div>
           </Link>
@@ -144,7 +144,7 @@ export default function AthleteWebsiteBuilder() {
               </Button>
             )}
             <Link href="/">
-              <Button variant="outline" className="border-purple-500 text-purple-400 hover:bg-purple-500/10">
+              <Button variant="outline" className="border-blue-600 text-blue-500 hover:bg-blue-600/10">
                 Back to Home
               </Button>
             </Link>
@@ -160,7 +160,7 @@ export default function AthleteWebsiteBuilder() {
               <div
                 className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
                   step === s
-                    ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white"
+                    ? "bg-gradient-to-r from-blue-600 to-red-500 text-white"
                     : i < ["templates", "profile", "preview"].indexOf(step)
                     ? "bg-green-500 text-white"
                     : "bg-slate-700 text-slate-400"
@@ -181,9 +181,9 @@ export default function AthleteWebsiteBuilder() {
           ))}
         </div>
         <div className="flex justify-center gap-8 text-sm text-slate-400 mb-8">
-          <span className={step === "templates" ? "text-purple-400 font-bold" : ""}>Choose Template</span>
-          <span className={step === "profile" ? "text-purple-400 font-bold" : ""}>Build Profile</span>
-          <span className={step === "preview" ? "text-purple-400 font-bold" : ""}>Preview & Publish</span>
+          <span className={step === "templates" ? "text-blue-500 font-bold" : ""}>Choose Template</span>
+          <span className={step === "profile" ? "text-blue-500 font-bold" : ""}>Build Profile</span>
+          <span className={step === "preview" ? "text-blue-500 font-bold" : ""}>Preview & Publish</span>
         </div>
       </div>
 
@@ -191,11 +191,11 @@ export default function AthleteWebsiteBuilder() {
       {step === "templates" && (
         <section className="pb-20 px-4">
           <div className="text-center mb-12">
-            <div className="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-bold px-4 py-1 rounded-full mb-4">
+            <div className="inline-block bg-gradient-to-r from-blue-600 to-red-500 text-white text-sm font-bold px-4 py-1 rounded-full mb-4">
               STEP 1
             </div>
             <h1 className="text-4xl md:text-5xl font-black mb-4">
-              <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-500 via-red-400 to-cyan-400 bg-clip-text text-transparent">
                 Choose Your Template
               </span>
             </h1>
@@ -208,13 +208,13 @@ export default function AthleteWebsiteBuilder() {
             {TEMPLATES.map((template) => (
               <Card
                 key={template.id}
-                className={`relative bg-slate-800/50 border-slate-700 cursor-pointer transition-all hover:scale-105 hover:border-purple-500 ${
-                  template.popular ? "ring-2 ring-purple-500" : ""
+                className={`relative bg-slate-800/50 border-slate-700 cursor-pointer transition-all hover:scale-105 hover:border-blue-600 ${
+                  template.popular ? "ring-2 ring-blue-600" : ""
                 }`}
                 onClick={() => handleTemplateSelect(template.id)}
               >
                 {template.popular && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-600 to-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">
                     MOST POPULAR
                   </div>
                 )}
@@ -251,11 +251,11 @@ export default function AthleteWebsiteBuilder() {
       {step === "profile" && (
         <section className="pb-20 px-4">
           <div className="text-center mb-12">
-            <div className="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-bold px-4 py-1 rounded-full mb-4">
+            <div className="inline-block bg-gradient-to-r from-blue-600 to-red-500 text-white text-sm font-bold px-4 py-1 rounded-full mb-4">
               STEP 2
             </div>
             <h1 className="text-4xl font-black mb-4">
-              <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-500 via-red-400 to-cyan-400 bg-clip-text text-transparent">
                 Build Your Profile
               </span>
             </h1>
@@ -502,7 +502,7 @@ export default function AthleteWebsiteBuilder() {
 
                 <Button
                   onClick={handlePreview}
-                  className="w-full py-6 text-lg font-bold bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400"
+                  className="w-full py-6 text-lg font-bold bg-gradient-to-r from-blue-600 to-red-500 hover:from-blue-500 hover:to-red-400"
                 >
                   Preview My Website →
                 </Button>
@@ -531,7 +531,7 @@ export default function AthleteWebsiteBuilder() {
             <div className="bg-slate-800 rounded-t-xl p-3 flex items-center gap-2">
               <div className="flex gap-1.5">
                 <div className="w-3 h-3 rounded-full bg-red-500" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                <div className="w-3 h-3 rounded-full bg-red-500" />
                 <div className="w-3 h-3 rounded-full bg-green-500" />
               </div>
               <div className="flex-1 bg-slate-700 rounded-md px-3 py-1 text-sm text-slate-400">
@@ -542,7 +542,7 @@ export default function AthleteWebsiteBuilder() {
             {/* Website Preview */}
             <div className="bg-gradient-to-b from-slate-900 to-slate-800 rounded-b-xl overflow-hidden">
               {/* Hero Section */}
-              <div className="relative h-64 bg-gradient-to-r from-blue-600 to-purple-600 flex items-center justify-center">
+              <div className="relative h-64 bg-gradient-to-r from-blue-600 to-blue-700 flex items-center justify-center">
                 <div className="text-center">
                   <div className="w-24 h-24 bg-white/20 rounded-full mx-auto mb-4 flex items-center justify-center text-4xl">
                     {profile.sport === "Baseball" ? "⚾" : 
@@ -606,7 +606,7 @@ export default function AthleteWebsiteBuilder() {
                     <h3 className="text-lg font-bold text-white mb-3">📱 Connect</h3>
                     <div className="flex gap-3">
                       {profile.instagram && (
-                        <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">📷</div>
+                        <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-red-500 rounded-lg flex items-center justify-center">📷</div>
                       )}
                       {profile.twitter && (
                         <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">𝕏</div>

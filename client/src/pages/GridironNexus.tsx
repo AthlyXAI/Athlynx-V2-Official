@@ -34,7 +34,7 @@ export default function GridironNexus() {
               <span className="text-2xl">🏈</span>
               <div>
                 <div className="text-xs text-red-400 font-bold tracking-widest">GRIDIRON NEXUS</div>
-                <div className="text-xs text-yellow-400 tracking-wider">POWERED BY ATHLYNX</div>
+                <div className="text-xs text-red-400 tracking-wider">POWERED BY ATHLYNX</div>
               </div>
             </div>
           </div>
@@ -49,15 +49,15 @@ export default function GridironNexus() {
 
       {/* Hero */}
       <section className="relative overflow-hidden py-20 px-4">
-        <div className="absolute inset-0 bg-gradient-to-br from-red-950 via-[#1a0a00] to-yellow-950 opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-br from-red-950 via-[#1a0a00] to-red-950 opacity-60" />
         <div className="relative max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-red-900/40 border border-red-700/50 rounded-full px-4 py-1.5 mb-6">
             <span className="text-red-400 text-xs font-bold tracking-widest">GRIDIRON NEXUS</span>
-            <span className="bg-yellow-500 text-black text-xs font-bold px-2 py-0.5 rounded-full">POWERED BY ATHLYNX</span>
+            <span className="bg-red-500 text-black text-xs font-bold px-2 py-0.5 rounded-full">POWERED BY ATHLYNX</span>
           </div>
           <h1 className="text-6xl md:text-7xl font-black text-white mb-4 leading-none">
             OWN THE<br />
-            <span className="text-yellow-400">GRIDIRON</span>
+            <span className="text-red-400">GRIDIRON</span>
           </h1>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
             Elite Recruiting. Film Analysis. Combine Prep. NIL Opportunities. The complete football platform for ballers.
@@ -66,7 +66,7 @@ export default function GridironNexus() {
             <Link href="/signin" className="flex items-center justify-center gap-2 bg-red-600 hover:bg-red-500 text-white font-bold text-lg px-8 py-4 rounded-xl transition-all hover:scale-105">
               🏆 Find Events
             </Link>
-            <button className="flex items-center justify-center gap-2 border border-yellow-500 text-yellow-400 hover:bg-yellow-500/10 font-bold text-lg px-8 py-4 rounded-xl transition-all">
+            <button className="flex items-center justify-center gap-2 border border-red-500 text-red-400 hover:bg-red-500/10 font-bold text-lg px-8 py-4 rounded-xl transition-all">
               📈 View Rankings
             </button>
           </div>
@@ -79,7 +79,7 @@ export default function GridironNexus() {
           {stats.map((s) => (
             <div key={s.label} className="text-center">
               <div className="text-3xl mb-1">{s.icon}</div>
-              <div className="text-3xl font-black text-yellow-400">{s.value}</div>
+              <div className="text-3xl font-black text-red-400">{s.value}</div>
               <div className="text-sm text-gray-400">{s.label}</div>
             </div>
           ))}
@@ -133,7 +133,7 @@ export default function GridironNexus() {
                     <span className="text-xs bg-red-900/40 text-red-400 px-2 py-0.5 rounded-full mt-1 inline-block">{event.type}</span>
                   </div>
                   <div className="text-right">
-                    <div className="text-yellow-400 font-bold">{event.spots} spots</div>
+                    <div className="text-red-400 font-bold">{event.spots} spots</div>
                     <button className="mt-2 bg-red-600 hover:bg-red-500 text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-colors">
                       Register
                     </button>
@@ -160,15 +160,15 @@ export default function GridironNexus() {
                   { rank: 4, name: "Jordan Davis", pos: "DB", school: "North Shore HS", state: "TX", stars: 4 },
                   { rank: 5, name: "Chris Martinez", pos: "RB", school: "Duncanville HS", state: "TX", stars: 4 },
                 ].map((player) => (
-                  <div key={player.rank} className="bg-white/5 border border-red-900/30 rounded-xl p-4 flex items-center gap-4 hover:border-yellow-500/30 transition-all">
-                    <div className="text-2xl font-black text-yellow-400 w-8">#{player.rank}</div>
+                  <div key={player.rank} className="bg-white/5 border border-red-900/30 rounded-xl p-4 flex items-center gap-4 hover:border-red-500/30 transition-all">
+                    <div className="text-2xl font-black text-red-400 w-8">#{player.rank}</div>
                     <div className="flex-1">
                       <div className="text-white font-bold">{player.name}</div>
                       <div className="text-gray-400 text-sm">{player.school} · {player.state}</div>
                     </div>
                     <div className="text-center">
                       <div className="bg-red-900/40 text-red-400 text-xs font-bold px-2 py-0.5 rounded">{player.pos}</div>
-                      <div className="text-yellow-400 text-sm mt-1">{"⭐".repeat(player.stars)}</div>
+                      <div className="text-red-400 text-sm mt-1">{"⭐".repeat(player.stars)}</div>
                     </div>
                   </div>
                 ))}
@@ -184,7 +184,7 @@ export default function GridironNexus() {
                 { school: "Georgia", conference: "SEC", openNeeds: ["DL", "TE", "DB"], scholarships: 4 },
                 { school: "Texas", conference: "Big 12", openNeeds: ["QB", "WR", "OL"], scholarships: 5 },
               ].map((school) => (
-                <div key={school.school} className="bg-white/5 border border-red-900/30 rounded-xl p-5 hover:border-yellow-500/30 transition-all">
+                <div key={school.school} className="bg-white/5 border border-red-900/30 rounded-xl p-5 hover:border-red-500/30 transition-all">
                   <div className="flex items-center justify-between mb-3">
                     <div>
                       <div className="text-white font-bold text-lg">{school.school}</div>
@@ -197,7 +197,7 @@ export default function GridironNexus() {
                   </div>
                   <div className="flex gap-2 flex-wrap">
                     {school.openNeeds.map((pos) => (
-                      <span key={pos} className="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-2 py-0.5 rounded">
+                      <span key={pos} className="bg-red-500/20 text-red-400 text-xs font-bold px-2 py-0.5 rounded">
                         {pos} needed
                       </span>
                     ))}
@@ -213,7 +213,7 @@ export default function GridironNexus() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 px-4 bg-gradient-to-r from-red-900/40 to-yellow-900/20 border-t border-red-900/30">
+      <section className="py-16 px-4 bg-gradient-to-r from-red-900/40 to-red-900/20 border-t border-red-900/30">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-4xl font-black text-white mb-4">Ready to Own the Gridiron?</h2>
           <p className="text-gray-300 mb-8">Join 1.2M+ football players already on ATHLYNX. Your next level starts here.</p>

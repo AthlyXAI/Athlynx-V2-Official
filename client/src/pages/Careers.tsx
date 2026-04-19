@@ -162,7 +162,7 @@ export default function Careers() {
                       </span>
                     )}
                     {job.equity && (
-                      <span className="px-2 py-0.5 bg-yellow-500/20 text-yellow-400 text-xs font-semibold rounded-full">
+                      <span className="px-2 py-0.5 bg-red-500/20 text-red-400 text-xs font-semibold rounded-full">
                         Equity
                       </span>
                     )}

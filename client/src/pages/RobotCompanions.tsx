@@ -49,7 +49,7 @@ const robotProducts = [
       "Night supplementary lighting"
     ],
     useCases: ["Data Center Patrol", "Outdoor Security", "Property Inspection"],
-    color: "from-purple-500 to-pink-500"
+    color: "from-blue-600 to-red-500"
   },
   {
     name: "Medium Size Robot Dog",
@@ -63,7 +63,7 @@ const robotProducts = [
       "High computing power expansion"
     ],
     useCases: ["Heavy Duty Tasks", "Research Platform", "Custom Development"],
-    color: "from-amber-500 to-orange-500"
+    color: "from-red-500 to-red-500"
   }
 ];
 
@@ -185,7 +185,7 @@ export default function RobotCompanions() {
                 <div className="text-slate-400">Autonomous Operation</div>
               </div>
               <div>
-                <div className="text-5xl font-bold text-purple-400 mb-2">IP66</div>
+                <div className="text-5xl font-bold text-blue-500 mb-2">IP66</div>
                 <div className="text-slate-400">Weather Protection</div>
               </div>
             </div>
@@ -311,7 +311,7 @@ export default function RobotCompanions() {
                       <div className="grid grid-cols-2 gap-2">
                         {app.benefits.map((benefit, i) => (
                           <div key={i} className="flex items-center gap-2 text-sm text-slate-300">
-                            <Zap className="w-3 h-3 text-amber-400" />
+                            <Zap className="w-3 h-3 text-red-400" />
                             {benefit}
                           </div>
                         ))}

@@ -126,7 +126,7 @@ export default function Portal() {
                   className="h-10 md:h-12 rounded-lg shadow-lg group-hover:scale-105 transition-all duration-300"
                 />
               </div>
-              <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-yellow-400 rounded-full border-2 border-slate-900 animate-pulse"></div>
+              <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-400 rounded-full border-2 border-slate-900 animate-pulse"></div>
             </div>
           </Link>
 

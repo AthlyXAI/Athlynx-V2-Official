@@ -156,7 +156,7 @@ export default function HIPAACompliance() {
         <div className="max-w-4xl mx-auto">
           <div className="bg-slate-800/50 rounded-2xl p-8 border border-slate-700">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-3">
-              <FileText className="w-8 h-8 text-purple-400" />
+              <FileText className="w-8 h-8 text-blue-500" />
               Business Associate Agreements
             </h2>
             <p className="text-slate-300 mb-6">
@@ -185,9 +185,9 @@ export default function HIPAACompliance() {
       {/* Breach Notification */}
       <section className="py-12 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-8">
+          <div className="bg-red-500/10 border border-red-500/30 rounded-2xl p-8">
             <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
-              <AlertTriangle className="w-8 h-8 text-amber-400" />
+              <AlertTriangle className="w-8 h-8 text-red-400" />
               Breach Notification Policy
             </h2>
             <p className="text-slate-300 mb-4">
@@ -195,19 +195,19 @@ export default function HIPAACompliance() {
             </p>
             <ul className="space-y-2 text-slate-300">
               <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-amber-400 mt-1" />
+                <CheckCircle className="w-4 h-4 text-red-400 mt-1" />
                 Notify affected individuals within 60 days of discovery
               </li>
               <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-amber-400 mt-1" />
+                <CheckCircle className="w-4 h-4 text-red-400 mt-1" />
                 Report to the HHS Secretary as required by law
               </li>
               <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-amber-400 mt-1" />
+                <CheckCircle className="w-4 h-4 text-red-400 mt-1" />
                 Notify prominent media outlets if breach affects 500+ individuals
               </li>
               <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-amber-400 mt-1" />
+                <CheckCircle className="w-4 h-4 text-red-400 mt-1" />
                 Provide credit monitoring services to affected individuals
               </li>
             </ul>

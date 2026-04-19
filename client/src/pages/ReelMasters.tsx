@@ -157,7 +157,7 @@ export default function ReelMasters() {
                       <div className="text-gray-400 text-sm">{spot.state}</div>
                     </div>
                     <div className="text-right">
-                      <div className="text-yellow-400 font-bold">⭐ {spot.rating}</div>
+                      <div className="text-red-400 font-bold">⭐ {spot.rating}</div>
                       <div className="text-gray-500 text-xs">{spot.reports} reports</div>
                     </div>
                   </div>
@@ -190,7 +190,7 @@ export default function ReelMasters() {
                   <div className="text-gray-400 text-xs mb-3">{item.type}</div>
                   <div className="flex items-center justify-between">
                     <div className="text-green-400 font-bold">{item.price}</div>
-                    <div className="text-yellow-400 text-xs">⭐ {item.rating}</div>
+                    <div className="text-red-400 text-xs">⭐ {item.rating}</div>
                   </div>
                   <button className="mt-3 w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-1.5 rounded-lg text-sm transition-colors">
                     Shop Now

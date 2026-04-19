@@ -38,7 +38,7 @@ const leadership = [
     location: "Hong Kong",
     linkedin: "linkedin.com/in/glenntse",
     initials: "GT",
-    gradient: "from-amber-500 to-orange-600",
+    gradient: "from-red-500 to-red-600",
     role: "executive",
     photo: "/images/glenn-tse-cfo.png",
     chineseName: "謝文傑",
@@ -350,12 +350,12 @@ export default function Team() {
           {advisors.map((advisor) => (
             <div key={advisor.name} className="bg-slate-900/80 border border-white/10 rounded-2xl p-6">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
+                <div className="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center">
                   <span className="text-xl font-bold text-white">{advisor.initials}</span>
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-white">{advisor.name}</h3>
-                  <p className="text-amber-400 font-semibold text-sm">{advisor.title}</p>
+                  <p className="text-red-400 font-semibold text-sm">{advisor.title}</p>
                   <p className="text-white/50 text-sm">{advisor.expertise}</p>
                 </div>
               </div>

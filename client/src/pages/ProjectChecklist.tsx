@@ -120,7 +120,7 @@ export default function ProjectChecklist() {
       case 'done':
         return <CheckCircle2 className="w-5 h-5 text-green-500" />;
       case 'in-progress':
-        return <Clock className="w-5 h-5 text-yellow-500" />;
+        return <Clock className="w-5 h-5 text-red-500" />;
       default:
         return <Circle className="w-5 h-5 text-gray-500" />;
     }
@@ -160,7 +160,7 @@ export default function ProjectChecklist() {
                 <div className="text-xs text-gray-400">Completed</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-yellow-400">{inProgressTasks}</div>
+                <div className="text-3xl font-bold text-red-400">{inProgressTasks}</div>
                 <div className="text-xs text-gray-400">In Progress</div>
               </div>
               <div className="text-center">
@@ -204,7 +204,7 @@ export default function ProjectChecklist() {
                   <div className="flex items-center gap-4">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                       phaseProgress === 100 ? 'bg-green-500/20 text-green-400' :
-                      phaseProgress > 0 ? 'bg-yellow-500/20 text-yellow-400' :
+                      phaseProgress > 0 ? 'bg-red-500/20 text-red-400' :
                       'bg-gray-500/20 text-gray-400'
                     }`}>
                       {phaseProgress === 100 ? <CheckCircle2 className="w-5 h-5" /> :
@@ -221,7 +221,7 @@ export default function ProjectChecklist() {
                       <div 
                         className={`h-full transition-all duration-500 ${
                           phaseProgress === 100 ? 'bg-green-500' :
-                          phaseProgress > 0 ? 'bg-yellow-500' :
+                          phaseProgress > 0 ? 'bg-red-500' :
                           'bg-gray-600'
                         }`}
                         style={{ width: `${phaseProgress}%` }}
@@ -284,12 +284,12 @@ export default function ProjectChecklist() {
             <div className="text-sm text-gray-400">Beta Users Target</div>
           </div>
           <div className="bg-[#0d1e36] border border-cyan-500/20 rounded-lg p-4 text-center">
-            <Target className="w-8 h-8 text-yellow-400 mx-auto mb-2" />
+            <Target className="w-8 h-8 text-red-400 mx-auto mb-2" />
             <div className="text-2xl font-bold">25+</div>
             <div className="text-sm text-gray-400">Pages Built</div>
           </div>
           <div className="bg-[#0d1e36] border border-cyan-500/20 rounded-lg p-4 text-center">
-            <Rocket className="w-8 h-8 text-purple-400 mx-auto mb-2" />
+            <Rocket className="w-8 h-8 text-blue-500 mx-auto mb-2" />
             <div className="text-2xl font-bold">Diamond Grind</div>
             <div className="text-sm text-gray-400">First Launch App</div>
           </div>

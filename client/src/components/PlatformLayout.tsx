@@ -32,13 +32,13 @@ const APPS = [
 const BADGE_COLORS: Record<string, string> = {
   LIVE: "bg-green-600",
   NEW: "bg-blue-600",
-  HOT: "bg-orange-500",
-  ELITE: "bg-purple-600",
+  HOT: "bg-red-500",
+  ELITE: "bg-blue-700",
   AI: "bg-cyan-600",
-  BLEND: "bg-pink-600",
+  BLEND: "bg-red-600",
   SOON: "bg-gray-600",
   BIZ: "bg-indigo-600",
-  PRO: "bg-violet-600",
+  PRO: "bg-blue-700",
   ADMIN: "bg-red-700",
 };
 
@@ -166,7 +166,7 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
 
   const planColor = sub?.plan === "athlete_pro" ? "#0066ff" :
     sub?.plan === "athlete_elite" ? "#00c2ff" :
-    sub?.plan === "nil_vault" ? "#7c3aed" : "#6b7280";
+    sub?.plan === "nil_vault" ? "#1e3a8a" : "#6b7280";
 
   return (
     <div className="min-h-screen bg-[#1a3a8f] text-white">
@@ -189,7 +189,7 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
       )}
       {/* Trial expired banner */}
       {user && trialExpired && (
-        <div className="bg-gradient-to-r from-red-900/40 to-orange-900/40 border-b border-red-700/50 text-center py-1.5 px-4 flex items-center justify-center gap-3">
+        <div className="bg-gradient-to-r from-red-900/40 to-red-900/40 border-b border-red-700/50 text-center py-1.5 px-4 flex items-center justify-center gap-3">
           <span className="text-red-300 text-xs font-bold">⚠️ FREE TRIAL ENDED — Upgrade to keep full access</span>
           <Link href="/billing" className="text-xs bg-red-500 text-white font-black px-3 py-0.5 rounded-full hover:bg-red-400 transition-colors">
             Upgrade Now
@@ -237,7 +237,7 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
                   </span>
                 </Link>
                 <Link href="/billing">
-                  <span className="inline-flex items-center gap-0.5 text-[10px] font-bold px-2 py-1 rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 cursor-pointer hover:bg-yellow-500/20 transition-colors">
+                  <span className="inline-flex items-center gap-0.5 text-[10px] font-bold px-2 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/30 cursor-pointer hover:bg-red-500/20 transition-colors">
                     ⚡ {(user as any)?.credits ?? 0}
                   </span>
                 </Link>
@@ -350,21 +350,21 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
           </div>
 
           {/* DHG link */}
-          <Link href="/dhg-empire" className="bg-[#1a3a8f] rounded-xl border border-yellow-700/40 p-3 flex items-center gap-3 hover:bg-blue-900 hover:border-yellow-500/60 transition-colors">
+          <Link href="/dhg-empire" className="bg-[#1a3a8f] rounded-xl border border-red-700/40 p-3 flex items-center gap-3 hover:bg-blue-900 hover:border-red-500/60 transition-colors">
             <img src="/logos/dhg-crab-logo.png" alt="DHG" className="w-10 h-10 rounded-lg object-cover" />
             <div>
               <div className="text-sm font-bold text-white">DHG Empire</div>
-              <div className="text-yellow-400/70 text-xs">All 20+ Companies</div>
+              <div className="text-red-400/70 text-xs">All 20+ Companies</div>
             </div>
           </Link>
 
           {/* Upgrade CTA for free users */}
           {user && (!sub?.plan || sub.plan === "free") && (
-            <Link href="/billing" className="bg-gradient-to-br from-blue-900 to-purple-900 rounded-xl border border-purple-700 p-3 hover:border-purple-500 transition-colors block">
-              <div className="text-purple-300 text-xs font-bold uppercase tracking-wider mb-1">Upgrade to PRO</div>
+            <Link href="/billing" className="bg-gradient-to-br from-blue-900 to-blue-950 rounded-xl border border-blue-800 p-3 hover:border-blue-600 transition-colors block">
+              <div className="text-blue-300 text-xs font-bold uppercase tracking-wider mb-1">Upgrade to PRO</div>
               <div className="text-white text-sm font-semibold">Unlock all features</div>
               <div className="text-blue-400 text-xs mt-1">NIL Vault, AI tools, and more</div>
-              <div className="mt-2 text-center bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold py-1.5 rounded-lg transition-colors">
+              <div className="mt-2 text-center bg-blue-700 hover:bg-blue-600 text-white text-xs font-bold py-1.5 rounded-lg transition-colors">
                 View Plans →
               </div>
             </Link>
@@ -389,15 +389,15 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
                   Your 7-day free trial has ended. Choose a plan to keep full access to all 20+ ATHLYNX apps — NIL Portal, Transfer Portal, Diamond Grind, Warriors Playbook, and more.
                 </p>
                 <div className="grid grid-cols-3 gap-3 mb-6">
-                  {([{name:"STARTER",price:"$29",color:"#0066ff"},{name:"PRO",price:"$79",color:"#00c2ff",popular:true},{name:"ELITE",price:"$149",color:"#7c3aed"}] as any[]).map((p: any) => (
+                  {([{name:"STARTER",price:"$29",color:"#0066ff"},{name:"PRO",price:"$79",color:"#00c2ff",popular:true},{name:"ELITE",price:"$149",color:"#1e3a8a"}] as any[]).map((p: any) => (
                     <Link key={p.name} href="/billing" className="rounded-xl border p-3 hover:scale-105 transition-all cursor-pointer block" style={{borderColor: p.color + '44', backgroundColor: p.color + '11'}}>
-                      {p.popular && <div className="text-[9px] font-black text-yellow-400 mb-1">POPULAR</div>}
+                      {p.popular && <div className="text-[9px] font-black text-red-400 mb-1">POPULAR</div>}
                       <div className="font-black text-white text-sm">{p.name}</div>
                       <div className="font-black text-lg" style={{color: p.color}}>{p.price}<span className="text-xs text-blue-400">/mo</span></div>
                     </Link>
                   ))}
                 </div>
-                <Link href="/billing" className="block w-full bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-300 hover:to-orange-400 text-black font-black text-lg py-3 rounded-xl transition-all shadow-xl hover:scale-105">
+                <Link href="/billing" className="block w-full bg-gradient-to-r from-red-400 to-red-500 hover:from-red-300 hover:to-red-400 text-black font-black text-lg py-3 rounded-xl transition-all shadow-xl hover:scale-105">
                   CHOOSE YOUR PLAN →
                 </Link>
                 <div className="mt-4 text-blue-400 text-xs">No contracts. Cancel anytime. Instant access.</div>

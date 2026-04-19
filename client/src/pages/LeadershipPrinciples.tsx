@@ -53,7 +53,7 @@ export default function LeadershipPrinciples() {
       description: "Leaders are owners. They think long term and don't sacrifice long-term value for short-term results. They act on behalf of the entire company, beyond just their own team.",
       dhgVersion: "We own our outcomes. No excuses. No finger-pointing.",
       icon: Shield,
-      color: "from-purple-500 to-indigo-600"
+      color: "from-blue-600 to-indigo-600"
     },
     {
       number: 3,
@@ -61,7 +61,7 @@ export default function LeadershipPrinciples() {
       description: "Leaders expect and require innovation and invention from their teams and always find ways to simplify.",
       dhgVersion: "If it's complicated, we haven't finished building it yet.",
       icon: Lightbulb,
-      color: "from-yellow-500 to-orange-600"
+      color: "from-red-500 to-red-600"
     },
     {
       number: 4,
@@ -77,7 +77,7 @@ export default function LeadershipPrinciples() {
       description: "Leaders are never done learning and always seek to improve themselves. They are curious about new possibilities and act to explore them.",
       dhgVersion: "Stay hungry. Stay curious. The game is always evolving.",
       icon: BookOpen,
-      color: "from-pink-500 to-rose-600"
+      color: "from-red-500 to-red-600"
     },
     {
       number: 6,
@@ -85,7 +85,7 @@ export default function LeadershipPrinciples() {
       description: "Leaders raise the performance bar with every hire and promotion. They recognize exceptional talent.",
       dhgVersion: "A players hire A players. B players hire C players.",
       icon: Award,
-      color: "from-amber-500 to-yellow-600"
+      color: "from-red-500 to-red-600"
     },
     {
       number: 7,
@@ -93,7 +93,7 @@ export default function LeadershipPrinciples() {
       description: "Leaders have relentlessly high standards—many people may think these standards are unreasonably high.",
       dhgVersion: "Good enough isn't. Championship standards only.",
       icon: Star,
-      color: "from-red-500 to-pink-600"
+      color: "from-red-500 to-red-600"
     },
     {
       number: 8,
@@ -101,7 +101,7 @@ export default function LeadershipPrinciples() {
       description: "Thinking small is a self-fulfilling prophecy. Leaders create and communicate a bold direction that inspires results.",
       dhgVersion: "We're not building an app. We're building an empire.",
       icon: Rocket,
-      color: "from-indigo-500 to-purple-600"
+      color: "from-indigo-500 to-blue-700"
     },
     {
       number: 9,
@@ -109,7 +109,7 @@ export default function LeadershipPrinciples() {
       description: "Speed matters in business. Many decisions and actions are reversible and do not need extensive study. We value calculated risk taking.",
       dhgVersion: "Move fast. Break things. Fix them faster.",
       icon: Zap,
-      color: "from-orange-500 to-red-600"
+      color: "from-red-500 to-red-600"
     },
     {
       number: 10,
@@ -133,7 +133,7 @@ export default function LeadershipPrinciples() {
       description: "Leaders operate at all levels, stay connected to the details, audit frequently, and are skeptical when metrics and anecdote differ.",
       dhgVersion: "Know your numbers. Know your product. Know your athlete.",
       icon: Search,
-      color: "from-violet-500 to-purple-600"
+      color: "from-blue-600 to-blue-700"
     },
     {
       number: 13,
@@ -149,7 +149,7 @@ export default function LeadershipPrinciples() {
       description: "Leaders focus on the key inputs for their business and deliver them with the right quality and in a timely fashion.",
       dhgVersion: "All the hard work means nothing without the close. The deal has to get done—that's when we get paid.",
       icon: Trophy,
-      color: "from-yellow-500 to-amber-600"
+      color: "from-red-500 to-red-600"
     },
     {
       number: 15,
@@ -157,7 +157,7 @@ export default function LeadershipPrinciples() {
       description: "Leaders work every day to create a safer, more productive, higher performing work environment.",
       dhgVersion: "Take care of your people. They'll take care of the business.",
       icon: Heart,
-      color: "from-rose-500 to-pink-600"
+      color: "from-red-500 to-red-600"
     },
     {
       number: 16,
@@ -246,7 +246,7 @@ export default function LeadershipPrinciples() {
       <section className="pt-32 pb-20 px-4 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-3xl" />
         </div>
 
         <div className="container mx-auto text-center relative z-10">
@@ -269,7 +269,7 @@ export default function LeadershipPrinciples() {
             
             <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-black text-white mb-6">
               LEADERSHIP<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-yellow-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-red-400">
                 PRINCIPLES
               </span>
             </motion.h1>
@@ -350,7 +350,7 @@ export default function LeadershipPrinciples() {
           >
             <motion.div variants={fadeInUp}>
               <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-                THE <span className="text-yellow-400">DOZIER PRINCIPLES</span>
+                THE <span className="text-red-400">DOZIER PRINCIPLES</span>
               </h2>
               <p className="text-white/60 text-xl max-w-2xl mx-auto">
                 Additional principles from the founder. The mindset that builds empires.
@@ -366,13 +366,13 @@ export default function LeadershipPrinciples() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 rounded-2xl p-6 border border-yellow-500/20 hover:border-yellow-500/40 transition-all"
+                className="bg-gradient-to-br from-red-500/10 to-red-500/10 rounded-2xl p-6 border border-red-500/20 hover:border-red-500/40 transition-all"
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center">
-                    <span className="text-yellow-400 font-black">{principle.number}</span>
+                  <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center">
+                    <span className="text-red-400 font-black">{principle.number}</span>
                   </div>
-                  <principle.icon className="w-6 h-6 text-yellow-400" />
+                  <principle.icon className="w-6 h-6 text-red-400" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">{principle.title}</h3>
                 <p className="text-white/70">{principle.description}</p>
@@ -425,7 +425,7 @@ export default function LeadershipPrinciples() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 px-4 bg-gradient-to-r from-cyan-500/10 to-yellow-500/10">
+      <section className="py-20 px-4 bg-gradient-to-r from-cyan-500/10 to-red-500/10">
         <div className="container mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

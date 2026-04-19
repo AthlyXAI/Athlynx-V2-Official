@@ -69,7 +69,7 @@ const StatusBadge = ({ status }: { status: string }) => {
     built: "bg-blue-500",
     active: "bg-cyan-500",
     planned: "bg-gray-500",
-    coming: "bg-yellow-500",
+    coming: "bg-red-500",
   };
   
   return (
@@ -82,7 +82,7 @@ const StatusBadge = ({ status }: { status: string }) => {
 const PriorityBadge = ({ priority }: { priority: string }) => {
   const colors: Record<string, string> = {
     HIGH: "text-red-400",
-    MEDIUM: "text-yellow-400",
+    MEDIUM: "text-red-400",
     LOW: "text-gray-400",
   };
   
@@ -163,12 +163,12 @@ export default function ProjectManagement() {
                 <div className="text-xs text-gray-500 mt-1">Core platform ready</div>
               </div>
               <div className="bg-slate-800/50 border border-cyan-500/20 rounded-xl p-6">
-                <div className="text-3xl font-bold text-yellow-400">33</div>
+                <div className="text-3xl font-bold text-red-400">33</div>
                 <div className="text-gray-400">Days to Launch</div>
                 <div className="text-xs text-gray-500 mt-1">February 1, 2026</div>
               </div>
               <div className="bg-slate-800/50 border border-cyan-500/20 rounded-xl p-6">
-                <div className="text-3xl font-bold text-purple-400">16</div>
+                <div className="text-3xl font-bold text-blue-500">16</div>
                 <div className="text-gray-400">Companies</div>
                 <div className="text-xs text-gray-500 mt-1">DHG Portfolio</div>
               </div>
@@ -189,12 +189,12 @@ export default function ProjectManagement() {
                   </button>
                 </Link>
                 <Link href="/nil-portal">
-                  <button className="w-full p-4 bg-purple-500/20 border border-purple-500/50 rounded-lg text-purple-400 hover:bg-purple-500/30 transition-colors">
+                  <button className="w-full p-4 bg-blue-600/20 border border-blue-600/50 rounded-lg text-blue-500 hover:bg-blue-600/30 transition-colors">
                     NIL Portal
                   </button>
                 </Link>
                 <Link href="/store">
-                  <button className="w-full p-4 bg-yellow-500/20 border border-yellow-500/50 rounded-lg text-yellow-400 hover:bg-yellow-500/30 transition-colors">
+                  <button className="w-full p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 hover:bg-red-500/30 transition-colors">
                     🛒 Store
                   </button>
                 </Link>
@@ -214,12 +214,12 @@ export default function ProjectManagement() {
                   <StatusBadge status="live" />
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
+                  <div className="w-4 h-4 rounded-full bg-red-500"></div>
                   <div className="flex-1">
                     <div className="text-white font-medium">Full Launch - Baseball</div>
                     <div className="text-gray-400 text-sm">February 1, 2026 - Diamond Grind</div>
                   </div>
-                  <span className="text-yellow-400 text-sm">33 days</span>
+                  <span className="text-red-400 text-sm">33 days</span>
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="w-4 h-4 rounded-full bg-gray-500"></div>
@@ -425,12 +425,12 @@ export default function ProjectManagement() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {advisors.map((person) => (
                   <div key={person.name} className="bg-slate-700/50 border border-gray-600 rounded-lg p-4 flex items-center gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-full flex items-center justify-center text-xl">
+                    <div className="w-12 h-12 bg-gradient-to-br from-red-500 to-red-500 rounded-full flex items-center justify-center text-xl">
                       
                     </div>
                     <div>
                       <div className="text-white font-medium">{person.name}</div>
-                      <div className="text-yellow-400 text-sm">{person.title}</div>
+                      <div className="text-red-400 text-sm">{person.title}</div>
                       <div className="text-gray-500 text-xs">{person.role}</div>
                     </div>
                   </div>
@@ -469,12 +469,12 @@ export default function ProjectManagement() {
                 {/* Phase 2 */}
                 <div className="flex gap-4">
                   <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center text-white font-bold">2</div>
+                    <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center text-white font-bold">2</div>
                     <div className="w-0.5 h-full bg-gray-600 mt-2"></div>
                   </div>
                   <div className="flex-1 pb-8">
                     <div className="text-white font-bold text-lg">Full Launch - Baseball</div>
-                    <div className="text-yellow-400">February 1, 2026</div>
+                    <div className="text-red-400">February 1, 2026</div>
                     <div className="text-gray-400 mt-2">
                       <ul className="list-disc list-inside space-y-1">
                         <li>Diamond Grind polished</li>
@@ -489,11 +489,11 @@ export default function ProjectManagement() {
                 {/* Phase 3 */}
                 <div className="flex gap-4">
                   <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">3</div>
+                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">3</div>
                   </div>
                   <div className="flex-1">
                     <div className="text-white font-bold text-lg">Sport Rollout</div>
-                    <div className="text-purple-400">Every 2-4 weeks after Feb 1</div>
+                    <div className="text-blue-500">Every 2-4 weeks after Feb 1</div>
                     <div className="text-gray-400 mt-2">
                       <ul className="list-disc list-inside space-y-1">
                         <li>Basketball (Court Kings)</li>
@@ -508,7 +508,7 @@ export default function ProjectManagement() {
             </div>
 
             {/* Immediate Priorities */}
-            <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 border border-red-500/30 rounded-xl p-6">
+            <div className="bg-gradient-to-r from-red-500/20 to-red-500/20 border border-red-500/30 rounded-xl p-6">
               <h2 className="text-xl font-bold text-white mb-4">Immediate Priorities (Next 7 Days)</h2>
               <div className="space-y-2">
                 <div className="flex items-center gap-3">

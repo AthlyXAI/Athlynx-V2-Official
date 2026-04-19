@@ -36,8 +36,8 @@ const subsidiaries: Subsidiary[] = [
 const leadership = [
   { name: 'Chad A. Dozier', title: 'Founder, CEO & Chairman', bio: "Visionary entrepreneur and founder of Dozier Holdings Group. Chad brings decades of business acumen across technology, real estate, and energy sectors. His leadership philosophy — Iron Sharpens Iron — drives the company's culture of excellence and continuous improvement.", email: 'cdozier14@dozierholdingsgroup.com.mx', initials: 'CD', color: 'from-blue-500 to-cyan-500' },
   { name: 'Glenn Tse', title: 'CFO / COO', bio: "Co-founder and financial architect of DHG. Glenn's expertise in financial strategy, operations management, and business development has been instrumental in building DHG's diversified portfolio from the ground up since the company's founding at Hope Lodge in November 2024.", initials: 'GT', color: 'from-emerald-500 to-teal-500', email: '' },
-  { name: 'Andy Kustes', title: 'VP Technology', bio: "Technology visionary leading DHG's digital transformation and AI initiatives. Andy architects the technical infrastructure powering ATHLYNX, Softmor AI, and VC Data Centers — building the technological backbone of the DHG ecosystem.", initials: 'AK', color: 'from-purple-500 to-violet-500', email: '' },
-  { name: 'Lee Marshall', title: 'VP Sales & Partnerships', bio: "Sales leader and partnership architect driving DHG's business development strategy. Lee builds the relationships and revenue channels that fuel DHG's growth across all divisions.", initials: 'LM', color: 'from-orange-500 to-amber-500', email: '' },
+  { name: 'Andy Kustes', title: 'VP Technology', bio: "Technology visionary leading DHG's digital transformation and AI initiatives. Andy architects the technical infrastructure powering ATHLYNX, Softmor AI, and VC Data Centers — building the technological backbone of the DHG ecosystem.", initials: 'AK', color: 'from-blue-600 to-blue-600', email: '' },
+  { name: 'Lee Marshall', title: 'VP Sales & Partnerships', bio: "Sales leader and partnership architect driving DHG's business development strategy. Lee builds the relationships and revenue channels that fuel DHG's growth across all divisions.", initials: 'LM', color: 'from-red-500 to-red-500', email: '' },
   { name: 'Jimmy Boyd', title: 'VP Real Estate', bio: "Real estate executive overseeing DHG's property portfolio and development pipeline. Jimmy leads acquisitions, development, and management across DHG's residential and commercial real estate divisions.", initials: 'JB', color: 'from-teal-500 to-green-500', email: '' },
 ];
 
@@ -54,9 +54,9 @@ export default function DHGCorporate() {
   const divisionColors: Record<string, string> = {
     technology: 'from-blue-500 to-cyan-500',
     realestate: 'from-emerald-500 to-green-500',
-    trading: 'from-amber-500 to-orange-500'
+    trading: 'from-red-500 to-red-500'
   };
-  const statusColors: Record<string, string> = { active: 'bg-green-500', development: 'bg-yellow-500', planned: 'bg-blue-500' };
+  const statusColors: Record<string, string> = { active: 'bg-green-500', development: 'bg-red-500', planned: 'bg-blue-500' };
   const statusLabels: Record<string, string> = { active: 'Active', development: 'In Development', planned: 'Planned' };
 
   return (
@@ -226,9 +226,9 @@ export default function DHGCorporate() {
                 <li className="flex items-center gap-2"><span className="text-emerald-400">✓</span> Pomodoro Restaurant</li>
               </ul>
             </div>
-            <div className="bg-gradient-to-br from-amber-900/50 to-amber-800/30 border border-amber-500/30 rounded-2xl p-8">
+            <div className="bg-gradient-to-br from-red-900/50 to-red-800/30 border border-red-500/30 rounded-2xl p-8">
               <div className="text-4xl mb-4">📈</div>
-              <h3 className="text-2xl font-black mb-3 text-amber-300">Trading Division</h3>
+              <h3 className="text-2xl font-black mb-3 text-red-300">Trading Division</h3>
               <p className="text-gray-400 mb-5 leading-relaxed">Commodity trading, financial instruments, and global market expansion through Silk Road Trading and VC Global.</p>
               <ul className="space-y-2 text-sm text-gray-300">
                 <li className="flex items-center gap-2"><span className="text-emerald-400">✓</span> Commodity Trading</li>

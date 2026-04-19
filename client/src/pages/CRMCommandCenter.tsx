@@ -267,7 +267,7 @@ function DashboardModule() {
         <QuickStatCard title="Companies" value="12+" icon="🏢" color="cyan" />
         <QuickStatCard title="Partners" value="6" icon="👥" color="blue" />
         <QuickStatCard title="Connectors" value="8" icon="🔌" color="green" />
-        <QuickStatCard title="Documents" value="50+" icon="📁" color="purple" />
+        <QuickStatCard title="Documents" value="50+" icon="📁" color="blue" />
       </div>
 
       {/* Quick Actions */}
@@ -289,7 +289,7 @@ function DashboardModule() {
               <span className="text-2xl">🏢</span>
               <span>Add Company</span>
             </Button>
-            <Button className="bg-purple-600 hover:bg-purple-500 h-20 flex-col gap-2">
+            <Button className="bg-blue-700 hover:bg-blue-600 h-20 flex-col gap-2">
               <span className="text-2xl">👤</span>
               <span>Add Partner</span>
             </Button>
@@ -389,7 +389,7 @@ function CompaniesModule() {
                     <td className="py-3 px-4 text-slate-300">{company.state}</td>
                     <td className="py-3 px-4 text-slate-300">{company.ein}</td>
                     <td className="py-3 px-4">
-                      <Badge className={company.status === "Active" ? "bg-green-500/20 text-green-400" : "bg-yellow-500/20 text-yellow-400"}>
+                      <Badge className={company.status === "Active" ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"}>
                         {company.status}
                       </Badge>
                     </td>
@@ -572,7 +572,7 @@ function ConnectorsModule() {
                 </div>
                 <Badge className={
                   connector.status === "connected" ? "bg-green-500/20 text-green-400" :
-                  connector.status === "pending" ? "bg-yellow-500/20 text-yellow-400" :
+                  connector.status === "pending" ? "bg-red-500/20 text-red-400" :
                   "bg-red-500/20 text-red-400"
                 }>
                   {connector.status === "connected" ? "● Connected" :
@@ -719,7 +719,7 @@ function EmailsModule() {
               <Button className="w-full bg-green-600 hover:bg-green-500">
                 📧 Email David Ford Sr.
               </Button>
-              <Button className="w-full bg-purple-600 hover:bg-purple-500">
+              <Button className="w-full bg-blue-700 hover:bg-blue-600">
                 📧 Email Legal Team
               </Button>
             </CardContent>
@@ -864,11 +864,11 @@ function ComplianceModule() {
             <p className="text-green-300">Compliant</p>
           </CardContent>
         </Card>
-        <Card className="bg-yellow-900/30 border-yellow-500/30">
+        <Card className="bg-red-900/30 border-red-500/30">
           <CardContent className="p-4 text-center">
             <span className="text-4xl">⚠️</span>
-            <h3 className="text-yellow-400 font-bold text-2xl mt-2">2</h3>
-            <p className="text-yellow-300">Upcoming</p>
+            <h3 className="text-red-400 font-bold text-2xl mt-2">2</h3>
+            <p className="text-red-300">Upcoming</p>
           </CardContent>
         </Card>
         <Card className="bg-red-900/30 border-red-500/30">
@@ -954,7 +954,7 @@ function QuickStatCard({ title, value, icon, color }: { title: string; value: st
     cyan: "from-cyan-500 to-blue-500",
     blue: "from-blue-500 to-indigo-500",
     green: "from-green-500 to-emerald-500",
-    purple: "from-purple-500 to-pink-500",
+    blue2: "from-blue-600 to-red-500",
   };
   
   return (
@@ -995,7 +995,7 @@ function ComplianceItem({ company, task, dueDate, daysLeft, status }: { company:
       </div>
       <div className="text-right">
         <p className="text-cyan-400">{dueDate}</p>
-        <Badge className={daysLeft < 30 ? "bg-yellow-500/20 text-yellow-400" : "bg-green-500/20 text-green-400"}>
+        <Badge className={daysLeft < 30 ? "bg-red-500/20 text-red-400" : "bg-green-500/20 text-green-400"}>
           {daysLeft} days left
         </Badge>
       </div>
@@ -1007,7 +1007,7 @@ function NCNDAStatus({ name, status }: { name: string; status: "signed" | "pendi
   return (
     <div className="flex items-center justify-between p-3 bg-slate-700/30 rounded-lg">
       <span className="text-white">{name}</span>
-      <Badge className={status === "signed" ? "bg-green-500/20 text-green-400" : "bg-yellow-500/20 text-yellow-400"}>
+      <Badge className={status === "signed" ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"}>
         {status === "signed" ? "✅ Signed" : "⏳ Pending"}
       </Badge>
     </div>
@@ -1057,7 +1057,7 @@ function ComplianceTask({ task, company, dueDate, priority, status }: { task: st
         </div>
       </div>
       <div className="flex items-center gap-3">
-        <Badge className={priority === "high" ? "bg-red-500/20 text-red-400" : "bg-yellow-500/20 text-yellow-400"}>
+        <Badge className={priority === "high" ? "bg-red-500/20 text-red-400" : "bg-red-500/20 text-red-400"}>
           {priority}
         </Badge>
         <span className="text-slate-300">{dueDate}</span>
@@ -1075,7 +1075,7 @@ function IPFilingItem({ name, type, status, cost }: { name: string; type: string
       </div>
       <div className="flex items-center gap-3">
         <span className="text-cyan-400">{cost}</span>
-        <Badge className="bg-yellow-500/20 text-yellow-400">⏳ {status}</Badge>
+        <Badge className="bg-red-500/20 text-red-400">⏳ {status}</Badge>
       </div>
     </div>
   );
@@ -1136,17 +1136,17 @@ function WebHostingModule() {
             <p className="text-slate-300">Active Sites</p>
           </CardContent>
         </Card>
-        <Card className="bg-slate-800/50 border-purple-500/30">
+        <Card className="bg-slate-800/50 border-blue-600/30">
           <CardContent className="p-4 text-center">
             <span className="text-3xl">🔒</span>
-            <h3 className="text-purple-400 font-bold text-2xl mt-2">4</h3>
+            <h3 className="text-blue-500 font-bold text-2xl mt-2">4</h3>
             <p className="text-slate-300">SSL Certs</p>
           </CardContent>
         </Card>
-        <Card className="bg-slate-800/50 border-yellow-500/30">
+        <Card className="bg-slate-800/50 border-red-500/30">
           <CardContent className="p-4 text-center">
             <span className="text-3xl">📧</span>
-            <h3 className="text-yellow-400 font-bold text-2xl mt-2">12</h3>
+            <h3 className="text-red-400 font-bold text-2xl mt-2">12</h3>
             <p className="text-slate-300">Email Accounts</p>
           </CardContent>
         </Card>
@@ -1178,7 +1178,7 @@ function WebHostingModule() {
                       <span className="text-white font-medium">{d.domain}</span>
                     </td>
                     <td className="py-3 px-4">
-                      <Badge className={d.status === "active" ? "bg-green-500/20 text-green-400" : "bg-yellow-500/20 text-yellow-400"}>
+                      <Badge className={d.status === "active" ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"}>
                         {d.status === "active" ? "● Active" : "○ Pending"}
                       </Badge>
                     </td>
@@ -1294,17 +1294,17 @@ function AthleteSitesModule() {
             <p className="text-slate-300">Total Views</p>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-to-br from-purple-900/50 to-pink-900/50 border-purple-500/30">
+        <Card className="bg-gradient-to-br from-blue-950/50 to-red-900/50 border-blue-600/30">
           <CardContent className="p-4 text-center">
             <span className="text-3xl">🏈</span>
-            <h3 className="text-purple-400 font-bold text-2xl mt-2">3</h3>
+            <h3 className="text-blue-500 font-bold text-2xl mt-2">3</h3>
             <p className="text-slate-300">Sports</p>
           </CardContent>
         </Card>
-        <Card className="bg-gradient-to-br from-yellow-900/50 to-orange-900/50 border-yellow-500/30">
+        <Card className="bg-gradient-to-br from-red-900/50 to-red-900/50 border-red-500/30">
           <CardContent className="p-4 text-center">
             <span className="text-3xl">🎯</span>
-            <h3 className="text-yellow-400 font-bold text-2xl mt-2">47</h3>
+            <h3 className="text-red-400 font-bold text-2xl mt-2">47</h3>
             <p className="text-slate-300">Coach Views</p>
           </CardContent>
         </Card>
@@ -1332,7 +1332,7 @@ function AthleteSitesModule() {
                 <div className="flex items-center gap-4">
                   <div className="text-right">
                     <p className="text-cyan-400 font-medium">{site.views.toLocaleString()} views</p>
-                    <Badge className={site.status === "live" ? "bg-green-500/20 text-green-400" : "bg-yellow-500/20 text-yellow-400"}>
+                    <Badge className={site.status === "live" ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"}>
                       {site.status === "live" ? "● Live" : "🛠️ Building"}
                     </Badge>
                   </div>

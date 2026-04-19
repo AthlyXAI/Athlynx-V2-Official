@@ -6,7 +6,7 @@ export default function Apps() {
       name: "ATHLYNX",
       tagline: "The Athlete's Playbook",
       icon: "",
-      color: "from-yellow-500 to-orange-500",
+      color: "from-red-500 to-red-500",
       description: "The all-in-one platform for athletes. Profiles, recruiting, NIL, training, and more.",
       features: ["Athlete Profiles", "AI Coaching", "NIL Marketplace", "Recruiting", "Messaging"],
       ios: "#",
@@ -28,7 +28,7 @@ export default function Apps() {
       name: "Court Kings",
       tagline: "Basketball Dominance",
       icon: "",
-      color: "from-orange-500 to-red-500",
+      color: "from-red-500 to-red-500",
       description: "Basketball recruiting, training, and exposure platform.",
       features: ["Hoops Rankings", "Camp Finder", "Highlight Reels", "College Connections"],
       ios: "#",
@@ -83,7 +83,7 @@ export default function Apps() {
       name: "Hunt Pro",
       tagline: "Hunting Community",
       icon: "🦌",
-      color: "from-amber-600 to-orange-700",
+      color: "from-red-600 to-red-700",
       description: "Hunting spots, harvest tracking, and license management.",
       features: ["Land Finder", "Harvest Log", "License Manager", "Gear Marketplace"],
       ios: "#",
@@ -171,7 +171,7 @@ export default function Apps() {
                   <div className="p-4">
                     <div className="flex items-center justify-between mb-1">
                       <h3 className="text-white font-bold">{app.name}</h3>
-                      <span className="px-2 py-0.5 bg-yellow-500/20 text-yellow-400 text-xs font-semibold rounded">
+                      <span className="px-2 py-0.5 bg-red-500/20 text-red-400 text-xs font-semibold rounded">
                         {app.status}
                       </span>
                     </div>

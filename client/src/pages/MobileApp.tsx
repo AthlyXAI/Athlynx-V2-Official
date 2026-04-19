@@ -13,8 +13,8 @@ const appFeatures = [
 const screenshots = [
   { label: "Dashboard", bg: "from-blue-900 to-cyan-900" },
   { label: "NIL Portal", bg: "from-green-900 to-emerald-900" },
-  { label: "FUEL Bot", bg: "from-orange-900 to-red-900" },
-  { label: "Tournaments", bg: "from-purple-900 to-indigo-900" },
+  { label: "FUEL Bot", bg: "from-red-900 to-red-900" },
+  { label: "Tournaments", bg: "from-blue-950 to-indigo-900" },
 ];
 
 export default function MobileApp() {
@@ -50,12 +50,12 @@ export default function MobileApp() {
 
       {/* Hero */}
       <section className="relative overflow-hidden py-20 px-4">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-[#060d1a] to-purple-950 opacity-60" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-[#060d1a] to-blue-950 opacity-60" />
         <div className="relative max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
           <div className="flex-1">
             <div className="inline-flex items-center gap-2 bg-blue-900/40 border border-blue-700/50 rounded-full px-4 py-1.5 mb-6">
               <span className="text-blue-400 text-xs font-bold tracking-widest">COMING SOON</span>
-              <span className="bg-orange-500 text-black text-xs font-bold px-2 py-0.5 rounded-full">BETA</span>
+              <span className="bg-red-500 text-black text-xs font-bold px-2 py-0.5 rounded-full">BETA</span>
             </div>
             <h1 className="text-5xl md:text-6xl font-black text-white mb-4 leading-none">
               ATHLYNX<br />
@@ -196,7 +196,7 @@ export default function MobileApp() {
       </section>
 
       {/* Platform Comparison */}
-      <section className="py-16 px-4 bg-gradient-to-r from-blue-900/20 to-purple-900/10 border-t border-blue-900/30">
+      <section className="py-16 px-4 bg-gradient-to-r from-blue-900/20 to-blue-950/10 border-t border-blue-900/30">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-2xl font-black text-white text-center mb-8">Web vs Mobile</h2>
           <div className="overflow-x-auto">

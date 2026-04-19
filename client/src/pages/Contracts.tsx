@@ -101,7 +101,7 @@ export default function Contracts() {
             CONTRACT TEMPLATES
           </div>
           <h1 className="text-4xl md:text-5xl font-black mb-6">
-            <span className="bg-gradient-to-r from-indigo-400 to-purple-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-indigo-400 to-blue-600 bg-clip-text text-transparent">
               Contracts & Agreements
             </span>
           </h1>
@@ -128,7 +128,7 @@ export default function Contracts() {
             {contractTypes.map((contract) => (
               <div key={contract.title} className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 hover:border-indigo-400 transition-all relative">
                 {contract.popular && (
-                  <span className="absolute -top-2 -right-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs px-2 py-1 rounded-full font-medium">
+                  <span className="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-red-500 text-white text-xs px-2 py-1 rounded-full font-medium">
                     Popular
                   </span>
                 )}
@@ -158,9 +158,9 @@ export default function Contracts() {
           <div className="grid md:grid-cols-4 gap-6">
             {[
               { domain: "athlynx.ai", desc: "Main Platform", color: "from-blue-500 to-cyan-500" },
-              { domain: "athlynx.io", desc: "Developer Portal", color: "from-purple-500 to-pink-500" },
+              { domain: "athlynx.io", desc: "Developer Portal", color: "from-blue-600 to-red-500" },
               { domain: "athlynx.net", desc: "Network Hub", color: "from-green-500 to-emerald-500" },
-              { domain: "transferportal.ai", desc: "Transfer Portal", color: "from-amber-500 to-orange-500" },
+              { domain: "transferportal.ai", desc: "Transfer Portal", color: "from-red-500 to-red-500" },
             ].map((site) => (
               <div key={site.domain} className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 text-center">
                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${site.color} mx-auto mb-4 flex items-center justify-center`}>
@@ -177,14 +177,14 @@ export default function Contracts() {
       {/* Custom Contracts */}
       <section className="py-12 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-r from-indigo-500/20 to-purple-500/20 border border-indigo-500/30 rounded-2xl p-8 text-center">
+          <div className="bg-gradient-to-r from-indigo-500/20 to-blue-600/20 border border-indigo-500/30 rounded-2xl p-8 text-center">
             <h2 className="text-2xl font-bold mb-4">Need a Custom Contract?</h2>
             <p className="text-slate-300 mb-6">
               Our legal team can draft custom contracts tailored to your specific needs. 
               From complex NIL deals to multi-party partnerships, we've got you covered.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="mailto:legal@athlynx.ai" className="bg-gradient-to-r from-indigo-600 to-purple-500 text-white px-6 py-3 rounded-lg font-medium">
+              <a href="mailto:legal@athlynx.ai" className="bg-gradient-to-r from-indigo-600 to-blue-600 text-white px-6 py-3 rounded-lg font-medium">
                 Request Custom Contract
               </a>
               <a href="tel:+16014985282" className="bg-slate-700 text-white px-6 py-3 rounded-lg font-medium">

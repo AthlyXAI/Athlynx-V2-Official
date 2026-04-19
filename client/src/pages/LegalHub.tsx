@@ -22,21 +22,21 @@ export default function LegalHub() {
       description: "Terms and conditions for using ATHLYNX",
       icon: FileText,
       href: "/terms",
-      color: "from-purple-500 to-violet-600",
+      color: "from-blue-600 to-blue-700",
     },
     {
       title: "Cookie Policy",
       description: "How we use cookies and tracking technologies",
       icon: Cookie,
       href: "/cookies",
-      color: "from-amber-500 to-orange-600",
+      color: "from-red-500 to-red-600",
     },
     {
       title: "Data Protection",
       description: "GDPR, CCPA, and data security measures",
       icon: Database,
       href: "/data-protection",
-      color: "from-red-500 to-rose-600",
+      color: "from-red-500 to-red-600",
     },
     {
       title: "Corporate Documents",
@@ -89,7 +89,7 @@ export default function LegalHub() {
             LEGAL & COMPLIANCE CENTER
           </div>
           <h1 className="text-4xl md:text-6xl font-black mb-6">
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-600 bg-clip-text text-transparent">
               Legal Hub
             </span>
           </h1>
@@ -105,10 +105,10 @@ export default function LegalHub() {
               <Lock className="w-4 h-4 text-blue-400" /> GDPR Ready
             </span>
             <span className="flex items-center gap-2">
-              <Database className="w-4 h-4 text-purple-400" /> CCPA Compliant
+              <Database className="w-4 h-4 text-blue-500" /> CCPA Compliant
             </span>
             <span className="flex items-center gap-2">
-              <Scale className="w-4 h-4 text-amber-400" /> SOC 2 Type II
+              <Scale className="w-4 h-4 text-red-400" /> SOC 2 Type II
             </span>
           </div>
         </div>
@@ -152,7 +152,7 @@ export default function LegalHub() {
               </p>
             </div>
             <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700">
-              <Users className="w-10 h-10 text-purple-400 mb-4" />
+              <Users className="w-10 h-10 text-blue-500 mb-4" />
               <h3 className="text-xl font-bold mb-4">Leadership</h3>
               <p className="text-slate-300 font-semibold">Chad A. Dozier</p>
               <p className="text-slate-400 text-sm">Founder & CEO</p>
@@ -162,7 +162,7 @@ export default function LegalHub() {
               </p>
             </div>
             <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700">
-              <Scale className="w-10 h-10 text-amber-400 mb-4" />
+              <Scale className="w-10 h-10 text-red-400 mb-4" />
               <h3 className="text-xl font-bold mb-4">Legal Contact</h3>
               <p className="text-slate-300 font-semibold">Legal Department</p>
               <p className="text-slate-400 text-sm mt-2">

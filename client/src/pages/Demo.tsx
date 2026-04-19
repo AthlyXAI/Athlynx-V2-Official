@@ -42,8 +42,8 @@ const STEPS = [
     title: "Activate the Social Feed",
     subtitle: "The Athlete's Instagram + LinkedIn Combined",
     icon: "🔥",
-    color: "from-orange-600 to-red-700",
-    border: "border-orange-500",
+    color: "from-red-600 to-red-700",
+    border: "border-red-500",
     description: "Post highlights, training clips, game-day moments. React to teammates. Connect with athletes across every sport globally. This is your court, field, and diamond — all in one feed.",
     bullets: [
       "Post photos, videos, and updates",
@@ -74,8 +74,8 @@ const STEPS = [
     title: "Connect with Coaches via Messenger",
     subtitle: "Direct Line to Every Coach in the Country",
     icon: "📱",
-    color: "from-purple-600 to-blue-700",
-    border: "border-purple-500",
+    color: "from-blue-700 to-blue-700",
+    border: "border-blue-600",
     description: "ATHLYNX Messenger is built for athletes. Message coaches directly, get recruiting updates, coordinate with teammates, and never miss a contact window.",
     bullets: [
       "Message coaches and scouts directly",
@@ -106,8 +106,8 @@ const STEPS = [
     title: "Navigate the Transfer Portal",
     subtitle: "Find Your Next School — Faster Than Anyone",
     icon: "🎓",
-    color: "from-yellow-600 to-orange-600",
-    border: "border-yellow-500",
+    color: "from-red-600 to-red-600",
+    border: "border-red-500",
     description: "The Transfer Portal Intelligence system tracks every open roster spot, scholarship availability, and coach contact windows. If you're entering the portal, ATHLYNX gives you the edge.",
     bullets: [
       "Search open roster spots by sport and position",
@@ -122,7 +122,7 @@ const STEPS = [
     title: "Train with AI-Powered Tools",
     subtitle: "Elite Training Programs Built for Your Sport",
     icon: "💪",
-    color: "from-red-600 to-orange-700",
+    color: "from-red-600 to-red-700",
     border: "border-red-500",
     description: "Access sport-specific training programs, film breakdown tools, and AI coaching. Whether you're a quarterback, pitcher, or point guard — ATHLYNX has your training plan.",
     bullets: [
@@ -165,7 +165,7 @@ export default function Demo() {
             <Link href="/feed" className="text-xs bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg font-bold transition-colors hidden sm:block">
               ENTER PLATFORM
             </Link>
-            <Link href="/signup" className="text-xs bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-4 py-1.5 rounded-lg font-black transition-all hover:scale-105">
+            <Link href="/signup" className="text-xs bg-gradient-to-r from-red-400 to-red-500 text-black px-4 py-1.5 rounded-lg font-black transition-all hover:scale-105">
               JOIN FREE
             </Link>
           </div>
@@ -186,8 +186,8 @@ export default function Demo() {
         </video>
         <div className="absolute inset-0 bg-gradient-to-t from-[#060e24] via-[#060e24]/50 to-transparent pointer-events-none" />
         <div className="absolute bottom-8 left-0 right-0 text-center px-4">
-          <div className="inline-flex items-center gap-2 bg-yellow-500/20 border border-yellow-500 text-yellow-300 text-xs font-black px-4 py-1.5 rounded-full mb-4 tracking-widest">
-            <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse" />
+          <div className="inline-flex items-center gap-2 bg-red-500/20 border border-red-500 text-red-300 text-xs font-black px-4 py-1.5 rounded-full mb-4 tracking-widest">
+            <span className="w-2 h-2 bg-red-400 rounded-full animate-pulse" />
             OFFICIAL PLATFORM WALKTHROUGH
           </div>
           <h1 className="text-4xl md:text-5xl font-black text-white tracking-tight">HOW ATHLYNX WORKS</h1>
@@ -245,14 +245,14 @@ export default function Demo() {
                 <ul className="space-y-2 mb-8">
                   {STEPS[activeStep].bullets.map((b, bi) => (
                     <li key={bi} className="flex items-start gap-3 text-white/90 text-sm">
-                      <span className="text-yellow-400 font-black mt-0.5">✓</span>
+                      <span className="text-red-400 font-black mt-0.5">✓</span>
                       {b}
                     </li>
                   ))}
                 </ul>
                 <Link
                   href={STEPS[activeStep].cta.href}
-                  className="inline-block bg-white text-blue-900 font-black px-8 py-3 rounded-xl hover:bg-yellow-400 transition-all hover:scale-105 shadow-xl"
+                  className="inline-block bg-white text-blue-900 font-black px-8 py-3 rounded-xl hover:bg-red-400 transition-all hover:scale-105 shadow-xl"
                 >
                   {STEPS[activeStep].cta.label} →
                 </Link>
@@ -317,7 +317,7 @@ export default function Demo() {
               <thead>
                 <tr className="border-b border-blue-800">
                   <th className="text-left py-3 px-4 text-blue-400 font-black uppercase tracking-widest text-xs">Feature</th>
-                  <th className="py-3 px-4 text-yellow-400 font-black text-center">ATHLYNX</th>
+                  <th className="py-3 px-4 text-red-400 font-black text-center">ATHLYNX</th>
                   <th className="py-3 px-4 text-blue-600 font-bold text-center text-xs">Hudl</th>
                   <th className="py-3 px-4 text-blue-600 font-bold text-center text-xs">On3</th>
                   <th className="py-3 px-4 text-blue-600 font-bold text-center text-xs">Perfect Game</th>
@@ -359,7 +359,7 @@ export default function Demo() {
             {[
               { name: "STARTER", price: "FREE", period: "7 days", features: ["Full platform access", "Basic profile", "Feed & Messenger", "NIL browsing"], color: "border-blue-700", badge: "" },
               { name: "PRO", price: "$29", period: "/month", features: ["Everything in Starter", "AI Recruiter", "NIL deal submissions", "Transfer Portal Intel", "Priority support"], color: "border-blue-500 ring-2 ring-blue-500", badge: "MOST POPULAR" },
-              { name: "ELITE", price: "$99", period: "/month", features: ["Everything in Pro", "Unlimited NIL deals", "AI Content creation", "Personal recruiting agent", "White-glove support"], color: "border-yellow-600", badge: "ELITE" },
+              { name: "ELITE", price: "$99", period: "/month", features: ["Everything in Pro", "Unlimited NIL deals", "AI Content creation", "Personal recruiting agent", "White-glove support"], color: "border-red-600", badge: "ELITE" },
             ].map((plan) => (
               <div key={plan.name} className={`bg-[#0d1b3e] border ${plan.color} rounded-2xl p-6 relative`}>
                 {plan.badge && (
@@ -401,7 +401,7 @@ export default function Demo() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/signup"
-              className="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-300 hover:to-orange-400 text-black font-black text-xl px-10 py-4 rounded-2xl transition-all shadow-2xl hover:scale-105"
+              className="inline-block bg-gradient-to-r from-red-400 to-red-500 hover:from-red-300 hover:to-red-400 text-black font-black text-xl px-10 py-4 rounded-2xl transition-all shadow-2xl hover:scale-105"
             >
               JOIN FREE — 7 DAYS →
             </Link>

@@ -243,7 +243,7 @@ export function ContactSalesModal({ isOpen, onClose, productName, inquiryType: d
             <Button
               type="submit"
               disabled={submitInquiry.isPending}
-              className="flex-1 bg-gradient-to-r from-yellow-500 to-orange-500 text-black hover:opacity-90"
+              className="flex-1 bg-gradient-to-r from-red-500 to-red-500 text-black hover:opacity-90"
             >
               {submitInquiry.isPending ? "Submitting..." : "Submit Inquiry"}
             </Button>

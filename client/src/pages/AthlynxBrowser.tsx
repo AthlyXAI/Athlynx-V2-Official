@@ -320,9 +320,9 @@ export default function AthlynxBrowser() {
                     <p className="text-gray-400 text-xs">41 models ready</p>
                   </CardContent>
                 </Card>
-                <Card className="bg-gradient-to-br from-purple-500/20 to-purple-600/10 border-purple-500/30">
+                <Card className="bg-gradient-to-br from-blue-600/20 to-blue-700/10 border-blue-600/30">
                   <CardContent className="pt-6 text-center">
-                    <Eye className="w-8 h-8 text-purple-400 mx-auto mb-2" />
+                    <Eye className="w-8 h-8 text-blue-500 mx-auto mb-2" />
                     <p className="text-white font-medium">Ad Blocker</p>
                     <p className="text-gray-400 text-xs">Clean browsing</p>
                   </CardContent>

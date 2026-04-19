@@ -188,10 +188,10 @@ export default function SocialHub() {
                     <TabsTrigger value="messaging" className="data-[state=active]:bg-green-500/20 data-[state=active]:text-green-400">
                       Messaging (4)
                     </TabsTrigger>
-                    <TabsTrigger value="social" className="data-[state=active]:bg-pink-500/20 data-[state=active]:text-pink-400">
+                    <TabsTrigger value="social" className="data-[state=active]:bg-red-500/20 data-[state=active]:text-red-400">
                       Social (6)
                     </TabsTrigger>
-                    <TabsTrigger value="business" className="data-[state=active]:bg-purple-500/20 data-[state=active]:text-purple-400">
+                    <TabsTrigger value="business" className="data-[state=active]:bg-blue-600/20 data-[state=active]:text-blue-500">
                       Business (4)
                     </TabsTrigger>
                   </TabsList>
@@ -213,21 +213,21 @@ export default function SocialHub() {
                   <p className="text-green-400 text-xs">Messaging</p>
                 </CardContent>
               </Card>
-              <Card className="bg-gradient-to-br from-pink-500/20 to-pink-600/10 border-pink-500/30">
+              <Card className="bg-gradient-to-br from-red-500/20 to-red-600/10 border-red-500/30">
                 <CardContent className="pt-6 text-center">
-                  <Share2 className="w-8 h-8 text-pink-400 mx-auto mb-2" />
+                  <Share2 className="w-8 h-8 text-red-400 mx-auto mb-2" />
                   <p className="text-2xl font-bold text-white">6</p>
-                  <p className="text-pink-400 text-xs">Social</p>
+                  <p className="text-red-400 text-xs">Social</p>
                 </CardContent>
               </Card>
-              <Card className="bg-gradient-to-br from-purple-500/20 to-purple-600/10 border-purple-500/30">
+              <Card className="bg-gradient-to-br from-blue-600/20 to-blue-700/10 border-blue-600/30">
                 <CardContent className="pt-6 text-center">
-                  <Video className="w-8 h-8 text-purple-400 mx-auto mb-2" />
+                  <Video className="w-8 h-8 text-blue-500 mx-auto mb-2" />
                   <p className="text-2xl font-bold text-white">4</p>
-                  <p className="text-purple-400 text-xs">Business</p>
+                  <p className="text-blue-500 text-xs">Business</p>
                 </CardContent>
               </Card>
-              <Card className="bg-gradient-to-br from-gold/20 to-yellow-600/10 border-gold/30">
+              <Card className="bg-gradient-to-br from-gold/20 to-red-600/10 border-gold/30">
                 <CardContent className="pt-6 text-center">
                   <TrendingUp className="w-8 h-8 text-gold mx-auto mb-2" />
                   <p className="text-2xl font-bold text-white">15B+</p>
@@ -273,7 +273,7 @@ export default function SocialHub() {
                 <Button
                   onClick={sendToAll}
                   disabled={sending || selectedPlatforms.length === 0}
-                  className="w-full bg-gradient-to-r from-gold to-yellow-600 hover:from-gold/90 hover:to-yellow-600/90 text-black font-bold py-6 text-lg"
+                  className="w-full bg-gradient-to-r from-gold to-red-600 hover:from-gold/90 hover:to-red-600/90 text-black font-bold py-6 text-lg"
                 >
                   {sending ? (
                     <>

@@ -433,11 +433,11 @@ export default function NILCalculator() {
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-slate-300">Marketability</span>
-                      <span className="text-purple-400 font-bold">${result.breakdown.marketability.toLocaleString()}</span>
+                      <span className="text-blue-500 font-bold">${result.breakdown.marketability.toLocaleString()}</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-slate-300">Sport Premium</span>
-                      <span className="text-yellow-400 font-bold">${result.breakdown.sport.toLocaleString()}</span>
+                      <span className="text-red-400 font-bold">${result.breakdown.sport.toLocaleString()}</span>
                     </div>
                   </CardContent>
                 </Card>

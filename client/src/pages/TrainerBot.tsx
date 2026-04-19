@@ -53,8 +53,8 @@ const ROLES = [
   {
     category: "Film Crew & Scout",
     icon: "🎬",
-    color: "from-purple-900 to-purple-800",
-    border: "border-purple-700",
+    color: "from-blue-950 to-blue-900",
+    border: "border-blue-800",
     roles: [
       { title: "Film Crew", desc: "Records every practice and game from multiple angles. Auto-edits highlight reels and uploads them directly to your ATHLYNX profile." },
       { title: "Scout Assistant", desc: "Tracks opponent tendencies, logs stats in real time, and delivers scouting reports to your coach before the next possession." },
@@ -65,8 +65,8 @@ const ROLES = [
   {
     category: "Schedule & Life Manager",
     icon: "📅",
-    color: "from-yellow-900 to-yellow-800",
-    border: "border-yellow-700",
+    color: "from-red-900 to-red-800",
+    border: "border-red-700",
     roles: [
       { title: "Schedule Manager", desc: "Manages your training calendar, academic schedule, recruiting visits, and NIL obligations — all in one place." },
       { title: "Academic Tutor", desc: "Keeps you eligible. Monitors grades, schedules study sessions, and helps you stay on top of coursework during the season." },
@@ -77,8 +77,8 @@ const ROLES = [
   {
     category: "Stadium & Venue Roles",
     icon: "🏟️",
-    color: "from-orange-900 to-orange-800",
-    border: "border-orange-700",
+    color: "from-red-900 to-red-800",
+    border: "border-red-700",
     roles: [
       { title: "Concession Vendor", desc: "Roams the stands delivering food, drinks, and merchandise to fans in their seats. Faster service, no long lines, more revenue per game." },
       { title: "Security Rover", desc: "Patrols the venue, monitors crowd behavior, identifies safety issues, and alerts security staff instantly." },

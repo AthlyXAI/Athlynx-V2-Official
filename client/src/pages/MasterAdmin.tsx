@@ -75,16 +75,16 @@ export default function MasterAdmin() {
       <div className="space-y-5 pb-20 lg:pb-6 max-w-4xl mx-auto">
 
         {/* Header */}
-        <div className="bg-gradient-to-br from-[#1a0a2e] via-[#2d1b69] to-[#1a0a2e] border border-purple-700/50 rounded-2xl p-5">
+        <div className="bg-gradient-to-br from-[#1a0a2e] via-[#2d1b69] to-[#1a0a2e] border border-blue-800/50 rounded-2xl p-5">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-700 flex items-center justify-center shadow-lg">
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-700 to-indigo-700 flex items-center justify-center shadow-lg">
               <Shield className="w-6 h-6 text-white" />
             </div>
             <div>
               <h1 className="text-2xl font-black text-white">Master Admin</h1>
-              <p className="text-purple-300 text-sm">ATHLYNX Command Center</p>
+              <p className="text-blue-300 text-sm">ATHLYNX Command Center</p>
             </div>
-            <Badge className="ml-auto bg-purple-600/30 text-purple-300 border-purple-500/40">
+            <Badge className="ml-auto bg-blue-700/30 text-blue-300 border-blue-600/40">
               {user?.name || "Admin"}
             </Badge>
           </div>
@@ -100,10 +100,10 @@ export default function MasterAdmin() {
               ].map((s, i) => {
                 const Icon = s.icon;
                 return (
-                  <div key={i} className="bg-purple-900/30 rounded-xl p-3 text-center border border-purple-800/30">
-                    <Icon className="w-4 h-4 text-purple-400 mx-auto mb-1" />
+                  <div key={i} className="bg-blue-950/30 rounded-xl p-3 text-center border border-blue-900/30">
+                    <Icon className="w-4 h-4 text-blue-500 mx-auto mb-1" />
                     <div className="text-xl font-black text-white">{s.value.toLocaleString()}</div>
-                    <div className="text-purple-400 text-xs">{s.label}</div>
+                    <div className="text-blue-500 text-xs">{s.label}</div>
                   </div>
                 );
               })}
@@ -112,15 +112,15 @@ export default function MasterAdmin() {
         </div>
 
         {/* Broadcast Compose */}
-        <div className="bg-[#1a1a3a] border border-purple-800/40 rounded-2xl p-5 space-y-4">
+        <div className="bg-[#1a1a3a] border border-blue-900/40 rounded-2xl p-5 space-y-4">
           <h2 className="font-black text-white text-lg flex items-center gap-2">
-            <Megaphone className="w-5 h-5 text-purple-400" />
+            <Megaphone className="w-5 h-5 text-blue-500" />
             Broadcast Message
           </h2>
 
           {/* Recipient Filter */}
           <div>
-            <label className="text-purple-300 text-sm font-bold mb-2 block">Send To</label>
+            <label className="text-blue-300 text-sm font-bold mb-2 block">Send To</label>
             <div className="flex flex-wrap gap-2">
               {RECIPIENT_OPTIONS.map(opt => (
                 <button
@@ -128,8 +128,8 @@ export default function MasterAdmin() {
                   onClick={() => setRecipientFilter(opt.value)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all border ${
                     recipientFilter === opt.value
-                      ? "bg-purple-600 text-white border-purple-500"
-                      : "bg-purple-900/20 text-purple-300 border-purple-800/30 hover:bg-purple-800/40"
+                      ? "bg-blue-700 text-white border-blue-600"
+                      : "bg-blue-950/20 text-blue-300 border-blue-900/30 hover:bg-blue-900/40"
                   }`}
                 >
                   {opt.emoji} {opt.label}
@@ -140,7 +140,7 @@ export default function MasterAdmin() {
 
           {/* Channel */}
           <div>
-            <label className="text-purple-300 text-sm font-bold mb-2 block">Channel</label>
+            <label className="text-blue-300 text-sm font-bold mb-2 block">Channel</label>
             <div className="flex gap-2">
               {(["in_app", "email", "both"] as const).map(c => (
                 <button
@@ -160,13 +160,13 @@ export default function MasterAdmin() {
 
           {/* Templates */}
           <div>
-            <label className="text-purple-300 text-sm font-bold mb-2 block">Quick Templates</label>
+            <label className="text-blue-300 text-sm font-bold mb-2 block">Quick Templates</label>
             <div className="flex flex-wrap gap-2">
               {MESSAGE_TEMPLATES.map(t => (
                 <button
                   key={t.label}
                   onClick={() => { setSubject(t.subject); setBody(t.body); }}
-                  className="px-3 py-1 rounded-lg text-xs bg-purple-900/30 text-purple-300 border border-purple-800/30 hover:bg-purple-800/40 transition-all font-bold"
+                  className="px-3 py-1 rounded-lg text-xs bg-blue-950/30 text-blue-300 border border-blue-900/30 hover:bg-blue-900/40 transition-all font-bold"
                 >
                   {t.label}
                 </button>
@@ -176,26 +176,26 @@ export default function MasterAdmin() {
 
           {/* Subject */}
           <div>
-            <label className="text-purple-300 text-sm font-bold mb-2 block">Subject</label>
+            <label className="text-blue-300 text-sm font-bold mb-2 block">Subject</label>
             <Input
               value={subject}
               onChange={e => setSubject(e.target.value)}
               placeholder="e.g. New NIL Opportunity Available"
-              className="bg-[#0d0d2a] border-purple-800 text-white placeholder:text-purple-600 rounded-xl"
+              className="bg-[#0d0d2a] border-blue-900 text-white placeholder:text-blue-700 rounded-xl"
             />
           </div>
 
           {/* Body */}
           <div>
-            <label className="text-purple-300 text-sm font-bold mb-2 block">Message</label>
+            <label className="text-blue-300 text-sm font-bold mb-2 block">Message</label>
             <Textarea
               value={body}
               onChange={e => setBody(e.target.value)}
               placeholder="Write your message here..."
               rows={5}
-              className="bg-[#0d0d2a] border-purple-800 text-white placeholder:text-purple-600 rounded-xl resize-none"
+              className="bg-[#0d0d2a] border-blue-900 text-white placeholder:text-blue-700 rounded-xl resize-none"
             />
-            <div className="text-purple-600 text-xs mt-1 text-right">{body.length} characters</div>
+            <div className="text-blue-700 text-xs mt-1 text-right">{body.length} characters</div>
           </div>
 
           {/* Send Button */}
@@ -205,7 +205,7 @@ export default function MasterAdmin() {
             className={`w-full font-black py-3 rounded-xl text-base transition-all ${
               sent
                 ? "bg-green-600 hover:bg-green-600"
-                : "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500"
+                : "bg-gradient-to-r from-blue-700 to-indigo-600 hover:from-blue-600 hover:to-indigo-500"
             } text-white shadow-lg`}
           >
             {sent ? (
@@ -218,30 +218,30 @@ export default function MasterAdmin() {
           </Button>
 
           {recipientFilter === "all" && (
-            <div className="flex items-center gap-2 bg-yellow-900/20 border border-yellow-700/30 rounded-xl p-3">
-              <AlertTriangle className="w-4 h-4 text-yellow-500 shrink-0" />
-              <p className="text-yellow-300 text-xs">This will send to ALL users on the platform. Make sure your message is ready.</p>
+            <div className="flex items-center gap-2 bg-red-900/20 border border-red-700/30 rounded-xl p-3">
+              <AlertTriangle className="w-4 h-4 text-red-500 shrink-0" />
+              <p className="text-red-300 text-xs">This will send to ALL users on the platform. Make sure your message is ready.</p>
             </div>
           )}
         </div>
 
         {/* Recent Broadcasts */}
         {broadcasts && broadcasts.length > 0 && (
-          <div className="bg-[#1a1a3a] border border-purple-800/40 rounded-2xl p-5">
+          <div className="bg-[#1a1a3a] border border-blue-900/40 rounded-2xl p-5">
             <h2 className="font-black text-white text-lg mb-4 flex items-center gap-2">
-              <Bell className="w-5 h-5 text-purple-400" /> Recent Broadcasts
+              <Bell className="w-5 h-5 text-blue-500" /> Recent Broadcasts
             </h2>
             <div className="space-y-3">
               {broadcasts.slice(0, 10).map((b: any) => (
-                <div key={b.id} className="bg-[#0d0d2a] rounded-xl p-4 border border-purple-900/30">
+                <div key={b.id} className="bg-[#0d0d2a] rounded-xl p-4 border border-blue-950/30">
                   <div className="flex items-start justify-between gap-2 mb-1">
                     <div className="font-bold text-white text-sm">{b.subject}</div>
-                    <Badge className="bg-purple-900/40 text-purple-300 border-purple-700/30 text-xs shrink-0">
+                    <Badge className="bg-blue-950/40 text-blue-300 border-blue-800/30 text-xs shrink-0">
                       {b.recipientCount} recipients
                     </Badge>
                   </div>
-                  <p className="text-purple-400 text-xs line-clamp-2">{b.body}</p>
-                  <div className="text-purple-600 text-xs mt-2">
+                  <p className="text-blue-500 text-xs line-clamp-2">{b.body}</p>
+                  <div className="text-blue-700 text-xs mt-2">
                     {new Date(b.createdAt).toLocaleString()} · {b.channel} · {b.recipientFilter}
                   </div>
                 </div>
@@ -251,32 +251,32 @@ export default function MasterAdmin() {
         )}
 
         {/* User Directory */}
-        <div className="bg-[#1a1a3a] border border-purple-800/40 rounded-2xl p-5">
+        <div className="bg-[#1a1a3a] border border-blue-900/40 rounded-2xl p-5">
           <h2 className="font-black text-white text-lg mb-4 flex items-center gap-2">
-            <Users className="w-5 h-5 text-purple-400" /> User Directory
+            <Users className="w-5 h-5 text-blue-500" /> User Directory
           </h2>
           <div className="relative mb-3">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-purple-500" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-600" />
             <Input
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               placeholder="Search users by name, email, sport, or school..."
-              className="pl-9 bg-[#0d0d2a] border-purple-800 text-white placeholder:text-purple-600 rounded-xl"
+              className="pl-9 bg-[#0d0d2a] border-blue-900 text-white placeholder:text-blue-700 rounded-xl"
             />
           </div>
           <div className="space-y-2 max-h-96 overflow-y-auto">
             {usersData?.users?.map((u: any) => (
-              <div key={u.id} className="flex items-center gap-3 p-3 rounded-xl bg-[#0d0d2a] border border-purple-900/30 hover:border-purple-700/40 transition-all">
-                <div className="w-10 h-10 rounded-full bg-purple-700 flex items-center justify-center text-sm font-bold text-white overflow-hidden shrink-0">
+              <div key={u.id} className="flex items-center gap-3 p-3 rounded-xl bg-[#0d0d2a] border border-blue-950/30 hover:border-blue-800/40 transition-all">
+                <div className="w-10 h-10 rounded-full bg-blue-800 flex items-center justify-center text-sm font-bold text-white overflow-hidden shrink-0">
                   {u.name?.[0] || "?"}
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="text-white font-bold text-sm truncate">{u.name || "Unknown User"}</div>
-                  <div className="text-purple-400 text-xs truncate">{u.email} {u.sport ? `· ${u.sport}` : ""} {u.school ? `· ${u.school}` : ""}</div>
+                  <div className="text-blue-500 text-xs truncate">{u.email} {u.sport ? `· ${u.sport}` : ""} {u.school ? `· ${u.school}` : ""}</div>
                 </div>
                 <div className="flex items-center gap-2 shrink-0">
                   {u.role === "admin" && (
-                    <Badge className="bg-purple-600/40 text-purple-200 border-purple-500/30 text-xs">Admin</Badge>
+                    <Badge className="bg-blue-700/40 text-blue-200 border-blue-600/30 text-xs">Admin</Badge>
                   )}
                   {u.stripeSubscriptionId && (
                     <Badge className="bg-green-900/40 text-green-300 border-green-700/30 text-xs">Pro</Badge>
@@ -285,11 +285,11 @@ export default function MasterAdmin() {
               </div>
             ))}
             {usersData?.users?.length === 0 && (
-              <div className="text-center text-purple-500 py-8">No users found</div>
+              <div className="text-center text-blue-600 py-8">No users found</div>
             )}
           </div>
           {usersData && (
-            <div className="text-purple-500 text-xs mt-3 text-center">
+            <div className="text-blue-600 text-xs mt-3 text-center">
               Showing {usersData.users?.length} of {usersData.total} users
             </div>
           )}

@@ -35,8 +35,8 @@ const PILLARS = [
       { label: "Operations", value: "24/7" },
       { label: "Security", value: "AI-Powered" },
     ],
-    color: "border-purple-700/50",
-    glow: "shadow-purple-900/30",
+    color: "border-blue-800/50",
+    glow: "shadow-blue-950/30",
   },
   {
     icon: "🧠",
@@ -92,7 +92,7 @@ export default function Infrastructure() {
       {/* Background */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-[-10%] left-[-5%] w-[700px] h-[700px] bg-blue-900/10 rounded-full blur-[140px]" />
-        <div className="absolute bottom-[-10%] right-[-5%] w-[600px] h-[600px] bg-purple-900/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-5%] w-[600px] h-[600px] bg-blue-950/10 rounded-full blur-[120px]" />
         <div className="absolute top-[40%] left-[40%] w-[400px] h-[400px] bg-green-900/8 rounded-full blur-[100px]" />
       </div>
 

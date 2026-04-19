@@ -21,7 +21,7 @@ export function LawyerWizard() {
                 </Button>
               </Link>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-red-500 flex items-center justify-center">
                   <Scale className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -30,9 +30,9 @@ export function LawyerWizard() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 bg-purple-500/20 px-3 py-1.5 rounded-full">
-              <Sparkles className="w-3 h-3 text-purple-400" />
-              <span className="text-purple-300 text-xs">Manus AI</span>
+            <div className="flex items-center gap-2 bg-blue-600/20 px-3 py-1.5 rounded-full">
+              <Sparkles className="w-3 h-3 text-blue-500" />
+              <span className="text-blue-300 text-xs">Manus AI</span>
             </div>
           </div>
         </div>
@@ -41,7 +41,7 @@ export function LawyerWizard() {
         <AIWizardChat
           wizardName="Legal Advisor"
           wizardIcon={<Scale className="w-5 h-5 text-white" />}
-          wizardColor="from-purple-500 to-pink-500"
+          wizardColor="from-blue-600 to-red-500"
           systemPrompt="You are an expert legal advisor helping athletes with NIL compliance and contracts."
           welcomeMessage={`⚖️ Welcome! I'm your Legal Advisor, here to help you understand the legal side of being an athlete.
 
@@ -90,9 +90,9 @@ export function FinancialWizard() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 bg-purple-500/20 px-3 py-1.5 rounded-full">
-              <Sparkles className="w-3 h-3 text-purple-400" />
-              <span className="text-purple-300 text-xs">Manus AI</span>
+            <div className="flex items-center gap-2 bg-blue-600/20 px-3 py-1.5 rounded-full">
+              <Sparkles className="w-3 h-3 text-blue-500" />
+              <span className="text-blue-300 text-xs">Manus AI</span>
             </div>
           </div>
         </div>
@@ -141,7 +141,7 @@ export function ScholarshipWizard() {
                 </Button>
               </Link>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-red-500 flex items-center justify-center">
                   <GraduationCap className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -150,9 +150,9 @@ export function ScholarshipWizard() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 bg-purple-500/20 px-3 py-1.5 rounded-full">
-              <Sparkles className="w-3 h-3 text-purple-400" />
-              <span className="text-purple-300 text-xs">Manus AI</span>
+            <div className="flex items-center gap-2 bg-blue-600/20 px-3 py-1.5 rounded-full">
+              <Sparkles className="w-3 h-3 text-blue-500" />
+              <span className="text-blue-300 text-xs">Manus AI</span>
             </div>
           </div>
         </div>
@@ -161,7 +161,7 @@ export function ScholarshipWizard() {
         <AIWizardChat
           wizardName="Scholarship Navigator"
           wizardIcon={<GraduationCap className="w-5 h-5 text-white" />}
-          wizardColor="from-amber-500 to-orange-500"
+          wizardColor="from-red-500 to-red-500"
           systemPrompt="You are an expert on NCAA scholarships and eligibility requirements."
           welcomeMessage={`🎓 Welcome! I'm your Scholarship Navigator, here to help you understand NCAA rules and maximize your scholarship opportunities.
 
@@ -201,7 +201,7 @@ export function ScoutWizard() {
                 </Button>
               </Link>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-rose-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-red-500 flex items-center justify-center">
                   <Eye className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -210,9 +210,9 @@ export function ScoutWizard() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 bg-purple-500/20 px-3 py-1.5 rounded-full">
-              <Sparkles className="w-3 h-3 text-purple-400" />
-              <span className="text-purple-300 text-xs">Manus AI</span>
+            <div className="flex items-center gap-2 bg-blue-600/20 px-3 py-1.5 rounded-full">
+              <Sparkles className="w-3 h-3 text-blue-500" />
+              <span className="text-blue-300 text-xs">Manus AI</span>
             </div>
           </div>
         </div>
@@ -221,7 +221,7 @@ export function ScoutWizard() {
         <AIWizardChat
           wizardName="Scout Simulator"
           wizardIcon={<Eye className="w-5 h-5 text-white" />}
-          wizardColor="from-red-500 to-rose-500"
+          wizardColor="from-red-500 to-red-500"
           systemPrompt="You are an expert scout helping athletes understand what recruiters look for."
           welcomeMessage={`👀 Hey! I'm your Scout Simulator - I'll help you see yourself through a scout's eyes.
 
@@ -270,9 +270,9 @@ export function TransferWizard() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 bg-purple-500/20 px-3 py-1.5 rounded-full">
-              <Sparkles className="w-3 h-3 text-purple-400" />
-              <span className="text-purple-300 text-xs">Manus AI</span>
+            <div className="flex items-center gap-2 bg-blue-600/20 px-3 py-1.5 rounded-full">
+              <Sparkles className="w-3 h-3 text-blue-500" />
+              <span className="text-blue-300 text-xs">Manus AI</span>
             </div>
           </div>
         </div>
@@ -321,7 +321,7 @@ export function LifeWizard() {
                 </Button>
               </Link>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-red-500 flex items-center justify-center">
                   <Heart className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -330,9 +330,9 @@ export function LifeWizard() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 bg-purple-500/20 px-3 py-1.5 rounded-full">
-              <Sparkles className="w-3 h-3 text-purple-400" />
-              <span className="text-purple-300 text-xs">Manus AI</span>
+            <div className="flex items-center gap-2 bg-blue-600/20 px-3 py-1.5 rounded-full">
+              <Sparkles className="w-3 h-3 text-blue-500" />
+              <span className="text-blue-300 text-xs">Manus AI</span>
             </div>
           </div>
         </div>
@@ -341,7 +341,7 @@ export function LifeWizard() {
         <AIWizardChat
           wizardName="Life Coach"
           wizardIcon={<Heart className="w-5 h-5 text-white" />}
-          wizardColor="from-pink-500 to-rose-500"
+          wizardColor="from-red-500 to-red-500"
           systemPrompt="You are a supportive life coach helping athletes balance their lives."
           welcomeMessage={`💖 Hey! I'm your Life Coach, here to help you thrive both on and off the field.
 
@@ -381,7 +381,7 @@ export function CareerWizard() {
                 </Button>
               </Link>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center">
                   <Zap className="w-5 h-5 text-white" />
                 </div>
                 <div>
@@ -390,9 +390,9 @@ export function CareerWizard() {
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 bg-purple-500/20 px-3 py-1.5 rounded-full">
-              <Sparkles className="w-3 h-3 text-purple-400" />
-              <span className="text-purple-300 text-xs">Manus AI</span>
+            <div className="flex items-center gap-2 bg-blue-600/20 px-3 py-1.5 rounded-full">
+              <Sparkles className="w-3 h-3 text-blue-500" />
+              <span className="text-blue-300 text-xs">Manus AI</span>
             </div>
           </div>
         </div>
@@ -401,7 +401,7 @@ export function CareerWizard() {
         <AIWizardChat
           wizardName="Career Transition"
           wizardIcon={<Zap className="w-5 h-5 text-white" />}
-          wizardColor="from-indigo-500 to-purple-500"
+          wizardColor="from-indigo-500 to-blue-600"
           systemPrompt="You are a career counselor helping athletes transition to life after sports."
           welcomeMessage={`⚡ Welcome! I'm your Career Transition advisor, here to help you build an amazing future beyond sports.
 

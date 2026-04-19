@@ -56,7 +56,7 @@ export default function FuelBots() {
       id: "datacenter",
       name: "Data Centers",
       icon: Server,
-      color: "from-purple-500 to-indigo-600",
+      color: "from-blue-600 to-indigo-600",
       description: "Autonomous monitoring and maintenance for critical infrastructure",
       features: [
         "Server rack inspection and monitoring",
@@ -71,7 +71,7 @@ export default function FuelBots() {
       id: "fuel",
       name: "Fuel & Gas",
       icon: Fuel,
-      color: "from-orange-500 to-red-600",
+      color: "from-red-500 to-red-600",
       description: "Safety-first companions for hazardous environments",
       features: [
         "Pipeline inspection and leak detection",
@@ -184,7 +184,7 @@ export default function FuelBots() {
               <div className="text-white/60 text-sm">Faster Medical Response</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-black text-orange-400">24/7</div>
+              <div className="text-4xl font-black text-red-400">24/7</div>
               <div className="text-white/60 text-sm">Training Availability</div>
             </div>
           </div>
@@ -214,7 +214,7 @@ export default function FuelBots() {
       <section className="py-20 relative">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <Badge className="mb-4 bg-orange-500/20 text-orange-400 border-orange-500/30">
+            <Badge className="mb-4 bg-red-500/20 text-red-400 border-red-500/30">
               THE COMPLETE ECOSYSTEM
             </Badge>
             <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
@@ -238,9 +238,9 @@ export default function FuelBots() {
             </Card>
 
             {/* Fuel Candy */}
-            <Card className="bg-gradient-to-br from-orange-900/40 to-orange-950/40 border-orange-500/30 hover:border-orange-400/50 transition-all group">
+            <Card className="bg-gradient-to-br from-red-900/40 to-red-950/40 border-red-500/30 hover:border-red-400/50 transition-all group">
               <CardContent className="p-8 text-center">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-red-500 to-red-500 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Zap className="w-10 h-10 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">Fuel Candy</h3>
@@ -301,43 +301,43 @@ export default function FuelBots() {
             </Card>
 
             {/* Wheel-Leg Hybrid */}
-            <Card className="bg-gradient-to-br from-purple-900/30 to-purple-950/30 border-purple-500/30 hover:border-purple-400/50 transition-all overflow-hidden">
+            <Card className="bg-gradient-to-br from-blue-950/30 to-blue-900/30 border-blue-600/30 hover:border-blue-500/50 transition-all overflow-hidden">
               <CardContent className="p-0">
-                <div className="h-48 bg-gradient-to-br from-purple-600/20 to-indigo-600/20 flex items-center justify-center">
-                  <Bot className="w-24 h-24 text-purple-400" />
+                <div className="h-48 bg-gradient-to-br from-blue-700/20 to-indigo-600/20 flex items-center justify-center">
+                  <Bot className="w-24 h-24 text-blue-500" />
                 </div>
                 <div className="p-6">
-                  <Badge className="mb-3 bg-purple-500/20 text-purple-400 border-purple-500/30 text-xs">HYBRID</Badge>
+                  <Badge className="mb-3 bg-blue-600/20 text-blue-500 border-blue-600/30 text-xs">HYBRID</Badge>
                   <h3 className="text-xl font-bold text-white mb-2">Wheel-Leg Hybrid</h3>
-                  <p className="text-purple-400 text-sm mb-4">轮组机器狗</p>
+                  <p className="text-blue-500 text-sm mb-4">轮组机器狗</p>
                   <ul className="space-y-2 text-sm text-white/70">
-                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-purple-400 mt-0.5 flex-shrink-0" />IP66 industrial protection</li>
-                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-purple-400 mt-0.5 flex-shrink-0" />-20°C to 55°C operation</li>
-                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-purple-400 mt-0.5 flex-shrink-0" />Hot-swappable battery</li>
-                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-purple-400 mt-0.5 flex-shrink-0" />50cm narrow passage nav</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />IP66 industrial protection</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />-20°C to 55°C operation</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />Hot-swappable battery</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />50cm narrow passage nav</li>
                   </ul>
-                  <p className="mt-4 text-xs text-purple-400 italic">"Adaptable to extreme environments"</p>
+                  <p className="mt-4 text-xs text-blue-500 italic">"Adaptable to extreme environments"</p>
                 </div>
               </CardContent>
             </Card>
 
             {/* Medium Size */}
-            <Card className="bg-gradient-to-br from-orange-900/30 to-orange-950/30 border-orange-500/30 hover:border-orange-400/50 transition-all overflow-hidden">
+            <Card className="bg-gradient-to-br from-red-900/30 to-red-950/30 border-red-500/30 hover:border-red-400/50 transition-all overflow-hidden">
               <CardContent className="p-0">
-                <div className="h-48 bg-gradient-to-br from-orange-600/20 to-red-600/20 flex items-center justify-center">
-                  <Bot className="w-24 h-24 text-orange-400" />
+                <div className="h-48 bg-gradient-to-br from-red-600/20 to-red-600/20 flex items-center justify-center">
+                  <Bot className="w-24 h-24 text-red-400" />
                 </div>
                 <div className="p-6">
-                  <Badge className="mb-3 bg-orange-500/20 text-orange-400 border-orange-500/30 text-xs">INDUSTRIAL</Badge>
+                  <Badge className="mb-3 bg-red-500/20 text-red-400 border-red-500/30 text-xs">INDUSTRIAL</Badge>
                   <h3 className="text-xl font-bold text-white mb-2">Medium Size Robot</h3>
-                  <p className="text-orange-400 text-sm mb-4">中型机器狗</p>
+                  <p className="text-red-400 text-sm mb-4">中型机器狗</p>
                   <ul className="space-y-2 text-sm text-white/70">
-                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-orange-400 mt-0.5 flex-shrink-0" />Heavy payload standard</li>
-                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-orange-400 mt-0.5 flex-shrink-0" />Premium hardware platform</li>
-                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-orange-400 mt-0.5 flex-shrink-0" />Open for rapid development</li>
-                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-orange-400 mt-0.5 flex-shrink-0" />Customizable applications</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />Heavy payload standard</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />Premium hardware platform</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />Open for rapid development</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />Customizable applications</li>
                   </ul>
-                  <p className="mt-4 text-xs text-orange-400 italic">"Built for industrial excellence"</p>
+                  <p className="mt-4 text-xs text-red-400 italic">"Built for industrial excellence"</p>
                 </div>
               </CardContent>
             </Card>
@@ -349,21 +349,21 @@ export default function FuelBots() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <Badge className="mb-4 bg-purple-500/20 text-purple-400 border-purple-500/30">
+            <Badge className="mb-4 bg-blue-600/20 text-blue-500 border-blue-600/30">
               INDUSTRIAL ROBOTICS
             </Badge>
             <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-              Proven Technology. <span className="text-purple-400">Revolutionary Application.</span>
+              Proven Technology. <span className="text-blue-500">Revolutionary Application.</span>
             </h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {specs.map((spec, index) => (
-              <Card key={index} className="bg-slate-800/50 border-slate-700/50 hover:border-purple-500/50 transition-all">
+              <Card key={index} className="bg-slate-800/50 border-slate-700/50 hover:border-blue-600/50 transition-all">
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center flex-shrink-0">
-                      <spec.icon className="w-6 h-6 text-purple-400" />
+                    <div className="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center flex-shrink-0">
+                      <spec.icon className="w-6 h-6 text-blue-500" />
                     </div>
                     <div>
                       <h3 className="text-white font-bold mb-1">{spec.label}</h3>
@@ -563,7 +563,7 @@ export default function FuelBots() {
           <div className="max-w-4xl mx-auto">
             <div className="relative">
               {/* Timeline Line */}
-              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500 via-blue-500 to-purple-500" />
+              <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500 via-blue-500 to-blue-600" />
 
               {/* Timeline Items */}
               <div className="space-y-8">
@@ -596,11 +596,11 @@ export default function FuelBots() {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <Badge className="mb-4 bg-orange-500/20 text-orange-400 border-orange-500/30">
+            <Badge className="mb-4 bg-red-500/20 text-red-400 border-red-500/30">
               JOIN THE REVOLUTION
             </Badge>
             <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-              The Future of Athletic Training <span className="text-orange-400">Starts Now</span>
+              The Future of Athletic Training <span className="text-red-400">Starts Now</span>
             </h2>
           </div>
 
@@ -620,14 +620,14 @@ export default function FuelBots() {
             </Card>
 
             {/* Pro Teams */}
-            <Card className="bg-gradient-to-br from-purple-900/40 to-purple-950/40 border-purple-500/30 hover:border-purple-400/50 transition-all group cursor-pointer">
+            <Card className="bg-gradient-to-br from-blue-950/40 to-blue-900/40 border-blue-600/30 hover:border-blue-500/50 transition-all group cursor-pointer">
               <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Trophy className="w-8 h-8 text-purple-400" />
+                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-blue-600/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Trophy className="w-8 h-8 text-blue-500" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-2">Pro Teams</h3>
                 <p className="text-white/60 text-sm mb-4">Schedule a live demonstration</p>
-                <Button className="w-full bg-purple-500 hover:bg-purple-400">
+                <Button className="w-full bg-blue-600 hover:bg-blue-500">
                   Book Demo <ChevronRight className="w-4 h-4 ml-1" />
                 </Button>
               </CardContent>

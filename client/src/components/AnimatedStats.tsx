@@ -29,14 +29,14 @@ const stats: StatItem[] = [
     value: 500,
     suffix: "+",
     label: "Brand Partners",
-    color: "from-purple-400 to-pink-500",
+    color: "from-blue-500 to-red-500",
   },
   {
     icon: <Trophy className="w-8 h-8" />,
     value: 98,
     suffix: "%",
     label: "Satisfaction Rate",
-    color: "from-amber-400 to-orange-500",
+    color: "from-red-400 to-red-500",
   },
 ];
 
@@ -137,7 +137,7 @@ export default function AnimatedStats() {
                 <p className="text-slate-400 text-sm">{stat.label}</p>
 
                 {/* Decorative star */}
-                <Star className="absolute top-4 right-4 w-4 h-4 text-amber-400/50 group-hover:text-amber-400 transition-colors" />
+                <Star className="absolute top-4 right-4 w-4 h-4 text-red-400/50 group-hover:text-red-400 transition-colors" />
               </div>
             </div>
           ))}

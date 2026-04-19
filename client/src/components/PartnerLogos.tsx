@@ -47,12 +47,12 @@ export default function PartnerLogos() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-purple-400/20 px-4 py-2 rounded-full mb-4">
-            <Shield className="w-4 h-4 text-purple-400" />
-            <span className="text-purple-400 text-sm font-medium">TRUSTED PARTNERS</span>
+          <div className="inline-flex items-center gap-2 bg-blue-500/20 px-4 py-2 rounded-full mb-4">
+            <Shield className="w-4 h-4 text-blue-500" />
+            <span className="text-blue-500 text-sm font-medium">TRUSTED PARTNERS</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-black text-white mb-4">
-            Powered by <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Industry Leaders</span>
+            Powered by <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-red-500">Industry Leaders</span>
           </h2>
           <p className="text-slate-400 max-w-2xl mx-auto">
             We've partnered with the best in technology, sports, and innovation to bring you the ultimate athlete platform.
@@ -69,14 +69,14 @@ export default function PartnerLogos() {
               onMouseLeave={() => setHoveredPartner(null)}
             >
               {/* Glow */}
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity" />
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity" />
               
               {/* Card */}
               <div className="relative bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-700 group-hover:border-cyan-400/50 transition-all text-center h-full">
                 {/* Badge */}
                 {partner.badge && (
                   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-cyan-500 to-purple-500 text-white text-[10px] font-bold px-3 py-1 rounded-full whitespace-nowrap">
+                    <span className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-[10px] font-bold px-3 py-1 rounded-full whitespace-nowrap">
                       {partner.badge}
                     </span>
                   </div>
@@ -94,7 +94,7 @@ export default function PartnerLogos() {
                 <p className="text-slate-400 text-sm">{partner.description}</p>
 
                 {/* Sparkle on hover */}
-                <Sparkles className={`absolute top-4 right-4 w-4 h-4 text-amber-400 transition-opacity ${hoveredPartner === partner.name ? 'opacity-100' : 'opacity-0'}`} />
+                <Sparkles className={`absolute top-4 right-4 w-4 h-4 text-red-400 transition-opacity ${hoveredPartner === partner.name ? 'opacity-100' : 'opacity-0'}`} />
               </div>
             </div>
           ))}
@@ -123,7 +123,7 @@ export default function PartnerLogos() {
           </p>
           <a 
             href="mailto:partners@athlynx.ai" 
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-400 hover:to-pink-400 text-white font-bold px-6 py-3 rounded-full transition-all"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-red-500 hover:from-blue-500 hover:to-red-400 text-white font-bold px-6 py-3 rounded-full transition-all"
           >
             <Zap className="w-4 h-4" />
             Become a Partner

@@ -104,12 +104,12 @@ export default function SigningDay() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-cyan-900">
+    <div className="min-h-screen bg-gradient-to-br from-blue-950 via-blue-900 to-cyan-900">
       {/* Hero Section */}
       <div className="container py-12">
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Trophy className="h-12 w-12 text-yellow-400" />
+            <Trophy className="h-12 w-12 text-red-400" />
             <h1 className="text-5xl font-bold text-white">National Signing Day</h1>
           </div>
           <p className="text-xl text-cyan-200 max-w-3xl mx-auto">
@@ -164,8 +164,8 @@ export default function SigningDay() {
           <Card className="bg-white/10 backdrop-blur-md border-white/20">
             <CardContent className="pt-6">
               <div className="flex items-center gap-4">
-                <div className="p-3 bg-purple-500/20 rounded-lg">
-                  <Calendar className="h-6 w-6 text-purple-400" />
+                <div className="p-3 bg-blue-600/20 rounded-lg">
+                  <Calendar className="h-6 w-6 text-blue-500" />
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-white">8</div>

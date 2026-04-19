@@ -280,13 +280,13 @@ export default function CRMDashboard() {
             title="Converted" 
             value={stats?.convertedUsers || 0} 
             icon="✅"
-            color="purple"
+            color="blue"
           />
           <StatCard 
             title="Paying" 
             value={stats?.payingUsers || 0} 
             icon="💰"
-            color="yellow"
+            color="red"
           />
           <StatCard 
             title="Revenue" 
@@ -298,7 +298,7 @@ export default function CRMDashboard() {
             title="Conv. Rate" 
             value={`${stats?.conversionRate || 0}%`} 
             icon="📈"
-            color="orange"
+            color="red"
           />
         </div>
 
@@ -368,7 +368,7 @@ export default function CRMDashboard() {
                     >
                       <td className="px-4 py-3">
                         <span className={`font-bold ${
-                          signup.signupNumber === 1 ? "text-yellow-400" : "text-cyan-400"
+                          signup.signupNumber === 1 ? "text-red-400" : "text-cyan-400"
                         }`}>
                           #{signup.signupNumber}
                           {signup.signupNumber === 1 && " 🏆"}
@@ -383,9 +383,9 @@ export default function CRMDashboard() {
                       <td className="px-4 py-3">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                           signup.role === "athlete" ? "bg-blue-500/20 text-blue-400" :
-                          signup.role === "parent" ? "bg-purple-500/20 text-purple-400" :
+                          signup.role === "parent" ? "bg-blue-600/20 text-blue-500" :
                           signup.role === "coach" ? "bg-green-500/20 text-green-400" :
-                          "bg-orange-500/20 text-orange-400"
+                          "bg-red-500/20 text-red-400"
                         }`}>
                           {signup.role || "-"}
                         </span>
@@ -431,9 +431,9 @@ function StatCard({ title, value, icon, color }: { title: string; value: number 
     cyan: "from-cyan-500/20 to-cyan-600/20 border-cyan-500/30",
     green: "from-green-500/20 to-green-600/20 border-green-500/30",
     blue: "from-blue-500/20 to-blue-600/20 border-blue-500/30",
-    purple: "from-purple-500/20 to-purple-600/20 border-purple-500/30",
-    yellow: "from-yellow-500/20 to-yellow-600/20 border-yellow-500/30",
-    orange: "from-orange-500/20 to-orange-600/20 border-orange-500/30",
+    blue2: "from-blue-600/20 to-blue-700/20 border-blue-600/30",
+    red2: "from-red-500/20 to-red-600/20 border-red-500/30",
+    orange2: "from-red-500/20 to-red-600/20 border-red-500/30",
   };
 
   return (

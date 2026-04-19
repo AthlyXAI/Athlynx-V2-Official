@@ -133,13 +133,13 @@ export default function Softmor() {
               <h3 className="font-semibold mb-1">Secure</h3>
               <p className="text-sm text-gray-400">End-to-end encryption</p>
             </div>
-            <div className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-xl p-6">
-              <Zap className="w-8 h-8 text-purple-400 mb-3" />
+            <div className="bg-gradient-to-br from-blue-600/20 to-red-500/20 border border-blue-600/30 rounded-xl p-6">
+              <Zap className="w-8 h-8 text-blue-500 mb-3" />
               <h3 className="font-semibold mb-1">AI Powered</h3>
               <p className="text-sm text-gray-400">Smart recommendations</p>
             </div>
-            <div className="bg-gradient-to-br from-amber-500/20 to-orange-500/20 border border-amber-500/30 rounded-xl p-6">
-              <Globe className="w-8 h-8 text-amber-400 mb-3" />
+            <div className="bg-gradient-to-br from-red-500/20 to-red-500/20 border border-red-500/30 rounded-xl p-6">
+              <Globe className="w-8 h-8 text-red-400 mb-3" />
               <h3 className="font-semibold mb-1">Global Scale</h3>
               <p className="text-sm text-gray-400">Cloud infrastructure</p>
             </div>
@@ -159,7 +159,7 @@ export default function Softmor() {
                 <div className="flex items-start justify-between mb-4">
                   <div className="text-4xl">{product.icon}</div>
                   <span className={`text-xs px-2 py-1 rounded-full ${
-                    product.status === 'Active' ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'
+                    product.status === 'Active' ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'
                   }`}>
                     {product.status}
                   </span>

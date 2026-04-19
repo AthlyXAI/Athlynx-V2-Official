@@ -6,9 +6,9 @@ import { useAuth } from "@/_core/hooks/useAuth";
 const COLORS = [
   "from-blue-600 to-blue-800",
   "from-green-600 to-teal-700",
-  "from-orange-600 to-red-700",
-  "from-purple-600 to-blue-700",
-  "from-yellow-600 to-orange-700",
+  "from-red-600 to-red-700",
+  "from-blue-700 to-blue-700",
+  "from-red-600 to-red-700",
 ];
 
 function getColor(id: number) {

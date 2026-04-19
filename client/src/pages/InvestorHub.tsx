@@ -69,7 +69,7 @@ const ROUNDS = [
     ask: "$500K", equity: "8%", postMoney: "$6.25M",
     use: "Platform completion, first 50 school licenses, core team hire",
     milestone: "50 schools · 5K athletes · $500K ARR",
-    color: "border-yellow-400", glow: "shadow-yellow-400/30", badge: "bg-green-500",
+    color: "border-red-400", glow: "shadow-red-400/30", badge: "bg-green-500",
   },
   {
     round: "Seed", status: "Q4 2025", open: false,
@@ -83,14 +83,14 @@ const ROUNDS = [
     ask: "$10M", equity: "12%", postMoney: "$83M",
     use: "National expansion, Pro Teams launch, AI data licensing, 20-person team",
     milestone: "1K schools · 100K athletes · $15M ARR",
-    color: "border-purple-400", glow: "shadow-purple-400/20", badge: "bg-purple-500",
+    color: "border-blue-500", glow: "shadow-blue-500/20", badge: "bg-blue-600",
   },
   {
     round: "Series B", status: "2027", open: false,
     ask: "$50M", equity: "15%", postMoney: "$333M",
     use: "International expansion (EU/LATAM), enterprise Pro Teams, acquisitions",
     milestone: "5K schools · 500K athletes · $75M ARR",
-    color: "border-orange-400", glow: "shadow-orange-400/20", badge: "bg-orange-500",
+    color: "border-red-400", glow: "shadow-red-400/20", badge: "bg-red-500",
   },
   {
     round: "Series C", status: "2028", open: false,
@@ -152,7 +152,7 @@ export default function InvestorHub() {
             <a href="#moat" className="hover:text-white transition-colors">Moat</a>
             <a href="#team" className="hover:text-white transition-colors">Team</a>
           </div>
-          <a href="mailto:cdozier@dozierholdingsgroup.com" className="bg-yellow-400 hover:bg-yellow-300 text-black font-black text-xs px-4 py-2 rounded-lg transition-all hover:scale-105">
+          <a href="mailto:cdozier@dozierholdingsgroup.com" className="bg-red-400 hover:bg-red-300 text-black font-black text-xs px-4 py-2 rounded-lg transition-all hover:scale-105">
             INVEST NOW →
           </a>
         </div>
@@ -161,18 +161,18 @@ export default function InvestorHub() {
       {/* ── HERO ── */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl" />
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl" />
         </div>
         <div className="max-w-5xl mx-auto px-4 pt-20 pb-16 text-center relative">
-          <div className="inline-flex items-center gap-2 bg-yellow-400/10 border border-yellow-400/30 rounded-full px-5 py-2 mb-8">
+          <div className="inline-flex items-center gap-2 bg-red-400/10 border border-red-400/30 rounded-full px-5 py-2 mb-8">
             <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-            <span className="text-yellow-400 text-xs font-black tracking-widest uppercase">Pre-Seed Round · Now Open · Seeking $500K</span>
+            <span className="text-red-400 text-xs font-black tracking-widest uppercase">Pre-Seed Round · Now Open · Seeking $500K</span>
           </div>
 
           <h1 className="text-5xl sm:text-7xl font-black text-white leading-[1.05] mb-6 tracking-tight">
             THE ONLY PLATFORM<br />
-            <span className="text-yellow-400">EVER BUILT</span><br />
+            <span className="text-red-400">EVER BUILT</span><br />
             <span className="text-white/80">FOR EVERY ATHLETE</span>
           </h1>
 
@@ -192,14 +192,14 @@ export default function InvestorHub() {
               { v: "IPO", l: "End Game · 2029–2030" },
             ].map(k => (
               <div key={k.l} className="bg-white/5 border border-white/10 rounded-2xl p-4">
-                <div className="text-2xl font-black text-yellow-400">{k.v}</div>
+                <div className="text-2xl font-black text-red-400">{k.v}</div>
                 <div className="text-white/50 text-xs mt-1">{k.l}</div>
               </div>
             ))}
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <a href="mailto:cdozier@dozierholdingsgroup.com" className="bg-yellow-400 hover:bg-yellow-300 text-black font-black px-10 py-4 rounded-xl text-lg transition-all shadow-2xl shadow-yellow-400/25 hover:scale-105">
+            <a href="mailto:cdozier@dozierholdingsgroup.com" className="bg-red-400 hover:bg-red-300 text-black font-black px-10 py-4 rounded-xl text-lg transition-all shadow-2xl shadow-red-400/25 hover:scale-105">
               💰 REQUEST INVESTOR DECK
             </a>
             <a href="tel:+16014985282" className="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-4 rounded-xl border border-white/20 transition-all">
@@ -224,8 +224,8 @@ export default function InvestorHub() {
               <div className="text-white font-bold mt-2">Manus: $0 → $100M ARR</div>
               <div className="text-white/40 text-xs mt-1">Fastest startup ever · AI agent platform</div>
             </div>
-            <div className="bg-yellow-400/10 border border-yellow-400/30 rounded-2xl p-6">
-              <div className="text-4xl font-black text-yellow-400">12 mo</div>
+            <div className="bg-red-400/10 border border-red-400/30 rounded-2xl p-6">
+              <div className="text-4xl font-black text-red-400">12 mo</div>
               <div className="text-white font-bold mt-2">ATHLYNX Target: $0 → $100M ARR</div>
               <div className="text-white/40 text-xs mt-1">$135B market · 520K+ athletes · AI-powered</div>
             </div>
@@ -240,15 +240,15 @@ export default function InvestorHub() {
         {/* ── MARKET OPPORTUNITY ── */}
         <section id="opportunity">
           <div className="text-center mb-10">
-            <p className="text-yellow-400 text-xs font-black tracking-widest uppercase mb-2">Market Opportunity</p>
+            <p className="text-red-400 text-xs font-black tracking-widest uppercase mb-2">Market Opportunity</p>
             <h2 className="text-4xl font-black text-white">$135 Billion. Barely Touched by AI.</h2>
             <p className="text-white/50 mt-3 text-base max-w-2xl mx-auto">ATHLYNX sits at the intersection of every major growth vector in sports — and no one has ever connected them all.</p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {MARKET_DATA.map(m => (
-              <div key={m.label} className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:border-yellow-400/30 transition-all group">
+              <div key={m.label} className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:border-red-400/30 transition-all group">
                 <div className="text-3xl mb-3">{m.icon}</div>
-                <div className="text-2xl font-black text-yellow-400 group-hover:text-yellow-300 transition-colors">{m.value}</div>
+                <div className="text-2xl font-black text-red-400 group-hover:text-red-300 transition-colors">{m.value}</div>
                 <div className="text-white font-bold text-sm mt-1">{m.label}</div>
                 <div className="text-white/40 text-xs mt-1">{m.sub}</div>
                 <div className="text-white/20 text-xs mt-2 italic">Source: {m.src}</div>
@@ -258,9 +258,9 @@ export default function InvestorHub() {
         </section>
 
         {/* ── AI DATA MOAT ── */}
-        <section className="bg-gradient-to-br from-purple-900/30 to-blue-900/20 border border-purple-500/30 rounded-3xl p-8">
+        <section className="bg-gradient-to-br from-blue-950/30 to-blue-900/20 border border-blue-600/30 rounded-3xl p-8">
           <div className="text-center mb-8">
-            <p className="text-purple-400 text-xs font-black tracking-widest uppercase mb-2">The Unfair Advantage</p>
+            <p className="text-blue-500 text-xs font-black tracking-widest uppercase mb-2">The Unfair Advantage</p>
             <h2 className="text-3xl font-black text-white">AI Bots + Robots = The World's Largest Athlete Dataset</h2>
             <p className="text-white/50 mt-2 max-w-2xl mx-auto text-sm">Every AI interaction, every robot sideline session, every wearable — streams directly to ATHLYNX servers. We own the data. No competitor can replicate it.</p>
           </div>
@@ -271,7 +271,7 @@ export default function InvestorHub() {
               { icon: "⌚", title: "Wearables Integration", desc: "Heart rate, GPS, acceleration, recovery scores, sleep data — all piped in, timestamped, athlete-attributed." },
               { icon: "🏆", title: "Proprietary Dataset", desc: "The largest real athlete performance dataset in the world. Licensed to brands, scouts, and leagues. Valued in the hundreds of millions." },
             ].map(d => (
-              <div key={d.title} className="bg-white/5 border border-purple-500/20 rounded-2xl p-5">
+              <div key={d.title} className="bg-white/5 border border-blue-600/20 rounded-2xl p-5">
                 <div className="text-3xl mb-3">{d.icon}</div>
                 <div className="text-white font-black text-sm mb-2">{d.title}</div>
                 <div className="text-white/50 text-xs leading-relaxed">{d.desc}</div>
@@ -279,18 +279,18 @@ export default function InvestorHub() {
             ))}
           </div>
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-            <div className="bg-purple-500/10 border border-purple-500/20 rounded-xl p-4">
-              <div className="text-2xl font-black text-purple-400">Year 3</div>
+            <div className="bg-blue-600/10 border border-blue-600/20 rounded-xl p-4">
+              <div className="text-2xl font-black text-blue-500">Year 3</div>
               <div className="text-white text-sm font-bold">Data Licensing Begins</div>
               <div className="text-white/40 text-xs">$360K → $5.4M by Year 5</div>
             </div>
-            <div className="bg-purple-500/10 border border-purple-500/20 rounded-xl p-4">
-              <div className="text-2xl font-black text-purple-400">100M+</div>
+            <div className="bg-blue-600/10 border border-blue-600/20 rounded-xl p-4">
+              <div className="text-2xl font-black text-blue-500">100M+</div>
               <div className="text-white text-sm font-bold">Data Points by Year 3</div>
               <div className="text-white/40 text-xs">Across all sports, all levels</div>
             </div>
-            <div className="bg-purple-500/10 border border-purple-500/20 rounded-xl p-4">
-              <div className="text-2xl font-black text-purple-400">$500M+</div>
+            <div className="bg-blue-600/10 border border-blue-600/20 rounded-xl p-4">
+              <div className="text-2xl font-black text-blue-500">$500M+</div>
               <div className="text-white text-sm font-bold">Dataset Valuation (IPO)</div>
               <div className="text-white/40 text-xs">Comparable to Sportradar, Stats Perform</div>
             </div>
@@ -300,15 +300,15 @@ export default function InvestorHub() {
         {/* ── 5-YEAR P&L ── */}
         <section id="financials">
           <div className="text-center mb-8">
-            <p className="text-yellow-400 text-xs font-black tracking-widest uppercase mb-2">Financial Projections</p>
+            <p className="text-red-400 text-xs font-black tracking-widest uppercase mb-2">Financial Projections</p>
             <h2 className="text-4xl font-black text-white">5-Year P&L Proforma</h2>
             <p className="text-white/50 mt-2 text-sm">Conservative projections. Numbers verified to add up. Based on real SaaS benchmarks and NIL market data.</p>
           </div>
 
           {/* Tab Toggle */}
           <div className="flex justify-center gap-2 mb-6">
-            <button onClick={() => setActiveTab("revenue")} className={`px-5 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === "revenue" ? "bg-yellow-400 text-black" : "bg-white/10 text-white/60 hover:bg-white/20"}`}>Revenue Streams</button>
-            <button onClick={() => setActiveTab("pl")} className={`px-5 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === "pl" ? "bg-yellow-400 text-black" : "bg-white/10 text-white/60 hover:bg-white/20"}`}>P&L Summary</button>
+            <button onClick={() => setActiveTab("revenue")} className={`px-5 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === "revenue" ? "bg-red-400 text-black" : "bg-white/10 text-white/60 hover:bg-white/20"}`}>Revenue Streams</button>
+            <button onClick={() => setActiveTab("pl")} className={`px-5 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === "pl" ? "bg-red-400 text-black" : "bg-white/10 text-white/60 hover:bg-white/20"}`}>P&L Summary</button>
           </div>
 
           {activeTab === "revenue" && (
@@ -327,9 +327,9 @@ export default function InvestorHub() {
                       {row.y.map((v, j) => <td key={j} className="px-4 py-3 text-right text-white/70 font-mono text-xs">{v === 0 ? "—" : fmt(v)}</td>)}
                     </tr>
                   ))}
-                  <tr className="bg-yellow-400/10 border-t-2 border-yellow-400/40">
-                    <td className="px-5 py-4 text-yellow-400 font-black">TOTAL REVENUE</td>
-                    {TOTAL_REV.map((v, i) => <td key={i} className="px-4 py-4 text-right text-yellow-400 font-black font-mono">{fmt(v)}</td>)}
+                  <tr className="bg-red-400/10 border-t-2 border-red-400/40">
+                    <td className="px-5 py-4 text-red-400 font-black">TOTAL REVENUE</td>
+                    {TOTAL_REV.map((v, i) => <td key={i} className="px-4 py-4 text-right text-red-400 font-black font-mono">{fmt(v)}</td>)}
                   </tr>
                   <tr className="bg-cyan-400/5 border-t border-cyan-400/20">
                     <td className="px-5 py-3 text-cyan-400 font-bold text-xs">Valuation (7× Revenue)</td>
@@ -359,7 +359,7 @@ export default function InvestorHub() {
                     { label: "EBITDA", vals: EBITDA, color: "text-cyan-400", bold: true },
                     { label: "EBITDA Margin", vals: EBITDA.map((e, i) => e / TOTAL_REV[i]), color: "text-cyan-400/70", bold: false, isPct: true },
                     { label: "Income Tax (21%)", vals: TAX, color: "text-red-400/70", bold: false, prefix: "−" },
-                    { label: "Net Income", vals: NET, color: "text-yellow-400", bold: true },
+                    { label: "Net Income", vals: NET, color: "text-red-400", bold: true },
                   ].map((row, ri) => (
                     <tr key={row.label} className={`border-b border-white/5 ${ri % 2 === 0 ? "" : "bg-white/[0.02]"} ${row.bold ? "bg-white/5" : ""}`}>
                       <td className={`px-5 py-3 font-${row.bold ? "black" : "medium"} ${row.color}`}>{row.label}</td>
@@ -383,7 +383,7 @@ export default function InvestorHub() {
         {/* ── FUNDING ROADMAP ── */}
         <section id="roadmap">
           <div className="text-center mb-10">
-            <p className="text-yellow-400 text-xs font-black tracking-widest uppercase mb-2">Funding Roadmap</p>
+            <p className="text-red-400 text-xs font-black tracking-widest uppercase mb-2">Funding Roadmap</p>
             <h2 className="text-4xl font-black text-white">Pre-Seed → IPO</h2>
             <p className="text-white/50 mt-2">Every dollar has a purpose. Every milestone is measurable. End game: NYSE or NASDAQ.</p>
           </div>
@@ -405,7 +405,7 @@ export default function InvestorHub() {
                     <div className="text-white/40 text-xs">Raise</div>
                   </div>
                   <div>
-                    <div className="text-lg font-black text-yellow-400">{r.equity}</div>
+                    <div className="text-lg font-black text-red-400">{r.equity}</div>
                     <div className="text-white/40 text-xs">Equity</div>
                   </div>
                   <div>
@@ -425,7 +425,7 @@ export default function InvestorHub() {
         {/* ── COMPETITIVE MOAT ── */}
         <section id="moat">
           <div className="text-center mb-8">
-            <p className="text-yellow-400 text-xs font-black tracking-widest uppercase mb-2">Competitive Moat</p>
+            <p className="text-red-400 text-xs font-black tracking-widest uppercase mb-2">Competitive Moat</p>
             <h2 className="text-4xl font-black text-white">Everyone Else Solves One Problem.</h2>
             <p className="text-white/50 mt-2">ATHLYNX solves all of them. That has never been done before in the history of sports.</p>
           </div>
@@ -441,11 +441,11 @@ export default function InvestorHub() {
                 {COMPETITORS.map((c, i) => {
                   const isAthlynx = c.name.includes("ATHLYNX");
                   return (
-                    <tr key={c.name} className={`border-b border-white/5 ${isAthlynx ? "bg-yellow-400/10" : i % 2 === 0 ? "" : "bg-white/[0.02]"}`}>
-                      <td className={`px-4 py-3 font-bold ${isAthlynx ? "text-yellow-400" : "text-white/70"}`}>{c.name}</td>
+                    <tr key={c.name} className={`border-b border-white/5 ${isAthlynx ? "bg-red-400/10" : i % 2 === 0 ? "" : "bg-white/[0.02]"}`}>
+                      <td className={`px-4 py-3 font-bold ${isAthlynx ? "text-red-400" : "text-white/70"}`}>{c.name}</td>
                       {c.vals.map((v, j) => (
                         <td key={j} className="px-3 py-3 text-center">
-                          {v ? <span className={`text-base ${isAthlynx ? "text-yellow-400" : "text-green-400"}`}>✓</span>
+                          {v ? <span className={`text-base ${isAthlynx ? "text-red-400" : "text-green-400"}`}>✓</span>
                              : <span className="text-white/15 text-base">✗</span>}
                         </td>
                       ))}
@@ -457,7 +457,7 @@ export default function InvestorHub() {
           </div>
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { n: "9/9", l: "ATHLYNX checks all boxes", c: "text-yellow-400" },
+              { n: "9/9", l: "ATHLYNX checks all boxes", c: "text-red-400" },
               { n: "2/9", l: "Best competitor (Hudl)", c: "text-white/50" },
               { n: "0", l: "Competitors with full stack", c: "text-red-400" },
             ].map(s => (
@@ -472,7 +472,7 @@ export default function InvestorHub() {
         {/* ── FOUNDING STORY ── */}
         <section className="bg-gradient-to-r from-slate-900/80 to-blue-950/40 border border-white/10 rounded-3xl p-10">
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-yellow-400 text-xs font-black tracking-widest uppercase mb-4">Our Story</p>
+            <p className="text-red-400 text-xs font-black tracking-widest uppercase mb-4">Our Story</p>
             <h2 className="text-3xl font-black text-white mb-6">Built from Nothing. Funded by Belief.</h2>
             <p className="text-white/70 text-base leading-relaxed mb-4">
               ATHLYNX was founded by <span className="text-white font-bold">Chad A. Dozier</span> in Houston, TX — after meeting co-founder <span className="text-white font-bold">Glenn Tse</span> at Hope Lodge. Glenn and Jimmy Boyd provided the initial $100,000 to get this off the ground. The rest has been pure sweat equity.
@@ -480,7 +480,7 @@ export default function InvestorHub() {
             <p className="text-white/70 text-base leading-relaxed mb-4">
               One person. One AI. One vision. Sam Altman said a one-person, AI-powered billion-dollar company is coming. ATHLYNX is positioned to be the first in sports.
             </p>
-            <blockquote className="border-l-4 border-yellow-400 pl-5 text-left mt-6">
+            <blockquote className="border-l-4 border-red-400 pl-5 text-left mt-6">
               <p className="text-white/60 text-sm italic leading-relaxed">"We are not building one of a kind. We are building the only one. No one has ever put all of this under one roof — NIL, recruiting, training, store, pro teams, AI bots, robot data collection — for athletes at every level from youth to retirement."</p>
               <footer className="text-white/40 text-xs mt-2">— Chad A. Dozier, Founder & CEO, ATHLYNX</footer>
             </blockquote>
@@ -490,19 +490,19 @@ export default function InvestorHub() {
         {/* ── TEAM ── */}
         <section id="team">
           <div className="text-center mb-10">
-            <p className="text-yellow-400 text-xs font-black tracking-widest uppercase mb-2">Leadership</p>
+            <p className="text-red-400 text-xs font-black tracking-widest uppercase mb-2">Leadership</p>
             <h2 className="text-4xl font-black text-white">The Team Behind ATHLYNX</h2>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
             {TEAM.map(m => (
-              <div key={m.name} className={`rounded-2xl p-6 border ${m.highlight ? "bg-yellow-400/10 border-yellow-400/40" : "bg-white/5 border-white/10"}`}>
-                <div className={`w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center text-2xl font-black ${m.highlight ? "bg-yellow-400 text-black" : "bg-white/10 text-white"}`}>
+              <div key={m.name} className={`rounded-2xl p-6 border ${m.highlight ? "bg-red-400/10 border-red-400/40" : "bg-white/5 border-white/10"}`}>
+                <div className={`w-16 h-16 rounded-2xl mx-auto mb-4 flex items-center justify-center text-2xl font-black ${m.highlight ? "bg-red-400 text-black" : "bg-white/10 text-white"}`}>
                   {m.initials}
                 </div>
-                <div className={`font-black text-center ${m.highlight ? "text-yellow-400" : "text-white"}`}>{m.name}</div>
+                <div className={`font-black text-center ${m.highlight ? "text-red-400" : "text-white"}`}>{m.name}</div>
                 <div className="text-white/60 text-xs font-semibold text-center mt-1">{m.title}</div>
                 <div className="text-center mt-2">
-                  <span className={`text-xs font-black px-2 py-0.5 rounded-full ${m.highlight ? "bg-yellow-400/20 text-yellow-400" : "bg-white/10 text-white/50"}`}>{m.equity} equity</span>
+                  <span className={`text-xs font-black px-2 py-0.5 rounded-full ${m.highlight ? "bg-red-400/20 text-red-400" : "bg-white/10 text-white/50"}`}>{m.equity} equity</span>
                 </div>
                 <div className="text-white/40 text-xs mt-3 text-center leading-relaxed">{m.role}</div>
               </div>
@@ -513,19 +513,19 @@ export default function InvestorHub() {
         {/* ── USE OF FUNDS ── */}
         <section>
           <div className="text-center mb-8">
-            <p className="text-yellow-400 text-xs font-black tracking-widest uppercase mb-2">Use of Funds</p>
+            <p className="text-red-400 text-xs font-black tracking-widest uppercase mb-2">Use of Funds</p>
             <h2 className="text-3xl font-black text-white">Pre-Seed $500K — Every Dollar Allocated</h2>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { pct: "35%", amt: "$175K", label: "Platform Development", sub: "Complete all modules, mobile PWA, AI integrations", color: "border-yellow-400" },
+              { pct: "35%", amt: "$175K", label: "Platform Development", sub: "Complete all modules, mobile PWA, AI integrations", color: "border-red-400" },
               { pct: "25%", amt: "$125K", label: "Sales & Marketing", sub: "First 50 school licenses, brand partnerships", color: "border-blue-400" },
-              { pct: "25%", amt: "$125K", label: "Operations & Team", sub: "First hires: sales rep, customer success, dev", color: "border-purple-400" },
+              { pct: "25%", amt: "$125K", label: "Operations & Team", sub: "First hires: sales rep, customer success, dev", color: "border-blue-500" },
               { pct: "15%", amt: "$75K", label: "Legal & Infrastructure", sub: "IP protection, server infrastructure, compliance", color: "border-green-400" },
             ].map(f => (
               <div key={f.label} className={`bg-white/5 border-2 ${f.color} rounded-2xl p-5 text-center`}>
                 <div className="text-3xl font-black text-white">{f.pct}</div>
-                <div className="text-yellow-400 font-black text-lg">{f.amt}</div>
+                <div className="text-red-400 font-black text-lg">{f.amt}</div>
                 <div className="text-white font-bold text-sm mt-2">{f.label}</div>
                 <div className="text-white/40 text-xs mt-1 leading-relaxed">{f.sub}</div>
               </div>
@@ -580,15 +580,15 @@ export default function InvestorHub() {
         </section>
 
         {/* ── CONTACT CTA ── */}
-        <section className="bg-gradient-to-r from-yellow-500/20 via-amber-400/10 to-yellow-500/20 border-2 border-yellow-400/50 rounded-3xl p-12 text-center">
+        <section className="bg-gradient-to-r from-red-500/20 via-red-400/10 to-red-500/20 border-2 border-red-400/50 rounded-3xl p-12 text-center">
           <div className="text-6xl mb-5">🏆</div>
           <h2 className="text-5xl font-black text-white mb-3">Ready to Own a Piece of History?</h2>
           <p className="text-white/60 text-xl mb-2">Pre-Seed round is open. We are building the $1B+ athlete platform.</p>
-          <p className="text-yellow-400 font-bold text-lg mb-10">$135B market. Zero full-stack competitors. One team. One shot. IPO end game.</p>
+          <p className="text-red-400 font-bold text-lg mb-10">$135B market. Zero full-stack competitors. One team. One shot. IPO end game.</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto mb-10">
             <div className="bg-black/40 rounded-2xl p-5">
-              <div className="text-yellow-400 font-black">Chad A. Dozier</div>
+              <div className="text-red-400 font-black">Chad A. Dozier</div>
               <div className="text-white/60 text-xs mt-1">Founder & CEO</div>
             </div>
             <div className="bg-black/40 rounded-2xl p-5">
@@ -602,7 +602,7 @@ export default function InvestorHub() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <a href="mailto:cdozier@dozierholdingsgroup.com" className="bg-yellow-400 hover:bg-yellow-300 text-black font-black px-12 py-5 rounded-2xl text-xl transition-all shadow-2xl shadow-yellow-400/30 hover:scale-105">
+            <a href="mailto:cdozier@dozierholdingsgroup.com" className="bg-red-400 hover:bg-red-300 text-black font-black px-12 py-5 rounded-2xl text-xl transition-all shadow-2xl shadow-red-400/30 hover:scale-105">
               📧 EMAIL US NOW
             </a>
             <a href="tel:+16014985282" className="bg-white/10 hover:bg-white/20 text-white font-bold px-10 py-5 rounded-2xl border border-white/20 transition-all text-lg">

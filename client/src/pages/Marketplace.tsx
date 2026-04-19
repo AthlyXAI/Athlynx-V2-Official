@@ -41,7 +41,7 @@ const PRODUCTS = [
     id: "icc-spec4",
     category: "Custom Servers",
     badge: "PLATINUM",
-    badgeColor: "bg-purple-600",
+    badgeColor: "bg-blue-700",
     name: "Custom Server — 2U Platinum (32C/64T)",
     tagline: "Supermicro 2U · Intel Xeon Platinum 8562Y+ · 256GB DDR5",
     specs: ["Supermicro SYS-221H-TNR", "2x Intel Xeon Platinum 8562Y+ (32C/64T, 300W)", "256GB DDR5 5600MHz ECC (32GB×8)", "8x 2.5\" NVMe/SATA/SAS + 2x M.2", "Enterprise-grade AI workloads"],
@@ -139,7 +139,7 @@ const PRODUCTS = [
     id: "gear-training",
     category: "Athletic Gear",
     badge: "ATHLETE",
-    badgeColor: "bg-orange-600",
+    badgeColor: "bg-red-600",
     name: "Elite Training Bundle",
     tagline: "Pro-grade training equipment for serious athletes",
     specs: ["Resistance bands (5 resistance levels)", "Speed & agility ladder", "Weighted vest (20–40 lbs)", "Recovery foam roller", "ATHLYNX branded gear bag"],
@@ -153,7 +153,7 @@ const PRODUCTS = [
     id: "gear-nil",
     category: "NIL Gear",
     badge: "NIL READY",
-    badgeColor: "bg-yellow-600",
+    badgeColor: "bg-red-600",
     name: "NIL Athlete Starter Pack",
     tagline: "Launch your personal brand with official ATHLYNX gear",
     specs: ["Custom jersey (name + number)", "Branded athletic shorts", "ATHLYNX × NIL hoodie", "Athlete ID card holder", "Social media kit (digital)"],
@@ -257,7 +257,7 @@ export default function Marketplace() {
     <div className="min-h-screen bg-[#0a0f1e] text-white">
       {/* ── Header ── */}
       <div className="relative overflow-hidden border-b border-white/10">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-[#0a0f1e] to-purple-900/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-[#0a0f1e] to-blue-950/20" />
         <div className="relative max-w-7xl mx-auto px-4 py-16">
           <div className="flex items-center gap-3 mb-4">
             <Link href="/" className="text-blue-400 hover:text-blue-300 text-sm transition-colors">← Home</Link>
@@ -267,7 +267,7 @@ export default function Marketplace() {
           <div className="flex items-center gap-3 mb-4 flex-wrap">
             <Badge className="bg-blue-600/20 text-blue-300 border border-blue-500/30 px-3 py-1">ATHLYNX MARKETPLACE</Badge>
             <Badge className="bg-green-600/20 text-green-300 border border-green-500/30 px-3 py-1">ENTERPRISE GRADE</Badge>
-            <Badge className="bg-purple-600/20 text-purple-300 border border-purple-500/30 px-3 py-1">REQUEST A QUOTE</Badge>
+            <Badge className="bg-blue-700/20 text-blue-300 border border-blue-600/30 px-3 py-1">REQUEST A QUOTE</Badge>
           </div>
           <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4">
             The Athlete's
@@ -363,7 +363,7 @@ export default function Marketplace() {
         </div>
 
         {/* ── CTA ── */}
-        <div className="text-center py-12 border border-blue-500/20 rounded-2xl bg-gradient-to-br from-blue-900/20 to-purple-900/10">
+        <div className="text-center py-12 border border-blue-500/20 rounded-2xl bg-gradient-to-br from-blue-900/20 to-blue-950/10">
           <h2 className="text-3xl font-black mb-3">Need a Custom Configuration?</h2>
           <p className="text-white/60 mb-6 max-w-xl mx-auto">
             Our team works directly with ICC-USA and RunSun to build exactly what your organization needs. Enterprise pricing available.
@@ -436,7 +436,7 @@ export default function Marketplace() {
 function ProductCard({ product, onQuote, onBuy, buyLoading }: { product: typeof PRODUCTS[0]; onQuote: () => void; onBuy?: () => void; buyLoading?: boolean }) {
   return (
     <div className="group relative bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden hover:border-blue-500/40 transition-all duration-300 hover:shadow-xl hover:shadow-blue-900/20 flex flex-col">
-      <div className="relative h-48 bg-gradient-to-br from-blue-900/30 to-purple-900/20 flex items-center justify-center overflow-hidden">
+      <div className="relative h-48 bg-gradient-to-br from-blue-900/30 to-blue-950/20 flex items-center justify-center overflow-hidden">
         <img
           src={product.image}
           alt={product.name}
@@ -464,7 +464,7 @@ function ProductCard({ product, onQuote, onBuy, buyLoading }: { product: typeof 
           {(product as any).priceInCents && onBuy ? (
             <>
               <Button
-                className="flex-1 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-500 hover:to-red-500 text-white text-sm font-black py-2"
+                className="flex-1 bg-gradient-to-r from-red-600 to-red-600 hover:from-red-500 hover:to-red-500 text-white text-sm font-black py-2"
                 onClick={onBuy}
                 disabled={buyLoading}
               >

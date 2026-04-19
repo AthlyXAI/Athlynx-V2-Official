@@ -121,7 +121,7 @@ export default function Mindset() {
         {/* Background Effects */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-red-500/10 rounded-full blur-3xl" />
         </div>
 
         <div className="container mx-auto text-center relative z-10">
@@ -140,7 +140,7 @@ export default function Mindset() {
             
             <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-black text-white mb-6">
               MINDSET &<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-yellow-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-red-400">
                 MOTIVATION
               </span>
             </motion.h1>
@@ -170,7 +170,7 @@ export default function Mindset() {
             viewport={{ once: true }}
             className="max-w-5xl mx-auto text-center"
           >
-            <Target className="w-16 h-16 text-yellow-400 mx-auto mb-8" />
+            <Target className="w-16 h-16 text-red-400 mx-auto mb-8" />
             
             <blockquote className="text-2xl md:text-4xl font-bold text-white leading-relaxed mb-8">
               "Dreams without Goals are just dreams and ultimately without Goals they fuel disappointment.
@@ -180,7 +180,7 @@ export default function Mindset() {
               Because without Commitment you'll never start but without Consistency You'll never Finish."
             </blockquote>
             
-            <p className="text-yellow-400 text-xl font-semibold">— Chad Allen Dozier Sr.</p>
+            <p className="text-red-400 text-xl font-semibold">— Chad Allen Dozier Sr.</p>
             <p className="text-white/50 mt-2">Founder, Dozier Holdings Group</p>
           </motion.div>
         </div>
@@ -196,7 +196,7 @@ export default function Mindset() {
             className="max-w-4xl mx-auto"
           >
             <div className="bg-gradient-to-br from-[#1a3a5c]/50 to-[#0d1e36]/50 rounded-3xl p-12 border border-cyan-500/20 text-center">
-              <Lightbulb className="w-16 h-16 text-yellow-400 mx-auto mb-8" />
+              <Lightbulb className="w-16 h-16 text-red-400 mx-auto mb-8" />
               
               <blockquote className="text-3xl md:text-5xl font-bold text-white mb-6">
                 "Logic will get you from A to B.
@@ -204,7 +204,7 @@ export default function Mindset() {
                 <span className="text-cyan-400">Imagination will take you Everywhere.</span>"
               </blockquote>
               
-              <p className="text-yellow-400 text-xl font-semibold">— Albert Einstein</p>
+              <p className="text-red-400 text-xl font-semibold">— Albert Einstein</p>
             </div>
           </motion.div>
         </div>
@@ -221,9 +221,9 @@ export default function Mindset() {
             className="text-center mb-16"
           >
             <motion.div variants={fadeInUp}>
-              <Flame className="w-16 h-16 text-orange-500 mx-auto mb-4" />
+              <Flame className="w-16 h-16 text-red-500 mx-auto mb-4" />
               <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-                THE CLOSER'S <span className="text-orange-500">MENTALITY</span>
+                THE CLOSER'S <span className="text-red-500">MENTALITY</span>
               </h2>
               <p className="text-white/60 text-xl max-w-2xl mx-auto">
                 You have to eat. And I have been hungry for years.
@@ -239,12 +239,12 @@ export default function Mindset() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-gradient-to-br from-orange-500/10 to-red-500/10 rounded-2xl p-8 border border-orange-500/20 hover:border-orange-500/40 transition-all"
+                className="bg-gradient-to-br from-red-500/10 to-red-500/10 rounded-2xl p-8 border border-red-500/20 hover:border-red-500/40 transition-all"
               >
                 <blockquote className="text-xl md:text-2xl font-bold text-white mb-4">
                   "{item.quote}"
                 </blockquote>
-                <p className="text-orange-400 text-sm uppercase tracking-wider">
+                <p className="text-red-400 text-sm uppercase tracking-wider">
                   {item.context}
                 </p>
               </motion.div>
@@ -309,7 +309,7 @@ export default function Mindset() {
             viewport={{ once: true }}
             className="mt-12 text-center"
           >
-            <div className="inline-block bg-gradient-to-r from-cyan-500/20 to-yellow-500/20 rounded-2xl px-12 py-8 border border-cyan-500/30">
+            <div className="inline-block bg-gradient-to-r from-cyan-500/20 to-red-500/20 rounded-2xl px-12 py-8 border border-cyan-500/30">
               <p className="text-2xl md:text-3xl font-bold text-white">
                 Don't tell people your next big move.
               </p>
@@ -332,9 +332,9 @@ export default function Mindset() {
             className="text-center mb-16"
           >
             <motion.div variants={fadeInUp}>
-              <Trophy className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
+              <Trophy className="w-16 h-16 text-red-400 mx-auto mb-4" />
               <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-                THE <span className="text-yellow-400">JOURNEY</span>
+                THE <span className="text-red-400">JOURNEY</span>
               </h2>
               <p className="text-white/60 text-xl max-w-3xl mx-auto">
                 Revolutionizing the sports market journey with athletes, parents, coaches, agents, lawyers, trainers, counselors, and chaplains. Total positivity. Total support.

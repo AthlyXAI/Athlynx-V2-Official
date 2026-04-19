@@ -155,7 +155,7 @@ export default function TransferPortal() {
                     <div className="font-bold text-white">{school.name}</div>
                     <div className="text-blue-400 text-xs">{school.conference} • {school.sport}</div>
                   </div>
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${school.nilProgram === 'Elite' ? 'bg-purple-900 text-purple-300' : 'bg-blue-900 text-blue-300'}`}>
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${school.nilProgram === 'Elite' ? 'bg-blue-950 text-blue-300' : 'bg-blue-900 text-blue-300'}`}>
                     {school.nilProgram} NIL
                   </span>
                 </div>

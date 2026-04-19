@@ -19,7 +19,7 @@ export default function WhiteLabel() {
       name: "Court Kings",
       sport: "Basketball", 
       icon: "",
-      color: "from-orange-500 to-red-500",
+      color: "from-red-500 to-red-500",
       description: "Elite basketball recruiting and development platform",
       features: ["Player Rankings", "AAU Tournaments", "Showcase Events", "AI Basketball Coach"],
       url: "/court-kings",
@@ -41,7 +41,7 @@ export default function WhiteLabel() {
       name: "Pitch Pulse",
       sport: "Soccer",
       icon: "",
-      color: "from-purple-500 to-pink-500",
+      color: "from-blue-600 to-red-500",
       description: "Global soccer recruiting and development platform",
       features: ["Player Profiles", "Club Connections", "International Scouts", "AI Soccer Coach"],
       url: "/pitch-pulse",
@@ -74,7 +74,7 @@ export default function WhiteLabel() {
       name: "Hunt Pro",
       sport: "Hunting",
       icon: "🦌",
-      color: "from-amber-700 to-orange-600",
+      color: "from-red-700 to-red-600",
       description: "Professional hunting network and sponsorship platform",
       features: ["Harvest Logging", "Sponsor Connections", "License Tracking", "AI Hunting Guide"],
       url: "/hunt-pro",
@@ -118,7 +118,7 @@ export default function WhiteLabel() {
               <span>Live</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-3 h-3 bg-yellow-500 rounded-full"></span>
+              <span className="w-3 h-3 bg-red-500 rounded-full"></span>
               <span>Coming Soon</span>
             </div>
           </div>
@@ -139,7 +139,7 @@ export default function WhiteLabel() {
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
                     app.status === "live" 
                       ? "bg-green-500/20 text-green-400" 
-                      : "bg-yellow-500/20 text-yellow-400"
+                      : "bg-red-500/20 text-red-400"
                   }`}>
                     {app.status === "live" ? "LIVE" : "COMING SOON"}
                   </span>

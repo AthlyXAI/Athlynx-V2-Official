@@ -6,7 +6,7 @@ import { Link } from "wouter";
 
 const STATUS_COLORS: Record<string, string> = {
   active: "bg-green-900 text-green-400",
-  pending: "bg-yellow-900 text-yellow-400",
+  pending: "bg-red-900 text-red-400",
   negotiating: "bg-blue-900 text-blue-400",
   completed: "bg-gray-800 text-gray-400",
   declined: "bg-red-900 text-red-400",
@@ -48,7 +48,7 @@ export default function NILPortal() {
             {[
               { label: "Total NIL Value", value: `$${totalValue.toLocaleString()}`, color: "text-green-400" },
               { label: "Active Deals", value: String(activeDeals), color: "text-blue-400" },
-              { label: "Total Deals", value: String(myDeals.length), color: "text-yellow-400" },
+              { label: "Total Deals", value: String(myDeals.length), color: "text-red-400" },
             ].map((stat, i) => (
               <div key={i} className="bg-[#1530a0] rounded-xl p-3 text-center">
                 <div className={`text-2xl font-black ${stat.color}`}>{stat.value}</div>

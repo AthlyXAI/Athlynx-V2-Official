@@ -342,7 +342,7 @@ export default function SchoolPage() {
           </Card>
           <Card className="bg-slate-900 border-slate-700">
             <CardContent className="p-4 text-center">
-              <Trophy className="w-6 h-6 text-amber-400 mx-auto mb-2" />
+              <Trophy className="w-6 h-6 text-red-400 mx-auto mb-2" />
               <p className="text-2xl font-bold text-white">{school.championships}</p>
               <p className="text-slate-400 text-sm">Championships</p>
             </CardContent>
@@ -356,7 +356,7 @@ export default function SchoolPage() {
           </Card>
           <Card className="bg-slate-900 border-slate-700">
             <CardContent className="p-4 text-center">
-              <Star className="w-6 h-6 text-amber-400 mx-auto mb-2" />
+              <Star className="w-6 h-6 text-red-400 mx-auto mb-2" />
               <p className="text-lg font-bold text-white">{school.topTransferNIL}</p>
               <p className="text-slate-400 text-sm">Top NIL</p>
             </CardContent>
@@ -376,7 +376,7 @@ export default function SchoolPage() {
 
               <TabsContent value="news" className="space-y-4">
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                  <Flame className="w-5 h-5 text-orange-400" />
+                  <Flame className="w-5 h-5 text-red-400" />
                   Latest Transfer News
                 </h2>
                 {news.map((item, idx) => (
@@ -390,7 +390,7 @@ export default function SchoolPage() {
                               item.type === "commitment" 
                                 ? "border-green-400 text-green-400" 
                                 : item.type === "portal"
-                                ? "border-amber-400 text-amber-400"
+                                ? "border-red-400 text-red-400"
                                 : "border-blue-400 text-blue-400"
                             }`}
                           >
@@ -460,7 +460,7 @@ export default function SchoolPage() {
                           <p className="text-slate-400 text-sm">Highest NIL Deal</p>
                           <p className="text-white font-bold">{school.topTransfer} - {school.topTransferNIL}</p>
                         </div>
-                        <Star className="w-8 h-8 text-amber-400" />
+                        <Star className="w-8 h-8 text-red-400" />
                       </div>
                     </div>
                   </CardContent>
@@ -494,7 +494,7 @@ export default function SchoolPage() {
                         </div>
                       </div>
                       <div className="flex items-center gap-3 p-3 bg-slate-800 rounded-lg">
-                        <Trophy className="w-5 h-5 text-amber-400" />
+                        <Trophy className="w-5 h-5 text-red-400" />
                         <div>
                           <p className="text-slate-400 text-sm">National Championships</p>
                           <p className="text-white font-semibold">{school.championships}</p>
@@ -513,7 +513,7 @@ export default function SchoolPage() {
             <Card className="bg-gradient-to-br from-slate-900 to-slate-800 border-slate-700">
               <CardContent className="p-6">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                  <Star className="w-5 h-5 text-amber-400" />
+                  <Star className="w-5 h-5 text-red-400" />
                   Featured Transfer
                 </h3>
                 <div className="text-center">

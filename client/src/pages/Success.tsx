@@ -8,7 +8,7 @@ export default function Success() {
   return (
     <div className="min-h-screen relative text-white overflow-x-hidden flex items-center justify-center">
       {/* Diagonal Gradient Background - Same as VIP page */}
-      <div className="absolute inset-0 bg-gradient-to-br from-yellow-500 via-black to-cyan-500" 
+      <div className="absolute inset-0 bg-gradient-to-br from-red-500 via-black to-cyan-500" 
            style={{
              background: 'linear-gradient(135deg, #d4af37 0%, #c9a227 15%, #1a1a1a 35%, #000000 50%, #1a1a1a 65%, #0d4d4d 85%, #00CED1 100%)'
            }}>
@@ -42,7 +42,7 @@ export default function Success() {
 
         {/* ATHLYNX Text */}
         <div className="text-center">
-          <h1 className="text-6xl md:text-7xl font-black tracking-tight text-yellow-400 drop-shadow-2xl mb-4">
+          <h1 className="text-6xl md:text-7xl font-black tracking-tight text-red-400 drop-shadow-2xl mb-4">
             ATHLYNX
           </h1>
         </div>
@@ -58,14 +58,14 @@ export default function Success() {
         </div>
 
         {/* Check Your Email Card */}
-        <div className="bg-gradient-to-br from-yellow-900/60 to-orange-900/60 backdrop-blur-md border-2 border-yellow-500 rounded-3xl p-8 space-y-4 shadow-2xl">
+        <div className="bg-gradient-to-br from-red-900/60 to-red-900/60 backdrop-blur-md border-2 border-red-500 rounded-3xl p-8 space-y-4 shadow-2xl">
           <div className="text-center">
             <div className="text-5xl mb-4"></div>
-            <h3 className="text-yellow-400 font-black text-2xl uppercase tracking-wider mb-4">
+            <h3 className="text-red-400 font-black text-2xl uppercase tracking-wider mb-4">
               CHECK YOUR EMAIL
             </h3>
             <p className="text-white text-lg leading-relaxed">
-              We'll review your application and send your <span className="text-yellow-400 font-bold">login credentials</span> to the email address you provided within <span className="text-cyan-400 font-bold">24-48 hours</span>.
+              We'll review your application and send your <span className="text-red-400 font-bold">login credentials</span> to the email address you provided within <span className="text-cyan-400 font-bold">24-48 hours</span>.
             </p>
           </div>
         </div>
@@ -114,10 +114,10 @@ export default function Success() {
 
         {/* Access Code Display (if available) */}
         {accessCode && (
-          <div className="bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-xl border-2 border-yellow-500 rounded-3xl p-8 space-y-4 shadow-2xl">
+          <div className="bg-gradient-to-br from-gray-900/95 to-black/95 backdrop-blur-xl border-2 border-red-500 rounded-3xl p-8 space-y-4 shadow-2xl">
             <div className="text-center">
               <div className="text-4xl mb-3"></div>
-              <h3 className="text-yellow-400 font-black text-xl uppercase tracking-wider mb-3">
+              <h3 className="text-red-400 font-black text-xl uppercase tracking-wider mb-3">
                 YOUR ACCESS CODE
               </h3>
               <div className="bg-black/60 border-2 border-cyan-400 rounded-xl px-6 py-4 inline-block">
@@ -142,7 +142,7 @@ export default function Success() {
             <div className="text-white font-bold bg-black/60 backdrop-blur-sm px-4 py-2 rounded-full border border-cyan-400/50 shadow-lg text-sm">
               VIP Status Confirmed
             </div>
-            <div className="text-white font-bold bg-black/60 backdrop-blur-sm px-4 py-2 rounded-full border border-yellow-500/50 shadow-lg text-sm">
+            <div className="text-white font-bold bg-black/60 backdrop-blur-sm px-4 py-2 rounded-full border border-red-500/50 shadow-lg text-sm">
               Founding Member
             </div>
           </div>

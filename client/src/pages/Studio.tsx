@@ -65,19 +65,19 @@ export default function Studio() {
       name: "In The Zone",
       description: "Mental performance and mindset mastery",
       icon: "🧠",
-      color: "from-purple-500 to-indigo-600"
+      color: "from-blue-600 to-indigo-600"
     },
     {
       name: "The Closer's Corner",
       description: "Business, deals, and entrepreneurship",
       icon: "",
-      color: "from-orange-500 to-red-600"
+      color: "from-red-500 to-red-600"
     },
     {
       name: "Athlete Stories",
       description: "Interviews with great athletes",
       icon: "",
-      color: "from-yellow-500 to-amber-600"
+      color: "from-red-500 to-red-600"
     },
     {
       name: "The Journey",
@@ -95,7 +95,7 @@ export default function Studio() {
       name: "NIL Insights",
       description: "Navigating the NIL landscape",
       icon: "",
-      color: "from-pink-500 to-rose-600"
+      color: "from-red-500 to-red-600"
     }
   ];
 
@@ -138,7 +138,7 @@ export default function Studio() {
         {/* Background Effects */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/3 right-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl" />
           
           {/* Studio Grid Lines */}
           <div className="absolute inset-0 opacity-5">
@@ -159,7 +159,7 @@ export default function Studio() {
             variants={staggerContainer}
           >
             <motion.div variants={fadeInUp} className="mb-6">
-              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 mb-4">
+              <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 mb-4">
                 <Mic className="w-12 h-12 text-cyan-400" />
               </div>
             </motion.div>
@@ -176,7 +176,7 @@ export default function Studio() {
             </motion.p>
             
             <motion.h1 variants={fadeInUp} className="text-5xl md:text-7xl font-black text-white mb-6">
-              THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">STUDIO</span>
+              THE <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">STUDIO</span>
             </motion.h1>
             
             <motion.p variants={fadeInUp} className="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto mb-4">
@@ -243,7 +243,7 @@ export default function Studio() {
               transition={{ delay: 0.1 }}
               className="bg-gradient-to-br from-[#1a3a5c]/50 to-[#0d1e36]/50 rounded-2xl p-8 border border-cyan-500/20 text-center"
             >
-              <Podcast className="w-12 h-12 text-purple-400 mx-auto mb-4" />
+              <Podcast className="w-12 h-12 text-blue-500 mx-auto mb-4" />
               <h3 className="text-xl font-bold text-white mb-3">Podcast Episodes</h3>
               <p className="text-white/60">
                 Listen on the go. Every episode available as a podcast on all major platforms.
@@ -257,7 +257,7 @@ export default function Studio() {
               transition={{ delay: 0.2 }}
               className="bg-gradient-to-br from-[#1a3a5c]/50 to-[#0d1e36]/50 rounded-2xl p-8 border border-cyan-500/20 text-center"
             >
-              <Users className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
+              <Users className="w-12 h-12 text-red-400 mx-auto mb-4" />
               <h3 className="text-xl font-bold text-white mb-3">Expert Guests</h3>
               <p className="text-white/60">
                 Athletes, coaches, agents, mental performance experts, and entrepreneurs sharing their journey.
@@ -327,7 +327,7 @@ export default function Studio() {
           >
             <motion.div variants={fadeInUp}>
               <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-                CONTENT FOR <span className="text-yellow-400">EVERYONE</span>
+                CONTENT FOR <span className="text-red-400">EVERYONE</span>
               </h2>
               <p className="text-white/60 text-xl max-w-3xl mx-auto">
                 The complete ecosystem. Athletes, parents, coaches, agents, lawyers, trainers, counselors, chaplains—we cover it all.
@@ -416,7 +416,7 @@ export default function Studio() {
       </section>
 
       {/* Subscribe CTA */}
-      <section className="py-20 px-4 bg-gradient-to-r from-cyan-500/10 to-purple-500/10">
+      <section className="py-20 px-4 bg-gradient-to-r from-cyan-500/10 to-blue-600/10">
         <div className="container mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -453,10 +453,10 @@ export default function Studio() {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto text-center"
           >
-            <div className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 rounded-3xl p-12 border border-yellow-500/20">
-              <Star className="w-16 h-16 text-yellow-400 mx-auto mb-6" />
+            <div className="bg-gradient-to-br from-red-500/10 to-red-500/10 rounded-3xl p-12 border border-red-500/20">
+              <Star className="w-16 h-16 text-red-400 mx-auto mb-6" />
               <h2 className="text-3xl md:text-4xl font-black text-white mb-6">
-                TOTAL <span className="text-yellow-400">POSITIVITY</span>
+                TOTAL <span className="text-red-400">POSITIVITY</span>
               </h2>
               <p className="text-xl text-white/70 mb-6">
                 This isn't about tearing people down. It's about building them up. Every episode, every conversation, every piece of content is designed to inspire, motivate, and help you become the best version of yourself.

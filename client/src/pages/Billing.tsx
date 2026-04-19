@@ -10,7 +10,7 @@ import { CreditCard, CheckCircle, AlertCircle, ArrowUpRight, Zap, Star, Shield }
 const PLAN_LABELS: Record<string, { label: string; icon: React.ReactNode; color: string }> = {
   athlete_pro: { label: "Athlete Pro", icon: <Zap className="w-4 h-4" />, color: "#0066ff" },
   athlete_elite: { label: "Athlete Elite", icon: <Star className="w-4 h-4" />, color: "#00c2ff" },
-  nil_vault: { label: "NIL Vault", icon: <Shield className="w-4 h-4" />, color: "#7c3aed" },
+  nil_vault: { label: "NIL Vault", icon: <Shield className="w-4 h-4" />, color: "#1e3a8a" },
 };
 
 export default function Billing() {
@@ -26,7 +26,7 @@ export default function Billing() {
     return (
       <div className="min-h-screen bg-[#0a0f1e] flex items-center justify-center">
         <Card className="bg-white/5 border-white/10 p-8 text-center max-w-sm">
-          <AlertCircle className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
+          <AlertCircle className="w-12 h-12 text-red-400 mx-auto mb-4" />
           <h2 className="text-white text-xl font-bold mb-2">Sign In Required</h2>
           <p className="text-blue-200/60 mb-4">Please sign in to manage your billing.</p>
           <Button
@@ -80,9 +80,9 @@ export default function Billing() {
           </div>
         )}
         {justCancelled && (
-          <div className="mb-6 flex items-center gap-3 bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-4">
-            <AlertCircle className="w-5 h-5 text-yellow-400 flex-shrink-0" />
-            <span className="text-yellow-300 font-medium">
+          <div className="mb-6 flex items-center gap-3 bg-red-500/10 border border-red-500/30 rounded-xl p-4">
+            <AlertCircle className="w-5 h-5 text-red-400 flex-shrink-0" />
+            <span className="text-red-300 font-medium">
               Checkout was cancelled. No charge was made.
             </span>
           </div>
@@ -114,7 +114,7 @@ export default function Billing() {
                       Status:{" "}
                       <span className="text-green-400 font-medium">{subscription?.status}</span>
                       {subscription?.cancelAtPeriodEnd && (
-                        <span className="ml-2 text-yellow-400">(Cancels at period end)</span>
+                        <span className="ml-2 text-red-400">(Cancels at period end)</span>
                       )}
                     </div>
                     {subscription?.currentPeriodEnd && (
@@ -173,7 +173,7 @@ export default function Billing() {
 
         {/* Upgrade CTA */}
         {!isActive && (
-          <Card className="bg-gradient-to-r from-blue-900/40 to-purple-900/40 border-blue-500/20">
+          <Card className="bg-gradient-to-r from-blue-900/40 to-blue-950/40 border-blue-500/20">
             <CardContent className="p-8 text-center">
               <h3 className="text-2xl font-bold text-white mb-2">Ready to level up?</h3>
               <p className="text-blue-200/60 mb-6">

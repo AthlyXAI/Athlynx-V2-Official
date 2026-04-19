@@ -451,7 +451,7 @@ export default function AIWizardChat({
       {messages.length === 1 && (
         <div className="px-4 pb-4">
           <div className="flex items-center gap-2 mb-3">
-            <Lightbulb className="w-4 h-4 text-amber-400" />
+            <Lightbulb className="w-4 h-4 text-red-400" />
             <span className="text-slate-400 text-sm">Suggested questions</span>
           </div>
           <div className="flex flex-wrap gap-2">

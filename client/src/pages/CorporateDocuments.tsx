@@ -180,7 +180,7 @@ export default function CorporateDocuments() {
                 <div className="flex items-start justify-between mb-4">
                   <Building className="w-8 h-8 text-cyan-400" />
                   <span className={`px-2 py-1 rounded text-xs font-medium ${
-                    company.status === "Active" ? "bg-green-500/20 text-green-400" : "bg-amber-500/20 text-amber-400"
+                    company.status === "Active" ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"
                   }`}>
                     {company.status}
                   </span>

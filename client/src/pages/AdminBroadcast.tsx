@@ -87,10 +87,10 @@ export default function AdminBroadcast() {
             <ArrowLeft className="w-4 h-4 mr-1" /> Admin
           </Button>
           <div className="flex items-center gap-2">
-            <Megaphone className="w-5 h-5 text-yellow-400" />
+            <Megaphone className="w-5 h-5 text-red-400" />
             <h1 className="text-xl font-bold">Broadcast Center</h1>
           </div>
-          <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">Chad Only</Badge>
+          <Badge className="bg-red-500/20 text-red-400 border-red-500/30">Chad Only</Badge>
         </div>
       </div>
 
@@ -180,7 +180,7 @@ export default function AdminBroadcast() {
                 <Button
                   onClick={handleSend}
                   disabled={sendMutation.isPending || !subject.trim() || !body.trim()}
-                  className="bg-yellow-500 hover:bg-yellow-400 text-black font-bold px-6"
+                  className="bg-red-500 hover:bg-red-400 text-black font-bold px-6"
                 >
                   {sendMutation.isPending ? (
                     <span className="flex items-center gap-2"><span className="animate-spin">⟳</span> Sending...</span>
@@ -203,7 +203,7 @@ export default function AdminBroadcast() {
             <CardContent className="space-y-3">
               {[
                 { label: "Total Users", value: stats?.totalUsers, color: "text-white" },
-                { label: "On Trial", value: stats?.onTrial, color: "text-yellow-400" },
+                { label: "On Trial", value: stats?.onTrial, color: "text-red-400" },
                 { label: "Subscribed", value: stats?.withSubscription, color: "text-green-400" },
                 { label: "New This Week", value: stats?.newThisWeek, color: "text-blue-400" },
               ].map((s) => (

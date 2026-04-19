@@ -54,8 +54,8 @@ export default function LegalCompliance() {
       name: "SOC 2 Type II",
       description: "Annual audit for security, availability, and confidentiality",
       status: "Certified",
-      color: "text-purple-400",
-      bgColor: "bg-purple-500/20"
+      color: "text-blue-500",
+      bgColor: "bg-blue-600/20"
     },
     {
       icon: GraduationCap,
@@ -70,16 +70,16 @@ export default function LegalCompliance() {
       name: "You Own Your Data",
       description: "Athletes retain full ownership of their personal data",
       status: "Guaranteed",
-      color: "text-pink-400",
-      bgColor: "bg-pink-500/20"
+      color: "text-red-400",
+      bgColor: "bg-red-500/20"
     },
     {
       icon: Building,
       name: "HIPAA Compliant",
       description: "Healthcare data protection for Medical Records Vault",
       status: "Certified",
-      color: "text-yellow-400",
-      bgColor: "bg-yellow-500/20"
+      color: "text-red-400",
+      bgColor: "bg-red-500/20"
     }
   ];
 
@@ -281,7 +281,7 @@ export default function LegalCompliance() {
               </div>
 
               <div>
-                <Card className="bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border-cyan-500/30 mb-6">
+                <Card className="bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border-cyan-500/30 mb-6">
                   <CardHeader>
                     <CardTitle className="text-white flex items-center gap-2">
                       <Gavel className="w-5 h-5 text-cyan-400" />
@@ -303,7 +303,7 @@ export default function LegalCompliance() {
                 <Card className="bg-white/5 border-white/10">
                   <CardHeader>
                     <CardTitle className="text-white flex items-center gap-2">
-                      <Building className="w-5 h-5 text-purple-400" />
+                      <Building className="w-5 h-5 text-blue-500" />
                       Institutional Integration
                     </CardTitle>
                   </CardHeader>
@@ -352,7 +352,7 @@ export default function LegalCompliance() {
               ))}
             </div>
 
-            <Card className="mt-8 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border-blue-500/30">
+            <Card className="mt-8 bg-gradient-to-r from-blue-500/20 to-blue-600/20 border-blue-500/30">
               <CardContent className="p-8">
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   <div>
@@ -443,9 +443,9 @@ export default function LegalCompliance() {
                   </CardContent>
                 </Card>
 
-                <Card className="bg-pink-500/20 border-pink-500/30">
+                <Card className="bg-red-500/20 border-red-500/30">
                   <CardContent className="p-6">
-                    <Heart className="w-8 h-8 text-pink-400 mb-3" />
+                    <Heart className="w-8 h-8 text-red-400 mb-3" />
                     <h3 className="text-white font-bold text-lg mb-2">We Never Sell Your Data</h3>
                     <p className="text-white/70 text-sm">
                       Your personal information is never sold to third parties. Our business 

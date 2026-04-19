@@ -79,7 +79,7 @@ export default function Pricing() {
     <div className="min-h-screen bg-[#0a0f1e] text-white">
       {/* Hero */}
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-transparent to-purple-900/20 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/40 via-transparent to-blue-950/20 pointer-events-none" />
         <div className="max-w-6xl mx-auto px-4 py-20 text-center relative z-10">
           <Badge className="mb-4 bg-blue-600/20 text-blue-300 border-blue-500/30 px-4 py-1">
             ATHLYNX MEMBERSHIP
@@ -261,10 +261,10 @@ export default function Pricing() {
         </div>
 
         {/* Team & School Billing */}
-        <div className="bg-gradient-to-r from-yellow-900/30 to-orange-900/30 border border-yellow-500/30 rounded-2xl p-8 text-center mb-8">
+        <div className="bg-gradient-to-r from-red-900/30 to-red-900/30 border border-red-500/30 rounded-2xl p-8 text-center mb-8">
           <div className="text-4xl mb-3">🏫</div>
           <h2 className="text-2xl font-bold text-white mb-2">Team &amp; School Billing</h2>
-          <p className="text-yellow-200/70 max-w-xl mx-auto mb-6 text-sm">
+          <p className="text-red-200/70 max-w-xl mx-auto mb-6 text-sm">
             Coaches — get ATHLYNX for your entire roster at a discounted rate. Schools and athletic departments get one invoice, one admin dashboard, and full roster management.
           </p>
           <div className="flex flex-wrap justify-center gap-4 mb-6">
@@ -273,16 +273,16 @@ export default function Pricing() {
               { size: "16–50 Athletes", price: "$5.99", label: "per athlete / mo" },
               { size: "51+ Athletes", price: "Custom", label: "contact us" },
             ].map(tier => (
-              <div key={tier.size} className="bg-black/30 border border-yellow-500/20 rounded-xl px-6 py-4 min-w-[140px]">
-                <div className="text-yellow-400 font-black text-2xl">{tier.price}</div>
-                <div className="text-yellow-200/60 text-xs">{tier.label}</div>
+              <div key={tier.size} className="bg-black/30 border border-red-500/20 rounded-xl px-6 py-4 min-w-[140px]">
+                <div className="text-red-400 font-black text-2xl">{tier.price}</div>
+                <div className="text-red-200/60 text-xs">{tier.label}</div>
                 <div className="text-white text-xs mt-1 font-semibold">{tier.size}</div>
               </div>
             ))}
           </div>
           <Button
             size="lg"
-            className="bg-yellow-500 hover:bg-yellow-400 text-black font-black px-8"
+            className="bg-red-500 hover:bg-red-400 text-black font-black px-8"
             onClick={() => window.open("mailto:chad@athlynx.ai?subject=Team+School+Billing+Inquiry", "_blank")}
           >
             Get Team Pricing
@@ -290,7 +290,7 @@ export default function Pricing() {
         </div>
 
         {/* Enterprise CTA */}
-        <div className="bg-gradient-to-r from-blue-900/40 to-purple-900/40 border border-blue-500/20 rounded-2xl p-10 text-center">
+        <div className="bg-gradient-to-r from-blue-900/40 to-blue-950/40 border border-blue-500/20 rounded-2xl p-10 text-center">
           <Phone className="w-10 h-10 text-blue-400 mx-auto mb-4" />
           <h2 className="text-3xl font-bold text-white mb-3">Need a Custom Solution?</h2>
           <p className="text-blue-200/70 max-w-xl mx-auto mb-6">

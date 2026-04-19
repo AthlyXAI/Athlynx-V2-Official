@@ -52,7 +52,7 @@ const STAGES = [
     label: "Transfer Portal",
     subtitle: "The New Free Agency",
     icon: Rocket,
-    color: "from-purple-500 to-violet-600",
+    color: "from-blue-600 to-blue-700",
     accent: "#8b5cf6",
     badge: "GAME CHANGER",
     description: "Navigate the transfer portal with confidence. Find the right school, maximize your value.",
@@ -70,8 +70,8 @@ const STAGES = [
     label: "Professional",
     subtitle: "NFL · NBA · MLB · NHL · MLS & More",
     icon: Crown,
-    color: "from-yellow-500 to-orange-500",
-    accent: "#f59e0b",
+    color: "from-red-500 to-red-500",
+    accent: "#dc2626",
     badge: "ELITE",
     description: "From draft day to your first contract — manage your professional career like a business.",
     tools: [
@@ -88,8 +88,8 @@ const STAGES = [
     label: "Retirement & Legacy",
     subtitle: "Life After the Game",
     icon: Heart,
-    color: "from-rose-500 to-pink-600",
-    accent: "#f43f5e",
+    color: "from-red-500 to-red-600",
+    accent: "#dc2626",
     badge: "LEGACY",
     description: "Your career doesn't end when the game does. Build your legacy, protect your wealth, and thrive.",
     tools: [
@@ -126,7 +126,7 @@ export default function AthleteJourney() {
           </Badge>
           <h1 className="text-4xl md:text-6xl font-black mb-4 leading-tight">
             From <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-400">High School</span>
-            <br />to <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">Legacy</span>
+            <br />to <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-400">Legacy</span>
           </h1>
           <p className="text-xl text-blue-200 max-w-3xl mx-auto mb-8">
             ATHLYNX manages every stage of your athletic career — recruiting, NIL deals, transfer portal, pro contracts, endorsements, and retirement planning. One platform. Your entire career.

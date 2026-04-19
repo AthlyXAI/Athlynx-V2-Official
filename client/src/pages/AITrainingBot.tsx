@@ -86,7 +86,7 @@ export default function AITrainingBot() {
           </Link>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-lg">
-              <span className="text-yellow-400">🤖</span>
+              <span className="text-red-400">🤖</span>
               <span className="text-white font-semibold">{userCredits}</span>
               <span className="text-gray-400 text-sm">credits</span>
             </div>

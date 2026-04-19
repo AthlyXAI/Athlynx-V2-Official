@@ -139,8 +139,8 @@ export default function AdminUsers() {
               { label: "Total Users", value: stats.totalUsers, icon: Users, color: "text-blue-400" },
               { label: "New This Week", value: stats.newThisWeek, icon: TrendingUp, color: "text-emerald-400" },
               { label: "New This Month", value: stats.newThisMonth, icon: TrendingUp, color: "text-cyan-400" },
-              { label: "Subscribed", value: stats.withSubscription, icon: CreditCard, color: "text-yellow-400" },
-              { label: "On Trial", value: stats.onTrial, icon: Clock, color: "text-purple-400" },
+              { label: "Subscribed", value: stats.withSubscription, icon: CreditCard, color: "text-red-400" },
+              { label: "On Trial", value: stats.onTrial, icon: Clock, color: "text-blue-500" },
             ].map(({ label, value, icon: Icon, color }) => (
               <Card key={label} className="bg-[#0d1b3e] border-[#1e3a6e]">
                 <CardContent className="p-4">
@@ -244,7 +244,7 @@ export default function AdminUsers() {
                         <td className="px-4 py-3">
                           <span className={`text-xs px-2 py-0.5 rounded-full border font-medium ${
                             u.role === "admin"
-                              ? "bg-yellow-500/20 text-yellow-300 border-yellow-500/30"
+                              ? "bg-red-500/20 text-red-300 border-red-500/30"
                               : "bg-slate-500/20 text-slate-400 border-slate-500/30"
                           }`}>
                             {u.role}
@@ -275,7 +275,7 @@ export default function AdminUsers() {
                             </SelectTrigger>
                             <SelectContent className="bg-[#0d1b3e] border-[#1e3a6e]">
                               <SelectItem value="user" className="text-slate-300 text-xs">User</SelectItem>
-                              <SelectItem value="admin" className="text-yellow-300 text-xs">Admin</SelectItem>
+                              <SelectItem value="admin" className="text-red-300 text-xs">Admin</SelectItem>
                             </SelectContent>
                           </Select>
                         </td>
