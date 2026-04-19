@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { Link } from "wouter";
 import { toast } from "sonner";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { trpc } from "@/_core/trpc";
+import { trpc } from "@/lib/trpc";
 import { ContactSalesModal } from "@/components/ContactSalesModal";
 
 interface LocalCartItem {
