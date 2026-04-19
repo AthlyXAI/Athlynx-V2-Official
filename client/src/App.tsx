@@ -146,6 +146,9 @@ import ProjectManagement from "./pages/ProjectManagement";
 import ProjectChecklist from "./pages/ProjectChecklist";
 import ProjectPlaybook from "./pages/ProjectPlaybook";
 
+// ── Partners ──
+import ICCUSAPartner from "./pages/ICCUSAPartner";
+
 // ── Wizards ──
 import AgentWizard from "./pages/wizards/AgentWizard";
 import CareerWizard from "./pages/wizards/CareerWizard";
@@ -280,6 +283,8 @@ function Router() {
       <Route path="/manus-partnership" component={ManusPartnership} />
       <Route path="/partners" component={Partners} />
       <Route path="/partner-portal" component={PartnerPortal} />
+      <Route path="/icc-usa" component={ICCUSAPartner} />
+      <Route path="/icc" component={ICCUSAPartner} />
       <Route path="/white-label" component={WhiteLabel} />
       <Route path="/implementation" component={Implementation} />
       <Route path="/capabilities" component={Capabilities} />
