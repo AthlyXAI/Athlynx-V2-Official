@@ -13,8 +13,8 @@ export default function DHGHome() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-[#1a3a6b] py-6 px-6 flex items-center gap-4">
-        <img src="/crab-logo-official.png" alt="ATHLYNX" className="h-12 w-12 object-contain"
-          onError={(e) => { (e.target as HTMLImageElement).src = "/nil-portal-app-logo.jpeg"; }} />
+        <img src="/images/logos/dhg-logo.png" alt="ATHLYNX" className="h-12 w-12 object-contain"
+          onError={(e) => { (e.target as HTMLImageElement).src = "/images/logos/nil-portal-logo.png"; }} />
         <div>
           <h1 className="text-2xl font-black text-white tracking-widest uppercase">Career Command Center</h1>
           <p className="text-blue-300 text-sm">Dozier Holdings Group — ATHLYNX Platform</p>

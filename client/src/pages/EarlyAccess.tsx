@@ -128,7 +128,7 @@ export default function EarlyAccess() {
       <header className="bg-slate-900 border-b border-slate-700 px-4 py-3">
         <div className="flex items-center justify-center">
           <img 
-            src="/athlynx-playbook-logo.png" 
+            src="/images/logos/athlynx-main-logo.png" 
             alt="ATHLYNX" 
             className="h-12"
           />

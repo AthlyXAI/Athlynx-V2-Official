@@ -36,8 +36,8 @@ export default function CRMCommandCenter() {
       {/* Header */}
       <div className="bg-slate-900 border-b border-slate-700 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <img src="/crab-logo-official.png" alt="ATHLYNX" className="h-9 w-9 object-contain"
-            onError={(e) => { (e.target as HTMLImageElement).src = "/nil-portal-app-logo.jpeg"; }} />
+          <img src="/images/logos/athlynx-main-logo.png" alt="ATHLYNX" className="h-9 w-9 object-contain"
+            onError={(e) => { (e.target as HTMLImageElement).src = "/images/logos/nil-portal-logo.png"; }} />
           <div>
             <h1 className="text-lg font-black text-white tracking-wide">CRM COMMAND CENTER</h1>
             <p className="text-xs text-cyan-400">ATHLYNX — Athlete Intelligence Platform</p>

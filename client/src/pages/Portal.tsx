@@ -27,8 +27,8 @@ export default function Portal() {
     <div className="min-h-screen bg-white flex flex-col max-w-md mx-auto relative shadow-xl">
       {/* Header */}
       <div className="bg-[#1a3a6b] px-4 py-3 flex justify-center items-center sticky top-0 z-50">
-        <img src="/crab-logo-official.png" alt="ATHLYNX" className="h-10 w-10 object-contain"
-          onError={(e) => { (e.target as HTMLImageElement).src = "/nil-portal-app-logo.jpeg"; }} />
+        <img src="/images/logos/nil-portal-logo.png" alt="ATHLYNX" className="h-10 w-10 object-contain"
+          onError={(e) => { (e.target as HTMLImageElement).src = "/images/logos/nil-portal-logo.png"; }} />
       </div>
 
       {/* Stories */}
@@ -38,7 +38,7 @@ export default function Portal() {
             <div key={story.id} className="flex flex-col items-center gap-1 flex-shrink-0">
               <div className={`w-16 h-16 rounded-full border-2 ${story.isOwn ? "border-gray-300" : "border-blue-500"} p-0.5 relative`}>
                 <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-800 to-blue-600 flex items-center justify-center">
-                  <img src="/crab-logo-official.png" alt={story.name} className="w-10 h-10 object-contain opacity-80"
+                  <img src="/images/logos/nil-portal-logo.png" alt={story.name} className="w-10 h-10 object-contain opacity-80"
                     onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
                 </div>
                 {story.isOwn && (
@@ -61,7 +61,7 @@ export default function Portal() {
               <div className="flex items-center justify-between px-3 py-2">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-full bg-blue-800 flex items-center justify-center">
-                    <img src="/crab-logo-official.png" alt="" className="w-5 h-5 object-contain"
+                    <img src="/images/logos/nil-portal-logo.png" alt="" className="w-5 h-5 object-contain"
                       onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }} />
                   </div>
                   <div>

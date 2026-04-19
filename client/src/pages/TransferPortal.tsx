@@ -440,7 +440,7 @@ export default function TransferPortal() {
               <div className="relative cursor-pointer group">
                 <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 rounded-xl px-3 py-2 flex items-center gap-3 shadow-xl hover:shadow-cyan-500/30 transition-all border border-cyan-400/30">
                   <img 
-                    src="/athlynx-playbook-logo.png" 
+                    src="/images/logos/athlynx-main-logo.png" 
                     alt="ATHLYNX - The Athlete's Playbook" 
                     className="h-8 md:h-10 rounded-lg shadow-lg group-hover:scale-105 transition-all duration-300"
                   />
