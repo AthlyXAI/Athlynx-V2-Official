@@ -57,6 +57,8 @@ const VIDEOS = [
   { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/QavGpWxoGrvNPmBk.mp4", title: "Diamond Grind Baseball", badge: "NEW" },
   { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/orJHzIlFTPDoAqGq.mp4", title: "Softmor AI", badge: "AI" },
   { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/RGvPuEVIRwrMRrNu.mp4", title: "Softmor — The Future", badge: "AI" },
+  { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/vIuBImXCxvYyLdqi.mp4", title: "DHG Empire", badge: "ELITE" },
+  { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/kOscshgngAiuGxuu.mp4", title: "DHG Empire II", badge: "ELITE" },
   { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/xnXNQvBUfirjVkId.mp4", title: "NIL Portal Youth", badge: "LIVE" },
 
 ];
