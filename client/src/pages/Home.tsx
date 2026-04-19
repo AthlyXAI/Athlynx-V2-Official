@@ -48,7 +48,7 @@ const BADGE_COLORS: Record<string, string> = {
 
 const DEMO_VIDEO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/kmXGpMmslwPdeWYO.mp4";
 
-const CRAB_LOGO_VIDEO = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/kmXGpMmslwPdeWYO.mp4";
+const CRAB_LOGO_VIDEO = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/vPzSRJlhrtDwiLwE.mp4";
 
 const VIDEOS = [
   { file: CRAB_LOGO_VIDEO, title: "ATHLYNX — The Multi-Sport Empire", badge: "HOT" },
@@ -441,18 +441,13 @@ export default function Home() {
           muted
           loop
           playsInline
-          poster="/athlynx-sports-brand.png"
           onError={(e) => { (e.target as HTMLVideoElement).style.display = 'none'; }}
         >
           <source src={CRAB_LOGO_VIDEO} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-t from-[#060e24] via-[#0d1b3e]/40 to-transparent pointer-events-none"></div>
         <div className="relative z-10 min-h-[320px] md:min-h-[480px] flex flex-col items-center justify-between pt-6 pb-10 px-4 text-center">
-          <img
-            src="/athlynx-sports-brand.png"
-            alt="ATHLYNX™"
-            className="w-24 h-24 rounded-2xl shadow-2xl object-contain drop-shadow-[0_0_20px_rgba(0,194,255,0.8)]"
-          />
+
           <div>
           <div className="inline-flex items-center gap-2 bg-yellow-500/20 border border-yellow-500 text-yellow-300 text-xs font-black px-4 py-1.5 rounded-full mb-4 tracking-widest">
             <span className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></span>
