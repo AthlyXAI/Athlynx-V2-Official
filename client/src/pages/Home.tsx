@@ -6,8 +6,8 @@ import { useLocation } from "wouter";
 // InstallAppModal replaced by slim PWAInstallBanner auto-shown at bottom
 
 const APPS = [
-  { id: "nil-portal", label: "NIL Portal™", icon: "/images/logos/nil-portal-logo.png", badge: "LIVE", href: "/nil-portal", desc: "Manage your NIL deals" },
-  { id: "messenger", label: "Messenger™", icon: "/images/logos/nil-messenger-logo.png", badge: "LIVE", href: "/messenger", desc: "Connect with coaches & brands" },
+  { id: "nil-portal", label: "NIL Portal™", icon: "/logos/nil-portal-logo.png", badge: "LIVE", href: "/nil-portal", desc: "Manage your NIL deals" },
+  { id: "messenger", label: "Messenger™", icon: "/logos/nil-messenger-logo.png", badge: "LIVE", href: "/messenger", desc: "Connect with coaches & brands" },
   { id: "diamond-grind", label: "Diamond Grind™", icon: "/diamond-grind-baseball-icon.png", badge: "NEW", href: "/diamond-grind", desc: "Baseball training platform" },
   { id: "warriors-playbook", label: "Warriors Playbook™", icon: "/warriors-playbook-icon.png", badge: "HOT", href: "/warriors-playbook", desc: "Plays, film & strategy" },
   { id: "transfer-portal", label: "Transfer Portal™", icon: "/transfer-portal-icon.png", badge: "LIVE", href: "/transfer-portal", desc: "Find your next school" },
@@ -55,10 +55,9 @@ const VIDEOS = [
   { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/aZeYhsTuOGhmLXeI.mp4", title: "NIL Portal Baseball", badge: "HOT" },
   { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/KXxibPEaqdpzwIEt.mp4", title: "NIL Portal Football", badge: "LIVE" },
   { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/DgDLYbTasSycVWgS.mp4", title: "Diamond Grind Baseball", badge: "NEW" },
-  { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/tXgJynOOUQujvdWK.mp4", title: "Softmor AI", badge: "AI" },
   { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/mQeioRPSvzxsvCcY.mov", title: "DHG Empire", badge: "ELITE" },
   { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/xnXNQvBUfirjVkId.mp4", title: "NIL Portal Youth", badge: "LIVE" },
-  { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/kmXGpMmslwPdeWYO.mp4", title: "ATHLYNX Introduction", badge: "HOT" },
+  { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/KXxibPEaqdpzwIEt.mp4", title: "ATHLYNX Introduction", badge: "HOT" },
 ];
 
 // ─── Mobile Nav Menu ────────────────────────────────────────────────────────
