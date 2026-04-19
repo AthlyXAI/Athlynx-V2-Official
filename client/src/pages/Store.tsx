@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { Link } from "wouter";
 import { toast } from "sonner";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { trpc } from "@/_core/trpc";
 import { ContactSalesModal } from "@/components/ContactSalesModal";
 
 interface LocalCartItem {
@@ -139,9 +140,27 @@ export default function Store() {
   // No backend store router — use static products only
   const dbProducts: null = null;
   const productsLoading = false;
+  const createProductCheckout = trpc.stripe.createProductCheckout.useMutation({
+    onSuccess: (data) => {
+      if (data.url) window.location.href = data.url;
+    },
+    onError: (err) => {
+      toast.error(err.message || 'Checkout failed. Please try again.');
+      setIsProcessing(false);
+    },
+  });
   const createCheckout = {
-    mutateAsync: async (_input: unknown) => { toast.info('Checkout coming soon — contact us to purchase.'); },
-    isPending: false,
+    mutateAsync: async (_input: unknown) => {
+      const cartDescription = localCart.map(i => `${i.qty}x ${i.name}`).join(', ');
+      await createProductCheckout.mutateAsync({
+        productName: `ATHLYNX Store Order (${cartCount} item${cartCount !== 1 ? 's' : ''})`,
+        productDescription: cartDescription.slice(0, 200),
+        priceInCents: Math.round(orderTotal * 100),
+        quantity: 1,
+        origin: window.location.origin,
+      });
+    },
+    isPending: createProductCheckout.isPending,
   };
 
   // Use static products

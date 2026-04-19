@@ -283,6 +283,58 @@ export default function Partners() {
         </div>
       </section>
 
+      {/* Strategic Partnerships — Coming Soon */}
+      <section className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 bg-yellow-500/20 border border-yellow-500/30 text-yellow-400 px-4 py-2 rounded-full text-sm font-black tracking-widest uppercase mb-6">
+              <Star className="w-4 h-4" />
+              Strategic Partnerships
+            </div>
+            <h2 className="text-5xl font-black text-white mb-4">
+              WELCOMING NEW<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">PARTNERSHIPS</span>
+            </h2>
+            <p className="text-blue-300 text-lg max-w-2xl mx-auto">
+              ATHLYNX™ is actively building strategic alliances across sports brands, media, technology, retail, and data. All partnership categories are open.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {[
+              { category: "Sports Brands & Apparel", icon: "👟", desc: "Gear, apparel, and equipment brands ready to reach the next generation of athletes." },
+              { category: "Athletic Equipment", icon: "🏋️", desc: "Training equipment, performance tech, and recovery brands for elite athletes." },
+              { category: "Sports Media & Broadcasting", icon: "📺", desc: "Media companies, streaming platforms, and broadcast networks." },
+              { category: "Computer Hardware & Software", icon: "💻", desc: "Enterprise hardware, software licenses, and technology distribution partnerships." },
+              { category: "Data Center Infrastructure", icon: "🏗️", desc: "Co-location, power, cooling, and data center construction partnerships." },
+              { category: "NIL Brands & Sponsors", icon: "💰", desc: "Brands looking to connect directly with college and professional athletes for NIL deals." },
+              { category: "Sports Agencies & Agents", icon: "🤝", desc: "Certified agents and agencies managing athlete careers and endorsements." },
+              { category: "Universities & Athletic Programs", icon: "🎓", desc: "Colleges, universities, and athletic departments building the next generation." },
+              { category: "Investors & Venture Capital", icon: "📈", desc: "Strategic investors aligned with the future of sports technology and athlete empowerment." },
+            ].map((item) => (
+              <div key={item.category} className="bg-gradient-to-br from-[#0d1b3e] to-[#080d1a] border border-blue-900/60 hover:border-yellow-500/50 rounded-2xl p-6 transition-all group relative overflow-hidden">
+                <div className="absolute top-3 right-3">
+                  <span className="bg-yellow-500/20 border border-yellow-500/40 text-yellow-400 text-xs font-black px-2 py-1 rounded-lg">COMING SOON</span>
+                </div>
+                <div className="text-4xl mb-4">{item.icon}</div>
+                <h3 className="text-white font-black text-base mb-2">{item.category}</h3>
+                <p className="text-blue-300/70 text-sm leading-relaxed">{item.desc}</p>
+                <div className="mt-4 flex items-center gap-2">
+                  <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                  <span className="text-yellow-400 text-xs font-bold">Accepting Applications</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="bg-gradient-to-r from-yellow-600/10 to-orange-600/10 border border-yellow-500/20 rounded-2xl p-8 text-center">
+            <h3 className="text-2xl font-black text-white mb-3">Ready to Build Together?</h3>
+            <p className="text-blue-300 mb-6 max-w-xl mx-auto">We are selectively onboarding founding partners across every category. First movers get preferred terms, co-branding, and revenue share.</p>
+            <a href="mailto:cdozier@dozierholdingsgroup.com?subject=Partnership%20Inquiry%20-%20ATHLYNX" className="inline-block bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-black px-10 py-4 rounded-xl text-lg hover:scale-105 transition-transform">
+              Apply for Partnership →
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 px-4">
         <div className="max-w-4xl mx-auto">
