@@ -136,6 +136,7 @@ import Portal from "./pages/Portal";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import LegalCompliance from "./pages/LegalCompliance";
+import SchoolBranding from "./pages/SchoolBranding";
 
 // ── PWA ──
 import PWAInstallBanner from "./components/PWAInstallBanner";
@@ -325,6 +326,11 @@ function Router() {
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms-of-service" component={TermsOfService} />
       <Route path="/legal-compliance" component={LegalCompliance} />
+
+      {/* ── School Branding & Licensing ── */}
+      <Route path="/school-branding" component={SchoolBranding} />
+      <Route path="/school-licensing" component={SchoolBranding} />
+      <Route path="/nil-foundation" component={SchoolBranding} />
 
       {/* ── Utility ── */}
       <Route path="/notifications" component={Notifications} />
