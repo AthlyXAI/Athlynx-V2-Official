@@ -10,6 +10,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 // ── Core ──
 import Home from "./pages/Home";
 import DozierLegacy from "./pages/DozierLegacy";
+import CommunitySoon from "./pages/CommunitySoon";
 import Demo from "./pages/Demo";
 import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
@@ -290,7 +291,7 @@ function Router() {
       <Route path="/implementation" component={Implementation} />
       <Route path="/capabilities" component={Capabilities} />
       <Route path="/community-feedback" component={CommunityFeedback} />
-      <Route path="/community" component={CommunityFeedback} />
+      <Route path="/community" component={CommunitySoon} />
       <Route path="/platform" component={Demo} />
 
       {/* ── People & Culture ── */}
