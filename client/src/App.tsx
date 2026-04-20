@@ -9,6 +9,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 
 // ── Core ──
 import Home from "./pages/Home";
+import DozierLegacy from "./pages/DozierLegacy";
 import Demo from "./pages/Demo";
 import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
@@ -342,6 +343,10 @@ function Router() {
       <Route path="/wizards/transfer" component={TransferWizard} />
 
       {/* ── 404 ── */}
+      {/* ── Founder's Legacy ── */}
+      <Route path="/legacy" component={DozierLegacy} />
+      <Route path="/dozier-legacy" component={DozierLegacy} />
+
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
