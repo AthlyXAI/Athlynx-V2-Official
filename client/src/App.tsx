@@ -185,7 +185,7 @@ function Router() {
       <Route path="/nil-vault" component={NILVault} />
       <Route path="/nil-marketplace" component={NILMarketplace} />
       <Route path="/nil-calculator" component={NILCalculator} />
-      <Route path="/transfer-portal" component={TransferPortal} />
+      <Route path="/transfer-portal" component={TransferPortalFOS} />
       <Route path="/transfer-portal-fos" component={TransferPortalFOS} />
       <Route path="/transfer-intelligence" component={TransferPortalIntelligence} />
       <Route path="/diamond-grind" component={DiamondGrind} />
@@ -290,6 +290,8 @@ function Router() {
       <Route path="/implementation" component={Implementation} />
       <Route path="/capabilities" component={Capabilities} />
       <Route path="/community-feedback" component={CommunityFeedback} />
+      <Route path="/community" component={CommunityFeedback} />
+      <Route path="/platform" component={Demo} />
 
       {/* ── People & Culture ── */}
       <Route path="/founders" component={Founders} />
