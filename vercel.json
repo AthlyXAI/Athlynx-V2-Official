@@ -7,12 +7,30 @@
   "functions": {
     "api/index.ts": {
       "maxDuration": 30
+    },
+    "api/cron/social-post.ts": {
+      "maxDuration": 60
     }
   },
+  "crons": [
+    {
+      "path": "/api/cron/social-post",
+      "schedule": "0 14 * * *"
+    },
+    {
+      "path": "/api/cron/social-post",
+      "schedule": "0 18 * * *"
+    },
+    {
+      "path": "/api/cron/social-post",
+      "schedule": "0 0 * * *"
+    }
+  ],
   "rewrites": [
     { "source": "/api/stripe/webhook", "destination": "/api/index" },
     { "source": "/api/oauth/:path*", "destination": "/api/index" },
     { "source": "/api/trpc/:path*", "destination": "/api/index" },
+    { "source": "/api/cron/:path*", "destination": "/api/cron/$1" },
     { "source": "/api/:path*", "destination": "/api/index" },
     { "source": "/manus-storage/:path*", "destination": "/api/index" },
     { "source": "/(.*)", "destination": "/index.html" }
