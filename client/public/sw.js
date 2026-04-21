@@ -1,7 +1,7 @@
-// ATHLYNX Service Worker — v1.2.0
+// ATHLYNX Service Worker — v1.2.1
 // Offline-first PWA: cache-first for assets, network-first for API
 
-const CACHE_VERSION = 'athlynx-v1.2.0';
+const CACHE_VERSION = 'athlynx-v1.2.1';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 
@@ -22,7 +22,7 @@ const CDN_ASSETS = [
 
 // ─── INSTALL ────────────────────────────────────────────────────────────────
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing ATHLYNX service worker v1.2.0...');
+  console.log('[SW] Installing ATHLYNX service worker v1.2.1...');
   event.waitUntil(
     Promise.all([
       // Cache app shell
@@ -50,7 +50,7 @@ self.addEventListener('install', (event) => {
 
 // ─── ACTIVATE ───────────────────────────────────────────────────────────────
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating ATHLYNX service worker v1.2.0...');
+  console.log('[SW] Activating ATHLYNX service worker v1.2.1...');
   event.waitUntil(
     caches.keys().then((cacheNames) =>
       Promise.all(
@@ -99,9 +99,16 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // ── OAuth / Auth routes: Always network ─────────────────────────────────
+  // ── OAuth / Auth routes: Serve index.html so React Router handles /callback ──
+  // Do NOT do a raw network fetch here — Vercel serves index.html for /callback
+  // and the React Router's <Route path="/callback"> handles the Auth0 token exchange.
   if (url.pathname.startsWith('/callback')) {
-    event.respondWith(fetch(request));
+    event.respondWith(
+      caches.match('/').then((cached) => {
+        if (cached) return cached;
+        return fetch('/');
+      })
+    );
     return;
   }
 
