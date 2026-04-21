@@ -1,8 +1,7 @@
-// v1.0.2 - Apr 18 2026
+// v1.1.0 - Apr 21 2026 - Clean Okta login
 import { Link } from "wouter";
 import { useState, useEffect, useRef } from "react";
-import { trpc } from "@/lib/trpc";
-import { useLocation } from "wouter";
+import { useAuth } from "@/hooks/useAuth";
 // InstallAppModal replaced by slim PWAInstallBanner auto-shown at bottom
 
 const APPS = [
@@ -312,62 +311,51 @@ function HeroVideo({ src }: { src: string }) {
 }
 
 function HeroSignupForm() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [done, setDone] = useState(false);
-  const [error, setError] = useState("");
-  const [, navigate] = useLocation();
-  const joinMutation = trpc.waitlist.join.useMutation({
-    onSuccess: () => {
-      setDone(true);
-      setTimeout(() => navigate("/feed"), 1800);
-    },
-    onError: (err) => setError(err.message),
-  });
-  if (done) {
-    return (
-      <div className="bg-green-900/40 border border-green-500 rounded-2xl p-6 text-center">
-        <div className="text-3xl mb-2"><svg className="w-10 h-10 text-green-400 mx-auto" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-        <div className="text-green-300 font-black text-xl">YOU'RE IN!</div>
-        <div className="text-green-200 text-sm mt-1">Welcome to ATHLYNX. Taking you to the platform...</div>
-      </div>
-    );
-  }
+  const { login } = useAuth();
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        setError("");
-        if (!name.trim() || !email.trim()) { setError("Name and email are required."); return; }
-        joinMutation.mutate({ fullName: name.trim(), email: email.trim(), role: "athlete" });
-      }}
-      className="flex flex-col gap-3"
-    >
-      <input
-        type="text"
-        placeholder="Your Full Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-        className="w-full bg-[#0d1b3e] border border-blue-700 text-white placeholder-blue-500 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400"
-      />
-      <input
-        type="email"
-        placeholder="Your Email Address"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-        className="w-full bg-[#0d1b3e] border border-blue-700 text-white placeholder-blue-500 rounded-xl px-4 py-3 text-base focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400"
-      />
-      {error && <p className="text-red-400 text-sm">{error}</p>}
+    <div className="flex flex-col gap-3">
+      {/* Google */}
       <button
-        type="submit"
-        disabled={joinMutation.isPending}
-        className="w-full bg-gradient-to-r from-red-400 to-red-500 hover:from-red-300 hover:to-red-400 text-black font-black text-lg py-4 rounded-xl transition-all shadow-xl hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed tracking-wide"
+        onClick={() => login("/feed")}
+        className="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-50 text-gray-900 font-bold text-base py-4 rounded-2xl transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98]"
       >
-        {joinMutation.isPending ? "JOINING..." : "GET INSTANT ACCESS →"}
+        <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+        </svg>
+        Continue with Google
       </button>
-    </form>
+      {/* Apple */}
+      <button
+        onClick={() => login("/feed")}
+        className="w-full flex items-center justify-center gap-3 bg-black hover:bg-gray-900 text-white font-bold text-base py-4 rounded-2xl transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+      >
+        <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="white">
+          <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.7 9.05 7.4c1.42.07 2.4.83 3.23.87 1.23-.25 2.41-1.03 3.73-.88 1.58.19 2.77.89 3.54 2.23-3.26 1.96-2.49 6.27.5 7.48-.57 1.5-1.33 2.99-3 3.18zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+        </svg>
+        Continue with Apple
+      </button>
+      {/* Divider */}
+      <div className="flex items-center gap-3">
+        <div className="flex-1 h-px bg-blue-800/60"></div>
+        <span className="text-blue-500 text-xs font-medium">or</span>
+        <div className="flex-1 h-px bg-blue-800/60"></div>
+      </div>
+      {/* Email */}
+      <button
+        onClick={() => login("/feed")}
+        className="w-full flex items-center justify-center gap-3 bg-[#0d1b3e] hover:bg-[#112266] border border-blue-600 text-blue-200 font-bold text-base py-4 rounded-2xl transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98]"
+      >
+        <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+        Continue with Email
+      </button>
+      <p className="text-blue-600/70 text-xs text-center">Secured by Okta · A Dozier Holdings Group Company</p>
+    </div>
   );
 }
 
