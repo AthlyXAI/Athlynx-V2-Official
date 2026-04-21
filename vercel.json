@@ -26,23 +26,23 @@
   "rewrites": [
     {
       "source": "/api/stripe/webhook",
-      "destination": "/api/index.mjs"
+      "destination": "/api/index.ts"
     },
     {
       "source": "/api/oauth/:path*",
-      "destination": "/api/index.mjs"
+      "destination": "/api/index.ts"
     },
     {
       "source": "/api/trpc/:path*",
-      "destination": "/api/index.mjs"
+      "destination": "/api/index.ts"
     },
     {
       "source": "/api/:path*",
-      "destination": "/api/index.mjs"
+      "destination": "/api/index.ts"
     },
     {
       "source": "/manus-storage/:path*",
-      "destination": "/api/index.mjs"
+      "destination": "/api/index.ts"
     },
     {
       "source": "/(.*)",
