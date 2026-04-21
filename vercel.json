@@ -5,7 +5,7 @@
   "installCommand": "pnpm install --no-frozen-lockfile",
   "framework": null,
   "functions": {
-    "api/index.mjs": {
+    "api/index.ts": {
       "maxDuration": 30
     }
   },
@@ -24,20 +24,47 @@
     }
   ],
   "rewrites": [
-    { "source": "/api/stripe/webhook", "destination": "/api/index.mjs" },
-    { "source": "/api/oauth/:path*", "destination": "/api/index.mjs" },
-    { "source": "/api/trpc/:path*", "destination": "/api/index.mjs" },
-    { "source": "/api/:path*", "destination": "/api/index.mjs" },
-    { "source": "/manus-storage/:path*", "destination": "/api/index.mjs" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/api/stripe/webhook",
+      "destination": "/api/index.mjs"
+    },
+    {
+      "source": "/api/oauth/:path*",
+      "destination": "/api/index.mjs"
+    },
+    {
+      "source": "/api/trpc/:path*",
+      "destination": "/api/index.mjs"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "/api/index.mjs"
+    },
+    {
+      "source": "/manus-storage/:path*",
+      "destination": "/api/index.mjs"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ],
   "headers": [
     {
       "source": "/api/(.*)",
       "headers": [
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET,POST,PUT,DELETE,OPTIONS" },
-        { "key": "Access-Control-Allow-Headers", "value": "Content-Type, Authorization" }
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET,POST,PUT,DELETE,OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type, Authorization"
+        }
       ]
     }
   ]
