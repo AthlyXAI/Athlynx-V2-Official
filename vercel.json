@@ -5,7 +5,7 @@
   "installCommand": "pnpm install --no-frozen-lockfile",
   "framework": null,
   "functions": {
-    "api/dist/index.js": {
+    "api/index.ts": {
       "maxDuration": 30
     },
     "api/cron/social-post.ts": {
@@ -33,23 +33,23 @@
     },
     {
       "source": "/api/stripe/webhook",
-      "destination": "/api/dist/index.js"
+      "destination": "/api/index.ts"
     },
     {
       "source": "/api/oauth/:path*",
-      "destination": "/api/dist/index.js"
+      "destination": "/api/index.ts"
     },
     {
       "source": "/api/trpc/:path*",
-      "destination": "/api/dist/index.js"
+      "destination": "/api/index.ts"
     },
     {
       "source": "/api/:path*",
-      "destination": "/api/dist/index.js"
+      "destination": "/api/index.ts"
     },
     {
       "source": "/manus-storage/:path*",
-      "destination": "/api/dist/index.js"
+      "destination": "/api/index.ts"
     },
     {
       "source": "/(.*)",
