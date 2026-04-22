@@ -4,9 +4,15 @@ import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { STRIPE_PLANS, CREDIT_PACKS } from "./products";
 import { getUserById } from "../db";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
-  apiVersion: "2026-03-25.dahlia",
-});
+let _stripe: Stripe | null = null;
+function getStripe(): Stripe {
+  if (!_stripe) {
+    const key = process.env.STRIPE_SECRET_KEY ?? "";
+    if (!key) throw new Error("STRIPE_SECRET_KEY is not configured");
+    _stripe = new Stripe(key, { apiVersion: "2026-03-25.dahlia" });
+  }
+  return _stripe;
+}
 
 export const stripeRouter = router({
   /** Return all available plans for the frontend */
@@ -43,6 +49,7 @@ export const stripeRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const stripe = getStripe();
       const plan = STRIPE_PLANS.find(p => p.id === input.planId);
       if (!plan) throw new Error("Plan not found");
 
@@ -106,6 +113,7 @@ export const stripeRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const stripe = getStripe();
       const pack = CREDIT_PACKS.find(p => p.id === input.packId);
       if (!pack) throw new Error("Credit pack not found");
 
@@ -144,8 +152,9 @@ export const stripeRouter = router({
   createBillingPortal: protectedProcedure
     .input(z.object({ origin: z.string() }))
     .mutation(async ({ ctx, input }) => {
+      const stripe = getStripe();
       const user = await getUserById(ctx.user.id);
-    if (!user?.stripeCustomerId) {
+      if (!user?.stripeCustomerId) {
         throw new Error("No billing account found. Please subscribe first.");
       }
 
@@ -169,6 +178,7 @@ export const stripeRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      const stripe = getStripe();
       const session = await stripe.checkout.sessions.create({
         mode: "payment",
         line_items: [
@@ -202,6 +212,7 @@ export const stripeRouter = router({
 
   /** Get current subscription status */
   getSubscription: protectedProcedure.query(async ({ ctx }) => {
+    const stripe = getStripe();
     const user = await getUserById(ctx.user.id);
     if (!user?.stripeCustomerId || !user?.stripeSubscriptionId) {
       return { status: "none", plan: null };

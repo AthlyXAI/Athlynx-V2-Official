@@ -65,9 +65,15 @@ async function sendPaymentConfirmationEmail(opts: {
   });
 }
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY ?? "", {
-  apiVersion: "2026-03-25.dahlia",
-});
+let _stripe: Stripe | null = null;
+function getStripe(): Stripe {
+  if (!_stripe) {
+    const key = process.env.STRIPE_SECRET_KEY ?? "";
+    if (!key) throw new Error("STRIPE_SECRET_KEY is not configured");
+    _stripe = new Stripe(key, { apiVersion: "2026-03-25.dahlia" });
+  }
+  return _stripe;
+}
 
 export function registerStripeWebhook(app: Application) {
   // MUST use raw body parser BEFORE express.json() for webhook signature verification
@@ -98,7 +104,7 @@ export function registerStripeWebhook(app: Application) {
 
       // ── Step 3: Verify HMAC signature ──
       try {
-        event = stripe.webhooks.constructEvent(
+        event = getStripe().webhooks.constructEvent(
           req.body,
           sig as string,
           webhookSecret
