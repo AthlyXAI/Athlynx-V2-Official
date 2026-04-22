@@ -33,7 +33,7 @@ npx esbuild server/entry.ts \
 echo "=== Step 6: Create .vc-config.json for the function ==="
 cat > .vercel/output/functions/api/index.func/.vc-config.json << 'EOF'
 {
-  "runtime": "nodejs18.x",
+  "runtime": "nodejs22.x",
   "handler": "index.cjs",
   "launcherType": "Nodejs",
   "shouldAddHelpers": false,
