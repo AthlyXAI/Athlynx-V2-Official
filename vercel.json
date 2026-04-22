@@ -4,11 +4,11 @@
   "installCommand": "pnpm install --no-frozen-lockfile",
   "framework": null,
   "functions": {
-    "api/dist/index.js": { "maxDuration": 30 }
+    "api/index.mjs": { "maxDuration": 30 }
   },
   "rewrites": [
     { "source": "/callback", "destination": "/index.html" },
-    { "source": "/api/(.*)", "destination": "/api/dist/index.js" },
+    { "source": "/api/(.*)", "destination": "/api/index.mjs" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
