@@ -15,7 +15,7 @@ echo "=== Step 4: Copy Vite output to .vercel/output/static ==="
 cp -r dist/public/* .vercel/output/static/
 
 echo "=== Step 5: Bundle api/index.ts with esbuild ==="
-npx esbuild api/index.ts \
+npx esbuild server/entry.ts \
   --bundle \
   --platform=node \
   --target=node18 \
