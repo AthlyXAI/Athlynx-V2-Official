@@ -33,6 +33,8 @@ cat > .vercel/output/functions/api/index.func/.vc-config.json << 'EOF'
 {
   "runtime": "nodejs18.x",
   "handler": "index.js",
+  "launcherType": "Nodejs",
+  "shouldAddHelpers": false,
   "maxDuration": 30
 }
 EOF
