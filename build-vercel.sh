@@ -41,6 +41,13 @@ cat > .vercel/output/functions/api/index.func/.vc-config.json << 'EOF'
 }
 EOF
 
+echo "=== Step 6b: Add package.json with type:commonjs to prevent Vercel ESM recompilation ==="
+cat > .vercel/output/functions/api/index.func/package.json << 'EOF'
+{
+  "type": "commonjs"
+}
+EOF
+
 echo "=== Step 7: Create config.json with routes ==="
 cat > .vercel/output/config.json << 'EOF'
 {
