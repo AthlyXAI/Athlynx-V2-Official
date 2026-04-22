@@ -24,12 +24,12 @@
     }
   ],
   "rewrites": [
+    { "source": "/callback", "destination": "/index.html" },
     { "source": "/api/stripe/webhook", "destination": "/api/index.ts" },
     { "source": "/api/oauth/:path*", "destination": "/api/index.ts" },
     { "source": "/api/trpc/:path*", "destination": "/api/index.ts" },
     { "source": "/api/:path*", "destination": "/api/index.ts" },
     { "source": "/manus-storage/:path*", "destination": "/api/index.ts" },
-    { "source": "/callback", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ],
   "headers": [

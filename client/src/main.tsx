@@ -56,7 +56,7 @@ const redirectToLoginIfUnauthorized = (error: unknown) => {
 
   if (!isUnauthorized) return;
 
-  window.location.href = '/signin';;
+  window.location.href = '/signin';
 };
 
 queryClient.getQueryCache().subscribe(event => {
@@ -93,6 +93,10 @@ const trpcClient = trpc.createClient({
 const auth0Domain = import.meta.env.VITE_AUTH0_DOMAIN ?? "";
 const auth0ClientId = import.meta.env.VITE_AUTH0_CLIENT_ID ?? "";
 
+// Only process the Auth0 redirect callback on the /callback route.
+// On all other routes, skip so Auth0 doesn't try to parse stale URL params.
+const isCallbackRoute = window.location.pathname === "/callback";
+
 createRoot(document.getElementById("root")!).render(
   <Auth0Provider
     domain={auth0Domain}
@@ -103,6 +107,7 @@ createRoot(document.getElementById("root")!).render(
     }}
     cacheLocation="localstorage"
     useRefreshTokens={true}
+    skipRedirectCallback={!isCallbackRoute}
   >
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>

@@ -3,36 +3,78 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { trpc } from "@/lib/trpc";
 
 /**
- * Auth0 redirects here after login.
- * We sync the Auth0 user to our backend DB (which sets a session cookie),
- * then do a HARD redirect:
- *   - New users  → /onboarding  (AI bot collects profile info)
- *   - Returning  → /feed        (straight into the platform)
+ * Auth0 redirects here after login (Google, Apple, Email).
+ * CRITICAL: handleRedirectCallback() must be called to process the OAuth
+ * authorization code in the URL before Auth0 sets isAuthenticated = true.
+ *
+ * Flow:
+ *   1. Auth0 redirects to /callback?code=...&state=...
+ *   2. We call handleRedirectCallback() to exchange the code for tokens
+ *   3. Auth0 sets isAuthenticated = true and populates user
+ *   4. We sync the user to our backend DB (sets a session cookie)
+ *   5. New users  → /onboarding
+ *      Returning  → /feed (or original destination)
  */
 export default function AuthCallback() {
-  const { isAuthenticated, isLoading, user, getIdTokenClaims } = useAuth0();
+  const {
+    isAuthenticated,
+    isLoading,
+    user,
+    getIdTokenClaims,
+    handleRedirectCallback,
+    error: auth0Error,
+  } = useAuth0();
+
   const syncUser = trpc.auth.syncAuth0User.useMutation();
   const hasSynced = useRef(false);
+  const hasHandledCallback = useRef(false);
 
+  // Step 1: Process the OAuth callback (exchange authorization code for tokens)
   useEffect(() => {
-    if (isLoading) return;
-    if (hasSynced.current) return;
+    if (hasHandledCallback.current) return;
 
-    if (!isAuthenticated || !user) {
-      // Not authenticated — go back to sign in
-      window.location.href = "/signin";
+    const params = new URLSearchParams(window.location.search);
+    const hasCode = params.has("code");
+    const hasState = params.has("state");
+    const hasError = params.has("error");
+
+    if (hasError) {
+      const errorDesc = params.get("error_description") ?? "Authentication failed";
+      console.error("[AuthCallback] Auth0 error in URL:", errorDesc);
+      window.location.href = `/signin?error=${encodeURIComponent(errorDesc)}`;
       return;
     }
+
+    if (hasCode && hasState) {
+      hasHandledCallback.current = true;
+      handleRedirectCallback()
+        .then((result) => {
+          console.log("[AuthCallback] handleRedirectCallback success", result);
+          // Auth0 will update isAuthenticated — the second useEffect handles sync
+        })
+        .catch((err) => {
+          console.error("[AuthCallback] handleRedirectCallback failed:", err);
+          window.location.href = "/signin";
+        });
+    } else if (!isLoading && !isAuthenticated) {
+      // No code in URL and not authenticated — redirect to sign in
+      window.location.href = "/signin";
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Step 2: Once Auth0 has processed the callback and user is available, sync to backend
+  useEffect(() => {
+    if (isLoading) return;
+    if (!isAuthenticated || !user) return;
+    if (hasSynced.current) return;
 
     hasSynced.current = true;
 
     const doSync = async () => {
       let isNewUser = false;
       try {
-        // Use ID token claims — works without an audience configured
         const claims = await getIdTokenClaims();
         const token = claims?.__raw ?? user.sub ?? "auth0_session";
-
         const result = await syncUser.mutateAsync({
           token,
           name: user.name ?? user.nickname ?? user.email ?? "",
@@ -42,18 +84,30 @@ export default function AuthCallback() {
         });
         isNewUser = result?.isNewUser ?? false;
       } catch (err) {
-        console.error("[AuthCallback] Sync failed:", err);
-        // Even if sync fails, redirect so user isn't stuck
+        console.error("[AuthCallback] Backend sync failed:", err);
+        // Sync failure is non-fatal — still redirect so user isn't stuck
       } finally {
-        const returnTo = sessionStorage.getItem('auth_return_to') || null;
-        sessionStorage.removeItem('auth_return_to');
-        // New users → onboarding; returning users → intended destination or feed
+        const returnTo = sessionStorage.getItem("auth_return_to") || null;
+        sessionStorage.removeItem("auth_return_to");
         window.location.href = isNewUser ? "/onboarding" : (returnTo || "/feed");
       }
     };
 
     doSync();
-  }, [isAuthenticated, isLoading, user]);
+  }, [isAuthenticated, isLoading, user]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Show Auth0 error if present
+  if (auth0Error) {
+    return (
+      <div className="min-h-screen bg-[#050c1a] flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-400 font-bold text-xl mb-4">Login Error</p>
+          <p className="text-white/60 text-sm mb-6">{auth0Error.message}</p>
+          <a href="/signin" className="text-[#00c2ff] underline">Return to Sign In</a>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#050c1a] flex items-center justify-center">
