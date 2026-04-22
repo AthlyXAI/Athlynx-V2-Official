@@ -383,6 +383,7 @@ function HeroSignupForm() {
 }
 
 export default function Home() {
+  const { login } = useAuth();
   const countdown = useCountdown(LAUNCH_TARGET_DATE);
   const [email, setEmail] = useState("");
   const [joined, setJoined] = useState(false);

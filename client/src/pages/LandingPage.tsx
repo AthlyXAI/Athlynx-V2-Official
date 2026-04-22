@@ -1,3 +1,6 @@
+import { Link } from "wouter";
+
+export default function LandingPage() {
   const apps = [
     { name: "Portal", icon: "/portal-icon.png", badge: "LIVE", color: "bg-cyan-500", link: "/portal" },
     { name: "Messenger", icon: "/messenger-icon.png", badge: "LIVE", color: "bg-blue-500", link: "/comms" },
@@ -13,7 +16,7 @@
 
   return (
     <div className="min-h-screen bg-slate-900">
-      {/* SECTION 1: TEAL STATUS BAR */}
+      {/* SECTION 1: STATUS BAR */}
       <div className="bg-teal-600 text-white text-center py-2 px-4">
         <div className="flex items-center justify-center gap-2 text-sm font-medium">
           <span>PLATFORM</span>
@@ -24,12 +27,39 @@
         </div>
       </div>
 
-      {/* SECTION 2: YELLOW BANNER */}
+      {/* SECTION 2: UPDATE BANNER */}
       <div className="bg-red-400 text-slate-900 text-center py-3 px-4">
         <p className="text-sm font-bold">
           🚧 SITE UPDATING LIVE DAILY - Please be patient with us while we add future updates and apps!
         </p>
       </div>
 
-      {/* SECTION 3: MAIN WHITE CARD */}
+      {/* SECTION 3: APP GRID */}
       <div className="px-4 py-6">
+        <h2 className="text-white text-xl font-bold mb-4 text-center">THE ATHLETE'S PLAYBOOK</h2>
+        <div className="grid grid-cols-2 gap-4">
+          {apps.map((app) => (
+            <Link key={app.name} href={app.link}>
+              <div className="bg-slate-800 rounded-xl p-4 flex flex-col items-center gap-2 cursor-pointer hover:bg-slate-700 transition-colors">
+                <div className={`w-12 h-12 ${app.color} rounded-xl flex items-center justify-center`}>
+                  <img src={app.icon} alt={app.name} className="w-8 h-8 object-contain" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+                </div>
+                <span className="text-white text-sm font-semibold text-center">{app.name}</span>
+                <span className={`text-xs px-2 py-0.5 rounded-full ${app.color} text-white font-bold`}>{app.badge}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* SECTION 4: CTA */}
+      <div className="px-4 pb-8 text-center">
+        <Link href="/signin">
+          <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-xl text-lg transition-colors">
+            ENTER THE PORTAL →
+          </button>
+        </Link>
+      </div>
+    </div>
+  );
+}
