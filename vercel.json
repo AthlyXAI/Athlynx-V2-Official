@@ -6,11 +6,10 @@
   "framework": null,
   "functions": {
     "api/index.ts": {
-      "runtime": "nodejs18.x",
+      "includeFiles": "node_modules/**",
       "maxDuration": 30
     },
     "api/cron/social-post.ts": {
-      "runtime": "nodejs18.x",
       "maxDuration": 30
     }
   },
