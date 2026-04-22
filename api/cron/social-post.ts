@@ -4,7 +4,7 @@
  * Runs at 8am, 12pm, 6pm CST (14:00, 18:00, 00:00 UTC)
  * Self-contained — no external triggers, no Manus dependency
  */
-import type { Request, Response } from "express";
+import type { VercelRequest as Request, VercelResponse as Response } from "@vercel/node";
 import { runSocialPostCron } from "../../server/jobs/socialPostCron";
 
 export default async function handler(req: Request, res: Response) {
