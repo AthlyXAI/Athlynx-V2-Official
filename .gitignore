@@ -114,3 +114,4 @@ temp/
 client/public/__manus__/version.json
 .vercel
 .env*.local
+.vercel/output
