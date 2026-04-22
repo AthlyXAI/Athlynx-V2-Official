@@ -20,7 +20,7 @@ npx esbuild server/entry.ts \
   --platform=node \
   --target=node18 \
   --format=cjs \
-  --outfile=.vercel/output/functions/api/index.func/index.js \
+  --outfile=.vercel/output/functions/api/index.func/index.cjs \
   --external:pg-native \
   --external:@mapbox/node-pre-gyp \
   --external:mock-aws-s3 \
@@ -34,7 +34,7 @@ echo "=== Step 6: Create .vc-config.json for the function ==="
 cat > .vercel/output/functions/api/index.func/.vc-config.json << 'EOF'
 {
   "runtime": "nodejs18.x",
-  "handler": "index.js",
+  "handler": "index.cjs",
   "launcherType": "Nodejs",
   "shouldAddHelpers": false,
   "maxDuration": 30
