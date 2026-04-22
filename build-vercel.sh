@@ -26,7 +26,9 @@ npx esbuild server/entry.ts \
   --external:mock-aws-s3 \
   --external:aws-sdk \
   --external:nock \
-  --loader:.ts=ts
+  --loader:.ts=ts \
+  --define:import.meta.url=__filename \
+  --define:import.meta.dirname=__dirname
 
 echo "=== Step 6: Create .vc-config.json for the function ==="
 cat > .vercel/output/functions/api/index.func/.vc-config.json << 'EOF'
