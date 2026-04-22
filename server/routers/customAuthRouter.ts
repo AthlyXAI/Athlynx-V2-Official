@@ -9,6 +9,7 @@ import { getDb } from "../db";
 import { users, verificationCodes } from "../../drizzle/schema";
 import { eq, and, gt } from "drizzle-orm";
 import { sendWelcomeEmail, sendOwnerNewUserAlert } from "../services/aws-ses";
+import { sql } from "drizzle-orm";
 
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 
@@ -19,6 +20,7 @@ async function fireWelcomeNotifications(opts: {
   phone?: string | null;
   loginMethod: string;
   trialEndsAt: Date;
+  memberNumber?: number;
 }) {
   const trialStr = opts.trialEndsAt.toLocaleDateString("en-US", {
     month: "short", day: "numeric", year: "numeric", timeZone: "America/Chicago",
@@ -29,7 +31,7 @@ async function fireWelcomeNotifications(opts: {
   });
 
   // Welcome email to new user
-  sendWelcomeEmail(opts.email, opts.name).catch((e) =>
+  sendWelcomeEmail(opts.email, opts.name, opts.memberNumber).catch((e) =>
     console.warn("[Auth] Welcome email failed:", e?.message)
   );
 
@@ -40,6 +42,7 @@ async function fireWelcomeNotifications(opts: {
     loginMethod: opts.loginMethod,
     signedUpAt: signedUpStr,
     trialEndsAt: trialStr,
+    memberNumber: opts.memberNumber,
   }).catch((e) => console.warn("[Auth] Owner alert failed:", e?.message));
 }
 
@@ -73,6 +76,10 @@ export const customAuthRouter = router({
       const openId = `custom_${Date.now()}_${Math.random().toString(36).slice(2)}`;
       const trialEndsAt = new Date(Date.now() + SEVEN_DAYS_MS);
 
+      // Get member number BEFORE insert (count + 1)
+      const [countResult] = await db.select({ count: sql<number>`count(*)` }).from(users);
+      const memberNumber = (Number(countResult?.count) || 0) + 1;
+
       await db.insert(users).values({
         openId,
         name: input.name,
@@ -103,6 +110,7 @@ export const customAuthRouter = router({
         phone: input.phone,
         loginMethod: "email",
         trialEndsAt,
+        memberNumber,
       });
 
       return { success: true, name: input.name };

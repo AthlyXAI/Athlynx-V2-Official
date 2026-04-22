@@ -9,6 +9,8 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 
 // ── Core ──
 import Home from "./pages/Home";
+import DozierLegacy from "./pages/DozierLegacy";
+import CommunitySoon from "./pages/CommunitySoon";
 import Demo from "./pages/Demo";
 import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
@@ -134,6 +136,7 @@ import Portal from "./pages/Portal";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import LegalCompliance from "./pages/LegalCompliance";
+import SchoolBranding from "./pages/SchoolBranding";
 
 // ── PWA ──
 import PWAInstallBanner from "./components/PWAInstallBanner";
@@ -184,7 +187,7 @@ function Router() {
       <Route path="/nil-vault" component={NILVault} />
       <Route path="/nil-marketplace" component={NILMarketplace} />
       <Route path="/nil-calculator" component={NILCalculator} />
-      <Route path="/transfer-portal" component={TransferPortal} />
+      <Route path="/transfer-portal" component={TransferPortalFOS} />
       <Route path="/transfer-portal-fos" component={TransferPortalFOS} />
       <Route path="/transfer-intelligence" component={TransferPortalIntelligence} />
       <Route path="/diamond-grind" component={DiamondGrind} />
@@ -289,6 +292,8 @@ function Router() {
       <Route path="/implementation" component={Implementation} />
       <Route path="/capabilities" component={Capabilities} />
       <Route path="/community-feedback" component={CommunityFeedback} />
+      <Route path="/community" component={CommunitySoon} />
+      <Route path="/platform" component={Demo} />
 
       {/* ── People & Culture ── */}
       <Route path="/founders" component={Founders} />
@@ -322,6 +327,11 @@ function Router() {
       <Route path="/terms-of-service" component={TermsOfService} />
       <Route path="/legal-compliance" component={LegalCompliance} />
 
+      {/* ── School Branding & Licensing ── */}
+      <Route path="/school-branding" component={SchoolBranding} />
+      <Route path="/school-licensing" component={SchoolBranding} />
+      <Route path="/nil-foundation" component={SchoolBranding} />
+
       {/* ── Utility ── */}
       <Route path="/notifications" component={Notifications} />
       <Route path="/contact" component={Contact} />
@@ -342,6 +352,10 @@ function Router() {
       <Route path="/wizards/transfer" component={TransferWizard} />
 
       {/* ── 404 ── */}
+      {/* ── Founder's Legacy ── */}
+      <Route path="/legacy" component={DozierLegacy} />
+      <Route path="/dozier-legacy" component={DozierLegacy} />
+
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

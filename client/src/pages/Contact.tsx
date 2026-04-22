@@ -1,7 +1,23 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { Mail, Phone, MapPin, Linkedin, Send, CheckCircle, MessageCircle, Building2, Users, Briefcase } from "lucide-react";
+import { Mail, MapPin, Linkedin, Send, CheckCircle, MessageCircle, Building2, Users, Briefcase, Calendar, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
+
+// ── Chad A. Dozier — Official Contact Block ──────────────────────────────────
+const CHAD_CONTACT = {
+  name: "Chad A. Dozier",
+  title: "Founder & CEO",
+  companies: "Dozier Holdings Group · ATHLYNX · Softmor Inc",
+  address: "Laurel, Mississippi, USA",
+  email: "cdozier14@dozierholdingsgroup.com.mx",
+  emailAlt: "cdozier@dozierholdingsgroup.com",
+  linkedin: "https://linkedin.com/in/chaddozier",
+  whatsapp: "https://wa.me/16015808869", // WhatsApp — no personal number exposed on page
+  telegram: "https://t.me/chaddozier",
+  wechat: "chaddozier",                   // WeChat ID — users must add manually
+  calendly: "https://calendly.com/cdozier14",
+  website: "https://athlynx.ai",
+};
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -16,7 +32,7 @@ export default function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
-    toast.success("Message sent! We'll get back to you soon.");
+    toast.success("Message sent! Chad will get back to you within 24 hours.");
   };
 
   const contactTypes = [
@@ -26,35 +42,73 @@ export default function Contact() {
     { id: "support", label: "Support", icon: Users },
   ];
 
+  const messagingApps = [
+    {
+      name: "WhatsApp",
+      icon: "💬",
+      color: "#25D366",
+      bg: "rgba(37,211,102,0.12)",
+      border: "rgba(37,211,102,0.3)",
+      href: CHAD_CONTACT.whatsapp,
+      label: "Message on WhatsApp",
+      action: "Open WhatsApp",
+    },
+    {
+      name: "Telegram",
+      icon: "✈️",
+      color: "#229ED9",
+      bg: "rgba(34,158,217,0.12)",
+      border: "rgba(34,158,217,0.3)",
+      href: CHAD_CONTACT.telegram,
+      label: "Message on Telegram",
+      action: "Open Telegram",
+    },
+    {
+      name: "WeChat",
+      icon: "💚",
+      color: "#07C160",
+      bg: "rgba(7,193,96,0.12)",
+      border: "rgba(7,193,96,0.3)",
+      href: null,
+      label: `WeChat ID: ${CHAD_CONTACT.wechat}`,
+      action: "Copy WeChat ID",
+    },
+  ];
+
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #0d1f3c 50%, #061424 100%)' }}>
+    <div className="min-h-screen" style={{ background: "linear-gradient(180deg, #0a1628 0%, #0d1f3c 50%, #061424 100%)" }}>
+
       {/* Header */}
       <div className="text-center py-12 border-b border-cyan-500/20">
-        <Link href="/dhg">
+        <Link href="/">
           <div className="inline-flex items-center gap-2 bg-slate-900/80 border border-cyan-500/30 rounded-full px-4 py-2 mb-6 cursor-pointer hover:bg-slate-800/80 transition-colors">
-            <span className="text-white/60 text-sm">← Back to DHG</span>
+            <span className="text-white/60 text-sm">← Back to ATHLYNX</span>
           </div>
         </Link>
         <div className="flex items-center justify-center gap-4 mb-4">
-          <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/AzsuZOzvfgvscIdI.png" alt="DHG" className="w-16 h-16 rounded-full border-4 border-cyan-400/50" />
+          <img
+            src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/AzsuZOzvfgvscIdI.png"
+            alt="DHG"
+            className="w-16 h-16 rounded-full border-4 border-cyan-400/50"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+          />
         </div>
         <h1 className="text-5xl font-black text-white mb-2">CONTACT US</h1>
-        <p className="text-cyan-400 text-xl font-bold uppercase tracking-wider mb-4">Dozier Holdings Group</p>
-        <p className="text-white/60 max-w-2xl mx-auto px-4">
-          Have questions about ATHLYNX, partnerships, or investment opportunities? We'd love to hear from you.
-        </p>
+        <p className="text-cyan-400 text-xl font-bold uppercase tracking-wider mb-2">Dozier Holdings Group</p>
+        <p className="text-white/50 text-sm">ATHLYNX · Softmor Inc · DHG</p>
       </div>
 
       <div className="max-w-6xl mx-auto px-5 py-10">
         <div className="grid lg:grid-cols-2 gap-10">
-          {/* Contact Form */}
+
+          {/* ── Contact Form ── */}
           <div className="bg-slate-900/80 border border-white/10 rounded-2xl p-8">
             {submitted ? (
               <div className="text-center py-12">
                 <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
                 <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
                 <p className="text-white/60 mb-6">
-                  Thank you for reaching out. We'll get back to you within 24-48 hours.
+                  Thank you for reaching out. Chad will respond within 24 hours.
                 </p>
                 <button
                   onClick={() => {
@@ -68,9 +122,8 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
-                <h2 className="text-2xl font-bold text-white mb-6">Send Us a Message</h2>
-                
-                {/* Contact Type */}
+                <h2 className="text-2xl font-bold text-white mb-6">Send a Message</h2>
+
                 <div>
                   <label className="block text-white/70 text-sm mb-2">What can we help you with?</label>
                   <div className="grid grid-cols-2 gap-2">
@@ -152,50 +205,66 @@ export default function Contact() {
             )}
           </div>
 
-          {/* Contact Info */}
-          <div className="space-y-6">
-            {/* Direct Contact */}
-            <div className="bg-slate-900/80 border border-white/10 rounded-2xl p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Direct Contact</h3>
+          {/* ── Right Column: Contact Info ── */}
+          <div className="space-y-5">
+
+            {/* Chad's Contact Card */}
+            <div className="bg-slate-900/80 border border-cyan-500/30 rounded-2xl p-6">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white font-black text-lg">CD</div>
+                <div>
+                  <div className="text-white font-black text-lg">{CHAD_CONTACT.name}</div>
+                  <div className="text-cyan-400 text-sm">{CHAD_CONTACT.title}</div>
+                  <div className="text-white/40 text-xs">{CHAD_CONTACT.companies}</div>
+                </div>
+              </div>
+
               <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-cyan-500/20 rounded-lg flex items-center justify-center">
-                    <Mail className="w-5 h-5 text-cyan-400" />
+                {/* Primary Email */}
+                <div className="flex items-start gap-3">
+                  <div className="w-9 h-9 bg-cyan-500/15 rounded-lg flex items-center justify-center shrink-0">
+                    <Mail className="w-4 h-4 text-cyan-400" />
                   </div>
                   <div>
-                    <p className="text-white/50 text-sm">Email</p>
-                    <a href="mailto:cdozier@dozierholdingsgroup.com" className="text-cyan-400 hover:underline">
-                      cdozier@dozierholdingsgroup.com
+                    <p className="text-white/40 text-xs mb-0.5">Primary Email</p>
+                    <a href={`mailto:${CHAD_CONTACT.email}`} className="text-cyan-400 hover:underline text-sm font-semibold">
+                      {CHAD_CONTACT.email}
                     </a>
                   </div>
                 </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-cyan-500/20 rounded-lg flex items-center justify-center">
-                    <Phone className="w-5 h-5 text-cyan-400" />
+
+                {/* Alt Email */}
+                <div className="flex items-start gap-3">
+                  <div className="w-9 h-9 bg-blue-500/15 rounded-lg flex items-center justify-center shrink-0">
+                    <Mail className="w-4 h-4 text-blue-400" />
                   </div>
                   <div>
-                    <p className="text-white/50 text-sm">Phone</p>
-                    <a href="tel:+16015808869" className="text-white hover:text-cyan-400">
-                      +1 (601) 580-8869
+                    <p className="text-white/40 text-xs mb-0.5">Business Email</p>
+                    <a href={`mailto:${CHAD_CONTACT.emailAlt}`} className="text-blue-400 hover:underline text-sm">
+                      {CHAD_CONTACT.emailAlt}
                     </a>
                   </div>
                 </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-cyan-500/20 rounded-lg flex items-center justify-center">
-                    <MapPin className="w-5 h-5 text-cyan-400" />
+
+                {/* Location */}
+                <div className="flex items-start gap-3">
+                  <div className="w-9 h-9 bg-purple-500/15 rounded-lg flex items-center justify-center shrink-0">
+                    <MapPin className="w-4 h-4 text-purple-400" />
                   </div>
                   <div>
-                    <p className="text-white/50 text-sm">Location</p>
-                    <p className="text-white">Laurel, Mississippi</p>
+                    <p className="text-white/40 text-xs mb-0.5">Location</p>
+                    <p className="text-white text-sm">{CHAD_CONTACT.address}</p>
                   </div>
                 </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-cyan-500/20 rounded-lg flex items-center justify-center">
-                    <Linkedin className="w-5 h-5 text-cyan-400" />
+
+                {/* LinkedIn */}
+                <div className="flex items-start gap-3">
+                  <div className="w-9 h-9 bg-blue-700/20 rounded-lg flex items-center justify-center shrink-0">
+                    <Linkedin className="w-4 h-4 text-blue-400" />
                   </div>
                   <div>
-                    <p className="text-white/50 text-sm">LinkedIn</p>
-                    <a href="https://linkedin.com/in/chaddozier" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">
+                    <p className="text-white/40 text-xs mb-0.5">LinkedIn</p>
+                    <a href={CHAD_CONTACT.linkedin} target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline text-sm">
                       linkedin.com/in/chaddozier
                     </a>
                   </div>
@@ -203,44 +272,84 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Quick Links */}
+            {/* ── Messaging Apps ── */}
             <div className="bg-slate-900/80 border border-white/10 rounded-2xl p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Quick Links</h3>
-              <div className="grid grid-cols-2 gap-3">
-                <Link href="/investor-deck" className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl p-4 text-center transition-colors">
-                  <Briefcase className="w-6 h-6 text-cyan-400 mx-auto mb-2" />
-                  <span className="text-white text-sm">Investor Deck</span>
-                </Link>
-                <Link href="/partner-portal" className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl p-4 text-center transition-colors">
-                  <Building2 className="w-6 h-6 text-cyan-400 mx-auto mb-2" />
-                  <span className="text-white text-sm">Partner Portal</span>
-                </Link>
-                <Link href="/careers" className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl p-4 text-center transition-colors">
-                  <Users className="w-6 h-6 text-cyan-400 mx-auto mb-2" />
-                  <span className="text-white text-sm">Careers</span>
-                </Link>
-                <Link href="/team" className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl p-4 text-center transition-colors">
-                  <MessageCircle className="w-6 h-6 text-cyan-400 mx-auto mb-2" />
-                  <span className="text-white text-sm">Our Team</span>
-                </Link>
+              <h3 className="text-lg font-bold text-white mb-4">Message Directly</h3>
+              <div className="space-y-3">
+                {messagingApps.map((app) => (
+                  <div
+                    key={app.name}
+                    style={{ background: app.bg, border: `1px solid ${app.border}`, borderRadius: "12px", padding: "14px 16px" }}
+                    className="flex items-center justify-between"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">{app.icon}</span>
+                      <div>
+                        <div className="text-white font-bold text-sm">{app.name}</div>
+                        <div className="text-white/50 text-xs">{app.label}</div>
+                      </div>
+                    </div>
+                    {app.href ? (
+                      <a
+                        href={app.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ background: app.color, color: "#fff", borderRadius: "8px", padding: "6px 14px", fontSize: "12px", fontWeight: "700", textDecoration: "none", whiteSpace: "nowrap" }}
+                      >
+                        {app.action} →
+                      </a>
+                    ) : (
+                      <button
+                        onClick={() => { navigator.clipboard.writeText(CHAD_CONTACT.wechat); toast.success("WeChat ID copied!"); }}
+                        style={{ background: app.color, color: "#fff", borderRadius: "8px", padding: "6px 14px", fontSize: "12px", fontWeight: "700", border: "none", cursor: "pointer", whiteSpace: "nowrap" }}
+                      >
+                        {app.action}
+                      </button>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Response Time */}
-            <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/30 rounded-2xl p-6">
-              <h3 className="text-xl font-bold text-white mb-2">Response Time</h3>
+            {/* ── Book a Meeting (Calendly) ── */}
+            <div className="bg-gradient-to-r from-blue-900/40 to-cyan-900/30 border border-cyan-500/40 rounded-2xl p-6">
+              <div className="flex items-center gap-3 mb-3">
+                <Calendar className="w-6 h-6 text-cyan-400" />
+                <h3 className="text-lg font-bold text-white">Book a Meeting</h3>
+              </div>
+              <p className="text-white/60 text-sm mb-4">
+                Schedule a call directly with Chad — investor meetings, partnership discussions, or platform demos.
+              </p>
+              <a
+                href={CHAD_CONTACT.calendly}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 w-full bg-cyan-500 hover:bg-cyan-400 text-black font-black py-3 rounded-xl transition-colors text-sm"
+              >
+                <Calendar className="w-4 h-4" />
+                Schedule a Meeting on Calendly
+                <ExternalLink className="w-3 h-3" />
+              </a>
+              <p className="text-white/30 text-xs text-center mt-2">calendly.com/cdozier14</p>
+            </div>
+
+            {/* ── Response Time ── */}
+            <div className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 border border-cyan-500/30 rounded-2xl p-5">
+              <h3 className="text-base font-bold text-white mb-1">Response Time</h3>
               <p className="text-white/60 text-sm">
-                We typically respond to all inquiries within <strong className="text-cyan-400">24-48 hours</strong>. 
-                For urgent matters, please call directly.
+                All inquiries are typically answered within <strong className="text-cyan-400">24 hours</strong>.
+                For urgent matters, use WhatsApp or Telegram for the fastest response.
               </p>
             </div>
+
           </div>
         </div>
       </div>
 
       {/* Footer */}
       <div className="text-center py-8 border-t border-white/10 mt-10">
-        <p className="text-white/50 text-sm">© 2025 Dozier Holdings Group, LLC. All Rights Reserved.</p>
+        <p className="text-white/50 text-sm">© 2026 Dozier Holdings Group, LLC. All Rights Reserved.</p>
+        <p className="text-white/30 text-xs mt-1">ATHLYNX · Softmor Inc · DHG · To God Be The Glory 🙏</p>
       </div>
     </div>
   );

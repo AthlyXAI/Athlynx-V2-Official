@@ -250,6 +250,9 @@ export default function LegalCompliance() {
             <TabsTrigger value="faq" className="data-[state=active]:bg-cyan-500 data-[state=active]:text-white text-xs md:text-sm">
               <BookOpen className="w-4 h-4 mr-1 md:mr-2" /> FAQ
             </TabsTrigger>
+            <TabsTrigger value="government" className="data-[state=active]:bg-cyan-500 data-[state=active]:text-white text-xs md:text-sm">
+              <Gavel className="w-4 h-4 mr-1 md:mr-2" /> Government Rules
+            </TabsTrigger>
           </TabsList>
 
           {/* NCAA Compliance Tab */}
@@ -499,6 +502,146 @@ export default function LegalCompliance() {
                   </AccordionItem>
                 ))}
               </Accordion>
+            </div>
+          </TabsContent>
+          {/* Government Regulations Tab */}
+          <TabsContent value="government">
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-2xl font-bold text-white mb-2">Federal &amp; Government Compliance</h2>
+                <p className="text-white/60 mb-6">ATHLYNX is built to comply with all applicable federal, state, and regulatory requirements governing athlete data, NIL compensation, educational records, and sports commerce.</p>
+              </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                {[
+                  {
+                    icon: GraduationCap,
+                    title: "FERPA — Family Educational Rights & Privacy Act",
+                    color: "text-blue-400",
+                    bg: "bg-blue-500/10 border-blue-500/20",
+                    rules: [
+                      "Student-athletes control access to their own educational records",
+                      "Schools may not share academic data without written consent",
+                      "ATHLYNX never accesses or stores FERPA-protected academic records without explicit athlete authorization",
+                      "Parents retain rights for athletes under 18"
+                    ]
+                  },
+                  {
+                    icon: Briefcase,
+                    title: "IRS — Athlete NIL Income & Tax Compliance",
+                    color: "text-green-400",
+                    bg: "bg-green-500/10 border-green-500/20",
+                    rules: [
+                      "All NIL compensation is taxable income under IRS rules",
+                      "Athletes earning $600+ from a single source receive a 1099-NEC",
+                      "ATHLYNX provides transaction records to assist with tax reporting",
+                      "Self-employment tax applies to NIL income — athletes should consult a tax advisor",
+                      "State income tax obligations vary — platform flags state-specific requirements"
+                    ]
+                  },
+                  {
+                    icon: Scale,
+                    title: "Title IX — Gender Equity in Athletics",
+                    color: "text-purple-400",
+                    bg: "bg-purple-500/10 border-purple-500/20",
+                    rules: [
+                      "ATHLYNX provides equal NIL opportunity access to all athletes regardless of gender",
+                      "Platform algorithms do not discriminate by sport, gender, or scholarship status",
+                      "Schools using ATHLYNX must ensure equitable NIL resource distribution",
+                      "Title IX compliance monitoring tools available in the School Admin Dashboard"
+                    ]
+                  },
+                  {
+                    icon: Gavel,
+                    title: "NLRB — National Labor Relations Board",
+                    color: "text-orange-400",
+                    bg: "bg-orange-500/10 border-orange-500/20",
+                    rules: [
+                      "Following evolving NLRB guidance on college athlete employment status",
+                      "ATHLYNX does not classify athletes as employees of the platform",
+                      "NIL deals are independent contractor arrangements",
+                      "Platform updated in real-time as NLRB rulings evolve"
+                    ]
+                  },
+                  {
+                    icon: Globe,
+                    title: "FTC — Federal Trade Commission Endorsement Rules",
+                    color: "text-cyan-400",
+                    bg: "bg-cyan-500/10 border-cyan-500/20",
+                    rules: [
+                      "All brand endorsements must include clear disclosure (\"#ad\", \"#sponsored\", \"#partner\")",
+                      "ATHLYNX NIL deal templates include mandatory FTC disclosure language",
+                      "Athletes are educated on FTC guidelines during onboarding",
+                      "Brands using ATHLYNX marketplace agree to FTC-compliant campaign terms"
+                    ]
+                  },
+                  {
+                    icon: Shield,
+                    title: "State NIL Laws — All 50 States",
+                    color: "text-red-400",
+                    bg: "bg-red-500/10 border-red-500/20",
+                    rules: [
+                      "ATHLYNX monitors NIL legislation across all 50 states in real-time",
+                      "State-specific restrictions automatically applied based on athlete's school location",
+                      "Key states: TX, CA, FL, GA, OH, AL, GA, NC, PA, MI all have active NIL statutes",
+                      "Platform flags deals that may conflict with an athlete's state law",
+                      "Legal team reviews state law updates monthly"
+                    ]
+                  },
+                  {
+                    icon: Heart,
+                    title: "HIPAA — Health Insurance Portability & Accountability",
+                    color: "text-pink-400",
+                    bg: "bg-pink-500/10 border-pink-500/20",
+                    rules: [
+                      "Athlete health and medical data stored in HIPAA-compliant Medical Vault",
+                      "AES-256 encryption at rest and in transit for all health records",
+                      "Athletes control who sees their health data — coaches, trainers, or medical staff only with consent",
+                      "Business Associate Agreements (BAAs) with all healthcare data processors",
+                      "Annual HIPAA security risk assessments conducted"
+                    ]
+                  },
+                  {
+                    icon: Building,
+                    title: "Federal Executive Orders — College Sports",
+                    color: "text-yellow-400",
+                    bg: "bg-yellow-500/10 border-yellow-500/20",
+                    rules: [
+                      "ATHLYNX monitors all Executive Orders affecting college athletics and NIL",
+                      "Platform compliance team reviews federal guidance within 48 hours of issuance",
+                      "House v. NCAA settlement compliance built into platform architecture",
+                      "Revenue sharing frameworks supported as they are implemented by schools"
+                    ]
+                  }
+                ].map((section, i) => (
+                  <Card key={i} className={`${section.bg} border`}>
+                    <CardHeader className="pb-3">
+                      <CardTitle className="flex items-center gap-2 text-white text-base">
+                        <section.icon className={`w-5 h-5 ${section.color}`} />
+                        {section.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-2">
+                        {section.rules.map((rule, j) => (
+                          <li key={j} className="flex items-start gap-2 text-white/70 text-sm">
+                            <CheckCircle className="w-4 h-4 text-green-400 mt-0.5 flex-shrink-0" />
+                            {rule}
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+              <Card className="bg-white/5 border-white/10">
+                <CardContent className="p-6 text-center">
+                  <AlertTriangle className="w-8 h-8 text-yellow-400 mx-auto mb-3" />
+                  <h3 className="text-white font-bold mb-2">Disclaimer</h3>
+                  <p className="text-white/60 text-sm max-w-2xl mx-auto">
+                    ATHLYNX provides compliance tools and information as a technology platform. This content does not constitute legal advice. Athletes, schools, and brands should consult qualified legal counsel for guidance specific to their situation. Laws and regulations change frequently — always verify current requirements with your institution's compliance office.
+                  </p>
+                </CardContent>
+              </Card>
             </div>
           </TabsContent>
         </Tabs>

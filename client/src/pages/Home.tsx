@@ -1,7 +1,30 @@
-// v1.1.0 - Apr 21 2026 - Clean Okta login
+// v1.2.0 - Apr 21 2026 - Enter The Portal sticky toggle
 import { Link } from "wouter";
 import { useState, useEffect, useRef } from "react";
 import { useAuth } from "@/hooks/useAuth";
+
+function EnterPortalToggle() {
+  const { login } = useAuth();
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setVisible(window.scrollY > 200);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  return (
+    <button
+      onClick={() => login('/onboarding')}
+      className={`fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-cyan-500 hover:to-blue-600 text-white font-black text-sm px-5 py-3.5 rounded-2xl shadow-2xl shadow-blue-500/40 transition-all duration-300 hover:scale-105 active:scale-95 ${
+        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
+      }`}
+      aria-label="Enter the Portal"
+    >
+      <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+      ENTER THE PORTAL
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+    </button>
+  );
+}
 // InstallAppModal replaced by slim PWAInstallBanner auto-shown at bottom
 
 const APPS = [
@@ -535,9 +558,9 @@ export default function Home() {
           </h1>
           <p className="text-blue-200 text-lg mt-2 drop-shadow font-semibold">One platform. Every tool. Unlimited potential.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6">
-            <Link href="/feed" className="inline-block bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-black text-lg px-8 py-3 rounded-xl transition-all shadow-xl hover:scale-105">
-              ENTER THE PLATFORM →
-            </Link>
+            <button onClick={() => login('/onboarding')} className="inline-block bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-cyan-500 hover:to-blue-600 text-white font-black text-lg px-8 py-3 rounded-xl transition-all shadow-xl hover:scale-105">
+              ENTER THE PORTAL →
+            </button>
             <Link href="/demo" className="inline-block bg-red-500 hover:bg-red-400 text-black font-black text-lg px-8 py-3 rounded-xl transition-all shadow-xl hover:scale-105">
               HOW IT WORKS
             </Link>
@@ -947,6 +970,9 @@ export default function Home() {
       </footer>
 
       {/* PWAInstallBanner renders globally in App.tsx */}
+
+      {/* ═══ STICKY FLOATING ENTER THE PORTAL BUTTON ═══ */}
+      <EnterPortalToggle />
     </div>
   );
 }

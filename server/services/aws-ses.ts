@@ -72,7 +72,12 @@ export async function sendEmail(opts: EmailOptions): Promise<boolean> {
 
 // ─── Email Templates ───────────────────────────────────────────────────────
 
-export async function sendWelcomeEmail(to: string, name: string): Promise<boolean> {
+export async function sendWelcomeEmail(to: string, name: string, memberNumber?: number): Promise<boolean> {
+  const memberNum = memberNumber ? String(memberNumber).padStart(4, "0") : null;
+  const signedUpStr = new Date().toLocaleString("en-US", {
+    weekday: "long", month: "long", day: "numeric", year: "numeric",
+    hour: "numeric", minute: "2-digit", timeZone: "America/Chicago", timeZoneName: "short",
+  });
   const html = `<!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
@@ -85,7 +90,12 @@ export async function sendWelcomeEmail(to: string, name: string): Promise<boolea
   <div style="font-size:13px;color:rgba(255,255,255,0.8);letter-spacing:6px;margin-top:6px;">THE ATHLETE'S PLAYBOOK</div>
 </td></tr>
 <tr><td style="padding:40px;">
-  <h2 style="color:#fff;font-size:24px;margin:0 0 16px;">Welcome, ${name}! 🏆</h2>
+  <h2 style="color:#fff;font-size:24px;margin:0 0 16px;">Welcome to the Family, ${name}! 🏆</h2>
+  ${memberNum ? `<div style="text-align:center;margin-bottom:20px;"><span style="display:inline-block;background:linear-gradient(135deg,#0066ff,#00c2ff);color:#fff;font-size:13px;font-weight:900;padding:8px 24px;border-radius:50px;letter-spacing:2px;">MEMBER #${memberNum}</span></div>` : ""}
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0a1628;border-radius:10px;overflow:hidden;margin-bottom:24px;">
+    <tr><td style="padding:12px 16px;border-bottom:1px solid #1e3a6e;"><span style="color:#94a3b8;font-size:11px;display:block;margin-bottom:2px;">JOINED</span><span style="color:#00c2ff;font-size:13px;font-weight:bold;">${signedUpStr}</span></td></tr>
+    <tr><td style="padding:12px 16px;"><span style="color:#94a3b8;font-size:11px;display:block;margin-bottom:2px;">TRIAL ENDS</span><span style="color:#f59e0b;font-size:13px;font-weight:bold;">7 days of FREE access — no credit card required</span></td></tr>
+  </table>
   <p style="color:#94a3b8;font-size:16px;line-height:1.6;margin:0 0 24px;">
     Your ATHLYNX account is ready. You have <strong style="color:#00c2ff;">7 days of free access</strong> to every feature — no credit card required.
   </p>
@@ -108,7 +118,8 @@ export async function sendWelcomeEmail(to: string, name: string): Promise<boolea
 </td></tr>
 <tr><td style="background:#060d1f;padding:24px;text-align:center;border-top:1px solid #1e3a6e;">
   <p style="color:#475569;font-size:12px;margin:0;">A Dozier Holdings Group Company · athlynx.ai</p>
-  <p style="color:#334155;font-size:11px;margin:8px 0 0;">Questions? <a href="mailto:cdozier@dozierholdingsgroup.com" style="color:#00c2ff;">cdozier@dozierholdingsgroup.com</a></p>
+  <p style="color:#334155;font-size:11px;margin:8px 0 0;">Questions? <a href="mailto:cdozier14@athlynx.ai" style="color:#00c2ff;">cdozier14@athlynx.ai</a></p>
+  <p style="color:#334155;font-size:11px;margin:4px 0 0;">Isaiah 40:31 · Dreams Do Come True 2026 · A Dozier Holdings Group Company</p>
 </td></tr>
 </table>
 </td></tr>
@@ -118,9 +129,9 @@ export async function sendWelcomeEmail(to: string, name: string): Promise<boolea
 
   return sendEmail({
     to,
-    subject: "Welcome to ATHLYNX — Your 7-Day Free Trial Has Started 🏆",
+    subject: memberNum ? `Welcome to ATHLYNX, ${name}! You are Member #${memberNum} 🏆` : `Welcome to ATHLYNX — Your 7-Day Free Trial Has Started 🏆`,
     html,
-    text: `Welcome to ATHLYNX, ${name}! Your 7-day free trial has started. Visit https://athlynx.ai to get started.`,
+    text: `Welcome to ATHLYNX, ${name}!${memberNum ? ` You are Member #${memberNum}.` : ""} Joined: ${signedUpStr}. Your 7-day free trial has started. Visit https://athlynx.ai to get started. Isaiah 40:31 · Dreams Do Come True 2026`,
   });
 }
 
@@ -249,7 +260,9 @@ export async function sendOwnerNewUserAlert(opts: {
   loginMethod: string;
   signedUpAt: string;
   trialEndsAt: string;
+  memberNumber?: number;
 }): Promise<boolean> {
+  const memberNum = opts.memberNumber ? String(opts.memberNumber).padStart(4, "0") : null;
   const OWNER_EMAILS = [
     "cdozier14@dozierholdingsgroup.com.mx",
     "cdozier14@athlynx.ai",
@@ -269,8 +282,9 @@ export async function sendOwnerNewUserAlert(opts: {
   <div style="font-size:12px;color:rgba(255,255,255,0.85);letter-spacing:5px;margin-top:4px;">NEW USER ALERT</div>
 </td></tr>
 <tr><td style="padding:32px;">
-  <h2 style="color:#00c2ff;font-size:22px;margin:0 0 24px;">&#127942; A new athlete just joined!</h2>
+  <h2 style="color:#00c2ff;font-size:22px;margin:0 0 24px;">🏆 A new athlete just joined!${memberNum ? ` <span style="background:linear-gradient(135deg,#0066ff,#00c2ff);color:#fff;font-size:14px;padding:4px 14px;border-radius:50px;font-weight:900;margin-left:8px;">MEMBER #${memberNum}</span>` : ""}</h2>
   <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-radius:10px;overflow:hidden;">
+    ${memberNum ? `<tr style="background:#0a1628;"><td style="padding:12px 16px;border-bottom:1px solid #1e3a6e;"><span style="color:#94a3b8;font-size:12px;display:block;margin-bottom:2px;">MEMBER NUMBER</span><span style="color:#00c2ff;font-size:20px;font-weight:900;">#${memberNum}</span></td></tr>` : ""}
     <tr style="background:#0a1628;"><td style="padding:12px 16px;border-bottom:1px solid #1e3a6e;"><span style="color:#94a3b8;font-size:12px;display:block;margin-bottom:2px;">NAME</span><span style="color:#fff;font-size:17px;font-weight:bold;">${opts.name}</span></td></tr>
     <tr style="background:#0c1a32;"><td style="padding:12px 16px;border-bottom:1px solid #1e3a6e;"><span style="color:#94a3b8;font-size:12px;display:block;margin-bottom:2px;">EMAIL</span><span style="color:#00c2ff;font-size:17px;font-weight:bold;">${opts.email}</span></td></tr>
     <tr style="background:#0a1628;"><td style="padding:12px 16px;border-bottom:1px solid #1e3a6e;"><span style="color:#94a3b8;font-size:12px;display:block;margin-bottom:2px;">LOGIN METHOD</span><span style="color:#fff;font-size:15px;">${opts.loginMethod}</span></td></tr>
@@ -292,7 +306,7 @@ export async function sendOwnerNewUserAlert(opts: {
   const results = await Promise.all(
     OWNER_EMAILS.map(to => sendEmail({
       to,
-      subject: `\uD83C\uDFC6 New ATHLYNX Signup: ${opts.name} (${opts.email})`,
+      subject: memberNum ? `🏆 ATHLYNX Member #${memberNum}: ${opts.name} just signed up!` : `🏆 New ATHLYNX Signup: ${opts.name} (${opts.email})`,
       html,
       text: `New ATHLYNX signup!\nName: ${opts.name}\nEmail: ${opts.email}\nLogin: ${opts.loginMethod}\nSigned Up: ${opts.signedUpAt} CST\nTrial Ends: ${opts.trialEndsAt}\n\nView dashboard: https://athlynx.ai/admin`,
     }))

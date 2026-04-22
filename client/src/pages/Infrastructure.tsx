@@ -3,52 +3,116 @@ import { useLocation } from "wouter";
 
 const PILLARS = [
   {
-    icon: "🏗️",
-    title: "Next-Gen Data Centers",
-    desc: "Purpose-built data centers designed for the demands of AI, sports analytics, and real-time athlete data processing. Engineered for speed, security, and scale.",
+    icon: "💧",
+    title: "Immersion Cooling — No Fans",
+    desc: "Servers fully submerged in dielectric fluid. No fans. No air cooling. No mechanical failure points. Safe overclocking at 20-40% above rated speeds. Servers last 3-5x longer. The most efficient cooling system ever deployed in a data center.",
     stats: [
-      { label: "Uptime Target", value: "99.99%" },
-      { label: "Latency", value: "<5ms" },
-      { label: "Data Encrypted", value: "100%" },
+      { label: "PUE Rating", value: "1.02" },
+      { label: "Server Lifespan", value: "3-5x Longer" },
+      { label: "Overclock Boost", value: "+40%" },
     ],
-    color: "border-blue-700/50",
-    glow: "shadow-blue-900/30",
+    color: "border-cyan-700/50",
+    glow: "shadow-cyan-900/30",
   },
   {
     icon: "🌋",
-    title: "Geothermal Energy Infrastructure",
-    desc: "Powered by clean, sustainable geothermal energy using advanced horizontal drilling technology. Zero carbon footprint. Built for the next 100 years.",
+    title: "Geothermal + CHP Energy",
+    desc: "Geothermal horizontal drilling for base-load power. Oil & Gas Combined Heat & Power turbines for peak demand — waste heat recycled back into the facility. Zero generators. Zero wasted energy. Net Zero carbon footprint.",
     stats: [
       { label: "Carbon Footprint", value: "Net Zero" },
       { label: "Energy Source", value: "Geothermal" },
-      { label: "Drilling Tech", value: "Horizontal" },
+      { label: "Waste Energy", value: "Zero" },
     ],
     color: "border-green-700/50",
     glow: "shadow-green-900/30",
   },
   {
-    icon: "🤖",
-    title: "Robotics & Automation",
-    desc: "Cutting-edge robotics systems for data center operations, security, and maintenance. Autonomous, intelligent, and built to run 24/7 without interruption.",
+    icon: "🌿",
+    title: "Living Roof — Water + Power",
+    desc: "A living grass roof harvests fresh rainwater for immersion cooling fluid replenishment — eliminating municipal water dependency. Photosynthesis energy generation, carbon sequestration, and 30-40% natural insulation. The building is alive.",
     stats: [
-      { label: "Automation Level", value: "Level 4" },
-      { label: "Operations", value: "24/7" },
-      { label: "Security", value: "AI-Powered" },
+      { label: "Water Source", value: "Self-Sufficient" },
+      { label: "Insulation", value: "-40% Cooling" },
+      { label: "Carbon", value: "Sequestered" },
     ],
-    color: "border-blue-800/50",
-    glow: "shadow-blue-950/30",
+    color: "border-green-800/50",
+    glow: "shadow-green-950/30",
   },
   {
-    icon: "🧠",
-    title: "AI Infrastructure",
-    desc: "The backbone powering ATHLYNX AI Trainers, Teammates & Companions. High-performance GPU clusters and distributed computing designed for real-time AI inference.",
+    icon: "⚛️",
+    title: "Quantum Computing — Next Phase",
+    desc: "Quantum processors for next-generation athlete data encryption, AI model training, and NIL deal optimization. Immersion cooling keeps quantum chips at the precise temperatures required. Processing power that makes today's computers obsolete.",
     stats: [
-      { label: "AI Models", value: "Proprietary" },
-      { label: "Processing", value: "Real-Time" },
-      { label: "Scale", value: "Global" },
+      { label: "Encryption", value: "Quantum-Grade" },
+      { label: "AI Processing", value: "Next-Gen" },
+      { label: "Timeline", value: "2026-2027" },
     ],
-    color: "border-cyan-700/50",
-    glow: "shadow-cyan-900/30",
+    color: "border-purple-700/50",
+    glow: "shadow-purple-900/30",
+  },
+];
+
+const PARTNERSHIPS = [
+  {
+    name: "NVIDIA",
+    role: "GPU Clusters & AI Compute",
+    desc: "H100 and B200 GPU clusters powering ATHLYNX AI Trainers, real-time analytics, and athlete performance modeling at scale.",
+    icon: "🟢",
+    status: "Partnership Discussions"
+  },
+  {
+    name: "ICC-USA",
+    role: "Data Center Construction & Compliance",
+    desc: "Industry-leading data center construction, certification, and compliance infrastructure for all DHG facility builds.",
+    icon: "🏗️",
+    status: "Partnership Discussions"
+  },
+  {
+    name: "RunSun Cloud",
+    role: "Cloud Infrastructure & CDN",
+    desc: "Global cloud backbone and content delivery network ensuring sub-5ms latency for every athlete on the ATHLYNX platform worldwide.",
+    icon: "☁️",
+    status: "Partnership Discussions"
+  },
+  {
+    name: "Fervo Energy",
+    role: "Geothermal Power Generation",
+    desc: "Next-generation geothermal energy using advanced horizontal drilling — clean, sustainable, ultra-low-cost power for all DHG data centers.",
+    icon: "🌋",
+    status: "Partnership Discussions"
+  },
+];
+
+const LIVING_DATA_CENTER = [
+  {
+    icon: "🌋",
+    title: "Geothermal Base Power",
+    desc: "Advanced horizontal drilling beneath each facility taps into the earth's core heat for continuous, clean base-load power generation — 24/7, weather-independent. No generators. No fuel costs. No downtime."
+  },
+  {
+    icon: "⚡",
+    title: "Oil & Gas Turbine (CHP)",
+    desc: "Combined Heat & Power turbines for peak demand — waste heat is recycled back into the facility for heating and energy recovery. Zero waste. Maximum efficiency."
+  },
+  {
+    icon: "💧",
+    title: "Immersion Cooling — No Fans",
+    desc: "Servers are fully submerged in dielectric fluid. No fans. No air cooling. No mechanical failure points. Servers run cooler, last 3-5x longer, and can be safely overclocked 20-40% beyond rated speeds for maximum performance."
+  },
+  {
+    icon: "🚀",
+    title: "Overclocked Infrastructure",
+    desc: "Immersion cooling makes overclocking safe and sustainable. DHG servers run at peak performance 24/7 — delivering more compute power per dollar than any air-cooled facility in the world. PUE: 1.02."
+  },
+  {
+    icon: "🌿",
+    title: "Living Grass Roof",
+    desc: "A living grass roof captures fresh rainwater fed directly into the immersion cooling fluid replenishment system. Natural insulation, carbon sequestration, and photosynthesis energy generation — the building is alive."
+  },
+  {
+    icon: "⚛️",
+    title: "Quantum Computing (Next Phase)",
+    desc: "Quantum processors for next-generation athlete data encryption, AI model training, and NIL deal optimization. Processing power that makes today's computers obsolete — and immersion cooling keeps them stable."
   },
 ];
 
@@ -196,6 +260,66 @@ export default function Infrastructure() {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Strategic Partnerships */}
+      <div className="relative z-10 max-w-6xl mx-auto px-4 mb-20">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 bg-green-900/40 border border-green-600/40 rounded-full px-5 py-2 mb-6 text-green-300 text-xs font-black tracking-widest">
+            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            STRATEGIC PARTNERSHIPS
+          </div>
+          <h2 className="text-3xl font-black text-white mb-3">Building With the Best</h2>
+          <p className="text-blue-300/70 max-w-2xl mx-auto text-sm">
+            DHG is in active discussions with world-class partners to build the most powerful sports infrastructure ever assembled.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {PARTNERSHIPS.map((partner) => (
+            <div key={partner.name} className="bg-[#0a1628]/80 border border-blue-800/40 rounded-2xl p-6 hover:-translate-y-1 transition-transform">
+              <div className="flex items-start justify-between mb-3">
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">{partner.icon}</span>
+                  <div>
+                    <h3 className="text-white font-black text-lg">{partner.name}</h3>
+                    <p className="text-cyan-400 text-xs font-bold">{partner.role}</p>
+                  </div>
+                </div>
+                <span className="bg-yellow-900/40 border border-yellow-600/40 text-yellow-300 text-xs px-3 py-1 rounded-full font-bold">{partner.status}</span>
+              </div>
+              <p className="text-blue-300/70 text-sm leading-relaxed">{partner.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Living Data Center */}
+      <div className="relative z-10 max-w-6xl mx-auto px-4 mb-20">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 bg-green-900/40 border border-green-600/40 rounded-full px-5 py-2 mb-6 text-green-300 text-xs font-black tracking-widest">
+            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+            PROPRIETARY INNOVATION
+          </div>
+          <h2 className="text-3xl font-black text-white mb-3">The Living Data Center™</h2>
+          <p className="text-blue-300/70 max-w-2xl mx-auto text-sm">
+            DHG's original concept — the world's first self-sustaining, living data center. 
+            Geothermal power, gas turbines, grass roofs that harvest fresh water, photosynthesis energy generation, and quantum computing. 
+            <span className="text-cyan-400 font-bold"> Patent pending.</span>
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {LIVING_DATA_CENTER.map((item) => (
+            <div key={item.title} className="bg-gradient-to-br from-green-900/20 to-blue-900/20 border border-green-700/30 rounded-2xl p-6 hover:-translate-y-1 transition-transform">
+              <div className="text-4xl mb-4">{item.icon}</div>
+              <h3 className="text-white font-black text-lg mb-2">{item.title}</h3>
+              <p className="text-blue-300/70 text-sm leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-8 bg-gradient-to-r from-green-900/30 to-cyan-900/20 border border-green-700/30 rounded-2xl p-8 text-center">
+          <p className="text-white font-black text-xl mb-2">"Own the Data. Own the Hardware. Own the World."</p>
+          <p className="text-green-300/80 text-sm">— Chad A. Dozier, Founder & CEO, Dozier Holdings Group</p>
         </div>
       </div>
 
