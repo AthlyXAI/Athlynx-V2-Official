@@ -39,7 +39,9 @@ export default function BetaBanner() {
           letterSpacing: "0.02em",
         }}
       >
-        We are currently working on login &mdash; this is a <span style={{ color: "#f59e0b" }}>look &amp; feel beta</span>. Full launch coming soon.
+        We are currently working on login &mdash; this is a{" "}
+        <span style={{ color: "#fcd34d" }}>look &amp; feel beta</span>.{" "}
+        Full launch coming soon.
       </span>
       <span
         style={{
@@ -48,7 +50,7 @@ export default function BetaBanner() {
           fontWeight: 500,
         }}
       >
-        Thank you for your patience. 🏆
+        Thank you for your patience.
       </span>
     </div>
   );
