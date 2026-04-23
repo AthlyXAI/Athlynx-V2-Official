@@ -138,15 +138,15 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
   const [onboardingDismissed, setOnboardingDismissed] = useState(false);
   const { user, loading: authLoading } = useAuth();
 
-  // Check onboarding status from DB
-  const { data: onboardingStatus, isLoading: onboardingLoading } = trpc.profile.getOnboardingStatus.useQuery(undefined, { enabled: !!user });
+  // Check onboarding status from localStorage (Okta auth - no backend session needed)
   useEffect(() => {
-    if (user && !authLoading && !onboardingLoading && !onboardingDismissed) {
-      if (onboardingStatus && !onboardingStatus.completed) {
+    if (user && !authLoading && !onboardingDismissed) {
+      const completed = localStorage.getItem(`onboarding_done_${user.id}`);
+      if (!completed) {
         setShowOnboarding(true);
       }
     }
-  }, [user, authLoading, onboardingLoading, onboardingStatus, onboardingDismissed]);
+  }, [user, authLoading, onboardingDismissed]);
 
   const displayName = user?.name || "Athlete";
   const initials = displayName.split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase();
@@ -171,7 +171,11 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
   return (
     <div className="min-h-screen bg-[#1a3a8f] text-white">
       {showOnboarding && user && (
-        <AIOnboarding onComplete={() => { setShowOnboarding(false); setOnboardingDismissed(true); }} />
+        <AIOnboarding onComplete={(_data: Record<string, string>) => {
+          localStorage.setItem(`onboarding_done_${user.id}`, "1");
+          setShowOnboarding(false);
+          setOnboardingDismissed(true);
+        }} />
       )}
       {/* Top announcement bar */}
       <div className="bg-[#1e4bb8] text-center text-xs py-1 tracking-widest font-semibold text-blue-200">

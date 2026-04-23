@@ -17,6 +17,7 @@ import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
 import AuthCallback from "./pages/AuthCallback";
+import Onboarding from "./pages/Onboarding";
 import ForgotPassword from "./pages/ForgotPassword";
 import EarlyAccess from "./pages/EarlyAccess";
 import EarlyAccessUpdated from "./pages/EarlyAccessUpdated";
@@ -176,6 +177,7 @@ function Router() {
       <Route path="/signin" component={SignIn} />
       <Route path="/login" component={SignIn} />
       <Route path="/callback" component={AuthCallback} />
+      <Route path="/onboarding" component={Onboarding} />
       <Route path="/forgot-password" component={ForgotPassword} />
       <Route path="/success" component={Success} />
       <Route path="/feed" component={Feed} />

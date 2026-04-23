@@ -1,6 +1,10 @@
-import { trpc } from "@/lib/trpc";
-import { TRPCClientError } from "@trpc/client";
-import { useCallback, useEffect, useMemo } from "react";
+/**
+ * ATHLYNX — Unified Auth Hook
+ * Uses Okta/Auth0 as the single source of truth for authentication.
+ * Works on Vercel static deployment — no backend session cookie required.
+ */
+import { useAuth0 } from "@auth0/auth0-react";
+import { useCallback } from "react";
 
 type UseAuthOptions = {
   redirectOnUnauthenticated?: boolean;
@@ -10,71 +14,67 @@ type UseAuthOptions = {
 export function useAuth(options?: UseAuthOptions) {
   const { redirectOnUnauthenticated = false, redirectPath = "/signin" } =
     options ?? {};
-  const utils = trpc.useUtils();
 
-  const meQuery = trpc.auth.me.useQuery(undefined, {
-    retry: false,
-    refetchOnWindowFocus: false,
-  });
+  const {
+    isAuthenticated,
+    isLoading,
+    user: auth0User,
+    loginWithRedirect,
+    logout: auth0Logout,
+    getAccessTokenSilently,
+    getIdTokenClaims,
+  } = useAuth0();
 
-  const logoutMutation = trpc.auth.logout.useMutation({
-    onSuccess: () => {
-      utils.auth.me.setData(undefined, null);
+  const login = useCallback(
+    (returnTo?: string) => {
+      const target = returnTo ?? window.location.pathname;
+      sessionStorage.setItem("auth_return_to", target);
+      loginWithRedirect({
+        appState: { returnTo: target },
+      });
     },
-  });
+    [loginWithRedirect]
+  );
 
-  const logout = useCallback(async () => {
-    try {
-      await logoutMutation.mutateAsync();
-    } catch (error: unknown) {
-      if (
-        error instanceof TRPCClientError &&
-        error.data?.code === "UNAUTHORIZED"
-      ) {
-        return;
+  const logout = useCallback(() => {
+    auth0Logout({
+      logoutParams: {
+        returnTo: window.location.origin,
+      },
+    });
+  }, [auth0Logout]);
+
+  // Redirect unauthenticated users if requested
+  if (
+    redirectOnUnauthenticated &&
+    !isLoading &&
+    !isAuthenticated &&
+    typeof window !== "undefined" &&
+    window.location.pathname !== redirectPath
+  ) {
+    window.location.href = redirectPath;
+  }
+
+  const user = isAuthenticated && auth0User
+    ? {
+        id: auth0User.sub ?? "",
+        name: auth0User.name ?? auth0User.nickname ?? auth0User.email ?? "",
+        email: auth0User.email ?? "",
+        avatarUrl: auth0User.picture ?? "",
+        openId: auth0User.sub ?? "",
+        raw: auth0User,
       }
-      throw error;
-    } finally {
-      utils.auth.me.setData(undefined, null);
-      await utils.auth.me.invalidate();
-      window.location.href = "/signin";
-    }
-  }, [logoutMutation, utils]);
-
-  const state = useMemo(() => {
-    return {
-      user: meQuery.data ?? null,
-      loading: meQuery.isLoading || logoutMutation.isPending,
-      error: meQuery.error ?? logoutMutation.error ?? null,
-      isAuthenticated: Boolean(meQuery.data),
-    };
-  }, [
-    meQuery.data,
-    meQuery.error,
-    meQuery.isLoading,
-    logoutMutation.error,
-    logoutMutation.isPending,
-  ]);
-
-  useEffect(() => {
-    if (!redirectOnUnauthenticated) return;
-    if (meQuery.isLoading || logoutMutation.isPending) return;
-    if (state.user) return;
-    if (typeof window === "undefined") return;
-    if (window.location.pathname === redirectPath) return;
-
-    window.location.href = redirectPath
-  }, [
-    redirectOnUnauthenticated,
-    redirectPath,
-    logoutMutation.isPending,
-    meQuery.isLoading,
-    state.user,
-  ]);
+    : null;
 
   return {
-    ...state,
-    refresh: () => meQuery.refetch(),
+    user,
+    loading: isLoading,
+    isAuthenticated,
+    error: null,
+    login,
     logout,
+    refresh: () => {},
+    getAccessTokenSilently,
+    getIdTokenClaims,
   };
 }

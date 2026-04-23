@@ -75,6 +75,10 @@ export default function AuthCallback() {
       handleRedirectCallback()
         .then((result) => {
           console.log("[AuthCallback] handleRedirectCallback success", result);
+          // Store appState.returnTo from Lily's recommendation
+          if (result?.appState?.returnTo) {
+            sessionStorage.setItem("auth_return_to", result.appState.returnTo);
+          }
           // Auth0 will update isAuthenticated — the second useEffect handles sync
         })
         .catch((err) => {
