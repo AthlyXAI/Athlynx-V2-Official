@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { useAuth0 } from "@auth0/auth0-react";
+import OktaButton from "../components/OktaButton";
 
 const CDN = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/qUknrdlyPrUZJQYo.png";
 
@@ -13,18 +13,6 @@ const FEATURES = [
 ];
 
 export default function SignIn() {
-  const { loginWithRedirect } = useAuth0();
-
-  // Lily Wisecarver (Okta/Auth0) recommended fix — wrap in try/catch, use appState.returnTo
-  const handleLogin = async () => {
-    try {
-      await loginWithRedirect({
-        appState: { returnTo: window.location.pathname },
-      });
-    } catch (error) {
-      console.error("Auth0 Login Error:", error);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-[#050c1a] flex flex-col overflow-hidden">
@@ -86,16 +74,8 @@ export default function SignIn() {
                 Sign in with your Okta account
               </p>
 
-              {/* Okta OAuth — single login button */}
-              <button
-                onClick={handleLogin}
-                className="w-full flex items-center justify-center gap-3 bg-[#00c2ff] hover:bg-[#00a8e0] text-white font-bold py-3.5 px-6 rounded-xl active:scale-[0.98] transition-all duration-150 shadow-lg"
-              >
-                <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="white">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
-                </svg>
-                Continue with Okta
-              </button>
+              {/* Okta OAuth — single universal button */}
+              <OktaButton label="Continue with Okta" returnTo="/feed" screenHint="login" className="w-full flex items-center justify-center gap-3 bg-[#00c2ff] hover:bg-[#00a8e0] text-white font-bold py-3.5 px-6 rounded-xl active:scale-[0.98] transition-all duration-150 shadow-lg" />
 
               {/* Terms */}
               <p className="text-center text-white/25 text-xs mt-5 leading-relaxed">

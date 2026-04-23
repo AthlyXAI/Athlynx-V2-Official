@@ -2,6 +2,7 @@
 import { Link } from "wouter";
 import { useState, useEffect, useRef } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import OktaButton from "../components/OktaButton";
 
 function EnterPortalToggle() {
   const [visible, setVisible] = useState(false);
@@ -12,7 +13,7 @@ function EnterPortalToggle() {
   }, []);
   return (
     <a
-      href="/signin"
+      href="/signup"
       className={`fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-cyan-500 hover:to-blue-600 text-white font-black text-sm px-5 py-3.5 rounded-2xl shadow-2xl shadow-blue-500/40 transition-all duration-300 hover:scale-105 active:scale-95 ${
         visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
       }`}
@@ -333,24 +334,9 @@ function HeroVideo({ src }: { src: string }) {
 }
 
 function HeroSignupForm() {
-  const { loginWithRedirect } = useAuth0();
-  const handleLogin = async () => {
-    try {
-      await loginWithRedirect({
-        appState: { returnTo: window.location.pathname },
-      });
-    } catch (error) {
-      console.error("Auth0 Login Error:", error);
-    }
-  };
   return (
     <div className="flex flex-col gap-3">
-      <button
-        onClick={handleLogin}
-        className="w-full flex items-center justify-center gap-3 bg-[#007DC1] hover:bg-[#006aaa] text-white font-bold text-base py-4 rounded-2xl transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98]"
-      >
-        Sign In with Okta
-      </button>
+      <OktaButton label="Sign Up Free with Okta" returnTo="/onboarding" screenHint="signup" />
       <p className="text-blue-600/70 text-xs text-center">Secured by Okta · A Dozier Holdings Group Company</p>
     </div>
   );
@@ -532,7 +518,7 @@ export default function Home() {
           </h1>
           <p className="text-blue-200 text-lg mt-2 drop-shadow font-semibold">One platform. Every tool. Unlimited potential.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6">
-            <a href="/signin" className="inline-block bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-cyan-500 hover:to-blue-600 text-white font-black text-lg px-8 py-3 rounded-xl transition-all shadow-xl hover:scale-105">
+            <a href="/signup" className="inline-block bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-cyan-500 hover:to-blue-600 text-white font-black text-lg px-8 py-3 rounded-xl transition-all shadow-xl hover:scale-105">
               ENTER THE PORTAL →
             </a>
             <Link href="/demo" className="inline-block bg-red-500 hover:bg-red-400 text-black font-black text-lg px-8 py-3 rounded-xl transition-all shadow-xl hover:scale-105">
@@ -543,17 +529,42 @@ export default function Home() {
         </div>
       </section>
 
-      {/* === SIGN UP CTA — Above the fold, immediate access === */}
-      <section className="bg-gradient-to-b from-[#060e24] to-[#0d1b3e] py-10 px-4 border-b border-blue-900">
-        <div className="max-w-lg mx-auto text-center">
+      {/* === FOUR ACCESS PORTALS — ONE PLACE === */}
+      <section className="bg-gradient-to-b from-[#060e24] to-[#0d1b3e] py-12 px-4 border-b border-blue-900">
+        <div className="max-w-2xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-red-500/20 border border-red-500 text-red-300 text-xs font-black px-4 py-1.5 rounded-full mb-4 tracking-widest">
             <span className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></span>
             FREE 7-DAY ACCESS — NO CREDIT CARD
           </div>
-          <h2 className="text-3xl md:text-4xl font-black text-white mb-2">JOIN ATHLYNX FREE</h2>
-          <p className="text-blue-300 text-base mb-6">Get instant access to 20+ athlete tools — NIL Portal, AI Trainer, Transfer Portal, Messenger &amp; more.</p>
-          <HeroSignupForm />
-          <p className="text-blue-500 text-xs mt-3">Already have an account? <Link href="/signin" className="text-blue-300 underline">Sign In</Link></p>
+          <h2 className="text-3xl md:text-4xl font-black text-white mb-2">ACCESS THE PLATFORM</h2>
+          <p className="text-blue-300 text-base mb-8">Choose your portal below. All secured by Okta.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Users — Athletes, Parents, Coaches, Brands */}
+            <a href="/signup" className="flex flex-col items-center gap-2 bg-[#007DC1] hover:bg-[#006aaa] text-white font-bold text-base py-5 px-4 rounded-2xl transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98] border border-blue-400/30">
+              <span className="text-2xl">🏆</span>
+              <span className="font-black text-lg">Users</span>
+              <span className="text-blue-200 text-xs font-normal">Athletes · Parents · Coaches · Brands</span>
+            </a>
+            {/* Founders / Investors */}
+            <a href="/investor-hub" className="flex flex-col items-center gap-2 bg-[#1a3a8f] hover:bg-[#1e4aaa] text-white font-bold text-base py-5 px-4 rounded-2xl transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98] border border-blue-400/30">
+              <span className="text-2xl">💼</span>
+              <span className="font-black text-lg">Founders</span>
+              <span className="text-blue-200 text-xs font-normal">Investors · Partners · DHG Team</span>
+            </a>
+            {/* Portal — White Label / Partner */}
+            <a href="/portal" className="flex flex-col items-center gap-2 bg-[#0d2151] hover:bg-[#112d6b] text-white font-bold text-base py-5 px-4 rounded-2xl transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98] border border-blue-400/30">
+              <span className="text-2xl">🔗</span>
+              <span className="font-black text-lg">Portal</span>
+              <span className="text-blue-200 text-xs font-normal">White Label · Partner Access</span>
+            </a>
+            {/* CRM — Internal Team */}
+            <a href="/crm" className="flex flex-col items-center gap-2 bg-[#0a1628] hover:bg-[#0d1e3a] text-white font-bold text-base py-5 px-4 rounded-2xl transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98] border border-blue-400/30">
+              <span className="text-2xl">⚙️</span>
+              <span className="font-black text-lg">CRM</span>
+              <span className="text-blue-200 text-xs font-normal">Internal Team · Admin</span>
+            </a>
+          </div>
+          <p className="text-blue-700 text-xs text-center mt-5">Secured by Okta · A Dozier Holdings Group Company · No credit card required</p>
         </div>
       </section>
 
