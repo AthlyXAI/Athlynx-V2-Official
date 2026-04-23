@@ -1,5 +1,5 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "wouter";
+import { useAuth } from "@/hooks/useAuth";
 
 const CDN = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/qUknrdlyPrUZJQYo.png";
 
@@ -13,16 +13,10 @@ const FEATURES = [
 ];
 
 export default function SignIn() {
-  const { loginWithRedirect } = useAuth0();
+  const { login } = useAuth();
 
   const handleLogin = () => {
-    loginWithRedirect({
-      authorizationParams: {
-        redirect_uri: "https://athlynx.ai/callback",
-        screen_hint: "signup",
-      },
-      appState: { returnTo: "/feed" },
-    });
+    login("/feed");
   };
 
   return (
@@ -46,7 +40,7 @@ export default function SignIn() {
       <header className="relative z-10 flex items-center justify-between px-6 py-4 border-b border-white/5">
         <Link href="/">
           <div className="flex items-center gap-3 cursor-pointer">
-            <img src="/logos/dhg-crab-logo.png" alt="DHG" className="w-9 h-9 rounded-lg" />
+            <img src="/logos/athlynx-main-logo.png" alt="ATHLYNX" className="w-9 h-9 rounded-lg" />
             <div>
               <div className="text-white font-black text-lg tracking-tight leading-none">ATHLYNX</div>
               <div className="text-[#00c2ff] text-[10px] font-semibold tracking-widest uppercase">The Athlete's Playbook</div>
