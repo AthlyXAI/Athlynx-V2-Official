@@ -154,7 +154,7 @@ export default function SignIn() {
             </div>
 
             <p className="text-white/20 text-[10px] text-center mt-4">
-              Secured by Okta / Auth0 · A Dozier Holdings Group Company · Houston, TX
+              Secured by Auth0 · A Dozier Holdings Group Company · Houston, TX
             </p>
           </div>
         </div>

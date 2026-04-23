@@ -14,7 +14,7 @@ export default function LoginButton({
   children = "LOGIN"
 }: LoginButtonProps) {
   const handleLogin = () => {
-    window.location.href = '/signin';;
+    window.location.href = '/signin';
   };
   
   return (
@@ -44,7 +44,7 @@ export default function LoginButton({
 export function useLoginModal() {
   return {
     showLogin: false,
-    openLogin: () => { window.location.href = '/signin';; },
+    openLogin: () => { window.location.href = '/signin'; },
     closeLogin: () => {},
     LoginModal: () => null
   };

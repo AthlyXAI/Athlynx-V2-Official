@@ -29,7 +29,7 @@ export default function Pricing() {
 
   const handleSubscribe = async (planId: string) => {
     if (!user) {
-      window.location.href = '/signin';;
+      window.location.href = '/signin';
       return;
     }
     setLoadingPlan(planId);
@@ -52,7 +52,7 @@ export default function Pricing() {
 
   const handleBuyCredits = async (packId: string) => {
     if (!user) {
-      window.location.href = '/signin';;
+      window.location.href = '/signin';
       return;
     }
     setLoadingPlan(packId);

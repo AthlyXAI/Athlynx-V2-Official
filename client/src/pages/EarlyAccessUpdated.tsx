@@ -25,7 +25,7 @@ export default function EarlyAccess() {
     const message = params.get('message');
     if (error) {
       setAuthError(message || 'Login failed. Please try email login.');
-      window.location.href = '/signin';;
+      window.location.href = '/signin';
       window.history.replaceState({}, '', '/');
     }
   }, []);
