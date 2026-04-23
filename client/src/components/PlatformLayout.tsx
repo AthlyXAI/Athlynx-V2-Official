@@ -139,11 +139,17 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
   const { user, loading: authLoading } = useAuth();
 
   // Check onboarding status from localStorage (Okta auth - no backend session needed)
+  // Use email as stable key since Auth0 sub may differ from DB numeric ID
   useEffect(() => {
     if (user && !authLoading && !onboardingDismissed) {
-      const completed = localStorage.getItem(`onboarding_done_${user.id}`);
-      if (!completed) {
-        setShowOnboarding(true);
+      const key = `onboarding_done_${user.email || user.id}`;
+      const completed = localStorage.getItem(key);
+      // Also check legacy key by id
+      const legacyCompleted = localStorage.getItem(`onboarding_done_${user.id}`);
+      if (!completed && !legacyCompleted) {
+        // Small delay so it doesn't flash on every page load
+        const timer = setTimeout(() => setShowOnboarding(true), 1500);
+        return () => clearTimeout(timer);
       }
     }
   }, [user, authLoading, onboardingDismissed]);
@@ -172,6 +178,7 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
     <div className="min-h-screen bg-[#1a3a8f] text-white">
       {showOnboarding && user && (
         <AIOnboarding onComplete={(_data: Record<string, string>) => {
+          localStorage.setItem(`onboarding_done_${user.email || user.id}`, "1");
           localStorage.setItem(`onboarding_done_${user.id}`, "1");
           setShowOnboarding(false);
           setOnboardingDismissed(true);
@@ -393,15 +400,15 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
                   Your 7-day free trial has ended. Choose a plan to keep full access to all 20+ ATHLYNX apps — NIL Portal, Transfer Portal, Diamond Grind, Warriors Playbook, and more.
                 </p>
                 <div className="grid grid-cols-3 gap-3 mb-6">
-                  {([{name:"STARTER",price:"$29",color:"#0066ff"},{name:"PRO",price:"$79",color:"#00c2ff",popular:true},{name:"ELITE",price:"$149",color:"#1e3a8a"}] as any[]).map((p: any) => (
-                    <Link key={p.name} href="/billing" className="rounded-xl border p-3 hover:scale-105 transition-all cursor-pointer block" style={{borderColor: p.color + '44', backgroundColor: p.color + '11'}}>
+                  {([{name:"STARTER",price:"$9.99",color:"#0066ff",id:"athlete_starter"},{name:"PRO",price:"$49.99",color:"#00c2ff",popular:true,id:"athlete_pro"},{name:"ELITE",price:"$99.99",color:"#7c3aed",id:"athlete_elite"}] as any[]).map((p: any) => (
+                    <Link key={p.name} href={`/pricing?plan=${p.id}`} className="rounded-xl border p-3 hover:scale-105 transition-all cursor-pointer block" style={{borderColor: p.color + '44', backgroundColor: p.color + '11'}}>
                       {p.popular && <div className="text-[9px] font-black text-red-400 mb-1">POPULAR</div>}
                       <div className="font-black text-white text-sm">{p.name}</div>
                       <div className="font-black text-lg" style={{color: p.color}}>{p.price}<span className="text-xs text-blue-400">/mo</span></div>
                     </Link>
                   ))}
                 </div>
-                <Link href="/billing" className="block w-full bg-gradient-to-r from-red-400 to-red-500 hover:from-red-300 hover:to-red-400 text-black font-black text-lg py-3 rounded-xl transition-all shadow-xl hover:scale-105">
+                <Link href="/pricing" className="block w-full bg-gradient-to-r from-red-400 to-red-500 hover:from-red-300 hover:to-red-400 text-black font-black text-lg py-3 rounded-xl transition-all shadow-xl hover:scale-105">
                   CHOOSE YOUR PLAN →
                 </Link>
                 <div className="mt-4 text-blue-400 text-xs">No contracts. Cancel anytime. Instant access.</div>

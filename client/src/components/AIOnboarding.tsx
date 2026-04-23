@@ -237,7 +237,19 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
   const saveOnboarding = trpc.profile.saveOnboarding.useMutation({
     onSuccess: () => {
       setStep("done");
-      onComplete(answers);
+      // Auto-redirect to feed after 2 seconds
+      setTimeout(() => {
+        onComplete(answers);
+        window.location.href = "/feed";
+      }, 2000);
+    },
+    onError: () => {
+      // Even if backend save fails, still complete onboarding
+      setStep("done");
+      setTimeout(() => {
+        onComplete(answers);
+        window.location.href = "/feed";
+      }, 2000);
     },
   });
 
@@ -353,7 +365,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
   }
 
   // ── Questions (Chat UI) ──
-  if (step === "questions") {
+  if (step === "questions" && step !== "done") {
     return (
       <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end md:items-center justify-center p-4">
         <div className="bg-[#0d1a3a] border border-blue-700/50 rounded-3xl w-full max-w-lg shadow-2xl shadow-blue-900/50 flex flex-col max-h-[90vh]">
@@ -483,13 +495,11 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
         <div className="text-6xl mb-4">🎉</div>
         <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
         <h2 className="text-2xl font-black text-white mb-2">You're In!</h2>
-        <p className="text-blue-300 mb-6">Your ATHLYNX profile is set up. Welcome to the platform — let's get to work.</p>
-        <Button
-          onClick={() => onComplete(answers)}
-          className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black py-3 rounded-xl text-lg"
-        >
-          Let's Go! <ArrowRight className="ml-2 w-5 h-5" />
-        </Button>
+        <p className="text-blue-300 mb-4">Your ATHLYNX profile is set up. Welcome to the platform — let's get to work.</p>
+        <div className="flex items-center justify-center gap-2 text-blue-400 text-sm">
+          <div className="w-4 h-4 border-2 border-blue-400 border-t-transparent rounded-full animate-spin" />
+          Taking you to your feed...
+        </div>
       </div>
     </div>
   );

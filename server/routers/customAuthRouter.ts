@@ -314,4 +314,26 @@ export const customAuthRouter = router({
    * Get current user
    */
   me: publicProcedure.query((opts) => opts.ctx.user),
+
+  /** Get DB user data (trial, subscription, role) for the authenticated Okta user */
+  getDbUser: publicProcedure
+    .input(z.object({ openIdSub: z.string() }))
+    .query(async ({ input }) => {
+      const db = await getDb();
+      if (!db) return null;
+      const openId = `auth0_${input.openIdSub.replace(/[^a-zA-Z0-9_-]/g, "_")}`;
+      const result = await db.select({
+        id: users.id,
+        name: users.name,
+        email: users.email,
+        role: users.role,
+        trialEndsAt: users.trialEndsAt,
+        stripeCustomerId: users.stripeCustomerId,
+        stripeSubscriptionId: users.stripeSubscriptionId,
+        stripePlanId: users.stripePlanId,
+        avatarUrl: users.avatarUrl,
+      }).from(users).where(eq(users.openId, openId)).limit(1);
+      if (result.length === 0) return null;
+      return result[0];
+    }),
 });
