@@ -69,9 +69,9 @@ const trpcClient = trpc.createClient({
   ],
 });
 
-// Auth0 config — hardcoded to prevent stale cache override (fixed 2026-04-22)
-const auth0Domain = "dev-oy08pgzo48x3u117.us.auth0.com";
-const auth0ClientId = "MOEhwW3HVf9pp3SBVeX1Dlsrdum6GYmR"; // production app — AthlynxChad
+// Auth0 config — AthlynxAI-2026-14 tenant (updated 2026-04-23)
+const auth0Domain = "dev-8yqdmei0v8kc3qqy.us.auth0.com";
+const auth0ClientId = "eDJT34flTy4oOq1cie6ItFubLDPHOrcI"; // production app — AthlynxAI-2026-14
 const isCallbackRoute = window.location.pathname === "/callback";
 
 createRoot(document.getElementById("root")!).render(
