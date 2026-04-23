@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
+import BetaBanner from "@/components/BetaBanner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import SEOManager from "@/components/SEOManager";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -367,6 +368,7 @@ export default function App() {
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
+          <BetaBanner />
           <SEOManager />
           <ScrollToTop />
           <Router />
