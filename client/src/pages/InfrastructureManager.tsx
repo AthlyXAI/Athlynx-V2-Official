@@ -31,6 +31,19 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { trpc } from "@/lib/trpc";
+
+// localStorage helpers — clusters/jobs/hardware are admin-managed state
+// persisted locally until a dedicated DB table is added
+function loadOrDefault<T>(key: string, fallback: T[]): T[] {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? (JSON.parse(raw) as T[]) : fallback;
+  } catch { return fallback; }
+}
+function persist<T>(key: string, data: T[]): void {
+  localStorage.setItem(key, JSON.stringify(data));
+}
 
 // GPU Types and Pricing
 const GPU_TYPES = {
@@ -40,8 +53,7 @@ const GPU_TYPES = {
   GB200: { name: "NVIDIA GB200 NVL72", memory: 288, price: 5.00, color: "bg-red-500" },
 };
 
-// Mock data for clusters
-const mockClusters = [
+const defaultClusters = [
   {
     id: "dhg-cluster-athlynx-prod",
     name: "ATHLYNX Production",
@@ -80,8 +92,7 @@ const mockClusters = [
   },
 ];
 
-// Mock data for jobs
-const mockJobs = [
+const defaultJobs = [
   {
     id: "dhg-job-nil-v3",
     name: "NIL Valuation Model v3 Training",
@@ -128,8 +139,7 @@ const mockJobs = [
   },
 ];
 
-// Mock hardware orders
-const mockHardwareOrders = [
+const defaultHardwareOrders = [
   {
     id: "ICC-ORDER-001",
     item: "8x NVIDIA H100 Server",
@@ -150,8 +160,7 @@ const mockHardwareOrders = [
   },
 ];
 
-// Mock colocation contracts
-const mockColocation = [
+const defaultColocation = [
   {
     id: "ICC-COLO-001",
     plan: "Enterprise Colocation",
@@ -166,8 +175,8 @@ const mockColocation = [
 
 export default function InfrastructureManager() {
   const [activeTab, setActiveTab] = useState("overview");
-  const [clusters, setClusters] = useState(mockClusters);
-  const [jobs, setJobs] = useState(mockJobs);
+  const [clusters, setClusters] = useState(() => loadOrDefault("athlynx_clusters", defaultClusters));
+  const [jobs, setJobs] = useState(() => loadOrDefault("athlynx_jobs", defaultJobs));
   const [isCreatingCluster, setIsCreatingCluster] = useState(false);
   const [newCluster, setNewCluster] = useState({
     name: "",
@@ -178,12 +187,29 @@ export default function InfrastructureManager() {
   });
   const { toast } = useToast();
 
+  // ── Real tRPC data ──────────────────────────────────────────────────────────
+  const { data: platformStats } = trpc.data.getPlatformStats.useQuery();
+  const { data: dataSources } = trpc.data.getSources.useQuery();
+
+  // Persisted admin-managed lists
+  const [colocation] = useState(() => loadOrDefault("athlynx_colo", defaultColocation));
+  const [hardwareOrders] = useState(() => loadOrDefault("athlynx_hardware", defaultHardwareOrders));
+
+  const setClustersAndPersist = (updated: typeof clusters) => {
+    setClusters(updated);
+    persist("athlynx_clusters", updated);
+  };
+  const setJobsAndPersist = (updated: typeof jobs) => {
+    setJobs(updated);
+    persist("athlynx_jobs", updated);
+  };
+
   // Calculate totals
-  const totalGpus = clusters.reduce((sum, c) => sum + c.totalGpus, 0);
-  const runningGpus = clusters.reduce((sum, c) => sum + c.runningGpus, 0);
-  const monthlyCloudCost = clusters.reduce((sum, c) => sum + c.monthlyEstimate, 0);
-  const monthlyColoCost = mockColocation.reduce((sum, c) => sum + c.monthlyPrice, 0);
-  const hardwareCapex = mockHardwareOrders.reduce((sum, o) => sum + o.totalPrice, 0);
+  const totalGpus = clusters.reduce((sum: number, c: any) => sum + c.totalGpus, 0);
+  const runningGpus = clusters.reduce((sum: number, c: any) => sum + c.runningGpus, 0);
+  const monthlyCloudCost = clusters.reduce((sum: number, c: any) => sum + c.monthlyEstimate, 0);
+  const monthlyColoCost = colocation.reduce((sum: number, c: any) => sum + c.monthlyPrice, 0);
+  const hardwareCapex = hardwareOrders.reduce((sum: number, o: any) => sum + o.totalPrice, 0);
 
   const handleCreateCluster = () => {
     const gpuInfo = GPU_TYPES[newCluster.gpuType as keyof typeof GPU_TYPES];
@@ -202,7 +228,7 @@ export default function InfrastructureManager() {
       createdAt: new Date().toISOString().split('T')[0],
     };
     
-    setClusters([...clusters, cluster]);
+    setClustersAndPersist([...clusters, cluster]);
     setIsCreatingCluster(false);
     setNewCluster({ name: "", gpuType: "H100", gpuCount: 8, region: "us-east-1", provider: "nebius" });
     
@@ -213,7 +239,7 @@ export default function InfrastructureManager() {
   };
 
   const handleStartCluster = (clusterId: string) => {
-    setClusters(clusters.map(c => 
+    setClustersAndPersist(clusters.map((c: any) => 
       c.id === clusterId ? { ...c, runningGpus: c.totalGpus, status: "running" } : c
     ));
     toast({
@@ -223,7 +249,7 @@ export default function InfrastructureManager() {
   };
 
   const handleStopCluster = (clusterId: string) => {
-    setClusters(clusters.map(c => 
+    setClustersAndPersist(clusters.map((c: any) => 
       c.id === clusterId ? { ...c, runningGpus: 0, status: "stopped" } : c
     ));
     toast({
@@ -635,6 +661,57 @@ export default function InfrastructureManager() {
                 </CardContent>
               </Card>
 
+              {/* Live Platform Stats from DB */}
+              <Card className="bg-slate-900/50 border-slate-800">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Database className="h-5 w-5 text-purple-400" />
+                    Live Platform Stats
+                  </CardTitle>
+                  <CardDescription>Real-time data from the Athlynx database</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  {platformStats ? (
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="p-3 bg-slate-800/50 rounded-lg text-center">
+                        <p className="text-2xl font-bold text-purple-400">{platformStats.totalEvents.toLocaleString()}</p>
+                        <p className="text-xs text-slate-400">Total Events</p>
+                      </div>
+                      <div className="p-3 bg-slate-800/50 rounded-lg text-center">
+                        <p className="text-2xl font-bold text-cyan-400">{platformStats.aiEvents.toLocaleString()}</p>
+                        <p className="text-xs text-slate-400">AI Bot Events</p>
+                      </div>
+                      <div className="p-3 bg-slate-800/50 rounded-lg text-center">
+                        <p className="text-2xl font-bold text-green-400">{platformStats.robotEvents.toLocaleString()}</p>
+                        <p className="text-xs text-slate-400">Robot Events</p>
+                      </div>
+                      <div className="p-3 bg-slate-800/50 rounded-lg text-center">
+                        <p className="text-2xl font-bold text-blue-400">{platformStats.wearableEvents.toLocaleString()}</p>
+                        <p className="text-xs text-slate-400">Wearable Events</p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="h-24 bg-slate-800/50 rounded-lg animate-pulse" />
+                  )}
+                  {dataSources && dataSources.length > 0 && (
+                    <div className="mt-4">
+                      <p className="text-xs text-slate-400 mb-2 uppercase tracking-wider">Registered Data Sources</p>
+                      <div className="space-y-2">
+                        {dataSources.slice(0, 4).map((src: any) => (
+                          <div key={src.id} className="flex items-center justify-between text-sm">
+                            <span className="text-slate-300">{src.name}</span>
+                            <div className="flex items-center gap-2">
+                              <span className="text-slate-500 text-xs">{src.sourceType}</span>
+                              <div className={`w-2 h-2 rounded-full ${src.isActive ? "bg-green-500" : "bg-slate-600"}`} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
               {/* Quick Actions */}
               <Card className="bg-slate-900/50 border-slate-800">
                 <CardHeader>
@@ -797,7 +874,7 @@ export default function InfrastructureManager() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {mockHardwareOrders.map((order) => (
+                    {hardwareOrders.map((order) => (
                       <div key={order.id} className="p-4 bg-slate-800/50 rounded-lg">
                         <div className="flex items-center justify-between mb-2">
                           <span className="font-medium">{order.item}</span>
@@ -828,7 +905,7 @@ export default function InfrastructureManager() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {mockColocation.map((contract) => (
+                    {colocation.map((contract) => (
                       <div key={contract.id} className="p-4 bg-slate-800/50 rounded-lg">
                         <div className="flex items-center justify-between mb-2">
                           <span className="font-medium">{contract.plan}</span>
@@ -887,7 +964,7 @@ export default function InfrastructureManager() {
                   <p className="text-4xl font-bold">${monthlyColoCost.toLocaleString()}</p>
                   <p className="text-slate-400">per month</p>
                   <div className="mt-4 space-y-2">
-                    {mockColocation.map((c) => (
+                    {colocation.map((c) => (
                       <div key={c.id} className="flex justify-between text-sm">
                         <span className="text-slate-400">{c.plan}</span>
                         <span>${c.monthlyPrice.toLocaleString()}</span>
@@ -906,7 +983,7 @@ export default function InfrastructureManager() {
                   <p className="text-4xl font-bold">${hardwareCapex.toLocaleString()}</p>
                   <p className="text-slate-400">total invested</p>
                   <div className="mt-4 space-y-2">
-                    {mockHardwareOrders.map((o) => (
+                    {hardwareOrders.map((o) => (
                       <div key={o.id} className="flex justify-between text-sm">
                         <span className="text-slate-400">{o.item}</span>
                         <span>${o.totalPrice.toLocaleString()}</span>
