@@ -266,7 +266,7 @@ export default function DHG() {
             </div>
             <div className="flex items-center gap-3 text-blue-200">
               <span className="text-blue-500">✉️</span>
-              <a href="mailto:cdozier@dozierholdingsgroup.com" className="hover:text-white transition-colors">cdozier@dozierholdingsgroup.com</a>
+              <a href="mailto:cdozier14@dozierholdingsgroup.com.mx" className="hover:text-white transition-colors">cdozier14@dozierholdingsgroup.com.mx</a>
             </div>
             <div className="flex items-center gap-3 text-blue-200">
               <span className="text-blue-500">🌐</span>

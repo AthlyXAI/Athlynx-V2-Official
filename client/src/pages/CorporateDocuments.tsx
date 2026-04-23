@@ -220,7 +220,7 @@ export default function CorporateDocuments() {
             contact our corporate office to request official documents.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="mailto:corporate@dozierholdingsgroup.com" className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-6 py-3 rounded-lg font-medium flex items-center gap-2">
+            <a href="mailto:cdozier14@dozierholdingsgroup.com.mx" className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-6 py-3 rounded-lg font-medium flex items-center gap-2">
               <FileText className="w-5 h-5" />
               Request Documents
             </a>

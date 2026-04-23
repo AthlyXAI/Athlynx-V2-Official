@@ -10,7 +10,7 @@ const CHAD_CONTACT = {
   companies: "Dozier Holdings Group · ATHLYNX · Softmor Inc",
   address: "Laurel, Mississippi, USA",
   email: "cdozier14@dozierholdingsgroup.com.mx",
-  emailAlt: "cdozier@dozierholdingsgroup.com",
+  emailAlt: "cdozier14@dozierholdingsgroup.com.mx",
   linkedin: "https://linkedin.com/in/chaddozier",
   whatsapp: "https://wa.me/16015808869", // WhatsApp — no personal number exposed on page
   telegram: "https://t.me/chaddozier",

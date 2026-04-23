@@ -243,7 +243,7 @@ const STATS = [
 ];
 
 const LEADERSHIP = [
-  { name: "Chad A. Dozier", title: "Chairman & CEO", initials: "CD", bio: "Visionary founder and driving force behind the DHG empire. Chad built this company from a hospital room at Hope Lodge in Houston — turning adversity into an empire. Iron Sharpens Iron.", color: "from-blue-500 to-cyan-500", phone: "+1-601-498-5282", email: "cdozier@dozierholdingsgroup.com" },
+  { name: "Chad A. Dozier", title: "Chairman & CEO", initials: "CD", bio: "Visionary founder and driving force behind the DHG empire. Chad built this company from a hospital room at Hope Lodge in Houston — turning adversity into an empire. Iron Sharpens Iron.", color: "from-blue-500 to-cyan-500", phone: "+1-601-498-5282", email: "cdozier14@dozierholdingsgroup.com.mx" },
   { name: "Glenn Tse", title: "CFO & VP of Business Operations", initials: "GT", bio: "Co-founder and financial architect of DHG. Glenn's expertise in financial strategy and operations management has been instrumental in building DHG's diversified portfolio.", color: "from-emerald-500 to-teal-500", phone: "+1-832-620-6389", email: "gtse@dozierholdingsgroup.com" },
   { name: "Jimmy Boyd", title: "Chief Operating Officer", initials: "JB", bio: "Operations leader ensuring every DHG company runs at peak performance. Jimmy brings military-grade discipline and execution to the DHG portfolio.", color: "from-red-500 to-red-500", phone: "", email: "" },
   { name: "Lee Marshall", title: "VP of Sales & Partnerships", initials: "LM", bio: "Sales powerhouse driving revenue and strategic partnerships across the DHG portfolio. Lee brings elite-level relationship building and deal-closing expertise.", color: "from-blue-600 to-blue-600", phone: "", email: "" },
@@ -444,7 +444,7 @@ export default function DHGEmpire() {
               </div>
             </div>
             <div className="flex flex-wrap gap-6 text-sm">
-              <a href="mailto:cdozier@dozierholdingsgroup.com" className="flex items-center gap-2 text-blue-400 hover:text-white transition-colors"><Mail className="w-4 h-4" />cdozier@dozierholdingsgroup.com</a>
+              <a href="mailto:cdozier14@dozierholdingsgroup.com.mx" className="flex items-center gap-2 text-blue-400 hover:text-white transition-colors"><Mail className="w-4 h-4" />cdozier14@dozierholdingsgroup.com.mx</a>
               <a href="https://dozierholdingsgroup.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-400 hover:text-white transition-colors"><Globe className="w-4 h-4" />dozierholdingsgroup.com</a>
               <span className="flex items-center gap-2 text-white/40"><MapPin className="w-4 h-4" />Houston, TX</span>
             </div>

@@ -335,7 +335,7 @@ export default function Infrastructure() {
             Interested in partnering with us?
           </p>
           <button
-            onClick={() => window.open("mailto:chad@athlynx.ai?subject=Infrastructure Partnership Inquiry", "_blank")}
+            onClick={() => window.open("mailto:cdozier14@athlynx.ai?subject=Infrastructure Partnership Inquiry", "_blank")}
             className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-black px-8 py-4 rounded-2xl transition-all active:scale-[0.98] shadow-lg shadow-blue-500/30"
           >
             Contact Our Infrastructure Team

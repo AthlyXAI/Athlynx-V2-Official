@@ -7,7 +7,7 @@ const TEAM = [
     title: "Founder, CEO & Chairman",
     org: "ATHLYNX | Dozier Holdings Group",
     photo: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/bZsJVWxoyJljcAQQ.png",
-    emails: ["cdozier14@athlynx.ai", "cdozier14@dozierholdingsgroup.com.mx", "cdozier@dozierholdingsgroup.com"],
+    emails: ["cdozier14@athlynx.ai", "cdozier14@dozierholdingsgroup.com.mx", "cdozier14@dozierholdingsgroup.com.mx"],
     phone: null,
     bio: "Chad A. Dozier Sr. is the Founder, CEO & Chairman of Dozier Holdings Group and ATHLYNX. A visionary entrepreneur and athlete advocate, Chad co-founded DHG in Houston, TX in November 2024 after meeting Glenn Tse at Hope Lodge. His mission: give every athlete the tools, resources, and opportunities they need to succeed on and off the field.",
     tags: ["NIL Pioneer", "Tech Founder", "Athlete Advocate"],

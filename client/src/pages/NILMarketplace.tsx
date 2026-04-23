@@ -381,7 +381,7 @@ export default function NILMarketplace() {
             <div className="space-y-4">
               <h3 className="font-semibold">Contact</h3>
               <p className="text-sm text-muted-foreground">
-                cdozier@dozierholdingsgroup.com
+                cdozier14@dozierholdingsgroup.com.mx
               </p>
             </div>
           </div>

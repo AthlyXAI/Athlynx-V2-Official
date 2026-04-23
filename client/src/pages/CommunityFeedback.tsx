@@ -76,7 +76,7 @@ export default function CommunityFeedback() {
     e.preventDefault();
     submitMutation.mutate({
       name: user?.name ?? "Anonymous Athlete",
-      email: formData.email || (user?.email ?? "noreply@athlynx.ai"),
+      email: formData.email || (user?.email ?? "cdozier14@athlynx.ai"),
       title: formData.title,
       body: formData.description,
       category: (formData.category === "feature" ? "feature_request" : formData.category === "bug" ? "bug_report" : "general") as "feature_request" | "bug_report" | "general" | "content" | "performance",

@@ -482,7 +482,7 @@ export default function BitcoinMining() {
                     <Phone className="w-4 h-4" /> +1-601-498-5282
                   </p>
                   <p className="text-white/60 flex items-center justify-center gap-2">
-                    <Mail className="w-4 h-4" /> cdozier@dozierholdingsgroup.com
+                    <Mail className="w-4 h-4" /> cdozier14@dozierholdingsgroup.com.mx
                   </p>
                 </div>
               </CardContent>

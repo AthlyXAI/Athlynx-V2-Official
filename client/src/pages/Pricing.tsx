@@ -283,7 +283,7 @@ export default function Pricing() {
           <Button
             size="lg"
             className="bg-red-500 hover:bg-red-400 text-black font-black px-8"
-            onClick={() => window.open("mailto:chad@athlynx.ai?subject=Team+School+Billing+Inquiry", "_blank")}
+            onClick={() => window.open("mailto:cdozier14@athlynx.ai?subject=Team+School+Billing+Inquiry", "_blank")}
           >
             Get Team Pricing
           </Button>
@@ -300,7 +300,7 @@ export default function Pricing() {
           <Button
             size="lg"
             className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8"
-            onClick={() => window.open("mailto:chad@athlynx.ai?subject=Enterprise Inquiry", "_blank")}
+            onClick={() => window.open("mailto:cdozier14@athlynx.ai?subject=Enterprise Inquiry", "_blank")}
           >
             Request a Call
           </Button>

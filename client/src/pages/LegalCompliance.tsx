@@ -179,7 +179,7 @@ export default function LegalCompliance() {
     },
     {
       question: "How do I report a compliance concern?",
-      answer: "You can report concerns through our in-app reporting tool, email compliance@athlynx.com, or use our anonymous whistleblower hotline. All reports are investigated by our compliance team and, when appropriate, escalated to relevant authorities."
+      answer: "You can report concerns through our in-app reporting tool, email compliance@athlynx.ai, or use our anonymous whistleblower hotline. All reports are investigated by our compliance team and, when appropriate, escalated to relevant authorities."
     },
     {
       question: "Is ATHLYNX available internationally?",
@@ -666,7 +666,7 @@ export default function LegalCompliance() {
             </Link>
           </div>
           <p className="text-white/40 text-sm mt-6">
-            compliance@athlynx.com • legal@athlynx.com • privacy@athlynx.com
+            compliance@athlynx.ai • legal@athlynx.ai • privacy@athlynx.ai
           </p>
         </div>
       </section>

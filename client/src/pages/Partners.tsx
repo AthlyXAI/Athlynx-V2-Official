@@ -135,7 +135,7 @@ export default function Partners() {
             ATHLYNX™ is powered by the world's leading AI, cloud, and infrastructure partners — the same stack used by Fortune 500 companies and top-tier tech unicorns.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="mailto:cdozier@dozierholdingsgroup.com" className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl font-black text-lg flex items-center gap-2 hover:scale-105 transition-transform">
+            <a href="mailto:cdozier14@dozierholdingsgroup.com.mx" className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl font-black text-lg flex items-center gap-2 hover:scale-105 transition-transform">
               Become a Partner <ArrowRight className="w-5 h-5" />
             </a>
             <Link href="/investor-hub">
@@ -240,7 +240,7 @@ export default function Partners() {
                   </li>
                 ))}
               </ul>
-              <a href="mailto:cdozier@dozierholdingsgroup.com" className="bg-blue-700 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-bold inline-block transition-colors">
+              <a href="mailto:cdozier14@dozierholdingsgroup.com.mx" className="bg-blue-700 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-bold inline-block transition-colors">
                 Request API Access
               </a>
             </div>
@@ -328,7 +328,7 @@ export default function Partners() {
           <div className="bg-gradient-to-r from-red-600/10 to-red-600/10 border border-red-500/20 rounded-2xl p-8 text-center">
             <h3 className="text-2xl font-black text-white mb-3">Ready to Build Together?</h3>
             <p className="text-blue-300 mb-6 max-w-xl mx-auto">We are selectively onboarding founding partners across every category. First movers get preferred terms, co-branding, and revenue share.</p>
-            <a href="mailto:cdozier@dozierholdingsgroup.com?subject=Partnership%20Inquiry%20-%20ATHLYNX" className="inline-block bg-gradient-to-r from-red-500 to-red-500 text-black font-black px-10 py-4 rounded-xl text-lg hover:scale-105 transition-transform">
+            <a href="mailto:cdozier14@dozierholdingsgroup.com.mx?subject=Partnership%20Inquiry%20-%20ATHLYNX" className="inline-block bg-gradient-to-r from-red-500 to-red-500 text-black font-black px-10 py-4 rounded-xl text-lg hover:scale-105 transition-transform">
               Apply for Partnership →
             </a>
           </div>
@@ -344,8 +344,8 @@ export default function Partners() {
               Join the ecosystem that's building the future of athlete success. Whether you're an investor, technology partner, sports agency, or brand — there's a place for you here.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <a href="mailto:cdozier@dozierholdingsgroup.com" className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl font-black text-lg hover:scale-105 transition-transform">
-                Contact: cdozier@dozierholdingsgroup.com
+              <a href="mailto:cdozier14@dozierholdingsgroup.com.mx" className="bg-gradient-to-r from-blue-600 to-cyan-500 text-white px-8 py-4 rounded-xl font-black text-lg hover:scale-105 transition-transform">
+                Contact: cdozier14@dozierholdingsgroup.com.mx
               </a>
               <Link href="/investor-hub">
                 <button className="bg-white/10 border border-white/20 text-white px-8 py-4 rounded-xl font-black text-lg hover:bg-white/20 transition-colors">
