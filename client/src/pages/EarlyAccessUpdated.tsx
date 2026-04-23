@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation, Link } from "wouter";
 import UnifiedFooter from "@/components/UnifiedFooter";
-import { useAuth } from "@/_core/hooks/useAuth";
-import LoginButton from "@/components/LoginButton";
+import { trpc } from "@/lib/trpc";
 
 export default function EarlyAccess() {
   const [, setLocation] = useLocation();
-  const { user, loading } = useAuth();
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [role, setRole] = useState("");
@@ -32,14 +30,14 @@ export default function EarlyAccess() {
     }
   }, []);
 
-  // Static mock — vip router not yet implemented
-  const signupMutation = {
-    mutate: (_input: unknown) => {
-      const code = 'VIP-' + Math.random().toString(36).substring(2, 8).toUpperCase();
-      setLocation(`/success?code=${code}`);
+  const signupMutation = trpc.waitlist.join.useMutation({
+    onSuccess: (data) => {
+      setLocation(`/success?position=${data.position}`);
     },
-    isPending: false,
-  };
+    onError: (err) => {
+      console.error("Signup error:", err.message);
+    },
+  });
 
   useEffect(() => {
     document.title = "ATHLYNX - The Athlete's Playbook | VIP Early Access";

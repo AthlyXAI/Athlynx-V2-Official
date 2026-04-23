@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useAuth } from "@/_core/hooks/useAuth";
-import { Redirect, Link } from "wouter";
+import { useLocation, Link } from "wouter";
+import { trpc } from "@/lib/trpc";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -23,24 +23,18 @@ import {
 } from "lucide-react";
 
 export default function AdminDashboard() {
-  const { user, loading: authLoading } = useAuth();
+  const meQuery = trpc.auth.me.useQuery(undefined, { retry: false, refetchOnWindowFocus: false });
+  const [, navigate] = useLocation();
   const [activeTab, setActiveTab] = useState("overview");
 
-  // Static mock — admin router not yet implemented
-  const statsLoading = false;
-  const stats = { totalOrders: 89, totalRevenue: 284750, totalInquiries: 7, totalProducts: 42, totalPartners: 23, totalUsers: 1247 };
-  const inquiries: { id: number; name: string; email: string; subject: string; status: string; created_at: string }[] = [];
-  const orders: { id: number; user_email: string; total: string; status: string; created_at: string }[] = [];
-  const products: { id: number; name: string; price: string; category: string; stock: number }[] = [];
-  const partners: { id: number; company: string; name: string; accessLevel: string; status: string }[] = [];
-  const users: { id: number; email: string; name: string; role: string; created_at: string }[] = [];
-  const accessLogs: { id: number; partner_name: string; action: string; created_at: string }[] = [];
-  const updateInquiryStatus = { mutate: (_input: unknown) => {} };
-  const updateOrderStatus = { mutate: (_input: unknown) => {} };
-  const updatePartnerStatus = { mutate: (_input: unknown) => {} };
-  const updateUserRole = { mutate: (_input: unknown) => {} };
+  const statsQuery = trpc.admin.getStats.useQuery(undefined, { retry: false });
+  const usersQuery = trpc.admin.getUsers.useQuery(undefined, { retry: false });
+  const setUserRole = trpc.admin.setUserRole.useMutation({ onSuccess: () => usersQuery.refetch() });
+  const stats = statsQuery.data ?? { totalUsers: 0, newThisWeek: 0, newThisMonth: 0, withSubscription: 0, onTrial: 0 };
+  const statsLoading = statsQuery.isLoading;
+  const users = usersQuery.data ?? [];
 
-  if (authLoading) {
+  if (meQuery.isLoading) {
     return (
       <div className="min-h-screen bg-[#0a1628] flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-400"></div>
@@ -48,11 +42,9 @@ export default function AdminDashboard() {
     );
   }
 
-  if (!user) {
-    return <Redirect to="/" />;
-  }
+  if (!meQuery.data) { navigate("/signin"); return null; }
 
-  if (user.role !== "admin") {
+  if (meQuery.data?.role !== "admin") {
     return (
       <div className="min-h-screen bg-[#0a1628] flex items-center justify-center">
         <Card className="bg-[#0d2847] border-red-500/30 max-w-md">

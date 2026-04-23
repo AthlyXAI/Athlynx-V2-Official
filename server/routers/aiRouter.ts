@@ -323,4 +323,28 @@ Provide a detailed, actionable answer. Include specific next steps, timelines, a
       });
       return { advice: response.choices[0].message.content };
     }),
+
+  // AI TRAINING BOT — Personalized training plan generator
+  generateTrainingPlan: protectedProcedure
+    .input(z.object({
+      prompt: z.string(),
+    }))
+    .mutation(async ({ input }) => {
+      const response = await invokeLLM({
+        messages: [
+          {
+            role: "system",
+            content: `You are LYNX — the ATHLYNX AI Training Coach. You create detailed, personalized training plans for athletes of all sports and levels.
+Your plans are sport-specific, periodized, and include strength, conditioning, skill work, recovery, nutrition, and hydration guidance.
+Format your response with clear sections: Overview, Weekly Schedule (Mon-Sun), Nutrition & Hydration, Recovery Protocol, and Key Metrics to Track.
+Be motivating, specific, and actionable. The athlete should be able to start this plan immediately.`,
+          },
+          {
+            role: "user",
+            content: `Create a complete personalized training plan:\n${input.prompt}\n\nProvide a full, detailed, ready-to-execute training plan.`,
+          },
+        ],
+      });
+      return { result: response.choices[0].message.content };
+    }),
 });
