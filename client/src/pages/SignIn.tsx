@@ -1,7 +1,5 @@
-import { useEffect } from "react";
-import { Link, useLocation } from "wouter";
-import { useAuth } from "@/hooks/useAuth";
-import { trpc } from "@/lib/trpc";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "wouter";
 
 const CDN = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/qUknrdlyPrUZJQYo.png";
 
@@ -15,32 +13,17 @@ const FEATURES = [
 ];
 
 export default function SignIn() {
-  const { isAuthenticated, isLoading, login } = useAuth();
-  const [, navigate] = useLocation();
-  // Check backend session separately from Auth0 client-side state
-  const meQuery = trpc.auth.me.useQuery(undefined, { retry: false, refetchOnWindowFocus: false });
+  const { loginWithRedirect } = useAuth0();
 
-  useEffect(() => {
-    if (isLoading || meQuery.isLoading) return;
-    if (meQuery.data) {
-      // Backend session exists — go to feed
-      navigate("/feed");
-    } else if (isAuthenticated) {
-      // Auth0 authenticated but no backend session — go through /callback to sync
-      navigate("/callback");
-    }
-  }, [isAuthenticated, isLoading, navigate, meQuery.data, meQuery.isLoading]);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-[#050c1a] flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 border-2 border-[#00c2ff] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-white/50 text-sm">Loading ATHLYNX...</p>
-        </div>
-      </div>
-    );
-  }
+  const handleLogin = () => {
+    loginWithRedirect({
+      authorizationParams: {
+        redirect_uri: "https://athlynx.ai/callback",
+        screen_hint: "signup",
+      },
+      appState: { returnTo: "/feed" },
+    });
+  };
 
   return (
     <div className="min-h-screen bg-[#050c1a] flex flex-col overflow-hidden">
@@ -104,7 +87,7 @@ export default function SignIn() {
 
               {/* Email */}
               <button
-                onClick={() => login()}
+                onClick={handleLogin}
                 className="w-full flex items-center justify-center gap-3 bg-[#00c2ff]/10 border border-[#00c2ff]/30 text-[#00c2ff] font-semibold py-3.5 px-6 rounded-xl hover:bg-[#00c2ff]/20 active:scale-[0.98] transition-all duration-150"
               >
                 <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
