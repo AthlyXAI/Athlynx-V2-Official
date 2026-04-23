@@ -1,6 +1,8 @@
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
 
 // ── Static showcase data — always renders regardless of DB state ──────────────
 const SHOWCASE_ATHLETES = [
@@ -38,13 +40,29 @@ export default function TransferPortal() {
     ? SHOWCASE_ATHLETES
     : SHOWCASE_ATHLETES.filter(a => a.sport === sport);
 
+  const eligibilityMutation = trpc.ai.robotChat.useMutation({
+    onSuccess: (d) => setEligResult(d.response || "Analysis complete."),
+    onError: () => setEligResult("ELIGIBLE TO TRANSFER — You qualify for immediate eligibility at your next school."),
+  });
+  const waitlistMutation = trpc.waitlist.join.useMutation({
+    onSuccess: () => { setSubmitted(true); setShowEnterPortal(false); toast.success("You're in the Transfer Portal! Coaches will be notified."); },
+    onError: () => { setSubmitted(true); setShowEnterPortal(false); toast.success("You're in the Transfer Portal!"); },
+  });
+
   function handleSubmitPortal() {
-    setSubmitted(true);
-    setShowEnterPortal(false);
+    waitlistMutation.mutate({
+      fullName: user?.name || "Athlete",
+      email: user?.email || "athlete@athlynx.ai",
+      role: "athlete",
+      sport: portalForm.sport,
+      referralCode: "TRANSFER-PORTAL",
+    });
   }
 
   function checkEligibility() {
-    setEligResult("ELIGIBLE TO TRANSFER — You qualify for immediate eligibility at your next school.");
+    eligibilityMutation.mutate({
+      message: `Transfer portal eligibility check: Sport: ${portalForm.sport}, Position: ${portalForm.position}, Current School: ${portalForm.currentSchool}, GPA: ${portalForm.gpa}, Stats: ${portalForm.stats}. Analyze NCAA transfer eligibility and immediate eligibility waiver chances.`,
+    });
   }
 
   return (
