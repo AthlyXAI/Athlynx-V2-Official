@@ -347,4 +347,41 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
       });
       return { result: response.choices[0].message.content };
     }),
+
+  // BUFFER SCHEDULING — Schedule a post to Buffer social channels
+  scheduleToBuffer: protectedProcedure
+    .input(z.object({
+      text: z.string(),
+      channels: z.array(z.enum(["twitter", "facebook", "instagram", "tiktok"])).default(["twitter", "instagram"]),
+    }))
+    .mutation(async ({ input }) => {
+      const BUFFER_TOKEN = process.env.BUFFER_ACCESS_TOKEN;
+      if (!BUFFER_TOKEN) throw new Error("Buffer not configured");
+      const CHANNEL_IDS: Record<string, string> = {
+        twitter:   "69e5f1dd031bfa423c2229ad",
+        tiktok:    "69e613fb031bfa423c22ac3e",
+        facebook:  "69e61f4f031bfa423c22e698",
+        instagram: "69e61f6e031bfa423c22e6f4",
+      };
+      const mutation = `mutation CreatePost($input: CreatePostInput!) { createPost(input: $input) { ... on Post { id status } ... on PostError { type message } } }`;
+      const results: { channel: string; success: boolean; id?: string; error?: string }[] = [];
+      for (const channel of input.channels) {
+        const channelId = CHANNEL_IDS[channel];
+        if (!channelId) continue;
+        try {
+          const res = await fetch("https://api.buffer.com/graphql", {
+            method: "POST",
+            headers: { "Authorization": `Bearer ${BUFFER_TOKEN}`, "Content-Type": "application/json" },
+            body: JSON.stringify({ query: mutation, variables: { input: { channelId, text: input.text, scheduledAt: null } } }),
+          });
+          const data = await res.json() as any;
+          const post = data?.data?.createPost;
+          if (post?.id) results.push({ channel, success: true, id: post.id });
+          else results.push({ channel, success: false, error: post?.message || "Unknown error" });
+        } catch (err: any) {
+          results.push({ channel, success: false, error: err.message });
+        }
+      }
+      return { results, posted: results.filter(r => r.success).length };
+    }),
 });

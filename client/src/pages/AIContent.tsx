@@ -1,3 +1,4 @@
+import { toast } from "sonner";
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState } from "react";
 import { trpc } from "@/lib/trpc";
@@ -15,6 +16,10 @@ export default function AIContent() {
   const captionMutation = trpc.ai.generateCaption.useMutation({ onSuccess: (d) => setCaptionResult(String(d.captions ?? "")) });
   const bioMutation = trpc.ai.generateBio.useMutation({ onSuccess: (d) => setBioResult(String(d.bios ?? "")) });
   const planMutation = trpc.ai.generateContentPlan.useMutation({ onSuccess: (d) => setPlanResult(String(d.plan ?? "")) });
+  const bufferMutation = trpc.ai.scheduleToBuffer.useMutation({
+    onSuccess: (d) => toast.success(`Posted to ${d.posted} channel${d.posted !== 1 ? "s" : ""} via Buffer!`),
+    onError: (e) => toast.error(e.message || "Buffer post failed"),
+  });
   return (
     <PlatformLayout title="AI Content">
       <div className="space-y-4 pb-20 lg:pb-4">
@@ -167,6 +172,13 @@ export default function AIContent() {
                 <div className="flex justify-between items-center mb-3">
                   <h4 className="text-blue-400 font-bold text-sm">📅 Your 30-Day Content Plan</h4>
                   <button onClick={() => navigator.clipboard.writeText(planResult)} className="text-xs text-blue-400 hover:text-white border border-blue-700 px-2 py-1 rounded-lg">Copy</button>
+                  <button
+                    onClick={() => bufferMutation.mutate({ text: planResult.slice(0, 500), channels: ["twitter", "instagram", "facebook"] })}
+                    disabled={bufferMutation.isPending}
+                    className="text-xs text-green-400 hover:text-white border border-green-700 px-2 py-1 rounded-lg disabled:opacity-50"
+                  >
+                    {bufferMutation.isPending ? "Posting..." : "📲 Post to Buffer"}
+                  </button>
                 </div>
                 <pre className="text-white text-sm whitespace-pre-wrap font-sans leading-relaxed">{planResult}</pre>
               </div>
