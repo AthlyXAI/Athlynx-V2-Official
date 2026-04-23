@@ -11,10 +11,45 @@ import { toast } from "sonner";
 import { Check, Zap, Shield, Star, CreditCard, Phone } from "lucide-react";
 
 const PLAN_ICONS: Record<string, React.ReactNode> = {
+  athlete_starter: <Check className="w-6 h-6" />,
   athlete_pro: <Zap className="w-6 h-6" />,
   athlete_elite: <Star className="w-6 h-6" />,
   nil_vault: <Shield className="w-6 h-6" />,
 };
+
+// Hardcoded fallback plans shown when tRPC backend is unavailable
+const FALLBACK_PLANS = [
+  {
+    id: "athlete_starter",
+    name: "Athlete Starter",
+    description: "Essential access to the ATHLYNX platform — NIL discovery, messaging, and community features.",
+    priceMonthly: 999,
+    priceYearly: 9900,
+    features: ["Basic Athlete Profile", "NIL Deal Discovery", "Community Messaging", "Transfer Portal Access", "Diamond Grind Training", "7-Day Free Trial"],
+    badge: "Best for Beginners",
+    color: "#0066ff",
+  },
+  {
+    id: "athlete_pro",
+    name: "Athlete Pro",
+    description: "Full platform access with AI recruiting, NIL deal tracking, and transfer portal intelligence.",
+    priceMonthly: 4999,
+    priceYearly: 49900,
+    features: ["Everything in Starter", "AI Recruiter Tools", "NIL Deal Marketplace", "Warriors Playbook", "AI Sales Automation", "Priority Support"],
+    badge: "Most Popular",
+    color: "#00c2ff",
+  },
+  {
+    id: "athlete_elite",
+    name: "Athlete Elite",
+    description: "The complete ATHLYNX experience — white-glove NIL management, brand deals, and 1-on-1 strategy.",
+    priceMonthly: 9999,
+    priceYearly: 99900,
+    features: ["Everything in Pro", "NIL Vault (Contract Archive)", "Brand Deal Negotiation AI", "Dedicated Account Manager", "White-label Branding", "API Access"],
+    badge: "Best Value",
+    color: "#7c3aed",
+  },
+];
 
 export default function Pricing() {
   const [yearly, setYearly] = useState(false);
@@ -22,7 +57,8 @@ export default function Pricing() {
   const { user } = useAuth();
   const [, navigate] = useLocation();
 
-  const { data: plans = [] } = trpc.stripe.getPlans.useQuery();
+  const { data: plansData = [] } = trpc.stripe.getPlans.useQuery();
+  const plans = plansData.length > 0 ? plansData : FALLBACK_PLANS;
   const { data: creditPacks = [] } = trpc.stripe.getCreditPacks.useQuery();
   const createSubscription = trpc.stripe.createSubscriptionCheckout.useMutation();
   const createCredits = trpc.stripe.createCreditsCheckout.useMutation();
