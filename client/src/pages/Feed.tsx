@@ -128,7 +128,7 @@ function PostCard({ post, currentUserId }: { post: any; currentUserId?: number }
             </div>
           ) : (
             <div className="text-center py-2 mb-3">
-              <a href="/signin" className="text-blue-400 text-sm hover:text-blue-300">Sign in to comment</a>
+              <a href="/signup" className="text-blue-400 text-sm hover:text-blue-300">Sign in to comment</a>
             </div>
           )}
           {comments.length === 0 && <div className="text-xs text-blue-500 text-center">Be the first to comment</div>}
@@ -207,7 +207,7 @@ export default function Feed() {
             </>
           ) : (
             <div className="text-center py-2">
-              <a href="/signin" className="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2.5 rounded-xl transition-colors">
+              <a href="/signup" className="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2.5 rounded-xl transition-colors">
                 Sign In to Post
               </a>
             </div>
@@ -240,7 +240,7 @@ export default function Feed() {
             <div className="text-5xl mb-4">🏆</div>
             <div className="text-white font-bold text-lg mb-2">The Feed is Live — Be First</div>
             <div className="text-blue-400 text-sm mb-4">Share your highlight, training update, or NIL news to start the conversation.</div>
-            {!user && <a href="/signin" className="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2.5 rounded-xl transition-colors">Sign In to Post</a>}
+            {!user && <a href="/signup" className="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2.5 rounded-xl transition-colors">Sign In to Post</a>}
           </div>
         )}
 

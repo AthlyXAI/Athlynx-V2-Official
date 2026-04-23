@@ -279,8 +279,8 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
                 )}
               </Link>
             ) : (
-              <Link href="/signin" className="ml-1 text-xs bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1.5 rounded-lg transition-colors">
-                Sign In
+              <Link href="/signup" className="ml-1 text-xs bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1.5 rounded-lg transition-colors">
+                Sign In / Sign Up
               </Link>
             )}
 
@@ -443,7 +443,7 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
                   View Plans
                 </Link>
               ) : (
-                <Link href="/signin" className="mt-3 block w-full bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold py-2 rounded-lg transition-colors text-center">
+                <Link href="/signup" className="mt-3 block w-full bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold py-2 rounded-lg transition-colors text-center">
                   Start Free Trial
                 </Link>
               )}
