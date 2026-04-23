@@ -18,8 +18,8 @@ export default function BetaBanner() {
     >
       <span
         style={{
-          background: "#f59e0b",
-          color: "#0a1628",
+          background: "#ef4444",
+          color: "#ffffff",
           fontWeight: 900,
           fontSize: "11px",
           letterSpacing: "0.12em",
@@ -29,7 +29,7 @@ export default function BetaBanner() {
           flexShrink: 0,
         }}
       >
-        LIVE
+        NOTICE
       </span>
       <span
         style={{
@@ -39,7 +39,7 @@ export default function BetaBanner() {
           letterSpacing: "0.02em",
         }}
       >
-        Athlynx is now live &mdash; The Complete Athlete&apos;s Playbook Platform
+        Login is temporarily unavailable &mdash; we&apos;re working on it now.
       </span>
       <span
         style={{
@@ -48,7 +48,7 @@ export default function BetaBanner() {
           fontWeight: 500,
         }}
       >
-        Sign up or log in to get started.
+        Check back shortly.
       </span>
     </div>
   );
