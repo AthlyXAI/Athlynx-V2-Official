@@ -29,7 +29,7 @@ export default function BetaBanner() {
           flexShrink: 0,
         }}
       >
-        BETA
+        NOTICE
       </span>
       <span
         style={{
@@ -39,9 +39,7 @@ export default function BetaBanner() {
           letterSpacing: "0.02em",
         }}
       >
-        We are currently working on login &mdash; this is a{" "}
-        <span style={{ color: "#fcd34d" }}>look &amp; feel beta</span>.{" "}
-        Full launch coming soon.
+        Login is temporarily unavailable &mdash; we are actively working to restore access.
       </span>
       <span
         style={{
