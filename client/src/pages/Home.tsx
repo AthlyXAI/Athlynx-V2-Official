@@ -340,7 +340,7 @@ function HeroSignupForm() {
       >
         Get Started Free — 7 Days
       </a>
-      <p className="text-blue-600/70 text-xs text-center">Secured by Auth0 · A Dozier Holdings Group Company</p>
+      <p className="text-blue-600/70 text-xs text-center">Secured by Okta · A Dozier Holdings Group Company</p>
     </div>
   );
 }
