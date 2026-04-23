@@ -69,8 +69,9 @@ const trpcClient = trpc.createClient({
   ],
 });
 
-const auth0Domain = import.meta.env.VITE_AUTH0_DOMAIN ?? "dev-oy08pgzo48x3u117.us.auth0.com";
-const auth0ClientId = import.meta.env.VITE_AUTH0_CLIENT_ID ?? "xh4sS3Kqi0Y5poA9LpwjwRDN3ygeOpt9";
+// Auth0 config — hardcoded to prevent stale cache override (fixed 2026-04-22)
+const auth0Domain = "dev-oy08pgzo48x3u117.us.auth0.com";
+const auth0ClientId = "xh4sS3Kqi0Y5poA9LpwjwRDN3ygeOpt9";
 const isCallbackRoute = window.location.pathname === "/callback";
 
 createRoot(document.getElementById("root")!).render(
