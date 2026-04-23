@@ -3,6 +3,31 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { trpc } from "@/lib/trpc";
 
 /**
+ * Clear all stale Auth0 state from localStorage/sessionStorage.
+ * Fixes "Invalid state" errors from leftover state after failed logins.
+ */
+function clearStaleAuth0State() {
+  try {
+    const keysToRemove: string[] = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && (key.startsWith("@@auth0spajs@@") || key.startsWith("a0.spajs"))) {
+        keysToRemove.push(key);
+      }
+    }
+    keysToRemove.forEach((k) => localStorage.removeItem(k));
+    const sKeysToRemove: string[] = [];
+    for (let i = 0; i < sessionStorage.length; i++) {
+      const key = sessionStorage.key(i);
+      if (key && (key.startsWith("@@auth0spajs@@") || key.startsWith("a0.spajs"))) {
+        sKeysToRemove.push(key);
+      }
+    }
+    sKeysToRemove.forEach((k) => sessionStorage.removeItem(k));
+  } catch (_) { /* ignore */ }
+}
+
+/**
  * Auth0 redirects here after login (Google, Apple, Email).
  * CRITICAL: handleRedirectCallback() must be called to process the OAuth
  * authorization code in the URL before Auth0 sets isAuthenticated = true.
@@ -54,6 +79,8 @@ export default function AuthCallback() {
         })
         .catch((err) => {
           console.error("[AuthCallback] handleRedirectCallback failed:", err);
+          // Clear stale Auth0 state on Invalid state error so next login works
+          clearStaleAuth0State();
           window.location.href = "/signin";
         });
     } else if (!isLoading && !isAuthenticated) {
@@ -98,6 +125,23 @@ export default function AuthCallback() {
 
   // Show Auth0 error if present
   if (auth0Error) {
+    // For Invalid state errors, clear stale state and auto-redirect
+    if (auth0Error.message?.includes("Invalid state") || (auth0Error as any)?.error === "invalid_state") {
+      clearStaleAuth0State();
+      setTimeout(() => { window.location.href = "/signin"; }, 500);
+      return (
+        <div className="min-h-screen bg-[#050c1a] flex items-center justify-center">
+          <div className="text-center">
+            <div className="relative w-20 h-20 mx-auto mb-6">
+              <div className="absolute inset-0 rounded-full border-2 border-[#00c2ff]/20 animate-ping" />
+              <div className="absolute inset-2 rounded-full border-2 border-[#00c2ff] border-t-transparent animate-spin" />
+            </div>
+            <p className="text-white font-black text-xl mb-2 tracking-widest">REFRESHING SESSION</p>
+            <p className="text-[#00c2ff]/60 text-sm">Redirecting you back to sign in...</p>
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="min-h-screen bg-[#050c1a] flex items-center justify-center">
         <div className="text-center">
