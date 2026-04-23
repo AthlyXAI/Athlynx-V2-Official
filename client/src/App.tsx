@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import DozierLegacy from "./pages/DozierLegacy";
 import CommunitySoon from "./pages/CommunitySoon";
 import Demo from "./pages/Demo";
+import Platform from "./pages/Platform";
 import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
@@ -296,7 +297,7 @@ function Router() {
       <Route path="/capabilities" component={Capabilities} />
       <Route path="/community-feedback" component={CommunityFeedback} />
       <Route path="/community" component={CommunitySoon} />
-      <Route path="/platform" component={Demo} />
+      <Route path="/platform" component={Platform} />
 
       {/* ── People & Culture ── */}
       <Route path="/founders" component={Founders} />
