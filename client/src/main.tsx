@@ -72,7 +72,6 @@ const trpcClient = trpc.createClient({
 // Auth0 config — AthlynxAI-2026-14 tenant (updated 2026-04-23)
 const auth0Domain = "dev-8yqdmei0v8kc3qqy.us.auth0.com";
 const auth0ClientId = "eDJT34flTy4oOq1cie6ItFubLDPHOrcI"; // production app — AthlynxAI-2026-14
-const isCallbackRoute = window.location.pathname === "/callback";
 
 createRoot(document.getElementById("root")!).render(
   <Auth0Provider
@@ -84,7 +83,6 @@ createRoot(document.getElementById("root")!).render(
     }}
     cacheLocation="localstorage"
     useRefreshTokens={true}
-    skipRedirectCallback={!isCallbackRoute}
   >
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
