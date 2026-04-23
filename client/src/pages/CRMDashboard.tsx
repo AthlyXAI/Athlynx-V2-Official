@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,32 +39,38 @@ interface CRMStats {
 }
 
 export default function CRMDashboard() {
-  const [accessCode, setAccessCode] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [partnerName, setPartnerName] = useState("");
+  const meQuery = trpc.auth.me.useQuery(undefined, { retry: false, refetchOnWindowFocus: false });
+  const [, navigate] = useLocation();
+  const logoutMutation = trpc.auth.logout.useMutation();
+  const partnerName = meQuery.data?.name || "Admin";
+  const isAdmin = meQuery.data?.role === "admin";
   const [signups, setSignups] = useState<SignupEntry[]>([]);
   const [stats, setStats] = useState<CRMStats | null>(null);
   const [autoRefresh, setAutoRefresh] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const lastSignupCount = useRef(0);
 
-  // Validate access
-  const validateAccess = trpc.crm.validateAccess.useQuery(
-    { accessCode },
-    { enabled: false }
-  );
+  useEffect(() => {
+    if (meQuery.isLoading) return;
+    if (!meQuery.data) navigate("/signin");
+  }, [meQuery.data, meQuery.isLoading, navigate]);
+
+  const handleLogout = async () => {
+    await logoutMutation.mutateAsync();
+    navigate("/signin");
+  };
 
   // Get stats
   const statsQuery = trpc.crm.stats.useQuery(undefined, {
-    enabled: isAuthenticated,
-    refetchInterval: autoRefresh ? 5000 : false, // Refresh every 5 seconds
+    enabled: isAdmin,
+    refetchInterval: autoRefresh ? 5000 : false,
   });
 
   // Get signups
   const signupsQuery = trpc.crm.signups.useQuery(
     { limit: 100 },
     { 
-      enabled: isAuthenticated,
+      enabled: isAdmin,
       refetchInterval: autoRefresh ? 5000 : false,
     }
   );
@@ -116,21 +122,6 @@ export default function CRMDashboard() {
     }, 200);
   };
 
-  const handleLogin = async () => {
-    if (!accessCode.trim()) {
-      toast.error("Please enter your access code");
-      return;
-    }
-    
-    const result = await validateAccess.refetch();
-    if (result.data?.valid) {
-      setIsAuthenticated(true);
-      setPartnerName(result.data.partner?.name || "Partner");
-      toast.success(`Welcome, ${result.data.partner?.name}!`);
-    } else {
-      toast.error("Invalid access code");
-    }
-  };
 
   const exportToCSV = () => {
     if (!signups.length) return;
@@ -173,36 +164,32 @@ export default function CRMDashboard() {
     toast.success("CSV exported! Ready for Microsoft Copilot");
   };
 
-  // Login Screen
-  if (!isAuthenticated) {
+  if (meQuery.isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-white/50 text-sm">Loading CRM Dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md bg-slate-800/90 border-cyan-500/30">
+        <Card className="w-full max-w-md bg-slate-800/90 border-red-500/30">
           <CardHeader className="text-center">
-            <div className="mx-auto mb-4 w-20 h-20 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center">
-              <span className="text-4xl">📊</span>
+            <div className="mx-auto mb-4 w-24 h-24 bg-gradient-to-r from-red-500 to-red-700 rounded-2xl flex items-center justify-center">
+              <span className="text-5xl">🚫</span>
             </div>
-            <CardTitle className="text-2xl text-white">ATHLYNX CRM</CardTitle>
-            <p className="text-cyan-400 text-sm">Partner Dashboard Access</p>
+            <CardTitle className="text-3xl text-white">Access Denied</CardTitle>
+            <p className="text-red-400 text-sm">Admin access required. Contact Chad Dozier or Andy Kustes.</p>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <Input
-              type="password"
-              placeholder="Enter Partner Access Code"
-              value={accessCode}
-              onChange={(e) => setAccessCode(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleLogin()}
-              className="bg-slate-700 border-slate-600 text-white"
-            />
-            <Button 
-              onClick={handleLogin}
-              className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400"
-            >
-              Access Dashboard
-            </Button>
-            <p className="text-center text-slate-400 text-xs">
-              Contact Chad for access credentials
-            </p>
+          <CardContent className="text-center">
+            <Link href="/feed">
+              <Button className="bg-slate-700 hover:bg-slate-600 text-white">Return to Platform</Button>
+            </Link>
           </CardContent>
         </Card>
       </div>
@@ -245,7 +232,7 @@ export default function CRMDashboard() {
               📥 Export CSV
             </Button>
             <Button
-              onClick={() => setIsAuthenticated(false)}
+              onClick={handleLogout}
               variant="outline"
               className="border-slate-600 text-slate-300"
             >

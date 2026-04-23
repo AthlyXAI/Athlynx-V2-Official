@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -60,72 +60,53 @@ interface Document {
 }
 
 export default function CRMCommandCenter() {
-  const [accessCode, setAccessCode] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [partnerName, setPartnerName] = useState("");
-  const [partnerRole, setPartnerRole] = useState("");
+  const meQuery = trpc.auth.me.useQuery(undefined, { retry: false, refetchOnWindowFocus: false });
+  const [, navigate] = useLocation();
   const [activeTab, setActiveTab] = useState("dashboard");
+  const logoutMutation = trpc.auth.logout.useMutation();
 
-  // Validate access
-  const validateAccess = trpc.crm.validateAccess.useQuery(
-    { accessCode },
-    { enabled: false }
-  );
+  const partnerName = meQuery.data?.name || "Admin";
+  const partnerRole = meQuery.data?.role || "user";
+  const isAdmin = partnerRole === "admin";
 
-  const handleLogin = async () => {
-    if (!accessCode.trim()) {
-      toast.error("Please enter your access code");
-      return;
-    }
-    
-    const result = await validateAccess.refetch();
-    if (result.data?.valid) {
-      setIsAuthenticated(true);
-      setPartnerName(result.data.partner?.name || "Partner");
-      setPartnerRole(result.data.partner?.role || "Partner");
-      toast.success(`Welcome to Command Center, ${result.data.partner?.name}!`);
-    } else {
-      toast.error("Invalid access code");
-    }
+  useEffect(() => {
+    if (meQuery.isLoading) return;
+    if (!meQuery.data) navigate("/signin");
+  }, [meQuery.data, meQuery.isLoading, navigate]);
+
+  const handleLogout = async () => {
+    await logoutMutation.mutateAsync();
+    navigate("/signin");
   };
 
-  // Login Screen
-  if (!isAuthenticated) {
+  if (meQuery.isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-white/50 text-sm">Loading Command Center...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAdmin) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md bg-slate-800/90 border-cyan-500/30">
+        <Card className="w-full max-w-md bg-slate-800/90 border-red-500/30">
           <CardHeader className="text-center">
-            <div className="mx-auto mb-4 w-24 h-24 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center">
-              <span className="text-5xl">🎯</span>
+            <div className="mx-auto mb-4 w-24 h-24 bg-gradient-to-r from-red-500 to-red-700 rounded-2xl flex items-center justify-center">
+              <span className="text-5xl">🚫</span>
             </div>
-            <CardTitle className="text-3xl text-white">COMMAND CENTER</CardTitle>
-            <CardDescription className="text-cyan-400">
-              ATHLYNX CRM - One Login, Full Control
+            <CardTitle className="text-3xl text-white">Access Denied</CardTitle>
+            <CardDescription className="text-red-400">
+              Admin access required. Contact Chad Dozier or Andy Kustes.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <Input
-              type="password"
-              placeholder="Enter Partner Access Code"
-              value={accessCode}
-              onChange={(e) => setAccessCode(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleLogin()}
-              className="bg-slate-700 border-slate-600 text-white text-center text-lg py-6"
-            />
-            <Button 
-              onClick={handleLogin}
-              className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 py-6 text-lg"
-            >
-              🔐 Access Command Center
-            </Button>
-            <div className="text-center space-y-2">
-              <p className="text-slate-400 text-sm">
-                Authorized Partners Only
-              </p>
-              <p className="text-cyan-500 text-xs">
-                Dozier Holdings Group | ATHLYNX AI Corporation
-              </p>
-            </div>
+          <CardContent className="text-center">
+            <Link href="/feed">
+              <Button className="bg-slate-700 hover:bg-slate-600 text-white">Return to Platform</Button>
+            </Link>
           </CardContent>
         </Card>
       </div>
@@ -159,7 +140,7 @@ export default function CRMCommandCenter() {
               ● Online
             </Badge>
             <Button
-              onClick={() => setIsAuthenticated(false)}
+              onClick={handleLogout}
               variant="outline"
               className="border-slate-600 text-slate-300 hover:bg-slate-800"
             >

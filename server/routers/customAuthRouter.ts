@@ -231,6 +231,15 @@ export const customAuthRouter = router({
       const trialEndsAt = new Date(Date.now() + SEVEN_DAYS_MS);
       const loginMethod = input.sub.startsWith("google") ? "google" : input.sub.startsWith("apple") ? "apple" : "auth0";
 
+      // Admin emails — always granted full admin role
+      const ADMIN_EMAILS = [
+        "cdozier@dozierholdingsgroup.com",
+        "chaddozier75@gmail.com",
+        "akustes@dozierholdingsgroup.com",
+        "andrewkustes@gmail.com",
+      ];
+      const isAdminEmail = input.email ? ADMIN_EMAILS.includes(input.email.toLowerCase()) : false;
+
       const existing = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
       const isNewUser = existing.length === 0;
 
@@ -242,6 +251,7 @@ export const customAuthRouter = router({
           avatarUrl: input.picture || null,
           phone: input.phone || null,
           loginMethod,
+          role: isAdminEmail ? "admin" : "user",
           trialEndsAt,
           lastSignedIn: new Date(),
         });
@@ -257,11 +267,16 @@ export const customAuthRouter = router({
           });
         }
       } else {
-        await db.update(users).set({
+        // Always ensure admin emails keep their admin role
+        const updateData: Record<string, unknown> = {
           lastSignedIn: new Date(),
           name: input.name || existing[0].name,
           avatarUrl: input.picture || existing[0].avatarUrl,
-        }).where(eq(users.openId, openId));
+        };
+        if (isAdminEmail && existing[0].role !== "admin") {
+          updateData.role = "admin";
+        }
+        await db.update(users).set(updateData).where(eq(users.openId, openId));
       }
 
       const sessionToken = await sdk.createSessionToken(openId, {
