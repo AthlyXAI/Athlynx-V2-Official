@@ -1,6 +1,6 @@
 {
-  "buildCommand": "bash build-vercel.sh",
-  "outputDirectory": ".vercel/output",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "installCommand": "pnpm install --no-frozen-lockfile",
   "framework": null,
   "crons": [
