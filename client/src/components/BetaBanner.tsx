@@ -29,7 +29,7 @@ export default function BetaBanner() {
           flexShrink: 0,
         }}
       >
-        NOTICE
+        LIVE
       </span>
       <span
         style={{
@@ -39,7 +39,7 @@ export default function BetaBanner() {
           letterSpacing: "0.02em",
         }}
       >
-        Login is temporarily unavailable &mdash; we are actively working to restore access.
+        Athlynx is now live &mdash; The Complete Athlete&apos;s Playbook Platform
       </span>
       <span
         style={{
@@ -48,7 +48,7 @@ export default function BetaBanner() {
           fontWeight: 500,
         }}
       >
-        Thank you for your patience.
+        Sign up or log in to get started.
       </span>
     </div>
   );
