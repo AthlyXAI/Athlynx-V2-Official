@@ -18,8 +18,8 @@ export const STRIPE_PLANS = [
       "Diamond Grind Training",
       "7-Day Free Trial",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_STARTER_MONTHLY ?? "price_1TOLaoGvvjXZw2uEESpi5UxO",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_STARTER_YEARLY ?? "price_1TOLaqGvvjXZw2uEC1NCRcO6",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_STARTER_MONTHLY ?? "price_1TPkKjGvvjXZw2uEMvRGuqiu",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_STARTER_YEARLY ?? "price_1TPkMBGvvjXZw2uEI7I6FAKT",
     badge: "Best for Beginners",
     color: "#0066ff",
   },
@@ -37,8 +37,8 @@ export const STRIPE_PLANS = [
       "AI Sales Automation",
       "Priority Support",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_PRO_MONTHLY ?? "price_1TOLasGvvjXZw2uEsjiOsuwy",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_PRO_YEARLY ?? "price_1TOLauGvvjXZw2uE9t2xdMsf",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_PRO_MONTHLY ?? "price_1TPkKkGvvjXZw2uEbDtTlJVq",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_PRO_YEARLY ?? "price_1TPkMCGvvjXZw2uE1qvINpYK",
     badge: "Most Popular",
     color: "#00c2ff",
   },
@@ -56,8 +56,8 @@ export const STRIPE_PLANS = [
       "White-label Branding",
       "API Access",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_ELITE_MONTHLY ?? "price_1TOLawGvvjXZw2uEd9VlVziX",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_ELITE_YEARLY ?? "price_1TOLayGvvjXZw2uE4eUhWBgs",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_ELITE_MONTHLY ?? "price_1TPkKmGvvjXZw2uEDyhTJBxb",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_ELITE_YEARLY ?? "price_1TPkMCGvvjXZw2uEuGSWmyLv",
     badge: "Best Value",
     color: "#7c3aed",
   },
@@ -66,7 +66,7 @@ export const STRIPE_PLANS = [
 export type PlanId = (typeof STRIPE_PLANS)[number]["id"];
 
 export const CREDIT_PACKS = [
-  { id: "credits_100", name: "100 Credits", credits: 100, price: 999, stripePriceId: process.env.STRIPE_PRICE_CREDITS_100 ?? "" },
-  { id: "credits_500", name: "500 Credits", credits: 500, price: 3999, stripePriceId: process.env.STRIPE_PRICE_CREDITS_500 ?? "" },
-  { id: "credits_1000", name: "1,000 Credits", credits: 1000, price: 6999, stripePriceId: process.env.STRIPE_PRICE_CREDITS_1000 ?? "" },
+  { id: "credits_100", name: "100 Credits", credits: 100, price: 999, stripePriceId: process.env.STRIPE_PRICE_CREDITS_100 ?? "price_1TPkMEGvvjXZw2uEZwFIyAuQ" },
+  { id: "credits_500", name: "500 Credits", credits: 500, price: 3999, stripePriceId: process.env.STRIPE_PRICE_CREDITS_500 ?? "price_1TPkMGGvvjXZw2uEfOXpPekc" },
+  { id: "credits_1000", name: "1,000 Credits", credits: 1000, price: 6999, stripePriceId: process.env.STRIPE_PRICE_CREDITS_1000 ?? "price_1TPkMHGvvjXZw2uENKxAUoji" },
 ] as const;

@@ -138,10 +138,27 @@ export function registerStripeWebhook(app: Application) {
               : null;
 
             if (userId && session.customer) {
-              // Save Stripe customer ID
+              // Save Stripe customer ID and plan info
+              const updateData: Record<string, unknown> = {
+                stripeCustomerId: session.customer as string,
+              };
+              // If this was a credit pack purchase, add credits
+              const creditsToAdd = session.metadata?.credits
+                ? parseInt(session.metadata.credits)
+                : 0;
+              if (creditsToAdd > 0) {
+                // Fetch current credits first
+                const userRow = await db.select({ credits: users.credits }).from(users).where(eq(users.id, userId)).limit(1);
+                const currentCredits = userRow[0]?.credits ?? 0;
+                updateData.credits = currentCredits + creditsToAdd;
+              }
+              // If this was a subscription, store plan ID
+              if (session.metadata?.plan_id) {
+                updateData.stripePlanId = session.metadata.plan_id;
+              }
               await db
                 .update(users)
-                .set({ stripeCustomerId: session.customer as string })
+                .set(updateData)
                 .where(eq(users.id, userId));
             }
 
