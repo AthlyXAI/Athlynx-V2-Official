@@ -237,10 +237,10 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
   const saveOnboarding = trpc.profile.saveOnboarding.useMutation({
     onSuccess: () => {
       setStep("done");
-      // Auto-redirect to feed after 2 seconds
+      // Auto-redirect to pricing/trial after 2 seconds
       setTimeout(() => {
         onComplete(answers);
-        window.location.href = "/feed";
+        window.location.href = "/pricing";
       }, 2000);
     },
     onError: () => {
@@ -248,7 +248,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
       setStep("done");
       setTimeout(() => {
         onComplete(answers);
-        window.location.href = "/feed";
+        window.location.href = "/pricing";
       }, 2000);
     },
   });
@@ -498,7 +498,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
         <p className="text-blue-300 mb-4">Your ATHLYNX profile is set up. Welcome to the platform — let's get to work.</p>
         <div className="flex items-center justify-center gap-2 text-blue-400 text-sm">
           <div className="w-4 h-4 border-2 border-blue-400 border-t-transparent rounded-full animate-spin" />
-          Taking you to your feed...
+          Setting up your 7-day trial — adding card now...
         </div>
       </div>
     </div>

@@ -74,7 +74,7 @@ export default function EarlyAccess() {
               </p>
 
               {/* Universal Okta Button */}
-              <OktaButton label="Get Started Free with Okta" returnTo="/onboarding" screenHint="login" className="w-full flex items-center justify-center gap-3 bg-[#00c2ff] hover:bg-[#00a8e0] text-white font-bold py-3.5 px-6 rounded-xl active:scale-[0.98] transition-all duration-150 shadow-lg" />
+              <OktaButton label="Get Started Free — 7 Days" returnTo="/onboarding" screenHint="signup" className="w-full flex items-center justify-center gap-3 bg-[#00c2ff] hover:bg-[#00a8e0] text-white font-bold py-3.5 px-6 rounded-xl active:scale-[0.98] transition-all duration-150 shadow-lg" />
 
               {/* Terms */}
               <p className="text-center text-white/25 text-xs mt-5 leading-relaxed">
@@ -82,7 +82,7 @@ export default function EarlyAccess() {
                 <Link href="/terms-of-service"><span className="text-white/40 hover:text-white/70 underline cursor-pointer">Terms</span></Link>
                 {" "}&amp;{" "}
                 <Link href="/privacy-policy"><span className="text-white/40 hover:text-white/70 underline cursor-pointer">Privacy Policy</span></Link>.
-                <br />7-day free trial — no credit card required. Athletes, parents, coaches, brands all welcome.
+                <br />7-day free trial — credit card required — not charged for 7 days. Athletes, parents, coaches, brands all welcome.
               </p>
             </div>
 

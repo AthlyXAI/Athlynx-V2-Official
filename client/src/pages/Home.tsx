@@ -336,7 +336,7 @@ function HeroVideo({ src }: { src: string }) {
 function HeroSignupForm() {
   return (
     <div className="flex flex-col gap-3">
-      <OktaButton label="Sign Up Free with Okta" returnTo="/onboarding" screenHint="login" />
+      <OktaButton label="Sign Up Free with Okta" returnTo="/onboarding" screenHint="signup" />
       <p className="text-blue-600/70 text-xs text-center">Secured by Okta · A Dozier Holdings Group Company</p>
     </div>
   );
@@ -564,7 +564,7 @@ export default function Home() {
               <span className="text-blue-200 text-xs font-normal">Internal Team · Admin</span>
             </a>
           </div>
-          <p className="text-blue-700 text-xs text-center mt-5">Secured by Okta · A Dozier Holdings Group Company · No credit card required</p>
+          <p className="text-blue-700 text-xs text-center mt-5">Secured by Okta · A Dozier Holdings Group Company · credit card required — not charged for 7 days</p>
         </div>
       </section>
 
@@ -636,7 +636,7 @@ export default function Home() {
         <div className="max-w-2xl mx-auto text-center">
           <div className="text-blue-400 text-xs uppercase tracking-widest mb-2">Platform Status</div>
           <h2 className="text-4xl font-black text-green-400 mb-4">🟢 WE ARE LIVE</h2>
-          <p className="text-blue-200 text-lg mb-8">The platform is open. Start your 7-day free trial today — no credit card required.</p>
+          <p className="text-blue-200 text-lg mb-8">The platform is open. Start your 7-day free trial today — credit card required — not charged for 7 days.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="/signup" className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-cyan-500 hover:to-blue-600 text-white font-black text-lg px-8 py-4 rounded-xl transition-all shadow-xl hover:scale-105">
               Start Free Trial

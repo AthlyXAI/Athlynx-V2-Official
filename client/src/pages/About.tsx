@@ -214,7 +214,7 @@ export default function About() {
           </p>
           <Link href="/signup">
             <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-10 py-6 rounded-xl">
-              Start Free — No Credit Card Required
+              Start Free — credit card required — not charged for 7 days
             </Button>
           </Link>
         </div>

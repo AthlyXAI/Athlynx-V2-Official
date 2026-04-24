@@ -77,7 +77,7 @@ export default function Pricing() {
       });
       if (result.url) {
         toast.info("Redirecting to secure checkout...");
-        window.open(result.url, "_blank");
+        window.location.href = result.url;
       }
     } catch (err: any) {
       toast.error(err.message ?? "Failed to start checkout");
@@ -99,7 +99,7 @@ export default function Pricing() {
       });
       if (result.url) {
         toast.info("Redirecting to secure checkout...");
-        window.open(result.url, "_blank");
+        window.location.href = result.url;
       }
     } catch (err: any) {
       toast.error(err.message ?? "Failed to start checkout");
@@ -125,7 +125,7 @@ export default function Pricing() {
           </h1>
           <p className="text-xl text-blue-200/70 max-w-2xl mx-auto mb-8">
             NIL deals, recruiting tools, AI Trainers, Teammates &amp; Companions — the complete athlete platform.
-            7 days free. No credit card needed.
+            7-day free trial — credit card required, not charged until day 8.
           </p>
 
           {/* Billing Toggle */}
@@ -293,7 +293,7 @@ export default function Pricing() {
               </div>
             ))}
           </div>
-          <p className="text-blue-400/40 text-xs mt-4">All payments secured by Stripe · 256-bit SSL encryption · No credit card required for free trial</p>
+          <p className="text-blue-400/40 text-xs mt-4">All payments secured by Stripe · 256-bit SSL encryption · credit card required — not charged for 7 days for free trial</p>
         </div>
 
         {/* Team & School Billing */}

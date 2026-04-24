@@ -83,7 +83,7 @@ export default function SignIn() {
                 <Link href="/terms-of-service"><span className="text-white/40 hover:text-white/70 underline cursor-pointer">Terms</span></Link>
                 {" "}&amp;{" "}
                 <Link href="/privacy-policy"><span className="text-white/40 hover:text-white/70 underline cursor-pointer">Privacy Policy</span></Link>.
-                <br />7-day free trial — no credit card required.
+                <br />7-day free trial — credit card required — not charged for 7 days.
               </p>
             </div>
 

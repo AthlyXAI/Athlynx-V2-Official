@@ -8,7 +8,7 @@ const STEPS = [
   {
     step: "01",
     title: "Create Your Free Account",
-    subtitle: "7-Day Free Trial — No Credit Card Required",
+    subtitle: "7-Day Free Trial — credit card required — not charged for 7 days",
     icon: "🏆",
     color: "from-blue-600 to-blue-800",
     border: "border-blue-600",
@@ -354,7 +354,7 @@ export default function Demo() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="text-blue-400 text-xs uppercase tracking-widest mb-2">Simple Pricing</div>
           <h2 className="text-3xl font-black text-white mb-4">START FREE. UPGRADE WHEN YOU'RE READY.</h2>
-          <p className="text-blue-300 text-lg mb-8">Every athlete gets a 7-day free trial. No credit card. No commitment.</p>
+          <p className="text-blue-300 text-lg mb-8">Every athlete gets a 7-day free trial. Add your credit card — you will not be charged until day 8. Cancel anytime.</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
             {[
               { name: "STARTER", price: "FREE", period: "7 days", features: ["Full platform access", "Basic profile", "Feed & Messenger", "NIL browsing"], color: "border-blue-700", badge: "" },
@@ -412,7 +412,7 @@ export default function Demo() {
               ENTER PLATFORM
             </Link>
           </div>
-          <p className="text-blue-600 text-xs mt-6">No credit card required. Cancel anytime. Dreams Do Come True 2026.</p>
+          <p className="text-blue-600 text-xs mt-6">credit card required — not charged for 7 days. Cancel anytime. Dreams Do Come True 2026.</p>
         </div>
       </section>
 
