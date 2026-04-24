@@ -53,6 +53,19 @@ export default function AuthCallback() {
   const syncUser = trpc.auth.syncAuth0User.useMutation();
   const hasSynced = useRef(false);
   const hasHandledCallback = useRef(false);
+  const hardTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Hard timeout: if stuck for more than 12 seconds, clear state and redirect
+  useEffect(() => {
+    hardTimeoutRef.current = setTimeout(() => {
+      console.warn("[AuthCallback] Hard timeout reached — clearing state and redirecting");
+      clearStaleAuth0State();
+      window.location.href = "/signin?error=timeout";
+    }, 12000);
+    return () => {
+      if (hardTimeoutRef.current) clearTimeout(hardTimeoutRef.current);
+    };
+  }, []);
 
   // Step 1: Process the OAuth callback (exchange authorization code for tokens)
   useEffect(() => {
@@ -66,6 +79,7 @@ export default function AuthCallback() {
     if (hasError) {
       const errorDesc = params.get("error_description") ?? "Authentication failed";
       console.error("[AuthCallback] Auth0 error in URL:", errorDesc);
+      if (hardTimeoutRef.current) clearTimeout(hardTimeoutRef.current);
       window.location.href = `/signin?error=${encodeURIComponent(errorDesc)}`;
       return;
     }
@@ -75,7 +89,6 @@ export default function AuthCallback() {
       handleRedirectCallback()
         .then((result) => {
           console.log("[AuthCallback] handleRedirectCallback success", result);
-          // Store appState.returnTo from Lily's recommendation
           if (result?.appState?.returnTo) {
             sessionStorage.setItem("auth_return_to", result.appState.returnTo);
           }
@@ -83,12 +96,13 @@ export default function AuthCallback() {
         })
         .catch((err) => {
           console.error("[AuthCallback] handleRedirectCallback failed:", err);
-          // Clear stale Auth0 state on Invalid state error so next login works
+          if (hardTimeoutRef.current) clearTimeout(hardTimeoutRef.current);
           clearStaleAuth0State();
           window.location.href = "/signin";
         });
     } else if (!isLoading && !isAuthenticated) {
       // No code in URL and not authenticated — redirect to sign in
+      if (hardTimeoutRef.current) clearTimeout(hardTimeoutRef.current);
       window.location.href = "/signin";
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -100,6 +114,7 @@ export default function AuthCallback() {
     if (hasSynced.current) return;
 
     hasSynced.current = true;
+    if (hardTimeoutRef.current) clearTimeout(hardTimeoutRef.current);
 
     const doSync = async () => {
       let isNewUser = false;
@@ -131,6 +146,7 @@ export default function AuthCallback() {
   if (auth0Error) {
     // For Invalid state errors, clear stale state and auto-redirect
     if (auth0Error.message?.includes("Invalid state") || (auth0Error as any)?.error === "invalid_state") {
+      if (hardTimeoutRef.current) clearTimeout(hardTimeoutRef.current);
       clearStaleAuth0State();
       setTimeout(() => { window.location.href = "/signin"; }, 500);
       return (
