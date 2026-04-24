@@ -1,7 +1,7 @@
 /**
  * ATHLYNX Stripe Products & Pricing Configuration
  * All prices are in USD cents.
- * Price IDs are hardcoded from the live Stripe account.
+ * Price IDs are hardcoded from the live Stripe account (created April 24, 2026).
  */
 export const STRIPE_PLANS = [
   {
@@ -9,7 +9,7 @@ export const STRIPE_PLANS = [
     name: "Athlete Starter",
     description: "Essential access to the ATHLYNX platform — NIL discovery, messaging, and community features.",
     priceMonthly: 999, // $9.99/mo
-    priceYearly: 9900, // $99/yr
+    priceYearly: 9588, // $95.88/yr
     features: [
       "Basic Athlete Profile",
       "NIL Deal Discovery",
@@ -18,8 +18,8 @@ export const STRIPE_PLANS = [
       "Diamond Grind Training",
       "7-Day Free Trial",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_STARTER_MONTHLY ?? "price_1TPkKjGvvjXZw2uEMvRGuqiu",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_STARTER_YEARLY ?? "price_1TPkMBGvvjXZw2uEI7I6FAKT",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_STARTER_MONTHLY ?? "price_1TPlXCGvvjXZw2uE9zCKwkHU",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_STARTER_YEARLY ?? "price_1TPlXDGvvjXZw2uEPF9vSEb2",
     badge: "Best for Beginners",
     color: "#0066ff",
   },
@@ -28,7 +28,7 @@ export const STRIPE_PLANS = [
     name: "Athlete Pro",
     description: "Full platform access with AI recruiting, NIL deal tracking, and transfer portal intelligence.",
     priceMonthly: 4999, // $49.99/mo
-    priceYearly: 49900, // $499/yr
+    priceYearly: 47988, // $479.88/yr
     features: [
       "Everything in Starter",
       "AI Recruiter Tools",
@@ -37,8 +37,8 @@ export const STRIPE_PLANS = [
       "AI Sales Automation",
       "Priority Support",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_PRO_MONTHLY ?? "price_1TPkKkGvvjXZw2uEbDtTlJVq",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_PRO_YEARLY ?? "price_1TPkMCGvvjXZw2uE1qvINpYK",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_PRO_MONTHLY ?? "price_1TPlXFGvvjXZw2uEDrmBKYzT",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_PRO_YEARLY ?? "price_1TPlXGGvvjXZw2uECx8YfYME",
     badge: "Most Popular",
     color: "#00c2ff",
   },
@@ -47,7 +47,7 @@ export const STRIPE_PLANS = [
     name: "Athlete Elite",
     description: "The complete ATHLYNX experience — white-glove NIL management, brand deals, and 1-on-1 strategy.",
     priceMonthly: 9999, // $99.99/mo
-    priceYearly: 99900, // $999/yr
+    priceYearly: 95988, // $959.88/yr
     features: [
       "Everything in Pro",
       "NIL Vault (Contract Archive)",
@@ -56,8 +56,8 @@ export const STRIPE_PLANS = [
       "White-label Branding",
       "API Access",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_ELITE_MONTHLY ?? "price_1TPkKmGvvjXZw2uEDyhTJBxb",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_ELITE_YEARLY ?? "price_1TPkMCGvvjXZw2uEuGSWmyLv",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_ELITE_MONTHLY ?? "price_1TPlXIGvvjXZw2uEA7fsU5Cc",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_ELITE_YEARLY ?? "price_1TPlXJGvvjXZw2uEdDcbMrNh",
     badge: "Best Value",
     color: "#7c3aed",
   },
@@ -66,7 +66,7 @@ export const STRIPE_PLANS = [
 export type PlanId = (typeof STRIPE_PLANS)[number]["id"];
 
 export const CREDIT_PACKS = [
-  { id: "credits_100", name: "100 Credits", credits: 100, price: 999, stripePriceId: process.env.STRIPE_PRICE_CREDITS_100 ?? "price_1TPkMEGvvjXZw2uEZwFIyAuQ" },
-  { id: "credits_500", name: "500 Credits", credits: 500, price: 3999, stripePriceId: process.env.STRIPE_PRICE_CREDITS_500 ?? "price_1TPkMGGvvjXZw2uEfOXpPekc" },
-  { id: "credits_1000", name: "1,000 Credits", credits: 1000, price: 6999, stripePriceId: process.env.STRIPE_PRICE_CREDITS_1000 ?? "price_1TPkMHGvvjXZw2uENKxAUoji" },
+  { id: "credits_100",  name: "100 Credits",   credits: 100,  price: 999,  stripePriceId: process.env.STRIPE_PRICE_CREDITS_100  ?? "price_1TPlXLGvvjXZw2uE9BVsgXi8" },
+  { id: "credits_500",  name: "500 Credits",   credits: 500,  price: 3999, stripePriceId: process.env.STRIPE_PRICE_CREDITS_500  ?? "price_1TPlXNGvvjXZw2uEybgWAotO" },
+  { id: "credits_1000", name: "1,000 Credits", credits: 1000, price: 6999, stripePriceId: process.env.STRIPE_PRICE_CREDITS_1000 ?? "price_1TPlXPGvvjXZw2uE2UckX9uN" },
 ] as const;
