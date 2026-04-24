@@ -1,6 +1,38 @@
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { protectedProcedure, router } from "../_core/trpc";
 import { invokeLLM } from "../_core/llm";
+import { getDb } from "../db";
+import { users } from "../../drizzle/schema";
+import { eq, sql } from "drizzle-orm";
+
+// Credit costs per AI action
+const CREDIT_COSTS: Record<string, number> = {
+  generateBrandPitch: 15,
+  analyzeDeal: 10,
+  optimizeProfile: 10,
+  generateCoachEmail: 8,
+  generateCaption: 5,
+  generateBio: 8,
+  generateContentPlan: 12,
+  robotChat: 5,
+  getRecruitingAdvice: 10,
+  generateTrainingPlan: 10,
+  wizardAdvice: 10,
+};
+
+async function deductCredits(userId: number, action: string): Promise<number> {
+  const cost = CREDIT_COSTS[action] ?? 5;
+  const db = await getDb();
+  if (!db) return cost;
+  const [user] = await db.select({ credits: users.credits }).from(users).where(eq(users.id, userId)).limit(1);
+  if (!user) return cost;
+  if (user.credits < cost) {
+    throw new TRPCError({ code: "FORBIDDEN", message: `Insufficient credits. This action costs ${cost} credits. You have ${user.credits} credits. Please purchase more credits.` });
+  }
+  await db.update(users).set({ credits: sql`${users.credits} - ${cost}` }).where(eq(users.id, userId));
+  return cost;
+}
 
 export const aiRouter = router({
   // AI SALES — Brand pitch & deal analysis
@@ -14,7 +46,8 @@ export const aiRouter = router({
       brandCategory: z.string(),
       dealValue: z.number().optional(),
     }))
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "generateBrandPitch");
       const response = await invokeLLM({
         messages: [
           {
@@ -48,7 +81,8 @@ Include: Opening hook, athlete value proposition, brand alignment, deliverables,
       athleteFollowers: z.number().optional(),
       sport: z.string().optional(),
     }))
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "analyzeDeal");
       const response = await invokeLLM({
         messages: [
           {
@@ -83,7 +117,8 @@ Provide: Deal rating (1-10), fair market value assessment, red flags if any, neg
       bio: z.string().optional(),
       achievements: z.string().optional(),
     }))
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "optimizeProfile");
       const response = await invokeLLM({
         messages: [
           {
@@ -120,7 +155,8 @@ Provide: 1) Rewritten bio (under 150 words), 2) Top 3 profile improvements, 3) K
       gpa: z.number().optional(),
       achievements: z.string().optional(),
     }))
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "generateCoachEmail");
       const response = await invokeLLM({
         messages: [
           {
@@ -155,7 +191,8 @@ Write a professional, genuine email that will get a response. Include subject li
       sport: z.string().optional(),
       includeHashtags: z.boolean().default(true),
     }))
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "generateCaption");
       const platformGuides: Record<string, string> = {
         instagram: "engaging, 150-200 chars, story-driven, with emojis",
         twitter: "punchy, under 280 chars, conversational, trending",
@@ -194,7 +231,8 @@ Write 3 caption options, numbered. Make them authentic and platform-native.`,
       achievements: z.string().optional(),
       personality: z.string().optional(),
     }))
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "generateBio");
       const response = await invokeLLM({
         messages: [
           {
@@ -224,7 +262,8 @@ Write 2 bio options. Keep each under 150 characters for Instagram/Twitter, or 3 
       goals: z.string(),
       platforms: z.array(z.string()),
     }))
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "generateContentPlan");
       const response = await invokeLLM({
         messages: [
           {
@@ -256,7 +295,8 @@ Provide: Weekly themes, 3 content ideas per week, best posting times, and one vi
         content: z.string(),
       })).optional(),
     }))
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "robotChat");
       const systemPrompt = `You are LYNX — the ATHLYNX AI Robot Companion. You are a friendly, knowledgeable, and motivating AI assistant built specifically for athletes.
 
 You help athletes with:
@@ -296,7 +336,8 @@ Be encouraging, specific, and practical. Use sports terminology naturally. Keep 
       gpa: z.number().optional(),
       question: z.string(),
     }))
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "getRecruitingAdvice");
       const response = await invokeLLM({
         messages: [
           {
@@ -329,7 +370,8 @@ Provide a detailed, actionable answer. Include specific next steps, timelines, a
     .input(z.object({
       prompt: z.string(),
     }))
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "generateTrainingPlan");
       const response = await invokeLLM({
         messages: [
           {
@@ -354,7 +396,8 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
       wizardType: z.enum(["career", "transfer", "scout", "scholarship", "life", "lawyer", "financial", "agent"]),
       context: z.string().min(1).max(3000),
     }))
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "wizardAdvice");
       const systemPrompts: Record<string, string> = {
         career: `You are the ATHLYNX Career Wizard — an elite athletic career advisor. Create a personalized, actionable career roadmap. Include: Immediate Actions (next 30 days), 6-Month Milestones, Long-Term Goals, and Key Resources. Be specific, motivating, and practical. Use clear sections and bullet points.`,
         transfer: `You are the ATHLYNX Transfer Wizard — an NCAA Transfer Portal expert. Guide the athlete through every step: eligibility rules, waiver process, finding the right programs, communicating with coaches, and making the best decision. Include specific timelines and NCAA rules.`,
@@ -374,13 +417,22 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
       return { result: response.choices[0].message.content };
     }),
 
+  // GET CREDITS — Returns the user's current credit balance
+  getCredits: protectedProcedure
+    .query(async ({ ctx }) => {
+      const db = await getDb();
+      if (!db) return { credits: 0 };
+      const [user] = await db.select({ credits: users.credits }).from(users).where(eq(users.id, ctx.user!.id)).limit(1);
+      return { credits: user?.credits ?? 0 };
+    }),
+
   // BUFFER SCHEDULING — Schedule a post to Buffer social channels
   scheduleToBuffer: protectedProcedure
     .input(z.object({
       text: z.string(),
       channels: z.array(z.enum(["twitter", "facebook", "instagram", "tiktok"])).default(["twitter", "instagram"]),
     }))
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       const BUFFER_TOKEN = process.env.BUFFER_ACCESS_TOKEN;
       if (!BUFFER_TOKEN) throw new Error("Buffer not configured");
       const CHANNEL_IDS: Record<string, string> = {

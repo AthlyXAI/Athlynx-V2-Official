@@ -159,6 +159,9 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
 
   // Subscription plan for credits display
   const { data: sub } = trpc.stripe.getSubscription.useQuery(undefined, { enabled: !!user });
+  // Live credit balance — refetches after every AI action
+  const { data: creditsData } = trpc.ai.getCredits.useQuery(undefined, { enabled: !!user, refetchInterval: 30000 });
+  const liveCredits = creditsData?.credits ?? user?.credits ?? 0;
   // Trial state derived from DB user
   const trialEndsAt = (user as any)?.trialEndsAt ? new Date((user as any).trialEndsAt) : null;
   const _now = new Date();
@@ -249,7 +252,7 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
                 </Link>
                 <Link href="/billing">
                   <span className="inline-flex items-center gap-0.5 text-[10px] font-bold px-2 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/30 cursor-pointer hover:bg-red-500/20 transition-colors">
-                    ⚡ {user?.credits ?? 0} credits
+                    ⚡ {liveCredits.toLocaleString()} credits
                   </span>
                 </Link>
               </div>
