@@ -146,6 +146,29 @@ export default function Billing() {
           </CardContent>
         </Card>
 
+        {/* Credits Balance Card */}
+        <Card className="bg-white/5 border-white/10 mb-6">
+          <CardHeader>
+            <CardTitle className="text-white flex items-center gap-2">
+              <Zap className="w-5 h-5 text-yellow-400" />
+              AI Credits
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div>
+                <div className="text-4xl font-black text-yellow-400">{user?.credits ?? 0}</div>
+                <div className="text-blue-200/60 text-sm mt-1">Credits remaining — used for AI features across the platform</div>
+              </div>
+              <Button
+                className="bg-yellow-500 hover:bg-yellow-400 text-black font-black"
+                onClick={() => navigate("/pricing#credits")}
+              >
+                Buy Credits <ArrowUpRight className="w-4 h-4 ml-1" />
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
         {/* Manage Billing */}
         {isActive && (
           <Card className="bg-white/5 border-white/10 mb-6">

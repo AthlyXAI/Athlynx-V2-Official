@@ -256,6 +256,9 @@ export const customAuthRouter = router({
           lastSignedIn: new Date(),
         });
 
+        // Fetch the new user's DB ID to use as member number
+        const newUserRow = await db.select({ id: users.id }).from(users).where(eq(users.openId, openId)).limit(1);
+        const memberNumber = newUserRow[0]?.id ?? undefined;
         // Fire welcome notifications for new users (non-blocking)
         if (input.email) {
           fireWelcomeNotifications({
@@ -264,6 +267,7 @@ export const customAuthRouter = router({
             phone: input.phone,
             loginMethod,
             trialEndsAt,
+            memberNumber,
           });
         }
       } else {
@@ -332,6 +336,7 @@ export const customAuthRouter = router({
         stripeSubscriptionId: users.stripeSubscriptionId,
         stripePlanId: users.stripePlanId,
         avatarUrl: users.avatarUrl,
+        credits: users.credits,
       }).from(users).where(eq(users.openId, openId)).limit(1);
       if (result.length === 0) return null;
       return result[0];

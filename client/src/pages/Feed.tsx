@@ -1,5 +1,5 @@
 import PlatformLayout from "@/components/PlatformLayout";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 
@@ -150,12 +150,18 @@ function PostCard({ post, currentUserId }: { post: any; currentUserId?: number }
 }
 
 export default function Feed() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const [postText, setPostText] = useState("");
   const [postType, setPostType] = useState<"status"|"achievement"|"workout"|"nil_deal"|"announcement"|"milestone">("status");
   const utils = trpc.useUtils();
-
   const { data: feedData, isLoading } = trpc.feed.getFeed.useQuery({ limit: 20 });
+
+  // Subscription gate: authenticated users without a plan go to pricing
+  useEffect(() => {
+    if (!loading && user && user.dbId && !user.stripePlanId) {
+      window.location.href = "/pricing";
+    }
+  }, [loading, user]);
   const posts = feedData ?? [];
 
   const createPostMutation = trpc.feed.createPost.useMutation({

@@ -18,6 +18,7 @@ type DbUser = {
   stripeSubscriptionId: string | null;
   stripePlanId: string | null;
   avatarUrl: string | null;
+  credits: number;
 } | null;
 
 type UseAuthOptions = {
@@ -89,6 +90,7 @@ export function useAuth(options?: UseAuthOptions) {
         stripeCustomerId: dbUser?.stripeCustomerId ?? null,
         stripeSubscriptionId: dbUser?.stripeSubscriptionId ?? null,
         stripePlanId: dbUser?.stripePlanId ?? null,
+        credits: dbUser?.credits ?? 0,
         raw: auth0User,
       }
     : null;

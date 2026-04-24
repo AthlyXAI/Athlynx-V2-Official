@@ -249,7 +249,7 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
                 </Link>
                 <Link href="/billing">
                   <span className="inline-flex items-center gap-0.5 text-[10px] font-bold px-2 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/30 cursor-pointer hover:bg-red-500/20 transition-colors">
-                    ⚡ {(user as any)?.credits ?? 0}
+                    ⚡ {user?.credits ?? 0} credits
                   </span>
                 </Link>
               </div>

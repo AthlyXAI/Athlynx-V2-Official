@@ -92,12 +92,15 @@ export async function sendWelcomeEmail(to: string, name: string, memberNumber?: 
 <tr><td style="padding:40px;">
   <h2 style="color:#fff;font-size:24px;margin:0 0 16px;">Welcome to the Family, ${name}! 🏆</h2>
   ${memberNum ? `<div style="text-align:center;margin-bottom:20px;"><span style="display:inline-block;background:linear-gradient(135deg,#0066ff,#00c2ff);color:#fff;font-size:13px;font-weight:900;padding:8px 24px;border-radius:50px;letter-spacing:2px;">MEMBER #${memberNum}</span></div>` : ""}
-  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0a1628;border-radius:10px;overflow:hidden;margin-bottom:24px;">
+  <!-- CREDENTIALS BLOCK -->
+  <table width="100%" cellpadding="0" cellspacing="0" style="background:#0a1628;border-radius:10px;overflow:hidden;margin-bottom:24px;border:1px solid #1e3a6e;">
+    ${memberNum ? `<tr><td style="padding:12px 16px;border-bottom:1px solid #1e3a6e;"><span style="color:#94a3b8;font-size:11px;display:block;margin-bottom:2px;">YOUR MEMBER NUMBER</span><span style="color:#00c2ff;font-size:20px;font-weight:900;letter-spacing:2px;">#${memberNum}</span></td></tr>` : ""}
+    <tr><td style="padding:12px 16px;border-bottom:1px solid #1e3a6e;"><span style="color:#94a3b8;font-size:11px;display:block;margin-bottom:2px;">YOUR LOGIN (USERNAME)</span><span style="color:#fff;font-size:14px;font-weight:bold;">${to}</span></td></tr>
     <tr><td style="padding:12px 16px;border-bottom:1px solid #1e3a6e;"><span style="color:#94a3b8;font-size:11px;display:block;margin-bottom:2px;">JOINED</span><span style="color:#00c2ff;font-size:13px;font-weight:bold;">${signedUpStr}</span></td></tr>
-    <tr><td style="padding:12px 16px;"><span style="color:#94a3b8;font-size:11px;display:block;margin-bottom:2px;">TRIAL ENDS</span><span style="color:#f59e0b;font-size:13px;font-weight:bold;">7 days of FREE access — no credit card required</span></td></tr>
+    <tr><td style="padding:12px 16px;"><span style="color:#94a3b8;font-size:11px;display:block;margin-bottom:2px;">TRIAL</span><span style="color:#f59e0b;font-size:13px;font-weight:bold;">7 days FREE — card required, no charge until day 8</span></td></tr>
   </table>
   <p style="color:#94a3b8;font-size:16px;line-height:1.6;margin:0 0 24px;">
-    Your ATHLYNX account is ready. You have <strong style="color:#00c2ff;">7 days of free access</strong> to every feature — no credit card required.
+    Your ATHLYNX account is ready. Complete your setup, choose your plan, and add your card to unlock the full portal. <strong style="color:#00c2ff;">You won't be charged for 7 days.</strong>
   </p>
   <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">
     <tr><td style="padding:12px 16px;background:#1a3a8f;border-radius:8px;margin-bottom:8px;"><span style="color:#fff;font-size:14px;">🤖 <strong>LYNX AI Companion</strong> — Your personal AI for every sport scenario</span></td></tr>
@@ -112,7 +115,7 @@ export async function sendWelcomeEmail(to: string, name: string, memberNumber?: 
   </table>
   <table width="100%" cellpadding="0" cellspacing="0">
     <tr><td align="center">
-      <a href="https://athlynx.ai" style="display:inline-block;background:linear-gradient(135deg,#0066ff,#00c2ff);color:#fff;font-weight:900;font-size:16px;padding:16px 40px;border-radius:50px;text-decoration:none;letter-spacing:1px;">START YOUR JOURNEY →</a>
+      <a href="https://athlynx.ai/onboarding" style="display:inline-block;background:linear-gradient(135deg,#0066ff,#00c2ff);color:#fff;font-weight:900;font-size:16px;padding:16px 40px;border-radius:50px;text-decoration:none;letter-spacing:1px;">COMPLETE YOUR SETUP →</a>
     </td></tr>
   </table>
 </td></tr>
@@ -129,9 +132,9 @@ export async function sendWelcomeEmail(to: string, name: string, memberNumber?: 
 
   return sendEmail({
     to,
-    subject: memberNum ? `Welcome to ATHLYNX, ${name}! You are Member #${memberNum} 🏆` : `Welcome to ATHLYNX — Your 7-Day Free Trial Has Started 🏆`,
+    subject: memberNum ? `Welcome to ATHLYNX, ${name}! You are Member #${memberNum} 🏆` : `Welcome to ATHLYNX — Complete Your Setup 🏆`,
     html,
-    text: `Welcome to ATHLYNX, ${name}!${memberNum ? ` You are Member #${memberNum}.` : ""} Joined: ${signedUpStr}. Your 7-day free trial has started. Visit https://athlynx.ai to get started. Isaiah 40:31 · Dreams Do Come True 2026`,
+    text: `Welcome to ATHLYNX, ${name}!${memberNum ? ` You are Member #${memberNum}.` : ""} Login: ${to}. Joined: ${signedUpStr}. Complete your setup and choose your plan at https://athlynx.ai/onboarding — 7 days free, card required, no charge until day 8. Isaiah 40:31 · Dreams Do Come True 2026`,
   });
 }
 
