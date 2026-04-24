@@ -336,7 +336,7 @@ function HeroVideo({ src }: { src: string }) {
 function HeroSignupForm() {
   return (
     <div className="flex flex-col gap-3">
-      <OktaButton label="Sign Up Free with Okta" returnTo="/onboarding" screenHint="signup" />
+      <OktaButton label="Sign Up Free with Okta" returnTo="/onboarding" screenHint="login" />
       <p className="text-blue-600/70 text-xs text-center">Secured by Okta · A Dozier Holdings Group Company</p>
     </div>
   );
@@ -499,7 +499,7 @@ export default function Home() {
 
       {/* Version banner */}
       <div className="bg-gradient-to-r from-blue-900 to-indigo-900 text-center py-1.5 text-xs font-bold tracking-widest text-blue-200 border-b border-blue-700">
-        PLATFORM v1.0 &nbsp;·&nbsp; JULY 1, 2026 FULL LAUNCH
+        PLATFORM v1.0 &nbsp;·&nbsp; 🟢 LIVE NOW &nbsp;·&nbsp; 7-DAY FREE TRIAL
       </div>
 
       {/* Hero video — ATHLYNX Multi-Sport Empire */}
@@ -631,44 +631,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Countdown + VIP Waitlist */}
+      {/* Platform Live CTA */}
       <section className="py-16 px-4 bg-gradient-to-b from-[#1a3a8f] to-[#1530a0]">
         <div className="max-w-2xl mx-auto text-center">
-          <div className="text-blue-400 text-xs uppercase tracking-widest mb-2">Full Launch</div>
-          <h2 className="text-4xl font-black text-white mb-6">JULY 1, 2026</h2>
-          <div className="flex justify-center gap-4 mb-8">
-            {[
-              { val: countdown.days, label: "DAYS" },
-              { val: countdown.hours, label: "HRS" },
-              { val: countdown.minutes, label: "MIN" },
-              { val: countdown.seconds, label: "SEC" },
-            ].map(({ val, label }) => (
-              <div key={label} className="bg-[#1a3a8f] border border-blue-700 rounded-xl px-4 py-3 min-w-[64px]">
-                <div className="text-3xl font-black text-white tabular-nums">{String(val).padStart(2, "0")}</div>
-                <div className="text-blue-400 text-[10px] tracking-widest">{label}</div>
-              </div>
-            ))}
+          <div className="text-blue-400 text-xs uppercase tracking-widest mb-2">Platform Status</div>
+          <h2 className="text-4xl font-black text-green-400 mb-4">🟢 WE ARE LIVE</h2>
+          <p className="text-blue-200 text-lg mb-8">The platform is open. Start your 7-day free trial today — no credit card required.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/signup" className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-cyan-500 hover:to-blue-600 text-white font-black text-lg px-8 py-4 rounded-xl transition-all shadow-xl hover:scale-105">
+              Start Free Trial
+            </a>
+            <a href="/pricing" className="bg-[#1a3a8f] border border-blue-600 hover:bg-blue-800 text-white font-bold text-lg px-8 py-4 rounded-xl transition-all">
+              View Pricing
+            </a>
           </div>
-
-          {!joined ? (
-            <div className="flex flex-col sm:flex-row gap-2 max-w-md mx-auto">
-              <input
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder="Enter your email for VIP access"
-                className="flex-1 bg-[#1a3a8f] border border-blue-700 text-white px-4 py-3 rounded-xl focus:outline-none focus:border-blue-500 placeholder-blue-500"
-              />
-              <button
-                onClick={() => { if (email) setJoined(true); }}
-                className="bg-blue-600 hover:bg-blue-500 text-white font-black px-6 py-3 rounded-xl transition-colors"
-              >
-                JOIN VIP
-              </button>
-            </div>
-          ) : (
-            <div className="text-green-400 font-bold text-lg">You're on the VIP list! Dreams Do Come True 2026.</div>
-          )}
+          <p className="text-blue-400 text-xs mt-4">Dreams Do Come True · A Dozier Holdings Group Company</p>
         </div>
       </section>
 

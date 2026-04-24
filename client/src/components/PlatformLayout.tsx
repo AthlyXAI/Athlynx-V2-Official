@@ -434,16 +434,16 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
                 <span className="text-white font-bold text-sm">10+</span>
               </div>
               <div className="flex items-center justify-between py-1">
-                <span className="text-blue-300 text-sm">Full Launch</span>
-                <span className="text-green-400 font-bold text-sm">July 1, 2026</span>
+                <span className="text-blue-300 text-sm">Status</span>
+                <span className="text-green-400 font-bold text-sm">🟢 LIVE NOW</span>
               </div>
             </div>
           </div>
 
           {/* Countdown */}
           <div className="bg-gradient-to-br from-blue-900 to-[#1530a0] rounded-xl border border-blue-700 p-4 text-center">
-            <div className="text-blue-300 text-xs uppercase tracking-widest mb-1">Full Launch</div>
-            <div className="text-white font-black text-2xl">JULY 1, 2026</div>
+            <div className="text-blue-300 text-xs uppercase tracking-widest mb-1">Platform Status</div>
+            <div className="text-green-400 font-black text-2xl">🟢 LIVE NOW</div>
             <div className="text-blue-400 text-xs mt-1">Dreams Do Come True</div>
               {user ? (
                 <Link href="/billing" className="mt-3 block w-full bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold py-2 rounded-lg transition-colors text-center">

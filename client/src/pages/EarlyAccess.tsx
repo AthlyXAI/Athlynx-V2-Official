@@ -70,11 +70,11 @@ export default function EarlyAccess() {
             {/* Login card */}
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-7 shadow-2xl">
               <p className="text-center text-white/50 text-sm mb-5 font-medium">
-                Create your free Okta account
+                Sign up or sign in to get started
               </p>
 
               {/* Universal Okta Button */}
-              <OktaButton label="Sign Up Free with Okta" returnTo="/onboarding" screenHint="signup" className="w-full flex items-center justify-center gap-3 bg-[#00c2ff] hover:bg-[#00a8e0] text-white font-bold py-3.5 px-6 rounded-xl active:scale-[0.98] transition-all duration-150 shadow-lg" />
+              <OktaButton label="Get Started Free with Okta" returnTo="/onboarding" screenHint="login" className="w-full flex items-center justify-center gap-3 bg-[#00c2ff] hover:bg-[#00a8e0] text-white font-bold py-3.5 px-6 rounded-xl active:scale-[0.98] transition-all duration-150 shadow-lg" />
 
               {/* Terms */}
               <p className="text-center text-white/25 text-xs mt-5 leading-relaxed">
