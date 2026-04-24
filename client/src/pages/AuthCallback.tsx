@@ -28,9 +28,7 @@ function clearStaleAuth0State() {
 }
 
 /**
- * Auth0 redirects here after login (Google, Apple, Email).
- * CRITICAL: handleRedirectCallback() must be called to process the OAuth
- * authorization code in the URL before Auth0 sets isAuthenticated = true.
+ * Auth0 redirects here after login.
  *
  * Flow:
  *   1. Auth0 redirects to /callback?code=...&state=...
@@ -38,7 +36,12 @@ function clearStaleAuth0State() {
  *   3. Auth0 sets isAuthenticated = true and populates user
  *   4. We sync the user to our backend DB (sets a session cookie)
  *   5. New users  → /onboarding
- *      Returning  → /feed (or original destination)
+ *      Returning  → /feed
+ *
+ * "Invalid state" fix:
+ *   When the email link opens in a different browser/tab, Auth0 throws
+ *   "Invalid state". We clear stale state and call loginWithRedirect()
+ *   to restart a fresh login — no looping.
  */
 export default function AuthCallback() {
   const {
@@ -47,6 +50,7 @@ export default function AuthCallback() {
     user,
     getIdTokenClaims,
     handleRedirectCallback,
+    loginWithRedirect,
     error: auth0Error,
   } = useAuth0();
 
@@ -54,18 +58,27 @@ export default function AuthCallback() {
   const hasSynced = useRef(false);
   const hasHandledCallback = useRef(false);
   const hardTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hasRestarted = useRef(false);
 
-  // Hard timeout: if stuck for more than 12 seconds, clear state and redirect
+  const restartLogin = () => {
+    if (hasRestarted.current) return;
+    hasRestarted.current = true;
+    if (hardTimeoutRef.current) clearTimeout(hardTimeoutRef.current);
+    clearStaleAuth0State();
+    // Use loginWithRedirect to start a fresh session — not window.location
+    loginWithRedirect({ appState: { returnTo: "/feed" } });
+  };
+
+  // Hard timeout: if stuck for more than 20 seconds, restart login
   useEffect(() => {
     hardTimeoutRef.current = setTimeout(() => {
-      console.warn("[AuthCallback] Hard timeout reached — clearing state and redirecting");
-      clearStaleAuth0State();
-      window.location.href = "/signin?error=timeout";
-    }, 12000);
+      console.warn("[AuthCallback] Hard timeout — restarting login");
+      restartLogin();
+    }, 20000);
     return () => {
       if (hardTimeoutRef.current) clearTimeout(hardTimeoutRef.current);
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Step 1: Process the OAuth callback (exchange authorization code for tokens)
   useEffect(() => {
@@ -92,20 +105,44 @@ export default function AuthCallback() {
           if (result?.appState?.returnTo) {
             sessionStorage.setItem("auth_return_to", result.appState.returnTo);
           }
-          // Auth0 will update isAuthenticated — the second useEffect handles sync
         })
         .catch((err) => {
           console.error("[AuthCallback] handleRedirectCallback failed:", err);
-          if (hardTimeoutRef.current) clearTimeout(hardTimeoutRef.current);
-          clearStaleAuth0State();
-          window.location.href = "/signin";
+          const isInvalidState =
+            err?.message?.includes("Invalid state") ||
+            err?.error === "invalid_state" ||
+            err?.message?.includes("invalid_state");
+
+          if (isInvalidState) {
+            // Restart login cleanly — don't redirect to /signin (that loops)
+            restartLogin();
+          } else {
+            if (hardTimeoutRef.current) clearTimeout(hardTimeoutRef.current);
+            window.location.href = "/signin";
+          }
         });
     } else if (!isLoading && !isAuthenticated) {
-      // No code in URL and not authenticated — redirect to sign in
-      if (hardTimeoutRef.current) clearTimeout(hardTimeoutRef.current);
-      window.location.href = "/signin";
+      // No code in URL and not authenticated — restart login
+      restartLogin();
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Handle Auth0 hook-level errors (e.g. "Invalid state" from useAuth0)
+  useEffect(() => {
+    if (!auth0Error) return;
+    const isInvalidState =
+      auth0Error.message?.includes("Invalid state") ||
+      (auth0Error as any)?.error === "invalid_state" ||
+      auth0Error.message?.includes("invalid_state");
+
+    if (isInvalidState) {
+      console.warn("[AuthCallback] Auth0 hook error: Invalid state — restarting login");
+      restartLogin();
+    } else {
+      if (hardTimeoutRef.current) clearTimeout(hardTimeoutRef.current);
+      window.location.href = `/signin?error=${encodeURIComponent(auth0Error.message)}`;
+    }
+  }, [auth0Error]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Step 2: Once Auth0 has processed the callback and user is available, sync to backend
   useEffect(() => {
@@ -130,7 +167,7 @@ export default function AuthCallback() {
         });
         isNewUser = result?.isNewUser ?? false;
       } catch (err) {
-        console.error("[AuthCallback] Backend sync failed:", err);
+        console.error("[AuthCallback] Backend sync failed (non-fatal):", err);
         // Sync failure is non-fatal — still redirect so user isn't stuck
       } finally {
         const returnTo = sessionStorage.getItem("auth_return_to") || null;
@@ -141,37 +178,6 @@ export default function AuthCallback() {
 
     doSync();
   }, [isAuthenticated, isLoading, user]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // Show Auth0 error if present
-  if (auth0Error) {
-    // For Invalid state errors, clear stale state and auto-redirect
-    if (auth0Error.message?.includes("Invalid state") || (auth0Error as any)?.error === "invalid_state") {
-      if (hardTimeoutRef.current) clearTimeout(hardTimeoutRef.current);
-      clearStaleAuth0State();
-      setTimeout(() => { window.location.href = "/signin"; }, 500);
-      return (
-        <div className="min-h-screen bg-[#050c1a] flex items-center justify-center">
-          <div className="text-center">
-            <div className="relative w-20 h-20 mx-auto mb-6">
-              <div className="absolute inset-0 rounded-full border-2 border-[#00c2ff]/20 animate-ping" />
-              <div className="absolute inset-2 rounded-full border-2 border-[#00c2ff] border-t-transparent animate-spin" />
-            </div>
-            <p className="text-white font-black text-xl mb-2 tracking-widest">REFRESHING SESSION</p>
-            <p className="text-[#00c2ff]/60 text-sm">Redirecting you back to sign in...</p>
-          </div>
-        </div>
-      );
-    }
-    return (
-      <div className="min-h-screen bg-[#050c1a] flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-400 font-bold text-xl mb-4">Login Error</p>
-          <p className="text-white/60 text-sm mb-6">{auth0Error.message}</p>
-          <a href="/signin" className="text-[#00c2ff] underline">Return to Sign In</a>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-[#050c1a] flex items-center justify-center">
