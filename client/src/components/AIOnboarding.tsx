@@ -495,7 +495,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
         <div className="text-6xl mb-4">🎉</div>
         <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
         <h2 className="text-2xl font-black text-white mb-2">You're In!</h2>
-        <p className="text-blue-300 mb-4">Your ATHLYNX profile is set up. Welcome to the platform — let's get to work.</p>
+        <p className="text-blue-300 mb-4">Profile set up. Next — pick your plan and add your card. You won't be charged for 7 days.</p>
         <div className="flex items-center justify-center gap-2 text-blue-400 text-sm">
           <div className="w-4 h-4 border-2 border-blue-400 border-t-transparent rounded-full animate-spin" />
           Setting up your 7-day trial — adding card now...
