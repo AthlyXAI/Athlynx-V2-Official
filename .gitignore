@@ -118,3 +118,4 @@ client/public/__manus__/version.json
 .env.production
 scripts/seed-db.cjs
 scripts/seed-tidb.cjs
+.env.vercel.prod
