@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import DashboardLayout from "@/components/DashboardLayout";
+import { trpc } from "@/lib/trpc";
 
 const STEPS = [
   { id: 1, title: "Your Sport & Level", emoji: "🏆" },
@@ -26,6 +27,11 @@ export default function CareerWizard() {
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
   const [gradYear, setGradYear] = useState("2026");
   const [done, setDone] = useState(false);
+  const [aiResult, setAiResult] = useState("");
+
+  const wizardMutation = trpc.ai.wizardAdvice.useMutation({
+    onSuccess: (data) => { setAiResult(data.result ?? ""); setDone(true); },
+  });
 
   const toggleGoal = (g: string) => {
     setSelectedGoals(prev => prev.includes(g) ? prev.filter(x => x !== g) : [...prev, g]);
@@ -115,7 +121,15 @@ export default function CareerWizard() {
               </div>
               <div className="flex gap-2 mt-2">
                 <Button variant="outline" onClick={() => setStep(1)} className="flex-1 border-blue-700 text-blue-300">← Back</Button>
-                <Button onClick={() => { setStep(3); setDone(true); }} className="flex-1 bg-gradient-to-r from-red-500 to-red-500 text-black font-black">Generate My Playbook 🚀</Button>
+                <Button
+                  onClick={() => {
+                    const context = `Sport: ${sport}\nLevel: ${level}\nGoals: ${selectedGoals.join(", ")}\nTarget Year: ${gradYear}\n\nCreate my complete career playbook with immediate actions, 6-month milestones, and long-term goals.`;
+                    wizardMutation.mutate({ wizardType: "career", context });
+                  }}
+                  disabled={wizardMutation.isPending}
+                  className="flex-1 bg-gradient-to-r from-red-600 to-red-500 text-white font-black">
+                  {wizardMutation.isPending ? "Generating..." : "Generate My Playbook 🚀"}
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -132,28 +146,13 @@ export default function CareerWizard() {
                 </div>
               </CardContent>
             </Card>
-            {[
-              { title: "📋 Immediate Actions (Next 30 Days)", items: ["Update your ATHLYNX athlete profile", "Upload highlight reel to Scout Hub", "Connect with 3 coaches in your target schools", "Set up NIL profile if eligible"] },
-              { title: "🎯 6-Month Milestones", items: ["Attend 2 showcases / combines", "Apply to 5 scholarship opportunities", "Build your personal brand on social media", "Schedule meetings with NIL advisors"] },
-              { title: "🏆 Long-Term Goals", items: selectedGoals.map(g => `Achieve: ${g}`) },
-            ].map((section, i) => (
-              <Card key={i} className="bg-[#1a3a8f] border-blue-800">
-                <CardContent className="p-4">
-                  <h3 className="text-white font-bold mb-3">{section.title}</h3>
-                  <div className="space-y-2">
-                    {section.items.map((item, j) => (
-                      <div key={j} className="flex items-center gap-3 bg-[#0d1b3e] rounded-xl p-2.5">
-                        <div className="w-5 h-5 rounded-full border-2 border-blue-600 flex items-center justify-center shrink-0">
-                          <div className="w-2 h-2 rounded-full bg-blue-600" />
-                        </div>
-                        <span className="text-blue-200 text-sm">{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-            <Button onClick={() => { setStep(0); setDone(false); setSport(""); setLevel(""); setSelectedGoals([]); }}
+            <Card className="bg-[#1a3a8f] border-blue-800">
+              <CardContent className="p-5">
+                <h3 className="text-white font-bold mb-3">🤖 Your AI Career Playbook</h3>
+                <div className="text-blue-200 text-sm whitespace-pre-wrap leading-relaxed">{aiResult}</div>
+              </CardContent>
+            </Card>
+            <Button onClick={() => { setStep(0); setDone(false); setSport(""); setLevel(""); setSelectedGoals([]); setAiResult(""); }}
               variant="outline" className="w-full border-blue-700 text-blue-300">↺ Start Over</Button>
           </div>
         )}
