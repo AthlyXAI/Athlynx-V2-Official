@@ -154,6 +154,8 @@ import ProjectPlaybook from "./pages/ProjectPlaybook";
 
 // ── Partners ──
 import ICCUSAPartner from "./pages/ICCUSAPartner";
+import LandingPage from "./pages/LandingPage";
+import ComponentShowcase from "./pages/ComponentShowcase";
 
 // ── Wizards ──
 import AgentWizard from "./pages/wizards/AgentWizard";
@@ -193,6 +195,7 @@ function Router() {
       <Route path="/nil-calculator" component={NILCalculator} />
       <Route path="/transfer-portal" component={TransferPortalFOS} />
       <Route path="/transfer-portal-fos" component={TransferPortalFOS} />
+      <Route path="/transfer-portal-v2" component={TransferPortal} />
       <Route path="/transfer-intelligence" component={TransferPortalIntelligence} />
       <Route path="/diamond-grind" component={DiamondGrind} />
       <Route path="/baseball" component={DiamondGrind} />
@@ -280,6 +283,7 @@ function Router() {
 
       {/* ── DHG Corporate ── */}
       <Route path="/dhg" component={DHGCorporate} />
+      <Route path="/dhg-corporate" component={DHG} />
       <Route path="/dhg-home" component={DHGHome} />
       <Route path="/dhg-empire" component={DHGEmpire} />
       <Route path="/empire-vision" component={EmpireVision} />
@@ -360,6 +364,8 @@ function Router() {
       <Route path="/legacy" component={DozierLegacy} />
       <Route path="/dozier-legacy" component={DozierLegacy} />
 
+      <Route path="/landing" component={LandingPage} />
+      <Route path="/components" component={ComponentShowcase} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
