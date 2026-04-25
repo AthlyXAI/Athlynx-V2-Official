@@ -1,8 +1,8 @@
-// v1.3.0 - Apr 23 2026 - Unified Okta OAuth sign-up on landing page
+// v1.4.0 - Apr 25 2026 - Clean Auth0 sign-up, no trial text
 import { Link } from "wouter";
 import { useState, useEffect, useRef } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import OktaButton from "../components/OktaButton";
+
 
 function EnterPortalToggle() {
   const [visible, setVisible] = useState(false);
@@ -369,8 +369,8 @@ function HeroVideo({ src }: { src: string }) {
 function HeroSignupForm() {
   return (
     <div className="flex flex-col gap-3">
-      <OktaButton label="Sign Up Free with Okta" returnTo="/onboarding" screenHint="signup" />
-      <p className="text-blue-600/70 text-xs text-center">Secured by Okta · A Dozier Holdings Group Company</p>
+      <a href="/signin" className="inline-flex items-center justify-center gap-2 bg-[#00c2ff] hover:bg-[#00a8e0] text-white font-bold py-3.5 px-8 rounded-xl transition-all duration-150 shadow-lg">Get Started Free</a>
+      <p className="text-white/30 text-xs text-center">A Dozier Holdings Group Company · Houston, TX</p>
     </div>
   );
 }
@@ -570,7 +570,7 @@ export default function Home() {
             FREE 7-DAY ACCESS — NO CREDIT CARD
           </div>
           <h2 className="text-3xl md:text-4xl font-black text-white mb-2">ACCESS THE PLATFORM</h2>
-          <p className="text-blue-300 text-base mb-8">Choose your portal below. All secured by Okta.</p>
+          <p className="text-blue-300 text-base mb-8">Choose your portal below. All in one platform.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Users — Athletes, Parents, Coaches, Brands */}
             <a href="/signup" className="flex flex-col items-center gap-2 bg-[#007DC1] hover:bg-[#006aaa] text-white font-bold text-base py-5 px-4 rounded-2xl transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98] border border-blue-400/30">
@@ -597,7 +597,7 @@ export default function Home() {
               <span className="text-blue-200 text-xs font-normal">Internal Team · Admin</span>
             </a>
           </div>
-          <p className="text-blue-700 text-xs text-center mt-5">Secured by Okta · A Dozier Holdings Group Company · credit card required — not charged for 7 days</p>
+          <p className="text-blue-700 text-xs text-center mt-5">A Dozier Holdings Group Company · Houston, TX</p>
         </div>
       </section>
 
@@ -669,7 +669,7 @@ export default function Home() {
         <div className="max-w-2xl mx-auto text-center">
           <div className="text-blue-400 text-xs uppercase tracking-widest mb-2">Platform Status</div>
           <h2 className="text-4xl font-black text-green-400 mb-4">🟢 WE ARE LIVE</h2>
-          <p className="text-blue-200 text-lg mb-8">The platform is open. Start your 7-day free trial today — credit card required — not charged for 7 days.</p>
+          <p className="text-blue-200 text-lg mb-8">The platform is open. Join thousands of athletes building their careers.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="/signup" className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-cyan-500 hover:to-blue-600 text-white font-black text-lg px-8 py-4 rounded-xl transition-all shadow-xl hover:scale-105">
               Start Free Trial

@@ -1,18 +1,39 @@
 import { Link } from "wouter";
-import OktaButton from "../components/OktaButton";
-
-const CDN = "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const FEATURES = [
-  { icon: `${CDN}/nil_portal_app_icon_n_final_0993a3be.png`, title: "NIL Deals", desc: "Connect with brands & earn" },
-  { icon: `${CDN}/ai-recruiter_4cfda0f2.png`, title: "AI Recruiter", desc: "Get discovered by coaches" },
-  { icon: `${CDN}/transfer-portal_509bd0ba.png`, title: "Transfer Portal", desc: "Find your next opportunity" },
-  { icon: `${CDN}/nil-vault_e80ffa38.png`, title: "NIL Vault", desc: "Track every dollar you earn" },
-  { icon: `${CDN}/athlynx-main-icon_7b5e9ca6.png`, title: "LYNX AI", desc: "Your personal AI companion" },
-  { icon: `${CDN}/diamond-grind_890f28f2.png`, title: "Diamond Grind", desc: "Train like a champion" },
+  { icon: "/icons/nil_portal_app_icon_n_final_0993a3be.png", title: "NIL Deals", desc: "Connect with brands & earn" },
+  { icon: "/icons/ai-recruiter_4cfda0f2.png", title: "AI Recruiter", desc: "Get discovered by coaches" },
+  { icon: "/icons/transfer-portal_509bd0ba.png", title: "Transfer Portal", desc: "Find your next opportunity" },
+  { icon: "/icons/nil-vault_e80ffa38.png", title: "NIL Vault", desc: "Track every dollar you earn" },
+  { icon: "/icons/athlynx-main-icon_7b5e9ca6.png", title: "LYNX AI", desc: "Your personal AI companion" },
+  { icon: "/icons/diamond-grind_890f28f2.png", title: "Diamond Grind", desc: "Train like a champion" },
 ];
 
 export default function SignIn() {
+  const { loginWithRedirect } = useAuth0();
+
+  const handleSignIn = async () => {
+    try {
+      await loginWithRedirect({
+        appState: { returnTo: "/feed" },
+        authorizationParams: { screen_hint: "login" },
+      });
+    } catch (error) {
+      console.error("Sign in error:", error);
+    }
+  };
+
+  const handleSignUp = async () => {
+    try {
+      await loginWithRedirect({
+        appState: { returnTo: "/onboarding" },
+        authorizationParams: { screen_hint: "signup" },
+      });
+    } catch (error) {
+      console.error("Sign up error:", error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#050c1a] flex flex-col overflow-hidden">
@@ -55,7 +76,7 @@ export default function SignIn() {
             {/* Live badge */}
             <div className="inline-flex items-center gap-2 bg-[#00c2ff]/10 border border-[#00c2ff]/30 rounded-full px-4 py-1.5 mb-6">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-[#00c2ff] text-xs font-semibold tracking-wide uppercase">Live Platform — 7-Day Free Trial</span>
+              <span className="text-[#00c2ff] text-xs font-semibold tracking-wide uppercase">Live Platform</span>
             </div>
 
             <h1 className="text-white text-3xl font-black leading-tight mb-2">
@@ -71,11 +92,24 @@ export default function SignIn() {
             {/* Login card */}
             <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-7 shadow-2xl">
               <p className="text-center text-white/50 text-sm mb-5 font-medium">
-                Sign in with your Okta account
+                Sign in to your ATHLYNX account
               </p>
 
-              {/* Okta OAuth — single universal button */}
-              <OktaButton label="Continue with Okta" returnTo="/feed" screenHint="login" className="w-full flex items-center justify-center gap-3 bg-[#00c2ff] hover:bg-[#00a8e0] text-white font-bold py-3.5 px-6 rounded-xl active:scale-[0.98] transition-all duration-150 shadow-lg" />
+              {/* Sign In button */}
+              <button
+                onClick={handleSignIn}
+                className="w-full flex items-center justify-center gap-3 bg-[#00c2ff] hover:bg-[#00a8e0] text-white font-bold py-3.5 px-6 rounded-xl active:scale-[0.98] transition-all duration-150 shadow-lg mb-3"
+              >
+                Sign In
+              </button>
+
+              {/* Sign Up button */}
+              <button
+                onClick={handleSignUp}
+                className="w-full flex items-center justify-center gap-3 bg-white/5 hover:bg-white/10 border border-white/20 text-white font-bold py-3.5 px-6 rounded-xl active:scale-[0.98] transition-all duration-150"
+              >
+                Create Account
+              </button>
 
               {/* Terms */}
               <p className="text-center text-white/25 text-xs mt-5 leading-relaxed">
@@ -83,7 +117,6 @@ export default function SignIn() {
                 <Link href="/terms-of-service"><span className="text-white/40 hover:text-white/70 underline cursor-pointer">Terms</span></Link>
                 {" "}&amp;{" "}
                 <Link href="/privacy-policy"><span className="text-white/40 hover:text-white/70 underline cursor-pointer">Privacy Policy</span></Link>.
-                <br />7-day free trial — credit card required — not charged for 7 days.
               </p>
             </div>
 
@@ -106,7 +139,7 @@ export default function SignIn() {
             </div>
 
             <p className="text-white/20 text-[10px] text-center mt-4">
-              Secured by Okta · A Dozier Holdings Group Company · Houston, TX
+              A Dozier Holdings Group Company · Houston, TX
             </p>
           </div>
         </div>
