@@ -11,7 +11,10 @@ const PLAN_LABELS: Record<string, { label: string; icon: React.ReactNode; color:
   athlete_pro: { label: "Athlete Pro", icon: <Zap className="w-4 h-4" />, color: "#0066ff" },
   athlete_elite: { label: "Athlete Elite", icon: <Star className="w-4 h-4" />, color: "#00c2ff" },
   nil_vault: { label: "NIL Vault", icon: <Shield className="w-4 h-4" />, color: "#1e3a8a" },
+  owner: { label: "Owner — Full Access", icon: <Shield className="w-4 h-4" />, color: "#FFD700" },
 };
+
+const OWNER_EMAILS = ["chaddozier75@gmail.com", "cdozier@dozierholdingsgroup.com"];
 
 export default function Billing() {
   const { user } = useAuth();
@@ -54,8 +57,11 @@ export default function Billing() {
     }
   };
 
-  const planInfo = subscription?.plan ? PLAN_LABELS[subscription.plan] : null;
-  const isActive = subscription?.status === "active" || subscription?.status === "trialing";
+  const isOwnerAccount = user?.email && OWNER_EMAILS.includes(user.email.toLowerCase());
+  const planInfo = isOwnerAccount
+    ? PLAN_LABELS["owner"]
+    : subscription?.plan ? PLAN_LABELS[subscription.plan] : null;
+  const isActive = isOwnerAccount || subscription?.status === "active" || subscription?.status === "trialing";
 
   // Check for success/cancelled query params
   const params = new URLSearchParams(window.location.search);

@@ -4,6 +4,16 @@ import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { STRIPE_PLANS, CREDIT_PACKS } from "./products";
 import { getUserById } from "../db";
 
+// Owner/Admin accounts — never charged, always have full access
+const OWNER_EMAILS = [
+  "chaddozier75@gmail.com",
+  "cdozier@dozierholdingsgroup.com",
+];
+
+function isOwner(email: string | null | undefined): boolean {
+  return !!email && OWNER_EMAILS.includes(email.toLowerCase());
+}
+
 let _stripe: Stripe | null = null;
 function getStripe(): Stripe {
   if (!_stripe) {
@@ -49,6 +59,10 @@ export const stripeRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
+      // Owner bypass — never charge the platform owner
+      if (isOwner(ctx.user.email)) {
+        return { url: input.origin + "/dashboard?owner=true" };
+      }
       const stripe = getStripe();
       const plan = STRIPE_PLANS.find(p => p.id === input.planId);
       if (!plan) throw new Error("Plan not found");
@@ -209,7 +223,16 @@ export const stripeRouter = router({
 
   /** Get current subscription status */
   getSubscription: protectedProcedure.query(async ({ ctx }) => {
-    const stripe = getStripe();
+    // Owner bypass — always return full owner plan
+    if (isOwner(ctx.user.email)) {
+      return {
+        plan: "owner",
+        status: "active",
+        currentPeriodEnd: null,
+        cancelAtPeriodEnd: false,
+      };
+    }
+
     const user = await getUserById(ctx.user.id);
     if (!user?.stripeCustomerId || !user?.stripeSubscriptionId) {
       return { status: "none", plan: null };
