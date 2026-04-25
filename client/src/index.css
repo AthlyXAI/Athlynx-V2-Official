@@ -244,3 +244,65 @@ input, textarea, select {
     display: none !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ATHLYNX PREMIUM UI — Global Dark Glass System
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* All native inputs, selects, textareas get premium treatment */
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+select,
+textarea {
+  color: white !important;
+  caret-color: #60a5fa !important;
+  background-color: rgba(5, 13, 31, 0.9) !important;
+  border-color: rgba(59, 130, 246, 0.5) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(96, 165, 250, 0.5) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #60a5fa !important;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35), 0 0 20px rgba(59, 130, 246, 0.2) !important;
+  outline: none !important;
+}
+
+/* Select option text */
+select option {
+  background-color: #050d1f !important;
+  color: white !important;
+}
+
+/* Text selection */
+::selection {
+  background-color: #2563eb;
+  color: white;
+}
+
+/* Scrollbar — premium dark */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(5, 13, 31, 0.5);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(59, 130, 246, 0.4);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(59, 130, 246, 0.7);
+}
+
+/* AI Wizard bounce animation */
+@keyframes wizard-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+  50% { box-shadow: 0 0 35px rgba(59, 130, 246, 0.7); }
+}
+

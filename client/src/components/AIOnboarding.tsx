@@ -464,7 +464,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
                     onChange={e => setCurrentAnswer(e.target.value)}
                     onKeyDown={e => e.key === "Enter" && handleAnswer()}
                     placeholder={currentQ.placeholder}
-                    className="flex-1 bg-[#0a0f1e] border-blue-800 text-white placeholder:text-blue-600 rounded-xl"
+                    className="flex-1 bg-[#050d1f]/90 border-blue-500 text-white placeholder:text-blue-400/60 rounded-xl shadow-[inset_0_2px_4px_rgba(0,0,0,0.7)] focus:border-blue-400 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.4)] caret-blue-400"
                     autoFocus
                   />
                   {currentQ.optional && (

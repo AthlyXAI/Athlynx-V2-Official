@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/sonner";
+import AIWizard from "@/components/AIWizard";
 import BetaBanner from "@/components/BetaBanner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import SEOManager from "@/components/SEOManager";
@@ -382,6 +383,7 @@ export default function App() {
           <ScrollToTop />
           <Router />
           <PWAInstallBanner />
+          <AIWizard />
           <Toaster />
         </TooltipProvider>
       </ThemeProvider>

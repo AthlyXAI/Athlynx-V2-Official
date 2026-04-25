@@ -54,9 +54,18 @@ function Input({
       type={type}
       data-slot="input"
       className={cn(
-        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
-        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+        // Premium dark glass input — Athlynx style
+        "h-11 w-full min-w-0 rounded-xl border px-4 py-2.5 text-base md:text-sm",
+        "bg-[#050d1f]/90 border-blue-700/60 text-white",
+        "caret-blue-400 placeholder:text-blue-400/50",
+        "shadow-[inset_0_2px_4px_rgba(0,0,0,0.7),inset_0_0_0_1px_rgba(59,130,246,0.06)]",
+        "transition-all duration-200 outline-none",
+        "hover:border-blue-500/80 hover:shadow-[inset_0_2px_4px_rgba(0,0,0,0.7),0_0_8px_rgba(59,130,246,0.12)]",
+        "focus:border-blue-400 focus:shadow-[inset_0_2px_4px_rgba(0,0,0,0.7),0_0_0_3px_rgba(59,130,246,0.4),0_0_20px_rgba(59,130,246,0.25)]",
+        "selection:bg-blue-600 selection:text-white",
+        "file:text-white file:border-0 file:bg-transparent file:text-sm file:font-medium",
+        "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40",
+        "aria-invalid:border-red-500 aria-invalid:ring-red-500/30",
         className
       )}
       onCompositionStart={handleCompositionStart}
