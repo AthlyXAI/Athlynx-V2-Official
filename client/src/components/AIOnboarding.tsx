@@ -365,7 +365,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
   }
 
   // ── Questions (Chat UI) ──
-  if (step === "questions" && step !== "done") {
+  if (step === "questions") {
     return (
       <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end md:items-center justify-center p-4">
         <div className="bg-[#0d1a3a] border border-blue-700/50 rounded-3xl w-full max-w-lg shadow-2xl shadow-blue-900/50 flex flex-col max-h-[90vh]">

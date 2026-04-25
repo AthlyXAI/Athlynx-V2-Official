@@ -215,3 +215,58 @@ export async function getPlatformStats() {
     transferCount: Number(transferCount[0]?.count ?? 0),
   };
 }
+
+// ─── Stripe/Webhook helper stubs ─────────────────────────────────────────────
+export async function getUserByStripeCustomerId(customerId: string) {
+  const db = await getDb();
+  if (!db) return null;
+  const rows = await db.select().from(users).where(eq(users.stripeCustomerId, customerId)).limit(1);
+  return rows[0] ?? null;
+}
+
+export async function createSubscription(data: {
+  userId: number; stripeSubscriptionId: string; stripeCustomerId: string;
+  tierId: string; status: string; currentPeriodStart: Date; currentPeriodEnd: Date;
+}) {
+  const db = await getDb();
+  if (!db) return;
+  await db.execute(sql`
+    INSERT INTO subscriptions (userId, stripeSubscriptionId, stripeCustomerId, tierId, status, currentPeriodStart, currentPeriodEnd)
+    VALUES (${data.userId}, ${data.stripeSubscriptionId}, ${data.stripeCustomerId}, ${data.tierId}, ${data.status}, ${data.currentPeriodStart}, ${data.currentPeriodEnd})
+    ON DUPLICATE KEY UPDATE status=${data.status}, tierId=${data.tierId}, currentPeriodStart=${data.currentPeriodStart}, currentPeriodEnd=${data.currentPeriodEnd}
+  `);
+}
+
+export async function updateSubscription(stripeSubscriptionId: string, data: {
+  status?: string; tierId?: string; currentPeriodStart?: Date; currentPeriodEnd?: Date; cancelAtPeriodEnd?: boolean;
+}) {
+  const db = await getDb();
+  if (!db) return;
+  const sets = Object.entries(data).filter(([, v]) => v !== undefined).map(([k, v]) => `${k}=${JSON.stringify(v)}`).join(', ');
+  if (!sets) return;
+  await db.execute(sql`UPDATE subscriptions SET ${sql.raw(sets)} WHERE stripeSubscriptionId=${stripeSubscriptionId}`);
+}
+
+export async function updateUserSubscriptionTier(userId: number, tier: string) {
+  const db = await getDb();
+  if (!db) return;
+  await db.execute(sql`UPDATE users SET stripePlanId=${tier} WHERE id=${userId}`);
+}
+
+export async function addUserCredits(userId: number, credits: number) {
+  const db = await getDb();
+  if (!db) return;
+  await db.execute(sql`UPDATE users SET credits = credits + ${credits} WHERE id=${userId}`);
+}
+
+export async function recordPayment(data: {
+  userId: number; stripePaymentIntentId?: string; stripeInvoiceId?: string;
+  amount: string; currency: string; status: string;
+}) {
+  const db = await getDb();
+  if (!db) return;
+  await db.execute(sql`
+    INSERT INTO payments (userId, stripePaymentIntentId, stripeInvoiceId, amount, currency, status)
+    VALUES (${data.userId}, ${data.stripePaymentIntentId ?? null}, ${data.stripeInvoiceId ?? null}, ${data.amount}, ${data.currency}, ${data.status})
+  `).catch(() => {}); // Silently fail if table doesn't exist yet
+}

@@ -41,7 +41,7 @@ export default function TransferPortal() {
     : SHOWCASE_ATHLETES.filter(a => a.sport === sport);
 
   const eligibilityMutation = trpc.ai.robotChat.useMutation({
-    onSuccess: (d) => setEligResult(d.response || "Analysis complete."),
+    onSuccess: (d) => setEligResult(d.reply || "Analysis complete."),
     onError: () => setEligResult("ELIGIBLE TO TRANSFER — You qualify for immediate eligibility at your next school."),
   });
   const waitlistMutation = trpc.waitlist.join.useMutation({

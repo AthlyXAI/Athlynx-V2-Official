@@ -70,7 +70,7 @@ Include: Opening hook, athlete value proposition, brand alignment, deliverables,
           },
         ],
       });
-      return { pitch: response.choices[0].message.content };
+      return { pitch: String(response.choices[0].message.content ?? "") };
     }),
 
   analyzeDeal: protectedProcedure
@@ -102,7 +102,7 @@ Provide: Deal rating (1-10), fair market value assessment, red flags if any, neg
           },
         ],
       });
-      return { analysis: response.choices[0].message.content };
+      return { analysis: String(response.choices[0].message.content ?? "") };
     }),
 
   // AI RECRUITER — Profile optimization & coach outreach
@@ -141,7 +141,7 @@ Provide: 1) Rewritten bio (under 150 words), 2) Top 3 profile improvements, 3) K
           },
         ],
       });
-      return { optimized: response.choices[0].message.content };
+      return { optimized: String(response.choices[0].message.content ?? "") };
     }),
 
   generateCoachEmail: protectedProcedure
@@ -178,7 +178,7 @@ Write a professional, genuine email that will get a response. Include subject li
           },
         ],
       });
-      return { email: response.choices[0].message.content };
+      return { email: String(response.choices[0].message.content ?? "") };
     }),
 
   // AI CONTENT — Social media content generation
@@ -218,7 +218,7 @@ Write 3 caption options, numbered. Make them authentic and platform-native.`,
           },
         ],
       });
-      return { captions: response.choices[0].message.content };
+      return { captions: String(response.choices[0].message.content ?? "") };
     }),
 
   generateBio: protectedProcedure
@@ -252,7 +252,7 @@ Write 2 bio options. Keep each under 150 characters for Instagram/Twitter, or 3 
           },
         ],
       });
-      return { bios: response.choices[0].message.content };
+      return { bios: String(response.choices[0].message.content ?? "") };
     }),
 
   generateContentPlan: protectedProcedure
@@ -281,7 +281,7 @@ Provide: Weekly themes, 3 content ideas per week, best posting times, and one vi
           },
         ],
       });
-      return { plan: response.choices[0].message.content };
+      return { plan: String(response.choices[0].message.content ?? "") };
     }),
 
   // AI ROBOT COMPANION — Conversational robot assistant for athletes
@@ -323,7 +323,7 @@ Be encouraging, specific, and practical. Use sports terminology naturally. Keep 
       ];
 
       const response = await invokeLLM({ messages });
-      return { reply: response.choices[0].message.content };
+      return { reply: String(response.choices[0].message.content ?? "") };
     }),
 
   // AI PLAYBOOK — The Athlete Playbook recruiting intelligence
@@ -362,7 +362,7 @@ Provide a detailed, actionable answer. Include specific next steps, timelines, a
           },
         ],
       });
-      return { advice: response.choices[0].message.content };
+      return { advice: String(response.choices[0].message.content ?? "") };
     }),
 
   // AI TRAINING BOT — Personalized training plan generator
@@ -387,7 +387,7 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
           },
         ],
       });
-      return { result: response.choices[0].message.content };
+      return { result: String(response.choices[0].message.content ?? "") };
     }),
 
   // WIZARD AI — Powers all 8 wizard pages with real AI advice
@@ -414,7 +414,7 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
           { role: "user", content: input.context },
         ],
       });
-      return { result: response.choices[0].message.content };
+      return { result: String(response.choices[0].message.content ?? "") };
     }),
 
   // GET CREDITS — Returns the user's current credit balance

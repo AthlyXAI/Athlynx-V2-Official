@@ -10,7 +10,7 @@ export default function ScoutWizard() {
   const [asked, setAsked] = useState(false);
 
   const wizardMutation = trpc.ai.wizardAdvice.useMutation({
-    onSuccess: (data) => { setResult(data.result ?? ""); setAsked(true); },
+    onSuccess: (data) => { setResult(String(data.result ?? "")); setAsked(true); },
   });
 
   const handleAsk = () => {

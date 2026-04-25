@@ -11,10 +11,10 @@
 
 import Stripe from "stripe";
 import { Request, Response } from "express";
-import * as db from "../db";
+import * as db from "./db";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2025-12-15.clover" as const,
+  apiVersion: "2026-03-25.dahlia" as const,
 });
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || "";

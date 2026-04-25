@@ -239,7 +239,7 @@ export const stripeRouter = router({
     }
 
     try {
-      const subscription = await stripe.subscriptions.retrieve(
+      const subscription = await getStripe().subscriptions.retrieve(
         user.stripeSubscriptionId
       );
       return {

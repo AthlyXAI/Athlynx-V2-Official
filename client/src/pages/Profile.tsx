@@ -39,7 +39,7 @@ export default function Profile() {
   const { data: profile, isLoading: profileLoading } = trpc.profile.getMyProfile.useQuery(undefined, { enabled: !!user });
   // Real posts from DB
   const { data: userPosts = [] } = trpc.feed.getUserPosts.useQuery(
-    { userId: user?.id ?? 0 },
+    { userId: Number(user?.id ?? 0) },
     { enabled: !!user }
   );
   // Real NIL deals from DB

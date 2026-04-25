@@ -605,18 +605,18 @@ export default function Home() {
       <section className="bg-[#1a3a8f] border-y border-blue-900 py-6">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <a href="https://dozierholdingsgroup.com" target="_blank" rel="noopener noreferrer">
+            <Link href="/dhg">
               <img src="/images/logos/dhg-logo.png" alt="Dozier Holdings Group" className="w-16 h-16 rounded-xl object-cover hover:opacity-85 transition-opacity cursor-pointer" />
-            </a>
+            </Link>
             <div>
               <div className="text-blue-400 text-xs uppercase tracking-widest">Heavyweight Champion</div>
-              <a href="https://dozierholdingsgroup.com" target="_blank" rel="noopener noreferrer" className="text-white font-black text-xl hover:text-blue-200 transition-colors block">DOZIER HOLDINGS GROUP</a>
+              <Link href="/dhg" className="text-white font-black text-xl hover:text-blue-200 transition-colors block">DOZIER HOLDINGS GROUP</Link>
               <div className="text-blue-300 text-sm">The empire behind the platform</div>
             </div>
           </div>
-          <a href="https://dozierholdingsgroup.com" target="_blank" rel="noopener noreferrer" className="text-sm border border-blue-600 text-blue-300 hover:bg-blue-800 px-4 py-2 rounded-lg transition-colors">
+          <Link href="/dhg" className="text-sm border border-blue-600 text-blue-300 hover:bg-blue-800 px-4 py-2 rounded-lg transition-colors">
             Visit Dozier Holdings Group →
-          </a>
+          </Link>
         </div>
       </section>
 

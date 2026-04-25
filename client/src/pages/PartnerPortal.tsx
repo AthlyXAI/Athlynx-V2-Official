@@ -70,7 +70,7 @@ export default function PartnerPortal() {
 
   const handleDownload = (doc: Document) => {
     if (partner) {
-      logDownloadMutation.mutate({ partnerId: partner.id, documentId: doc.id });
+      logDownloadMutation.mutate({ partnerId: partner!.id, documentId: doc.id });
     }
     window.open(doc.file_url, "_blank");
   };
@@ -114,13 +114,13 @@ export default function PartnerPortal() {
                 <Building2 className="w-6 h-6 text-cyan-400" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">{partner.company}</h1>
-                <p className="text-gray-400 text-sm">Welcome, {partner.name}</p>
+                <h1 className="text-xl font-bold text-white">{partner!.company}</h1>
+                <p className="text-gray-400 text-sm">Welcome, {partner!.name}</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
-              <Badge className={getAccessLevelColor(partner.accessLevel)}>
-                {partner.accessLevel.toUpperCase()} ACCESS
+              <Badge className={getAccessLevelColor(partner!.accessLevel)}>
+                {partner!.accessLevel.toUpperCase()} ACCESS
               </Badge>
               <Button 
                 variant="outline" 

@@ -57,7 +57,7 @@ export async function generateImage(
   if (imageData.b64_json) {
     const buffer = Buffer.from(imageData.b64_json, "base64");
     const key = `generated/${Date.now()}.png`;
-    const url = await storagePut(key, buffer, "image/png");
+    const storageResult = await storagePut(key, buffer, "image/png"); const url = storageResult.url;
     return { url };
   }
 

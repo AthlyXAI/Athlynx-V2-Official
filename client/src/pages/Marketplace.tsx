@@ -201,7 +201,7 @@ export default function Marketplace() {
   const [submitting, setSubmitting] = useState(false);
   const { toast } = useToast();
   const { user } = useAuth();
-  const notifyOwner = trpc.system.notifyOwner.useMutation();
+  // notifyOwner removed
   const createProductCheckout = trpc.stripe.createProductCheckout.useMutation({
     onSuccess: ({ url }) => {
       if (url) {
@@ -240,10 +240,10 @@ export default function Marketplace() {
     e.preventDefault();
     setSubmitting(true);
     try {
-      await notifyOwner.mutateAsync({
-        title: `New Quote Request: ${quoteProduct?.name ?? "Product"}`,
-        content: `From: ${quoteForm.name} (${quoteForm.email})\nOrg: ${quoteForm.org}\nQty: ${quoteForm.qty}\nProduct: ${quoteProduct?.name}\nNotes: ${quoteForm.notes}`,
-      });
+      // await notifyOwner.mutateAsync({
+        // title: `New Quote Request: ${quoteProduct?.name ?? "Product"}`,
+        // content removed,
+      // });
     } catch (_) {
       // notification failure is non-blocking
     }

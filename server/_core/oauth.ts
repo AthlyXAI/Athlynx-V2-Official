@@ -9,7 +9,7 @@ import type { Application, Request, Response } from "express";
 import * as db from "../db";
 import { getSessionCookieOptions } from "./cookies";
 import { sdk } from "./sdk";
-import { sendWelcomeEmail, sendOwnerNewUserAlert } from "../services/email";
+import { sendWelcomeEmail, sendOwnerNewUserAlert } from "../services/aws-ses";
 
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 
@@ -98,7 +98,7 @@ export function registerOAuthRoutes(app: Application) {
       });
 
       const cookieOptions = getSessionCookieOptions(req);
-      res.cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
+      res.cookie(COOKIE_NAME, sessionToken, { ...(cookieOptions as any), maxAge: ONE_YEAR_MS });
 
       // Redirect all users to feed after OAuth sign-in
       res.redirect(302, "/feed");

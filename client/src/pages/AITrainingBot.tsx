@@ -12,7 +12,7 @@ export default function AITrainingBot() {
 
   const generateMutation = trpc.ai.generateTrainingPlan.useMutation({
     onSuccess: (data) => {
-      setResult(data.result ?? "");
+      setResult(String(data.result ?? ""));
       toast.success(`Training plan generated! ${CREDIT_COST} credits used.`);
     },
     onError: (err) => {

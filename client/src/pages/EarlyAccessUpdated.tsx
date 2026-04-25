@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import LoginButton from "@/components/LoginButton";
 import { useLocation, Link } from "wouter";
 import UnifiedFooter from "@/components/UnifiedFooter";
 import { trpc } from "@/lib/trpc";
@@ -10,6 +12,7 @@ export default function EarlyAccess() {
   const [role, setRole] = useState("");
   const [sport, setSport] = useState("");
   
+  const { user, isLoading: loading } = useAuth();
   const [authError, setAuthError] = useState<string | null>(null);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -79,9 +82,10 @@ export default function EarlyAccess() {
     }
 
     signupMutation.mutate({
+      fullName: email.split("@")[0] || "Athlete",
       email,
       phone: phone || undefined,
-      role,
+      role: role as "brand" | "scout" | "agent" | "athlete" | "coach" | "parent",
       sport,
     });
   };

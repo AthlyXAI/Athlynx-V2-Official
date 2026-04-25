@@ -62,7 +62,7 @@ export default function Dashboard() {
   });
 
   // ── Derived values ───────────────────────────────────────────────────────────
-  const aiCredits = user?.aiCredits ?? 0;
+  const aiCredits = user?.credits ?? 0;
   const planName = subscription?.plan ?? "Free Trial";
   const planData = plans?.find((p) => p.id === subscription?.plan);
   const planPriceDisplay = planData ? `$${(planData.priceMonthly / 100).toFixed(2)}` : "Free";
@@ -243,7 +243,7 @@ export default function Dashboard() {
                       </div>
                     ) : (
                       <div className="space-y-3">
-                        {notifications.slice(0, 5).map((n) => (
+                        {notifications.slice(0, 5).map((n: any) => (
                           <div
                             key={n.id}
                             className="flex items-center justify-between py-2 border-b border-white/5 last:border-0"
@@ -277,7 +277,7 @@ export default function Dashboard() {
                     <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-5">
                       <h3 className="text-lg font-bold text-white mb-4">Your NIL Deals</h3>
                       <div className="space-y-3">
-                        {nilDeals.slice(0, 3).map((deal) => (
+                        {nilDeals.slice(0, 3).map((deal: any) => (
                           <div
                             key={deal.id}
                             className="flex items-center justify-between py-2 border-b border-white/5 last:border-0"
@@ -372,9 +372,8 @@ export default function Dashboard() {
                                 onClick={() =>
                                   createCheckout.mutate({
                                     planId: plan.id,
-                                    interval: "monthly",
-                                    successUrl: `${window.location.origin}/dashboard`,
-                                    cancelUrl: `${window.location.origin}/dashboard`,
+                                    interval: "month",
+                                    origin: window.location.origin,
                                   })
                                 }
                                 disabled={createCheckout.isPending}
@@ -402,7 +401,7 @@ export default function Dashboard() {
                           <button
                             onClick={() =>
                               createBillingPortal.mutate({
-                                returnUrl: `${window.location.origin}/dashboard`,
+                                origin: window.location.origin,
                               })
                             }
                             disabled={createBillingPortal.isPending}
@@ -485,8 +484,7 @@ export default function Dashboard() {
                             onClick={() =>
                               createCreditsCheckout.mutate({
                                 packId: pack.id,
-                                successUrl: `${window.location.origin}/dashboard`,
-                                cancelUrl: `${window.location.origin}/dashboard`,
+                                origin: window.location.origin,
                               })
                             }
                             disabled={createCreditsCheckout.isPending}
@@ -564,7 +562,7 @@ export default function Dashboard() {
                       </div>
                     ) : (
                       <div className="space-y-3">
-                        {trainingHistory.map((log) => (
+                        {trainingHistory.map((log: any) => (
                           <div
                             key={log.id}
                             className="flex items-center justify-between py-2 border-b border-white/5 last:border-0"
@@ -612,7 +610,7 @@ export default function Dashboard() {
                     </div>
                   ) : (
                     <div className="space-y-4">
-                      {nilDeals.map((deal) => (
+                      {nilDeals.map((deal: any) => (
                         <div key={deal.id} className="bg-white/5 rounded-lg p-4">
                           <div className="flex items-center justify-between mb-2">
                             <span className="text-white font-semibold">{deal.brandName}</span>
@@ -666,7 +664,7 @@ export default function Dashboard() {
                     </div>
                   ) : (
                     <div className="space-y-3">
-                      {athletes.map((athlete) => (
+                      {athletes.map((athlete: any) => (
                         <div
                           key={athlete.id}
                           className="flex items-center justify-between bg-white/5 rounded-lg p-4"
@@ -756,7 +754,7 @@ export default function Dashboard() {
                         <label className="text-gray-400 text-sm block mb-2">Sport</label>
                         <input
                           type="text"
-                          defaultValue={myProfile?.sport ?? user.sport ?? ""}
+                          defaultValue={myProfile?.sport ?? (user as any).sport ?? ""}
                           onBlur={(e) =>
                             e.target.value && updateProfileMutation.mutate({ sport: e.target.value })
                           }
@@ -768,7 +766,7 @@ export default function Dashboard() {
                         <label className="text-gray-400 text-sm block mb-2">School</label>
                         <input
                           type="text"
-                          defaultValue={myProfile?.school ?? user.school ?? ""}
+                          defaultValue={myProfile?.school ?? (user as any).school ?? ""}
                           onBlur={(e) =>
                             e.target.value && updateProfileMutation.mutate({ school: e.target.value })
                           }
@@ -815,7 +813,7 @@ export default function Dashboard() {
                       <div className="flex justify-between">
                         <span className="text-gray-400">Member Since</span>
                         <span className="text-white">
-                          {new Date(user.createdAt).toLocaleDateString("en-US", {
+                          {new Date((user as any).createdAt).toLocaleDateString("en-US", {
                             month: "long",
                             year: "numeric",
                           })}
@@ -823,7 +821,7 @@ export default function Dashboard() {
                       </div>
                       <div className="flex justify-between">
                         <span className="text-gray-400">Login Method</span>
-                        <span className="text-white capitalize">{user.loginMethod ?? "—"}</span>
+                        <span className="text-white capitalize">{(user as any).loginMethod ?? "—"}</span>
                       </div>
                       {user.trialEndsAt && (
                         <div className="flex justify-between">

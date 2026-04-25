@@ -102,6 +102,9 @@ import DHGCorporate from "./pages/DHGCorporate";
 import DHGEmpire from "./pages/DHGEmpire";
 import EmpireVision from "./pages/EmpireVision";
 import Softmor from "./pages/Softmor";
+import VCTech from "./pages/VCTech";
+import DataCenters from "./pages/DataCenters";
+import TheVirt from "./pages/TheVirt";
 import Podcast from "./pages/Podcast";
 import InvestorHub from "./pages/InvestorHub";
 import InvestorDeck from "./pages/InvestorDeck";
@@ -290,6 +293,9 @@ function Router() {
       <Route path="/empire-vision" component={EmpireVision} />
       <Route path="/dozier-holdings" component={DHGCorporate} />
       <Route path="/softmor" component={Softmor} />
+      <Route path="/vc-tech" component={VCTech} />
+      <Route path="/data-centers" component={DataCenters} />
+      <Route path="/the-virt" component={TheVirt} />
       <Route path="/investor-hub" component={InvestorHub} />
       <Route path="/investor-deck" component={InvestorDeck} />
       <Route path="/manus-partnership" component={ManusPartnership} />

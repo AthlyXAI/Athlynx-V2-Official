@@ -90,7 +90,7 @@ const PARTNER_TIERS = [
 ];
 
 export default function Partners() {
-  const categories = [...new Set(TECH_STACK.map(p => p.category))];
+  const categories = Array.from(new Set(TECH_STACK.map(p => p.category)));
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#060e24] via-[#0d1b3e] to-[#060e24] text-white">

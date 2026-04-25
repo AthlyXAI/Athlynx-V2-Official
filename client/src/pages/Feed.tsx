@@ -251,7 +251,7 @@ export default function Feed() {
         )}
 
         {posts.map((post: any) => (
-          <PostCard key={post.id} post={post} currentUserId={user?.id} />
+          <PostCard key={post.id} post={post} currentUserId={user?.id ? Number(user.id) : undefined} />
         ))}
       </div>
     </PlatformLayout>
