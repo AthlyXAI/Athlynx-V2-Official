@@ -1,5 +1,4 @@
 
-
 export type Role = "system" | "user" | "assistant" | "tool" | "function";
 
 export type TextContent = {
@@ -210,6 +209,7 @@ const normalizeToolChoice = (
 };
 
 const resolveApiUrl = () => "https://api.openai.com/v1/chat/completions";
+
 const assertApiKey = () => {
   if (!process.env.OPENAI_API_KEY) {
     throw new Error("OPENAI_API_KEY is not configured");
