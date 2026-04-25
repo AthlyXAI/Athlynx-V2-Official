@@ -87,7 +87,7 @@ export default function Contact() {
         </Link>
         <div className="flex items-center justify-center gap-4 mb-4">
           <img
-            src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/AzsuZOzvfgvscIdI.png"
+            src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png"
             alt="DHG"
             className="w-16 h-16 rounded-full border-4 border-cyan-400/50"
             onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}

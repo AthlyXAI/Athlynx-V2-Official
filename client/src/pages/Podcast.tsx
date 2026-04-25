@@ -194,7 +194,7 @@ export default function Podcast() {
               <div className="relative w-80 h-80 md:w-96 md:h-96">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-700 to-cyan-600 rounded-3xl shadow-2xl shadow-blue-600/30 transform rotate-3" />
                 <img
-                  src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/nTYMGLkExngartwO.png"
+                  src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/nTYMGLkExngartwO.png"
                   alt="The Athlete's Playbook Podcast Cover Art"
                   className="relative w-full h-full object-cover rounded-3xl border border-white/20 shadow-2xl"
                 />

@@ -145,8 +145,8 @@ export default function AthletePlaybook() {
         <div className="max-w-4xl mx-auto text-center space-y-6">
           {/* Logos Row */}
           <div className="flex justify-center items-center gap-8 mb-8">
-            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/AzsuZOzvfgvscIdI.png" alt="Partnership" className="h-20 w-20 rounded-xl shadow-lg" />
-            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/AzsuZOzvfgvscIdI.png" alt="Athlete Success" className="h-24 w-24 rounded-xl shadow-lg" />
+            <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png" alt="Partnership" className="h-20 w-20 rounded-xl shadow-lg" />
+            <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png" alt="Athlete Success" className="h-24 w-24 rounded-xl shadow-lg" />
           </div>
           <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
             <Star className="h-4 w-4" />

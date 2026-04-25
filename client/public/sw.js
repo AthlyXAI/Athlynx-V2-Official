@@ -84,7 +84,7 @@ self.addEventListener('fetch', (event) => {
   if (!url.protocol.startsWith('http')) return;
 
   // Skip Manus internal routes
-  if (url.pathname.startsWith('/__manus__/')) return;
+
 
   // ── API calls: Network-only with offline error ───────────────────────────
   if (url.pathname.startsWith('/api/')) {

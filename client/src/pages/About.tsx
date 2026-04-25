@@ -5,20 +5,20 @@ import { Badge } from "@/components/ui/badge";
 import { ChevronLeft, ChevronRight, Play, Quote } from "lucide-react";
 
 const CHAD_PHOTOS = [
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/FBZpDFtgpfccCmJU.png",
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/njcSBgdVMQaiXBHv.png",
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/pDhQvrPPogxqLYSQ.png",
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/tFVPmoZRQTPmgrJq.png",
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/nYSwBctuqiLNmZKH.png",
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/BiQQBGyrGgmwbixD.png",
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/rPCgYqdqsUeWubiV.png",
+  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/FBZpDFtgpfccCmJU.png",
+  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/njcSBgdVMQaiXBHv.png",
+  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/pDhQvrPPogxqLYSQ.png",
+  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/tFVPmoZRQTPmgrJq.png",
+  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/nYSwBctuqiLNmZKH.png",
+  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/BiQQBGyrGgmwbixD.png",
+  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/rPCgYqdqsUeWubiV.png",
 ];
 
 const ACTION_PHOTOS = [
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/mdIJLfTkeZzcljGq.png",
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/lQjoLdGtkuRqoxxh.png",
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/mAYQdvZyYAqmaxml.png",
-  "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/EOYOAyTecNwpHgPE.png",
+  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/mdIJLfTkeZzcljGq.png",
+  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/lQjoLdGtkuRqoxxh.png",
+  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/mAYQdvZyYAqmaxml.png",
+  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/EOYOAyTecNwpHgPE.png",
 ];
 
 export default function About() {
@@ -199,7 +199,7 @@ export default function About() {
         <div className="mb-20">
           <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-2xl">
             <img
-              src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/fSlDgRPvyWWGgRQm.png"
+              src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/fSlDgRPvyWWGgRQm.png"
               alt="Chad Dozier story"
               className="w-full object-cover"
             />

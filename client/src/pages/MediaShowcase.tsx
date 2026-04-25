@@ -154,7 +154,7 @@ export default function MediaShowcase() {
       <section className="py-20 px-4 bg-gradient-to-b from-slate-900 to-black">
         <div className="container mx-auto max-w-4xl text-center">
           <img 
-            src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/AzsuZOzvfgvscIdI.png" 
+            src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png" 
             alt="DHG Crab Shield" 
             className="w-48 h-48 mx-auto mb-8 rounded-2xl shadow-2xl"
           />

@@ -1,6 +1,6 @@
 /**
  * SDK Server — ATHLYNX
- * Auth0 JWT-based authentication. NO Manus OAuth server. NO WebDevAuthPublicService.
+ * Auth0 JWT-based authentication.
  * Maintains the same public interface so no other files need to change.
  */
 import { COOKIE_NAME, ONE_YEAR_MS } from "@shared/const";
@@ -12,7 +12,7 @@ import type { User } from "../../drizzle/schema";
 import * as db from "../db";
 import { ENV } from "./env";
 
-// ─── Types (previously from manusTypes) ──────────────────────────────────────
+// ─── Types ──────────────────────────────────────────────────────────────────
 
 export type ExchangeTokenResponse = {
   accessToken: string;

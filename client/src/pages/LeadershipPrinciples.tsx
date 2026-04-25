@@ -257,7 +257,7 @@ export default function LeadershipPrinciples() {
           >
             <motion.div variants={fadeInUp} className="mb-6">
               <img 
-                src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/AzsuZOzvfgvscIdI.png" 
+                src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png" 
                 alt="DHG" 
                 className="w-24 h-24 mx-auto rounded-2xl shadow-2xl shadow-cyan-500/20"
               />

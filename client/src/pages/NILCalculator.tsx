@@ -187,7 +187,7 @@ export default function NILCalculator() {
       {/* Hero */}
       <section className="py-12 text-center px-4">
         <div className="inline-block bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm font-bold px-4 py-1 rounded-full mb-4">
-          POWERED BY MANUS AI
+          POWERED BY ATHLYNX AI
         </div>
         <h1 className="text-4xl md:text-5xl font-black mb-4">
           <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent">

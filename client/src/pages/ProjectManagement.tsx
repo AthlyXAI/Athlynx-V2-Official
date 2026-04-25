@@ -105,7 +105,7 @@ export default function ProjectManagement() {
             <div className="flex items-center gap-4">
               <Link href="/">
                 <img 
-                  src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/AzsuZOzvfgvscIdI.png" 
+                  src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png" 
                   alt="DHG" 
                   className="w-12 h-12 cursor-pointer hover:scale-105 transition-transform"
                 />

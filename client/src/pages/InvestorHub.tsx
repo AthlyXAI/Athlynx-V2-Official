@@ -141,7 +141,7 @@ export default function InvestorHub() {
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/">
             <div className="flex items-center gap-2 cursor-pointer">
-              <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/qUknrdlyPrUZJQYo.png" alt="ATHLYNX" className="w-8 h-8 rounded-lg" />
+              <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png" alt="ATHLYNX" className="w-8 h-8 rounded-lg" />
               <span className="font-black text-white tracking-widest text-sm">ATHLYNX</span>
             </div>
           </Link>
@@ -542,20 +542,20 @@ export default function InvestorHub() {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
             {[
-              "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/ydpPJqxoUuYjoMOv.jpeg",
-              "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/MExVQpbINekjvtdi.jpeg",
-              "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/SVLssKtsBNPGFzlL.jpeg",
-              "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/fiXLiePYMkRBoDLs.jpeg",
-              "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/pamaeyweONGRuGQu.jpeg",
-              "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/BnbmnQdZMYXZZyOH.jpeg",
-              "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/jjgVguHDufPhZCFc.jpeg",
-              "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/IpUSUjFrXsJVenwV.jpeg",
-              "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/wsbUKDatgPuEDhfD.jpeg",
-              "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/ylSktYkpNOUchbaA.jpeg",
-              "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/gDheQZRmMGoaglYv.jpeg",
-              "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/TznRUUkCDQRrEJWZ.jpeg",
-              "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/ssYIopBxIgocgrZu.jpeg",
-              "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/BiexhyGzoUwPbabU.jpeg",
+              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/ydpPJqxoUuYjoMOv.jpeg",
+              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/MExVQpbINekjvtdi.jpeg",
+              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/SVLssKtsBNPGFzlL.jpeg",
+              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/fiXLiePYMkRBoDLs.jpeg",
+              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/pamaeyweONGRuGQu.jpeg",
+              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/BnbmnQdZMYXZZyOH.jpeg",
+              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/jjgVguHDufPhZCFc.jpeg",
+              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/IpUSUjFrXsJVenwV.jpeg",
+              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/wsbUKDatgPuEDhfD.jpeg",
+              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/ylSktYkpNOUchbaA.jpeg",
+              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/gDheQZRmMGoaglYv.jpeg",
+              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/TznRUUkCDQRrEJWZ.jpeg",
+              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/ssYIopBxIgocgrZu.jpeg",
+              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/BiexhyGzoUwPbabU.jpeg",
             ].map((src, i) => (
               <div key={i} className="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-blue-400/50 transition-all group">
                 <img src={src} alt={`GTC San Jose 2026 — ${i + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
@@ -566,13 +566,13 @@ export default function InvestorHub() {
           <div className="text-center mb-6">
             <p className="text-blue-400 text-xs font-black tracking-widest uppercase mb-4">Investor Documents</p>
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <a href="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/tlwCMeumMsxRCBVr.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-white/10 hover:bg-blue-900/40 border border-white/20 hover:border-blue-400/50 text-white font-bold px-6 py-3 rounded-xl transition-all text-sm">
+              <a href="/docs/tlwCMeumMsxRCBVr.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-white/10 hover:bg-blue-900/40 border border-white/20 hover:border-blue-400/50 text-white font-bold px-6 py-3 rounded-xl transition-all text-sm">
                 <span>📊</span> DHG 5-Year Valuation Report
               </a>
-              <a href="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/RPJQxygywzFpIYhy.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-white/10 hover:bg-blue-900/40 border border-white/20 hover:border-blue-400/50 text-white font-bold px-6 py-3 rounded-xl transition-all text-sm">
+              <a href="/docs/RPJQxygywzFpIYhy.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-white/10 hover:bg-blue-900/40 border border-white/20 hover:border-blue-400/50 text-white font-bold px-6 py-3 rounded-xl transition-all text-sm">
                 <span>📄</span> Partner &amp; Investor Presentation
               </a>
-              <a href="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/RuxYyWLKsDRQRvLr.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-white/10 hover:bg-blue-900/40 border border-white/20 hover:border-blue-400/50 text-white font-bold px-6 py-3 rounded-xl transition-all text-sm">
+              <a href="/docs/RuxYyWLKsDRQRvLr.pdf" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-white/10 hover:bg-blue-900/40 border border-white/20 hover:border-blue-400/50 text-white font-bold px-6 py-3 rounded-xl transition-all text-sm">
                 <span>🏈</span> The Athlete Playbook
               </a>
             </div>

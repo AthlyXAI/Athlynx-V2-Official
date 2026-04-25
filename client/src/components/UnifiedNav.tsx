@@ -6,9 +6,9 @@ const navItems = [
     category: "CORE APPS",
     items: [
       { name: "NIL Portal", href: "/nil-portal", icon: "/logos/nil-portal-logo.png" },
-      { name: "Diamond Grind", href: "/diamond-grind", icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/TptlbGHFTBamgRix.png" },
+      { name: "Diamond Grind", href: "/diamond-grind", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/TptlbGHFTBamgRix.png" },
       { name: "Messenger", href: "/messages", icon: "/logos/nil-messenger-logo.png" },
-      { name: "NIL Deals", href: "/nil-marketplace", icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/aDzQEREXtGvMmnFc.png" },
+      { name: "NIL Deals", href: "/nil-marketplace", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/aDzQEREXtGvMmnFc.png" },
     ]
   },
   {
@@ -25,10 +25,10 @@ const navItems = [
   {
     category: "WHITE-LABEL SPORTS",
     items: [
-      { name: "Court Kings", href: "/court-kings", icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/IYSXsjNLtHxVaazj.png" },
-      { name: "Gridiron Nexus", href: "/gridiron-nexus", icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/HcanzWKcSkXMpmUO.png" },
-      { name: "Pitch Pulse", href: "/pitch-pulse", icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/CVjahruZfJTZcuBW.png" },
-      { name: "Reel Masters", href: "/reel-masters", icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/aZXZLwryoTRrDQBs.png" },
+      { name: "Court Kings", href: "/court-kings", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/IYSXsjNLtHxVaazj.png" },
+      { name: "Gridiron Nexus", href: "/gridiron-nexus", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/HcanzWKcSkXMpmUO.png" },
+      { name: "Pitch Pulse", href: "/pitch-pulse", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/CVjahruZfJTZcuBW.png" },
+      { name: "Reel Masters", href: "/reel-masters", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/aZXZLwryoTRrDQBs.png" },
     ]
   },
   {
@@ -43,7 +43,7 @@ const navItems = [
   {
     category: "DHG ECOSYSTEM",
     items: [
-      { name: "Fuel Bots", href: "/fuel-bots", icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/qUknrdlyPrUZJQYo.png" },
+      { name: "Fuel Bots", href: "/fuel-bots", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png" },
       { name: "DHG Empire", href: "/dhg-empire", icon: "/logos/dhg-crab-logo.png" },
       { name: "Softmor Inc", href: "/softmor", icon: "🧠" },
       { name: "Investor Hub", href: "/investor-hub", icon: "💎" },

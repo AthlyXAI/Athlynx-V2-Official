@@ -505,8 +505,7 @@ function PartnersModule() {
 // ============================================
 function ConnectorsModule() {
   const connectors: Connector[] = [
-    // CORE AI INFRASTRUCTURE - POWERED BY MANUS & NEBIUS
-    { id: "manus", name: "Manus AI", type: "AI Platform (Meta Acquisition)", status: "connected", lastSync: "Live - Early Adopter", icon: "🤖" },
+    // CORE AI INFRASTRUCTURE
     { id: "nebius", name: "Nebius AI", type: "AI Infrastructure", status: "connected", lastSync: "Live", icon: "🧠" },
     // STRATEGIC PARTNERSHIPS
     { id: "icc-usa", name: "ICC-USA", type: "Hardware Partner", status: "connected", lastSync: "Active Partnership", icon: "🖥️" },
@@ -583,7 +582,6 @@ function ConnectorsModule() {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <APIKeyItem name="Manus AI API Key" status="configured" lastUsed="Live" />
             <APIKeyItem name="Nebius AI API Key" status="configured" lastUsed="Live" />
             <APIKeyItem name="Stripe Secret Key" status="configured" lastUsed="Today" />
             <APIKeyItem name="Stripe Publishable Key" status="configured" lastUsed="Today" />

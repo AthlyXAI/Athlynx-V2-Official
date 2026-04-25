@@ -69,7 +69,7 @@ export default function AIRecruiter() {
         {/* Header */}
         <div className="bg-gradient-to-r from-[#1a3a8f] to-[#1a2a4a] border border-green-700 rounded-xl p-5">
           <div className="flex items-center gap-4">
-            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/jmJopPCZNYcSzojv.png" alt="AI Recruiter" className="w-14 h-14 rounded-2xl object-cover shadow-lg" />
+            <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/jmJopPCZNYcSzojv.png" alt="AI Recruiter" className="w-14 h-14 rounded-2xl object-cover shadow-lg" />
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-2xl font-black text-white">AI RECRUITER</h2>

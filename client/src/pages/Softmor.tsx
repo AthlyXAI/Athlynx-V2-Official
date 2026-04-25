@@ -70,7 +70,7 @@ export default function Softmor() {
 
           <div className="flex items-center gap-4 mb-6">
             <div className="w-16 h-16 rounded-xl overflow-hidden">
-              <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/AzsuZOzvfgvscIdI.png" alt="Softmor Inc - Technology Division of Dozier Holdings Group" className="w-full h-full object-contain bg-white p-1 rounded-xl" />
+              <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png" alt="Softmor Inc - Technology Division of Dozier Holdings Group" className="w-full h-full object-contain bg-white p-1 rounded-xl" />
             </div>
             <div>
               <p className="text-cyan-400 text-sm font-medium tracking-wider">DHG TECHNOLOGY DIVISION</p>
@@ -231,13 +231,13 @@ export default function Softmor() {
         <div className="grid md:grid-cols-2 gap-6">
           {[
             {
-              src: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/jOicUTDalswOCdmD.mov",
+              src: "/media/jOicUTDalswOCdmD.mov",
               title: "Softmor — Driving Digital Tomorrow",
               desc: "Official Softmor brand intro animation",
               badge: "BRAND"
             },
             {
-              src: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/KkLleYEkFxPcgTwt.mov",
+              src: "/media/KkLleYEkFxPcgTwt.mov",
               title: "Softmor Data Center Infrastructure",
               desc: "Futuristic server room & enterprise compute",
               badge: "TECH"

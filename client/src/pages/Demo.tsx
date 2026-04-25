@@ -1,8 +1,8 @@
 import { Link } from "wouter";
 import { useState } from "react";
 
-const DEMO_VIDEO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/TJIQEsjoLVlddltc.mp4";
-const ATHLYNX_LOGO = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/qUknrdlyPrUZJQYo.png";
+const DEMO_VIDEO_URL = "/media/TJIQEsjoLVlddltc.mp4";
+const ATHLYNX_LOGO = "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png";
 
 const STEPS = [
   {

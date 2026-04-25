@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 
-const CDN = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/qUknrdlyPrUZJQYo.png";
+const CDN = "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png";
 
 export default function NotFound() {
   return (

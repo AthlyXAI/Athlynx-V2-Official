@@ -7,7 +7,7 @@ import {
   ArrowRight, CheckCircle2, Layers, BarChart3, Bitcoin, Coins, Leaf, GraduationCap, Phone, Landmark
 } from 'lucide-react';
 
-const CDN = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/";
+const CDN = "/";
 
 type Division = 'all' | 'sports' | 'technology' | 'realestate' | 'hospitality' | 'healthcare' | 'finance' | 'trading';
 
@@ -35,7 +35,7 @@ const COMPANIES: Company[] = [
     status: "active",
     link: "/",
     highlight: "FLAGSHIP",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/qUknrdlyPrUZJQYo.png",
+    logo: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png",
   },
   {
     name: "Diamond Grind Baseball",
@@ -46,7 +46,7 @@ const COMPANIES: Company[] = [
     icon: <Dumbbell className="w-6 h-6" />,
     status: "active",
     link: "/diamond-grind",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/TptlbGHFTBamgRix.png",
+    logo: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/TptlbGHFTBamgRix.png",
   },
   {
     name: "Warriors Playbook",
@@ -57,7 +57,7 @@ const COMPANIES: Company[] = [
     icon: <Shield className="w-6 h-6" />,
     status: "active",
     link: "/warriors-playbook",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/HcanzWKcSkXMpmUO.png",
+    logo: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/HcanzWKcSkXMpmUO.png",
   },
   {
     name: "NIL Portal Inc.",
@@ -68,7 +68,7 @@ const COMPANIES: Company[] = [
     icon: <Star className="w-6 h-6" />,
     status: "active",
     link: "/nil-portal",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/lwxugmjkXJoyYfVC.png",
+    logo: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/lwxugmjkXJoyYfVC.png",
   },
   {
     name: "Softmor Inc.",
@@ -97,7 +97,7 @@ const COMPANIES: Company[] = [
     description: "Custom GPU server infrastructure and cloud computing solutions. Tier-4 data center operations supporting AI workloads and enterprise applications.",
     icon: <Server className="w-6 h-6" />,
     status: "development",
-    logo: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/aZXZLwryoTRrDQBs.png",
+    logo: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/aZXZLwryoTRrDQBs.png",
   },
   {
     name: "VC Energy, LLC",

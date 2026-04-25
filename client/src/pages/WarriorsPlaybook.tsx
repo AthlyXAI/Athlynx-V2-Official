@@ -41,7 +41,7 @@ export default function WarriorsPlaybook() {
       <div className="space-y-4 pb-20 lg:pb-4">
         <div className="bg-gradient-to-r from-[#1a3a8f] to-[#1a2a4a] border border-red-700 rounded-xl p-5">
           <div className="flex items-center gap-4">
-            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/HcanzWKcSkXMpmUO.png" alt="Warriors Playbook" className="w-14 h-14 rounded-2xl object-cover shadow-lg" />
+            <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/HcanzWKcSkXMpmUO.png" alt="Warriors Playbook" className="w-14 h-14 rounded-2xl object-cover shadow-lg" />
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-2xl font-black text-white">WARRIORS PLAYBOOK</h2>
@@ -89,8 +89,8 @@ export default function WarriorsPlaybook() {
             <h3 className="text-white font-bold px-1">Film Room</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { title: "Week 8 vs. Rivals", type: "Game Film", video: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/KXxibPEaqdpzwIEt.mp4" },
-                { title: "Practice — Red Zone", type: "Practice Film", video: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/TJIQEsjoLVlddltc.mp4" },
+                { title: "Week 8 vs. Rivals", type: "Game Film", video: "/media/KXxibPEaqdpzwIEt.mp4" },
+                { title: "Practice — Red Zone", type: "Practice Film", video: "/media/TJIQEsjoLVlddltc.mp4" },
               ].map((film, i) => (
                 <div key={i} className="bg-[#1a3a8f] border border-blue-900 rounded-xl overflow-hidden">
                   <video className="w-full aspect-video object-cover" muted loop playsInline controls>

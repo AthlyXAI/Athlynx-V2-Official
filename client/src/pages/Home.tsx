@@ -68,19 +68,19 @@ const BADGE_COLORS: Record<string, string> = {
   BETA: "bg-red-700",
 };
 
-const DEMO_VIDEO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/kmXGpMmslwPdeWYO.mp4";
+const DEMO_VIDEO_URL = "/media/kmXGpMmslwPdeWYO.mp4";
 
-const CRAB_LOGO_VIDEO = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/ImBnRmTCxfoaENos.mp4";
+const CRAB_LOGO_VIDEO = "/media/ImBnRmTCxfoaENos.mp4";
 
 const VIDEOS = [
-  { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/SyHtmDgqKAycRzBN.mp4", title: "ATHLYNX — The Multi-Sport Empire", badge: "HOT" },
-  { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/ImBnRmTCxfoaENos.mp4", title: "NIL Portal Baseball", badge: "HOT" },
-  { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/SNHQDsOUVYFJwfUT.mp4", title: "NIL Portal Football", badge: "LIVE" },
-  { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/exlwMUmNOQhJjidX.mp4", title: "Diamond Grind Baseball", badge: "NEW" },
-  { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/ZfMgzTWXcpwXcMCt.mp4", title: "Softmor AI", badge: "AI" },
-  { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/SwXAovMVYCnPjnZu.mp4", title: "Softmor — The Future", badge: "AI" },
-  { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/RdxGMXGkDjZBeGeL.mp4", title: "DHG Empire", badge: "ELITE" },
-  { file: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/eGLqGNCLommoTHsR.mp4", title: "DHG Empire II", badge: "ELITE" },
+  { file: "/media/SyHtmDgqKAycRzBN.mp4", title: "ATHLYNX — The Multi-Sport Empire", badge: "HOT" },
+  { file: "/media/ImBnRmTCxfoaENos.mp4", title: "NIL Portal Baseball", badge: "HOT" },
+  { file: "/media/SNHQDsOUVYFJwfUT.mp4", title: "NIL Portal Football", badge: "LIVE" },
+  { file: "/media/exlwMUmNOQhJjidX.mp4", title: "Diamond Grind Baseball", badge: "NEW" },
+  { file: "/media/ZfMgzTWXcpwXcMCt.mp4", title: "Softmor AI", badge: "AI" },
+  { file: "/media/SwXAovMVYCnPjnZu.mp4", title: "Softmor — The Future", badge: "AI" },
+  { file: "/media/RdxGMXGkDjZBeGeL.mp4", title: "DHG Empire", badge: "ELITE" },
+  { file: "/media/eGLqGNCLommoTHsR.mp4", title: "DHG Empire II", badge: "ELITE" },
 ];
 
 // ─── Mobile Nav Menu ────────────────────────────────────────────────────────

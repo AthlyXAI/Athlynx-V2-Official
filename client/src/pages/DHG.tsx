@@ -1,7 +1,7 @@
 import PlatformLayout from "@/components/PlatformLayout";
 import { Link } from "wouter";
 
-const CDN = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/";
+const CDN = "/";
 
 const SUBSIDIARIES = [
   {
@@ -9,7 +9,7 @@ const SUBSIDIARIES = [
     tagline: "The Crown — The Athlete's Playbook",
     desc: "The flagship platform. 10 AI-powered apps giving every athlete the tools of a professional. NIL deals, recruiting, training, strategy — all in one place.",
     status: "LIVE",
-    icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/qUknrdlyPrUZJQYo.png",
+    icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png",
     href: "/",
     isCrown: true,
   },
@@ -35,7 +35,7 @@ const SUBSIDIARIES = [
     tagline: "Find Your Next Chapter",
     desc: "AI-powered transfer portal helping athletes find the right school, the right program, and the right opportunity to elevate their career.",
     status: "LIVE",
-    icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/zXVECIAqcyZDAOuV.png",
+    icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/zXVECIAqcyZDAOuV.png",
     href: "https://transferportal.ai",
   },
   {
@@ -43,7 +43,7 @@ const SUBSIDIARIES = [
     tagline: "Elite Baseball Training",
     desc: "Performance analytics and training programs built for baseball athletes who refuse to settle. Grind harder. Play smarter.",
     status: "LIVE",
-    icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/TptlbGHFTBamgRix.png",
+    icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/TptlbGHFTBamgRix.png",
     href: "/diamond-grind",
   },
   {
@@ -51,7 +51,7 @@ const SUBSIDIARIES = [
     tagline: "Strategy. Film. Victory.",
     desc: "The digital playbook for coaches and teams. Film room, play designer, and team strategy board — all in one platform.",
     status: "LIVE",
-    icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/HcanzWKcSkXMpmUO.png",
+    icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/HcanzWKcSkXMpmUO.png",
     href: "/warriors-playbook",
   },
   {
@@ -59,7 +59,7 @@ const SUBSIDIARIES = [
     tagline: "AI Ecosystem",
     desc: "The AI automation ecosystem powering the next generation of athlete and business intelligence across the DHG portfolio.",
     status: "BUILDING",
-    icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/aZXZLwryoTRrDQBs.png",
+    icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/aZXZLwryoTRrDQBs.png",
     href: "https://aibotecosys.com",
   },
   {
@@ -67,7 +67,7 @@ const SUBSIDIARIES = [
     tagline: "The Robot Companion — In Every Moment",
     desc: "AI-powered robot companions for athletes — in training, in the stands, on the field, in recovery, and everywhere in between. Robotics partnership currently in development.",
     status: "COMING",
-    icon: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/qUknrdlyPrUZJQYo.png",
+    icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png",
     href: "/robotics",
     isRobot: true,
   },
@@ -238,19 +238,19 @@ export default function DHG() {
         <div className="space-y-4">
           <div className="bg-[#1a3a8f] border border-blue-900 rounded-2xl overflow-hidden">
             <video className="w-full" controls muted loop playsInline>
-              <source src={"https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/mQeioRPSvzxsvCcY.mov"} type="video/mp4" />
+              <source src={"/media/mQeioRPSvzxsvCcY.mov"} type="video/mp4" />
             </video>
             <div className="p-3 text-center text-blue-300 text-sm font-semibold">DHG Corporate Overview</div>
           </div>
           <div className="bg-[#1a3a8f] border border-blue-900 rounded-2xl overflow-hidden">
             <video className="w-full" controls muted loop playsInline>
-              <source src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/xnXNQvBUfirjVkId.mp4" type="video/mp4" />
+              <source src="/media/xnXNQvBUfirjVkId.mp4" type="video/mp4" />
             </video>
             <div className="p-3 text-center text-blue-300 text-sm font-semibold">DHG AI Compute & Data Centers</div>
           </div>
           <div className="bg-[#1a3a8f] border border-blue-900 rounded-2xl overflow-hidden">
             <video className="w-full" controls muted loop playsInline>
-              <source src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/mQeioRPSvzxsvCcY.mov" type="video/mp4" />
+              <source src="/media/mQeioRPSvzxsvCcY.mov" type="video/mp4" />
             </video>
             <div className="p-3 text-center text-blue-300 text-sm font-semibold">DHG Urban Innovation & City Hubs</div>
           </div>

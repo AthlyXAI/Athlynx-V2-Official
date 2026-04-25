@@ -230,7 +230,7 @@ export default function FuelBots() {
             <Card className="bg-gradient-to-br from-blue-900/40 to-blue-950/40 border-blue-500/30 hover:border-blue-400/50 transition-all group">
               <CardContent className="p-8 text-center">
                 <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/QNTbeHFuYniqJHLn.png" alt="NIL Portal" className="w-12 h-12" />
+                  <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/QNTbeHFuYniqJHLn.png" alt="NIL Portal" className="w-12 h-12" />
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-2">NIL Portal</h3>
                 <p className="text-white/60">Social network for athletes to manage NIL deals, training, and connections</p>
@@ -665,7 +665,7 @@ export default function FuelBots() {
           {/* Bottom Branding */}
           <div className="text-center mt-16">
             <div className="flex items-center justify-center gap-4 mb-4">
-              <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/AzsuZOzvfgvscIdI.png" alt="DHG" className="w-12 h-12 rounded-full" />
+              <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png" alt="DHG" className="w-12 h-12 rounded-full" />
               <div className="text-left">
                 <div className="text-white font-bold">Dozier Holdings Group</div>
                 <div className="text-white/60 text-sm">NIL Portal | Fuel Candy | Fuel Bots</div>

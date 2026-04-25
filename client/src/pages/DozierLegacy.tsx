@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const CREST_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/FfiTbyljZDYEBaSq.png";
+const CREST_URL = "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/FfiTbyljZDYEBaSq.png";
 
 export default function DozierLegacy() {
   const [revealed, setRevealed] = useState(false);

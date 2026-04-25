@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 
-const CDN = "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/";
+const CDN = "/";
 
 const SCENARIOS = [
   { id: "training", label: "Training", icon: "🏋️" },

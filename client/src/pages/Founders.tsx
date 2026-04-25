@@ -6,7 +6,7 @@ const TEAM = [
     name: "Chad A. Dozier Sr.",
     title: "Founder, CEO & Chairman",
     org: "ATHLYNX | Dozier Holdings Group",
-    photo: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/bZsJVWxoyJljcAQQ.png",
+    photo: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/bZsJVWxoyJljcAQQ.png",
     emails: ["cdozier14@athlynx.ai", "cdozier14@dozierholdingsgroup.com.mx", "cdozier14@dozierholdingsgroup.com.mx"],
     phone: null,
     bio: "Chad A. Dozier Sr. is the Founder, CEO & Chairman of Dozier Holdings Group and ATHLYNX. A visionary entrepreneur and athlete advocate, Chad co-founded DHG in Houston, TX in November 2024 after meeting Glenn Tse at Hope Lodge. His mission: give every athlete the tools, resources, and opportunities they need to succeed on and off the field.",
@@ -18,7 +18,7 @@ const TEAM = [
     name: "Lee Marshall",
     title: "VP Sales & Partnerships",
     org: "ATHLYNX | Dozier Holdings Group",
-    photo: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/vYxyOnySrjUQRIbg.png",
+    photo: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/vYxyOnySrjUQRIbg.png",
     emails: ["lmarshall@athlynx.ai", "lmarshall@dozierholdingsgroup.com.mx", "lmarshall@dozierholdingsgroup.com"],
     phone: null,
     bio: "Lee Marshall drives DHG's revenue growth as VP Sales & Partnerships. Lee builds the strategic relationships and partnership channels that fuel DHG's expansion across all divisions — from NIL brand deals to enterprise technology partnerships.",
@@ -30,7 +30,7 @@ const TEAM = [
     name: "Jimmy Boyd",
     title: "VP Real Estate",
     org: "Dozier Holdings Group",
-    photo: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/FkMmjQlBlFlijPrw.png",
+    photo: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/FkMmjQlBlFlijPrw.png",
     emails: ["jboyd@athlynx.ai", "jboyd@dozierholdingsgroup.com.mx", "jboyd@dozierholdingsgroup.com"],
     phone: null,
     bio: "Jimmy Boyd oversees DHG's real estate portfolio and development pipeline as VP Real Estate. Jimmy leads acquisitions, development, and management across DHG's residential and commercial real estate divisions — including Uma Real Estate, VC Residential, Villa Agape, and Pisces Resort.",
@@ -42,7 +42,7 @@ const TEAM = [
     name: "Glenn Tse",
     title: "CFO / COO",
     org: "ATHLYNX | Dozier Holdings Group",
-    photo: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/ulHACAyBSjovnoFU.png",
+    photo: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/ulHACAyBSjovnoFU.png",
     emails: ["gtse@athlynx.ai", "gtse@dozierholdingsgroup.com.mx", "gtse@dozierholdingsgroup.com"],
     phone: null,
     bio: "Glenn Tse is the co-founder of Dozier Holdings Group and serves as CFO/COO. Glenn and Chad met at Hope Lodge in Houston, TX in November 2024, and together built DHG on a foundation of resilience, shared purpose, and the belief that the best is yet to come.",
@@ -54,7 +54,7 @@ const TEAM = [
     name: "Andrew Kustes",
     title: "VP Technology",
     org: "ATHLYNX | Dozier Holdings Group",
-    photo: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/pMrvsnzubyyqgttt.png",
+    photo: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/pMrvsnzubyyqgttt.png",
     emails: ["akustes@athlynx.ai", "akustes@dozierholdingsgroup.com.mx", "akustes@dozierholdingsgroup.com"],
     phone: null,
     bio: "Andy Kustes leads DHG's technology vision as VP Technology. Andy architects the technical infrastructure powering ATHLYNX, Softmor AI, and VC Data Centers — building the technological backbone of the DHG ecosystem.",
@@ -71,7 +71,7 @@ export default function Founders() {
         {/* Header */}
         <div className="bg-gradient-to-r from-[#0d1f4e] to-[#1a2a5e] border border-blue-800 rounded-xl p-5 text-center">
           <img
-            src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/qUknrdlyPrUZJQYo.png"
+            src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png"
             alt="ATHLYNX"
             className="w-16 h-16 rounded-2xl mx-auto mb-3 shadow-lg"
           />

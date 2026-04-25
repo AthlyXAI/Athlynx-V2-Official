@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 
 /**
- * MANUS x ATHLYNX UNIFIED
+ * ATHLYNX AI PLATFORM
  * A DOZIER HOLDINGS GROUP COMPANY
  * 
  * "Logic will take you from A to B. Imagination will take you everywhere." - Einstein
@@ -20,7 +20,7 @@ export default function ManusPartnership() {
                 <span className="text-2xl">🤖</span>
               </div>
               <div>
-                <h1 className="text-white font-bold text-lg">MANUS x ATHLYNX</h1>
+                <h1 className="text-white font-bold text-lg">ATHLYNX AI</h1>
                 <p className="text-cyan-400 text-xs">UNIFIED PARTNERSHIP</p>
               </div>
             </div>
@@ -45,7 +45,7 @@ export default function ManusPartnership() {
           <div className="flex items-center justify-center gap-8 mb-8">
             <div className="bg-gradient-to-br from-blue-600 to-blue-800 rounded-3xl p-6 shadow-2xl shadow-blue-600/30">
               <span className="text-6xl">🤖</span>
-              <p className="text-white font-bold mt-2">MANUS</p>
+              <p className="text-white font-bold mt-2">ATHLYNX AI</p>
             </div>
             <div className="text-5xl text-cyan-400 animate-pulse">×</div>
             <div className="bg-gradient-to-br from-cyan-500 to-blue-600 rounded-3xl p-6 shadow-2xl shadow-cyan-500/30">

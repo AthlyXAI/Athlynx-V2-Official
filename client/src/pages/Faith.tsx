@@ -5,7 +5,7 @@ export default function Faith() {
       <div className="space-y-4 pb-20 lg:pb-4">
         <div className="bg-gradient-to-r from-[#1a3a8f] to-[#1a2a4a] border border-red-600 rounded-xl p-5">
           <div className="flex items-center gap-4">
-            <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/mlASPvSCUQZpELyh.png" alt="Faith" className="w-14 h-14 rounded-2xl object-cover shadow-lg" />
+            <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/mlASPvSCUQZpELyh.png" alt="Faith" className="w-14 h-14 rounded-2xl object-cover shadow-lg" />
             <div>
               <h2 className="text-2xl font-black text-white">FAITH</h2>
               <p className="text-blue-300 text-sm">Daily devotionals, scripture, and spiritual strength for athletes</p>

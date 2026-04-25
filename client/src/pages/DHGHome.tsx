@@ -367,7 +367,7 @@ export default function DHGHome() {
 
             <div className="flex-1">
               <img 
-                src="https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/qUknrdlyPrUZJQYo.png" 
+                src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png" 
                 alt="ATHLYNX" 
                 className="w-full max-w-md mx-auto"
               />

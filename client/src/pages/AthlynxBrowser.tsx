@@ -1,7 +1,7 @@
 // ATHLYNX BROWSER - AI-POWERED WEB BROWSER
 // Better than Chrome, Safari, Edge - With Manus + Nebius AI Built In
 // The First AI-Native Browser for Athletes
-// CHAD AND MANUS - $2 Billion Dollar Baby
+
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -331,7 +331,7 @@ export default function AthlynxBrowser() {
 
               {/* Footer */}
               <div className="text-center mt-12 pt-8 border-t border-white/10">
-                <p className="text-[#ffd700] font-bold">CHAD AND MANUS</p>
+                <p className="text-[#ffd700] font-bold">CHAD A. DOZIER</p>
                 <p className="text-gray-400 text-sm">$2 Billion Dollar Baby • Dreams Do Come True 2026</p>
               </div>
             </div>
