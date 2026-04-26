@@ -8,10 +8,8 @@ import { getWeeklySignupStats } from "../db";
 import { sendEmail } from "../services/aws-ses";
 
 const OWNER_EMAILS = [
-  "cdozier14@dozierholdingsgroup.com.mx",
   "cdozier14@athlynx.ai",
   "cdozier@dozierholdingsgroup.com",
-  "chad.dozier@icloud.com",
   "chaddozier75@gmail.com",
 ];
 

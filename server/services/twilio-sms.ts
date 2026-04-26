@@ -1,25 +1,22 @@
 /**
  * Twilio SMS Service — ATHLYNX
  * Sends SMS messages via Twilio REST API.
+ * Uses Messaging Service SID for A2P 10DLC compliance.
  * Uses fetch — no SDK dependency required.
  */
 
 const TWILIO_ACCOUNT_SID = process.env.TWILIO_ACCOUNT_SID ?? "";
 const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN ?? "";
-// Use primary number, fall back to secondary/fallback
-const TWILIO_FROM =
-  process.env.TWILIO_PHONE_NUMBER_PRIMARY ??
-  process.env.TWILIO_PHONE_NUMBER ??
-  process.env.TWILIO_PHONE_NUMBER_SECONDARY ??
-  process.env.TWILIO_PHONE_NUMBER_FALLBACK ??
-  "";
+// A2P 10DLC campaign-registered Messaging Service SID
+const TWILIO_MESSAGING_SERVICE_SID =
+  process.env.TWILIO_MESSAGING_SERVICE_SID ?? "MGd107063da3402db3bd7e1ef57a5db20e";
 
 /**
- * Send an SMS via Twilio REST API.
+ * Send an SMS via Twilio REST API using the campaign-registered Messaging Service.
  * Returns true on success, false on failure (never throws).
  */
 export async function sendSMS(to: string, body: string): Promise<boolean> {
-  if (!TWILIO_ACCOUNT_SID || !TWILIO_AUTH_TOKEN || !TWILIO_FROM) {
+  if (!TWILIO_ACCOUNT_SID || !TWILIO_AUTH_TOKEN) {
     console.warn("[Twilio] Missing credentials — skipping SMS to", to);
     return false;
   }
@@ -38,7 +35,7 @@ export async function sendSMS(to: string, body: string): Promise<boolean> {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: new URLSearchParams({
-        From: TWILIO_FROM,
+        MessagingServiceSid: TWILIO_MESSAGING_SERVICE_SID,
         To: toFormatted,
         Body: body,
       }).toString(),
@@ -86,7 +83,7 @@ export async function sendOwnerSignupSMSAlert(opts: {
   email: string;
   memberNumber?: number;
 }): Promise<boolean> {
-  const ownerPhone = process.env.OWNER_PHONE ?? "";
+  const ownerPhone = process.env.OWNER_PHONE ?? "+16014985282";
   if (!ownerPhone) return false;
 
   const memberStr = opts.memberNumber ? ` #${opts.memberNumber}` : "";
