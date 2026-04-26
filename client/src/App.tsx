@@ -80,6 +80,7 @@ import Store from "./pages/Store";
 import Pricing from "./pages/Pricing";
 import PricingTiers from "./pages/PricingTiers";
 import Billing from "./pages/Billing";
+import Settings from "./pages/Settings";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import Infrastructure from "./pages/Infrastructure";
 import InfrastructureManager from "./pages/InfrastructureManager";
@@ -272,6 +273,7 @@ function Router() {
       <Route path="/pricing" component={Pricing} />
       <Route path="/pricing-tiers" component={PricingTiers} />
       <Route path="/billing" component={Billing} />
+      <Route path="/settings" component={Settings} />
       <Route path="/payment-success" component={PaymentSuccess} />
       <Route path="/infrastructure" component={Infrastructure} />
       <Route path="/infrastructure-manager" component={InfrastructureManager} />

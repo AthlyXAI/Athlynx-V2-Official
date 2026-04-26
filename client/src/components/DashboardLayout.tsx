@@ -21,14 +21,14 @@ import {
 } from "@/components/ui/sidebar";
 import { useIsMobile } from "@/hooks/useMobile";
 import {
-  Activity, BarChart2, BookOpen, Bot, Briefcase, Building2, Calculator,
-  ChevronDown, ChevronRight, Dumbbell, FileText, Flag, Flame, Globe,
+  Activity, BarChart2, Bell, BookOpen, Bot, Briefcase, Building2, Calculator,
+  ChevronDown, ChevronRight, CreditCard, Dumbbell, FileText, Flag, Flame, Globe,
   GraduationCap, Heart, Home, LayoutDashboard, LayoutGrid, LogOut,
   MessageCircle, MessageSquare, Mic2, Music, PanelLeft, Scale, Settings,
-  Shield, ShoppingBag, Sparkles, Star, TrendingUp, Trophy, Users, Wallet, Zap
+  Shield, ShoppingBag, Sparkles, Star, TrendingUp, Trophy, User, Users, Wallet, Zap
 } from "lucide-react";
 import { CSSProperties, useEffect, useRef, useState } from "react";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 import { DashboardLayoutSkeleton } from './DashboardLayoutSkeleton';
 import { Button } from "./ui/button";
 
@@ -386,6 +386,30 @@ function DashboardLayoutContent({
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem asChild className="cursor-pointer">
+                  <Link href="/profile">
+                    <User className="mr-2 h-4 w-4" />
+                    <span>Profile</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="cursor-pointer">
+                  <Link href="/settings">
+                    <Settings className="mr-2 h-4 w-4" />
+                    <span>Settings</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="cursor-pointer">
+                  <Link href="/billing">
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    <span>Billing</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild className="cursor-pointer">
+                  <Link href="/notifications">
+                    <Bell className="mr-2 h-4 w-4" />
+                    <span>Notifications</span>
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={logout}
                   className="cursor-pointer text-destructive focus:text-destructive"

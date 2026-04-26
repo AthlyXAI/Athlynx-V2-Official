@@ -51,6 +51,11 @@ export async function getDb() {
       queueLimit: 0,
       enableKeepAlive: true,
       keepAliveInitialDelay: 10000,
+      // Return BIGINT/SERIAL columns as JS numbers (not strings).
+      // Without these flags, mysql2 returns serial() primary keys as strings (e.g. "1"),
+      // which causes type mismatch errors when comparing against INT foreign key columns.
+      supportBigNumbers: true,
+      bigNumberStrings: false,
     });
     // Verify the connection is actually alive before caching
     const conn = await _pool.getConnection();
