@@ -52,16 +52,18 @@ function NotificationBell({ user }: { user: any }) {
   const ref = useRef<HTMLDivElement>(null);
   const { data: notifications = [] } = trpc.notifications.getRecent.useQuery(undefined, {
     enabled: !!user,
-    refetchInterval: 60000,      // poll every 60s instead of 30s
+    refetchInterval: 60000,      // poll every 60s
     retry: false,                // never retry on error — stops the 500 storm
     refetchOnWindowFocus: false, // don't refetch when user switches tabs
+    staleTime: 10000,            // treat data as fresh for 10s — prevents immediate refetch on mount
   });
   const utils = trpc.useUtils();
   const markReadMutation = trpc.notifications.markAllRead.useMutation({
     onSuccess: () => utils.notifications.getRecent.invalidate(),
   });
 
-  const unread = (notifications as any[]).filter(n => !n.isRead).length;
+  // isRead is stored as enum 'yes'/'no' in DB — not a boolean
+  const unread = (notifications as any[]).filter(n => n.isRead === 'no').length;
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {

@@ -59,10 +59,16 @@ export function useAuth(options?: UseAuthOptions) {
     });
   }, [auth0Logout]);
 
-  // Fetch DB user data for trial/subscription info
+  // Fetch DB user data for trial/subscription info.
+  // Guard: only fire when sub is a non-empty string — prevents 400 Bad Request
+  // when Auth0 is still loading and sub is undefined/empty.
   const { data: dbUser } = trpc.auth.getDbUser.useQuery(
     { openIdSub: auth0User?.sub ?? "" },
-    { enabled: isAuthenticated && !!auth0User?.sub }
+    {
+      enabled: isAuthenticated && typeof auth0User?.sub === "string" && auth0User.sub.length > 0,
+      retry: false,
+      staleTime: 30000,
+    }
   );
 
   // Redirect unauthenticated users if requested

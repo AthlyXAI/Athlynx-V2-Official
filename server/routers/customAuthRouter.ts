@@ -364,7 +364,7 @@ export const customAuthRouter = router({
 
   /** Get DB user data (trial, subscription, role) for the authenticated Okta user */
   getDbUser: publicProcedure
-    .input(z.object({ openIdSub: z.string() }))
+    .input(z.object({ openIdSub: z.string().min(1, "openIdSub is required") }))
     .query(async ({ input }) => {
       const db = await getDb();
       if (!db) return null;
