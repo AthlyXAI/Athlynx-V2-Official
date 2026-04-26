@@ -40,3 +40,6 @@ app.get("/api/health", (_req: Request, res: Response) => {
 });
 
 export default app;
+// Vercel serverless CJS compatibility: module.exports must equal the Express app
+// so Vercel's runtime can call it as a request handler.
+module.exports = app;
