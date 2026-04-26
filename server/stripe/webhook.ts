@@ -1,9 +1,9 @@
 import Stripe from "stripe";
 import express from "express";
 import type { Application, Request, Response } from "express";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { getDb } from "../db";
-import { users } from "../../drizzle/schema";
+import { users, creditTransactions, creditPackagePurchases } from "../../drizzle/schema";
 import { sendEmail } from "../services/aws-ses";
 
 async function sendPaymentConfirmationEmail(opts: {
@@ -137,29 +137,57 @@ export function registerStripeWebhook(app: Application) {
               ? parseInt(session.metadata.user_id)
               : null;
 
-            if (userId && session.customer) {
-              // Save Stripe customer ID and plan info
-              const updateData: Record<string, unknown> = {
-                stripeCustomerId: session.customer as string,
-              };
-              // If this was a credit pack purchase, add credits
+            if (userId) {
               const creditsToAdd = session.metadata?.credits
                 ? parseInt(session.metadata.credits)
                 : 0;
+              const packId = session.metadata?.pack_id ?? null;
+              const stripeCustomerId = session.customer as string | null;
+
+              // ── 1. Atomic credit add (no race condition) ──
               if (creditsToAdd > 0) {
-                // Fetch current credits first
-                const userRow = await db.select({ credits: users.credits }).from(users).where(eq(users.id, userId)).limit(1);
-                const currentCredits = userRow[0]?.credits ?? 0;
-                updateData.credits = currentCredits + creditsToAdd;
+                await db.update(users).set({
+                  credits: sql`${users.credits} + ${creditsToAdd}`,
+                  ...(stripeCustomerId ? { stripeCustomerId } : {}),
+                }).where(eq(users.id, userId));
+
+                // Fetch new balance for the transaction record
+                const [updatedUser] = await db.select({ credits: users.credits }).from(users).where(eq(users.id, userId)).limit(1);
+                const balanceAfter = updatedUser?.credits ?? creditsToAdd;
+
+                // ── 2. Write to credit_package_purchases ──
+                if (packId) {
+                  await db.insert(creditPackagePurchases).values({
+                    userId,
+                    packId,
+                    packName: session.metadata?.plan_name ?? packId,
+                    credits: creditsToAdd,
+                    amountCents: session.amount_total ?? 0,
+                    stripeSessionId: session.id,
+                    stripeCustomerId: stripeCustomerId ?? undefined,
+                  }).catch((e) => console.warn("[Stripe Webhook] creditPackagePurchases insert failed:", e?.message));
+                }
+
+                // ── 3. Write to credit_transactions (purchase entry) ──
+                await db.insert(creditTransactions).values({
+                  userId,
+                  type: "purchase",
+                  amount: creditsToAdd,
+                  balanceAfter,
+                  description: `Purchased ${creditsToAdd} credits`,
+                  stripeSessionId: session.id,
+                }).catch((e) => console.warn("[Stripe Webhook] creditTransactions insert failed:", e?.message));
+
+                console.log(`[Stripe Webhook] Added ${creditsToAdd} credits to user ${userId} (balance: ${balanceAfter})`);
+              } else {
+                // Subscription purchase — just save customer ID and plan ID
+                const updateData: Record<string, unknown> = {};
+                if (stripeCustomerId) updateData.stripeCustomerId = stripeCustomerId;
+                if (session.metadata?.plan_id) updateData.stripePlanId = session.metadata.plan_id;
+                if (Object.keys(updateData).length > 0) {
+                  await db.update(users).set(updateData).where(eq(users.id, userId));
+                }
               }
-              // If this was a subscription, store plan ID
-              if (session.metadata?.plan_id) {
-                updateData.stripePlanId = session.metadata.plan_id;
-              }
-              await db
-                .update(users)
-                .set(updateData)
-                .where(eq(users.id, userId));
             }
 
             // Send payment confirmation email

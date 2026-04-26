@@ -6,7 +6,7 @@ import { getSessionCookieOptions } from "../_core/cookies";
 import { sdk } from "../_core/sdk";
 import { publicProcedure, protectedProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
-import { users, verificationCodes } from "../../drizzle/schema";
+import { users, verificationCodes, creditTransactions } from "../../drizzle/schema";
 import { eq, and, gt } from "drizzle-orm";
 import { sendWelcomeEmail, sendOwnerNewUserAlert } from "../services/aws-ses";
 import { sendWelcomeSMS } from "../services/twilio-sms";
@@ -88,6 +88,7 @@ export const customAuthRouter = router({
       const [countResult] = await db.select({ count: sql<number>`count(*)` }).from(users);
       const memberNumber = (Number(countResult?.count) || 0) + 1;
 
+      const STARTING_CREDITS = 50;
       await db.insert(users).values({
         openId,
         name: input.name,
@@ -99,8 +100,21 @@ export const customAuthRouter = router({
         school: input.school ?? null,
         year: input.year ?? null,
         trialEndsAt,
+        credits: STARTING_CREDITS,
         lastSignedIn: new Date(),
       });
+
+      // Fetch the new user's DB ID for the credit transaction log
+      const [newUserRow] = await db.select({ id: users.id }).from(users).where(eq(users.email, input.email)).limit(1);
+      if (newUserRow?.id) {
+        db.insert(creditTransactions).values({
+          userId: newUserRow.id,
+          type: "bonus",
+          amount: STARTING_CREDITS,
+          balanceAfter: STARTING_CREDITS,
+          description: "Welcome bonus — 50 free credits on signup",
+        }).catch((e) => console.warn("[Credits] Welcome bonus log failed:", e?.message));
+      }
 
       // Create session token
       const sessionToken = await sdk.createSessionToken(openId, {
@@ -281,16 +295,35 @@ export const customAuthRouter = router({
         ? Math.abs(new Date(row.lastSignedIn ?? 0).getTime() - new Date(row.createdAt ?? 0).getTime()) < 5000
         : false;
 
-      if (isNewUser && input.email) {
-        const memberNumber = row?.id ?? undefined;
-        fireWelcomeNotifications({
-          name: input.name || "Athlete",
-          email: input.email,
-          phone: input.phone,
-          loginMethod,
-          trialEndsAt,
-          memberNumber,
-        });
+      const STARTING_CREDITS = 50; // Free credits every new athlete gets on signup
+
+      if (isNewUser && row?.id) {
+        const memberNumber = row.id;
+
+        // Seed starting credits for new users
+        await db.update(users)
+          .set({ credits: STARTING_CREDITS })
+          .where(eq(users.id, memberNumber));
+
+        // Write a bonus credit_transaction row so the audit trail starts clean
+        db.insert(creditTransactions).values({
+          userId: memberNumber,
+          type: "bonus",
+          amount: STARTING_CREDITS,
+          balanceAfter: STARTING_CREDITS,
+          description: "Welcome bonus — 50 free credits on signup",
+        }).catch((e) => console.warn("[Credits] Welcome bonus log failed:", e?.message));
+
+        if (input.email) {
+          fireWelcomeNotifications({
+            name: input.name || "Athlete",
+            email: input.email,
+            phone: input.phone,
+            loginMethod,
+            trialEndsAt,
+            memberNumber,
+          });
+        }
       }
 
       const sessionToken = await sdk.createSessionToken(openId, {

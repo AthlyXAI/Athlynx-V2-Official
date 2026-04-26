@@ -3,10 +3,10 @@ import { TRPCError } from "@trpc/server";
 import { protectedProcedure, router } from "../_core/trpc";
 import { invokeLLM } from "../_core/llm";
 import { getDb } from "../db";
-import { users } from "../../drizzle/schema";
+import { users, creditTransactions } from "../../drizzle/schema";
 import { eq, sql } from "drizzle-orm";
 
-// Credit costs per AI action
+// Credit costs per AI action (in credits)
 const CREDIT_COSTS: Record<string, number> = {
   generateBrandPitch: 15,
   analyzeDeal: 10,
@@ -19,18 +19,37 @@ const CREDIT_COSTS: Record<string, number> = {
   getRecruitingAdvice: 10,
   generateTrainingPlan: 10,
   wizardAdvice: 10,
+  scheduleToBuffer: 3,   // social post scheduling
 };
 
+/**
+ * Deduct credits before running an AI action.
+ * Throws FORBIDDEN if balance is insufficient.
+ * Writes an audit row to credit_transactions (non-blocking).
+ */
 async function deductCredits(userId: number, action: string): Promise<number> {
   const cost = CREDIT_COSTS[action] ?? 5;
   const db = await getDb();
   if (!db) return cost;
   const [user] = await db.select({ credits: users.credits }).from(users).where(eq(users.id, userId)).limit(1);
   if (!user) return cost;
-  if (user.credits < cost) {
-    throw new TRPCError({ code: "FORBIDDEN", message: `Insufficient credits. This action costs ${cost} credits. You have ${user.credits} credits. Please purchase more credits.` });
+  if ((user.credits ?? 0) < cost) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: `Insufficient credits. This action costs ${cost} credits. You have ${user.credits ?? 0} credits. Purchase more credits to continue.`,
+    });
   }
   await db.update(users).set({ credits: sql`${users.credits} - ${cost}` }).where(eq(users.id, userId));
+  const balanceAfter = (user.credits ?? 0) - cost;
+  // Audit log — non-blocking, never fail the AI call over a log write
+  db.insert(creditTransactions).values({
+    userId,
+    type: "deduction",
+    amount: -cost,
+    balanceAfter,
+    description: `AI action: ${action}`,
+    aiAction: action,
+  }).catch((e) => console.warn(`[Credits] Audit log failed for ${action}:`, e?.message));
   return cost;
 }
 
@@ -433,6 +452,7 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
       channels: z.array(z.enum(["twitter", "facebook", "instagram", "tiktok"])).default(["twitter", "instagram"]),
     }))
     .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "scheduleToBuffer");
       const BUFFER_TOKEN = process.env.BUFFER_ACCESS_TOKEN;
       if (!BUFFER_TOKEN) throw new Error("Buffer not configured");
       const CHANNEL_IDS: Record<string, string> = {

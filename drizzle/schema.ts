@@ -417,3 +417,43 @@ export const athleteDataSummaries = mysqlTable("athlete_data_summaries", {
   updatedAt: timestamp("updatedAt").defaultNow().notNull(),
 });
 export type AthleteDataSummary = typeof athleteDataSummaries.$inferSelect;
+
+// ─── Credit System ────────────────────────────────────────────────────────────
+
+export const creditTxTypeValues = ["purchase", "deduction", "refund", "bonus", "admin_grant"] as const;
+export type CreditTxType = (typeof creditTxTypeValues)[number];
+
+/**
+ * credit_transactions — full audit trail of every credit movement.
+ * Written on every AI action (deduction) and every Stripe purchase (purchase).
+ */
+export const creditTransactions = mysqlTable("credit_transactions", {
+  id: serial("id").primaryKey(),
+  userId: int("userId").notNull(),
+  type: mysqlEnum("type", creditTxTypeValues).notNull(),
+  amount: int("amount").notNull(),          // positive = added, negative = deducted
+  balanceAfter: int("balanceAfter").notNull(),
+  description: varchar("description", { length: 255 }),
+  stripeSessionId: varchar("stripeSessionId", { length: 128 }),
+  aiAction: varchar("aiAction", { length: 64 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type CreditTransaction = typeof creditTransactions.$inferSelect;
+export type InsertCreditTransaction = typeof creditTransactions.$inferInsert;
+
+/**
+ * credit_package_purchases — one row per completed Stripe credit pack purchase.
+ */
+export const creditPackagePurchases = mysqlTable("credit_package_purchases", {
+  id: serial("id").primaryKey(),
+  userId: int("userId").notNull(),
+  packId: varchar("packId", { length: 64 }).notNull(),
+  packName: varchar("packName", { length: 128 }).notNull(),
+  credits: int("credits").notNull(),
+  amountCents: int("amountCents").notNull(),
+  stripeSessionId: varchar("stripeSessionId", { length: 128 }).notNull(),
+  stripeCustomerId: varchar("stripeCustomerId", { length: 128 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type CreditPackagePurchase = typeof creditPackagePurchases.$inferSelect;
+export type InsertCreditPackagePurchase = typeof creditPackagePurchases.$inferInsert;
