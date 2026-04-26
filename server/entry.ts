@@ -6,6 +6,7 @@ import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { appRouter } from "../server/routers";
 import { createContext } from "../server/_core/context";
 import { registerStripeWebhook } from "../server/stripe/webhook";
+import { registerJotformWaitlistWebhook } from "../server/webhooks/jotformWaitlist";
 
 const app = express();
 
@@ -15,7 +16,7 @@ app.use(cors({
   credentials: true,
 }));
 
-// Stripe webhook MUST be before json middleware
+// Stripe webhook MUST be before json middleware (needs raw body)
 registerStripeWebhook(app);
 
 // Body parsers
@@ -24,6 +25,9 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 // Cookie parser — required for reading/writing session cookies
 app.use(cookieParser());
+
+// JotForm waitlist webhook — registered after body parsers so urlencoded payload is parsed
+registerJotformWaitlistWebhook(app);
 
 // tRPC API
 app.use(
