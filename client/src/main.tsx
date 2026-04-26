@@ -69,9 +69,9 @@ const trpcClient = trpc.createClient({
   ],
 });
 
-// Auth0 config — AthlynxChad production tenant (updated 2026-04-26)
-const auth0Domain = "dev-oy08pgzo48x3u117.us.auth0.com";
-const auth0ClientId = "MOEhwW3HVf9pp3SBVeX1Dlsrdum6GYmR"; // production app — ATHLYNX athlete platform
+// Auth0 config — Athlynx production tenant (B2C Professional)
+const auth0Domain = "dev-8yqdmei0v8kc3qqy.us.auth0.com";
+const auth0ClientId = "eDJT34flTy4oOq1cie6ItFubLDPHOrcI"; // Athlynx-FrontEnd-Single-Page
 
 createRoot(document.getElementById("root")!).render(
   <Auth0Provider
