@@ -7,6 +7,7 @@ import { appRouter } from "../server/routers";
 import { createContext } from "../server/_core/context";
 import { registerStripeWebhook } from "../server/stripe/webhook";
 import { registerJotformWaitlistWebhook } from "../server/webhooks/jotformWaitlist";
+import { runMigrations } from "../server/migrate";
 
 const app = express();
 
@@ -42,6 +43,13 @@ app.use(
 app.get("/api/health", (_req: Request, res: Response) => {
   res.json({ status: "ok", platform: "ATHLYNX", version: "1.0.3", timestamp: new Date().toISOString() });
 });
+
+// Run DB migrations on first cold-start (non-blocking — errors are logged, not thrown)
+// DATABASE_URL is available in the Vercel runtime env but NOT during the build step,
+// which is why we run migrations here rather than in the build:vercel script.
+runMigrations().catch((err) =>
+  console.error("[entry] runMigrations unexpected error:", err)
+);
 
 export default app;
 // Vercel serverless CJS compatibility: module.exports must equal the Express app
