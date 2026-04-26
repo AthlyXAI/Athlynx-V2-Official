@@ -2,14 +2,16 @@
  * Vercel Cron Endpoint — ATHLYNX Social Post Automation
  * Triggered by Vercel's built-in cron scheduler (vercel.json)
  * Runs at 8am, 12pm, 6pm CST (14:00, 18:00, 00:00 UTC)
- * Self-contained — no external triggers, no ESM imports
+ *
+ * Uses require() instead of ESM import to avoid CJS/ESM module conflict.
+ * Root package.json has "type":"module" (ESNext) but this cron function
+ * must run as CommonJS on Vercel Node.js runtime.
  */
 
-// Force CJS-compatible module loading to prevent ESM/CJS conflict
-process.env.NODE_OPTIONS = '--experimental-vm-modules';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { runSocialPostCron } = require("../../server/jobs/socialPostCron");
 
 import type { VercelRequest as Request, VercelResponse as Response } from "@vercel/node";
-import { runSocialPostCron } from "../../server/jobs/socialPostCron";
 
 export default async function handler(req: Request, res: Response) {
   // Vercel automatically adds the Authorization header for cron jobs
