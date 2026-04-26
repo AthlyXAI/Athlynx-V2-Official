@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { useState } from "react";
 
-const DEMO_VIDEO_URL = "/media/TJIQEsjoLVlddltc.mp4";
+const DEMO_VIDEO_URL = "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/TJIQEsjoLVlddltc.mp4";
 const ATHLYNX_LOGO = "/athlynx-icon.png";
 
 const STEPS = [

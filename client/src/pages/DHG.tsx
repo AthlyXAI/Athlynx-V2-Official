@@ -238,19 +238,19 @@ export default function DHG() {
         <div className="space-y-4">
           <div className="bg-[#1a3a8f] border border-blue-900 rounded-2xl overflow-hidden">
             <video className="w-full" controls muted loop playsInline>
-              <source src={"/media/mQeioRPSvzxsvCcY.mov"} type="video/mp4" />
+              <source src={"https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/mQeioRPSvzxsvCcY.mov"} type="video/mp4" />
             </video>
             <div className="p-3 text-center text-blue-300 text-sm font-semibold">DHG Corporate Overview</div>
           </div>
           <div className="bg-[#1a3a8f] border border-blue-900 rounded-2xl overflow-hidden">
             <video className="w-full" controls muted loop playsInline>
-              <source src="/media/xnXNQvBUfirjVkId.mp4" type="video/mp4" />
+              <source src="https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/xnXNQvBUfirjVkId.mp4" type="video/mp4" />
             </video>
             <div className="p-3 text-center text-blue-300 text-sm font-semibold">DHG AI Compute & Data Centers</div>
           </div>
           <div className="bg-[#1a3a8f] border border-blue-900 rounded-2xl overflow-hidden">
             <video className="w-full" controls muted loop playsInline>
-              <source src="/media/mQeioRPSvzxsvCcY.mov" type="video/mp4" />
+              <source src="https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/mQeioRPSvzxsvCcY.mov" type="video/mp4" />
             </video>
             <div className="p-3 text-center text-blue-300 text-sm font-semibold">DHG Urban Innovation & City Hubs</div>
           </div>

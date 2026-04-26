@@ -89,8 +89,8 @@ export default function WarriorsPlaybook() {
             <h3 className="text-white font-bold px-1">Film Room</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {[
-                { title: "Week 8 vs. Rivals", type: "Game Film", video: "/media/KXxibPEaqdpzwIEt.mp4" },
-                { title: "Practice — Red Zone", type: "Practice Film", video: "/media/TJIQEsjoLVlddltc.mp4" },
+                { title: "Week 8 vs. Rivals", type: "Game Film", video: "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/KXxibPEaqdpzwIEt.mp4" },
+                { title: "Practice — Red Zone", type: "Practice Film", video: "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/TJIQEsjoLVlddltc.mp4" },
               ].map((film, i) => (
                 <div key={i} className="bg-[#1a3a8f] border border-blue-900 rounded-xl overflow-hidden">
                   <video className="w-full aspect-video object-cover" muted loop playsInline controls>

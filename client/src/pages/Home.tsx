@@ -68,19 +68,19 @@ const BADGE_COLORS: Record<string, string> = {
   BETA: "bg-red-700",
 };
 
-const DEMO_VIDEO_URL = "/media/kmXGpMmslwPdeWYO.mp4";
+const DEMO_VIDEO_URL = "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/kmXGpMmslwPdeWYO.mp4";
 
-const CRAB_LOGO_VIDEO = "/media/ImBnRmTCxfoaENos.mp4";
+const CRAB_LOGO_VIDEO = "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/ImBnRmTCxfoaENos.mp4";
 
 const VIDEOS = [
-  { file: "/media/SyHtmDgqKAycRzBN.mp4", title: "ATHLYNX — The Multi-Sport Empire", badge: "HOT" },
-  { file: "/media/ImBnRmTCxfoaENos.mp4", title: "NIL Portal Baseball", badge: "HOT" },
-  { file: "/media/SNHQDsOUVYFJwfUT.mp4", title: "NIL Portal Football", badge: "LIVE" },
-  { file: "/media/exlwMUmNOQhJjidX.mp4", title: "Diamond Grind Baseball", badge: "NEW" },
-  { file: "/media/ZfMgzTWXcpwXcMCt.mp4", title: "Softmor AI", badge: "AI" },
-  { file: "/media/SwXAovMVYCnPjnZu.mp4", title: "Softmor — The Future", badge: "AI" },
-  { file: "/media/RdxGMXGkDjZBeGeL.mp4", title: "DHG Empire", badge: "ELITE" },
-  { file: "/media/eGLqGNCLommoTHsR.mp4", title: "DHG Empire II", badge: "ELITE" },
+  { file: "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/SyHtmDgqKAycRzBN.mp4", title: "ATHLYNX — The Multi-Sport Empire", badge: "HOT" },
+  { file: "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/ImBnRmTCxfoaENos.mp4", title: "NIL Portal Baseball", badge: "HOT" },
+  { file: "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/SNHQDsOUVYFJwfUT.mp4", title: "NIL Portal Football", badge: "LIVE" },
+  { file: "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/exlwMUmNOQhJjidX.mp4", title: "Diamond Grind Baseball", badge: "NEW" },
+  { file: "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/ZfMgzTWXcpwXcMCt.mp4", title: "Softmor AI", badge: "AI" },
+  { file: "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/SwXAovMVYCnPjnZu.mp4", title: "Softmor — The Future", badge: "AI" },
+  { file: "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/RdxGMXGkDjZBeGeL.mp4", title: "DHG Empire", badge: "ELITE" },
+  { file: "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/eGLqGNCLommoTHsR.mp4", title: "DHG Empire II", badge: "ELITE" },
 ];
 
 // ─── Mobile Nav Menu ────────────────────────────────────────────────────────

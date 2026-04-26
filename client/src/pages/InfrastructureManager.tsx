@@ -434,7 +434,7 @@ export default function InfrastructureManager() {
           loop
           playsInline
         >
-          <source src="/media/RBdDZfrubjWqomzn.mp4" type="video/mp4" />
+          <source src="https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/RBdDZfrubjWqomzn.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent pointer-events-none" />
         <div className="absolute bottom-6 left-0 right-0 text-center">

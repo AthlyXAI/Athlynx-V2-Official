@@ -231,13 +231,13 @@ export default function Softmor() {
         <div className="grid md:grid-cols-2 gap-6">
           {[
             {
-              src: "/media/jOicUTDalswOCdmD.mov",
+              src: "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/jOicUTDalswOCdmD.mov",
               title: "Softmor — Driving Digital Tomorrow",
               desc: "Official Softmor brand intro animation",
               badge: "BRAND"
             },
             {
-              src: "/media/KkLleYEkFxPcgTwt.mov",
+              src: "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/KkLleYEkFxPcgTwt.mov",
               title: "Softmor Data Center Infrastructure",
               desc: "Futuristic server room & enterprise compute",
               badge: "TECH"
