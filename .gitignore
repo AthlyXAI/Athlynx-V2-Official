@@ -119,3 +119,7 @@ client/public/__manus__/version.json
 scripts/seed-db.cjs
 scripts/seed-tidb.cjs
 .env.vercel.prod
+*.mp4
+*.MP4
+*.mov
+*.MOV
