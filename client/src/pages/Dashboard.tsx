@@ -28,11 +28,11 @@ export default function Dashboard() {
   );
   const { data: nilDeals } = trpc.nil.getMyDeals.useQuery(
     undefined,
-    { enabled: !!user }
+    { enabled: !!user, retry: false, refetchOnWindowFocus: false }
   );
   const { data: notifications } = trpc.notifications.getRecent.useQuery(
     undefined,
-    { enabled: !!user }
+    { enabled: !!user, retry: false, refetchOnWindowFocus: false }
   );
   const { data: athletes } = trpc.profile.browseAthletes.useQuery(
     { limit: 10 },

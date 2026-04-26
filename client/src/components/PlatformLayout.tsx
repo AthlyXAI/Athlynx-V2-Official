@@ -7,25 +7,25 @@ import AIOnboarding from "./AIOnboarding";
 const APPS = [
   { id: "nil-portal", label: "NIL Portal", icon: "/logos/nil-portal-logo.png", badge: "LIVE", href: "/nil-portal" },
   { id: "messenger", label: "NIL Messenger", icon: "/logos/nil-messenger-logo.png", badge: "LIVE", href: "/messenger" },
-  { id: "diamond-grind", label: "Diamond Grind", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/TptlbGHFTBamgRix.png", badge: "NEW", href: "/diamond-grind" },
-  { id: "warriors-playbook", label: "Warriors Playbook", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/HcanzWKcSkXMpmUO.png", badge: "HOT", href: "/warriors-playbook" },
-  { id: "transfer-portal", label: "Transfer Portal", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/zXVECIAqcyZDAOuV.png", badge: "LIVE", href: "/transfer-portal" },
-  { id: "nil-vault", label: "NIL Vault", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/aDzQEREXtGvMmnFc.png", badge: "ELITE", href: "/nil-vault" },
-  { id: "ai-sales", label: "AI Sales", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/aZXZLwryoTRrDQBs.png", badge: "AI", href: "/ai-sales" },
-  { id: "ai-recruiter", label: "AI Recruiter", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/jmJopPCZNYcSzojv.png", badge: "AI", href: "/ai-recruiter" },
-  { id: "ai-content", label: "AI Content", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/ZIXWdkuFjiAnPjQj.png", badge: "BLEND", href: "/ai-content" },
-  { id: "faith", label: "Faith", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/mlASPvSCUQZpELyh.png", badge: "", href: "/faith" },
-  { id: "robotics", label: "Robotics", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/JQENVEFPHSYfaPCl.png", badge: "SOON", href: "/robotics" },
-  { id: "trainerbot", label: "TrainerBot", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/KDhZuDUVfPtCvWsm.png", badge: "NEW", href: "/trainerbot" },
-  { id: "infrastructure", label: "Infrastructure", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/XQoWBSZFveYEShpv.png", badge: "INFRA", href: "/infrastructure" },
-  { id: "marketplace", label: "Marketplace", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/lwxugmjkXJoyYfVC.png", badge: "NEW", href: "/marketplace" },
-  { id: "podcast", label: "Podcast", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/nTYMGLkExngartwO.png", badge: "NEW", href: "/podcast" },
-  { id: "athlete-journey", label: "Athlete Journey", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/TxZgHVyhvysJXPve.png", badge: "NEW", href: "/athlete-journey" },
-  { id: "athlete-legal-hub", label: "Legal & Deals", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/GdOOpCRNAGZWGOFB.png", badge: "NEW", href: "/athlete-legal-hub" },
-  { id: "athlete-store", label: "Athlete Store", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/gvdoanUpNeACpwLe.png", badge: "NEW", href: "/athlete-store" },
-  { id: "white-label", label: "White-Label", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AuWTafmWwajotAmj.png", badge: "BIZ", href: "/white-label" },
-  { id: "crm", label: "CRM", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/lcQxjnmKEGqxIlhY.png", badge: "PRO", href: "/admin/crm" },
-  { id: "analytics", label: "Analytics", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/GxeIWIdQkpRYcHWd.png", badge: "PRO", href: "/analytics" },
+  { id: "diamond-grind", label: "Diamond Grind", icon: "/logos/athlynx-logo.png", badge: "NEW", href: "/diamond-grind" },
+  { id: "warriors-playbook", label: "Warriors Playbook", icon: "/logos/athlynx-logo.png", badge: "HOT", href: "/warriors-playbook" },
+  { id: "transfer-portal", label: "Transfer Portal", icon: "/logos/athlynx-logo.png", badge: "LIVE", href: "/transfer-portal" },
+  { id: "nil-vault", label: "NIL Vault", icon: "/logos/athlynx-logo.png", badge: "ELITE", href: "/nil-vault" },
+  { id: "ai-sales", label: "AI Sales", icon: "/logos/athlynx-logo.png", badge: "AI", href: "/ai-sales" },
+  { id: "ai-recruiter", label: "AI Recruiter", icon: "/logos/athlynx-logo.png", badge: "AI", href: "/ai-recruiter" },
+  { id: "ai-content", label: "AI Content", icon: "/logos/athlynx-logo.png", badge: "BLEND", href: "/ai-content" },
+  { id: "faith", label: "Faith", icon: "/logos/athlynx-logo.png", badge: "", href: "/faith" },
+  { id: "robotics", label: "Robotics", icon: "/logos/athlynx-logo.png", badge: "SOON", href: "/robotics" },
+  { id: "trainerbot", label: "TrainerBot", icon: "/logos/athlynx-logo.png", badge: "NEW", href: "/trainerbot" },
+  { id: "infrastructure", label: "Infrastructure", icon: "/logos/athlynx-logo.png", badge: "INFRA", href: "/infrastructure" },
+  { id: "marketplace", label: "Marketplace", icon: "/logos/athlynx-logo.png", badge: "NEW", href: "/marketplace" },
+  { id: "podcast", label: "Podcast", icon: "/logos/athlynx-logo.png", badge: "NEW", href: "/podcast" },
+  { id: "athlete-journey", label: "Athlete Journey", icon: "/logos/athlynx-logo.png", badge: "NEW", href: "/athlete-journey" },
+  { id: "athlete-legal-hub", label: "Legal & Deals", icon: "/logos/athlynx-logo.png", badge: "NEW", href: "/athlete-legal-hub" },
+  { id: "athlete-store", label: "Athlete Store", icon: "/logos/athlynx-logo.png", badge: "NEW", href: "/athlete-store" },
+  { id: "white-label", label: "White-Label", icon: "/logos/athlynx-logo.png", badge: "BIZ", href: "/white-label" },
+  { id: "crm", label: "CRM", icon: "/logos/athlynx-logo.png", badge: "PRO", href: "/admin/crm" },
+  { id: "analytics", label: "Analytics", icon: "/logos/athlynx-logo.png", badge: "PRO", href: "/analytics" },
   { id: "admin", label: "Admin", icon: "/logos/dhg-crab-logo.png", badge: "ADMIN", href: "/admin" },
 ];
 
@@ -52,7 +52,9 @@ function NotificationBell({ user }: { user: any }) {
   const ref = useRef<HTMLDivElement>(null);
   const { data: notifications = [] } = trpc.notifications.getRecent.useQuery(undefined, {
     enabled: !!user,
-    refetchInterval: 30000,
+    refetchInterval: 60000,      // poll every 60s instead of 30s
+    retry: false,                // never retry on error — stops the 500 storm
+    refetchOnWindowFocus: false, // don't refetch when user switches tabs
   });
   const utils = trpc.useUtils();
   const markReadMutation = trpc.notifications.markAllRead.useMutation({

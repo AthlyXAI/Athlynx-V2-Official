@@ -20,22 +20,47 @@ import { ENV } from './_core/env';
 
 let _db: any = null;
 let _pool: mysql.Pool | null = null;
+let _lastConnectAttempt = 0;
+const RECONNECT_COOLDOWN_MS = 30_000; // don't hammer DB — wait 30s between retries
 
 // Lazily create the drizzle instance so local tooling can run without a DB.
+// If the pool goes stale or the initial connect fails, reset and retry after cooldown.
 export async function getDb() {
-  if (!_db && process.env.DATABASE_URL) {
-    try {
-      _pool = mysql.createPool({
-        uri: process.env.DATABASE_URL,
-        ssl: { rejectUnauthorized: false },
-        connectionLimit: 10,
-        connectTimeout: 10000,
-      });
-      _db = drizzle(_pool);
-    } catch (error) {
-      console.warn("[Database] Failed to connect:", error);
-      _db = null;
+  if (_db) return _db;
+  if (!process.env.DATABASE_URL) return null;
+
+  const now = Date.now();
+  if (now - _lastConnectAttempt < RECONNECT_COOLDOWN_MS) {
+    // Still in cooldown — return null instead of hammering the DB
+    return null;
+  }
+  _lastConnectAttempt = now;
+
+  try {
+    // Destroy stale pool if it exists
+    if (_pool) {
+      try { await _pool.end(); } catch (_) {}
+      _pool = null;
     }
+    _pool = mysql.createPool({
+      uri: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false },
+      connectionLimit: 10,
+      connectTimeout: 10000,
+      waitForConnections: true,
+      queueLimit: 0,
+      enableKeepAlive: true,
+      keepAliveInitialDelay: 10000,
+    });
+    // Verify the connection is actually alive before caching
+    const conn = await _pool.getConnection();
+    conn.release();
+    _db = drizzle(_pool);
+    console.log("[Database] Connected successfully");
+  } catch (error) {
+    console.warn("[Database] Failed to connect:", error);
+    _db = null;
+    _pool = null;
   }
   return _db;
 }

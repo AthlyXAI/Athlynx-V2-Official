@@ -38,7 +38,19 @@ import superjson from "superjson";
 import App from "./App";
 import "./index.css";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // Only retry once on failure, with a 5s delay — prevents hammering a broken API
+      retry: 1,
+      retryDelay: 5000,
+      // Don't refetch on window focus — reduces unnecessary requests
+      refetchOnWindowFocus: false,
+      // Don't refetch on reconnect for queries that already have data
+      refetchOnReconnect: "always",
+    },
+  },
+});
 
 const redirectToLoginIfUnauthorized = (error: unknown) => {
   if (!(error instanceof TRPCClientError)) return;

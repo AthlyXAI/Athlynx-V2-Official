@@ -7,14 +7,19 @@ import { TRPCError } from "@trpc/server";
 
 export const notificationsRouter = router({
   getRecent: protectedProcedure.query(async ({ ctx }) => {
-    const db = await getDb();
-    if (!db) return [];
-    return db
-      .select()
-      .from(notifications)
-      .where(eq(notifications.userId, ctx.user.id))
-      .orderBy(desc(notifications.createdAt))
-      .limit(20);
+    try {
+      const db = await getDb();
+      if (!db) return [];
+      return await db
+        .select()
+        .from(notifications)
+        .where(eq(notifications.userId, ctx.user.id))
+        .orderBy(desc(notifications.createdAt))
+        .limit(20);
+    } catch (err) {
+      console.warn("[notifications.getRecent] DB error, returning empty:", (err as Error)?.message);
+      return [];
+    }
   }),
 
   markAllRead: protectedProcedure.mutation(async ({ ctx }) => {

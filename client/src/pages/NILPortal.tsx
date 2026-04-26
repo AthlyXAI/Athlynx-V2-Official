@@ -18,7 +18,7 @@ export default function NILPortal() {
   const [showAddDeal, setShowAddDeal] = useState(false);
   const [newDeal, setNewDeal] = useState({ brandName: "", dealValue: "", description: "", category: "Apparel" });
   const utils = trpc.useUtils();
-  const { data: myDeals = [] } = trpc.nil.getMyDeals.useQuery(undefined, { enabled: !!user });
+  const { data: myDeals = [] } = trpc.nil.getMyDeals.useQuery(undefined, { enabled: !!user, retry: false, refetchOnWindowFocus: false });
   const { data: allDeals = [] } = trpc.nil.getAllDeals.useQuery({ limit: 20 });
   const { data: nilCalc } = trpc.nil.calculateNilValue.useQuery(
     { sport: "Football", followers: 10000 }, { enabled: true }

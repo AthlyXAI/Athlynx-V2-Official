@@ -7,13 +7,18 @@ import { eq, desc } from "drizzle-orm";
 export const nilRouter = router({
   // NIL Deals
   getMyDeals: protectedProcedure.query(async ({ ctx }) => {
-    const db = await getDb();
-    if (!db) return [];
-    return db
-      .select()
-      .from(nilDeals)
-      .where(eq(nilDeals.athleteId, ctx.user.id))
-      .orderBy(desc(nilDeals.createdAt));
+    try {
+      const db = await getDb();
+      if (!db) return [];
+      return await db
+        .select()
+        .from(nilDeals)
+        .where(eq(nilDeals.athleteId, ctx.user.id))
+        .orderBy(desc(nilDeals.createdAt));
+    } catch (err) {
+      console.warn("[nil.getMyDeals] DB error, returning empty:", (err as Error)?.message);
+      return [];
+    }
   }),
 
   getAllDeals: publicProcedure

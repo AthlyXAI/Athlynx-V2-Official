@@ -6,6 +6,8 @@ export default function Notifications() {
   const { user } = useAuth();
   const { data: notifications = [], isLoading, refetch } = trpc.notifications.getRecent.useQuery(undefined, {
     enabled: !!user,
+    retry: false,
+    refetchOnWindowFocus: false,
   });
   const markAllReadMutation = trpc.notifications.markAllRead.useMutation({
     onSuccess: () => refetch(),

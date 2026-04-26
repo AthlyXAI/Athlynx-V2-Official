@@ -43,7 +43,7 @@ export default function Profile() {
     { enabled: !!user }
   );
   // Real NIL deals from DB
-  const { data: nilDeals = [] } = trpc.nil.getMyDeals.useQuery(undefined, { enabled: !!user });
+  const { data: nilDeals = [] } = trpc.nil.getMyDeals.useQuery(undefined, { enabled: !!user, retry: false, refetchOnWindowFocus: false });
 
   const updateProfileMutation = trpc.profile.updateProfile.useMutation({
     onSuccess: () => { setEditMode(false); utils.profile.getMyProfile.invalidate(); },
