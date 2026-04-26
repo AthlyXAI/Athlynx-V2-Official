@@ -2,33 +2,38 @@ import { z } from "zod";
 import { protectedProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
 import { notifications, users } from "../../drizzle/schema";
-import { eq, desc, and, count } from "drizzle-orm";
+import { eq, desc, and, count, sql } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 
 export const notificationsRouter = router({
   getRecent: protectedProcedure.query(async ({ ctx }) => {
-    try {
-      const db = await getDb();
-      if (!db) return [];
-      return await db
-        .select()
-        .from(notifications)
-        .where(eq(notifications.userId, ctx.user.id))
-        .orderBy(desc(notifications.createdAt))
-        .limit(20);
-    } catch (err) {
-      console.warn("[notifications.getRecent] DB error, returning empty:", (err as Error)?.message);
-      return [];
+    const db = await getDb();
+    if (!db) {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Database unavailable — please try again in a moment.",
+      });
     }
+    // users.id is BIGINT UNSIGNED (serial) but notifications.userId is INT.
+    // Number() cast prevents mysql2 from sending a BigInt literal which causes
+    // a MySQL type mismatch error on the WHERE clause.
+    const userId = Number(ctx.user.id);
+    return db
+      .select()
+      .from(notifications)
+      .where(sql`${notifications.userId} = ${userId}`)
+      .orderBy(desc(notifications.createdAt))
+      .limit(20);
   }),
 
   markAllRead: protectedProcedure.mutation(async ({ ctx }) => {
     const db = await getDb();
     if (!db) return { success: false };
+    const userId = Number(ctx.user.id);
     await db
       .update(notifications)
       .set({ isRead: "yes", readAt: new Date() })
-      .where(and(eq(notifications.userId, ctx.user.id), eq(notifications.isRead, "no")));
+      .where(and(sql`${notifications.userId} = ${userId}`, eq(notifications.isRead, "no")));
     return { success: true };
   }),
 
@@ -37,10 +42,11 @@ export const notificationsRouter = router({
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
       if (!db) return { success: false };
+      const userId = Number(ctx.user.id);
       await db
         .update(notifications)
         .set({ isRead: "yes", readAt: new Date() })
-        .where(and(eq(notifications.id, input.id), eq(notifications.userId, ctx.user.id)));
+        .where(and(eq(notifications.id, input.id), sql`${notifications.userId} = ${userId}`));
       return { success: true };
     }),
 
@@ -56,7 +62,7 @@ export const notificationsRouter = router({
       const db = await getDb();
       if (!db) return { success: false };
       await db.insert(notifications).values({
-        userId: ctx.user.id,
+        userId: Number(ctx.user.id),
         title: input.title,
         message: input.message,
         type: input.type,
@@ -71,10 +77,11 @@ export const notificationsRouter = router({
   getUnreadCount: protectedProcedure.query(async ({ ctx }) => {
     const db = await getDb();
     if (!db) return { count: 0 };
+    const userId = Number(ctx.user.id);
     const result = await db
       .select({ count: count() })
       .from(notifications)
-      .where(and(eq(notifications.userId, ctx.user.id), eq(notifications.isRead, "no")));
+      .where(and(sql`${notifications.userId} = ${userId}`, eq(notifications.isRead, "no")));
     return { count: result[0]?.count ?? 0 };
   }),
 
@@ -122,7 +129,7 @@ export const notificationsRouter = router({
       if (allUsers.length === 0) return { success: true, sent: 0 };
       await db.insert(notifications).values(
         allUsers.map((u: { id: number }) => ({
-          userId: u.id,
+          userId: Number(u.id),
           title: input.title,
           message: input.message,
           type: input.type,

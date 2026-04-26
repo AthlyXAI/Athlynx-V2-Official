@@ -1,24 +1,29 @@
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
 import { nilDeals, transferPortalEntries, athleteProfiles, users } from "../../drizzle/schema";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, sql } from "drizzle-orm";
 
 export const nilRouter = router({
   // NIL Deals
   getMyDeals: protectedProcedure.query(async ({ ctx }) => {
-    try {
-      const db = await getDb();
-      if (!db) return [];
-      return await db
-        .select()
-        .from(nilDeals)
-        .where(eq(nilDeals.athleteId, ctx.user.id))
-        .orderBy(desc(nilDeals.createdAt));
-    } catch (err) {
-      console.warn("[nil.getMyDeals] DB error, returning empty:", (err as Error)?.message);
-      return [];
+    const db = await getDb();
+    if (!db) {
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Database unavailable — please try again in a moment.",
+      });
     }
+    // users.id is BIGINT UNSIGNED (serial) but nil_deals.athleteId is INT.
+    // Using Number() ensures the value is a plain JS number so Drizzle/mysql2
+    // does not send a BigInt literal, which causes a MySQL type mismatch error.
+    const athleteId = Number(ctx.user.id);
+    return db
+      .select()
+      .from(nilDeals)
+      .where(sql`${nilDeals.athleteId} = ${athleteId}`)
+      .orderBy(desc(nilDeals.createdAt));
   }),
 
   getAllDeals: publicProcedure
@@ -60,9 +65,9 @@ export const nilRouter = router({
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
       await db.insert(nilDeals).values({
-        athleteId: ctx.user.id,
+        athleteId: Number(ctx.user.id),
         brandName: input.brandName,
         dealValue: input.dealValue,
         description: input.description,
@@ -80,7 +85,7 @@ export const nilRouter = router({
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
       await db.update(nilDeals)
         .set({ status: input.status })
         .where(eq(nilDeals.id, input.dealId));
@@ -158,9 +163,9 @@ export const nilRouter = router({
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
       await db.insert(transferPortalEntries).values({
-        athleteId: ctx.user.id,
+        athleteId: Number(ctx.user.id),
         fromSchool: input.fromSchool,
         eligibilityYears: input.eligibilityYears,
         status: "entered",
