@@ -31,13 +31,13 @@
       "type": "image/x-icon"
     },
     {
-      "src": "https://d2xsxph8kpxj0f.cloudfront.net/310419663028706780/CwaxehSqJgGxbN8KdgWNph/icon-192_52ef996c.png",
+      "src": "/icons/app/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://d2xsxph8kpxj0f.cloudfront.net/310419663028706780/CwaxehSqJgGxbN8KdgWNph/icon-512_816b3f83.png",
+      "src": "/icons/app/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
@@ -45,14 +45,14 @@
   ],
   "screenshots": [
     {
-      "src": "https://d2xsxph8kpxj0f.cloudfront.net/310419663028706780/CwaxehSqJgGxbN8KdgWNph/athlynx-og-social_9f8e7d6c.png",
+      "src": "/athlynx-og-social.png",
       "sizes": "1200x630",
       "type": "image/png",
       "form_factor": "wide",
       "label": "ATHLYNX – The Athlete's Playbook"
     },
     {
-      "src": "https://d2xsxph8kpxj0f.cloudfront.net/310419663028706780/CwaxehSqJgGxbN8KdgWNph/icon-512_816b3f83.png",
+      "src": "/icons/app/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "narrow",
@@ -65,28 +65,28 @@
       "short_name": "NIL",
       "description": "Manage your NIL deals and brand partnerships",
       "url": "/nil-portal",
-      "icons": [{ "src": "https://d2xsxph8kpxj0f.cloudfront.net/310419663028706780/CwaxehSqJgGxbN8KdgWNph/icon-192_52ef996c.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/icons/app/icon-192x192.png", "sizes": "192x192" }]
     },
     {
       "name": "Messenger",
       "short_name": "Chat",
       "description": "Secure athlete messaging",
       "url": "/messenger",
-      "icons": [{ "src": "https://d2xsxph8kpxj0f.cloudfront.net/310419663028706780/CwaxehSqJgGxbN8KdgWNph/icon-192_52ef996c.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/icons/app/icon-192x192.png", "sizes": "192x192" }]
     },
     {
       "name": "Transfer Portal",
       "short_name": "Transfer",
       "description": "Navigate the transfer portal",
       "url": "/transfer-portal",
-      "icons": [{ "src": "https://d2xsxph8kpxj0f.cloudfront.net/310419663028706780/CwaxehSqJgGxbN8KdgWNph/icon-192_52ef996c.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/icons/app/icon-192x192.png", "sizes": "192x192" }]
     },
     {
       "name": "Feed",
       "short_name": "Feed",
       "description": "Your athlete social feed",
       "url": "/feed",
-      "icons": [{ "src": "https://d2xsxph8kpxj0f.cloudfront.net/310419663028706780/CwaxehSqJgGxbN8KdgWNph/icon-192_52ef996c.png", "sizes": "192x192" }]
+      "icons": [{ "src": "/icons/app/icon-192x192.png", "sizes": "192x192" }]
     }
   ]
 }
