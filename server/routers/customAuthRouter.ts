@@ -248,47 +248,49 @@ export const customAuthRouter = router({
       ];
       const isAdminEmail = input.email ? ADMIN_EMAILS.includes(input.email.toLowerCase()) : false;
 
-      const existing = await db.select().from(users).where(eq(users.openId, openId)).limit(1);
-      const isNewUser = existing.length === 0;
-
-      if (isNewUser) {
-        await db.insert(users).values({
-          openId,
+      // Atomic upsert: INSERT the user row; if openId already exists (UNIQUE constraint),
+      // update lastSignedIn, name, and avatarUrl instead. This replaces the previous
+      // SELECT + INSERT/UPDATE two-step which had a race condition and silently dropped
+      // users when the INSERT was skipped due to a prior failed sync.
+      await db.insert(users).values({
+        openId,
+        name: input.name || null,
+        email: input.email || null,
+        avatarUrl: input.picture || null,
+        phone: input.phone || null,
+        loginMethod,
+        role: isAdminEmail ? "admin" : "user",
+        trialEndsAt,
+        lastSignedIn: new Date(),
+      }).onDuplicateKeyUpdate({
+        set: {
+          lastSignedIn: new Date(),
           name: input.name || null,
-          email: input.email || null,
           avatarUrl: input.picture || null,
-          phone: input.phone || null,
-          loginMethod,
-          role: isAdminEmail ? "admin" : "user",
-          trialEndsAt,
-          lastSignedIn: new Date(),
-        });
+          // Preserve admin role — never downgrade an admin on re-login
+          ...(isAdminEmail ? { role: "admin" } : {}),
+        },
+      });
 
-        // Fetch the new user's DB ID to use as member number
-        const newUserRow = await db.select({ id: users.id }).from(users).where(eq(users.openId, openId)).limit(1);
-        const memberNumber = newUserRow[0]?.id ?? undefined;
-        // Fire welcome notifications for new users (non-blocking)
-        if (input.email) {
-          fireWelcomeNotifications({
-            name: input.name || "Athlete",
-            email: input.email,
-            phone: input.phone,
-            loginMethod,
-            trialEndsAt,
-            memberNumber,
-          });
-        }
-      } else {
-        // Always ensure admin emails keep their admin role
-        const updateData: Record<string, unknown> = {
-          lastSignedIn: new Date(),
-          name: input.name || existing[0].name,
-          avatarUrl: input.picture || existing[0].avatarUrl,
-        };
-        if (isAdminEmail && existing[0].role !== "admin") {
-          updateData.role = "admin";
-        }
-        await db.update(users).set(updateData).where(eq(users.openId, openId));
+      // Determine if this was a brand-new user by fetching the row.
+      // If createdAt === lastSignedIn (within 5 s), it's a new insert.
+      const userRow = await db.select({ id: users.id, createdAt: users.createdAt, lastSignedIn: users.lastSignedIn })
+        .from(users).where(eq(users.openId, openId)).limit(1);
+      const row = userRow[0];
+      const isNewUser = row
+        ? Math.abs(new Date(row.lastSignedIn ?? 0).getTime() - new Date(row.createdAt ?? 0).getTime()) < 5000
+        : false;
+
+      if (isNewUser && input.email) {
+        const memberNumber = row?.id ?? undefined;
+        fireWelcomeNotifications({
+          name: input.name || "Athlete",
+          email: input.email,
+          phone: input.phone,
+          loginMethod,
+          trialEndsAt,
+          memberNumber,
+        });
       }
 
       const sessionToken = await sdk.createSessionToken(openId, {

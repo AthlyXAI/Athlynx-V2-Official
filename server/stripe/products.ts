@@ -1,44 +1,50 @@
 /**
  * ATHLYNX Stripe Products & Pricing Configuration
  * All prices are in USD cents.
- * Price IDs are hardcoded from the live Stripe account (created April 24, 2026).
+ *
+ * Live Price IDs (created April 26, 2026 — acct_1SkhxSDWqFuLp4sz):
+ *   Athlete Free  → price_1TQalMGvvjXZw2uEAgeLldvx  ($0.00/month)
+ *   Athlete Pro   → price_1TQalOGvvjXZw2uEP2eqJJAE  ($19.99/month)
+ *   Athlete Elite → price_1TQalQGvvjXZw2uEjYMwKUgW  ($39.99/month)
+ *
+ * Env vars (set in Vercel dashboard):
+ *   STRIPE_PRICE_FREE, STRIPE_PRICE_PRO, STRIPE_PRICE_ELITE
  */
 export const STRIPE_PLANS = [
   {
-    id: "athlete_starter",
-    name: "Athlete Starter",
-    description: "Essential access to the ATHLYNX platform — NIL discovery, messaging, and community features.",
-    priceMonthly: 999, // $9.99/mo
-    priceYearly: 9588, // $95.88/yr
+    id: "athlete_free",
+    name: "Athlete Free",
+    description: "Essential access to the ATHLYNX platform — NIL discovery, community, and basic profile.",
+    priceMonthly: 0, // $0/month
+    priceYearly: 0,
     features: [
       "Basic Athlete Profile",
       "NIL Deal Discovery",
-      "Community Messaging",
+      "Community Feed",
       "Transfer Portal Access",
-      "Diamond Grind Training",
       "7-Day Free Trial",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_STARTER_MONTHLY ?? "price_1TPlXCGvvjXZw2uE9zCKwkHU",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_STARTER_YEARLY ?? "price_1TPlXDGvvjXZw2uEPF9vSEb2",
-    badge: "Best for Beginners",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_FREE ?? "price_1TQalMGvvjXZw2uEAgeLldvx",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_FREE ?? "price_1TQalMGvvjXZw2uEAgeLldvx",
+    badge: "Free Forever",
     color: "#0066ff",
   },
   {
     id: "athlete_pro",
     name: "Athlete Pro",
     description: "Full platform access with AI recruiting, NIL deal tracking, and transfer portal intelligence.",
-    priceMonthly: 4999, // $49.99/mo
-    priceYearly: 47988, // $479.88/yr
+    priceMonthly: 1999, // $19.99/month
+    priceYearly: 19188, // $191.88/yr
     features: [
-      "Everything in Starter",
+      "Everything in Free",
       "AI Recruiter Tools",
       "NIL Deal Marketplace",
       "Warriors Playbook",
-      "AI Sales Automation",
+      "Diamond Grind Training",
       "Priority Support",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_PRO_MONTHLY ?? "price_1TPlXFGvvjXZw2uEDrmBKYzT",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_PRO_YEARLY ?? "price_1TPlXGGvvjXZw2uECx8YfYME",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_PRO ?? "price_1TQalOGvvjXZw2uEP2eqJJAE",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_PRO ?? "price_1TQalOGvvjXZw2uEP2eqJJAE",
     badge: "Most Popular",
     color: "#00c2ff",
   },
@@ -46,18 +52,18 @@ export const STRIPE_PLANS = [
     id: "athlete_elite",
     name: "Athlete Elite",
     description: "The complete ATHLYNX experience — white-glove NIL management, brand deals, and 1-on-1 strategy.",
-    priceMonthly: 9999, // $99.99/mo
-    priceYearly: 95988, // $959.88/yr
+    priceMonthly: 3999, // $39.99/month
+    priceYearly: 38388, // $383.88/yr
     features: [
       "Everything in Pro",
       "NIL Vault (Contract Archive)",
       "Brand Deal Negotiation AI",
       "Dedicated Account Manager",
-      "White-label Branding",
+      "AI Sales Automation",
       "API Access",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_ELITE_MONTHLY ?? "price_1TPlXIGvvjXZw2uEA7fsU5Cc",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_ELITE_YEARLY ?? "price_1TPlXJGvvjXZw2uEdDcbMrNh",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_ELITE ?? "price_1TQalQGvvjXZw2uEjYMwKUgW",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_ELITE ?? "price_1TQalQGvvjXZw2uEjYMwKUgW",
     badge: "Best Value",
     color: "#7c3aed",
   },

@@ -155,25 +155,52 @@ export default function AuthCallback() {
 
     const doSync = async () => {
       let isNewUser = false;
-      try {
-        const claims = await getIdTokenClaims();
-        const token = claims?.__raw ?? user.sub ?? "auth0_session";
-        const result = await syncUser.mutateAsync({
-          token,
-          name: user.name ?? user.nickname ?? user.email ?? "",
-          email: user.email ?? "",
-          picture: user.picture ?? "",
-          sub: user.sub ?? "",
-        });
-        isNewUser = result?.isNewUser ?? false;
-      } catch (err) {
-        console.error("[AuthCallback] Backend sync failed (non-fatal):", err);
-        // Sync failure is non-fatal — still redirect so user isn't stuck
-      } finally {
-        const returnTo = sessionStorage.getItem("auth_return_to") || null;
-        sessionStorage.removeItem("auth_return_to");
-        window.location.href = isNewUser ? "/onboarding" : (returnTo || "/feed");
+      let syncSuccess = false;
+
+      // Attempt sync with 1 automatic retry (2 s delay) so transient errors
+      // (DB cold-start, network blip) don't silently skip writing the user.
+      for (let attempt = 1; attempt <= 2; attempt++) {
+        try {
+          const claims = await getIdTokenClaims();
+          const token = claims?.__raw ?? user.sub ?? "auth0_session";
+          // Pull phone from Auth0 ID token claims if the app has the phone scope
+          const phone =
+            (claims as any)?.phone_number ??
+            (claims as any)?.["https://athlynx.com/phone"] ??
+            undefined;
+          const result = await syncUser.mutateAsync({
+            token,
+            name: user.name ?? user.nickname ?? user.email ?? "",
+            email: user.email ?? "",
+            picture: user.picture ?? "",
+            sub: user.sub ?? "",
+            ...(phone ? { phone } : {}),
+          });
+          isNewUser = result?.isNewUser ?? false;
+          syncSuccess = true;
+          console.log(`[AuthCallback] syncAuth0User OK (attempt ${attempt}), isNewUser=${isNewUser}`);
+          break; // success — stop retrying
+        } catch (err) {
+          console.error(`[AuthCallback] syncAuth0User failed (attempt ${attempt}/2):`, err);
+          if (attempt < 2) {
+            // Wait 2 s before retrying
+            await new Promise((r) => setTimeout(r, 2000));
+          }
+        }
       }
+
+      if (!syncSuccess) {
+        // Both attempts failed — log clearly so it appears in Vercel function logs
+        console.error("[AuthCallback] CRITICAL: syncAuth0User failed after 2 attempts. User NOT written to DB.", {
+          sub: user.sub,
+          email: user.email,
+        });
+      }
+
+      const returnTo = sessionStorage.getItem("auth_return_to") || null;
+      sessionStorage.removeItem("auth_return_to");
+      // Always redirect so the user is never stuck on the callback page.
+      window.location.href = isNewUser ? "/onboarding" : (returnTo || "/feed");
     };
 
     doSync();
