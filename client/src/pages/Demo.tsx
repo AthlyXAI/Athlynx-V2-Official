@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { useState } from "react";
 
 const DEMO_VIDEO_URL = "/media/TJIQEsjoLVlddltc.mp4";
-const ATHLYNX_LOGO = "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png";
+const ATHLYNX_LOGO = "/athlynx-icon.png";
 
 const STEPS = [
   {

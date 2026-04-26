@@ -1,14 +1,14 @@
 import { Link } from "wouter";
 import OktaButton from "../components/OktaButton";
 
-const CDN = "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png";
+const CDN = "/athlynx-icon.png";
 
 const FEATURES = [
   { icon: `${CDN}/nil_portal_app_icon_n_final_0993a3be.png`, title: "NIL Deals", desc: "Connect with brands & earn" },
   { icon: `${CDN}/ai-recruiter_4cfda0f2.png`, title: "AI Recruiter", desc: "Get discovered by coaches" },
   { icon: `${CDN}/transfer-portal_509bd0ba.png`, title: "Transfer Portal", desc: "Find your next opportunity" },
   { icon: `${CDN}/nil-vault_e80ffa38.png`, title: "NIL Vault", desc: "Track every dollar you earn" },
-  { icon: `${CDN}/athlynx-main-icon_7b5e9ca6.png`, title: "LYNX AI", desc: "Your personal AI companion" },
+  { icon: `/athlynx-icon.png`, title: "LYNX AI", desc: "Your personal AI companion" },
   { icon: `${CDN}/diamond-grind_890f28f2.png`, title: "Diamond Grind", desc: "Train like a champion" },
 ];
 

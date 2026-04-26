@@ -10,7 +10,7 @@ import {
   Loader2, Trash2, Edit2, X
 } from "lucide-react";
 
-const CDN = "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png";
+const CDN = "/athlynx-icon.png";
 
 const PIPELINE_STAGES = ["New Lead", "Contacted", "Demo Scheduled", "Proposal Sent", "Closed Won", "Closed Lost"] as const;
 const STAGE_COLORS: Record<string, string> = {
@@ -211,7 +211,7 @@ export default function AdminCRM() {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/">
-              <img src={`${CDN}/athlynx-main-icon_7b5e9ca6.png`} alt="ATHLYNX" className="w-9 h-9 rounded-xl cursor-pointer" />
+              <img src={`/athlynx-icon.png`} alt="ATHLYNX" className="w-9 h-9 rounded-xl cursor-pointer" />
             </Link>
             <div>
               <div className="text-white font-black text-lg leading-none">CRM Dashboard</div>

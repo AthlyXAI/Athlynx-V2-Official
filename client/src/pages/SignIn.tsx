@@ -6,7 +6,7 @@ const FEATURES = [
   { icon: "/icons/ai-recruiter_4cfda0f2.png", title: "AI Recruiter", desc: "Get discovered by coaches" },
   { icon: "/icons/transfer-portal_509bd0ba.png", title: "Transfer Portal", desc: "Find your next opportunity" },
   { icon: "/icons/nil-vault_e80ffa38.png", title: "NIL Vault", desc: "Track every dollar you earn" },
-  { icon: "/icons/athlynx-main-icon_7b5e9ca6.png", title: "LYNX AI", desc: "Your personal AI companion" },
+  { icon: "/athlynx-icon.png", title: "LYNX AI", desc: "Your personal AI companion" },
   { icon: "/icons/diamond-grind_890f28f2.png", title: "Diamond Grind", desc: "Train like a champion" },
 ];
 

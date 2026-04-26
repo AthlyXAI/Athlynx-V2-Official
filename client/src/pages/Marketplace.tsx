@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 
-const CDN = "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png";
+const CDN = "/athlynx-icon.png";
 
 const CATEGORIES = ["All", "Custom Servers", "GPU Cloud", "Athletic Gear", "NIL Gear", "Training Equipment"];
 
@@ -143,7 +143,7 @@ const PRODUCTS = [
     name: "Elite Training Bundle",
     tagline: "Pro-grade training equipment for serious athletes",
     specs: ["Resistance bands (5 resistance levels)", "Speed & agility ladder", "Weighted vest (20–40 lbs)", "Recovery foam roller", "ATHLYNX branded gear bag"],
-    image: `${CDN}/athlynx-main-icon_7b5e9ca6.png`,
+    image: `/athlynx-icon.png`,
     tag: "Training",
     featured: true,
     priceInCents: 14900,

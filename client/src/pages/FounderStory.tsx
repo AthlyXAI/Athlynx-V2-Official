@@ -94,7 +94,7 @@ export default function FounderStory() {
             <video 
               controls 
               className="w-full aspect-video bg-black"
-              poster="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png"
+              poster="/athlynx-icon.png"
             >
               <source src="/final_clean.mp4" type="video/mp4" />
               Your browser does not support the video tag.

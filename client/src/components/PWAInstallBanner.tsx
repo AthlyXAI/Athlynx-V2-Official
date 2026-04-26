@@ -13,7 +13,7 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 const ICON_URL =
-  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png";
+  "/athlynx-icon.png";
 
 export default function PWAInstallBanner() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);

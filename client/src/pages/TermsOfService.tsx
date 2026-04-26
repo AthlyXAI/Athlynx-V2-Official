@@ -178,7 +178,7 @@ export default function TermsOfService() {
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <img
-              src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png"
+              src="/athlynx-icon.png"
               alt="ATHLYNX"
               className="w-9 h-9 rounded-lg object-cover"
             />

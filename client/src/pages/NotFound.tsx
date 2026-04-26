@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 
-const CDN = "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png";
+const CDN = "/athlynx-icon.png";
 
 export default function NotFound() {
   return (
@@ -25,7 +25,7 @@ export default function NotFound() {
         <Link href="/">
           <div className="flex items-center justify-center gap-3 mb-10 cursor-pointer group">
             <img
-              src={`${CDN}/athlynx-main-icon_7b5e9ca6.png`}
+              src={`/athlynx-icon.png`}
               alt="ATHLYNX"
               className="w-12 h-12 rounded-xl group-hover:scale-105 transition-transform"
             />

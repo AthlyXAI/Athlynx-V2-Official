@@ -172,7 +172,7 @@ export default function WizardHub() {
                 <div className="relative cursor-pointer group">
                   <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 rounded-xl px-3 py-2 shadow-xl hover:shadow-cyan-500/30 transition-all border border-cyan-400/30">
                     <img 
-                      src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png" 
+                      src="/athlynx-icon.png" 
                       alt="ATHLYNX - The Athlete's Playbook" 
                       className="h-8 md:h-10 rounded-lg shadow-lg group-hover:scale-105 transition-all duration-300"
                     />

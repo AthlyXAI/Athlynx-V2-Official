@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2, ArrowLeft, Mail, CheckCircle, Lock, Eye, EyeOff } from "lucide-react";
 
-const CDN = "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png";
+const CDN = "/athlynx-icon.png";
 
 type Step = "email" | "code" | "newPassword" | "done";
 

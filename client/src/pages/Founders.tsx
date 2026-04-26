@@ -71,7 +71,7 @@ export default function Founders() {
         {/* Header */}
         <div className="bg-gradient-to-r from-[#0d1f4e] to-[#1a2a5e] border border-blue-800 rounded-xl p-5 text-center">
           <img
-            src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png"
+            src="/athlynx-icon.png"
             alt="ATHLYNX"
             className="w-16 h-16 rounded-2xl mx-auto mb-3 shadow-lg"
           />

@@ -35,7 +35,7 @@ const COMPANIES: Company[] = [
     status: "active",
     link: "/",
     highlight: "FLAGSHIP",
-    logo: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png",
+    logo: "/athlynx-icon.png",
   },
   {
     name: "Diamond Grind Baseball",

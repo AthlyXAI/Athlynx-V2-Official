@@ -86,7 +86,7 @@ export default function OnboardingModal({ onComplete }: OnboardingModalProps) {
         <div className="bg-gradient-to-r from-[#0066ff] to-[#00c2ff] px-6 py-4">
           <div className="flex items-center gap-3">
             <img
-              src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png"
+              src="/athlynx-icon.png"
               alt="ATHLYNX"
               className="w-10 h-10 rounded-lg"
             />

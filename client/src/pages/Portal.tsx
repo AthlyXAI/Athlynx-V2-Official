@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 
 // App icons data
 // ALL 10 ATHLYNX APPS - ACTIVATED!
-const CDN = "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png";
+const CDN = "/athlynx-icon.png";
 const apps = [
   { id: "portal", name: "Portal", icon: `${CDN}/nil_portal_app_icon_n_final_0993a3be.png`, href: "/portal", active: true },
   { id: "messenger", name: "Messenger", icon: `${CDN}/messenger_7c14ce8a.jpeg`, href: "/messenger", active: true },
@@ -77,7 +77,7 @@ export default function Portal() {
               {/* Logo - Mobile Optimized */}
               <div className="flex justify-center mb-3">
                 <img 
-                  src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png" 
+                  src="/athlynx-icon.png" 
                   alt="ATHLYNX - The Athlete's Playbook" 
                   className="h-16 rounded-xl shadow-2xl"
                 />
@@ -121,7 +121,7 @@ export default function Portal() {
             <div className="relative cursor-pointer group">
               <div className="bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-500 rounded-xl px-4 py-2 flex items-center gap-3 shadow-xl hover:shadow-cyan-500/30 transition-all border border-cyan-400/30">
                 <img 
-                  src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png" 
+                  src="/athlynx-icon.png" 
                   alt="ATHLYNX - The Athlete's Playbook" 
                   className="h-10 md:h-12 rounded-lg shadow-lg group-hover:scale-105 transition-all duration-300"
                 />

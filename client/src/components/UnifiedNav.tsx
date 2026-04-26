@@ -43,7 +43,7 @@ const navItems = [
   {
     category: "DHG ECOSYSTEM",
     items: [
-      { name: "Fuel Bots", href: "/fuel-bots", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png" },
+      { name: "Fuel Bots", href: "/fuel-bots", icon: "/athlynx-icon.png" },
       { name: "DHG Empire", href: "/dhg-empire", icon: "/logos/dhg-crab-logo.png" },
       { name: "Softmor Inc", href: "/softmor", icon: "🧠" },
       { name: "Investor Hub", href: "/investor-hub", icon: "💎" },

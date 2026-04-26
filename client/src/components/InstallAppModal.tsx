@@ -76,7 +76,7 @@ export default function InstallAppModal({ open, onClose }: InstallAppModalProps)
         <div className="flex items-center justify-between px-6 pt-6 pb-4 border-b border-white/10">
           <div className="flex items-center gap-3">
             <img
-              src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/xTPjfpFcIKtwWcKQ.png"
+              src="/athlynx-icon.png"
               alt="ATHLYNX"
               className="w-14 h-14 rounded-2xl shadow-lg object-contain"
             />

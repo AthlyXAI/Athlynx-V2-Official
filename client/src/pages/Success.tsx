@@ -33,7 +33,7 @@ export default function Success() {
           <div className="relative">
             <div className="absolute inset-0 bg-cyan-400 blur-3xl opacity-60 animate-pulse"></div>
             <img 
-              src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png" 
+              src="/athlynx-icon.png" 
               alt="ATHLYNX" 
               className="relative w-40 h-40 object-contain drop-shadow-2xl"
             />

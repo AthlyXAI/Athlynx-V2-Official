@@ -286,7 +286,7 @@ function DashboardLayoutContent({
               {!isCollapsed ? (
                 <div className="flex items-center gap-2 min-w-0">
                   <img
-                    src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png"
+                    src="/athlynx-icon.png"
                     alt="ATHLYNX"
                     className="w-6 h-6 rounded-md object-cover shrink-0"
                   />
@@ -414,7 +414,7 @@ function DashboardLayoutContent({
               <SidebarTrigger className="h-9 w-9 rounded-lg bg-background" />
               <div className="flex items-center gap-3">
                 <img
-                  src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png"
+                  src="/athlynx-icon.png"
                   alt="ATHLYNX"
                   className="w-7 h-7 rounded-lg object-cover"
                 />

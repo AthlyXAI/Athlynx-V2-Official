@@ -141,7 +141,7 @@ export default function InvestorHub() {
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/">
             <div className="flex items-center gap-2 cursor-pointer">
-              <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/qUknrdlyPrUZJQYo.png" alt="ATHLYNX" className="w-8 h-8 rounded-lg" />
+              <img src="/athlynx-icon.png" alt="ATHLYNX" className="w-8 h-8 rounded-lg" />
               <span className="font-black text-white tracking-widest text-sm">ATHLYNX</span>
             </div>
           </Link>
