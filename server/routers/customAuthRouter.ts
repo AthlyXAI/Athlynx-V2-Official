@@ -9,6 +9,7 @@ import { getDb } from "../db";
 import { users, verificationCodes } from "../../drizzle/schema";
 import { eq, and, gt } from "drizzle-orm";
 import { sendWelcomeEmail, sendOwnerNewUserAlert } from "../services/aws-ses";
+import { sendWelcomeSMS } from "../services/twilio-sms";
 import { sql } from "drizzle-orm";
 
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
@@ -34,6 +35,13 @@ async function fireWelcomeNotifications(opts: {
   sendWelcomeEmail(opts.email, opts.name, opts.memberNumber).catch((e) =>
     console.warn("[Auth] Welcome email failed:", e?.message)
   );
+
+  // Welcome SMS to new user (if phone provided)
+  if (opts.phone) {
+    sendWelcomeSMS(opts.phone, opts.name, opts.memberNumber).catch((e) =>
+      console.warn("[Auth] Welcome SMS failed:", e?.message)
+    );
+  }
 
   // Owner alert
   sendOwnerNewUserAlert({
