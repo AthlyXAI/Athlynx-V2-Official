@@ -1,5 +1,5 @@
 import { useState } from "react";
-impimport { useLocation } from "wouter";
+import { useLocation } from "wouter";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
