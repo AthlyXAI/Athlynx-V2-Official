@@ -1,100 +1,81 @@
-import { useState } from "react";
-import { trpc } from "@/lib/trpc";
+import { useEffect } from "react";
+import { getLoginUrl } from "@/const";
 
+/**
+ * SignIn page — redirects to the OAuth portal.
+ * The OAuth portal handles Google login and all auth methods,
+ * then redirects back to /api/oauth/callback which sets the session cookie.
+ */
 export default function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  // Use the correct procedure names that match the server router (login / register)
-  const login = trpc.auth.login.useMutation({
-    onSuccess: () => { window.location.href = "/dashboard"; },
-    onError: (e) => { setError(e.message); setLoading(false); },
-  });
-
-  const register = trpc.auth.register.useMutation({
-    onSuccess: () => { window.location.href = "/dashboard"; },
-    onError: (e) => { setError(e.message); setLoading(false); },
-  });
-
-  const handleSubmit = () => {
-    if (!email.trim() || !password.trim()) {
-      setError("Email and password are required.");
-      return;
-    }
-    setLoading(true);
-    setError("");
-    if (mode === "signin") {
-      login.mutate({ email: email.trim(), password });
-    } else {
-      if (!name.trim()) {
-        setError("Name is required to create an account.");
-        setLoading(false);
-        return;
-      }
-      register.mutate({ email: email.trim(), password, name: name.trim() });
-    }
-  };
-
-  const inputStyle = {
-    width: "100%",
-    background: "#1a2d4d",
-    color: "white",
-    border: "1px solid #2a3d5d",
-    borderRadius: "8px",
-    padding: "12px",
-    marginBottom: "12px",
-    fontSize: "16px",
-    boxSizing: "border-box" as const,
-    outline: "none",
-  };
+  useEffect(() => {
+    window.location.href = getLoginUrl();
+  }, []);
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0a1628", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Inter,sans-serif", padding: "20px" }}>
-      <div style={{ background: "#0f1f3d", borderRadius: "16px", padding: "40px", width: "100%", maxWidth: "420px" }}>
-        <h1 style={{ color: "#00d4ff", fontSize: "28px", fontWeight: "800", textAlign: "center", marginBottom: "8px" }}>ATHLYNX</h1>
-        <p style={{ color: "#8899aa", textAlign: "center", marginBottom: "28px" }}>
-          {mode === "signin" ? "Sign in to your account" : "Create your account"}
-        </p>
-
-        <div style={{ display: "flex", marginBottom: "24px", borderRadius: "8px", overflow: "hidden", border: "1px solid #2a3d5d" }}>
-          <button onClick={() => { setMode("signin"); setError(""); }}
-            style={{ flex: 1, padding: "10px", background: mode === "signin" ? "#00d4ff" : "transparent", color: mode === "signin" ? "#0a1628" : "#8899aa", fontWeight: "700", border: "none", cursor: "pointer", fontSize: "14px" }}>
-            Sign In
-          </button>
-          <button onClick={() => { setMode("signup"); setError(""); }}
-            style={{ flex: 1, padding: "10px", background: mode === "signup" ? "#00d4ff" : "transparent", color: mode === "signup" ? "#0a1628" : "#8899aa", fontWeight: "700", border: "none", cursor: "pointer", fontSize: "14px" }}>
-            Create Account
-          </button>
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(135deg, #0a1628 0%, #0d2040 50%, #0a1628 100%)",
+        color: "white",
+        fontFamily: "system-ui, -apple-system, sans-serif",
+      }}
+    >
+      <div style={{ marginBottom: "32px", textAlign: "center" }}>
+        <div
+          style={{
+            fontSize: "36px",
+            fontWeight: "900",
+            letterSpacing: "4px",
+            background: "linear-gradient(135deg, #00d4ff, #0080ff)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          ATHLYNX
         </div>
-
-        {mode === "signup" && (
-          <input type="text" placeholder="Full Name" value={name} onChange={e => setName(e.target.value)} style={inputStyle} />
-        )}
-
-        {/* type="text" prevents browser-native email pattern validation that caused "string did not match expected pattern" */}
-        <input type="text" placeholder="Email address" value={email} onChange={e => setEmail(e.target.value)} autoComplete="email" style={inputStyle} />
-        <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}
-          autoComplete={mode === "signin" ? "current-password" : "new-password"}
-          style={{ ...inputStyle, marginBottom: "16px" }}
-          onKeyDown={e => { if (e.key === "Enter") handleSubmit(); }} />
-
-        {error && <p style={{ color: "#ff4444", textAlign: "center", marginBottom: "12px", fontSize: "14px" }}>{error}</p>}
-
-        <button onClick={handleSubmit} disabled={loading}
-          style={{ width: "100%", background: loading ? "#0099bb" : "#00d4ff", color: "#0a1628", fontWeight: "700", padding: "14px", borderRadius: "8px", border: "none", cursor: loading ? "not-allowed" : "pointer", fontSize: "16px", marginBottom: "12px" }}>
-          {loading ? "Please wait..." : mode === "signin" ? "Sign In" : "Create Account"}
-        </button>
-
-        {mode === "signin" && (
-          <p style={{ textAlign: "center", marginTop: "8px" }}>
-            <a href="/forgot-password" style={{ color: "#8899aa", fontSize: "13px", textDecoration: "none" }}>Forgot password?</a>
-          </p>
-        )}
+        <div style={{ fontSize: "12px", letterSpacing: "6px", color: "#4a9eff", marginTop: "4px" }}>
+          ATHLETE INTELLIGENCE PLATFORM
+        </div>
       </div>
+
+      <div style={{ textAlign: "center" }}>
+        <div
+          style={{
+            width: "48px",
+            height: "48px",
+            border: "3px solid rgba(0,212,255,0.2)",
+            borderTop: "3px solid #00d4ff",
+            borderRadius: "50%",
+            animation: "spin 1s linear infinite",
+            margin: "0 auto 16px",
+          }}
+        />
+        <p style={{ color: "#8ab4d4", fontSize: "14px" }}>Redirecting to sign in…</p>
+      </div>
+
+      <a
+        href={getLoginUrl()}
+        style={{
+          marginTop: "24px",
+          color: "#00d4ff",
+          fontSize: "13px",
+          textDecoration: "underline",
+          cursor: "pointer",
+        }}
+      >
+        Click here if you are not redirected
+      </a>
+
+      <style>{\`
+        @keyframes spin {
+          0%   { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      \`}</style>
     </div>
   );
 }
