@@ -19,12 +19,12 @@ import {
 } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBSgiVRwuDC3rhrxONyW1twZeZk-W09PVU",
-  authDomain: "athlynxai.firebaseapp.com",
-  projectId: "athlynxai",
-  storageBucket: "athlynxai.firebasestorage.app",
-  messagingSenderId: "752093847574",
-  appId: "1:752093847574:web:65b2bea33db6f861f6d537",
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Prevent duplicate initialization in dev HMR
