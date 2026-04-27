@@ -82,9 +82,10 @@ const trpcClient = trpc.createClient({
 
 // Firebase Auth — no provider wrapper needed (initialized in lib/firebase.ts)
 createRoot(document.getElementById("root")!).render(
-  <trpc.Provider client={trpcClient} queryClient={queryClient}>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
-  </trpc.Provider>
+ <trpc.Provider client={trpcClient}>
+  <QueryClientProvider client={queryClient}>
+    <App />
+  </QueryClientProvider>
+</trpc.Provider>
+
 );
