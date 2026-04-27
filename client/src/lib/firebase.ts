@@ -9,6 +9,7 @@ import {
   GoogleAuthProvider,
   OAuthProvider,
   FacebookAuthProvider,
+  TwitterAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
@@ -43,6 +44,8 @@ const facebookProvider = new FacebookAuthProvider();
 facebookProvider.addScope("email");
 facebookProvider.addScope("public_profile");
 
+const twitterProvider = new TwitterAuthProvider();
+
 /** Sign in with Google popup — returns Firebase ID token */
 export async function signInWithGoogle(): Promise<{ idToken: string; user: FirebaseUser }> {
   const result = await signInWithPopup(auth, googleProvider);
@@ -60,6 +63,13 @@ export async function signInWithApple(): Promise<{ idToken: string; user: Fireba
 /** Sign in with Facebook popup — returns Firebase ID token */
 export async function signInWithFacebook(): Promise<{ idToken: string; user: FirebaseUser }> {
   const result = await signInWithPopup(auth, facebookProvider);
+  const idToken = await result.user.getIdToken();
+  return { idToken, user: result.user };
+}
+
+/** Sign in with X (Twitter) popup — returns Firebase ID token */
+export async function signInWithTwitter(): Promise<{ idToken: string; user: FirebaseUser }> {
+  const result = await signInWithPopup(auth, twitterProvider);
   const idToken = await result.user.getIdToken();
   return { idToken, user: result.user };
 }

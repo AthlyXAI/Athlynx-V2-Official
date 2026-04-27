@@ -158,7 +158,7 @@ export default function Feed() {
 
   // Subscription gate: authenticated users without a plan go to pricing
   useEffect(() => {
-    if (!loading && user && user.dbId && !user.stripePlanId) {
+    if (!loading && user && user.id && !user.stripePlanId) {
       window.location.href = "/pricing";
     }
   }, [loading, user]);

@@ -49,7 +49,7 @@ async function deductCredits(userId: number, action: string): Promise<number> {
     balanceAfter,
     description: `AI action: ${action}`,
     aiAction: action,
-  }).catch((e) => console.warn(`[Credits] Audit log failed for ${action}:`, e?.message));
+  }).catch((e: unknown) => console.warn(`[Credits] Audit log failed for ${action}:`, String(e)));
   return cost;
 }
 

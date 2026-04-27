@@ -33,14 +33,14 @@ async function fireWelcomeNotifications(opts: {
   });
 
   // Welcome email to new user
-  sendWelcomeEmail(opts.email, opts.name, opts.memberNumber).catch((e) =>
-    console.warn("[Auth] Welcome email failed:", e?.message)
+  sendWelcomeEmail(opts.email, opts.name, opts.memberNumber).catch((e: unknown) =>
+    console.warn("[Auth] Welcome email failed:", String(e))
   );
 
   // Welcome SMS to new user (if phone provided)
   if (opts.phone) {
-    sendWelcomeSMS(opts.phone, opts.name, opts.memberNumber).catch((e) =>
-      console.warn("[Auth] Welcome SMS failed:", e?.message)
+    sendWelcomeSMS(opts.phone, opts.name, opts.memberNumber).catch((e: unknown) =>
+      console.warn("[Auth] Welcome SMS failed:", String(e))
     );
   }
 
@@ -52,7 +52,7 @@ async function fireWelcomeNotifications(opts: {
     signedUpAt: signedUpStr,
     trialEndsAt: trialStr,
     memberNumber: opts.memberNumber,
-  }).catch((e) => console.warn("[Auth] Owner alert failed:", e?.message));
+  }).catch((e: unknown) => console.warn("[Auth] Owner alert failed:", String(e)));
 }
 
 export const customAuthRouter = router({
@@ -114,7 +114,7 @@ export const customAuthRouter = router({
           amount: STARTING_CREDITS,
           balanceAfter: STARTING_CREDITS,
           description: "Welcome bonus — 50 free credits on signup",
-        }).catch((e) => console.warn("[Credits] Welcome bonus log failed:", e?.message));
+        }).catch((e: unknown) => console.warn("[Credits] Welcome bonus log failed:", String(e)));
       }
 
       // Create session token
@@ -232,111 +232,6 @@ export const customAuthRouter = router({
     }),
 
   /**
-   * Sync an Auth0 user to our local DB and create a session cookie.
-   * Called from the /callback page after Auth0 login.
-   */
-  syncAuth0User: publicProcedure
-    .input(
-      z.object({
-        token: z.string(),
-        name: z.string(),
-        email: z.string(),
-        picture: z.string().optional(),
-        sub: z.string(),
-        phone: z.string().optional(),
-      })
-    )
-    .mutation(async ({ input, ctx }) => {
-      const db = await getDb();
-      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
-
-      const openId = `auth0_${input.sub.replace(/[^a-zA-Z0-9_-]/g, "_")}`;
-      const trialEndsAt = new Date(Date.now() + SEVEN_DAYS_MS);
-      const loginMethod = input.sub.startsWith("google") ? "google" : input.sub.startsWith("apple") ? "apple" : "auth0";
-
-      // Admin emails — always granted full admin role
-      const ADMIN_EMAILS = [
-        "cdozier@dozierholdingsgroup.com",
-        "chaddozier75@gmail.com",
-        "akustes@dozierholdingsgroup.com",
-        "andrewkustes@gmail.com",
-      ];
-      const isAdminEmail = input.email ? ADMIN_EMAILS.includes(input.email.toLowerCase()) : false;
-
-      // Atomic upsert: INSERT the user row; if openId already exists (UNIQUE constraint),
-      // update lastSignedIn, name, and avatarUrl instead. This replaces the previous
-      // SELECT + INSERT/UPDATE two-step which had a race condition and silently dropped
-      // users when the INSERT was skipped due to a prior failed sync.
-      await db.insert(users).values({
-        openId,
-        name: input.name || null,
-        email: input.email || null,
-        avatarUrl: input.picture || null,
-        phone: input.phone || null,
-        loginMethod,
-        role: isAdminEmail ? "admin" : "user",
-        trialEndsAt,
-        lastSignedIn: new Date(),
-      }).onDuplicateKeyUpdate({
-        set: {
-          lastSignedIn: new Date(),
-          name: input.name || null,
-          avatarUrl: input.picture || null,
-          // Preserve admin role — never downgrade an admin on re-login
-          ...(isAdminEmail ? { role: "admin" } : {}),
-        },
-      });
-
-      // Determine if this was a brand-new user by fetching the row.
-      // If createdAt === lastSignedIn (within 5 s), it's a new insert.
-      const userRow = await db.select({ id: users.id, createdAt: users.createdAt, lastSignedIn: users.lastSignedIn })
-        .from(users).where(eq(users.openId, openId)).limit(1);
-      const row = userRow[0];
-      const isNewUser = row
-        ? Math.abs(new Date(row.lastSignedIn ?? 0).getTime() - new Date(row.createdAt ?? 0).getTime()) < 5000
-        : false;
-
-      const STARTING_CREDITS = 50; // Free credits every new athlete gets on signup
-
-      if (isNewUser && row?.id) {
-        const memberNumber = row.id;
-
-        // Seed starting credits for new users
-        await db.update(users)
-          .set({ credits: STARTING_CREDITS })
-          .where(eq(users.id, memberNumber));
-
-        // Write a bonus credit_transaction row so the audit trail starts clean
-        db.insert(creditTransactions).values({
-          userId: memberNumber,
-          type: "bonus",
-          amount: STARTING_CREDITS,
-          balanceAfter: STARTING_CREDITS,
-          description: "Welcome bonus — 50 free credits on signup",
-        }).catch((e) => console.warn("[Credits] Welcome bonus log failed:", e?.message));
-
-        if (input.email) {
-          fireWelcomeNotifications({
-            name: input.name || "Athlete",
-            email: input.email,
-            phone: input.phone,
-            loginMethod,
-            trialEndsAt,
-            memberNumber,
-          });
-        }
-      }
-
-      const sessionToken = await sdk.createSessionToken(openId, {
-        name: input.name,
-        expiresInMs: ONE_YEAR_MS,
-      });
-      const cookieOptions = getSessionCookieOptions(ctx.req);
-      (ctx.res as any).cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
-      return { success: true, name: input.name, isNewUser };
-    }),
-
-  /**
    * Sync a Firebase OAuth user (Google, Apple, Facebook) to the DB.
    * Accepts a Firebase ID token, verifies it server-side, upserts the user, sets session cookie.
    */
@@ -344,6 +239,9 @@ export const customAuthRouter = router({
     .input(
       z.object({
         idToken: z.string().min(1, "Firebase ID token is required"),
+        name: z.string().optional(),
+        email: z.string().optional(),
+        picture: z.string().optional(),
         phone: z.string().optional(),
       })
     )
@@ -360,7 +258,10 @@ export const customAuthRouter = router({
         throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid Firebase token" });
       }
 
-      const { uid, email, name, picture, firebase: fbClaims } = firebaseUser;
+      const { uid, firebase: fbClaims } = firebaseUser;
+      const email = firebaseUser.email || input.email || "";
+      const name = firebaseUser.name || input.name || "";
+      const picture = firebaseUser.picture || input.picture || "";
       const provider = fbClaims?.sign_in_provider ?? "firebase";
       const loginMethod = provider.includes("google") ? "google"
         : provider.includes("apple") ? "apple"
@@ -414,7 +315,7 @@ export const customAuthRouter = router({
           amount: STARTING_CREDITS,
           balanceAfter: STARTING_CREDITS,
           description: "Welcome bonus \u2014 50 free credits on signup",
-        }).catch((e) => console.warn("[Credits] Welcome bonus log failed:", e?.message));
+        }).catch((e: unknown) => console.warn("[Credits] Welcome bonus log failed:", String(e)));
         if (email) {
           fireWelcomeNotifications({
             name: name || "Athlete",
@@ -462,27 +363,4 @@ export const customAuthRouter = router({
    * Get current user
    */
   me: publicProcedure.query((opts) => opts.ctx.user),
-
-  /** Get DB user data (trial, subscription, role) for the authenticated Okta user */
-  getDbUser: publicProcedure
-    .input(z.object({ openIdSub: z.string().min(1, "openIdSub is required") }))
-    .query(async ({ input }) => {
-      const db = await getDb();
-      if (!db) return null;
-      const openId = `auth0_${input.openIdSub.replace(/[^a-zA-Z0-9_-]/g, "_")}`;
-      const result = await db.select({
-        id: users.id,
-        name: users.name,
-        email: users.email,
-        role: users.role,
-        trialEndsAt: users.trialEndsAt,
-        stripeCustomerId: users.stripeCustomerId,
-        stripeSubscriptionId: users.stripeSubscriptionId,
-        stripePlanId: users.stripePlanId,
-        avatarUrl: users.avatarUrl,
-        credits: users.credits,
-      }).from(users).where(eq(users.openId, openId)).limit(1);
-      if (result.length === 0) return null;
-      return result[0];
-    }),
 });

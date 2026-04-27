@@ -1,5 +1,4 @@
 import { Link } from "wouter";
-import OktaButton from "../components/OktaButton";
 
 const CDN = "/athlynx-icon.png";
 
@@ -73,8 +72,10 @@ export default function EarlyAccess() {
                 Sign up or sign in to get started
               </p>
 
-              {/* Universal Okta Button */}
-              <OktaButton label="Get Started Free — 7 Days" returnTo="/onboarding" screenHint="signup" className="w-full flex items-center justify-center gap-3 bg-[#00c2ff] hover:bg-[#00a8e0] text-white font-bold py-3.5 px-6 rounded-xl active:scale-[0.98] transition-all duration-150 shadow-lg" />
+              {/* Get Started Button */}
+              <a href="/signin" className="w-full flex items-center justify-center gap-3 bg-[#00c2ff] hover:bg-[#00a8e0] text-white font-bold py-3.5 px-6 rounded-xl active:scale-[0.98] transition-all duration-150 shadow-lg text-center block">
+                Get Started Free — 7 Days
+              </a>
 
               {/* Terms */}
               <p className="text-center text-white/25 text-xs mt-5 leading-relaxed">
@@ -105,7 +106,7 @@ export default function EarlyAccess() {
             </div>
 
             <p className="text-white/20 text-[10px] text-center mt-4">
-              Secured by Okta · A Dozier Holdings Group Company · Houston, TX
+              Secured by Firebase · A Dozier Holdings Group Company · Houston, TX
             </p>
           </div>
         </div>

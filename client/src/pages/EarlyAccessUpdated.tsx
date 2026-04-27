@@ -12,7 +12,7 @@ export default function EarlyAccess() {
   const [role, setRole] = useState("");
   const [sport, setSport] = useState("");
   
-  const { user, isLoading: loading } = useAuth();
+  const { user, loading } = useAuth();
   const [authError, setAuthError] = useState<string | null>(null);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,

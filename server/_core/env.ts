@@ -5,7 +5,7 @@
  */
 export const ENV = {
   // App identity
-  appId: process.env.VITE_APP_ID ?? "",
+  appId: process.env.VITE_APP_ID ?? "athlynx",
   cookieSecret: process.env.JWT_SECRET ?? "",
   databaseUrl: process.env.DATABASE_URL ?? "",
   isProduction: process.env.NODE_ENV === "production",
@@ -14,12 +14,8 @@ export const ENV = {
   ownerOpenId: process.env.OWNER_OPEN_ID ?? "",
   ownerEmail: process.env.OWNER_EMAIL ?? "cdozier14@athlynx.ai",
 
-  // Auth0
-  auth0Domain: process.env.AUTH0_DOMAIN ?? "",
-  auth0ClientId: process.env.AUTH0_CLIENT_ID ?? "",
-  auth0ClientSecret: process.env.AUTH0_CLIENT_SECRET ?? "",
-  auth0Audience: process.env.VITE_AUTH0_AUDIENCE ?? "",
-  auth0IssuerBaseUrl: process.env.AUTH0_ISSUER_BASE_URL ?? "",
+  // Firebase Admin (server-side token verification)
+  firebaseProjectId: process.env.FIREBASE_PROJECT_ID ?? "athlynxai",
 
   // SendGrid
   sendgridApiKey: process.env.SENDGRID_API_KEY ?? "",

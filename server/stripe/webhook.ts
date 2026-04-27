@@ -165,7 +165,7 @@ export function registerStripeWebhook(app: Application) {
                     amountCents: session.amount_total ?? 0,
                     stripeSessionId: session.id,
                     stripeCustomerId: stripeCustomerId ?? undefined,
-                  }).catch((e) => console.warn("[Stripe Webhook] creditPackagePurchases insert failed:", e?.message));
+                  }).catch((e: unknown) => console.warn("[Stripe Webhook] creditPackagePurchases insert failed:", String(e)));
                 }
 
                 // ── 3. Write to credit_transactions (purchase entry) ──
@@ -176,7 +176,7 @@ export function registerStripeWebhook(app: Application) {
                   balanceAfter,
                   description: `Purchased ${creditsToAdd} credits`,
                   stripeSessionId: session.id,
-                }).catch((e) => console.warn("[Stripe Webhook] creditTransactions insert failed:", e?.message));
+                }).catch((e: unknown) => console.warn("[Stripe Webhook] creditTransactions insert failed:", String(e)));
 
                 console.log(`[Stripe Webhook] Added ${creditsToAdd} credits to user ${userId} (balance: ${balanceAfter})`);
               } else {
@@ -202,7 +202,7 @@ export function registerStripeWebhook(app: Application) {
                 plan: planName,
                 amount: amountTotal,
                 sessionId: session.id,
-              }).catch((e) => console.warn("[Stripe Webhook] Payment email failed:", e?.message));
+              }).catch((e: unknown) => console.warn("[Stripe Webhook] Payment email failed:", String(e)));
             }
             break;
           }
