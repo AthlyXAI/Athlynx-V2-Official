@@ -185,6 +185,7 @@ function Router() {
       <Route path="/signin" component={SignIn} />
       <Route path="/login" component={SignIn} />
       <Route path="/callback" component={AuthCallback} />
+      <Route path="/auth/callback" component={AuthCallback} />
       <Route path="/onboarding" component={Onboarding} />
       <Route path="/forgot-password" component={ForgotPassword} />
       <Route path="/success" component={Success} />
