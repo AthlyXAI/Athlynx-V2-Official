@@ -80,11 +80,11 @@ const trpcClient = trpc.createClient({
   ],
 });
 
-// Firebase Auth — no provider wrapper needed (initialized in lib/firebase.ts)
+// QueryClientProvider must be the outer wrapper — tRPC hooks depend on it
 createRoot(document.getElementById("root")!).render(
-  <trpc.Provider client={trpcClient}>
-    <QueryClientProvider client={queryClient}>
+  <QueryClientProvider client={queryClient}>
+    <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <App />
-    </QueryClientProvider>
-  </trpc.Provider>
+    </trpc.Provider>
+  </QueryClientProvider>
 );
