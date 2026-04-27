@@ -1,4 +1,9 @@
 import { Link } from "wouter";
+const BetaBanner = () => (
+  <div style={{position:"fixed",top:0,left:0,right:0,zIndex:9999,background:"#ff6600",color:"white",textAlign:"center",padding:"12px",fontWeight:"700",fontSize:"14px"}}>
+    🚧 BETA TEST MODE — Full Public Launch July 2026 · Updating Daily 🚧
+  </div>
+);
 
 export default function LandingPage() {
   const apps = [
