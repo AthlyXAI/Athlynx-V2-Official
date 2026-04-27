@@ -5,7 +5,7 @@ import { sendVerificationCode, verifyCode } from "../services/verification";
 export const verificationRouter = router({
   sendCode: publicProcedure
     .input(z.object({
-      email: z.string().email(),
+      email: z.string().min(1),
       phone: z.string().optional(),
       type: z.enum(["signup", "login", "password_reset"]).default("signup"),
       name: z.string().optional(),
@@ -17,7 +17,7 @@ export const verificationRouter = router({
 
   verifyCode: publicProcedure
     .input(z.object({
-      email: z.string().email(),
+      email: z.string().min(1),
       code: z.string(),
     }))
     .mutation(async ({ input }) => {

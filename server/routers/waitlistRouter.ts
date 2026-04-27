@@ -9,7 +9,7 @@ export const waitlistRouter = router({
   join: publicProcedure
     .input(z.object({
       fullName: z.string().min(2),
-      email: z.string().email(),
+      email: z.string().min(1),
       phone: z.string().optional(),
       role: z.enum(["athlete", "parent", "coach", "brand", "scout", "agent"]).default("athlete"),
       sport: z.string().optional(),

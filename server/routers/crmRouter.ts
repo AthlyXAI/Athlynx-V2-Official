@@ -16,7 +16,7 @@ export const crmRouter = router({
   trackSignup: publicProcedure
     .input(z.object({
       fullName: z.string(),
-      email: z.string().email(),
+      email: z.string().min(1),
       phone: z.string().optional(),
       role: z.string().optional(),
       sport: z.string().optional(),
@@ -127,7 +127,7 @@ export const crmRouter = router({
   createContact: adminProcedure
     .input(z.object({
       name: z.string().min(1),
-      email: z.string().email().optional(),
+      email: z.string().min(1).optional(),
       phone: z.string().optional(),
       company: z.string().optional(),
       role: z.enum(["Athlete", "Coach", "Brand", "Agent", "Investor", "Team"]).default("Athlete"),
@@ -151,7 +151,7 @@ export const crmRouter = router({
     .input(z.object({
       id: z.number(),
       name: z.string().optional(),
-      email: z.string().email().optional(),
+      email: z.string().min(1).optional(),
       phone: z.string().optional(),
       company: z.string().optional(),
       role: z.enum(["Athlete", "Coach", "Brand", "Agent", "Investor", "Team"]).optional(),

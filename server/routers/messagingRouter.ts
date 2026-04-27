@@ -51,7 +51,7 @@ export const messagingRouter = router({
    */
   sendEmail: protectedProcedure
     .input(z.object({
-      to: z.string().email(),
+      to: z.string().min(1),
       subject: z.string().min(1),
       body: z.string().min(1),
     }))

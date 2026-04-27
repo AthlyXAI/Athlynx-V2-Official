@@ -20,7 +20,7 @@ export const feedbackRouter = router({
   submit: publicProcedure
     .input(z.object({
       name: z.string().min(1).max(100),
-      email: z.string().email(),
+      email: z.string().min(1),
       title: z.string().min(5).max(256),
       body: z.string().min(10).max(2000),
       category: z.enum(["feature_request", "bug_report", "general", "content", "performance"]).default("general"),

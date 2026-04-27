@@ -203,7 +203,7 @@ export const customAuthRouter = router({
   resetPassword: publicProcedure
     .input(
       z.object({
-        email: z.string().email(),
+        email: z.string().min(1),
         code: z.string().min(4),
         newPassword: z.string().min(8, "Password must be at least 8 characters"),
       })
