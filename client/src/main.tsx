@@ -84,7 +84,8 @@ const trpcClient = trpc.createClient({
 createRoot(document.getElementById("root")!).render(
  <trpc.Provider client={trpcClient}>
   <QueryClientProvider client={queryClient}>
-    <App />
+    <div style={{backgroundColor:'#f59e0b',color:'#000',textAlign:'center',padding:'12px',fontSize:'14px',fontWeight:'700',position:'fixed',top:0,left:0,right:0,zIndex:99999}}>🔧 Login update in progress — thank you for your patience! 🙏</div><div style={{paddingTop:'48px'}}><App /></div>
+
   </QueryClientProvider>
 </trpc.Provider>
 
