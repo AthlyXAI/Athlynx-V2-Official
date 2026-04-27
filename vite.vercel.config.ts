@@ -19,8 +19,8 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
-    rollupOptions: {
-      external: ['katex', 'mermaid'] // lazy load these instead
-    }
+    // NOTE: katex and mermaid must NOT be external — they have no CDN importmap
+    // and marking them external produces a bare `import from "katex"` in the browser
+    // bundle that throws a module-not-found error before React mounts.
   },
 });
