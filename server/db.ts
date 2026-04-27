@@ -27,7 +27,7 @@ const RECONNECT_COOLDOWN_MS = 30_000; // don't hammer DB — wait 30s between re
 // If the pool goes stale or the initial connect fails, reset and retry after cooldown.
 export async function getDb() {
   if (_db) return _db;
-  if (!process.env.DATABASE_URL) return null;
+  if (!(process.env.DATABASE_URL || '').trim())
 
   const now = Date.now();
   if (now - _lastConnectAttempt < RECONNECT_COOLDOWN_MS) {
@@ -43,7 +43,7 @@ export async function getDb() {
       _pool = null;
     }
     _pool = mysql.createPool({
-      uri: process.env.DATABASE_URL,
+process.env.DATABASE_URL || '').trim(),
       ssl: { rejectUnauthorized: false },
       connectionLimit: 10,
       connectTimeout: 10000,
