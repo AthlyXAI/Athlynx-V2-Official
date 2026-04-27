@@ -27,9 +27,17 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// Prevent duplicate initialization in dev HMR
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-export const auth = getAuth(app);
+// Only initialize Firebase if all required config values are present
+export const isFirebaseConfigured = !!(
+  firebaseConfig.apiKey &&
+  firebaseConfig.authDomain &&
+  firebaseConfig.projectId &&
+  firebaseConfig.appId
+);
+const app = isFirebaseConfigured
+  ? (getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0])
+  : null;
+export const auth = isFirebaseConfigured && app ? getAuth(app) : null as any;
 
 // Providers
 const googleProvider = new GoogleAuthProvider();
@@ -48,6 +56,7 @@ const twitterProvider = new TwitterAuthProvider();
 
 /** Sign in with Google popup — returns Firebase ID token */
 export async function signInWithGoogle(): Promise<{ idToken: string; user: FirebaseUser }> {
+  if (!isFirebaseConfigured || !auth) throw new Error('Firebase is not configured');
   const result = await signInWithPopup(auth, googleProvider);
   const idToken = await result.user.getIdToken();
   return { idToken, user: result.user };
@@ -55,6 +64,7 @@ export async function signInWithGoogle(): Promise<{ idToken: string; user: Fireb
 
 /** Sign in with Apple popup — returns Firebase ID token */
 export async function signInWithApple(): Promise<{ idToken: string; user: FirebaseUser }> {
+  if (!isFirebaseConfigured || !auth) throw new Error('Firebase is not configured');
   const result = await signInWithPopup(auth, appleProvider);
   const idToken = await result.user.getIdToken();
   return { idToken, user: result.user };
@@ -62,6 +72,7 @@ export async function signInWithApple(): Promise<{ idToken: string; user: Fireba
 
 /** Sign in with Facebook popup — returns Firebase ID token */
 export async function signInWithFacebook(): Promise<{ idToken: string; user: FirebaseUser }> {
+  if (!isFirebaseConfigured || !auth) throw new Error('Firebase is not configured');
   const result = await signInWithPopup(auth, facebookProvider);
   const idToken = await result.user.getIdToken();
   return { idToken, user: result.user };
@@ -69,6 +80,7 @@ export async function signInWithFacebook(): Promise<{ idToken: string; user: Fir
 
 /** Sign in with X (Twitter) popup — returns Firebase ID token */
 export async function signInWithTwitter(): Promise<{ idToken: string; user: FirebaseUser }> {
+  if (!isFirebaseConfigured || !auth) throw new Error('Firebase is not configured');
   const result = await signInWithPopup(auth, twitterProvider);
   const idToken = await result.user.getIdToken();
   return { idToken, user: result.user };
@@ -76,7 +88,7 @@ export async function signInWithTwitter(): Promise<{ idToken: string; user: Fire
 
 /** Sign out from Firebase */
 export async function firebaseSignOut(): Promise<void> {
-  await signOut(auth);
+  if (auth) await signOut(auth);
 }
 
 export {
