@@ -1,31 +1,26 @@
 import { useState } from "react";
-import { useLocation } from "wouter";
+import { Link } from "wouter";
+import { trpc } from "@/lib/trpc";
+import {
+  signInWithGoogle,
+  signInWithApple,
+  signInWithFacebook,
+  signInWithTwitter,
+} from "@/lib/firebase";
 
 export default function SignIn() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [, navigate] = useLocation();
+  const syncMutation = trpc.auth.syncFirebaseUser.useMutation();
 
-  const handleSignIn = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+  const handleSocial = async (provider: () => Promise<any>) => {
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Login failed");
-      navigate("/dashboard");
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+      setError("");
+      const result = await provider();
+      const token = await result.user.getIdToken();
+      await syncMutation.mutateAsync({ idToken: token });
+      window.location.href = "/dashboard";
+    } catch (e: any) {
+      setError(e.message || "Sign in failed");
     }
   };
 
@@ -36,7 +31,8 @@ export default function SignIn() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      fontFamily: "Inter, sans-serif"
+      fontFamily: "Inter, sans-serif",
+      padding: "20px"
     }}>
       <div style={{
         background: "#0f2040",
@@ -46,81 +42,53 @@ export default function SignIn() {
         width: "100%",
         maxWidth: 420
       }}>
-        <h1 style={{ color: "#00d4ff", textAlign: "center", marginBottom: 8 }}>
+        <h1 style={{ color: "#00d4ff", textAlign: "center", marginBottom: 8, fontSize: 24 }}>
           ATHLYNX
         </h1>
         <p style={{ color: "#8899aa", textAlign: "center", marginBottom: 32 }}>
-          Sign in to your account
+          Sign up or sign in to get started
         </p>
 
-        <form onSubmit={handleSignIn}>
-          <div style={{ marginBottom: 16 }}>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-              style={{
-                width: "100%",
-                padding: "12px 16px",
-                background: "#0a1628",
-                border: "1px solid #1e3a5f",
-                borderRadius: 8,
-                color: "#fff",
-                fontSize: 16,
-                boxSizing: "border-box"
-              }}
-            />
-          </div>
-          <div style={{ marginBottom: 24 }}>
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              required
-              style={{
-                width: "100%",
-                padding: "12px 16px",
-                background: "#0a1628",
-                border: "1px solid #1e3a5f",
-                borderRadius: 8,
-                color: "#fff",
-                fontSize: 16,
-                boxSizing: "border-box"
-              }}
-            />
-          </div>
+        <button onClick={() => handleSocial(signInWithGoogle)} style={{
+          width: "100%", padding: "14px", marginBottom: 12,
+          background: "#fff", color: "#000", border: "none",
+          borderRadius: 8, fontSize: 16, fontWeight: 600, cursor: "pointer",
+          display: "flex", alignItems: "center", justifyContent: "center", gap: 10
+        }}>
+          <img src="https://www.google.com/favicon.ico" width={20} height={20} />
+          Continue with Google
+        </button>
 
-          {error && (
-            <p style={{ color: "#ff4444", marginBottom: 16, textAlign: "center" }}>
-              {error}
-            </p>
-          )}
+        <button onClick={() => handleSocial(signInWithApple)} style={{
+          width: "100%", padding: "14px", marginBottom: 12,
+          background: "#000", color: "#fff", border: "1px solid #333",
+          borderRadius: 8, fontSize: 16, fontWeight: 600, cursor: "pointer"
+        }}>
+          🍎 Continue with Apple
+        </button>
 
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              width: "100%",
-              padding: "14px",
-              background: loading ? "#1e3a5f" : "#00d4ff",
-              color: loading ? "#8899aa" : "#000",
-              border: "none",
-              borderRadius: 8,
-              fontSize: 16,
-              fontWeight: 700,
-              cursor: loading ? "not-allowed" : "pointer"
-            }}
-          >
-            {loading ? "Signing in..." : "Sign In"}
-          </button>
-        </form>
+        <button onClick={() => handleSocial(signInWithFacebook)} style={{
+          width: "100%", padding: "14px", marginBottom: 12,
+          background: "#1877f2", color: "#fff", border: "none",
+          borderRadius: 8, fontSize: 16, fontWeight: 600, cursor: "pointer"
+        }}>
+          f &nbsp; Continue with Facebook
+        </button>
 
-        <p style={{ color: "#8899aa", textAlign: "center", marginTop: 24 }}>
-          Don't have an account?{" "}
-          <a href="/signup" style={{ color: "#00d4ff" }}>Sign up free</a>
+        <button onClick={() => handleSocial(signInWithTwitter)} style={{
+          width: "100%", padding: "14px", marginBottom: 24,
+          background: "#000", color: "#fff", border: "1px solid #333",
+          borderRadius: 8, fontSize: 16, fontWeight: 600, cursor: "pointer"
+        }}>
+          𝕏 &nbsp; Continue with X
+        </button>
+
+        {error && (
+          <p style={{ color: "#ff4444", textAlign: "center", marginBottom: 16 }}>{error}</p>
+        )}
+
+        <p style={{ color: "#8899aa", textAlign: "center", fontSize: 12 }}>
+          By continuing you agree to our Terms & Privacy Policy.
         </p>
       </div>
     </div>
