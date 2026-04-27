@@ -1,95 +1,40 @@
 import { useState } from "react";
-import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
-import {
-  signInWithGoogle,
-  signInWithApple,
-  signInWithFacebook,
-  signInWithTwitter,
-} from "@/lib/firebase";
 
 export default function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const syncMutation = trpc.auth.syncFirebaseUser.useMutation();
+  const [loading, setLoading] = useState(false);
 
-  const handleSocial = async (provider: () => Promise<any>) => {
-    try {
-      setError("");
-      const result = await provider();
-      const token = await result.user.getIdToken();
-      await syncMutation.mutateAsync({ idToken: token });
-      window.location.href = "/dashboard";
-    } catch (e: any) {
-      setError(e.message || "Sign in failed");
-    }
-  };
+  const signIn = trpc.auth.signIn.useMutation({
+    onSuccess: () => { window.location.href = "/dashboard"; },
+    onError: (e) => { setError(e.message); setLoading(false); },
+  });
+
+  const signUp = trpc.auth.signUp.useMutation({
+    onSuccess: () => { window.location.href = "/dashboard"; },
+    onError: (e) => { setError(e.message); setLoading(false); },
+  });
 
   return (
-    <div style={{
-      minHeight: "100vh",
-      background: "#0a1628",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      fontFamily: "Inter, sans-serif",
-      padding: "20px"
-    }}>
-      <div style={{
-        background: "#0f2040",
-        border: "1px solid #1e3a5f",
-        borderRadius: 16,
-        padding: 40,
-        width: "100%",
-        maxWidth: 420
-      }}>
-        <h1 style={{ color: "#00d4ff", textAlign: "center", marginBottom: 8, fontSize: 24 }}>
-          ATHLYNX
-        </h1>
-        <p style={{ color: "#8899aa", textAlign: "center", marginBottom: 32 }}>
-          Sign up or sign in to get started
-        </p>
-
-        <button onClick={() => handleSocial(signInWithGoogle)} style={{
-          width: "100%", padding: "14px", marginBottom: 12,
-          background: "#fff", color: "#000", border: "none",
-          borderRadius: 8, fontSize: 16, fontWeight: 600, cursor: "pointer",
-          display: "flex", alignItems: "center", justifyContent: "center", gap: 10
-        }}>
-          <img src="https://www.google.com/favicon.ico" width={20} height={20} />
-          Continue with Google
+    <div style={{ minHeight:"100vh", background:"#0a1628", display:"flex", alignItems:"center", justifyContent:"center", fontFamily:"Inter,sans-serif", padding:"20px" }}>
+      <div style={{ background:"#0f1f3d", borderRadius:"16px", padding:"40px", width:"100%", maxWidth:"400px" }}>
+        <h1 style={{ color:"#00d4ff", fontSize:"28px", fontWeight:"800", textAlign:"center", marginBottom:"8px" }}>ATHLYNX</h1>
+        <p style={{ color:"#8899aa", textAlign:"center", marginBottom:"32px" }}>Sign up or sign in to get started</p>
+        <input type="email" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)}
+          style={{ width:"100%", background:"#1a2d4d", color:"white", border:"1px solid #2a3d5d", borderRadius:"8px", padding:"12px", marginBottom:"12px", fontSize:"16px", boxSizing:"border-box" }} />
+        <input type="password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)}
+          style={{ width:"100%", background:"#1a2d4d", color:"white", border:"1px solid #2a3d5d", borderRadius:"8px", padding:"12px", marginBottom:"16px", fontSize:"16px", boxSizing:"border-box" }} />
+        {error && <p style={{ color:"#ff4444", textAlign:"center", marginBottom:"12px" }}>{error}</p>}
+        <button onClick={()=>{ setLoading(true); setError(""); signIn.mutate({ email, password }); }} disabled={loading}
+          style={{ width:"100%", background:"#00d4ff", color:"#0a1628", fontWeight:"700", padding:"14px", borderRadius:"8px", border:"none", cursor:"pointer", marginBottom:"12px", fontSize:"16px" }}>
+          {loading ? "Loading..." : "Sign In"}
         </button>
-
-        <button onClick={() => handleSocial(signInWithApple)} style={{
-          width: "100%", padding: "14px", marginBottom: 12,
-          background: "#000", color: "#fff", border: "1px solid #333",
-          borderRadius: 8, fontSize: 16, fontWeight: 600, cursor: "pointer"
-        }}>
-          🍎 Continue with Apple
+        <button onClick={()=>{ setLoading(true); setError(""); signUp.mutate({ email, password }); }} disabled={loading}
+          style={{ width:"100%", background:"transparent", color:"#00d4ff", fontWeight:"700", padding:"14px", borderRadius:"8px", border:"2px solid #00d4ff", cursor:"pointer", fontSize:"16px" }}>
+          Create Account
         </button>
-
-        <button onClick={() => handleSocial(signInWithFacebook)} style={{
-          width: "100%", padding: "14px", marginBottom: 12,
-          background: "#1877f2", color: "#fff", border: "none",
-          borderRadius: 8, fontSize: 16, fontWeight: 600, cursor: "pointer"
-        }}>
-          f &nbsp; Continue with Facebook
-        </button>
-
-        <button onClick={() => handleSocial(signInWithTwitter)} style={{
-          width: "100%", padding: "14px", marginBottom: 24,
-          background: "#000", color: "#fff", border: "1px solid #333",
-          borderRadius: 8, fontSize: 16, fontWeight: 600, cursor: "pointer"
-        }}>
-          𝕏 &nbsp; Continue with X
-        </button>
-
-        {error && (
-          <p style={{ color: "#ff4444", textAlign: "center", marginBottom: 16 }}>{error}</p>
-        )}
-
-        <p style={{ color: "#8899aa", textAlign: "center", fontSize: 12 }}>
-          By continuing you agree to our Terms & Privacy Policy.
-        </p>
       </div>
     </div>
   );
