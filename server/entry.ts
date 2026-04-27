@@ -51,7 +51,5 @@ runMigrations().catch((err) =>
   console.error("[entry] runMigrations unexpected error:", err)
 );
 
+// ESM default export — esbuild --format=cjs wraps this correctly for Vercel's Node runtime.
 export default app;
-// Vercel serverless CJS compatibility: module.exports must equal the Express app
-// so Vercel's runtime can call it as a request handler.
-module.exports = app;
