@@ -11,6 +11,7 @@ import { eq, and, gt } from "drizzle-orm";
 import { sendWelcomeEmail, sendOwnerNewUserAlert } from "../services/aws-ses";
 import { sendWelcomeSMS } from "../services/twilio-sms";
 import { sql } from "drizzle-orm";
+import { verifyFirebaseToken } from "../_core/firebaseAdmin";
 
 const SEVEN_DAYS_MS = 7 * 24 * 60 * 60 * 1000;
 
@@ -333,6 +334,106 @@ export const customAuthRouter = router({
       const cookieOptions = getSessionCookieOptions(ctx.req);
       (ctx.res as any).cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
       return { success: true, name: input.name, isNewUser };
+    }),
+
+  /**
+   * Sync a Firebase OAuth user (Google, Apple, Facebook) to the DB.
+   * Accepts a Firebase ID token, verifies it server-side, upserts the user, sets session cookie.
+   */
+  syncFirebaseUser: publicProcedure
+    .input(
+      z.object({
+        idToken: z.string().min(1, "Firebase ID token is required"),
+        phone: z.string().optional(),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      const db = await getDb();
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
+
+      // Verify the Firebase ID token using Google's public JWKS
+      let firebaseUser;
+      try {
+        firebaseUser = await verifyFirebaseToken(input.idToken);
+      } catch (err) {
+        console.error("[Firebase Auth] Token verification failed:", err);
+        throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid Firebase token" });
+      }
+
+      const { uid, email, name, picture, firebase: fbClaims } = firebaseUser;
+      const provider = fbClaims?.sign_in_provider ?? "firebase";
+      const loginMethod = provider.includes("google") ? "google"
+        : provider.includes("apple") ? "apple"
+        : provider.includes("facebook") ? "facebook"
+        : "firebase";
+
+      const openId = `firebase_${uid}`;
+      const trialEndsAt = new Date(Date.now() + SEVEN_DAYS_MS);
+
+      const ADMIN_EMAILS = [
+        "cdozier@dozierholdingsgroup.com",
+        "chaddozier75@gmail.com",
+        "akustes@dozierholdingsgroup.com",
+        "andrewkustes@gmail.com",
+      ];
+      const isAdminEmail = email ? ADMIN_EMAILS.includes(email.toLowerCase()) : false;
+
+      await db.insert(users).values({
+        openId,
+        name: name || email?.split("@")[0] || null,
+        email: email || null,
+        avatarUrl: picture || null,
+        phone: input.phone || null,
+        loginMethod,
+        role: isAdminEmail ? "admin" : "user",
+        trialEndsAt,
+        lastSignedIn: new Date(),
+      }).onDuplicateKeyUpdate({
+        set: {
+          lastSignedIn: new Date(),
+          name: name || null,
+          avatarUrl: picture || null,
+          ...(isAdminEmail ? { role: "admin" } : {}),
+        },
+      });
+
+      const userRow = await db.select({ id: users.id, createdAt: users.createdAt, lastSignedIn: users.lastSignedIn })
+        .from(users).where(eq(users.openId, openId)).limit(1);
+      const row = userRow[0];
+      const isNewUser = row
+        ? Math.abs(new Date(row.lastSignedIn ?? 0).getTime() - new Date(row.createdAt ?? 0).getTime()) < 5000
+        : false;
+
+      const STARTING_CREDITS = 50;
+      if (isNewUser && row?.id) {
+        const memberNumber = row.id;
+        await db.update(users).set({ credits: STARTING_CREDITS }).where(eq(users.id, memberNumber));
+        db.insert(creditTransactions).values({
+          userId: memberNumber,
+          type: "bonus",
+          amount: STARTING_CREDITS,
+          balanceAfter: STARTING_CREDITS,
+          description: "Welcome bonus \u2014 50 free credits on signup",
+        }).catch((e) => console.warn("[Credits] Welcome bonus log failed:", e?.message));
+        if (email) {
+          fireWelcomeNotifications({
+            name: name || "Athlete",
+            email,
+            phone: input.phone,
+            loginMethod,
+            trialEndsAt,
+            memberNumber,
+          });
+        }
+      }
+
+      const sessionToken = await sdk.createSessionToken(openId, {
+        name: name || "",
+        expiresInMs: ONE_YEAR_MS,
+      });
+      const cookieOptions = getSessionCookieOptions(ctx.req);
+      (ctx.res as any).cookie(COOKIE_NAME, sessionToken, { ...cookieOptions, maxAge: ONE_YEAR_MS });
+      return { success: true, name: name || email?.split("@")[0] || "", isNewUser };
     }),
 
   /**

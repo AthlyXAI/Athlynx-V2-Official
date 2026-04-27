@@ -30,7 +30,6 @@ if ('serviceWorker' in navigator) {
 }
 
 import { UNAUTHED_ERR_MSG } from '@shared/const';
-import { Auth0Provider } from "@auth0/auth0-react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink, TRPCClientError } from "@trpc/client";
 import { createRoot } from "react-dom/client";
@@ -81,24 +80,11 @@ const trpcClient = trpc.createClient({
   ],
 });
 
-// Auth0 config — Athlynx production tenant (B2C Professional)
-const auth0Domain = "dev-8yqdmei0v8kc3qqy.us.auth0.com";
-const auth0ClientId = "eDJT34flTy4oOq1cie6ItFubLDPHOrcI"; // Athlynx-FrontEnd-Single-Page
-
+// Firebase Auth — no provider wrapper needed (initialized in lib/firebase.ts)
 createRoot(document.getElementById("root")!).render(
-  <Auth0Provider
-    domain={auth0Domain}
-    clientId={auth0ClientId}
-    authorizationParams={{
-      redirect_uri: "https://athlynx.ai/callback",
-      scope: "openid profile email",
-    }}
-    cacheLocation="localstorage"
-  >
-    <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>
-    </trpc.Provider>
-  </Auth0Provider>
+  <trpc.Provider client={trpcClient} queryClient={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  </trpc.Provider>
 );

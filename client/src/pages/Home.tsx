@@ -1,8 +1,6 @@
 // v1.4.0 - Apr 25 2026 - Clean Auth0 sign-up, no trial text
 import { Link } from "wouter";
 import { useState, useEffect, useRef } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
-
 
 function EnterPortalToggle() {
   const [visible, setVisible] = useState(false);

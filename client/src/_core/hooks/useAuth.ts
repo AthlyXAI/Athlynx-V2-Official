@@ -1,77 +1,35 @@
 /**
  * ATHLYNX — Unified Auth Hook
- * Uses Okta/Auth0 as the single source of truth for authentication.
- * Fetches DB user data (trial, subscription) and merges into user object.
- * Works on Vercel static deployment — no backend session cookie required.
+ * Uses session cookie (set by server after Firebase sign-in) as the auth source.
+ * Calls trpc.auth.me to get the current user from the DB.
+ * Replaces Auth0/Okta completely.
  */
-import { useAuth0 } from "@auth0/auth0-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import { trpc } from "@/lib/trpc";
 
-type DbUser = {
-  id: number;
-  name: string | null;
-  email: string | null;
-  role: string | null;
-  trialEndsAt: Date | null;
-  stripeCustomerId: string | null;
-  stripeSubscriptionId: string | null;
-  stripePlanId: string | null;
-  avatarUrl: string | null;
-  credits: number;
-} | null;
+export function useAuth(options?: { redirectOnUnauthenticated?: boolean; redirectPath?: string }) {
+  const { redirectOnUnauthenticated = false, redirectPath = "/signin" } = options ?? {};
 
-type UseAuthOptions = {
-  redirectOnUnauthenticated?: boolean;
-  redirectPath?: string;
-};
+  const { data: user, isLoading, refetch } = trpc.auth.me.useQuery(undefined, {
+    retry: false,
+    staleTime: 30_000,
+    refetchOnWindowFocus: false,
+  });
 
-export function useAuth(options?: UseAuthOptions) {
-  const { redirectOnUnauthenticated = false, redirectPath = "/signin" } =
-    options ?? {};
+  const logoutMutation = trpc.auth.logout.useMutation({
+    onSuccess: () => { window.location.href = "/signin"; },
+  });
 
-  const {
-    isAuthenticated,
-    isLoading,
-    user: auth0User,
-    loginWithRedirect,
-    logout: auth0Logout,
-    getAccessTokenSilently,
-    getIdTokenClaims,
-  } = useAuth0();
+  const logout = useCallback(() => { logoutMutation.mutate(); }, [logoutMutation]);
 
-  const login = useCallback(
-    (returnTo?: string) => {
-      const target = returnTo ?? window.location.pathname;
-      sessionStorage.setItem("auth_return_to", target);
-      loginWithRedirect({
-        appState: { returnTo: target },
-      });
-    },
-    [loginWithRedirect]
-  );
+  const login = useCallback((returnTo?: string) => {
+    const target = returnTo ?? window.location.pathname;
+    sessionStorage.setItem("auth_return_to", target);
+    window.location.href = "/signin";
+  }, []);
 
-  const logout = useCallback(() => {
-    auth0Logout({
-      logoutParams: {
-        returnTo: window.location.origin,
-      },
-    });
-  }, [auth0Logout]);
+  const isAuthenticated = !!user;
 
-  // Fetch DB user data for trial/subscription info.
-  // Guard: only fire when sub is a non-empty string — prevents 400 Bad Request
-  // when Auth0 is still loading and sub is undefined/empty.
-  const { data: dbUser } = trpc.auth.getDbUser.useQuery(
-    { openIdSub: auth0User?.sub ?? "" },
-    {
-      enabled: isAuthenticated && typeof auth0User?.sub === "string" && auth0User.sub.length > 0,
-      retry: false,
-      staleTime: 30000,
-    }
-  );
-
-  // Redirect unauthenticated users if requested
   if (
     redirectOnUnauthenticated &&
     !isLoading &&
@@ -82,34 +40,16 @@ export function useAuth(options?: UseAuthOptions) {
     window.location.href = redirectPath;
   }
 
-  const user = isAuthenticated && auth0User
-    ? {
-        id: auth0User.sub ?? "",
-        dbId: dbUser?.id ?? null,
-        name: dbUser?.name || auth0User.name || auth0User.nickname || auth0User.email || "",
-        email: dbUser?.email || auth0User.email || "",
-        avatarUrl: dbUser?.avatarUrl || auth0User.picture || "",
-        openId: auth0User.sub ?? "",
-        role: dbUser?.role ?? "user",
-        // Trial & subscription data from DB
-        trialEndsAt: dbUser?.trialEndsAt ? new Date(dbUser.trialEndsAt) : null,
-        stripeCustomerId: dbUser?.stripeCustomerId ?? null,
-        stripeSubscriptionId: dbUser?.stripeSubscriptionId ?? null,
-        stripePlanId: dbUser?.stripePlanId ?? null,
-        credits: dbUser?.credits ?? 0,
-        raw: auth0User,
-      }
-    : null;
-
   return {
-    user,
+    user: user ?? null,
     loading: isLoading,
     isAuthenticated,
     error: null,
     login,
     logout,
-    refresh: () => {},
-    getAccessTokenSilently,
-    getIdTokenClaims,
+    refresh: refetch,
+    // Legacy compatibility stubs
+    getAccessTokenSilently: async () => "",
+    getIdTokenClaims: async () => null,
   };
 }

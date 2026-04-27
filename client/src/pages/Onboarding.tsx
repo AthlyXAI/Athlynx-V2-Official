@@ -4,11 +4,11 @@
  * Uses the full AIOnboarding component with all 19 roles.
  */
 import { useEffect } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth } from "@/_core/hooks/useAuth";
 import AIOnboarding from "@/components/AIOnboarding";
 
 export default function Onboarding() {
-  const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+  const { isAuthenticated, loading: isLoading } = useAuth();
 
   useEffect(() => {
     document.title = "Welcome to ATHLYNX — Set Up Your Profile";
@@ -17,9 +17,10 @@ export default function Onboarding() {
   // If not authenticated, send back to sign in
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
-      loginWithRedirect({ appState: { returnTo: "/onboarding" } });
+      sessionStorage.setItem("auth_return_to", "/onboarding");
+      window.location.href = "/signin";
     }
-  }, [isLoading, isAuthenticated, loginWithRedirect]);
+  }, [isLoading, isAuthenticated]);
 
   if (isLoading) {
     return (
