@@ -14,9 +14,24 @@ import { drizzle } from "drizzle-orm/mysql2";
 import { migrate } from "drizzle-orm/mysql2/migrator";
 import mysql from "mysql2/promise";
 import path from "path";
-import { fileURLToPath } from "url";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// CJS-safe directory resolution.
+// esbuild bundles this with --format=cjs for Vercel, so import.meta.url is
+// undefined at runtime. We use the CJS __dirname global (injected by Node)
+// which points to the api/ output directory, then step up one level to reach
+// the drizzle/ migrations folder at the project root.
+function getMigrationsFolder(): string {
+  try {
+    // __dirname is available in CJS context (Node injects it)
+    if (typeof __dirname !== "undefined" && __dirname) {
+      return path.resolve(__dirname, "../drizzle");
+    }
+  } catch (_) {
+    // ignore
+  }
+  // Fallback: Vercel sets cwd to project root
+  return path.resolve(process.cwd(), "drizzle");
+}
 
 export async function runMigrations(): Promise<void> {
   const url = process.env.DATABASE_URL;
@@ -30,10 +45,7 @@ export async function runMigrations(): Promise<void> {
     connection = await mysql.createConnection(url);
     const db = drizzle(connection);
 
-    // Migrations folder is relative to the compiled output location.
-    // In Vercel CJS build the compiled api/index.js is at repo root /api/,
-    // so we resolve the drizzle folder relative to the project root.
-    const migrationsFolder = path.resolve(__dirname, "../drizzle");
+    const migrationsFolder = getMigrationsFolder();
 
     console.log("[migrate] Running pending migrations from", migrationsFolder);
     await migrate(db, { migrationsFolder });
