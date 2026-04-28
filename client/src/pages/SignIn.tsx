@@ -45,11 +45,61 @@ export default function SignIn() {
       minHeight: '100vh',
       background: 'linear-gradient(135deg, #0a0f1e 0%, #0d1b3e 50%, #0a1628 100%)',
       display: 'flex',
+      flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
       fontFamily: 'system-ui, sans-serif',
       padding: '20px',
     }}>
+
+      {/* ── MAINTENANCE BANNER ── */}
+      <div style={{
+        width: '100%',
+        maxWidth: '480px',
+        marginBottom: '16px',
+        background: 'linear-gradient(135deg, rgba(251,191,36,0.15), rgba(245,158,11,0.1))',
+        border: '1px solid rgba(251,191,36,0.5)',
+        borderRadius: '10px',
+        padding: '14px 16px',
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: '10px',
+      }}>
+        <span style={{ fontSize: '20px', marginTop: '1px' }}>&#128295;</span>
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
+            <span style={{
+              background: 'rgba(251,191,36,0.95)',
+              color: '#000',
+              fontSize: '10px',
+              fontWeight: '800',
+              padding: '3px 8px',
+              borderRadius: '20px',
+              letterSpacing: '0.6px',
+              textTransform: 'uppercase',
+            }}>Platform Update In Progress</span>
+            <span style={{
+              background: 'rgba(34,197,94,0.2)',
+              border: '1px solid rgba(34,197,94,0.5)',
+              color: '#86efac',
+              fontSize: '10px',
+              fontWeight: '700',
+              padding: '3px 8px',
+              borderRadius: '20px',
+            }}>Live</span>
+          </div>
+          <p style={{ color: '#fde68a', fontSize: '13px', margin: 0, lineHeight: '1.6' }}>
+            We are actively upgrading our systems for an even better experience.
+            If you experience any login issues, our team is on it and will have
+            everything fully restored shortly.
+          </p>
+          <p style={{ color: '#fbbf24', fontSize: '12px', margin: '8px 0 0', fontWeight: '600' }}>
+            Need help? Contact us: cdozier@dozierholdingsgroup.com
+          </p>
+        </div>
+      </div>
+
+      {/* ── LOGIN CARD ── */}
       <div style={{
         background: 'rgba(255,255,255,0.05)',
         border: '1px solid rgba(0,200,255,0.2)',
