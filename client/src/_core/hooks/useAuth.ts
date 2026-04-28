@@ -1,26 +1,38 @@
 /**
  * ATHLYNX — Unified Auth Hook
- * Uses session cookie (set by server after Firebase sign-in) as the auth source.
- * Calls trpc.auth.me to get the current user from the DB.
- * Replaces Auth0/Okta completely.
+ * Uses Supabase session as the auth source.
+ * No server-side cookie required.
  */
-import { useCallback } from "react";
-import { trpc } from "@/lib/trpc";
+import { useState, useEffect, useCallback } from "react";
+import { supabase } from "@/lib/supabase";
+import type { User } from "@supabase/supabase-js";
 
 export function useAuth(options?: { redirectOnUnauthenticated?: boolean; redirectPath?: string }) {
   const { redirectOnUnauthenticated = false, redirectPath = "/signin" } = options ?? {};
 
-  const { data: user, isLoading, refetch } = trpc.auth.me.useQuery(undefined, {
-    retry: false,
-    staleTime: 30_000,
-    refetchOnWindowFocus: false,
-  });
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const logoutMutation = trpc.auth.logout.useMutation({
-    onSuccess: () => { window.location.href = "/signin"; },
-  });
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
-  const logout = useCallback(() => { logoutMutation.mutate(); }, [logoutMutation]);
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const logout = useCallback(async () => {
+    await supabase.auth.signOut();
+    window.location.href = "/signin";
+  }, []);
 
   const login = useCallback((returnTo?: string) => {
     const target = returnTo ?? window.location.pathname;
@@ -32,7 +44,7 @@ export function useAuth(options?: { redirectOnUnauthenticated?: boolean; redirec
 
   if (
     redirectOnUnauthenticated &&
-    !isLoading &&
+    !loading &&
     !isAuthenticated &&
     typeof window !== "undefined" &&
     window.location.pathname !== redirectPath
@@ -42,12 +54,12 @@ export function useAuth(options?: { redirectOnUnauthenticated?: boolean; redirec
 
   return {
     user: user ?? null,
-    loading: isLoading,
+    loading,
     isAuthenticated,
     error: null,
     login,
     logout,
-    refresh: refetch,
+    refresh: async () => {},
     // Legacy compatibility stubs
     getAccessTokenSilently: async () => "",
     getIdTokenClaims: async () => null,
