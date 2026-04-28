@@ -7,7 +7,7 @@ export default function WhiteLabel() {
       id: "diamond-grind",
       name: "Diamond Grind",
       sport: "Baseball",
-      icon: "",
+      icon: "🏷️",
       color: "from-blue-500 to-cyan-500",
       description: "The #1 baseball recruiting and training platform",
       features: ["Player Rankings", "Scout Network", "Tournament Registration", "AI Baseball Coach"],
@@ -18,7 +18,7 @@ export default function WhiteLabel() {
       id: "court-kings",
       name: "Court Kings",
       sport: "Basketball", 
-      icon: "",
+      icon: "🏷️",
       color: "from-red-500 to-red-500",
       description: "Elite basketball recruiting and development platform",
       features: ["Player Rankings", "AAU Tournaments", "Showcase Events", "AI Basketball Coach"],
@@ -29,7 +29,7 @@ export default function WhiteLabel() {
       id: "gridiron-nexus",
       name: "Gridiron Nexus",
       sport: "Football",
-      icon: "",
+      icon: "🏷️",
       color: "from-green-500 to-emerald-500",
       description: "Complete football recruiting and training ecosystem",
       features: ["Position Rankings", "Combine Results", "Film Analysis", "AI Football Coach"],
@@ -40,7 +40,7 @@ export default function WhiteLabel() {
       id: "pitch-pulse",
       name: "Pitch Pulse",
       sport: "Soccer",
-      icon: "",
+      icon: "🏷️",
       color: "from-blue-600 to-red-500",
       description: "Global soccer recruiting and development platform",
       features: ["Player Profiles", "Club Connections", "International Scouts", "AI Soccer Coach"],
@@ -197,7 +197,7 @@ export default function WhiteLabel() {
                 desc: "Each sport gets its own name, logo, colors, and sport-specific features while sharing core functionality"
               },
               {
-                icon: "",
+                icon: "🏷️",
                 title: "Shared Revenue",
                 desc: "All subscriptions, AI credits, and transactions flow through the same payment system"
               }

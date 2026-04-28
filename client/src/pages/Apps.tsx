@@ -5,8 +5,8 @@ export default function Apps() {
     {
       name: "ATHLYNX",
       tagline: "The Athlete's Playbook",
-      icon: "",
-      color: "from-red-500 to-red-500",
+      icon: "🏆",
+      color: "from-blue-600 to-cyan-500",
       description: "The all-in-one platform for athletes. Profiles, recruiting, NIL, training, and more.",
       features: ["Athlete Profiles", "AI Coaching", "NIL Marketplace", "Recruiting", "Messaging"],
       ios: "#",
@@ -16,7 +16,7 @@ export default function Apps() {
     {
       name: "Diamond Grind",
       tagline: "Elite Baseball Platform",
-      icon: "",
+      icon: "⚾",
       color: "from-blue-500 to-blue-700",
       description: "The #1 baseball app for rankings, recruiting, tournaments, and training.",
       features: ["Player Rankings", "Tournament Finder", "Video Analysis", "Recruiting Database"],
@@ -27,8 +27,8 @@ export default function Apps() {
     {
       name: "Court Kings",
       tagline: "Basketball Dominance",
-      icon: "",
-      color: "from-red-500 to-red-500",
+      icon: "🏀",
+      color: "from-orange-500 to-red-600",
       description: "Basketball recruiting, training, and exposure platform.",
       features: ["Hoops Rankings", "Camp Finder", "Highlight Reels", "College Connections"],
       ios: "#",
@@ -38,7 +38,7 @@ export default function Apps() {
     {
       name: "Gridiron Nexus",
       tagline: "Football Excellence",
-      icon: "",
+      icon: "🏈",
       color: "from-green-600 to-green-800",
       description: "Football recruiting, film analysis, and combine prep.",
       features: ["Prospect Rankings", "Film Room", "Combine Training", "Recruiting Board"],
@@ -49,7 +49,7 @@ export default function Apps() {
     {
       name: "Pitch Pulse",
       tagline: "Soccer Intelligence",
-      icon: "",
+      icon: "⚽",
       color: "from-emerald-500 to-teal-600",
       description: "Soccer recruiting, club connections, and international opportunities.",
       features: ["Club Finder", "International Scouts", "Training Programs", "Showcase Events"],
@@ -242,10 +242,10 @@ export default function Apps() {
             <h3 className="text-xl font-bold text-white mb-6 text-center">Why Download Our Apps?</h3>
             <div className="grid md:grid-cols-4 gap-6">
               {[
-                { icon: "", title: "Native Experience", desc: "Optimized for iOS & Android" },
+                { icon: "📱", title: "Native Experience", desc: "Optimized for iOS & Android" },
                 { icon: "🔔", title: "Push Notifications", desc: "Never miss an opportunity" },
                 { icon: "📴", title: "Offline Mode", desc: "Access key features offline" },
-                { icon: "", title: "Secure Payments", desc: "Stripe-powered transactions" },
+                { icon: "💳", title: "Secure Payments", desc: "Stripe-powered transactions" },
               ].map((feature, i) => (
                 <div key={i} className="text-center">
                   <span className="text-4xl block mb-2">{feature.icon}</span>

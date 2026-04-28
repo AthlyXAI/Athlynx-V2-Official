@@ -41,7 +41,7 @@ export default function TeamBots() {
       id: "presentation",
       name: "Presentation Intelligence Suite",
       role: "Glenn Tse - Presenter & Strategic Partner",
-      icon: "",
+      icon: "👥",
       color: "bg-blue-600",
       description: "The Presentation Intelligence Suite empowers Glenn with AI-driven content creation, research support, and audience engagement tools that elevate every presentation to professional excellence.",
       capabilities: [
@@ -103,7 +103,7 @@ export default function TeamBots() {
       id: "marketing",
       name: "Marketing Intelligence Engine",
       role: "Andy Kustes - Marketing Director",
-      icon: "",
+      icon: "👥",
       color: "bg-red-500",
       description: "The Marketing Intelligence Engine provides Andy with AI-powered tools for campaign management, lead generation, content distribution, and performance analytics.",
       capabilities: [
@@ -134,7 +134,7 @@ export default function TeamBots() {
       id: "sales",
       name: "Sales Acceleration Platform",
       role: "Lee Marshall - Sales Director",
-      icon: "",
+      icon: "👥",
       color: "bg-red-500",
       description: "The Sales Acceleration Platform equips Lee with AI-powered tools for CRM management, sales outreach, deal tracking, and customer relationship development.",
       capabilities: [

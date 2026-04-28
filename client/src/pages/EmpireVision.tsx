@@ -71,11 +71,11 @@ export default function EmpireVision() {
 
   const aiCapabilities = [
     { name: "FuelBots", desc: "AI Companions that guide athletes through every aspect of their journey", icon: "🤖" },
-    { name: "AI Training Bot", desc: "Personalized workout plans, form analysis, and performance optimization", icon: "" },
-    { name: "Recruiting Intelligence", desc: "AI-powered matching between athletes and programs", icon: "" },
-    { name: "NIL Valuation", desc: "Real-time athlete market value calculation and deal recommendations", icon: "" },
+    { name: "AI Training Bot", desc: "Personalized workout plans, form analysis, and performance optimization", icon: "🤖" },
+    { name: "Recruiting Intelligence", desc: "AI-powered matching between athletes and programs", icon: "🤖" },
+    { name: "NIL Valuation", desc: "Real-time athlete market value calculation and deal recommendations", icon: "🤖" },
     { name: "Content Generation", desc: "AI-created highlight reels, social posts, and media kits", icon: "🎬" },
-    { name: "Analytics Engine", desc: "Deep performance insights and predictive analytics", icon: "" },
+    { name: "Analytics Engine", desc: "Deep performance insights and predictive analytics", icon: "🤖" },
   ];
 
   const timeline = [

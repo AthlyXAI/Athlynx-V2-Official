@@ -7,7 +7,7 @@ export default function Medical() {
   const services = [
     { id: "all", name: "All Services", icon: "🏥" },
     { id: "orthopedic", name: "Orthopedic", icon: "🦴" },
-    { id: "physical-therapy", name: "Physical Therapy", icon: "" },
+    { id: "physical-therapy", name: "Physical Therapy", icon: "🏥" },
     { id: "sports-medicine", name: "Sports Medicine", icon: "⚕️" },
     { id: "nutrition", name: "Nutrition", icon: "🥗" },
     { id: "mental-health", name: "Mental Health", icon: "🧠" },
@@ -25,10 +25,10 @@ export default function Medical() {
 
   const injuryResources = [
     { icon: "🦵", title: "ACL Recovery", desc: "Complete guide to ACL tear recovery", time: "6-9 months" },
-    { icon: "", title: "Rotator Cuff", desc: "Shoulder injury prevention & rehab", time: "3-6 months" },
+    { icon: "💪", title: "Rotator Cuff", desc: "Shoulder injury prevention & rehab", time: "3-6 months" },
     { icon: "🦶", title: "Ankle Sprains", desc: "Fast recovery protocols", time: "2-6 weeks" },
     { icon: "🏃", title: "Hamstring", desc: "Prevention and treatment guide", time: "2-8 weeks" },
-    { icon: "", title: "Tennis Elbow", desc: "Overuse injury management", time: "6-12 weeks" },
+    { icon: "💪", title: "Tennis Elbow", desc: "Overuse injury management", time: "6-12 weeks" },
     { icon: "🧠", title: "Concussion", desc: "Return to play protocols", time: "1-4 weeks" },
   ];
 
@@ -180,9 +180,9 @@ export default function Medical() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { icon: "", label: "From Home" },
+                  { icon: "🏠", label: "From Home" },
                   { icon: "⏰", label: "24/7 Available" },
-                  { icon: "", label: "Insurance Accepted" },
+                  { icon: "🏠", label: "Insurance Accepted" },
                   { icon: "🔒", label: "HIPAA Secure" },
                 ].map((item, i) => (
                   <div key={i} className="bg-white/5 rounded-xl p-4 text-center">

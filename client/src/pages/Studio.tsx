@@ -70,13 +70,13 @@ export default function Studio() {
     {
       name: "The Closer's Corner",
       description: "Business, deals, and entrepreneurship",
-      icon: "",
+      icon: "🎬",
       color: "from-red-500 to-red-600"
     },
     {
       name: "Athlete Stories",
       description: "Interviews with great athletes",
-      icon: "",
+      icon: "🎬",
       color: "from-red-500 to-red-600"
     },
     {
@@ -94,7 +94,7 @@ export default function Studio() {
     {
       name: "NIL Insights",
       description: "Navigating the NIL landscape",
-      icon: "",
+      icon: "🎬",
       color: "from-red-500 to-red-600"
     }
   ];

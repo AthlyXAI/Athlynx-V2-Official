@@ -96,7 +96,7 @@ export default function FounderStory() {
               className="w-full aspect-video bg-black"
               poster="/athlynx-icon.png"
             >
-              <source src="/final_clean.mp4" type="video/mp4" />
+              <source src="/athlynx-sports-brand.png" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>

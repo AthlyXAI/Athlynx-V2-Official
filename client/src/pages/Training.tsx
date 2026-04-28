@@ -5,10 +5,10 @@ export default function Training() {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const categories = [
-    { id: "all", name: "All Training", icon: "" },
+    { id: "all", name: "All Training", icon: "🏋️" },
     { id: "strength", name: "Strength", icon: "🏋️" },
-    { id: "speed", name: "Speed & Agility", icon: "" },
-    { id: "sport-specific", name: "Sport-Specific", icon: "" },
+    { id: "speed", name: "Speed & Agility", icon: "🏋️" },
+    { id: "sport-specific", name: "Sport-Specific", icon: "🏋️" },
     { id: "recovery", name: "Recovery", icon: "🧘" },
     { id: "nutrition", name: "Nutrition", icon: "🥗" },
   ];

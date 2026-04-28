@@ -21,7 +21,7 @@ export default function NILVault() {
       <div className="space-y-4 pb-20 lg:pb-4">
         <div className="bg-gradient-to-r from-[#1a3a8f] to-[#1a2a4a] border border-blue-800 rounded-xl p-5">
           <div className="flex items-center gap-4">
-            <img src="/logos/athlynx-logo.png" alt="NIL Vault" className="w-14 h-14 rounded-2xl object-cover shadow-lg" />
+            <img src="/athlynx-icon.png" alt="NIL Vault" className="w-14 h-14 rounded-2xl object-cover shadow-lg" />
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-2xl font-black text-white">NIL VAULT</h2>

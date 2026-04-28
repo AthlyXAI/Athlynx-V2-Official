@@ -10,7 +10,7 @@ export default function Music() {
     { id: "hiphop", name: "Hip Hop", icon: "🎤" },
     { id: "edm", name: "EDM", icon: "🎧" },
     { id: "rock", name: "Rock", icon: "🎸" },
-    { id: "motivation", name: "Motivation", icon: "" },
+    { id: "motivation", name: "Motivation", icon: "🎵" },
     { id: "focus", name: "Focus", icon: "🧘" },
   ];
 

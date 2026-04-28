@@ -5,10 +5,10 @@ export default function MilitaryDivision() {
   const [activeTab, setActiveTab] = useState<"pipeline" | "support" | "mentorship">("pipeline");
 
   const marketStats = [
-    { value: "$1.4B+", label: "DoD Recruitment Budget", icon: "" },
-    { value: "500K+", label: "College Athletes/Year", icon: "" },
-    { value: "19M", label: "U.S. Veterans", icon: "" },
-    { value: "96%", label: "Athletes Need Career Path", icon: "" },
+    { value: "$1.4B+", label: "DoD Recruitment Budget", icon: "🎖️" },
+    { value: "500K+", label: "College Athletes/Year", icon: "🎖️" },
+    { value: "19M", label: "U.S. Veterans", icon: "🎖️" },
+    { value: "96%", label: "Athletes Need Career Path", icon: "🎖️" },
   ];
 
   const pipelinePrograms = [
@@ -16,14 +16,14 @@ export default function MilitaryDivision() {
       id: 1,
       name: "Military NIL Sponsorships",
       desc: "Athletes receive NIL deals from Army, Navy, Air Force, Marines, Space Force, Coast Guard in exchange for service commitment",
-      icon: "",
+      icon: "⚡",
       branch: "All Branches",
     },
     {
       id: 2,
       name: "ROTC Athlete Program",
       desc: "Support and NIL opportunities for ROTC cadets who are also college athletes",
-      icon: "",
+      icon: "🏅",
       branch: "Army, Navy, Air Force",
     },
     {
@@ -37,7 +37,7 @@ export default function MilitaryDivision() {
       id: 4,
       name: "Officer Candidate Connections",
       desc: "Fast-track athletes to officer programs with leadership development",
-      icon: "",
+      icon: "⚡",
       branch: "All Branches",
     },
   ];
@@ -82,14 +82,14 @@ export default function MilitaryDivision() {
       id: 6,
       name: "Career Transition Services",
       desc: "Help veterans find civilian employment",
-      icon: "",
+      icon: "⚡",
       type: "Career",
     },
     {
       id: 7,
       name: "Veteran-Owned Business Support",
       desc: "Resources for veteran entrepreneurs",
-      icon: "",
+      icon: "⚡",
       type: "Business",
     },
   ];
@@ -99,25 +99,25 @@ export default function MilitaryDivision() {
       id: 1,
       name: "Battle Buddy System",
       desc: "Pair current athletes with veteran mentors for guidance and support",
-      icon: "",
+      icon: "⚡",
     },
     {
       id: 2,
       name: "Leadership Development",
       desc: "Military-style leadership training for athletes",
-      icon: "",
+      icon: "⚡",
     },
     {
       id: 3,
       name: "Life Skills Training",
       desc: "Financial literacy, discipline, goal-setting",
-      icon: "",
+      icon: "⚡",
     },
     {
       id: 4,
       name: "Career Guidance",
       desc: "Veterans help athletes plan post-sport careers",
-      icon: "",
+      icon: "⚡",
     },
     {
       id: 5,
@@ -189,12 +189,12 @@ export default function MilitaryDivision() {
   ];
 
   const militaryBranches = [
-    { name: "U.S. Army", motto: "This We'll Defend", icon: "" },
+    { name: "U.S. Army", motto: "This We'll Defend", icon: "⚡" },
     { name: "U.S. Navy", motto: "Non Sibi Sed Patriae", icon: "⚓" },
     { name: "U.S. Air Force", motto: "Aim High... Fly-Fight-Win", icon: "✈️" },
     { name: "U.S. Marines", motto: "Semper Fidelis", icon: "🦅" },
     { name: "U.S. Coast Guard", motto: "Semper Paratus", icon: "🚢" },
-    { name: "U.S. Space Force", motto: "Semper Supra", icon: "" },
+    { name: "U.S. Space Force", motto: "Semper Supra", icon: "⚡" },
   ];
 
   return (
