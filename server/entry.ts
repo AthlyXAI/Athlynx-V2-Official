@@ -8,6 +8,7 @@ import { createContext } from "../server/_core/context";
 import { registerStripeWebhook } from "../server/stripe/webhook";
 import { registerJotformWaitlistWebhook } from "../server/webhooks/jotformWaitlist";
 import { runMigrations } from "../server/migrate";
+import { runDualMigrations } from "../server/migrate-dual";
 
 const app = express();
 
@@ -47,8 +48,9 @@ app.get("/api/health", (_req: Request, res: Response) => {
 // Run DB migrations on first cold-start (non-blocking — errors are logged, not thrown)
 // DATABASE_URL is available in the Vercel runtime env but NOT during the build step,
 // which is why we run migrations here rather than in the build:vercel script.
-runMigrations().catch((err) =>
-  console.error("[entry] runMigrations unexpected error:", err)
+// Run migrations on both TiDB (primary) and PlanetScale (backup) on every cold-start
+runDualMigrations().catch((err) =>
+  console.error("[entry] runDualMigrations unexpected error:", err)
 );
 
 // ESM default export — esbuild --format=cjs wraps this correctly for Vercel's Node runtime.

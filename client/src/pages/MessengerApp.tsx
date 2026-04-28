@@ -2,6 +2,7 @@ import PlatformLayout from "@/components/PlatformLayout";
 import { useState, useRef, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { subscribeToMessages, broadcastMessage, trackUserPresence } from "@/lib/supabase-realtime";
 
 const COLORS = [
   "from-blue-600 to-blue-800",
@@ -32,18 +33,38 @@ export default function MessengerApp() {
   // Real conversations from DB
   const { data: conversations = [], isLoading: convosLoading } = trpc.messenger.getConversations.useQuery(
     undefined,
-    { enabled: !!user, refetchInterval: 5000 }
+    { enabled: !!user, refetchInterval: 10000 }
   );
 
   // Real messages from DB
-  const { data: messages = [], isLoading: msgsLoading } = trpc.messenger.getMessages.useQuery(
+  const { data: messages = [], isLoading: msgsLoading, refetch: refetchMessages } = trpc.messenger.getMessages.useQuery(
     { conversationId: activeConvoId ?? 0 },
-    { enabled: !!user && !!activeConvoId, refetchInterval: 3000 }
+    { enabled: !!user && !!activeConvoId }
   );
 
+  // Supabase real-time: subscribe to new messages instantly (no polling)
+  useEffect(() => {
+    if (!activeConvoId) return;
+    const unsubscribe = subscribeToMessages(activeConvoId, () => {
+      refetchMessages();
+    });
+    return unsubscribe;
+  }, [activeConvoId]);
+
+  // Track user presence (online status)
+  useEffect(() => {
+    if (!user) return;
+    const channel = trackUserPresence(user.id, user.name || 'Athlete');
+    return () => { channel.unsubscribe(); };
+  }, [user]);
+
   const sendMessageMutation = trpc.messenger.sendMessage.useMutation({
-    onSuccess: () => {
+    onSuccess: (data: any) => {
       setMessage("");
+      // Broadcast to all participants via Supabase real-time
+      if (activeConvoId) {
+        broadcastMessage(activeConvoId, data);
+      }
       utils.messenger.getMessages.invalidate({ conversationId: activeConvoId ?? 0 });
       utils.messenger.getConversations.invalidate();
     },
