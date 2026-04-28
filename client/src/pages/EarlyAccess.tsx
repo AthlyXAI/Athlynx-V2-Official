@@ -48,10 +48,10 @@ export default function EarlyAccess() {
     }
   }
 
-  async function handleSocialSignIn(provider: 'google' | 'facebook' | 'twitter') {
+  async function handleGoogleSignUp() {
     setError('')
     const { error: oauthError } = await supabase.auth.signInWithOAuth({
-      provider,
+      provider: 'google',
       options: {
         redirectTo: `${window.location.origin}/auth/callback`,
       },
@@ -124,7 +124,7 @@ export default function EarlyAccess() {
         {/* Social Buttons */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
           <button
-            onClick={() => handleSocialSignIn('google')}
+            onClick={handleGoogleSignUp}
             style={{
               width: '100%', padding: '11px', background: '#fff', border: 'none',
               borderRadius: '8px', color: '#333', fontSize: '14px', fontWeight: '600',
