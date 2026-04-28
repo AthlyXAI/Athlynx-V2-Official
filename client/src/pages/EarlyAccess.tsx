@@ -1,140 +1,305 @@
-import { Link } from "wouter";
-
-const CDN = "/athlynx-icon.png";
-
-const FEATURES = [
-  { icon: `${CDN}/nil_portal_app_icon_n_final_0993a3be.png`, title: "NIL Deals", desc: "Connect with brands & earn" },
-  { icon: `${CDN}/ai-recruiter_4cfda0f2.png`, title: "AI Recruiter", desc: "Get discovered by coaches" },
-  { icon: `${CDN}/transfer-portal_509bd0ba.png`, title: "Transfer Portal", desc: "Find your next opportunity" },
-  { icon: `${CDN}/nil-vault_e80ffa38.png`, title: "NIL Vault", desc: "Track every dollar you earn" },
-  { icon: `/athlynx-icon.png`, title: "LYNX AI", desc: "Your personal AI companion" },
-  { icon: `${CDN}/diamond-grind_890f28f2.png`, title: "Diamond Grind", desc: "Train like a champion" },
-];
+import { useState } from 'react'
+import { Link, useLocation } from 'wouter'
+import { supabase } from '@/lib/supabase'
 
 export default function EarlyAccess() {
-  return (
-    <div className="min-h-screen bg-[#050c1a] flex flex-col overflow-hidden">
-      {/* Animated background */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a1a3e] via-[#050c1a] to-[#0a0520]" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#00c2ff]/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#0066ff]/5 rounded-full blur-3xl" />
-        <div
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(0,194,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0,194,255,0.3) 1px, transparent 1px)",
-            backgroundSize: "60px 60px",
-          }}
-        />
+  const [, setLocation] = useLocation()
+  const [fullName, setFullName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
+
+  async function handleSignUp(e: React.FormEvent) {
+    e.preventDefault()
+    if (!fullName.trim() || !email.trim() || !password.trim()) {
+      setError('Please fill in all required fields.')
+      return
+    }
+    setLoading(true)
+    setError('')
+
+    const { data, error: signUpError } = await supabase.auth.signUp({
+      email: email.trim(),
+      password: password.trim(),
+      options: {
+        data: {
+          full_name: fullName.trim(),
+          phone: phone.trim(),
+        },
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+      },
+    })
+
+    if (signUpError) {
+      setError(signUpError.message)
+      setLoading(false)
+      return
+    }
+
+    // If user is confirmed immediately (e.g. email confirmations disabled), redirect
+    if (data.session) {
+      setLocation('/portal')
+    } else {
+      setSuccess(true)
+      setLoading(false)
+    }
+  }
+
+  async function handleSocialSignIn(provider: 'google' | 'facebook' | 'twitter') {
+    setError('')
+    const { error: oauthError } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    })
+    if (oauthError) setError(oauthError.message)
+  }
+
+  if (success) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #0a0f1e 0%, #0d1b3e 50%, #0a1628 100%)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontFamily: 'system-ui, sans-serif', padding: '20px',
+      }}>
+        <div style={{
+          background: 'rgba(0,200,100,0.08)', border: '1px solid rgba(0,200,100,0.3)',
+          borderRadius: '16px', padding: '48px 40px', width: '100%', maxWidth: '420px',
+          textAlign: 'center',
+        }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>✅</div>
+          <h2 style={{ color: '#fff', fontSize: '22px', fontWeight: '800', marginBottom: '12px' }}>
+            Check Your Email!
+          </h2>
+          <p style={{ color: '#94a3b8', fontSize: '15px', lineHeight: '1.6', marginBottom: '24px' }}>
+            We sent a confirmation link to <strong style={{ color: '#00c8ff' }}>{email}</strong>.
+            Click the link to activate your account and you'll be taken straight to your portal.
+          </p>
+          <p style={{ color: '#64748b', fontSize: '13px' }}>
+            Didn't get it? Check your spam folder or{' '}
+            <span
+              onClick={() => setSuccess(false)}
+              style={{ color: '#00c8ff', cursor: 'pointer', textDecoration: 'underline' }}
+            >
+              try again
+            </span>.
+          </p>
+        </div>
       </div>
+    )
+  }
 
-      {/* Header */}
-      <header className="relative z-10 flex items-center justify-between px-6 py-4 border-b border-white/5">
-        <Link href="/">
-          <div className="flex items-center gap-3 cursor-pointer">
-            <img src="/logos/athlynx-main-logo.png" alt="ATHLYNX" className="w-9 h-9 rounded-lg" />
-            <div>
-              <div className="text-white font-black text-lg tracking-tight leading-none">ATHLYNX</div>
-              <div className="text-[#00c2ff] text-[10px] font-semibold tracking-widest uppercase">The Athlete's Playbook</div>
-            </div>
+  return (
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #0a0f1e 0%, #0d1b3e 50%, #0a1628 100%)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      fontFamily: 'system-ui, sans-serif', padding: '20px',
+    }}>
+      <div style={{
+        background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(0,200,255,0.2)',
+        borderRadius: '16px', padding: '40px', width: '100%', maxWidth: '440px',
+        boxShadow: '0 0 40px rgba(0,150,255,0.1)',
+      }}>
+        {/* Title */}
+        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+          <div style={{
+            fontSize: '28px', fontWeight: '900',
+            background: 'linear-gradient(135deg, #00c8ff, #0066cc)',
+            WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent',
+            marginBottom: '6px',
+          }}>
+            ATHLYNX AI
           </div>
-        </Link>
-        <div className="text-white/40 text-sm">
-          By <span className="text-white/70">Dozier Holdings Group</span>
-        </div>
-      </header>
-
-      {/* Main */}
-      <main className="relative z-10 flex flex-1">
-        {/* Left — login card */}
-        <div className="flex flex-1 items-center justify-center px-4 py-12">
-          <div className="w-full max-w-sm">
-            {/* Live badge */}
-            <div className="inline-flex items-center gap-2 bg-[#00c2ff]/10 border border-[#00c2ff]/30 rounded-full px-4 py-1.5 mb-6">
-              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-[#00c2ff] text-xs font-semibold tracking-wide uppercase">Live Platform — 7-Day Free Trial</span>
-            </div>
-
-            <h1 className="text-white text-3xl font-black leading-tight mb-2">
-              Your Athletic<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00c2ff] to-[#0066ff]">
-                Career Starts Here
-              </span>
-            </h1>
-            <p className="text-white/50 text-sm mb-8 leading-relaxed">
-              Join thousands of athletes building their brand, securing NIL deals, and getting recruited — all in one place.
-            </p>
-
-            {/* Login card */}
-            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-7 shadow-2xl">
-              <p className="text-center text-white/50 text-sm mb-5 font-medium">
-                Sign up or sign in to get started
-              </p>
-
-              {/* Get Started Button */}
-              <a href="/signin" className="w-full flex items-center justify-center gap-3 bg-[#00c2ff] hover:bg-[#00a8e0] text-white font-bold py-3.5 px-6 rounded-xl active:scale-[0.98] transition-all duration-150 shadow-lg text-center block">
-                Get Started Free — 7 Days
-              </a>
-
-              {/* Terms */}
-              <p className="text-center text-white/25 text-xs mt-5 leading-relaxed">
-                By continuing you agree to our{" "}
-                <Link href="/terms-of-service"><span className="text-white/40 hover:text-white/70 underline cursor-pointer">Terms</span></Link>
-                {" "}&amp;{" "}
-                <Link href="/privacy-policy"><span className="text-white/40 hover:text-white/70 underline cursor-pointer">Privacy Policy</span></Link>.
-                <br />7-day free trial — credit card required — not charged for 7 days. Athletes, parents, coaches, brands all welcome.
-              </p>
-            </div>
-
-            {/* Stats */}
-            <div className="mt-6 flex items-center justify-center gap-6 text-center">
-              <div>
-                <div className="text-white font-bold text-lg">10K+</div>
-                <div className="text-white/40 text-xs">Athletes</div>
-              </div>
-              <div className="w-px h-8 bg-white/10" />
-              <div>
-                <div className="text-white font-bold text-lg">$2M+</div>
-                <div className="text-white/40 text-xs">NIL Earned</div>
-              </div>
-              <div className="w-px h-8 bg-white/10" />
-              <div>
-                <div className="text-white font-bold text-lg">500+</div>
-                <div className="text-white/40 text-xs">Schools</div>
-              </div>
-            </div>
-
-            <p className="text-white/20 text-[10px] text-center mt-4">
-              Secured by Firebase · A Dozier Holdings Group Company · Houston, TX
-            </p>
-          </div>
+          <p style={{ color: '#94a3b8', fontSize: '14px', margin: 0 }}>
+            Create your free account — 7-day trial
+          </p>
         </div>
 
-        {/* Right — features panel (desktop only) */}
-        <div className="hidden lg:flex flex-1 items-center justify-center px-12 border-l border-white/5">
-          <div className="max-w-sm w-full">
-            <div className="text-white/30 text-xs uppercase tracking-widest mb-4">Everything in one platform</div>
-            <div className="grid grid-cols-2 gap-3 mb-4">
-              {FEATURES.map((f) => (
-                <div
-                  key={f.title}
-                  className="bg-white/5 border border-white/10 hover:border-[#00c2ff]/30 rounded-xl p-4 transition-all duration-200 group"
-                >
-                  <img src={f.icon} alt={f.title} className="w-10 h-10 rounded-xl object-cover mb-2" />
-                  <div className="text-white font-bold text-sm mb-0.5 group-hover:text-[#00c2ff] transition-colors">{f.title}</div>
-                  <div className="text-white/40 text-xs">{f.desc}</div>
-                </div>
-              ))}
-            </div>
-            <div className="bg-gradient-to-r from-[#00c2ff]/10 to-[#0066ff]/10 border border-[#00c2ff]/20 rounded-xl p-4">
-              <div className="text-[#00c2ff] text-xs font-bold uppercase tracking-widest mb-1">NIL Earnings Potential</div>
-              <div className="text-white font-black text-2xl mb-1">$500 – $50,000+</div>
-              <div className="text-white/50 text-xs">per deal, tracked and managed in your NIL Vault</div>
-            </div>
-          </div>
+        {/* Social Buttons */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '20px' }}>
+          <button
+            onClick={() => handleSocialSignIn('google')}
+            style={{
+              width: '100%', padding: '11px', background: '#fff', border: 'none',
+              borderRadius: '8px', color: '#333', fontSize: '14px', fontWeight: '600',
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            Sign up with Google
+          </button>
+
+          <button
+            onClick={() => handleSocialSignIn('facebook')}
+            style={{
+              width: '100%', padding: '11px', background: '#1877F2', border: 'none',
+              borderRadius: '8px', color: '#fff', fontSize: '14px', fontWeight: '600',
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+            }}
+          >
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            Sign up with Facebook
+          </button>
+
+          <button
+            onClick={() => handleSocialSignIn('twitter')}
+            style={{
+              width: '100%', padding: '11px', background: '#000',
+              border: '1px solid rgba(255,255,255,0.15)', borderRadius: '8px',
+              color: '#fff', fontSize: '14px', fontWeight: '600',
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
+            }}
+          >
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            Sign up with X
+          </button>
         </div>
-      </main>
+
+        {/* Divider */}
+        <div style={{ display: 'flex', alignItems: 'center', margin: '16px 0' }}>
+          <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+          <span style={{ color: '#64748b', fontSize: '12px', padding: '0 12px' }}>or sign up with email</span>
+          <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+        </div>
+
+        {/* Error */}
+        {error && (
+          <div style={{
+            background: 'rgba(220,38,38,0.15)', border: '1px solid rgba(220,38,38,0.4)',
+            borderRadius: '8px', padding: '12px', marginBottom: '16px',
+            color: '#fca5a5', fontSize: '14px', textAlign: 'center',
+          }}>
+            {error}
+          </div>
+        )}
+
+        {/* Signup Form */}
+        <form onSubmit={handleSignUp} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          <div>
+            <label style={{ display: 'block', color: '#94a3b8', fontSize: '12px', marginBottom: '5px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Full Name *
+            </label>
+            <input
+              type="text"
+              value={fullName}
+              onChange={e => setFullName(e.target.value)}
+              placeholder="Chad Dozier"
+              required
+              style={{
+                width: '100%', padding: '11px 14px',
+                background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(0,200,255,0.25)',
+                borderRadius: '8px', color: '#fff', fontSize: '14px',
+                outline: 'none', boxSizing: 'border-box',
+              }}
+            />
+          </div>
+
+          <div>
+            <label style={{ display: 'block', color: '#94a3b8', fontSize: '12px', marginBottom: '5px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Email Address *
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              required
+              style={{
+                width: '100%', padding: '11px 14px',
+                background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(0,200,255,0.25)',
+                borderRadius: '8px', color: '#fff', fontSize: '14px',
+                outline: 'none', boxSizing: 'border-box',
+              }}
+            />
+          </div>
+
+          <div>
+            <label style={{ display: 'block', color: '#94a3b8', fontSize: '12px', marginBottom: '5px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              value={phone}
+              onChange={e => setPhone(e.target.value)}
+              placeholder="+1 (555) 000-0000"
+              style={{
+                width: '100%', padding: '11px 14px',
+                background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(0,200,255,0.25)',
+                borderRadius: '8px', color: '#fff', fontSize: '14px',
+                outline: 'none', boxSizing: 'border-box',
+              }}
+            />
+          </div>
+
+          <div>
+            <label style={{ display: 'block', color: '#94a3b8', fontSize: '12px', marginBottom: '5px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Password *
+            </label>
+            <input
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="Min 8 characters"
+              required
+              minLength={8}
+              style={{
+                width: '100%', padding: '11px 14px',
+                background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(0,200,255,0.25)',
+                borderRadius: '8px', color: '#fff', fontSize: '14px',
+                outline: 'none', boxSizing: 'border-box',
+              }}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            style={{
+              width: '100%', padding: '13px',
+              background: loading ? 'rgba(0,102,204,0.5)' : 'linear-gradient(135deg, #0066cc, #00c8ff)',
+              border: 'none', borderRadius: '8px', color: '#fff',
+              fontSize: '15px', fontWeight: '700',
+              cursor: loading ? 'not-allowed' : 'pointer',
+              letterSpacing: '0.5px', marginTop: '4px',
+            }}
+          >
+            {loading ? 'Creating Account...' : 'Create Free Account'}
+          </button>
+        </form>
+
+        <p style={{ textAlign: 'center', color: '#64748b', fontSize: '13px', margin: '20px 0 0' }}>
+          Already have an account?{' '}
+          <span
+            onClick={() => setLocation('/signin')}
+            style={{ color: '#00c8ff', cursor: 'pointer', fontWeight: '600' }}
+          >
+            Sign In
+          </span>
+        </p>
+
+        <p style={{ textAlign: 'center', color: '#475569', fontSize: '11px', margin: '12px 0 0', lineHeight: '1.5' }}>
+          By signing up you agree to our{' '}
+          <Link href="/terms-of-service"><span style={{ color: '#64748b', cursor: 'pointer', textDecoration: 'underline' }}>Terms</span></Link>
+          {' '}&amp;{' '}
+          <Link href="/privacy-policy"><span style={{ color: '#64748b', cursor: 'pointer', textDecoration: 'underline' }}>Privacy Policy</span></Link>.
+          <br />7-day free trial — not charged for 7 days.
+        </p>
+      </div>
     </div>
-  );
+  )
 }

@@ -1,47 +1,38 @@
-import { useEffect } from 'react';
-import { useAuth0 } from '@auth0/auth0-react';
-import { trpc } from '@/lib/trpc';
+import { useEffect } from 'react'
+import { useLocation } from 'wouter'
+import { supabase } from '@/lib/supabase'
 
 /**
- * ATHLYNX — Auth0 Callback Handler
- * After Auth0 redirects back, this page:
- * 1. Waits for Auth0 to finish processing the token
- * 2. Syncs the Auth0 user to our local DB (creates account if new)
- * 3. Fires welcome email + SMS for new users
- * 4. Redirects to the platform
+ * ATHLYNX — Supabase Auth Callback Handler
+ * After Supabase OAuth redirects back, this page:
+ * 1. Waits for Supabase to finish processing the token from the URL
+ * 2. Redirects to the portal on success
  */
 export default function AuthCallback() {
-  const { isAuthenticated, isLoading, user, getAccessTokenSilently } = useAuth0();
-  const syncAuth0User = trpc.auth.syncAuth0User.useMutation();
+  const [, setLocation] = useLocation()
 
   useEffect(() => {
-    if (isLoading) return;
-
-    if (!isAuthenticated || !user) {
-      window.location.href = '/signin';
-      return;
+    // Supabase automatically reads the token from the URL hash/params
+    // We just need to wait for the session to be established
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session) {
+        setLocation('/portal')
+      } else {
+        // Wait a moment for Supabase to process the OAuth callback
+        setTimeout(async () => {
+          const { data: { session: retrySession } } = await supabase.auth.getSession()
+          if (retrySession) {
+            setLocation('/portal')
+          } else {
+            setLocation('/signin')
+          }
+        }, 2000)
+      }
     }
 
-    const doSync = async () => {
-      try {
-        const token = await getAccessTokenSilently();
-        await syncAuth0User.mutateAsync({
-          token,
-          name: user.name || user.nickname || user.email?.split('@')[0] || 'Athlete',
-          email: user.email || '',
-          picture: user.picture || undefined,
-          sub: user.sub || '',
-          phone: (user as any).phone_number || undefined,
-        });
-        window.location.href = '/portal';
-      } catch (err) {
-        console.error('[AuthCallback] Sync failed:', err);
-        window.location.href = '/';
-      }
-    };
-
-    doSync();
-  }, [isAuthenticated, isLoading, user]);
+    checkSession()
+  }, [setLocation])
 
   return (
     <div style={{
@@ -71,5 +62,5 @@ export default function AuthCallback() {
         </p>
       </div>
     </div>
-  );
+  )
 }

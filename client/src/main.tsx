@@ -29,7 +29,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-import { Auth0Provider } from '@auth0/auth0-react';
 import { UNAUTHED_ERR_MSG } from '@shared/const';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink, TRPCClientError } from "@trpc/client";
@@ -37,10 +36,6 @@ import { createRoot } from "react-dom/client";
 import superjson from "superjson";
 import App from "./App";
 import "./index.css";
-
-const AUTH0_DOMAIN = import.meta.env.VITE_AUTH0_DOMAIN || 'login.athlynx.ai';
-const AUTH0_CLIENT_ID = import.meta.env.VITE_AUTH0_CLIENT_ID || 'eDJT34flTy4oOq1cie6ItFubLDPHOrcI';
-const AUTH0_CALLBACK_URL = import.meta.env.VITE_AUTH0_CALLBACK_URL || 'https://athlynx.ai/callback';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -83,20 +78,9 @@ const trpcClient = trpc.createClient({
 });
 
 createRoot(document.getElementById("root")!).render(
-  <Auth0Provider
-    domain={AUTH0_DOMAIN}
-    clientId={AUTH0_CLIENT_ID}
-    authorizationParams={{
-      redirect_uri: AUTH0_CALLBACK_URL,
-      audience: `https://${AUTH0_DOMAIN}/api/v2/`,
-    }}
-    cacheLocation="localstorage"
-    useRefreshTokens={true}
-  >
-    <QueryClientProvider client={queryClient}>
-      <trpc.Provider client={trpcClient} queryClient={queryClient}>
-        <App />
-      </trpc.Provider>
-    </QueryClientProvider>
-  </Auth0Provider>
+  <QueryClientProvider client={queryClient}>
+    <trpc.Provider client={trpcClient} queryClient={queryClient}>
+      <App />
+    </trpc.Provider>
+  </QueryClientProvider>
 );
