@@ -956,7 +956,20 @@ export default function Home() {
               <Link href="/mobile-app" className="hover:text-white transition-colors">Mobile App</Link>
             </div>
           </div>
-          <div className="mt-6 text-center text-blue-600 text-xs">
+          {/* Manus AI Credit */}
+          <div className="mt-6 pt-5 border-t border-blue-900/40 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-purple-700 rounded-lg flex items-center justify-center shadow-lg">
+                <span className="text-white text-xs font-black">M</span>
+              </div>
+              <p className="text-slate-400 text-xs">
+                Proudly built with{" "}
+                <a href="https://manus.im" target="_blank" rel="noopener noreferrer" className="text-violet-400 hover:text-violet-300 font-bold transition-colors">Manus AI</a>
+                {" "}— Our trusted AI development partner and a huge part of building this platform.
+              </p>
+            </div>
+          </div>
+          <div className="mt-4 text-center text-blue-600 text-xs">
             © 2026 Dozier Holdings Group™. All Rights Reserved. ATHLYNX™ | The Athlete's Playbook™ | NIL Portal™ | Diamond Grind™ | Gridiron Nexus™ | Pitch Pulse™ | Court Kings™ | Reel Masters™ | Warriors Playbook™ | NIL Vault™ | Transfer Portal™ | Fuel Bots™ are trademarks of Dozier Holdings Group. Dreams Do Come True 2026.
           </div>
         </div>
