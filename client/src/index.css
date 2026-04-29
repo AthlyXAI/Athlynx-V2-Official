@@ -332,6 +332,18 @@ select option {
   background: rgba(59, 130, 246, 0.7);
 }
 
+/* X-Factor phone mockup progress bar */
+@keyframes progress {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+.animate-progress { animation: progress 3s linear infinite; }
+
+/* Radial gradient utility */
+.bg-gradient-radial {
+  background: radial-gradient(ellipse at center, var(--tw-gradient-stops));
+}
+
 /* AI Wizard bounce animation */
 @keyframes wizard-pulse {
   0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }

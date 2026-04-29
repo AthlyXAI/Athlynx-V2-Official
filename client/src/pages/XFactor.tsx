@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import XFactorPhoneMockup from "../components/XFactorPhoneMockup";
 import {
   Zap, Trophy, Star, TrendingUp, Heart, MessageCircle, Repeat2,
   Share2, Bookmark, MoreHorizontal, Search, Bell, Home, User,
@@ -246,6 +247,11 @@ export default function XFactor() {
             </button>
           ))}
         </div>
+      </div>
+
+      {/* Hero Phone Mockup — shown on landing, hidden once user scrolls into feed */}
+      <div className="bg-black border-b border-slate-800">
+        <XFactorPhoneMockup />
       </div>
 
       <div className="max-w-6xl mx-auto flex">
