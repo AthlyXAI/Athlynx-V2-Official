@@ -93,6 +93,12 @@ import TrainerBot from "./pages/TrainerBot";
 import AthleteJourney from "./pages/AthleteJourney";
 import About from "./pages/About";
 import AthleteLeagalHub from "./pages/AthleteLeagalHub";
+import AthleteLifeHub from "./pages/AthleteLifeHub";
+import AgentFinder from "./pages/AgentFinder";
+import AthleteFinancial from "./pages/AthleteFinancial";
+import AthleteLegal from "./pages/AthleteLegal";
+import AthleteHealth from "./pages/AthleteHealth";
+import AthleteCareer from "./pages/AthleteCareer";
 import MasterAdmin from "./pages/MasterAdmin";
 import RobotCompanions from "./pages/RobotCompanions";
 import AppStoreSubmission from "./pages/AppStoreSubmission";
@@ -228,6 +234,17 @@ function Router() {
       <Route path="/comms-hub" component={CommsHub} />
       <Route path="/legal-hub" component={LegalHub} />
       <Route path="/athlete-legal-hub" component={AthleteLeagalHub} />
+      <Route path="/athlete-life" component={AthleteLifeHub} />
+      <Route path="/life-hub" component={AthleteLifeHub} />
+      <Route path="/agent-finder" component={AgentFinder} />
+      <Route path="/agents" component={AgentFinder} />
+      <Route path="/athlete-financial" component={AthleteFinancial} />
+      <Route path="/financial" component={AthleteFinancial} />
+      <Route path="/athlete-legal" component={AthleteLegal} />
+      <Route path="/legal" component={AthleteLegal} />
+      <Route path="/athlete-health" component={AthleteHealth} />
+      <Route path="/athlete-career" component={AthleteCareer} />
+      <Route path="/career" component={AthleteCareer} />
       <Route path="/athlete-journey" component={AthleteJourney} />
       <Route path="/about" component={About} />
       <Route path="/master-admin" component={MasterAdmin} />
