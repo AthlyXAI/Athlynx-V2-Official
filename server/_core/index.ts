@@ -9,6 +9,7 @@ import { serveStatic, setupVite } from "./vite";
 import { registerStripeWebhook } from "../stripe/webhook";
 import { startWeeklyReportJob } from "../jobs/weeklyReport";
 import { startSubscriptionExpiryJob } from "../jobs/subscriptionExpiryJob";
+import { startPlatformMessagesJob } from "../jobs/platformMessagesJob";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -71,3 +72,5 @@ startWeeklyReportJob();
 
 // Schedule subscription expiry email job (runs every hour)
 startSubscriptionExpiryJob();
+// Schedule platform in-app reminder messages (runs every 24 hours — no banners)
+startPlatformMessagesJob();

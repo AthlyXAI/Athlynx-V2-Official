@@ -99,6 +99,16 @@ export const customAuthRouter = router({
         }
       }
 
+      // Send welcome in-app notification to new user (no banners — messages only)
+      if (isNewUser && user) {
+        try {
+          const { sendWelcomeNotification } = await import("../jobs/platformMessagesJob");
+          await sendWelcomeNotification(user.id, name);
+        } catch (welcomeNotifErr) {
+          console.warn("[AUTH] Welcome notification failed:", welcomeNotifErr);
+        }
+      }
+
       // Notify Chad when a brand new user signs up via Google/Firebase
       if (isNewUser) {
         try {
@@ -255,6 +265,16 @@ export const customAuthRouter = router({
         console.log("[AUTH] Welcome email sent to", input.email);
       } catch (welcomeEmailErr) {
         console.error("[AUTH] Welcome email failed:", welcomeEmailErr);
+      }
+
+      // Send welcome in-app notification to new email/password user
+      if (user) {
+        try {
+          const { sendWelcomeNotification } = await import("../jobs/platformMessagesJob");
+          await sendWelcomeNotification(user.id, input.name);
+        } catch (welcomeNotifErr) {
+          console.warn("[AUTH] Welcome notification failed:", welcomeNotifErr);
+        }
       }
 
       // Send Welcome SMS if phone number was provided
