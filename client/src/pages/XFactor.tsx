@@ -212,9 +212,12 @@ export default function XFactor() {
               </button>
             </Link>
             <div className="flex items-center gap-2">
-              <img src="/xfactor-icon.png" alt="X-Factor" className="w-8 h-8 rounded-lg object-cover" />
-              <span className="font-black text-lg tracking-tight">X-Factor</span>
-              <span className="text-xs text-slate-500 font-medium">by Athlynx</span>
+              {/* AthlynX is the STAR — logo always leads */}
+              <img src="/athlynx-icon.png" alt="ATHLYNX" className="w-9 h-9 rounded-xl object-cover" style={{ boxShadow: "0 0 12px rgba(0,194,255,0.5)" }} />
+              <div className="flex flex-col leading-none">
+                <span className="font-black text-[10px] tracking-widest text-[#00c2ff] uppercase">ATHLYNX</span>
+                <span className="font-black text-lg tracking-tight text-white leading-tight">X-Factor</span>
+              </div>
             </div>
           </div>
           <div className="flex items-center gap-3">

@@ -98,7 +98,7 @@ export default function UnifiedNav() {
             {/* Header */}
             <div className="sticky top-0 bg-slate-900/95 backdrop-blur-xl p-4 border-b border-cyan-500/30">
               <div className="flex items-center gap-3">
-                <img src="/logos/dhg-crab-logo.png" alt="DHG" className="w-10 h-10 rounded-full" />
+                <img src="/athlynx-icon.png" alt="ATHLYNX" className="w-10 h-10 rounded-xl object-cover" style={{ boxShadow: "0 0 12px rgba(0,194,255,0.5)" }} />
                 <div>
                   <h2 className="text-white font-bold">ATHLYNX</h2>
                   <p className="text-cyan-400 text-xs">Navigation Hub</p>
