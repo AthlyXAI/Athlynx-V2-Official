@@ -1,18 +1,39 @@
 # ATHLYNX MANUS MASTER REFERENCE FILE
-## Last Updated: April 29, 2026
+## Last Updated: April 29, 2026 — UNIFIED IDENTITY UPDATE
 ## READ THIS FILE AT THE START OF EVERY MANUS TASK
 
 ---
 
-## OWNER & FOUNDER
+## UNIFIED IDENTITY — 1 PERSON · 1 COMPANY · 1 AI · 1 EMAIL · 1 PHONE · 1 BANK
 
-| Field | Value |
-|-------|-------|
-| **Name** | Chad A. Dozier Sr. |
-| **Title** | Founder & CEO |
-| **Platform Email** | cdozier14@athlynx.ai |
-| **DHG Email** | cdozier@dozierholdingsgroup.com |
-| **DHG MX Email** | cdozier@dozierholdingsgroup.com.mx |
+| Item | Value |
+|------|-------|
+| **Person** | Chad A. Dozier Sr. — Founder & CEO |
+| **Company** | Dozier Holdings Group (DHG) — Parent Company |
+| **Primary Email** | cdozier14@athlynx.ai |
+| **Phone** | +1-601-498-5282 (USA/MS) |
+| **Address** | 19039 Cloyanna Ln, Humble, TX 77346 |
+| **Website** | athlynx.ai |
+| **GitHub Account** | chaddozier75-cmd |
+| **GitHub Repo** | chaddozier75-cmd/Athlynx-V2-Official |
+| **Bank** | 1 business account — shared across all subsidiaries |
+
+> **Backup emails (READ-ONLY — no accounts, no repos, no services):**
+> chaddozier75@gmail.com · chad.dozier@icloud.com · cdozier@dozierholdingsgroup.com · cdozier14@dozierholdingsgroup.com.mx
+
+---
+
+## AI AGENT STACK — ALL UNDER ONE ACCOUNT
+
+| Agent | Role | Account |
+|-------|------|---------|
+| **Manus** | Primary autonomous agent — builds, deploys, manages | cdozier14@athlynx.ai |
+| **Google Gemini** | Language + multimodal AI — embedded in platform | cdozier14@athlynx.ai (Google Workspace) |
+| **Claude** | Reasoning + document AI — secondary | cdozier14@athlynx.ai |
+
+---
+
+## OWNER & FOUNDER
 
 ---
 
@@ -63,13 +84,13 @@
 
 ---
 
-## PLATFORM REPOSITORIES
+## PLATFORM REPOSITORY — ONE REPO ONLY
 
-| Repo | URL | Purpose |
-|------|-----|---------|
-| Main Platform | https://github.com/chaddozier75-cmd/Athlynx-V2-Official | Primary codebase — ALWAYS push here |
-| athlynx-platform | https://github.com/chaddozier-bot/athlynx-vip-platform | Secondary |
-| perfect-storm | https://github.com/chaddozier-bot/athlynx-perfect-storm | Secondary |
+| Item | Value |
+|------|-------|
+| **Repo** | https://github.com/chaddozier75-cmd/Athlynx-V2-Official |
+| **Branch** | main — auto-deploys to Vercel on every push |
+| **Rule** | ALWAYS push here. No other repos. No exceptions. |
 
 ---
 
@@ -84,24 +105,30 @@
 
 ---
 
-## SERVICES & ACCOUNTS
+## CONNECTOR APPS — ALL UNDER cdozier14@athlynx.ai
 
-| Service | Account / Notes |
-|---------|----------------|
-| Stripe | Live keys in Vercel env vars — LIVE mode |
-| Supabase | Database + Auth — env vars in Vercel |
-| Neon | Postgres database |
-| Cloudflare | DNS + CDN for athlynx.ai |
-| Vercel | Hosting — auto-deploy from GitHub |
-| GitHub | chaddozier75-cmd account |
-| Twilio | SMS notifications |
+| Connector | Purpose |
+|-----------|----------|
+| GitHub | Code — chaddozier75-cmd/Athlynx-V2-Official |
+| Vercel | Deployment — athlynx.ai |
+| Stripe | Payments + subscriptions (LIVE mode) |
+| Supabase | Database |
+| Cloudflare | DNS + CDN + security |
+| Jotform | Waitlist + forms |
+| Fireflies | Meeting transcription |
+| Gmail | Email |
+| Google Calendar | Scheduling |
+| Google Drive | File storage |
+| Outlook Mail | Secondary email (backup) |
+| Outlook Calendar | Secondary calendar (backup) |
+| Instagram | Social media |
+| Meta Ads Manager | Advertising |
 | Zapier | Automation workflows |
-| Netlify | Secondary hosting |
-| Railway | Backend services |
+| Neon | Postgres database |
+| Twilio | SMS notifications |
 | AWS | Cloud infrastructure |
 | OpenAI | AI features |
 | Google Cloud | OAuth + APIs |
-| Stripe Atlas | Business incorporation |
 
 ---
 
@@ -151,6 +178,21 @@
 | Traditional team equivalent cost | $2,074,000 (12 people, 17 months) |
 | Professional invoice value (Invoice DHG-2026-001) | $913,250 |
 | **Savings achieved** | **$1,800,000+** |
+
+---
+
+## NON-NEGOTIABLE RULES
+
+1. **1 email everywhere:** cdozier14@athlynx.ai
+2. **1 phone everywhere:** +1-601-498-5282
+3. **1 repo:** chaddozier75-cmd/Athlynx-V2-Official
+4. **1 AI agent stack:** Manus + Gemini + Claude — all same account
+5. **Backup emails are READ-ONLY** — no accounts, no repos, no services on them
+6. **1 bank account** — all subsidiaries route through DHG parent
+7. **No duplicates** — if something exists twice, delete the older one immediately
+8. **No breaking changes** — never delete working code without a replacement
+9. **Always push to main** — never create new branches without reason
+10. **Always commit and push before ending any task**
 
 ---
 
