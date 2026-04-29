@@ -527,11 +527,78 @@ export default function Store() {
               🛒 OFFICIAL STORE
             </span>
             <h1 className="text-4xl md:text-6xl font-black text-white mb-4">
-              DHG <span className="text-red-400">Enterprise Store</span>
+              The Amazon of <span className="text-red-400">Sports</span>
             </h1>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              From sports equipment to enterprise data center solutions. Hardware, software, AI companions, and everything in between.
+              Memberships, AI credits, training programs, NIL gear, recruiting services, playbooks, enterprise servers, and more — everything an athlete needs, all in one place.
             </p>
+          </div>
+
+          {/* ── Membership Plans ── */}
+          <div className="mb-12">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-red-500/30" />
+              <span className="text-red-400 font-bold tracking-widest text-xs uppercase">ATHLYNX Memberships</span>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-red-500/30" />
+            </div>
+            <p className="text-gray-400 text-sm text-center mb-6">7-day free trial on all plans — credit card required, not charged until day 8.</p>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {[
+                { name: "Athlete Free", price: "$0", badge: "Free Trial", color: "border-blue-500/40 bg-blue-900/20", features: ["Basic Profile", "NIL Discovery", "Community Feed", "7-Day Trial"] },
+                { name: "Starter", price: "$9.99", badge: "Starter", color: "border-cyan-500/40 bg-cyan-900/20", features: ["Basic Profile", "NIL Discovery", "Community Messaging", "Diamond Grind"] },
+                { name: "Pro", price: "$19.99", badge: "Most Popular", color: "border-green-500/40 bg-green-900/20", features: ["AI Recruiter", "NIL Marketplace", "Warriors Playbook", "AI Sales"] },
+                { name: "Elite", price: "$39.99", badge: "Best Value", color: "border-purple-500/40 bg-purple-900/20", features: ["NIL Vault", "Brand Deal AI", "Account Manager", "API Access"] },
+                { name: "Champion", price: "$59.99", badge: "Champion", color: "border-orange-500/40 bg-orange-900/20", features: ["NIL Analytics", "Brand Deal Suite", "Custom Page", "Early Access"] },
+                { name: "MVP", price: "$99.99", badge: "MVP 🏆", color: "border-yellow-500/40 bg-yellow-900/20", features: ["1-on-1 Strategy", "VIP Network", "Unlimited Credits", "Custom Brand Kit"] },
+              ].map(plan => (
+                <div key={plan.name} className={`border rounded-xl p-4 flex flex-col ${plan.color}`}>
+                  <span className="text-xs font-bold text-white/60 mb-1">{plan.badge}</span>
+                  <h3 className="font-black text-white text-sm mb-1">{plan.name}</h3>
+                  <div className="text-xl font-black text-white mb-3">{plan.price}<span className="text-xs text-white/40">/mo</span></div>
+                  <ul className="space-y-1 mb-4 flex-1">
+                    {plan.features.map((f, i) => <li key={i} className="text-xs text-white/60 flex items-center gap-1"><span className="text-green-400">✓</span>{f}</li>)}
+                  </ul>
+                  <button
+                    onClick={() => window.location.href = '/pricing'}
+                    className="w-full py-1.5 bg-red-500 hover:bg-red-400 text-white text-xs font-bold rounded-lg transition-colors"
+                  >
+                    Get Started
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── AI Credits ── */}
+          <div className="mb-12">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-cyan-500/30" />
+              <span className="text-cyan-400 font-bold tracking-widest text-xs uppercase">AI Credits</span>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-cyan-500/30" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {[
+                { name: "100 Credits", price: "$9.99", icon: "⚡", desc: "Casual AI Trainer sessions", highlight: false },
+                { name: "500 Credits", price: "$39.99", icon: "🔥", desc: "Best value for active athletes", highlight: true },
+                { name: "1,000 Credits", price: "$69.99", icon: "💎", desc: "Power users, teams & coaches", highlight: false },
+              ].map(pack => (
+                <div key={pack.name} className={`relative border rounded-xl p-5 text-center flex flex-col items-center ${
+                  pack.highlight ? "border-cyan-500/50 bg-cyan-900/20" : "border-white/10 bg-white/5"
+                }`}>
+                  {pack.highlight && <span className="absolute -top-3 bg-cyan-500 text-black text-xs font-black px-3 py-1 rounded-full">BEST VALUE</span>}
+                  <div className="text-3xl mb-2">{pack.icon}</div>
+                  <h3 className="font-black text-white mb-1">{pack.name}</h3>
+                  <div className="text-2xl font-black text-cyan-400 mb-2">{pack.price}</div>
+                  <p className="text-white/50 text-xs mb-4">{pack.desc}</p>
+                  <button
+                    onClick={() => window.location.href = '/pricing'}
+                    className="w-full py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-bold rounded-lg transition-colors"
+                  >
+                    Buy Credits
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Categories */}

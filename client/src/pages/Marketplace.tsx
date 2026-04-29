@@ -270,13 +270,13 @@ export default function Marketplace() {
             <Badge className="bg-blue-700/20 text-blue-300 border border-blue-600/30 px-3 py-1">REQUEST A QUOTE</Badge>
           </div>
           <h1 className="text-4xl md:text-6xl font-black tracking-tight mb-4">
-            The Athlete's
+            The Amazon of
             <span className="block bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-              Equipment Store
+              Sports
             </span>
           </h1>
           <p className="text-white/60 text-lg max-w-2xl mb-8">
-            Enterprise custom servers, GPU cloud infrastructure, and elite athletic gear — all in one place. Powered by ICC-USA and RunSun Cloud.
+            Memberships, AI credits, training programs, NIL gear, recruiting services, playbooks, enterprise servers, and more — everything an athlete needs, all in one place.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 max-w-xl">
             <Input
@@ -342,6 +342,90 @@ export default function Marketplace() {
             </div>
           )}
         </div>
+
+        {/* ── Membership Plans ── */}
+        {(activeCategory === "All" || activeCategory === "Memberships") && !search && (
+          <div className="mb-16">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-blue-500/30" />
+              <span className="text-blue-400 font-bold tracking-widest text-xs uppercase">ATHLYNX Memberships</span>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-blue-500/30" />
+            </div>
+            <p className="text-white/50 text-sm text-center mb-8">7-day free trial on all plans — credit card required, not charged until day 8.</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { id: "athlete_free", name: "Athlete Free", price: "$0", period: "/mo", badge: "Free Trial", badgeColor: "bg-blue-600", gradient: "from-blue-900/40 to-blue-950/40", border: "border-blue-500/30", desc: "7-day free trial — converts to Starter ($9.99/mo) on day 8.", features: ["Basic Athlete Profile", "NIL Deal Discovery", "Community Feed", "Transfer Portal Access", "7-Day Free Trial"], cta: "Start Free Trial", planId: "athlete_free" },
+                { id: "athlete_starter", name: "Athlete Starter", price: "$9.99", period: "/mo", badge: "Best for Beginners", badgeColor: "bg-cyan-600", gradient: "from-cyan-900/30 to-blue-950/40", border: "border-cyan-500/30", desc: "Essential access — NIL discovery, messaging, and community.", features: ["Basic Athlete Profile", "NIL Deal Discovery", "Community Messaging", "Transfer Portal Access", "Diamond Grind Training"], cta: "Get Started", planId: "athlete_starter" },
+                { id: "athlete_pro", name: "Athlete Pro", price: "$19.99", period: "/mo", badge: "Most Popular", badgeColor: "bg-green-600", gradient: "from-green-900/30 to-blue-950/40", border: "border-green-500/30", desc: "Full platform access with AI recruiting and NIL deal tracking.", features: ["Everything in Starter", "AI Recruiter Tools", "NIL Deal Marketplace", "Warriors Playbook", "AI Sales Automation", "Priority Support"], cta: "Go Pro", planId: "athlete_pro" },
+                { id: "athlete_elite", name: "Athlete Elite", price: "$39.99", period: "/mo", badge: "Best Value", badgeColor: "bg-purple-600", gradient: "from-purple-900/30 to-blue-950/40", border: "border-purple-500/30", desc: "White-glove NIL management, brand deals, and 1-on-1 strategy.", features: ["Everything in Pro", "NIL Vault (Contract Archive)", "Brand Deal Negotiation AI", "Dedicated Account Manager", "White-label Branding", "API Access"], cta: "Go Elite", planId: "athlete_elite" },
+                { id: "athlete_champion", name: "Athlete Champion", price: "$59.99", period: "/mo", badge: "Champion", badgeColor: "bg-orange-600", gradient: "from-orange-900/30 to-blue-950/40", border: "border-orange-500/30", desc: "Advanced NIL suite, AI brand deals, and dedicated coaching support.", features: ["Everything in Elite", "Advanced NIL Analytics", "AI Brand Deal Suite", "Dedicated Coaching Support", "Custom Athlete Landing Page", "Priority Recruiting Exposure", "Early Feature Access"], cta: "Become a Champion", planId: "athlete_champion" },
+                { id: "athlete_mvp", name: "Athlete MVP", price: "$99.99", period: "/mo", badge: "MVP 🏆", badgeColor: "bg-yellow-600", gradient: "from-yellow-900/30 to-blue-950/40", border: "border-yellow-500/30", desc: "The ultimate ATHLYNX experience — everything, plus 1-on-1 personal strategy.", features: ["Everything in Champion", "1-on-1 Personal Strategy Sessions", "VIP Recruiting Network Access", "White-Glove NIL Management", "Unlimited AI Credits/mo", "Custom Brand Kit", "Direct Line to ATHLYNX Team"], cta: "Go MVP", planId: "athlete_mvp" },
+              ].map(plan => (
+                <div key={plan.id} className={`bg-gradient-to-br ${plan.gradient} border ${plan.border} rounded-2xl p-6 flex flex-col`}>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className={`${plan.badgeColor} text-white text-xs font-bold px-2 py-1 rounded-full`}>{plan.badge}</span>
+                  </div>
+                  <h3 className="text-xl font-black text-white mb-1">{plan.name}</h3>
+                  <div className="flex items-baseline gap-1 mb-2">
+                    <span className="text-3xl font-black text-white">{plan.price}</span>
+                    <span className="text-white/50 text-sm">{plan.period}</span>
+                  </div>
+                  <p className="text-white/50 text-xs mb-4">{plan.desc}</p>
+                  <ul className="space-y-1.5 mb-6 flex-1">
+                    {plan.features.map((f, i) => (
+                      <li key={i} className="flex items-center gap-2 text-xs text-white/70">
+                        <span className="text-green-400">✓</span>{f}
+                      </li>
+                    ))}
+                  </ul>
+                  <Button
+                    className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-bold"
+                    onClick={() => window.location.href = `/pricing`}
+                  >
+                    {plan.cta}
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── AI Credits ── */}
+        {(activeCategory === "All" || activeCategory === "AI Credits") && !search && (
+          <div className="mb-16">
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-cyan-500/30" />
+              <span className="text-cyan-400 font-bold tracking-widest text-xs uppercase">AI Credits</span>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-cyan-500/30" />
+            </div>
+            <p className="text-white/50 text-sm text-center mb-8">Power your AI Trainers, Teammates &amp; Companions. Credits never expire.</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { id: "credits_100", name: "100 Credits", price: "$9.99", icon: "⚡", desc: "Perfect for casual AI Trainer sessions.", highlight: false },
+                { id: "credits_500", name: "500 Credits", price: "$39.99", icon: "🔥", desc: "Best value for active athletes.", highlight: true },
+                { id: "credits_1000", name: "1,000 Credits", price: "$69.99", icon: "💎", desc: "Power users, teams, and coaches.", highlight: false },
+              ].map(pack => (
+                <div key={pack.id} className={`relative border rounded-2xl p-6 text-center flex flex-col items-center ${
+                  pack.highlight
+                    ? "bg-gradient-to-br from-cyan-900/40 to-blue-950/40 border-cyan-500/50 shadow-lg shadow-cyan-900/20"
+                    : "bg-white/[0.03] border-white/10"
+                }`}>
+                  {pack.highlight && <span className="absolute -top-3 bg-cyan-500 text-black text-xs font-black px-3 py-1 rounded-full">BEST VALUE</span>}
+                  <div className="text-4xl mb-3">{pack.icon}</div>
+                  <h3 className="text-xl font-black text-white mb-1">{pack.name}</h3>
+                  <div className="text-3xl font-black text-cyan-400 mb-2">{pack.price}</div>
+                  <p className="text-white/50 text-xs mb-5">{pack.desc}</p>
+                  <Button
+                    className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold"
+                    onClick={() => window.location.href = `/pricing`}
+                  >
+                    Buy Credits
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* ── Partner Banner ── */}
         <div className="border border-white/10 rounded-2xl p-8 bg-white/[0.02] mb-16">
