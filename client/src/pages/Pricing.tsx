@@ -11,30 +11,43 @@ import { toast } from "sonner";
 import { Check, Zap, Shield, Star, CreditCard, Phone } from "lucide-react";
 
 const PLAN_ICONS: Record<string, React.ReactNode> = {
+  athlete_free: <Check className="w-6 h-6" />,
   athlete_starter: <Check className="w-6 h-6" />,
   athlete_pro: <Zap className="w-6 h-6" />,
   athlete_elite: <Star className="w-6 h-6" />,
+  athlete_champion: <Shield className="w-6 h-6" />,
+  athlete_mvp: <Star className="w-6 h-6" />,
   nil_vault: <Shield className="w-6 h-6" />,
 };
 
 // Hardcoded fallback plans shown when tRPC backend is unavailable
 const FALLBACK_PLANS = [
   {
+    id: "athlete_free",
+    name: "Athlete Free",
+    description: "Get started at no cost. 7-day free trial — converts to Starter ($9.99/mo) on day 8.",
+    priceMonthly: 0,
+    priceYearly: 0,
+    features: ["Basic Athlete Profile", "NIL Deal Discovery", "Community Feed", "Transfer Portal Access", "7-Day Free Trial"],
+    badge: "Free Trial",
+    color: "#0066ff",
+  },
+  {
     id: "athlete_starter",
     name: "Athlete Starter",
     description: "Essential access to the ATHLYNX platform — NIL discovery, messaging, and community features.",
     priceMonthly: 999,
-    priceYearly: 9900,
+    priceYearly: 9588,
     features: ["Basic Athlete Profile", "NIL Deal Discovery", "Community Messaging", "Transfer Portal Access", "Diamond Grind Training", "7-Day Free Trial"],
     badge: "Best for Beginners",
-    color: "#0066ff",
+    color: "#0099ff",
   },
   {
     id: "athlete_pro",
     name: "Athlete Pro",
     description: "Full platform access with AI recruiting, NIL deal tracking, and transfer portal intelligence.",
-    priceMonthly: 4999,
-    priceYearly: 49900,
+    priceMonthly: 1999,
+    priceYearly: 19188,
     features: ["Everything in Starter", "AI Recruiter Tools", "NIL Deal Marketplace", "Warriors Playbook", "AI Sales Automation", "Priority Support"],
     badge: "Most Popular",
     color: "#00c2ff",
@@ -42,12 +55,32 @@ const FALLBACK_PLANS = [
   {
     id: "athlete_elite",
     name: "Athlete Elite",
-    description: "The complete ATHLYNX experience — white-glove NIL management, brand deals, and 1-on-1 strategy.",
-    priceMonthly: 9999,
-    priceYearly: 99900,
+    description: "The complete ATHLYNX experience — NIL management, brand deals, and 1-on-1 strategy.",
+    priceMonthly: 3999,
+    priceYearly: 38388,
     features: ["Everything in Pro", "NIL Vault (Contract Archive)", "Brand Deal Negotiation AI", "Dedicated Account Manager", "White-label Branding", "API Access"],
     badge: "Best Value",
     color: "#7c3aed",
+  },
+  {
+    id: "athlete_champion",
+    name: "Athlete Champion",
+    description: "Advanced NIL analytics, custom athlete page, and early access to new features.",
+    priceMonthly: 5999,
+    priceYearly: 57588,
+    features: ["Everything in Elite", "Advanced NIL Analytics", "Custom Athlete Page", "Early Access Features", "Priority Deal Matching", "Champion Badge"],
+    badge: "Champion Tier",
+    color: "#f59e0b",
+  },
+  {
+    id: "athlete_mvp",
+    name: "Athlete MVP",
+    description: "1-on-1 strategy, VIP network, unlimited credits, and white-glove service.",
+    priceMonthly: 9999,
+    priceYearly: 95988,
+    features: ["Everything in Champion", "1-on-1 Strategy Sessions", "VIP Athlete Network", "Unlimited AI Credits", "White-Glove Service", "MVP Badge & Verified"],
+    badge: "MVP — Top Tier",
+    color: "#ef4444",
   },
 ];
 

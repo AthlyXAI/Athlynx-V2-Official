@@ -79,7 +79,7 @@ export const STRIPE_PLANS = [
   {
     id: "athlete_elite",
     name: "Athlete Elite",
-    description: "The complete ATHLYNX experience — white-glove NIL management, brand deals, and 1-on-1 strategy.",
+    description: "The complete ATHLYNX experience — NIL management, brand deals, and 1-on-1 strategy.",
     priceMonthly: 3999, // $39.99/month
     priceYearly: 38388, // $383.88/yr ($31.99/mo)
     features: [
@@ -90,10 +90,50 @@ export const STRIPE_PLANS = [
       "White-label Branding",
       "API Access",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_ELITE ?? process.env.STRIPE_PRICE_ELITE_MONTHLY ?? "price_1TQalQGvvjXZw2uEjYMwKUgW",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_ELITE ?? "price_1TQalQGvvjXZw2uEjYMwKUgW",
     stripePriceIdYearly: process.env.STRIPE_PRICE_ELITE_YEARLY ?? "price_1TQalQGvvjXZw2uEjYMwKUgW",
     badge: "Best Value",
     color: "#7c3aed",
+    trialDays: 7,
+  },
+  {
+    id: "athlete_champion",
+    name: "Athlete Champion",
+    description: "Advanced NIL analytics, custom athlete page, and early access to new features.",
+    priceMonthly: 5999, // $59.99/month
+    priceYearly: 57588, // $575.88/yr ($47.99/mo)
+    features: [
+      "Everything in Elite",
+      "Advanced NIL Analytics",
+      "Custom Athlete Page",
+      "Early Access Features",
+      "Priority Deal Matching",
+      "Champion Badge",
+    ],
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_CHAMPION ?? "price_1TRP8fGvvjXZw2uEkSzl2zwi",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_CHAMPION_YEARLY ?? "price_1TRP8fGvvjXZw2uEkSzl2zwi",
+    badge: "Champion Tier",
+    color: "#f59e0b",
+    trialDays: 7,
+  },
+  {
+    id: "athlete_mvp",
+    name: "Athlete MVP",
+    description: "1-on-1 strategy, VIP network, unlimited credits, and white-glove service.",
+    priceMonthly: 9999, // $99.99/month
+    priceYearly: 95988, // $959.88/yr ($79.99/mo)
+    features: [
+      "Everything in Champion",
+      "1-on-1 Strategy Sessions",
+      "VIP Athlete Network",
+      "Unlimited AI Credits",
+      "White-Glove Service",
+      "MVP Badge & Verified",
+    ],
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_MVP ?? "price_1TRP8hGvvjXZw2uEeZcjmeaD",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_MVP_YEARLY ?? "price_1TRP8hGvvjXZw2uEeZcjmeaD",
+    badge: "MVP — Top Tier",
+    color: "#ef4444",
     trialDays: 7,
   },
 ] as const;
