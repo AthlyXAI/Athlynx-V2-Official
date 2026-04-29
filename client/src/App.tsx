@@ -34,6 +34,7 @@ import NILVault from "./pages/NILVault";
 import NILMarketplace from "./pages/NILMarketplace";
 import NILJobs from "./pages/NILJobs";
 import AthleteCalendar from "./pages/AthleteCalendar";
+import EliteEvents from "./pages/EliteEvents";
 import NILCalculator from "./pages/NILCalculator";
 import TransferPortal from "./pages/TransferPortal";
 import TransferPortalFOS from "./pages/TransferPortalFOS";
@@ -203,6 +204,8 @@ function Router() {
       <Route path="/nil-jobs" component={NILJobs} />
       <Route path="/athlete-calendar" component={AthleteCalendar} />
       <Route path="/calendar" component={AthleteCalendar} />
+      <Route path="/elite-events" component={EliteEvents} />
+      <Route path="/events" component={EliteEvents} />
       <Route path="/nil-calculator" component={NILCalculator} />
       <Route path="/transfer-portal" component={TransferPortalFOS} />
       <Route path="/transfer-portal-fos" component={TransferPortalFOS} />
