@@ -141,10 +141,16 @@ export const stripeRouter = router({
             quantity: 1,
           };
 
+      // Use existing Stripe customer ID if available to avoid 400 email conflicts
+      const dbUser = await getUserById(ctx.user.id);
+      const customerField: Record<string, string | undefined> = dbUser?.stripeCustomerId
+        ? { customer: dbUser.stripeCustomerId }
+        : { customer_email: ctx.user.email ?? undefined };
+
       const session = await stripe.checkout.sessions.create({
         mode: "payment",
         line_items: [lineItem],
-        customer_email: ctx.user.email ?? undefined,
+        ...customerField,
         client_reference_id: ctx.user.id.toString(),
         metadata: {
           user_id: ctx.user.id.toString(),
