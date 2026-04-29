@@ -37,6 +37,21 @@ const TECH_STACK = [
   // Payments
   { name: "Stripe", category: "Payments", role: "Payment Processing & Subscription Billing", status: "LIVE", color: "from-indigo-600 to-blue-700", badge: "PAY" },
 
+  // Connectors & Integrations
+  { name: "Supabase", category: "Connector", role: "Realtime Database, Auth & Storage", status: "LIVE", color: "from-green-600 to-emerald-700", badge: "CONN" },
+  { name: "Jotform", category: "Connector", role: "Forms, Surveys & Lead Capture", status: "LIVE", color: "from-orange-500 to-red-600", badge: "CONN" },
+  { name: "Fireflies.ai", category: "Connector", role: "Meeting Transcription & AI Notes", status: "LIVE", color: "from-purple-600 to-indigo-700", badge: "CONN" },
+  { name: "Instagram for Business", category: "Social Media", role: "Content Publishing & Audience Growth", status: "LIVE", color: "from-pink-600 to-purple-700", badge: "SOCIAL" },
+  { name: "Meta Ads Manager", category: "Social Media", role: "Paid Advertising & Campaign Analytics", status: "LIVE", color: "from-blue-600 to-blue-700", badge: "SOCIAL" },
+  { name: "Meta Creator Marketplace", category: "Social Media", role: "Instagram Creator & Influencer Partnerships", status: "LIVE", color: "from-pink-500 to-orange-600", badge: "SOCIAL" },
+  { name: "Buffer", category: "Social Media", role: "Social Media Scheduling & Queue Management", status: "LIVE", color: "from-blue-500 to-cyan-600", badge: "SOCIAL" },
+  { name: "Google Calendar", category: "Productivity", role: "Scheduling, Events & Calendar Automation", status: "LIVE", color: "from-blue-500 to-green-600", badge: "PROD" },
+  { name: "Outlook Mail", category: "Productivity", role: "Business Email & Microsoft 365 Integration", status: "LIVE", color: "from-blue-600 to-blue-800", badge: "PROD" },
+  { name: "Outlook Calendar", category: "Productivity", role: "Enterprise Calendar & Meeting Management", status: "LIVE", color: "from-blue-500 to-indigo-700", badge: "PROD" },
+  { name: "Neon Database", category: "Connector", role: "Serverless Postgres MCP Integration", status: "LIVE", color: "from-teal-500 to-green-600", badge: "CONN" },
+  { name: "Cloudflare Workers", category: "Connector", role: "Edge Computing, D1, R2 & KV Storage", status: "LIVE", color: "from-orange-500 to-red-600", badge: "CONN" },
+  { name: "Gravatar", category: "Identity", role: "Universal Avatar & Profile Identity", status: "LIVE", color: "from-blue-500 to-cyan-600", badge: "ID" },
+
   // Development Languages
   { name: "Python", category: "Language", role: "AI/ML, Data Science & Backend Scripting", status: "LIVE", color: "from-blue-500 to-red-500", badge: "LANG" },
   { name: "Julia", category: "Language", role: "High-Performance Scientific Computing", status: "LIVE", color: "from-green-500 to-blue-700", badge: "LANG" },
@@ -62,6 +77,9 @@ const CATEGORY_ICONS: Record<string, React.ElementType> = {
   "Domain & Hosting": Globe,
   "Payments": DollarSign,
   "Language": Code,
+  "Connector": Zap,
+  "Social Media": Globe,
+  "Identity": Shield,
 };
 
 const BADGE_COLORS: Record<string, string> = {
@@ -80,6 +98,10 @@ const BADGE_COLORS: Record<string, string> = {
   DNS: "bg-blue-700",
   PAY: "bg-indigo-600",
   LANG: "bg-blue-500",
+  CONN: "bg-emerald-600",
+  SOCIAL: "bg-pink-600",
+  PROD: "bg-blue-600",
+  ID: "bg-cyan-600",
 };
 
 const PARTNER_TIERS = [
@@ -147,10 +169,37 @@ export default function Partners() {
         </div>
       </section>
 
+      {/* ICC-USA Featured Card */}
+      <section className="py-10 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-gradient-to-r from-slate-800/80 to-gray-900/80 border-2 border-slate-500/50 rounded-2xl p-8 flex flex-col md:flex-row items-center gap-8">
+            <div className="flex-shrink-0 w-20 h-20 rounded-2xl bg-gradient-to-br from-slate-600 to-gray-700 flex items-center justify-center">
+              <Server className="w-10 h-10 text-white" />
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-2">
+                <span className="bg-green-500/20 border border-green-500/40 text-green-400 text-xs font-black px-3 py-1 rounded-full">FEATURED PARTNER</span>
+                <span className="bg-slate-600/40 text-slate-300 text-xs font-bold px-2 py-1 rounded">HARDWARE</span>
+              </div>
+              <h3 className="text-3xl font-black text-white mb-2">ICC-USA</h3>
+              <p className="text-slate-300 mb-4">Enterprise Server & GPU Hardware — Supermicro, NVIDIA, Intel, AMD, Dell. The backbone of the Athlynx AI infrastructure. Powering our data centers, GPU clusters, and enterprise deployments.</p>
+              <div className="flex flex-wrap gap-2">
+                {["Supermicro Servers", "NVIDIA H100/H200", "Intel Xeon", "AMD EPYC", "Enterprise Storage", "Data Center Solutions"].map(tag => (
+                  <span key={tag} className="bg-white/10 text-white/70 text-xs px-3 py-1 rounded-lg">{tag}</span>
+                ))}
+              </div>
+            </div>
+            <div className="flex-shrink-0">
+              <a href="/icc-usa" className="bg-gradient-to-r from-slate-600 to-gray-700 hover:from-slate-500 hover:to-gray-600 text-white px-6 py-3 rounded-xl font-black transition-all block text-center">View Products →</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Bar */}
       <section className="py-8 px-4 bg-white/5 border-y border-blue-900">
         <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          <div><div className="text-3xl font-black text-cyan-400">23+</div><div className="text-blue-300 text-sm">Technology Partners</div></div>
+          <div><div className="text-3xl font-black text-cyan-400">40+</div><div className="text-blue-300 text-sm">Technology Partners</div></div>
           <div><div className="text-3xl font-black text-red-400">$180M+</div><div className="text-blue-300 text-sm">Market Opportunity</div></div>
           <div><div className="text-3xl font-black text-green-400">15+</div><div className="text-blue-300 text-sm">Sport Platforms</div></div>
           <div><div className="text-3xl font-black text-blue-500">7</div><div className="text-blue-300 text-sm">Days Since Launch</div></div>
@@ -279,6 +328,41 @@ export default function Partners() {
                 {domain}
               </span>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Robotics — Coming Soon */}
+      <section className="py-16 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-gradient-to-br from-[#0d0d1a] to-[#1a0d2e] border border-purple-500/30 rounded-2xl p-10 text-center relative overflow-hidden">
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(120,0,255,0.08)_0%,_transparent_70%)]" />
+            <div className="relative z-10">
+              <div className="inline-flex items-center gap-2 bg-purple-500/20 border border-purple-500/30 text-purple-400 px-4 py-2 rounded-full text-sm font-black tracking-widest uppercase mb-6">
+                🤖 Robotics Division
+              </div>
+              <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+                THE FUTURE IS<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-cyan-400">AUTONOMOUS</span>
+              </h2>
+              <p className="text-purple-200/70 text-lg max-w-2xl mx-auto mb-8">
+                Athlynx AI is entering the robotics space — AI-powered companions for training facilities, stadiums, data centers, and beyond. Strategic partnerships are in active discussions.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                {[
+                  { icon: "🏟️", title: "Stadium Operations", desc: "Autonomous security, logistics, and fan experience robots" },
+                  { icon: "🏋️", title: "Training Companions", desc: "AI-powered athletic training and performance bots" },
+                  { icon: "🏗️", title: "Data Center Bots", desc: "Automated facility management and infrastructure ops" },
+                ].map(item => (
+                  <div key={item.title} className="bg-white/5 border border-purple-500/20 rounded-xl p-5">
+                    <div className="text-3xl mb-3">{item.icon}</div>
+                    <h4 className="text-white font-black mb-2">{item.title}</h4>
+                    <p className="text-purple-300/60 text-sm">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+              <span className="inline-block bg-purple-500/20 border border-purple-500/40 text-purple-300 font-black px-8 py-3 rounded-xl text-sm tracking-widest">COMING SOON — PARTNERSHIPS IN DISCUSSIONS</span>
+            </div>
           </div>
         </div>
       </section>
