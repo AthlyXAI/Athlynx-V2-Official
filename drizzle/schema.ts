@@ -457,3 +457,23 @@ export const creditPackagePurchases = mysqlTable("credit_package_purchases", {
 });
 export type CreditPackagePurchase = typeof creditPackagePurchases.$inferSelect;
 export type InsertCreditPackagePurchase = typeof creditPackagePurchases.$inferInsert;
+
+// ─── AI Trainer Bot ───────────────────────────────────────────────────────────
+export const aiTrainerRoleValues = ["user", "assistant"] as const;
+export type AiTrainerRole = (typeof aiTrainerRoleValues)[number];
+
+/**
+ * ai_trainer_sessions — one row per message in each athlete's personal AI Trainer Bot.
+ * Persists the full conversation history so the bot remembers everything across sessions.
+ */
+export const aiTrainerSessions = mysqlTable("ai_trainer_sessions", {
+  id: serial("id").primaryKey(),
+  userId: int("userId").notNull(),
+  role: mysqlEnum("role", aiTrainerRoleValues).notNull(),
+  content: text("content").notNull(),
+  sessionTag: varchar("sessionTag", { length: 64 }),
+  tokensUsed: int("tokensUsed").default(0),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type AiTrainerSession = typeof aiTrainerSessions.$inferSelect;
+export type InsertAiTrainerSession = typeof aiTrainerSessions.$inferInsert;

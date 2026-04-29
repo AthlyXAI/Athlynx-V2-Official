@@ -2,8 +2,8 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { protectedProcedure, router } from "../_core/trpc";
 import { invokeLLM } from "../_core/llm";
-import { getDb } from "../db";
-import { users, creditTransactions } from "../../drizzle/schema";
+import { getDb, getTrainerHistory, saveTrainerMessage } from "../db";
+import { users, creditTransactions, athleteProfiles, aiTrainerSessions } from "../../drizzle/schema";
 import { eq, sql } from "drizzle-orm";
 
 // Credit costs per AI action (in credits)
@@ -20,6 +20,7 @@ const CREDIT_COSTS: Record<string, number> = {
   generateTrainingPlan: 10,
   wizardAdvice: 10,
   scheduleToBuffer: 3,   // social post scheduling
+  trainerChat: 3,        // personal AI trainer bot message
 };
 
 /**
@@ -481,5 +482,55 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
         }
       }
       return { results, posted: results.filter(r => r.success).length };
+    }),
+
+  // ─── PERSONAL AI TRAINER BOT ──────────────────────────────────────────────
+  // trainerChat — send a message to the athlete's personal AI Trainer Bot
+  trainerChat: protectedProcedure
+    .input(z.object({
+      message: z.string().min(1).max(2000),
+      sessionTag: z.string().optional(),
+    }))
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "trainerChat");
+      const db = await getDb();
+      // Load athlete profile for personalization
+      let profileContext = "";
+      if (db) {
+        const [profile] = await db.select().from(athleteProfiles).where(eq(athleteProfiles.userId, ctx.user!.id)).limit(1);
+        if (profile) {
+          profileContext = `\nAthlete Profile:\n- Sport: ${profile.sport ?? "Unknown"}\n- Position: ${profile.position ?? "Unknown"}\n- School: ${profile.school ?? "Unknown"}\n- Year: ${profile.year ?? "Unknown"}\n- GPA: ${profile.gpa ?? "N/A"}\n- Height: ${profile.height ?? "N/A"}, Weight: ${profile.weight ?? "N/A"}lbs\n- Hometown: ${profile.hometown ?? "Unknown"}\n- Recruiting Score: ${profile.recruitingScore ?? 0}/100\n- NIL Value: $${profile.nilValue ?? 0}`;
+        }
+      }
+      // Load conversation history (last 20 messages for context window)
+      const history = await getTrainerHistory(ctx.user!.id, 20);
+      const systemPrompt = `You are the AthlynXAI Personal AI Trainer Bot — an elite, dedicated AI coach assigned exclusively to this athlete. You know everything about them and remember every conversation.${profileContext}\n\nYour role covers:\n- Personalized training plans and daily workouts\n- NIL deal strategy and brand partnerships\n- Recruiting guidance and coach outreach\n- Mental performance and mindset coaching\n- Nutrition and recovery protocols\n- Transfer portal strategy\n- Financial literacy for athletes\n- Career planning and life after sports\n\nBe direct, motivating, and specific. Use the athlete's actual profile data in your responses. Remember previous conversations. You are their personal coach — not a generic assistant. Speak like an elite trainer who knows this athlete deeply.`;
+      const llmMessages: { role: "user" | "assistant" | "system"; content: string }[] = [
+        { role: "system", content: systemPrompt },
+        ...history.map(h => ({ role: h.role as "user" | "assistant", content: h.content })),
+        { role: "user", content: input.message },
+      ];
+      const response = await invokeLLM({ messages: llmMessages });
+      const assistantReply = String(response.choices[0].message.content ?? "");
+      // Persist both messages to the database
+      await saveTrainerMessage({ userId: ctx.user!.id, role: "user", content: input.message, sessionTag: input.sessionTag });
+      await saveTrainerMessage({ userId: ctx.user!.id, role: "assistant", content: assistantReply, sessionTag: input.sessionTag });
+      return { reply: assistantReply };
+    }),
+
+  // trainerHistory — get the athlete's full conversation history with their bot
+  trainerHistory: protectedProcedure
+    .query(async ({ ctx }) => {
+      const history = await getTrainerHistory(ctx.user!.id, 60);
+      return { messages: history };
+    }),
+
+  // trainerClear — clear conversation history for a fresh start
+  trainerClear: protectedProcedure
+    .mutation(async ({ ctx }) => {
+      const db = await getDb();
+      if (!db) return { cleared: 0 };
+      const result = await db.delete(aiTrainerSessions).where(eq(aiTrainerSessions.userId, ctx.user!.id));
+      return { cleared: (result as any).rowsAffected ?? 0 };
     }),
 });

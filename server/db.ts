@@ -15,6 +15,8 @@ import {
   conversationParticipants,
   messages,
   notifications,
+  aiTrainerSessions,
+  InsertAiTrainerSession,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
@@ -299,4 +301,24 @@ export async function recordPayment(data: {
     INSERT INTO payments (userId, stripePaymentIntentId, stripeInvoiceId, amount, currency, status)
     VALUES (${data.userId}, ${data.stripePaymentIntentId ?? null}, ${data.stripeInvoiceId ?? null}, ${data.amount}, ${data.currency}, ${data.status})
   `).catch(() => {}); // Silently fail if table doesn't exist yet
+}
+
+// ─── AI Trainer Bot ───────────────────────────────────────────────────────────
+export async function getTrainerHistory(userId: number, limit = 40) {
+  const db = await getDb();
+  if (!db) return [];
+  const { desc } = await import("drizzle-orm");
+  const rows = await db
+    .select()
+    .from(aiTrainerSessions)
+    .where(eq(aiTrainerSessions.userId, userId))
+    .orderBy(desc(aiTrainerSessions.createdAt))
+    .limit(limit);
+  return rows.reverse(); // chronological order
+}
+
+export async function saveTrainerMessage(data: InsertAiTrainerSession) {
+  const db = await getDb();
+  if (!db) return;
+  await db.insert(aiTrainerSessions).values(data);
 }
