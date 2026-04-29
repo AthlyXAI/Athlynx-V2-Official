@@ -14,7 +14,7 @@ const PLAN_LABELS: Record<string, { label: string; icon: React.ReactNode; color:
   owner: { label: "Owner — Full Access", icon: <Shield className="w-4 h-4" />, color: "#FFD700" },
 };
 
-const OWNER_EMAILS = ["chaddozier75@gmail.com", "cdozier@dozierholdingsgroup.com"];
+const OWNER_EMAILS = ["cdozier14@athlynx.ai", "cdozier14@athlynx.ai"];
 
 export default function Billing() {
   const { user } = useAuth();

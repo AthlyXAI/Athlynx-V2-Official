@@ -2,7 +2,7 @@ import { Link } from "wouter";
 
 const EFFECTIVE_DATE = "January 1, 2026";
 const COMPANY = "Softmor Inc. / Dozier Holdings Group";
-const EMAIL = "cdozier14@dozierholdingsgroup.com.mx";
+const EMAIL = "cdozier14@athlynx.ai";
 const ADDRESS = "12306 Lake Portal Drive, Houston, TX 77047";
 
 const SECTIONS = [

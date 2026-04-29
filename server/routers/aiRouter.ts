@@ -2,6 +2,7 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { protectedProcedure, router } from "../_core/trpc";
 import { invokeLLM } from "../_core/llm";
+import { chatWithGemini, buildTrainerBotSystemPrompt } from "../services/gemini";
 import { getDb, getTrainerHistory, saveTrainerMessage } from "../db";
 import { users, creditTransactions, athleteProfiles, aiTrainerSessions } from "../../drizzle/schema";
 import { eq, sql } from "drizzle-orm";
@@ -505,13 +506,17 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
       // Load conversation history (last 20 messages for context window)
       const history = await getTrainerHistory(ctx.user!.id, 20);
       const systemPrompt = `You are the AthlynXAI Personal AI Trainer Bot — an elite, dedicated AI coach assigned exclusively to this athlete. You know everything about them and remember every conversation.${profileContext}\n\nYour role covers:\n- Personalized training plans and daily workouts\n- NIL deal strategy and brand partnerships\n- Recruiting guidance and coach outreach\n- Mental performance and mindset coaching\n- Nutrition and recovery protocols\n- Transfer portal strategy\n- Financial literacy for athletes\n- Career planning and life after sports\n\nBe direct, motivating, and specific. Use the athlete's actual profile data in your responses. Remember previous conversations. You are their personal coach — not a generic assistant. Speak like an elite trainer who knows this athlete deeply.`;
-      const llmMessages: { role: "user" | "assistant" | "system"; content: string }[] = [
-        { role: "system", content: systemPrompt },
-        ...history.map(h => ({ role: h.role as "user" | "assistant", content: h.content })),
-        { role: "user", content: input.message },
-      ];
-      const response = await invokeLLM({ messages: llmMessages });
-      const assistantReply = String(response.choices[0].message.content ?? "");
+      // Use native Gemini SDK for the trainer bot — better memory, faster, more personalized
+      const geminiHistory = history.map(h => ({
+        role: h.role === "assistant" ? "model" as const : "user" as const,
+        content: h.content,
+      }));
+      const assistantReply = await chatWithGemini(input.message, {
+        systemInstruction: systemPrompt,
+        history: geminiHistory,
+        temperature: 0.85,
+        maxOutputTokens: 4096,
+      });
       // Persist both messages to the database
       await saveTrainerMessage({ userId: ctx.user!.id, role: "user", content: input.message, sessionTag: input.sessionTag });
       await saveTrainerMessage({ userId: ctx.user!.id, role: "assistant", content: assistantReply, sessionTag: input.sessionTag });

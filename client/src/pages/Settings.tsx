@@ -86,7 +86,7 @@ export default function Settings() {
                     />
                   </div>
                 </div>
-                <p className="text-xs text-blue-400">To update your name or email, sign in through Auth0 settings.</p>
+                <p className="text-xs text-blue-400">To update your name or email, contact cdozier14@athlynx.ai.</p>
                 <Separator className="bg-blue-900" />
                 <div className="flex items-center justify-between">
                   <div>
@@ -169,13 +169,13 @@ export default function Settings() {
               <CardContent className="space-y-6">
                 <div className="rounded-lg bg-blue-950 border border-blue-800 p-4">
                   <p className="text-white font-medium mb-1">Authentication Provider</p>
-                  <p className="text-blue-300 text-sm">Your account is secured through Auth0. Password changes and two-factor authentication are managed through your Auth0 account.</p>
-                  <Badge className="mt-2 bg-green-700 text-white">Auth0 Secured</Badge>
+                  <p className="text-blue-300 text-sm">Your account is secured through Firebase Authentication. Manage your password and security below.</p>
+                  <Badge className="mt-2 bg-green-700 text-white">Firebase Secured</Badge>
                 </div>
                 <Separator className="bg-blue-900" />
                 <div>
                   <p className="text-white font-medium mb-1">Login Method</p>
-                  <p className="text-blue-300 text-sm capitalize">{user?.loginMethod ?? "Auth0"}</p>
+                  <p className="text-blue-300 text-sm capitalize">{user?.loginMethod ?? "Firebase"}</p>
                 </div>
                 <Separator className="bg-blue-900" />
                 <div>

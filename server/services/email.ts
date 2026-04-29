@@ -11,7 +11,7 @@ import nodemailer from "nodemailer";
 // Email configuration
 const EMAIL_CONFIG = {
   from: "ATHLYNX <cdozier14@athlynx.ai>",
-  replyTo: "cdozier@dozierholdingsgroup.com",
+  replyTo: "cdozier14@athlynx.ai",
 };
 
 // Create transporter (using environment variables)

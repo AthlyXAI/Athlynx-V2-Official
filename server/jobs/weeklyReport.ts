@@ -9,8 +9,8 @@ import { sendEmail } from "../services/aws-ses";
 
 const OWNER_EMAILS = [
   "cdozier14@athlynx.ai",
-  "cdozier@dozierholdingsgroup.com",
-  "chaddozier75@gmail.com",
+  "cdozier14@athlynx.ai",
+  "cdozier14@athlynx.ai",
 ];
 
 export async function sendWeeklyReport(): Promise<void> {

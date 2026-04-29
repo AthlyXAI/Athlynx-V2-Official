@@ -71,6 +71,23 @@
     <meta name="coverage" content="Worldwide" />
     <meta name="target" content="athletes, coaches, parents, recruiters, sports agents, NIL collectives, college programs" />
 
+    <!-- Google Analytics 4 — AthlynxAI14 Tier 1 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ATHLYNXAI14"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ATHLYNXAI14', {
+        send_page_view: true,
+        cookie_flags: 'SameSite=None;Secure',
+        custom_map: {
+          'dimension1': 'user_role',
+          'dimension2': 'sport',
+          'dimension3': 'subscription_tier'
+        }
+      });
+    </script>
+
     <!-- JSON-LD Structured Data: Organization -->
     <script type="application/ld+json">
     {

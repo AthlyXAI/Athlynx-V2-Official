@@ -1,6 +1,6 @@
 /**
  * Messaging Router — ATHLYNX
- * Handles email verification codes and custom emails (SMS handled by Auth0)
+ * Handles email verification codes and custom emails via AWS SES / SendGrid
  */
 import { z } from "zod";
 import { protectedProcedure, router } from "../_core/trpc";

@@ -77,7 +77,7 @@ const PLATFORMS = [
 
 // Team members
 const TEAM = [
-  { name: 'Chad A. Dozier', role: 'Founder/CEO', email: 'cdozier14@dozierholdingsgroup.com.mx', phone: '+16014985282' },
+  { name: 'Chad A. Dozier', role: 'Founder/CEO', email: 'cdozier14@athlynx.ai', phone: '+16014985282' },
   { name: 'Glenn Tse', role: 'Partner', email: 'gtse@dozierholdingsgroup.com' },
   { name: 'Jimmy Boyd', role: 'Partner', email: 'jboydbamabayou@yahoo.com' },
   { name: 'Andrew Kustes', role: 'Partner', email: 'akustes@dozierholdingsgroup.com' },

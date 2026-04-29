@@ -281,7 +281,7 @@ export default function AdminCRM() {
               <h3 className="text-white font-black text-base mb-4">DHG Team Members</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                 {[
-                  { name: "Chad A. Dozier", title: "Founder, CEO & Chairman", email: "cdozier14@dozierholdingsgroup.com.mx", badge: "admin" },
+                  { name: "Chad A. Dozier", title: "Founder, CEO & Chairman", email: "cdozier14@athlynx.ai", badge: "admin" },
                   { name: "Glenn Tse", title: "CFO / COO", email: "glenn@dozierholdingsgroup.com.mx", badge: "team" },
                   { name: "Andy Kustes", title: "VP Technology", email: "andy@dozierholdingsgroup.com.mx", badge: "team" },
                   { name: "Lee Marshall", title: "VP Sales & Partnerships", email: "lee@dozierholdingsgroup.com.mx", badge: "team" },

@@ -152,7 +152,7 @@ export default function InvestorHub() {
             <a href="#moat" className="hover:text-white transition-colors">Moat</a>
             <a href="#team" className="hover:text-white transition-colors">Team</a>
           </div>
-          <a href="mailto:cdozier14@dozierholdingsgroup.com.mx" className="bg-red-400 hover:bg-red-300 text-black font-black text-xs px-4 py-2 rounded-lg transition-all hover:scale-105">
+          <a href="mailto:cdozier14@athlynx.ai" className="bg-red-400 hover:bg-red-300 text-black font-black text-xs px-4 py-2 rounded-lg transition-all hover:scale-105">
             INVEST NOW →
           </a>
         </div>
@@ -199,7 +199,7 @@ export default function InvestorHub() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <a href="mailto:cdozier14@dozierholdingsgroup.com.mx" className="bg-red-400 hover:bg-red-300 text-black font-black px-10 py-4 rounded-xl text-lg transition-all shadow-2xl shadow-red-400/25 hover:scale-105">
+            <a href="mailto:cdozier14@athlynx.ai" className="bg-red-400 hover:bg-red-300 text-black font-black px-10 py-4 rounded-xl text-lg transition-all shadow-2xl shadow-red-400/25 hover:scale-105">
               💰 REQUEST INVESTOR DECK
             </a>
             <a href="tel:+16014985282" className="bg-white/10 hover:bg-white/20 text-white font-bold px-8 py-4 rounded-xl border border-white/20 transition-all">
@@ -592,7 +592,7 @@ export default function InvestorHub() {
               <div className="text-white/60 text-xs mt-1">Founder & CEO</div>
             </div>
             <div className="bg-black/40 rounded-2xl p-5">
-              <div className="text-white font-bold text-sm">cdozier14@dozierholdingsgroup.com.mx</div>
+              <div className="text-white font-bold text-sm">cdozier14@athlynx.ai</div>
               <div className="text-white/60 text-xs mt-1">Primary Contact</div>
             </div>
             <div className="bg-black/40 rounded-2xl p-5">
@@ -602,7 +602,7 @@ export default function InvestorHub() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <a href="mailto:cdozier14@dozierholdingsgroup.com.mx" className="bg-red-400 hover:bg-red-300 text-black font-black px-12 py-5 rounded-2xl text-xl transition-all shadow-2xl shadow-red-400/30 hover:scale-105">
+            <a href="mailto:cdozier14@athlynx.ai" className="bg-red-400 hover:bg-red-300 text-black font-black px-12 py-5 rounded-2xl text-xl transition-all shadow-2xl shadow-red-400/30 hover:scale-105">
               📧 EMAIL US NOW
             </a>
             <a href="tel:+16014985282" className="bg-white/10 hover:bg-white/20 text-white font-bold px-10 py-5 rounded-2xl border border-white/20 transition-all text-lg">

@@ -329,7 +329,7 @@ export default function Implementation() {
             </div>
             <div className="text-center pt-4">
               <p className="text-sm text-muted-foreground">
-                <strong>Contact:</strong> cdozier14@dozierholdingsgroup.com.mx
+                <strong>Contact:</strong> cdozier14@athlynx.ai
               </p>
             </div>
           </CardContent>

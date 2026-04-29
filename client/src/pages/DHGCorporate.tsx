@@ -34,7 +34,7 @@ const subsidiaries: Subsidiary[] = [
 ];
 
 const leadership = [
-  { name: 'Chad A. Dozier', title: 'Founder, CEO & Chairman', bio: "Visionary entrepreneur and founder of Dozier Holdings Group. Chad brings decades of business acumen across technology, real estate, and energy sectors. His leadership philosophy — Iron Sharpens Iron — drives the company's culture of excellence and continuous improvement.", email: 'cdozier14@dozierholdingsgroup.com.mx', initials: 'CD', color: 'from-blue-500 to-cyan-500' },
+  { name: 'Chad A. Dozier', title: 'Founder, CEO & Chairman', bio: "Visionary entrepreneur and founder of Dozier Holdings Group. Chad brings decades of business acumen across technology, real estate, and energy sectors. His leadership philosophy — Iron Sharpens Iron — drives the company's culture of excellence and continuous improvement.", email: 'cdozier14@athlynx.ai', initials: 'CD', color: 'from-blue-500 to-cyan-500' },
   { name: 'Glenn Tse', title: 'CFO / COO', bio: "Co-founder and financial architect of DHG. Glenn's expertise in financial strategy, operations management, and business development has been instrumental in building DHG's diversified portfolio from the ground up since the company's founding at Hope Lodge in November 2024.", initials: 'GT', color: 'from-emerald-500 to-teal-500', email: '' },
   { name: 'Andy Kustes', title: 'VP Technology', bio: "Technology visionary leading DHG's digital transformation and AI initiatives. Andy architects the technical infrastructure powering ATHLYNX, Softmor AI, and VC Data Centers — building the technological backbone of the DHG ecosystem.", initials: 'AK', color: 'from-blue-600 to-blue-600', email: '' },
   { name: 'Lee Marshall', title: 'VP Sales & Partnerships', bio: "Sales leader and partnership architect driving DHG's business development strategy. Lee builds the relationships and revenue channels that fuel DHG's growth across all divisions.", initials: 'LM', color: 'from-red-500 to-red-500', email: '' },
@@ -249,13 +249,13 @@ export default function DHGCorporate() {
           <h2 className="text-4xl font-black mb-4">Partner With DHG</h2>
           <p className="text-gray-300 mb-8 max-w-2xl mx-auto text-lg leading-relaxed">Whether you're an enterprise client, strategic investor, or potential partner — Dozier Holdings Group is the sole source provider for your growth needs.</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="mailto:cdozier14@dozierholdingsgroup.com.mx" className="px-8 py-3 bg-emerald-500 rounded-xl font-bold hover:bg-emerald-600 transition text-white">Contact Leadership</a>
+            <a href="mailto:cdozier14@athlynx.ai" className="px-8 py-3 bg-emerald-500 rounded-xl font-bold hover:bg-emerald-600 transition text-white">Contact Leadership</a>
             <Link href="/softmor" className="px-8 py-3 bg-white/10 border border-white/20 rounded-xl font-bold hover:bg-white/20 transition text-white">Softmor Inc.</Link>
             <Link href="/feed" className="px-8 py-3 bg-blue-600 rounded-xl font-bold hover:bg-blue-700 transition text-white">ATHLYNX Platform</Link>
           </div>
           <div className="mt-8 pt-8 border-t border-white/10 text-sm text-gray-500">
             <p>Dozier Holdings Group | 12306 Lake Portal Drive, Houston, TX 77047</p>
-            <p className="mt-1">cdozier14@dozierholdingsgroup.com.mx</p>
+            <p className="mt-1">cdozier14@athlynx.ai</p>
           </div>
         </div>
       </div>

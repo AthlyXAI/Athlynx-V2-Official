@@ -513,7 +513,7 @@ function ConnectorsModule() {
     { id: "softmor", name: "Softmor Inc.", type: "Data Center", status: "connected", lastSync: "Active", icon: "🏢" },
     // PAYMENTS & COMMUNICATION
     { id: "stripe", name: "Stripe Payments", type: "Payment", status: "connected", lastSync: "Just now", icon: "💳" },
-    { id: "auth0-sms", name: "Auth0 SMS/MFA", type: "Communication", status: "connected", lastSync: "Live", icon: "📱" },
+    { id: "twilio-sms", name: "Twilio SMS/MFA", type: "Communication", status: "connected", lastSync: "Live", icon: "📱" },
     { id: "resend", name: "Resend Email", type: "Communication", status: "connected", lastSync: "Live", icon: "📧" },
     // HOSTING & DEPLOYMENT
     { id: "vercel", name: "Vercel Hosting", type: "Production Hosting", status: "connected", lastSync: "Live", icon: "▲" },
@@ -585,7 +585,7 @@ function ConnectorsModule() {
             <APIKeyItem name="Nebius AI API Key" status="configured" lastUsed="Live" />
             <APIKeyItem name="Stripe Secret Key" status="configured" lastUsed="Today" />
             <APIKeyItem name="Stripe Publishable Key" status="configured" lastUsed="Today" />
-            <APIKeyItem name="Auth0 API Key" status="configured" lastUsed="Live" />
+            <APIKeyItem name="Firebase API Key" status="configured" lastUsed="Live" />
             <APIKeyItem name="Resend API Key" status="configured" lastUsed="Live" />
             <APIKeyItem name="Netlify Deploy Token" status="configured" lastUsed="Live" />
           </div>

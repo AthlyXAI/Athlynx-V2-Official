@@ -1,5 +1,5 @@
 /**
- * Verification Service - Email codes (SMS handled by Auth0)
+ * Verification Service - Email codes via AWS SES
  * ATHLYNX – A Dozier Holdings Group Company
  */
 import { getDb } from "../db";
@@ -41,7 +41,7 @@ export async function sendVerificationCode(
     return {
       success: true,
       emailSent,
-      smsSent: false, // SMS handled by Auth0
+      smsSent: false, // SMS via Twilio if phone provided
     };
   } catch (error) {
     console.error("[Verification] Error sending code:", error);

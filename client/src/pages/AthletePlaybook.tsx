@@ -358,7 +358,7 @@ export default function AthletePlaybook() {
             <div className="space-y-4">
               <h3 className="font-semibold">Contact</h3>
               <p className="text-sm text-muted-foreground">
-                cdozier14@dozierholdingsgroup.com.mx
+                cdozier14@athlynx.ai
               </p>
             </div>
           </div>

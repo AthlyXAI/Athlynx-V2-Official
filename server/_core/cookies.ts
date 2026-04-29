@@ -19,7 +19,7 @@ export function getSessionCookieOptions(
     httpOnly: true,
     path: "/",
     // Use "lax" so the cookie is sent on same-site navigations (including
-    // the redirect back from Auth0 to /callback). "none" requires secure=true
+    // the redirect back to /callback). "none" requires secure=true
     // and can be dropped by some mobile browsers.
     sameSite: isSecure ? "lax" : "lax",
     secure: isSecure,

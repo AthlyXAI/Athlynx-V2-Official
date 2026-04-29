@@ -6,8 +6,8 @@ import { getUserById } from "../db";
 
 // Owner/Admin accounts — never charged, always have full access
 const OWNER_EMAILS = [
-  "chaddozier75@gmail.com",
-  "cdozier@dozierholdingsgroup.com",
+  "cdozier14@athlynx.ai",
+  "cdozier14@athlynx.ai",
 ];
 
 function isOwner(email: string | null | undefined): boolean {

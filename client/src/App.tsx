@@ -264,7 +264,6 @@ function Router() {
       <Route path="/admin/crm" component={AdminCRM} />
       <Route path="/admin/users" component={AdminUsers} />
       <Route path="/admin/broadcast" component={AdminBroadcast} />
-      <Route path="/master-admin" component={MasterAdmin} />
 
       {/* ── Sport Platforms ── */}
       <Route path="/gridiron-nexus" component={GridironNexus} />

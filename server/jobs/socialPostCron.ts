@@ -9,7 +9,7 @@
 const BUFFER_TOKEN = process.env.BUFFER_ACCESS_TOKEN!;
 const ZAPIER_MCP_TOKEN = process.env.ZAPIER_MCP_TOKEN!;
 
-// Buffer channel IDs (from chaddozier75@gmail.com account)
+// Buffer channel IDs (from cdozier14@athlynx.ai account)
 const BUFFER_CHANNELS = {
   twitter:   "69e5f1dd031bfa423c2229ad", // ChadADozier2 (X)
   tiktok:    "69e613fb031bfa423c22ac3e", // chadadozierdozier

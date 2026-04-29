@@ -222,8 +222,8 @@ export default function Careers() {
         <div className="text-center bg-slate-900/50 border border-white/10 rounded-2xl p-8">
           <h2 className="text-xl font-bold text-white mb-2">Don't See Your Role?</h2>
           <p className="text-white/60 mb-4">We're always looking for talented people. Send us your resume anyway.</p>
-          <a href="mailto:cdozier14@dozierholdingsgroup.com.mx" className="text-cyan-400 hover:underline">
-            cdozier14@dozierholdingsgroup.com.mx
+          <a href="mailto:cdozier14@athlynx.ai" className="text-cyan-400 hover:underline">
+            cdozier14@athlynx.ai
           </a>
         </div>
       </div>

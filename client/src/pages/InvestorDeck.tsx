@@ -335,7 +335,7 @@ export default function InvestorDeck() {
             </Link>
           </div>
           <div className="text-gray-400 text-sm">
-            <p>Contact: cdozier14@dozierholdingsgroup.com.mx</p>
+            <p>Contact: cdozier14@athlynx.ai</p>
             <p className="mt-2">Dozier Holdings Group | Houston, Texas</p>
           </div>
         </div>

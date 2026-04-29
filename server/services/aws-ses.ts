@@ -204,7 +204,7 @@ export async function sendVerificationEmail(
 <!-- FOOTER -->
 <tr><td style="background:#060d1f;padding:20px 40px;text-align:center;border-top:1px solid #1e3a6e;">
   <p style="color:#475569;font-size:12px;margin:0;">ATHLYNX &middot; A Dozier Holdings Group Company</p>
-  <p style="color:#334155;font-size:11px;margin:6px 0 0;">Questions? <a href="mailto:cdozier@dozierholdingsgroup.com" style="color:#00c2ff;text-decoration:none;">cdozier@dozierholdingsgroup.com</a></p>
+  <p style="color:#334155;font-size:11px;margin:6px 0 0;">Questions? <a href="mailto:cdozier14@athlynx.ai" style="color:#00c2ff;text-decoration:none;">cdozier14@athlynx.ai</a></p>
 </td></tr>
 
 </table>
@@ -255,7 +255,7 @@ export async function sendTrialExpiryEmail(to: string, name: string): Promise<bo
 }
 
 /**
- * Send owner alert email to cdozier14@dozierholdingsgroup.com.mx on every new user signup
+ * Send owner alert email to cdozier14@athlynx.ai on every new user signup
  */
 export async function sendOwnerNewUserAlert(opts: {
   name: string;
@@ -268,8 +268,8 @@ export async function sendOwnerNewUserAlert(opts: {
   const memberNum = opts.memberNumber ? String(opts.memberNumber).padStart(4, "0") : null;
   const OWNER_EMAILS = [
     "cdozier14@athlynx.ai",
-    "cdozier@dozierholdingsgroup.com",
-    "chaddozier75@gmail.com",
+    "cdozier14@athlynx.ai",
+    "cdozier14@athlynx.ai",
   ];
   const html = `<!DOCTYPE html>
 <html>

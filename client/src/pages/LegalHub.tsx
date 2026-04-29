@@ -166,7 +166,7 @@ export default function LegalHub() {
               <h3 className="text-xl font-bold mb-4">Legal Contact</h3>
               <p className="text-slate-300 font-semibold">Legal Department</p>
               <p className="text-slate-400 text-sm mt-2">
-                Email: cdozier14@dozierholdingsgroup.com.mx
+                Email: cdozier14@athlynx.ai
               </p>
               <p className="text-slate-400 text-sm mt-4">
                 For legal inquiries, subpoenas, or compliance matters.
