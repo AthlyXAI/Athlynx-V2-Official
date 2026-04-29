@@ -208,11 +208,21 @@ const normalizeToolChoice = (
   return toolChoice;
 };
 
-const resolveApiUrl = () => "https://api.openai.com/v1/chat/completions";
+const resolveApiUrl = () => {
+  // Use native Google AI endpoint if GOOGLE_AI_API_KEY is set (Gemini 2.5 Flash via OpenAI-compatible API)
+  if (process.env.GOOGLE_AI_API_KEY) {
+    return "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
+  }
+  return "https://api.openai.com/v1/chat/completions";
+};
+
+const getApiKey = (): string => {
+  return process.env.GOOGLE_AI_API_KEY || process.env.OPENAI_API_KEY || "";
+};
 
 const assertApiKey = () => {
-  if (!process.env.OPENAI_API_KEY) {
-    throw new Error("OPENAI_API_KEY is not configured");
+  if (!process.env.GOOGLE_AI_API_KEY && !process.env.OPENAI_API_KEY) {
+    throw new Error("No AI API key configured — set GOOGLE_AI_API_KEY or OPENAI_API_KEY");
   }
 };
 
@@ -312,7 +322,7 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      authorization: `Bearer ${getApiKey()}`,
     },
     body: JSON.stringify(payload),
   });
