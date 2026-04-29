@@ -4,6 +4,9 @@ import { protectedProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
 import { users, notifications, broadcastMessages } from "../../drizzle/schema";
 import { desc, eq, like, or, sql } from "drizzle-orm";
+import { sendEmail } from "../services/aws-ses";
+import { sendSMS } from "../services/twilio-sms";
+import Stripe from "stripe";
 
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
   if (ctx.user.role !== "admin") {
@@ -116,5 +119,71 @@ export const adminRouter = router({
     const db = await getDb();
     if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
     return db.select().from(broadcastMessages).orderBy(desc(broadcastMessages.createdAt)).limit(50);
+  }),
+
+  // ── Test Email ────────────────────────────────────────────────────────────
+  testEmail: adminProcedure.mutation(async () => {
+    const ok = await sendEmail({
+      to: "cdozier14@athlynx.ai",
+      subject: "✅ ATHLYNX — Test Email Confirmed",
+      html: `<div style="font-family:sans-serif;padding:24px;">
+        <h2 style="color:#00c2ff;">ATHLYNX AI — Email Service Working</h2>
+        <p>This is a test email sent from the Admin CRM.</p>
+        <p><strong>Time:</strong> ${new Date().toISOString()}</p>
+        <p><strong>From:</strong> AWS SES → cdozier14@athlynx.ai</p>
+        <hr/><p style="color:#888;font-size:12px;">Iron Sharpens Iron — Chad A. Dozier Sr.</p>
+      </div>`,
+      text: "ATHLYNX AI — Email service is working. Sent at " + new Date().toISOString(),
+    });
+    if (!ok) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Email failed — check AWS SES credentials in Vercel env vars" });
+    return { success: true, message: "Test email sent to cdozier14@athlynx.ai" };
+  }),
+
+  // ── Test SMS ──────────────────────────────────────────────────────────────
+  testSms: adminProcedure.mutation(async () => {
+    const ok = await sendSMS(
+      "+16014985282",
+      `ATHLYNX AI ✅ SMS service working. Sent ${new Date().toLocaleString("en-US", { timeZone: "America/Chicago" })} CST`
+    );
+    if (!ok) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "SMS failed — check Twilio credentials in Vercel env vars" });
+    return { success: true, message: "Test SMS sent to +1-601-498-5282" };
+  }),
+
+  // ── Real Stripe Revenue Stats ─────────────────────────────────────────────
+  getRevenueStats: adminProcedure.query(async () => {
+    const stripeKey = process.env.STRIPE_SECRET_KEY;
+    if (!stripeKey) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "STRIPE_SECRET_KEY not set" });
+    const stripe = new Stripe(stripeKey, { apiVersion: "2025-01-27.acacia" });
+    const startOfMonth = Math.floor(new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime() / 1000);
+    const startOfLastMonth = Math.floor(new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1).getTime() / 1000);
+
+    const [balance, charges, subs, lastMonthCharges] = await Promise.all([
+      stripe.balance.retrieve(),
+      stripe.charges.list({ created: { gte: startOfMonth }, limit: 100 }),
+      stripe.subscriptions.list({ status: "active", limit: 100 }),
+      stripe.charges.list({ created: { gte: startOfLastMonth, lt: startOfMonth }, limit: 100 }),
+    ]);
+
+    const mtdRevenue = charges.data.filter(c => c.paid && !c.refunded).reduce((s, c) => s + c.amount, 0) / 100;
+    const lastMonthRevenue = lastMonthCharges.data.filter(c => c.paid && !c.refunded).reduce((s, c) => s + c.amount, 0) / 100;
+    const mrr = subs.data.reduce((s, sub) => {
+      const item = sub.items.data[0];
+      if (!item?.price?.unit_amount) return s;
+      const amt = item.price.unit_amount / 100;
+      return s + (item.price.recurring?.interval === "year" ? amt / 12 : amt);
+    }, 0);
+    const availableBalance = balance.available.reduce((s, b) => s + b.amount, 0) / 100;
+    const pendingBalance = balance.pending.reduce((s, b) => s + b.amount, 0) / 100;
+
+    return {
+      mtdRevenue: Math.round(mtdRevenue * 100) / 100,
+      lastMonthRevenue: Math.round(lastMonthRevenue * 100) / 100,
+      mrr: Math.round(mrr * 100) / 100,
+      arr: Math.round(mrr * 12 * 100) / 100,
+      activeSubscriptions: subs.data.length,
+      availableBalance: Math.round(availableBalance * 100) / 100,
+      pendingBalance: Math.round(pendingBalance * 100) / 100,
+      currency: "usd",
+    };
   }),
 });

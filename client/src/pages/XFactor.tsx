@@ -211,9 +211,7 @@ export default function XFactor() {
               </button>
             </Link>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center">
-                <Zap className="w-4 h-4 text-yellow-400" />
-              </div>
+              <img src="/xfactor-icon.png" alt="X-Factor" className="w-8 h-8 rounded-lg object-cover" />
               <span className="font-black text-lg tracking-tight">X-Factor</span>
               <span className="text-xs text-slate-500 font-medium">by Athlynx</span>
             </div>

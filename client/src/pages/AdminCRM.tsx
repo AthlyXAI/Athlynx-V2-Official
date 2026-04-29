@@ -145,6 +145,15 @@ export default function AdminCRM() {
     onSuccess: () => { toast.success("Role updated"); utils.crm.getUsers.invalidate(); },
     onError: (e) => toast.error(e.message),
   });
+  const testEmailMutation = trpc.admin.testEmail.useMutation({
+    onSuccess: () => toast.success("✅ Test email sent to cdozier14@athlynx.ai"),
+    onError: (e) => toast.error("Email failed: " + e.message),
+  });
+  const testSmsMutation = trpc.admin.testSms.useMutation({
+    onSuccess: () => toast.success("✅ Test SMS sent to +1-601-498-5282"),
+    onError: (e) => toast.error("SMS failed: " + e.message),
+  });
+  const revenueQuery = trpc.admin.getRevenueStats.useQuery(undefined, { enabled: activeTab === "overview", refetchInterval: 60000 });
 
   // Loading state
   if (authLoading) {
@@ -304,6 +313,55 @@ export default function AdminCRM() {
               </div>
             </div>
 
+            {/* Revenue Stats */}
+            <div className="bg-[#0d1f3c] border border-white/10 rounded-2xl p-5">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-white font-black text-base flex items-center gap-2"><BarChart3 className="w-5 h-5 text-green-400" /> Live Revenue</h3>
+                <span className="text-white/30 text-xs">Stripe — Live Mode</span>
+              </div>
+              {revenueQuery.isLoading ? (
+                <div className="flex items-center justify-center py-6"><Loader2 className="w-6 h-6 text-[#00c2ff] animate-spin" /></div>
+              ) : revenueQuery.error ? (
+                <p className="text-red-400 text-sm text-center py-4">Stripe not connected — add STRIPE_SECRET_KEY to Vercel env vars</p>
+              ) : (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {[
+                    { label: "MTD Revenue", value: `$${(revenueQuery.data?.mtdRevenue ?? 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}`, color: "text-green-400" },
+                    { label: "MRR", value: `$${(revenueQuery.data?.mrr ?? 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}`, color: "text-[#00c2ff]" },
+                    { label: "ARR", value: `$${(revenueQuery.data?.arr ?? 0).toLocaleString("en-US", { minimumFractionDigits: 2 })}`, color: "text-blue-400" },
+                    { label: "Active Subs", value: String(revenueQuery.data?.activeSubscriptions ?? 0), color: "text-red-400" },
+                  ].map(({ label, value, color }) => (
+                    <div key={label} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                      <div className="text-white/40 text-xs font-semibold uppercase tracking-wide mb-2">{label}</div>
+                      <div className={`text-2xl font-black ${color}`}>{value}</div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            {/* System Tests */}
+            <div className="bg-[#0d1f3c] border border-white/10 rounded-2xl p-5">
+              <h3 className="text-white font-black text-base mb-4 flex items-center gap-2"><Activity className="w-5 h-5 text-[#00c2ff]" /> System Tests</h3>
+              <div className="flex flex-wrap gap-3">
+                <button
+                  onClick={() => testEmailMutation.mutate()}
+                  disabled={testEmailMutation.isPending}
+                  className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#00c2ff] to-[#0066ff] text-white font-black rounded-xl text-sm hover:from-[#00b0e8] hover:to-[#0055dd] transition-all disabled:opacity-50"
+                >
+                  {testEmailMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Mail className="w-4 h-4" />}
+                  Test Email
+                </button>
+                <button
+                  onClick={() => testSmsMutation.mutate()}
+                  disabled={testSmsMutation.isPending}
+                  className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-green-600 to-green-500 text-white font-black rounded-xl text-sm hover:from-green-500 hover:to-green-400 transition-all disabled:opacity-50"
+                >
+                  {testSmsMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Phone className="w-4 h-4" />}
+                  Test SMS
+                </button>
+              </div>
+              <p className="text-white/30 text-xs mt-3">Email → cdozier14@athlynx.ai · SMS → +1-601-498-5282</p>
+            </div>
             {/* Recent users */}
             <div className="bg-[#0d1f3c] border border-white/10 rounded-2xl p-5">
               <div className="flex items-center justify-between mb-4">
