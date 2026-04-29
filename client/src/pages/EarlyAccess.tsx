@@ -12,8 +12,15 @@ export default function EarlyAccess() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
 
+  const savePhoneMutation = trpc.auth.savePhone.useMutation()
+
   const registerMutation = trpc.auth.register.useMutation({
     onSuccess: () => {
+      // Save phone number if provided — this also triggers the Welcome SMS on the server
+      if (phone.trim()) {
+        savePhoneMutation.mutate({ phone: phone.trim() })
+      }
+      // Redirect straight into the portal
       window.location.href = '/portal'
     },
     onError: (err) => {
@@ -61,20 +68,11 @@ export default function EarlyAccess() {
         }}>
           <div style={{ fontSize: '48px', marginBottom: '16px' }}>✅</div>
           <h2 style={{ color: '#fff', fontSize: '22px', fontWeight: '800', marginBottom: '12px' }}>
-            Check Your Email!
+            Welcome to ATHLYNX!
           </h2>
           <p style={{ color: '#94a3b8', fontSize: '15px', lineHeight: '1.6', marginBottom: '24px' }}>
-            We sent a confirmation link to <strong style={{ color: '#00c8ff' }}>{email}</strong>.
-            Click the link to activate your account and you'll be taken straight to your portal.
-          </p>
-          <p style={{ color: '#64748b', fontSize: '13px' }}>
-            Didn't get it? Check your spam folder or{' '}
-            <span
-              onClick={() => setSuccess(false)}
-              style={{ color: '#00c8ff', cursor: 'pointer', textDecoration: 'underline' }}
-            >
-              try again
-            </span>.
+            Your account is live. Check your email at <strong style={{ color: '#00c8ff' }}>{email}</strong> for your welcome message.
+            Taking you to your portal now...
           </p>
         </div>
       </div>
@@ -217,7 +215,7 @@ export default function EarlyAccess() {
 
           <div>
             <label style={{ display: 'block', color: '#94a3b8', fontSize: '12px', marginBottom: '5px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              Phone Number
+              Phone Number <span style={{ color: '#64748b', fontWeight: '400', textTransform: 'none' }}>(for SMS updates)</span>
             </label>
             <input
               type="tel"

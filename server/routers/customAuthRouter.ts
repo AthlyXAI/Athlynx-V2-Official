@@ -244,6 +244,31 @@ export const customAuthRouter = router({
         console.error("[AUTH] Admin notification email failed:", notifyErr);
       }
 
+      // Send Welcome Email to the new user
+      try {
+        const { sendEmail } = await import("../services/email");
+        await sendEmail(
+          input.email,
+          "welcome",
+          { name: input.name }
+        );
+        console.log("[AUTH] Welcome email sent to", input.email);
+      } catch (welcomeEmailErr) {
+        console.error("[AUTH] Welcome email failed:", welcomeEmailErr);
+      }
+
+      // Send Welcome SMS if phone number was provided
+      if (user?.phone) {
+        try {
+          const { sendWelcomeSMS, sendOwnerSignupSMSAlert } = await import("../services/twilio-sms");
+          await sendWelcomeSMS(user.phone, input.name);
+          await sendOwnerSignupSMSAlert({ name: input.name, email: input.email });
+          console.log("[AUTH] Welcome SMS sent to", user.phone);
+        } catch (smsErr) {
+          console.error("[AUTH] Welcome SMS failed:", smsErr);
+        }
+      }
+
       return { success: true, user };
     }),
 
@@ -253,12 +278,23 @@ export const customAuthRouter = router({
     .mutation(async ({ input, ctx }) => {
       const db = await getDb();
       if (!db) throw new Error("Database unavailable");
-
+      // Check if this is the first time saving a phone (for Welcome SMS)
+      const isFirstPhone = !ctx.user.phone;
       await db
         .update(users)
         .set({ phone: input.phone })
         .where(eq(users.id, ctx.user.id));
-
+      // Send Welcome SMS if this is the first phone number saved
+      if (isFirstPhone) {
+        try {
+          const { sendWelcomeSMS, sendOwnerSignupSMSAlert } = await import("../services/twilio-sms");
+          await sendWelcomeSMS(input.phone, ctx.user.name ?? "Athlete");
+          await sendOwnerSignupSMSAlert({ name: ctx.user.name ?? "Athlete", email: ctx.user.email ?? "" });
+          console.log("[AUTH] Welcome SMS sent to", input.phone);
+        } catch (smsErr) {
+          console.error("[AUTH] Welcome SMS failed:", smsErr);
+        }
+      }
       return { success: true };
     }),
 
