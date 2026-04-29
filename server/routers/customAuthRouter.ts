@@ -95,9 +95,9 @@ export const customAuthRouter = router({
             timeStyle: "short",
           });
           await sendEmail(
-            "cdozier@dozierholdingsgroup.com",
-            "adminNewUser",
-            { userName: name, userEmail: email, signupTime }
+          "cdozier14@athlynx.ai",
+          "adminNewUser",
+          { userName: name, userEmail: email, signupTime }
           );
         } catch (notifyErr) {
           console.error("[AUTH] Admin notification email failed:", notifyErr);
@@ -211,7 +211,7 @@ export const customAuthRouter = router({
           timeStyle: "short",
         });
         await sendEmail(
-          "cdozier@dozierholdingsgroup.com",
+          "cdozier14@athlynx.ai",
           "adminNewUser",
           { userName: input.name, userEmail: input.email, signupTime }
         );
