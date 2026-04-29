@@ -1,0 +1,473 @@
+import { useState } from "react";
+import { Link } from "wouter";
+import {
+  Zap, Trophy, Star, TrendingUp, Heart, MessageCircle, Repeat2,
+  Share2, Bookmark, MoreHorizontal, Search, Bell, Home, User,
+  Play, Image as ImageIcon, BarChart2, MapPin, Smile, Send,
+  ChevronRight, Award, Target, Activity, Eye, Users, Filter,
+  Flame, Clock, Hash, Verified, Plus, ArrowUp, Video
+} from "lucide-react";
+
+const FEED_POSTS = [
+  {
+    id: 1,
+    user: { name: "Marcus Williams", handle: "@mwilliams_qb", sport: "Football", position: "QB", school: "Westlake HS", verified: true, avatar: "MW", xScore: 94 },
+    content: "Just dropped a 4.38 40-yard dash at the Nike Combine today. The work doesn't lie. 🏈⚡",
+    stats: { likes: 2847, reposts: 412, comments: 189, views: 48200 },
+    time: "2h",
+    tags: ["#Combine", "#Football", "#QB"],
+    highlight: { type: "combine", label: "4.38s 40-Yard Dash", icon: "⚡" },
+    trending: true,
+  },
+  {
+    id: 2,
+    user: { name: "Aaliyah Johnson", handle: "@aaliyah_hoops", sport: "Basketball", position: "PG", school: "Oak Ridge Academy", verified: true, avatar: "AJ", xScore: 91 },
+    content: "Dropped 38 pts, 11 ast, 6 reb last night. Nike EYBL Peach Jam next week. Scouts — I'll be there. 🏀",
+    stats: { likes: 5103, reposts: 891, comments: 344, views: 92400 },
+    time: "4h",
+    tags: ["#EYBL", "#Basketball", "#PeachJam"],
+    highlight: { type: "game", label: "38 PTS | 11 AST | 6 REB", icon: "🏀" },
+    trending: true,
+  },
+  {
+    id: 3,
+    user: { name: "DeShawn Carter", handle: "@dcarter_wr", sport: "Football", position: "WR", school: "IMG Academy", verified: false, avatar: "DC", xScore: 88 },
+    content: "Just committed to my dream school. The journey was real but God had a plan. More details dropping soon. 🙏",
+    stats: { likes: 8920, reposts: 1204, comments: 672, views: 187000 },
+    time: "6h",
+    tags: ["#Committed", "#Football", "#WR"],
+    highlight: { type: "commitment", label: "COMMITTED ✅", icon: "🎓" },
+    trending: true,
+  },
+  {
+    id: 4,
+    user: { name: "Sofia Reyes", handle: "@sofia_soccer10", sport: "Soccer", position: "MF", school: "Dallas FC Academy", verified: true, avatar: "SR", xScore: 89 },
+    content: "Named to the US Soccer U-20 National Pool. Everything I've worked for since age 6. Thank you to everyone who believed. ⚽🇺🇸",
+    stats: { likes: 3412, reposts: 567, comments: 231, views: 61800 },
+    time: "8h",
+    tags: ["#USYNT", "#Soccer", "#NationalPool"],
+    highlight: { type: "award", label: "US Soccer U-20 National Pool", icon: "🇺🇸" },
+    trending: false,
+  },
+  {
+    id: 5,
+    user: { name: "Jordan Miles", handle: "@jmiles_track", sport: "Track & Field", position: "Sprinter", school: "Centennial HS", verified: false, avatar: "JM", xScore: 86 },
+    content: "10.87 in the 100m at New Balance Nationals. PR by 0.12 seconds. The grind is real. 💨",
+    stats: { likes: 1923, reposts: 298, comments: 145, views: 34700 },
+    time: "12h",
+    tags: ["#Track", "#NBNationals", "#Sprinter"],
+    highlight: { type: "pr", label: "10.87s 100M — Personal Record", icon: "💨" },
+    trending: false,
+  },
+  {
+    id: 6,
+    user: { name: "Tyler Brooks", handle: "@tbrooks_lb", sport: "Football", position: "LB", school: "Mater Dei HS", verified: true, avatar: "TB", xScore: 92 },
+    content: "Elite 11 invite just hit the inbox. See y'all in Dallas. 🔥 #Elite11",
+    stats: { likes: 4201, reposts: 734, comments: 289, views: 78300 },
+    time: "1d",
+    tags: ["#Elite11", "#Football", "#LB"],
+    highlight: { type: "invite", label: "Elite 11 Invite — Dallas", icon: "🔥" },
+    trending: true,
+  },
+];
+
+const TRENDING_ATHLETES = [
+  { name: "Marcus Williams", handle: "@mwilliams_qb", sport: "⚡ Football QB", xScore: 94, change: "+8" },
+  { name: "Aaliyah Johnson", handle: "@aaliyah_hoops", sport: "🏀 Basketball PG", xScore: 91, change: "+5" },
+  { name: "Tyler Brooks", handle: "@tbrooks_lb", sport: "🏈 Football LB", xScore: 92, change: "+12" },
+  { name: "Sofia Reyes", handle: "@sofia_soccer10", sport: "⚽ Soccer MF", xScore: 89, change: "+3" },
+  { name: "DeShawn Carter", handle: "@dcarter_wr", sport: "🏈 Football WR", xScore: 88, change: "+7" },
+];
+
+const TRENDING_TAGS = [
+  { tag: "#Elite11", posts: "12.4K posts" },
+  { tag: "#PeachJam", posts: "8.9K posts" },
+  { tag: "#NILDeal", posts: "34.2K posts" },
+  { tag: "#Committed", posts: "21.7K posts" },
+  { tag: "#CombineReady", posts: "6.1K posts" },
+  { tag: "#7v7Nationals", posts: "4.8K posts" },
+];
+
+const XFACTOR_CATEGORIES = ["All", "Football", "Basketball", "Baseball", "Soccer", "Track", "Highlights", "Combines", "Commitments"];
+
+function XFactorScore({ score }: { score: number }) {
+  const color = score >= 90 ? "text-yellow-400" : score >= 80 ? "text-blue-400" : "text-slate-400";
+  return (
+    <span className={`text-xs font-bold ${color} flex items-center gap-0.5`}>
+      <Zap className="w-3 h-3" />
+      {score}
+    </span>
+  );
+}
+
+function PostCard({ post }: { post: typeof FEED_POSTS[0] }) {
+  const [liked, setLiked] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
+
+  return (
+    <div className="border-b border-slate-800 px-4 py-4 hover:bg-slate-900/50 transition-colors cursor-pointer">
+      <div className="flex gap-3">
+        {/* Avatar */}
+        <div className="flex-shrink-0">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center text-white font-bold text-sm">
+            {post.user.avatar}
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 min-w-0">
+          {/* Header */}
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className="font-bold text-white text-sm">{post.user.name}</span>
+            {post.user.verified && <Verified className="w-4 h-4 text-blue-400 fill-blue-400" />}
+            <XFactorScore score={post.user.xScore} />
+            <span className="text-slate-500 text-sm">{post.user.handle}</span>
+            <span className="text-slate-600 text-sm">·</span>
+            <span className="text-slate-500 text-sm">{post.time}</span>
+            <div className="ml-auto">
+              <button className="text-slate-600 hover:text-slate-400 p-1">
+                <MoreHorizontal className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Sport badge */}
+          <div className="flex items-center gap-2 mt-0.5 mb-2">
+            <span className="text-xs text-slate-500">{post.user.sport} · {post.user.position} · {post.user.school}</span>
+          </div>
+
+          {/* Highlight badge */}
+          {post.highlight && (
+            <div className="mb-2 inline-flex items-center gap-1.5 bg-blue-950/60 border border-blue-800/50 rounded-full px-3 py-1">
+              <span className="text-sm">{post.highlight.icon}</span>
+              <span className="text-xs font-bold text-blue-300">{post.highlight.label}</span>
+              {post.trending && <Flame className="w-3 h-3 text-orange-400" />}
+            </div>
+          )}
+
+          {/* Post text */}
+          <p className="text-slate-200 text-sm leading-relaxed mb-3">{post.content}</p>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {post.tags.map(tag => (
+              <span key={tag} className="text-blue-400 text-xs hover:underline cursor-pointer">{tag}</span>
+            ))}
+          </div>
+
+          {/* Actions */}
+          <div className="flex items-center justify-between text-slate-500 max-w-xs">
+            <button className="flex items-center gap-1.5 hover:text-blue-400 transition-colors group">
+              <MessageCircle className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              <span className="text-xs">{post.stats.comments.toLocaleString()}</span>
+            </button>
+            <button className="flex items-center gap-1.5 hover:text-green-400 transition-colors group">
+              <Repeat2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              <span className="text-xs">{post.stats.reposts.toLocaleString()}</span>
+            </button>
+            <button
+              onClick={() => setLiked(!liked)}
+              className={`flex items-center gap-1.5 transition-colors group ${liked ? "text-pink-500" : "hover:text-pink-400"}`}
+            >
+              <Heart className={`w-4 h-4 group-hover:scale-110 transition-transform ${liked ? "fill-pink-500" : ""}`} />
+              <span className="text-xs">{(post.stats.likes + (liked ? 1 : 0)).toLocaleString()}</span>
+            </button>
+            <button className="flex items-center gap-1.5 hover:text-blue-400 transition-colors group">
+              <Eye className="w-4 h-4 group-hover:scale-110 transition-transform" />
+              <span className="text-xs">{(post.stats.views / 1000).toFixed(1)}K</span>
+            </button>
+            <button
+              onClick={() => setBookmarked(!bookmarked)}
+              className={`flex items-center gap-1.5 transition-colors ${bookmarked ? "text-blue-400" : "hover:text-blue-400"}`}
+            >
+              <Bookmark className={`w-4 h-4 ${bookmarked ? "fill-blue-400" : ""}`} />
+            </button>
+            <button className="flex items-center gap-1.5 hover:text-blue-400 transition-colors">
+              <Share2 className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function XFactor() {
+  const [activeTab, setActiveTab] = useState("For You");
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [postText, setPostText] = useState("");
+
+  const tabs = ["For You", "Following", "Trending", "Scouts", "Highlights"];
+
+  return (
+    <div className="min-h-screen bg-black text-white">
+      {/* Top Nav */}
+      <div className="sticky top-0 z-50 bg-black/90 backdrop-blur-md border-b border-slate-800">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Link href="/portal">
+              <button className="text-slate-400 hover:text-white transition-colors">
+                <Home className="w-5 h-5" />
+              </button>
+            </Link>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center">
+                <Zap className="w-4 h-4 text-yellow-400" />
+              </div>
+              <span className="font-black text-lg tracking-tight">X-Factor</span>
+              <span className="text-xs text-slate-500 font-medium">by Athlynx</span>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <button className="text-slate-400 hover:text-white transition-colors">
+              <Search className="w-5 h-5" />
+            </button>
+            <button className="text-slate-400 hover:text-white transition-colors relative">
+              <Bell className="w-5 h-5" />
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-blue-500 rounded-full" />
+            </button>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center text-xs font-bold">
+              CD
+            </div>
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <div className="max-w-6xl mx-auto px-4 flex gap-0 overflow-x-auto scrollbar-hide">
+          {tabs.map(tab => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+                activeTab === tab
+                  ? "border-blue-500 text-white"
+                  : "border-transparent text-slate-500 hover:text-slate-300"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto flex">
+        {/* Left Sidebar */}
+        <div className="hidden lg:block w-64 xl:w-72 flex-shrink-0 sticky top-[105px] h-[calc(100vh-105px)] overflow-y-auto px-4 py-4">
+          {/* Trending Athletes */}
+          <div className="bg-slate-900 rounded-2xl p-4 mb-4">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-bold text-white flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 text-blue-400" />
+                Rising Athletes
+              </h3>
+            </div>
+            <div className="space-y-3">
+              {TRENDING_ATHLETES.map((athlete, i) => (
+                <div key={i} className="flex items-center gap-2 cursor-pointer hover:bg-slate-800 rounded-lg p-1.5 transition-colors">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-700 to-blue-950 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
+                    {athlete.name.split(" ").map(n => n[0]).join("")}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-semibold text-white truncate">{athlete.name}</div>
+                    <div className="text-xs text-slate-500">{athlete.sport}</div>
+                  </div>
+                  <div className="text-right flex-shrink-0">
+                    <div className="text-xs font-bold text-yellow-400 flex items-center gap-0.5">
+                      <Zap className="w-3 h-3" />{athlete.xScore}
+                    </div>
+                    <div className="text-xs text-green-400">{athlete.change}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <button className="mt-3 text-blue-400 text-sm hover:underline w-full text-left">Show more →</button>
+          </div>
+
+          {/* Trending Tags */}
+          <div className="bg-slate-900 rounded-2xl p-4 mb-4">
+            <h3 className="font-bold text-white flex items-center gap-2 mb-3">
+              <Hash className="w-4 h-4 text-blue-400" />
+              Trending in Sports
+            </h3>
+            <div className="space-y-2">
+              {TRENDING_TAGS.map((item, i) => (
+                <div key={i} className="cursor-pointer hover:bg-slate-800 rounded-lg p-1.5 transition-colors">
+                  <div className="text-sm font-semibold text-blue-400">{item.tag}</div>
+                  <div className="text-xs text-slate-500">{item.posts}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="bg-slate-900 rounded-2xl p-4">
+            <h3 className="font-bold text-white mb-3 text-sm">Quick Access</h3>
+            <div className="space-y-2">
+              {[
+                { label: "NIL Marketplace", href: "/nil-marketplace", icon: <Trophy className="w-4 h-4" /> },
+                { label: "Elite Events", href: "/elite-events", icon: <Star className="w-4 h-4" /> },
+                { label: "Agent Finder", href: "/agent-finder", icon: <Users className="w-4 h-4" /> },
+                { label: "Athlete Calendar", href: "/athlete-calendar", icon: <Clock className="w-4 h-4" /> },
+                { label: "NIL Jobs", href: "/nil-jobs", icon: <Target className="w-4 h-4" /> },
+              ].map((link, i) => (
+                <Link key={i} href={link.href}>
+                  <div className="flex items-center gap-2 text-slate-400 hover:text-white text-sm cursor-pointer hover:bg-slate-800 rounded-lg p-1.5 transition-colors">
+                    <span className="text-blue-400">{link.icon}</span>
+                    {link.label}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Main Feed */}
+        <div className="flex-1 border-x border-slate-800 min-h-screen">
+          {/* Category Filter */}
+          <div className="px-4 py-3 border-b border-slate-800 overflow-x-auto scrollbar-hide">
+            <div className="flex gap-2">
+              {XFACTOR_CATEGORIES.map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors ${
+                    activeCategory === cat
+                      ? "bg-blue-600 text-white"
+                      : "bg-slate-800 text-slate-400 hover:bg-slate-700 hover:text-white"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Compose Box */}
+          <div className="px-4 py-4 border-b border-slate-800">
+            <div className="flex gap-3">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                CD
+              </div>
+              <div className="flex-1">
+                <textarea
+                  value={postText}
+                  onChange={e => setPostText(e.target.value)}
+                  placeholder="Share your X-Factor moment..."
+                  className="w-full bg-transparent text-white placeholder-slate-600 text-base resize-none outline-none min-h-[60px]"
+                  rows={2}
+                />
+                <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-800">
+                  <div className="flex items-center gap-3 text-blue-400">
+                    <button className="hover:text-blue-300 transition-colors"><ImageIcon className="w-5 h-5" /></button>
+                    <button className="hover:text-blue-300 transition-colors"><Video className="w-5 h-5" /></button>
+                    <button className="hover:text-blue-300 transition-colors"><BarChart2 className="w-5 h-5" /></button>
+                    <button className="hover:text-blue-300 transition-colors"><MapPin className="w-5 h-5" /></button>
+                    <button className="hover:text-blue-300 transition-colors"><Smile className="w-5 h-5" /></button>
+                  </div>
+                  <button
+                    disabled={!postText.trim()}
+                    className="bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold px-5 py-1.5 rounded-full text-sm transition-colors flex items-center gap-1.5"
+                  >
+                    <Zap className="w-4 h-4" />
+                    Post
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Feed */}
+          <div>
+            {FEED_POSTS.map(post => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </div>
+
+          {/* Load More */}
+          <div className="p-6 text-center">
+            <button className="text-blue-400 hover:text-blue-300 text-sm font-medium hover:underline">
+              Load more posts
+            </button>
+          </div>
+        </div>
+
+        {/* Right Sidebar */}
+        <div className="hidden xl:block w-72 flex-shrink-0 sticky top-[105px] h-[calc(100vh-105px)] overflow-y-auto px-4 py-4">
+          {/* X-Factor Score Explainer */}
+          <div className="bg-gradient-to-br from-blue-950 to-slate-900 border border-blue-800/50 rounded-2xl p-4 mb-4">
+            <div className="flex items-center gap-2 mb-2">
+              <Zap className="w-5 h-5 text-yellow-400" />
+              <h3 className="font-bold text-white">What is X-Factor?</h3>
+            </div>
+            <p className="text-slate-400 text-xs leading-relaxed mb-3">
+              Your X-Factor score (0–100) is your AI-powered athlete rating based on combine metrics, game film, stats, recruiting interest, and intangibles. It grows as you perform.
+            </p>
+            <div className="space-y-1.5">
+              {[
+                { label: "90–100", desc: "Elite — Pro Prospect", color: "text-yellow-400" },
+                { label: "80–89", desc: "High Major D1", color: "text-blue-400" },
+                { label: "70–79", desc: "Mid Major D1", color: "text-green-400" },
+                { label: "60–69", desc: "D2 / D3 Prospect", color: "text-slate-400" },
+              ].map((tier, i) => (
+                <div key={i} className="flex items-center justify-between text-xs">
+                  <span className={`font-bold ${tier.color}`}>{tier.label}</span>
+                  <span className="text-slate-500">{tier.desc}</span>
+                </div>
+              ))}
+            </div>
+            <Link href="/portal">
+              <button className="mt-3 w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold py-2 rounded-full transition-colors">
+                Get Your X-Factor Score
+              </button>
+            </Link>
+          </div>
+
+          {/* Who to Follow */}
+          <div className="bg-slate-900 rounded-2xl p-4 mb-4">
+            <h3 className="font-bold text-white mb-3 flex items-center gap-2">
+              <Users className="w-4 h-4 text-blue-400" />
+              Who to Follow
+            </h3>
+            <div className="space-y-3">
+              {[
+                { name: "Coach Davis", handle: "@coachdavis_nfl", role: "NFL Scout · Dallas Cowboys", xScore: null },
+                { name: "NIL Agency Pro", handle: "@nilagencypro", role: "Certified NIL Agent", xScore: null },
+                { name: "Jaylen Ross", handle: "@jross_safety", role: "Safety · 5-Star · Class 2026", xScore: 93 },
+              ].map((person, i) => (
+                <div key={i} className="flex items-center gap-2">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
+                    {person.name.split(" ").map(n => n[0]).join("")}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-semibold text-white truncate">{person.name}</div>
+                    <div className="text-xs text-slate-500 truncate">{person.role}</div>
+                  </div>
+                  <button className="text-xs border border-slate-600 hover:border-blue-500 hover:text-blue-400 text-slate-300 px-3 py-1 rounded-full transition-colors flex-shrink-0">
+                    Follow
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Scout Spotlight */}
+          <div className="bg-slate-900 rounded-2xl p-4">
+            <h3 className="font-bold text-white mb-3 flex items-center gap-2">
+              <Eye className="w-4 h-4 text-blue-400" />
+              Scout Spotlight
+            </h3>
+            <div className="bg-blue-950/50 border border-blue-800/30 rounded-xl p-3">
+              <div className="text-xs text-blue-300 font-medium mb-1">🔍 Scouts are watching</div>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                14 verified scouts and coaches are active on X-Factor right now. Post your highlights to get noticed.
+              </p>
+              <button className="mt-2 text-xs text-blue-400 hover:underline font-medium">
+                See who's watching →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

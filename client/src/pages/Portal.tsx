@@ -36,6 +36,7 @@ const appCategories = [
       { name: "NIL Calculator", icon: "/nil-vault-icon.png", href: "/nil-calculator", desc: "Calculate your NIL value" },
       { name: "NIL Jobs", icon: "/nil-portal-logo.jpeg", href: "/nil-jobs", desc: "Headhunter & NIL job board" },
       { name: "Elite Events", icon: "/athlynx-icon.png", href: "/elite-events", desc: "7v7, Elite 11, All-Stars, Combines" },
+      { name: "X-Factor", icon: "/xfactor-logo-dark.png", href: "/x-factor", desc: "Athlete social feed & scouting" },
       { name: "Athlete Calendar", icon: "/nil-vault-icon.png", href: "/athlete-calendar", desc: "Games, NIL deadlines & recruiting" },
       { name: "Contracts", icon: "/contracts-logo.png", href: "/contracts", desc: "Smart contract management" },
       { name: "Athlete Legal Hub", icon: "/contracts-logo.png", href: "/athlete-legal-hub", desc: "Legal tools for athletes" },
