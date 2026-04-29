@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useLocation } from 'wouter'
-import { supabase } from '@/lib/supabase'
+import { trpc } from '@/lib/trpc'
 
 export default function SignIn() {
   const [, setLocation] = useLocation()
@@ -8,6 +8,16 @@ export default function SignIn() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+
+  const loginMutation = trpc.auth.login.useMutation({
+    onSuccess: () => {
+      window.location.href = '/portal'
+    },
+    onError: (err) => {
+      setError(err.message || 'Invalid email or password')
+      setLoading(false)
+    },
+  })
 
   async function handleEmailSignIn(e: React.FormEvent) {
     e.preventDefault()
@@ -17,27 +27,12 @@ export default function SignIn() {
     }
     setLoading(true)
     setError('')
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email: email.trim(),
-      password: password.trim(),
-    })
-    if (signInError) {
-      setError(signInError.message)
-      setLoading(false)
-    } else {
-      setLocation('/portal')
-    }
+    loginMutation.mutate({ email: email.trim(), password: password.trim() })
   }
 
   async function handleGoogleSignIn() {
     setError('')
-    const { error: oauthError } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    })
-    if (oauthError) setError(oauthError.message)
+    window.location.href = '/api/auth/google'
   }
 
   return (
@@ -206,17 +201,17 @@ export default function SignIn() {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || loginMutation.isPending}
             style={{
               width: '100%', padding: '13px',
-              background: loading ? 'rgba(0,102,204,0.5)' : 'linear-gradient(135deg, #0066cc, #00c8ff)',
+              background: (loading || loginMutation.isPending) ? 'rgba(0,102,204,0.5)' : 'linear-gradient(135deg, #0066cc, #00c8ff)',
               border: 'none', borderRadius: '8px', color: '#fff',
               fontSize: '15px', fontWeight: '700',
-              cursor: loading ? 'not-allowed' : 'pointer',
+              cursor: (loading || loginMutation.isPending) ? 'not-allowed' : 'pointer',
               marginBottom: '16px', letterSpacing: '0.5px',
             }}
           >
-            {loading ? 'Signing in...' : 'Sign In'}
+            {(loading || loginMutation.isPending) ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
 

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'wouter'
-import { supabase } from '@/lib/supabase'
+import { trpc } from '@/lib/trpc'
 
 export default function EarlyAccess() {
   const [, setLocation] = useLocation()
@@ -12,6 +12,16 @@ export default function EarlyAccess() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
 
+  const registerMutation = trpc.auth.register.useMutation({
+    onSuccess: () => {
+      window.location.href = '/portal'
+    },
+    onError: (err) => {
+      setError(err.message || 'Registration failed. Please try again.')
+      setLoading(false)
+    },
+  })
+
   async function handleSignUp(e: React.FormEvent) {
     e.preventDefault()
     if (!fullName.trim() || !email.trim() || !password.trim()) {
@@ -20,43 +30,20 @@ export default function EarlyAccess() {
     }
     setLoading(true)
     setError('')
-
-    const { data, error: signUpError } = await supabase.auth.signUp({
+    registerMutation.mutate({
+      name: fullName.trim(),
       email: email.trim(),
       password: password.trim(),
-      options: {
-        data: {
-          full_name: fullName.trim(),
-          phone: phone.trim(),
-        },
-        emailRedirectTo: `${window.location.origin}/auth/callback`,
-      },
     })
-
-    if (signUpError) {
-      setError(signUpError.message)
-      setLoading(false)
-      return
-    }
-
-    // If user is confirmed immediately (e.g. email confirmations disabled), redirect
-    if (data.session) {
-      setLocation('/portal')
-    } else {
-      setSuccess(true)
-      setLoading(false)
-    }
   }
 
   async function handleGoogleSignUp() {
     setError('')
-    const { error: oauthError } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: `${window.location.origin}/auth/callback`,
-      },
-    })
-    if (oauthError) setError(oauthError.message)
+    window.location.href = '/api/auth/google'
+  }
+
+  function handleSocialSignIn(_provider: string) {
+    window.location.href = '/api/auth/google'
   }
 
   if (success) {

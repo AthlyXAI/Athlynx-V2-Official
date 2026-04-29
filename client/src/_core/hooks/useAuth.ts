@@ -1,38 +1,28 @@
 /**
  * ATHLYNX — Unified Auth Hook
- * Uses Supabase session as the auth source.
- * No server-side cookie required.
+ * Reads the custom session cookie via tRPC auth.me.
+ * The session cookie (app_session_id) is set by the server on login.
  */
-import { useState, useEffect, useCallback } from "react";
-import { supabase } from "@/lib/supabase";
-import type { User } from "@supabase/supabase-js";
+import { useCallback } from "react";
+import { trpc } from "@/lib/trpc";
 
 export function useAuth(options?: { redirectOnUnauthenticated?: boolean; redirectPath?: string }) {
   const { redirectOnUnauthenticated = false, redirectPath = "/signin" } = options ?? {};
 
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { data: user, isLoading: loading } = trpc.auth.me.useQuery(undefined, {
+    retry: false,
+    staleTime: 30_000,
+  });
 
-  useEffect(() => {
-    // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
-    // Listen for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
+  const logoutMutation = trpc.auth.logout.useMutation({
+    onSuccess: () => {
+      window.location.href = "/signin";
+    },
+  });
 
   const logout = useCallback(async () => {
-    await supabase.auth.signOut();
-    window.location.href = "/signin";
-  }, []);
+    logoutMutation.mutate();
+  }, [logoutMutation]);
 
   const login = useCallback((returnTo?: string) => {
     const target = returnTo ?? window.location.pathname;

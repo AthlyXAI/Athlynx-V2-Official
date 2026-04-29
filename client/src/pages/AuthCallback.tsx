@@ -1,37 +1,18 @@
 import { useEffect } from 'react'
 import { useLocation } from 'wouter'
-import { supabase } from '@/lib/supabase'
 
 /**
- * ATHLYNX — Supabase Auth Callback Handler
- * After Supabase OAuth redirects back, this page:
- * 1. Waits for Supabase to finish processing the token from the URL
- * 2. Redirects to the portal on success
+ * ATHLYNX — Auth Callback Handler
+ * After Google OAuth redirects back via server, the session cookie is already set.
+ * Just redirect to portal.
  */
 export default function AuthCallback() {
   const [, setLocation] = useLocation()
 
   useEffect(() => {
-    // Supabase automatically reads the token from the URL hash/params
-    // We just need to wait for the session to be established
-    const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (session) {
-        setLocation('/portal')
-      } else {
-        // Wait a moment for Supabase to process the OAuth callback
-        setTimeout(async () => {
-          const { data: { session: retrySession } } = await supabase.auth.getSession()
-          if (retrySession) {
-            setLocation('/portal')
-          } else {
-            setLocation('/signin')
-          }
-        }, 2000)
-      }
-    }
-
-    checkSession()
+    // Server has already set the session cookie via /api/auth/google/callback
+    // Just redirect to portal
+    setLocation('/portal')
   }, [setLocation])
 
   return (
