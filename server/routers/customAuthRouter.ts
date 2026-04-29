@@ -84,6 +84,26 @@ export const customAuthRouter = router({
 
       // 6. Return the user record
       const user = await getUserByOpenId(openId);
+
+      // Notify Chad when a brand new user signs up via Google/Firebase
+      if (isNewUser) {
+        try {
+          const { sendEmail } = await import("../services/email");
+          const signupTime = new Date().toLocaleString("en-US", {
+            timeZone: "America/Chicago",
+            dateStyle: "full",
+            timeStyle: "short",
+          });
+          await sendEmail(
+            "cdozier@dozierholdingsgroup.com",
+            "adminNewUser",
+            { userName: name, userEmail: email, signupTime }
+          );
+        } catch (notifyErr) {
+          console.error("[AUTH] Admin notification email failed:", notifyErr);
+        }
+      }
+
       return { success: true, isNewUser, user };
     }),
 
@@ -181,6 +201,24 @@ export const customAuthRouter = router({
       });
 
       const user = await getUserByOpenId(openId);
+
+      // Notify Chad every time a new user registers
+      try {
+        const { sendEmail } = await import("../services/email");
+        const signupTime = new Date().toLocaleString("en-US", {
+          timeZone: "America/Chicago",
+          dateStyle: "full",
+          timeStyle: "short",
+        });
+        await sendEmail(
+          "cdozier@dozierholdingsgroup.com",
+          "adminNewUser",
+          { userName: input.name, userEmail: input.email, signupTime }
+        );
+      } catch (notifyErr) {
+        console.error("[AUTH] Admin notification email failed:", notifyErr);
+      }
+
       return { success: true, user };
     }),
 

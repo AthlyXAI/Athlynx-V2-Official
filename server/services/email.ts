@@ -11,7 +11,7 @@ import nodemailer from "nodemailer";
 // Email configuration
 const EMAIL_CONFIG = {
   from: "ATHLYNX <cdozier14@athlynx.ai>",
-  replyTo: "cdozier14@dozierholdingsgroup.com.mx",
+  replyTo: "cdozier@dozierholdingsgroup.com",
 };
 
 // Create transporter (using environment variables)
@@ -255,6 +255,35 @@ export const EMAIL_TEMPLATES = {
       </div>
     `,
     text: `Payment Confirmed! Thank you, ${name}. Your ${plan} subscription ($${amount.toFixed(2)}) is now active.`,
+  }),
+
+  // Admin alert — new user registered
+  adminNewUser: (userName: string, userEmail: string, signupTime: string) => ({
+    subject: `🆕 New ATHLYNX User: ${userName}`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%); color: white; padding: 40px; border-radius: 16px;">
+        <div style="text-align: center; margin-bottom: 24px;">
+          <h1 style="color: #00d4ff; font-size: 28px; margin: 0;">🦁 ATHLYNX</h1>
+          <p style="color: #94a3b8; margin: 4px 0; font-size: 13px; letter-spacing: 2px;">NEW USER ALERT</p>
+        </div>
+        <div style="background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.3); border-radius: 12px; padding: 24px; margin: 20px 0;">
+          <h2 style="color: #00d4ff; margin-top: 0; font-size: 20px;">A New Athlete Just Joined</h2>
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr><td style="color: #94a3b8; padding: 8px 0; font-size: 14px; width: 100px;">Name</td><td style="color: white; font-weight: bold; font-size: 14px;">${userName}</td></tr>
+            <tr><td style="color: #94a3b8; padding: 8px 0; font-size: 14px;">Email</td><td style="color: #00d4ff; font-size: 14px;">${userEmail}</td></tr>
+            <tr><td style="color: #94a3b8; padding: 8px 0; font-size: 14px;">Signed Up</td><td style="color: white; font-size: 14px;">${signupTime}</td></tr>
+          </table>
+        </div>
+        <div style="text-align: center; margin: 24px 0;">
+          <a href="https://athlynx.ai/admin" style="background: linear-gradient(90deg, #00d4ff, #0066ff); color: white; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; font-size: 14px;">View Admin Dashboard</a>
+        </div>
+        <hr style="border: none; border-top: 1px solid #334155; margin: 20px 0;">
+        <p style="color: #64748b; font-size: 12px; text-align: center;">
+          ATHLYNX AI • Dozier Holdings Group • Powered by Manus AI
+        </p>
+      </div>
+    `,
+    text: `New ATHLYNX user registered!\nName: ${userName}\nEmail: ${userEmail}\nSigned Up: ${signupTime}\n\nView at https://athlynx.ai/admin`,
   }),
 };
 
