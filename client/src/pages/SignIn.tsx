@@ -8,6 +8,9 @@ export default function SignIn() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  // Check if redirected from signup because account already exists
+  const urlParams = new URLSearchParams(window.location.search)
+  const existingAccount = urlParams.get('msg') === 'existing'
 
   const loginMutation = trpc.auth.login.useMutation({
     onSuccess: () => {
@@ -94,7 +97,33 @@ export default function SignIn() {
         </div>
       </div>
 
-      {/* ── LOGIN CARD ── */}
+        {/* ── EXISTING ACCOUNT BANNER ── */}
+        {existingAccount && (
+          <div style={{
+            width: '100%',
+            maxWidth: '480px',
+            marginBottom: '16px',
+            background: 'linear-gradient(135deg, rgba(0,212,255,0.12), rgba(0,102,204,0.08))',
+            border: '1px solid rgba(0,212,255,0.4)',
+            borderRadius: '10px',
+            padding: '14px 18px',
+            display: 'flex',
+            alignItems: 'flex-start',
+            gap: '10px',
+          }}>
+            <span style={{ fontSize: '20px' }}>👋</span>
+            <div>
+              <p style={{ color: '#00d4ff', fontWeight: '700', fontSize: '14px', margin: '0 0 4px' }}>
+                You already have an account!
+              </p>
+              <p style={{ color: '#94a3b8', fontSize: '13px', margin: 0, lineHeight: '1.5' }}>
+                Sign in below with your email and password to access your portal.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* ── LOGIN CARD ── */}
       <div style={{
         background: 'rgba(255,255,255,0.05)',
         border: '1px solid rgba(0,200,255,0.2)',

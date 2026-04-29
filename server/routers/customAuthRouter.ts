@@ -250,7 +250,7 @@ export const customAuthRouter = router({
         await sendEmail(
           input.email,
           "welcome",
-          { name: input.name }
+          { name: input.name, email: input.email }
         );
         console.log("[AUTH] Welcome email sent to", input.email);
       } catch (welcomeEmailErr) {

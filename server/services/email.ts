@@ -59,48 +59,59 @@ const transporter = createTransporter();
 // Email templates
 export const EMAIL_TEMPLATES = {
   // Welcome email for new signups
-  welcome: (name: string) => ({
-    subject: "Welcome to ATHLYNX - Your Journey Begins! 🦁",
+  welcome: (name: string, email?: string) => ({
+    subject: `Welcome to ATHLYNX AI, ${name} — Your Portal is Ready`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%); color: white; padding: 40px; border-radius: 16px;">
         <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #00d4ff; font-size: 32px; margin: 0;">🦁 ATHLYNX</h1>
-          <p style="color: #94a3b8; margin: 5px 0;">THE ATHLETE'S PLAYBOOK</p>
+          <h1 style="color: #00d4ff; font-size: 36px; margin: 0; letter-spacing: 2px;">🦁 ATHLYNX AI</h1>
+          <p style="color: #94a3b8; margin: 6px 0; letter-spacing: 3px; font-size: 12px; text-transform: uppercase;">Performance Intelligence Platform</p>
         </div>
-        
-        <h2 style="color: white; font-size: 24px;">Welcome, ${name}! 🎉</h2>
-        
-        <p style="color: #cbd5e1; line-height: 1.6;">
-          You've just joined the future of athlete success. ATHLYNX is your all-in-one platform for:
+
+        <p style="color: #94a3b8; font-size: 13px; text-align: center; margin: 0 0 8px; text-transform: uppercase; letter-spacing: 2px;">Welcome to the Future of Athletics</p>
+        <h2 style="color: white; font-size: 28px; text-align: center; margin: 0 0 24px;">You're In, ${name}.</h2>
+
+        <p style="color: #cbd5e1; line-height: 1.7; font-size: 15px;">
+          Your ATHLYNX AI account is now active and ready. You've joined the most advanced athlete performance and recruiting intelligence platform ever built.
         </p>
-        
-        <ul style="color: #cbd5e1; line-height: 2;">
-          <li>💰 NIL Deal Discovery & Management</li>
-          <li>📊 Performance Analytics</li>
-          <li>🎯 Transfer Portal Navigation</li>
-          <li>🤖 AI-Powered Career Guidance</li>
-          <li>🏆 Brand Partnership Opportunities</li>
-        </ul>
-        
-        <div style="text-align: center; margin: 30px 0;">
-          <a href="https://athlynx.ai/portal" style="background: linear-gradient(90deg, #00d4ff, #0066ff); color: white; padding: 15px 40px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">
-            Get Started Now
+
+        <div style="background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.3); border-radius: 12px; padding: 20px; margin: 24px 0;">
+          <p style="color: #94a3b8; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 12px;">Your Login Details</p>
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr><td style="color: #94a3b8; padding: 6px 0; font-size: 14px; width: 80px;">Email</td><td style="color: #00d4ff; font-weight: bold; font-size: 14px;">${email || 'Your registered email'}</td></tr>
+            <tr><td style="color: #94a3b8; padding: 6px 0; font-size: 14px;">Login</td><td style="color: white; font-size: 14px;"><a href="https://athlynx.ai/signin" style="color: #00d4ff;">athlynx.ai/signin</a></td></tr>
+          </table>
+        </div>
+
+        <div style="text-align: center; margin: 28px 0;">
+          <a href="https://athlynx.ai/signin" style="background: linear-gradient(90deg, #00d4ff, #0066ff); color: white; padding: 16px 44px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block; font-size: 16px; letter-spacing: 0.5px;">
+            Sign In to Your Portal →
           </a>
         </div>
-        
-        <p style="color: #94a3b8; font-size: 14px; text-align: center; margin-top: 30px;">
-          "Dreams Do Come True" - Chad Allen Dozier Sr., Founder
+
+        <p style="color: #94a3b8; font-size: 13px; line-height: 1.6;">Once inside, get started by:</p>
+        <ol style="color: #cbd5e1; font-size: 14px; line-height: 2;">
+          <li>Build your athlete profile</li>
+          <li>Activate your performance dashboard</li>
+          <li>Enter the recruiting network</li>
+          <li>Monetize your NIL</li>
+        </ol>
+
+        <hr style="border: none; border-top: 1px solid #334155; margin: 28px 0;">
+
+        <p style="color: #94a3b8; font-size: 13px; text-align: center; margin: 0 0 8px;">
+          Need help? <a href="mailto:support@athlynx.ai" style="color: #00d4ff;">support@athlynx.ai</a>
         </p>
-        
-        <hr style="border: none; border-top: 1px solid #334155; margin: 20px 0;">
-        
+        <p style="color: #94a3b8; font-size: 13px; text-align: center; font-style: italic; margin: 0 0 16px;">
+          "Dreams Do Come True" — Chad Allen Dozier Sr., Founder
+        </p>
         <p style="color: #64748b; font-size: 12px; text-align: center;">
           A Dozier Holdings Group Company • Powered by Manus AI<br>
           © 2026 ATHLYNX AI Corporation. All rights reserved.
         </p>
       </div>
     `,
-    text: `Welcome to ATHLYNX, ${name}! Your journey to athlete success begins now. Visit https://athlynx.ai/portal to get started.`,
+    text: `Welcome to ATHLYNX AI, ${name}!\n\nYou're in. Your account is now active.\n\nEmail: ${email || 'Your registered email'}\nSign In: https://athlynx.ai/signin\n\nGet Started:\n1. Build your athlete profile\n2. Activate your performance dashboard\n3. Enter the recruiting network\n4. Monetize your NIL\n\nNeed help? support@athlynx.ai\n\n"Dreams Do Come True" — Chad Allen Dozier Sr., Founder`,
   }),
 
   // VIP code welcome

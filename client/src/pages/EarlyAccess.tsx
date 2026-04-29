@@ -24,8 +24,14 @@ export default function EarlyAccess() {
       window.location.href = '/portal'
     },
     onError: (err) => {
-      setError(err.message || 'Registration failed. Please try again.')
-      setLoading(false)
+      const msg = err.message || ''
+      if (msg.toLowerCase().includes('already exists')) {
+        // Account exists — redirect to sign in with a friendly message
+        window.location.href = '/signin?msg=existing'
+      } else {
+        setError(msg || 'Registration failed. Please try again.')
+        setLoading(false)
+      }
     },
   })
 
