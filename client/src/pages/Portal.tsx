@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
+import { CreditsBadge } from "@/components/CreditsBadge";
 
 // ─── ALL ATHLYNX APPS — ORGANIZED BY CATEGORY ───────────────────────────────
 const appCategories = [
@@ -214,6 +215,7 @@ export default function Portal() {
             </div>
           </Link>
           <div className="flex items-center gap-4">
+            <CreditsBadge />
             <span className="text-slate-300 text-sm hidden md:block">Welcome, {user?.name || "Athlete"}</span>
             <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center text-white font-bold">
               {user?.name?.charAt(0)?.toUpperCase() || "A"}
