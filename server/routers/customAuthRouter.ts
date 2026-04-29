@@ -85,6 +85,20 @@ export const customAuthRouter = router({
       // 6. Return the user record
       const user = await getUserByOpenId(openId);
 
+      // Fetch Gravatar avatar for new Firebase/Google users
+      if (isNewUser && email) {
+        try {
+          const { getGravatarUrl } = await import("../services/gravatar");
+          const gravatarUrl = await getGravatarUrl(email);
+          if (gravatarUrl) {
+            const db2 = await getDb();
+            if (db2) await db2.update(users).set({ avatarUrl: gravatarUrl }).where(eq(users.openId, openId));
+          }
+        } catch (gravatarErr) {
+          console.warn("[AUTH] Gravatar fetch failed:", gravatarErr);
+        }
+      }
+
       // Notify Chad when a brand new user signs up via Google/Firebase
       if (isNewUser) {
         try {
@@ -199,6 +213,17 @@ export const customAuthRouter = router({
         ...cookieOpts,
         maxAge: ONE_YEAR_MS,
       });
+
+      // Fetch Gravatar avatar and save it to the user record
+      try {
+        const { getGravatarUrl } = await import("../services/gravatar");
+        const gravatarUrl = await getGravatarUrl(input.email);
+        if (gravatarUrl) {
+          await db.update(users).set({ avatarUrl: gravatarUrl }).where(eq(users.openId, openId));
+        }
+      } catch (gravatarErr) {
+        console.warn("[AUTH] Gravatar fetch failed:", gravatarErr);
+      }
 
       const user = await getUserByOpenId(openId);
 
