@@ -235,6 +235,117 @@ export default function MobileApp() {
         </div>
       </section>
 
+      {/* ═══════════════════════════════════════════════════════
+           FUTURISTIC APP SCREENSHOT GALLERY — REAL SCREENS
+      ═══════════════════════════════════════════════════════ */}
+      <section className="py-20 px-4 bg-black overflow-hidden">
+        <div className="max-w-6xl mx-auto">
+          {/* Section header */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-[#00c2ff]/10 border border-[#00c2ff]/30 rounded-full px-5 py-2 mb-4">
+              <span className="w-2 h-2 rounded-full bg-[#00c2ff] animate-pulse" />
+              <span className="text-[#00c2ff] text-xs font-black tracking-widest uppercase">Live Platform Preview</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black text-white leading-none mb-3">
+              BUILT FOR THE
+              <span className="block" style={{ background: "linear-gradient(90deg, #00c2ff, #0066ff)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                NEXT GENERATION
+              </span>
+            </h2>
+            <p className="text-gray-400 text-base max-w-xl mx-auto">Every screen. Every feature. Engineered to make athletes impossible to ignore.</p>
+          </div>
+
+          {/* Promo hero banner */}
+          <div className="relative rounded-3xl overflow-hidden mb-10 border border-[#00c2ff]/20" style={{ boxShadow: "0 0 60px rgba(0,194,255,0.15)" }}>
+            <img src="/brand/athlynx-promo.png" alt="AthlynX Platform" className="w-full object-cover max-h-[500px]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6">
+              <p className="text-white font-black text-2xl md:text-3xl">THE PLATFORM THAT CHANGES EVERYTHING.</p>
+              <p className="text-[#00c2ff] text-sm font-bold mt-1">athlynx.ai — Where Athletes Become Legends</p>
+            </div>
+          </div>
+
+          {/* Investor/brand banner */}
+          <div className="relative rounded-3xl overflow-hidden mb-10 border border-[#00c2ff]/20" style={{ boxShadow: "0 0 60px rgba(0,102,255,0.15)" }}>
+            <img src="/brand/athlynx-investor.png" alt="AthlynX Investor" className="w-full object-cover max-h-[400px]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+          </div>
+
+          {/* Screenshot grid — Row 1: 3 screens */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+            {["/brand/athlynx-app-screen-1.png", "/brand/app-screen-2.png", "/brand/app-screen-3.png"].map((src, i) => (
+              <div key={i} className="relative rounded-2xl overflow-hidden border border-white/10 group" style={{ boxShadow: "0 0 30px rgba(0,194,255,0.08)" }}>
+                <img src={src} alt={`AthlynX Screen ${i + 1}`} className="w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute bottom-3 left-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span className="text-[#00c2ff] text-xs font-black uppercase tracking-wider">AthlynX App</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Screenshot grid — Row 2: 4 screens */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
+            {["/brand/app-screen-4.png", "/brand/app-screen-5.png", "/brand/app-screen-6.png", "/brand/app-screen-7.png"].map((src, i) => (
+              <div key={i} className="relative rounded-2xl overflow-hidden border border-white/10 group" style={{ boxShadow: "0 0 20px rgba(0,194,255,0.06)" }}>
+                <img src={src} alt={`AthlynX Screen ${i + 4}`} className="w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            ))}
+          </div>
+
+          {/* Screenshot grid — Row 3: 3 screens */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+            {["/brand/app-screen-8.png", "/brand/app-screen-9.png", "/brand/app-screen-10.png"].map((src, i) => (
+              <div key={i} className="relative rounded-2xl overflow-hidden border border-white/10 group" style={{ boxShadow: "0 0 30px rgba(0,102,255,0.08)" }}>
+                <img src={src} alt={`AthlynX Screen ${i + 8}`} className="w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            ))}
+          </div>
+
+          {/* Screenshot grid — Row 4: 4 screens */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-4">
+            {["/brand/app-screen-11.png", "/brand/app-screen-12.png", "/brand/app-screen-13.png", "/brand/app-screen-14.png"].map((src, i) => (
+              <div key={i} className="relative rounded-2xl overflow-hidden border border-white/10 group">
+                <img src={src} alt={`AthlynX Screen ${i + 11}`} className="w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            ))}
+          </div>
+
+          {/* Screenshot grid — Row 5: 3 screens */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+            {["/brand/app-screen-15.png", "/brand/app-screen-16.png", "/brand/app-screen-17.png"].map((src, i) => (
+              <div key={i} className="relative rounded-2xl overflow-hidden border border-white/10 group">
+                <img src={src} alt={`AthlynX Screen ${i + 15}`} className="w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            ))}
+          </div>
+
+          {/* Screenshot grid — Row 6: 3 screens */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+            {["/brand/app-screen-18.png", "/brand/app-screen-19.png", "/brand/app-screen-20.png"].map((src, i) => (
+              <div key={i} className="relative rounded-2xl overflow-hidden border border-white/10 group">
+                <img src={src} alt={`AthlynX Screen ${i + 18}`} className="w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            ))}
+          </div>
+
+          {/* DHG Empire hero banner */}
+          <div className="relative rounded-3xl overflow-hidden border border-[#00c2ff]/20 mb-4" style={{ boxShadow: "0 0 80px rgba(0,194,255,0.12)" }}>
+            <img src="/brand/dhg-empire-hero.png" alt="Dozier Holdings Group" className="w-full object-cover max-h-[400px]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6">
+              <p className="text-white font-black text-xl md:text-2xl">DOZIER HOLDINGS GROUP</p>
+              <p className="text-[#00c2ff] text-sm font-bold mt-1">The Empire Behind AthlynX · Houston, TX</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <footer className="py-8 px-4 border-t border-blue-900/30 text-center">
         <p className="text-gray-600 text-sm">ATHLYNX Mobile · A Dozier Holdings Group Company</p>
         <Link href="/" className="text-blue-400 text-sm hover:text-blue-300 mt-2 inline-block">← Back to ATHLYNX Platform</Link>
