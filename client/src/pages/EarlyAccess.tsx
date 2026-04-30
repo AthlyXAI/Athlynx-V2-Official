@@ -24,7 +24,7 @@ export default function EarlyAccess() {
   const savePhoneMutation = trpc.auth.savePhone.useMutation()
 
   const syncFirebaseMutation = trpc.auth.syncFirebaseUser.useMutation({
-    onSuccess: () => { window.location.href = '/portal' },
+    onSuccess: () => { window.location.href = '/onboarding' },
     onError: (err) => { setError(err.message || 'Sign-up failed.'); setSocialLoading(null) },
   })
 
@@ -34,8 +34,8 @@ export default function EarlyAccess() {
       if (phone.trim()) {
         savePhoneMutation.mutate({ phone: phone.trim() })
       }
-      // Redirect straight into the portal
-      window.location.href = '/portal'
+      // Redirect to onboarding to set up profile
+      window.location.href = '/onboarding'
     },
     onError: (err) => {
       const msg = err.message || ''

@@ -14,9 +14,11 @@ export default function AuthCallback() {
   const [status, setStatus] = useState('Signing you in...')
 
   const syncFirebaseMutation = trpc.auth.syncFirebaseUser.useMutation({
-    onSuccess: () => {
-      setStatus('Success! Taking you to your portal...')
-      setTimeout(() => { window.location.href = '/portal' }, 500)
+    onSuccess: (data: any) => {
+      // New users go to onboarding, returning users go to portal
+      const isNewUser = data?.isNewUser ?? false
+      setStatus(isNewUser ? 'Welcome! Setting up your profile...' : 'Welcome back!')
+      setTimeout(() => { window.location.href = isNewUser ? '/onboarding' : '/portal' }, 500)
     },
     onError: (err) => {
       setStatus('Sign-in failed: ' + (err.message || 'Unknown error'))

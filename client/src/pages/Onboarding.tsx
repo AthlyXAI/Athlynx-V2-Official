@@ -39,10 +39,10 @@ export default function Onboarding() {
     <div className="min-h-screen bg-[#050c1a]">
       <AIOnboarding
         onComplete={(_data: Record<string, string>) => {
-          window.location.href = "/feed";
+          window.location.href = "/portal";
         }}
         onDismiss={() => {
-          window.location.href = "/feed";
+          window.location.href = "/portal";
         }}
       />
     </div>
