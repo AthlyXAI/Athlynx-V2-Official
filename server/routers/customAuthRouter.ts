@@ -61,7 +61,14 @@ export const customAuthRouter = router({
       const existing = await getUserByOpenId(openId);
       const isNewUser = !existing;
 
-      // 4. Upsert user record
+      // 4. Set 7-day free trial for new users
+      const trialEndsAt = isNewUser ? (() => {
+        const d = new Date();
+        d.setDate(d.getDate() + 7);
+        return d;
+      })() : undefined;
+
+      // 5. Upsert user record
       await upsertUser({
         openId,
         name,
@@ -69,6 +76,7 @@ export const customAuthRouter = router({
         loginMethod,
         lastSignedIn: new Date(),
         ...(input.phone ? { phone: input.phone } : {}),
+        ...(trialEndsAt ? { trialEndsAt } : {}),
       });
 
       // 5. Create session JWT and set cookie
@@ -200,12 +208,17 @@ export const customAuthRouter = router({
       const passwordHash = await bcrypt.hash(input.password, 12);
       const openId = `email:${Date.now()}:${Math.random().toString(36).slice(2)}`;
 
+      // Set 7-day free trial for new users
+      const trialEndsAt = new Date();
+      trialEndsAt.setDate(trialEndsAt.getDate() + 7);
+
       await upsertUser({
         openId,
         name: input.name,
         email: input.email,
         loginMethod: "email",
         lastSignedIn: new Date(),
+        trialEndsAt,
       });
 
       // Store the password hash
