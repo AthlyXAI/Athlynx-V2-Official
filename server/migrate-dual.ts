@@ -7,9 +7,9 @@
  *   DATABASE_URL       = TiDB Cloud (MySQL) — primary, always-on
  *   PLANETSCALE_DATABASE_URL = PlanetScale (MySQL) — backup/failover
  */
-import { drizzle } from "drizzle-orm/mysql2";
-import { migrate } from "drizzle-orm/mysql2/migrator";
-import mysql from "mysql2/promise";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { migrate } from "drizzle-orm/node-postgres/migrator";
+import { Pool, Client } from "pg";
 import path from "path";
 
 function getMigrationsFolder(): string {
@@ -26,9 +26,9 @@ async function migrateDatabase(url: string, label: string): Promise<void> {
     console.warn(`[migrate:${label}] URL not set — skipping`);
     return;
   }
-  let connection: mysql.Connection | undefined;
+  let connection: Client | undefined;
   try {
-    connection = await mysql.createConnection(url);
+    connection = await new Client({ connectionString: url);
     const db = drizzle(connection);
     const migrationsFolder = getMigrationsFolder();
     console.log(`[migrate:${label}] Running migrations from ${migrationsFolder}`);
