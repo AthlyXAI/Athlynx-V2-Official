@@ -1,4 +1,4 @@
-# ATHLYNX MANUS MASTER REFERENCE FILE
+# ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
 ## Last Updated: April 30, 2026 — UNIFIED IDENTITY UPDATE
 ## READ THIS FILE AT THE START OF EVERY MANUS TASK
 
@@ -200,12 +200,12 @@
 
 At the start of every new Manus task, tell Manus:
 
-> **"Read MANUS_MASTER_REFERENCE.md from GitHub repo AthlyXAI/Athlynx-V2-Official before doing anything."**
+> **"Read ATHLYNXAI_MASTER_REFERENCE.md from GitHub repo AthlyXAI/Athlynx-V2-Official before doing anything."**
 
 Manus will run:
 ```
 gh repo clone AthlyXAI/Athlynx-V2-Official
-cat MANUS_MASTER_REFERENCE.md
+cat ATHLYNXAI_MASTER_REFERENCE.md
 ```
 
 And will have full context immediately.
