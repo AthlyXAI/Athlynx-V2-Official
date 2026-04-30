@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "wouter";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { toast } from "sonner";
@@ -140,9 +140,22 @@ const appCategories = [
 
 export default function Portal() {
   const { user, isAuthenticated, loading: isLoading } = useAuth();
+  const [, navigate] = useLocation();
   const [newPostContent, setNewPostContent] = useState("");
   const [activeTab, setActiveTab] = useState<"feed" | "profile" | "apps">("feed");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+  // Trial gate — redirect to payment wall if trial expired and no active subscription
+  useEffect(() => {
+    if (!isLoading && user) {
+      const isAdmin = user.role === 'admin' || user.email === 'cdozier14@athlynx.ai';
+      const hasSubscription = !!user.stripeSubscriptionId;
+      const trialExpired = user.trialEndsAt && new Date(user.trialEndsAt) < new Date();
+      if (!isAdmin && !hasSubscription && trialExpired) {
+        navigate('/trial-expired');
+      }
+    }
+  }, [user, isLoading, navigate]);
 
   const { data: feedPosts, refetch: refetchFeed } = trpc.feed.getFeed.useQuery(
     { limit: 20, offset: 0 },

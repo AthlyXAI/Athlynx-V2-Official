@@ -158,6 +158,7 @@ import SchoolBranding from "./pages/SchoolBranding";
 
 // ── PWA ──
 import PWAInstallBanner from "./components/PWAInstallBanner";
+import TrialExpired from "./pages/TrialExpired";
 
 // ── Utility ──
 import Notifications from "./pages/Notifications";
@@ -189,6 +190,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/demo" component={Demo} />
       <Route path="/how-it-works" component={Demo} />
+      <Route path="/trial-expired" component={TrialExpired} />
       <Route path="/signup" component={EarlyAccess} />
       <Route path="/early-access" component={EarlyAccess} />
       <Route path="/early-access-v2" component={EarlyAccessUpdated} />
