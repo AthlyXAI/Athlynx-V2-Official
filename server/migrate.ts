@@ -10,9 +10,9 @@
  * applied migrations in the __drizzle_migrations table.
  */
 
-import { drizzle } from "drizzle-orm/node-postgres";
-import { migrate } from "drizzle-orm/node-postgres/migrator";
-import { Client } from "pg";
+import { drizzle } from "drizzle-orm/mysql2";
+import { migrate } from "drizzle-orm/mysql2/migrator";
+import mysql from "mysql2/promise";
 import path from "path";
 
 // CJS-safe directory resolution.
@@ -40,11 +40,10 @@ export async function runMigrations(): Promise<void> {
     return;
   }
 
-  let client: Client | undefined;
+  let connection: mysql.Connection | undefined;
   try {
-    client = new Client({ connectionString: url, ssl: { rejectUnauthorized: false } });
-    await client.connect();
-    const db = drizzle(client);
+    connection = await mysql.createConnection(url);
+    const db = drizzle(connection);
 
     const migrationsFolder = getMigrationsFolder();
 
@@ -56,6 +55,6 @@ export async function runMigrations(): Promise<void> {
     // even if the migration step fails (tables may already exist).
     console.error("[migrate] ⚠️  Migration error (non-fatal):", err);
   } finally {
-    await client?.end();
+    await connection?.end();
   }
 }
