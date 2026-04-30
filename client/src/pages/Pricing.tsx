@@ -239,17 +239,11 @@ export default function Pricing() {
                     ))}
                   </ul>
                   <Button
-                    className="w-full font-bold mt-4"
-                    style={{
-                      backgroundColor: isPopular ? plan.color : "transparent",
-                      borderColor: plan.color,
-                      color: isPopular ? "white" : plan.color,
-                      border: `2px solid ${plan.color}`,
-                    }}
+                    className="w-full font-bold mt-4 bg-[#0066ff] hover:bg-[#0052cc] text-white border-0 rounded-lg py-3 text-base"
                     disabled={loadingPlan === plan.id}
                     onClick={() => handleSubscribe(plan.id)}
                   >
-                    {loadingPlan === plan.id ? "Loading..." : "Get Started"}
+                    {loadingPlan === plan.id ? "Loading..." : "Get Started — Free 7 Days"}
                   </Button>
                 </CardContent>
               </Card>
@@ -269,11 +263,10 @@ export default function Pricing() {
             ))}
           </div>
           <Button
-            variant="outline"
-            className="border-white/20 text-white hover:bg-white/10"
-            onClick={() => { if (user) navigate('/'); else window.location.href = '/signin'; }}
+            className="bg-[#0066ff] hover:bg-[#0052cc] text-white border-0 rounded-lg py-3 px-8 text-base font-bold"
+            onClick={() => { if (user) navigate('/'); else window.location.href = '/signup'; }}
           >
-            {user ? "You're on Free" : "Sign Up Free"}
+            {user ? "You're on Free Trial" : "Sign Up Free — 7 Days"}
           </Button>
         </div>
 
@@ -295,7 +288,7 @@ export default function Pricing() {
                     {formatPrice(pack.price)}
                   </div>
                   <Button
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                    className="w-full bg-[#0066ff] hover:bg-[#0052cc] text-white border-0 rounded-lg py-3 text-base font-bold"
                     disabled={loadingPlan === pack.id}
                     onClick={() => handleBuyCredits(pack.id)}
                   >

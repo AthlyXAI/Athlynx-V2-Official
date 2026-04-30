@@ -142,7 +142,7 @@ export default function Billing() {
                   <div className="text-blue-200/60 text-sm">Basic access — upgrade to unlock all features</div>
                 </div>
                 <Button
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold"
+                  className="bg-[#0066ff] hover:bg-[#0052cc] text-white font-bold rounded-lg py-3 px-6"
                   onClick={() => navigate("/pricing")}
                 >
                   Upgrade Now <ArrowUpRight className="w-4 h-4 ml-1" />
@@ -167,7 +167,7 @@ export default function Billing() {
                 <div className="text-blue-200/60 text-sm mt-1">Credits remaining — used for AI features across the platform</div>
               </div>
               <Button
-                className="bg-yellow-500 hover:bg-yellow-400 text-black font-black"
+                className="bg-[#0066ff] hover:bg-[#0052cc] text-white font-bold rounded-lg py-3 px-6"
                 onClick={() => navigate("/pricing#credits")}
               >
                 Buy Credits <ArrowUpRight className="w-4 h-4 ml-1" />
@@ -187,8 +187,7 @@ export default function Billing() {
                   </div>
                 </div>
                 <Button
-                  variant="outline"
-                  className="border-blue-500/40 text-blue-300 hover:bg-blue-500/10"
+                  className="bg-[#0066ff] hover:bg-[#0052cc] text-white font-bold rounded-lg py-3 px-6"
                   disabled={createBillingPortal.isPending}
                   onClick={handleManageBilling}
                 >
@@ -210,7 +209,7 @@ export default function Billing() {
               </p>
               <Button
                 size="lg"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-8"
+                className="bg-[#0066ff] hover:bg-[#0052cc] text-white font-bold px-8 rounded-lg py-3"
                 onClick={() => navigate("/pricing")}
               >
                 View Plans

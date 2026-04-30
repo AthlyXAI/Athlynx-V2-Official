@@ -143,8 +143,8 @@ export default function TrialExpired() {
               style={{
                 width: "100%",
                 padding: "14px",
-                background: plan.popular ? plan.color : "rgba(255,255,255,0.08)",
-                border: `1px solid ${plan.color}`,
+                background: "#0066ff",
+                border: "none",
                 borderRadius: "10px",
                 color: "#fff",
                 fontSize: "15px",

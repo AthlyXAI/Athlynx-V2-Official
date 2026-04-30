@@ -338,7 +338,7 @@ export default function PricingTiers() {
                           </h4>
                           <p className="text-white/60 text-sm">{tier.why}</p>
                         </div>
-                        <Button className={`w-full bg-gradient-to-r ${tier.color} hover:opacity-90 text-white font-bold py-6`}>
+                        <Button className="w-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-bold py-3 rounded-lg text-base">
                           {tier.cta}
                         </Button>
                       </div>
@@ -393,11 +393,11 @@ export default function PricingTiers() {
                   Custom branding, dedicated support, and full data ownership.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Button className="bg-cyan-500 hover:bg-cyan-400 text-white">
+                  <Button className="bg-[#0066ff] hover:bg-[#0052cc] text-white font-bold py-3 px-6 rounded-lg">
                     Request Demo
                   </Button>
                   <Link href="/partner-portal">
-                    <Button variant="outline" className="border-cyan-500/50 text-cyan-400">
+                    <Button className="bg-[#0066ff] hover:bg-[#0052cc] text-white font-bold py-3 px-6 rounded-lg">
                       Partner Portal
                     </Button>
                   </Link>
@@ -450,7 +450,7 @@ export default function PricingTiers() {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/">
-              <Button className="bg-white text-cyan-600 font-bold px-8 py-3 hover:bg-gray-100">
+              <Button className="bg-[#0066ff] hover:bg-[#0052cc] text-white font-bold px-8 py-3 rounded-lg">
                 Get Early Access
               </Button>
             </Link>
