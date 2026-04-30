@@ -1,7 +1,8 @@
 /**
- * ATHLYNX — Firebase Auth Client
- * Replaces Auth0/Okta with Firebase Authentication.
- * Supports: Google, Apple, Facebook (when configured), Email/Password
+ * ATHLYNXAI — Firebase Auth Client
+ * Supports: Google, Apple, Facebook, X/Twitter, Email/Password
+ * iOS/Android: uses signInWithRedirect (Safari blocks popups)
+ * Desktop: uses signInWithPopup
  */
 import { initializeApp, getApps } from "firebase/app";
 import {
@@ -11,6 +12,8 @@ import {
   FacebookAuthProvider,
   TwitterAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
@@ -27,19 +30,19 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// Only initialize Firebase if all required config values are present
 export const isFirebaseConfigured = !!(
   firebaseConfig.apiKey &&
   firebaseConfig.authDomain &&
   firebaseConfig.projectId &&
   firebaseConfig.appId
 );
+
 const app = isFirebaseConfigured
   ? (getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0])
   : null;
+
 export const auth = isFirebaseConfigured && app ? getAuth(app) : null as any;
 
-// Providers
 const googleProvider = new GoogleAuthProvider();
 googleProvider.addScope("email");
 googleProvider.addScope("profile");
@@ -54,39 +57,69 @@ facebookProvider.addScope("public_profile");
 
 const twitterProvider = new TwitterAuthProvider();
 
-/** Sign in with Google popup — returns Firebase ID token */
+/** Detect mobile (iOS or Android) — use redirect instead of popup */
+function isMobile(): boolean {
+  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+}
+
+/** Sign in with any provider — redirect on mobile, popup on desktop */
+async function signInWithProvider(
+  provider: GoogleAuthProvider | OAuthProvider | FacebookAuthProvider | TwitterAuthProvider
+): Promise<{ idToken: string; user: FirebaseUser }> {
+  if (!isFirebaseConfigured || !auth) throw new Error('Firebase is not configured');
+
+  if (isMobile()) {
+    // Store pending provider so AuthCallback can handle it
+    sessionStorage.setItem('pendingAuthProvider', 'redirect');
+    await signInWithRedirect(auth, provider);
+    // Page redirects away — this line never runs
+    throw new Error('Redirecting to sign in...');
+  } else {
+    const result = await signInWithPopup(auth, provider);
+    const idToken = await result.user.getIdToken();
+    return { idToken, user: result.user };
+  }
+}
+
+/**
+ * Call this on app load to handle redirect result after mobile sign-in.
+ * Returns user data if a redirect just completed, null otherwise.
+ */
+export async function handleRedirectResult(): Promise<{ idToken: string; user: FirebaseUser } | null> {
+  if (!isFirebaseConfigured || !auth) return null;
+  try {
+    const result = await getRedirectResult(auth);
+    if (!result) return null;
+    const idToken = await result.user.getIdToken();
+    return { idToken, user: result.user };
+  } catch (err: any) {
+    if (
+      err?.code === 'auth/missing-initial-state' ||
+      err?.message?.includes('missing initial state') ||
+      err?.message?.includes('sessionStorage')
+    ) {
+      return null;
+    }
+    throw err;
+  }
+}
+
 export async function signInWithGoogle(): Promise<{ idToken: string; user: FirebaseUser }> {
-  if (!isFirebaseConfigured || !auth) throw new Error('Firebase is not configured');
-  const result = await signInWithPopup(auth, googleProvider);
-  const idToken = await result.user.getIdToken();
-  return { idToken, user: result.user };
+  return signInWithProvider(googleProvider);
 }
 
-/** Sign in with Apple popup — returns Firebase ID token */
 export async function signInWithApple(): Promise<{ idToken: string; user: FirebaseUser }> {
-  if (!isFirebaseConfigured || !auth) throw new Error('Firebase is not configured');
-  const result = await signInWithPopup(auth, appleProvider);
-  const idToken = await result.user.getIdToken();
-  return { idToken, user: result.user };
+  return signInWithProvider(appleProvider);
 }
 
-/** Sign in with Facebook popup — returns Firebase ID token */
 export async function signInWithFacebook(): Promise<{ idToken: string; user: FirebaseUser }> {
-  if (!isFirebaseConfigured || !auth) throw new Error('Firebase is not configured');
-  const result = await signInWithPopup(auth, facebookProvider);
-  const idToken = await result.user.getIdToken();
-  return { idToken, user: result.user };
+  return signInWithProvider(facebookProvider);
 }
 
-/** Sign in with X (Twitter) popup — returns Firebase ID token */
 export async function signInWithTwitter(): Promise<{ idToken: string; user: FirebaseUser }> {
-  if (!isFirebaseConfigured || !auth) throw new Error('Firebase is not configured');
-  const result = await signInWithPopup(auth, twitterProvider);
-  const idToken = await result.user.getIdToken();
-  return { idToken, user: result.user };
+  return signInWithProvider(twitterProvider);
 }
 
-/** Sign out from Firebase */
 export async function firebaseSignOut(): Promise<void> {
   if (auth) await signOut(auth);
 }
