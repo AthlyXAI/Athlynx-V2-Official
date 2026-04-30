@@ -6,6 +6,7 @@ import { users, notifications, broadcastMessages } from "../../drizzle/schema";
 import { desc, eq, like, or, sql } from "drizzle-orm";
 import { sendEmail } from "../services/aws-ses";
 import { sendSMS } from "../services/twilio-sms";
+import { getGravatarProfile, getGravatarUrl } from "../services/gravatar";
 import Stripe from "stripe";
 
 const adminProcedure = protectedProcedure.use(({ ctx, next }) => {
@@ -186,4 +187,58 @@ export const adminRouter = router({
       currency: "usd",
     };
   }),
+
+  // ─── Refresh Gravatar for a user (admin-triggered) ─────────────────────────
+  // Pulls the latest avatar + profile metadata from gravatar.com and writes it
+  // to the user record. If `userId` is omitted, refreshes the calling admin's own row.
+  refreshGravatar: adminProcedure
+    .input(z.object({
+      userId: z.number().int().positive().optional(),
+      email: z.string().email().optional(),
+    }))
+    .mutation(async ({ input, ctx }) => {
+      const db = await getDb();
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database unavailable" });
+
+      const targetId = input.userId ?? ctx.user.id;
+      const [targetUser] = await db.select({
+        id: users.id, email: users.email, name: users.name, avatarUrl: users.avatarUrl,
+      }).from(users).where(eq(users.id, targetId)).limit(1);
+      if (!targetUser) throw new TRPCError({ code: "NOT_FOUND", message: "User not found" });
+
+      const email = input.email ?? targetUser.email;
+      if (!email) throw new TRPCError({ code: "BAD_REQUEST", message: "No email on record; pass one explicitly." });
+
+      const [avatarUrl, profile] = await Promise.all([
+        getGravatarUrl(email),
+        getGravatarProfile(email),
+      ]);
+
+      if (!avatarUrl) {
+        return {
+          success: false,
+          message: `No Gravatar found for ${email}. Verify the email is registered at gravatar.com.`,
+          previousAvatarUrl: targetUser.avatarUrl,
+        };
+      }
+
+      const patch: Record<string, unknown> = { avatarUrl };
+      // Enrich bio if Gravatar has richer data and local is empty
+      if (profile?.description && !targetUser.name) patch.bio = profile.description;
+
+      await db.update(users).set(patch).where(eq(users.id, targetId));
+
+      return {
+        success: true,
+        userId: targetId,
+        email,
+        previousAvatarUrl: targetUser.avatarUrl,
+        newAvatarUrl: avatarUrl,
+        displayName: profile?.display_name ?? null,
+        jobTitle: profile?.job_title ?? null,
+        company: profile?.company ?? null,
+        location: profile?.location ?? null,
+        verifiedAccounts: profile?.number_verified_accounts ?? 0,
+      };
+    }),
 });
