@@ -1,6 +1,6 @@
 # ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
 ## Last Updated: April 30, 2026 — UNIFIED IDENTITY UPDATE
-## READ THIS FILE AT THE START OF EVERY MANUS TASK
+## READ THIS FILE AT THE START OF EVERY NEW SESSION
 
 ---
 
@@ -27,7 +27,7 @@
 
 | Agent | Role | Account |
 |-------|------|---------|
-| **Manus** | Primary autonomous agent — builds, deploys, manages | cdozier14@athlynx.ai |
+| **AI Agent** | Primary autonomous agent — builds, deploys, manages | cdozier14@athlynx.ai |
 | **Google Gemini** | Language + multimodal AI — embedded in platform | cdozier14@athlynx.ai (Google Workspace) |
 | **Claude** | Reasoning + document AI — secondary | cdozier14@athlynx.ai |
 
@@ -172,7 +172,7 @@
 | Item | Amount |
 |------|--------|
 | Total out-of-pocket spend (Dec 2025 – Apr 2026) | $50,000+ |
-| Manus AI subscription charges | $20,000+ (documented in Chase dispute) |
+| AI subscription charges | $20,000+ (documented in Chase dispute) |
 | Claude AI subscription | Included in total |
 | Vercel, GitHub, Cloudflare, Stripe, Supabase, Neon, Twilio, Zapier, Railway, AWS, PlanetScale, Netlify, domains | Included in total |
 | Traditional team equivalent cost | $2,074,000 (12 people, 17 months) |
@@ -198,11 +198,11 @@
 
 ## HOW TO USE THIS FILE
 
-At the start of every new Manus task, tell Manus:
+At the start of every new session:
 
 > **"Read ATHLYNXAI_MASTER_REFERENCE.md from GitHub repo AthlyXAI/Athlynx-V2-Official before doing anything."**
 
-Manus will run:
+The AI agent will run:
 ```
 gh repo clone AthlyXAI/Athlynx-V2-Official
 cat ATHLYNXAI_MASTER_REFERENCE.md
