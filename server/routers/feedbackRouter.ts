@@ -1,12 +1,12 @@
 import { z } from "zod";
 import { publicProcedure, protectedProcedure, router } from "../_core/trpc";
 import { TRPCError } from "@trpc/server";
-import mysql from "mysql2/promise";
+import { Pool, Client } from "pg";
 
-let _pool: mysql.Pool | null = null;
-async function getPool(): Promise<mysql.Pool> {
+let _pool: Pool | null = null;
+async function getPool(): Promise<Pool> {
   if (!_pool) {
-    _pool = mysql.createPool({
+    _pool = new Pool({
       uri: process.env.DATABASE_URL!,
       ssl: { rejectUnauthorized: false },
       connectionLimit: 5,
