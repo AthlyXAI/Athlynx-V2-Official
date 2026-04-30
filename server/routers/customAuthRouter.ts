@@ -293,7 +293,7 @@ export const customAuthRouter = router({
       // Send Welcome SMS if phone number was provided
       if (user?.phone) {
         try {
-          const { sendWelcomeSMS, sendOwnerSignupSMSAlert } = await import("../services/twilio-sms");
+          const { sendWelcomeSMS, sendOwnerSignupSMSAlert } = await import("../services/aws-sns");
           await sendWelcomeSMS(user.phone, input.name);
           await sendOwnerSignupSMSAlert({ name: input.name, email: input.email });
           console.log("[AUTH] Welcome SMS sent to", user.phone);
@@ -320,7 +320,7 @@ export const customAuthRouter = router({
       // Send Welcome SMS if this is the first phone number saved
       if (isFirstPhone) {
         try {
-          const { sendWelcomeSMS, sendOwnerSignupSMSAlert } = await import("../services/twilio-sms");
+          const { sendWelcomeSMS, sendOwnerSignupSMSAlert } = await import("../services/aws-sns");
           await sendWelcomeSMS(input.phone, ctx.user.name ?? "Athlete");
           await sendOwnerSignupSMSAlert({ name: ctx.user.name ?? "Athlete", email: ctx.user.email ?? "" });
           console.log("[AUTH] Welcome SMS sent to", input.phone);

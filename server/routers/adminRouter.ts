@@ -5,7 +5,7 @@ import { getDb } from "../db";
 import { users, notifications, broadcastMessages } from "../../drizzle/schema";
 import { desc, eq, like, or, sql } from "drizzle-orm";
 import { sendEmail } from "../services/aws-ses";
-import { sendSMS } from "../services/twilio-sms";
+import { sendSMS } from "../services/aws-sns";
 import { getGravatarProfile, getGravatarUrl } from "../services/gravatar";
 import Stripe from "stripe";
 
