@@ -28,7 +28,8 @@ async function migrateDatabase(url: string, label: string): Promise<void> {
   }
   let connection: Client | undefined;
   try {
-    connection = await new Client({ connectionString: url);
+    connection = new Client({ connectionString: url, ssl: { rejectUnauthorized: false } });
+    await connection.connect();
     const db = drizzle(connection);
     const migrationsFolder = getMigrationsFolder();
     console.log(`[migrate:${label}] Running migrations from ${migrationsFolder}`);
