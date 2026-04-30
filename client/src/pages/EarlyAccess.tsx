@@ -1,6 +1,13 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'wouter'
 import { trpc } from '@/lib/trpc'
+import {
+  isFirebaseConfigured,
+  signInWithGoogle,
+  signInWithApple,
+  signInWithFacebook,
+  signInWithTwitter,
+} from '@/lib/firebase'
 
 export default function EarlyAccess() {
   const [, setLocation] = useLocation()
@@ -12,7 +19,14 @@ export default function EarlyAccess() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
 
+  const [socialLoading, setSocialLoading] = useState<string | null>(null)
+
   const savePhoneMutation = trpc.auth.savePhone.useMutation()
+
+  const syncFirebaseMutation = trpc.auth.syncFirebaseUser.useMutation({
+    onSuccess: () => { window.location.href = '/portal' },
+    onError: (err) => { setError(err.message || 'Sign-up failed.'); setSocialLoading(null) },
+  })
 
   const registerMutation = trpc.auth.register.useMutation({
     onSuccess: () => {
@@ -51,12 +65,36 @@ export default function EarlyAccess() {
   }
 
   async function handleGoogleSignUp() {
-    setError('')
-    window.location.href = '/api/auth/google'
+    return handleSocialSignIn('google')
   }
 
-  function handleSocialSignIn(_provider: string) {
-    window.location.href = '/api/auth/google'
+  async function handleSocialSignIn(provider: string) {
+    if (!isFirebaseConfigured) {
+      setError('Social sign-up is temporarily unavailable. Please use email/password.')
+      return
+    }
+    setError('')
+    setSocialLoading(provider)
+    try {
+      let result: { idToken: string; user: any }
+      if (provider === 'google') result = await signInWithGoogle()
+      else if (provider === 'apple') result = await signInWithApple()
+      else if (provider === 'facebook') result = await signInWithFacebook()
+      else result = await signInWithTwitter()
+      syncFirebaseMutation.mutate({
+        idToken: result.idToken,
+        name: result.user.displayName ?? '',
+        email: result.user.email ?? '',
+        picture: result.user.photoURL ?? undefined,
+      })
+    } catch (err: any) {
+      const msg = err?.message ?? 'Sign-up failed'
+      if (msg.includes('popup-closed') || msg.includes('cancelled') || msg.includes('popup_closed')) {
+        setSocialLoading(null); return
+      }
+      setError(msg)
+      setSocialLoading(null)
+    }
   }
 
   if (success) {
@@ -205,7 +243,7 @@ export default function EarlyAccess() {
               Email Address *
             </label>
             <input
-              type="email"
+              type="text"
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="you@example.com"

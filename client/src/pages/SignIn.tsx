@@ -169,7 +169,7 @@ export default function SignIn() {
         <form onSubmit={handleEmailSignIn}>
           <div style={{ marginBottom: '16px' }}>
             <label style={{ display: 'block', color: '#94a3b8', fontSize: '13px', marginBottom: '6px' }}>Email Address</label>
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" style={{ width: '100%', padding: '12px 14px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(0,200,255,0.25)', borderRadius: '8px', color: '#fff', fontSize: '15px', outline: 'none', boxSizing: 'border-box' }} />
+            <input type="text" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" style={{ width: '100%', padding: '12px 14px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(0,200,255,0.25)', borderRadius: '8px', color: '#fff', fontSize: '15px', outline: 'none', boxSizing: 'border-box' }} />
           </div>
           <div style={{ marginBottom: '8px' }}>
             <label style={{ display: 'block', color: '#94a3b8', fontSize: '13px', marginBottom: '6px' }}>Password</label>
