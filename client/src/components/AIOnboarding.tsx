@@ -240,7 +240,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
       // Auto-redirect to pricing/trial after 2 seconds
       setTimeout(() => {
         onComplete(answers);
-        window.location.href = "/pricing";
+        window.location.href = "/portal";
       }, 2000);
     },
     onError: () => {
@@ -248,7 +248,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
       setStep("done");
       setTimeout(() => {
         onComplete(answers);
-        window.location.href = "/pricing";
+        window.location.href = "/portal";
       }, 2000);
     },
   });
