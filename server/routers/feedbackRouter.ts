@@ -1,15 +1,15 @@
 import { z } from "zod";
 import { publicProcedure, protectedProcedure, router } from "../_core/trpc";
 import { TRPCError } from "@trpc/server";
-import { Pool } from "pg";
+import mysql from "mysql2/promise";
 
-let _pool: Pool | null = null;
-async function getPool(): Promise<Pool> {
+let _pool: mysql.Pool | null = null;
+async function getPool(): Promise<mysql.Pool> {
   if (!_pool) {
-    _pool = new Pool({
-      connectionString: process.env.DATABASE_URL!,
+    _pool = mysql.createPool({
+      uri: process.env.DATABASE_URL!,
       ssl: { rejectUnauthorized: false },
-      max: 5,
+      connectionLimit: 5,
     });
   }
   return _pool;
@@ -27,8 +27,8 @@ export const feedbackRouter = router({
     }))
     .mutation(async ({ input }) => {
       const pool = await getPool();
-      await pool.query(
-        `INSERT INTO athlete_feedback (name, email, title, body, category) VALUES ($1, $2, $3, $4, $5)`,
+      await pool.execute(
+        `INSERT INTO athlete_feedback (name, email, title, body, category) VALUES (?, ?, ?, ?, ?)`,
         [input.name, input.email, input.title, input.body, input.category]
       );
       return { success: true };
@@ -43,55 +43,51 @@ export const feedbackRouter = router({
       offset: z.number().min(0).default(0),
     }))
     .query(async ({ input }) => {
+      const whereClause = input.category !== "all" ? `WHERE category = ?` : "";
+      const params: any[] = input.category !== "all" ? [input.category] : [];
+      const orderBy = input.sort === "top" ? "votes DESC, createdAt DESC" : "createdAt DESC";
+      params.push(input.limit, input.offset);
+
       const pool = await getPool();
+      // Use query (not execute) so LIMIT/OFFSET integers work correctly
       const limitSafe = Math.min(Math.max(1, input.limit), 50);
       const offsetSafe = Math.max(0, input.offset);
-      const orderBy = input.sort === "top" ? "votes DESC, \"createdAt\" DESC" : "\"createdAt\" DESC";
+      const catParam = input.category !== "all" ? [input.category] : [];
+      const [rows] = await pool.query(
+        `SELECT id, name, title, body, category, votes, status, adminReply, repliedAt, createdAt
+         FROM athlete_feedback ${whereClause}
+         ORDER BY ${orderBy}
+         LIMIT ${limitSafe} OFFSET ${offsetSafe}`,
+        catParam
+      ) as any;
 
-      let query: string;
-      let params: any[];
-
-      if (input.category !== "all") {
-        query = `SELECT id, name, title, body, category, votes, status, "adminReply", "repliedAt", "createdAt"
-                 FROM athlete_feedback WHERE category = $1
-                 ORDER BY ${orderBy}
-                 LIMIT $2 OFFSET $3`;
-        params = [input.category, limitSafe, offsetSafe];
-      } else {
-        query = `SELECT id, name, title, body, category, votes, status, "adminReply", "repliedAt", "createdAt"
-                 FROM athlete_feedback
-                 ORDER BY ${orderBy}
-                 LIMIT $1 OFFSET $2`;
-        params = [limitSafe, offsetSafe];
-      }
-
-      const result = await pool.query(query, params);
-      return { items: result.rows };
+      return { items: rows as any[] };
     }),
 
   // Vote on feedback (by email/IP identifier)
   vote: publicProcedure
     .input(z.object({
       feedbackId: z.number(),
-      voterIdentifier: z.string().min(1).max(320),
+      voterIdentifier: z.string().min(1).max(320), // email or IP
     }))
     .mutation(async ({ input }) => {
       const pool = await getPool();
-      const existing = await pool.query(
-        `SELECT id FROM feedback_votes WHERE "feedbackId" = $1 AND "voterIdentifier" = $2`,
+      // Check if already voted
+      const [existing] = await pool.execute(
+        `SELECT id FROM feedback_votes WHERE feedbackId = ? AND voterIdentifier = ?`,
         [input.feedbackId, input.voterIdentifier]
-      );
+      ) as any;
 
-      if (existing.rows.length > 0) {
+      if ((existing as any[]).length > 0) {
         return { success: false, message: "Already voted" };
       }
 
-      await pool.query(
-        `INSERT INTO feedback_votes ("feedbackId", "voterIdentifier") VALUES ($1, $2)`,
+      await pool.execute(
+        `INSERT INTO feedback_votes (feedbackId, voterIdentifier) VALUES (?, ?)`,
         [input.feedbackId, input.voterIdentifier]
       );
-      await pool.query(
-        `UPDATE athlete_feedback SET votes = votes + 1 WHERE id = $1`,
+      await pool.execute(
+        `UPDATE athlete_feedback SET votes = votes + 1 WHERE id = ?`,
         [input.feedbackId]
       );
       return { success: true };
@@ -107,17 +103,10 @@ export const feedbackRouter = router({
     .mutation(async ({ ctx, input }) => {
       if (ctx.user.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
       const pool = await getPool();
-      if (input.status) {
-        await pool.query(
-          `UPDATE athlete_feedback SET "adminReply" = $1, "repliedAt" = NOW(), status = $2 WHERE id = $3`,
-          [input.reply, input.status, input.feedbackId]
-        );
-      } else {
-        await pool.query(
-          `UPDATE athlete_feedback SET "adminReply" = $1, "repliedAt" = NOW() WHERE id = $2`,
-          [input.reply, input.feedbackId]
-        );
-      }
+      await pool.execute(
+        `UPDATE athlete_feedback SET adminReply = ?, repliedAt = NOW() ${input.status ? ", status = ?" : ""} WHERE id = ?`,
+        input.status ? [input.reply, input.status, input.feedbackId] : [input.reply, input.feedbackId]
+      );
       return { success: true };
     }),
 
@@ -130,8 +119,8 @@ export const feedbackRouter = router({
     .mutation(async ({ ctx, input }) => {
       if (ctx.user.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
       const pool = await getPool();
-      await pool.query(
-        `UPDATE athlete_feedback SET status = $1 WHERE id = $2`,
+      await pool.execute(
+        `UPDATE athlete_feedback SET status = ? WHERE id = ?`,
         [input.status, input.feedbackId]
       );
       return { success: true };
@@ -143,8 +132,8 @@ export const feedbackRouter = router({
     .mutation(async ({ ctx, input }) => {
       if (ctx.user.role !== "admin") throw new TRPCError({ code: "FORBIDDEN" });
       const pool = await getPool();
-      await pool.query(`DELETE FROM feedback_votes WHERE "feedbackId" = $1`, [input.feedbackId]);
-      await pool.query(`DELETE FROM athlete_feedback WHERE id = $1`, [input.feedbackId]);
+      await pool.execute(`DELETE FROM feedback_votes WHERE feedbackId = ?`, [input.feedbackId]);
+      await pool.execute(`DELETE FROM athlete_feedback WHERE id = ?`, [input.feedbackId]);
       return { success: true };
     }),
 });
