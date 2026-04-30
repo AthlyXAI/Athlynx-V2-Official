@@ -1,6 +1,6 @@
 import { eq, sql, gte, and, lt } from "drizzle-orm";
-import { drizzle } from "drizzle-orm/mysql2";
-import mysql from "mysql2/promise";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
 import {
   InsertUser,
   users,
@@ -21,7 +21,7 @@ import {
 import { ENV } from './_core/env';
 
 let _db: any = null;
-let _pool: mysql.Pool | null = null;
+let _pool: Pool | null = null;
 let _lastConnectAttempt = 0;
 const RECONNECT_COOLDOWN_MS = 30_000; // don't hammer DB — wait 30s between retries
 
@@ -44,26 +44,18 @@ export async function getDb() {
       try { await _pool.end(); } catch (_) {}
       _pool = null;
     }
-    _pool = mysql.createPool({
-      uri: (process.env.DATABASE_URL || '').trim(),
+    _pool = new Pool({
+      connectionString: (process.env.DATABASE_URL || '').trim(),
       ssl: { rejectUnauthorized: false },
-      connectionLimit: 10,
-      connectTimeout: 10000,
-      waitForConnections: true,
-      queueLimit: 0,
-      enableKeepAlive: true,
-      keepAliveInitialDelay: 10000,
-      // Return BIGINT/SERIAL columns as JS numbers (not strings).
-      // Without these flags, mysql2 returns serial() primary keys as strings (e.g. "1"),
-      // which causes type mismatch errors when comparing against INT foreign key columns.
-      supportBigNumbers: true,
-      bigNumberStrings: false,
+      max: 10,
+      connectionTimeoutMillis: 10000,
+      idleTimeoutMillis: 30000,
     });
     // Verify the connection is actually alive before caching
-    const conn = await _pool.getConnection();
-    conn.release();
+    const client = await _pool.connect();
+    client.release();
     _db = drizzle(_pool);
-    console.log("[Database] Connected successfully");
+    console.log("[Database] Connected successfully (PostgreSQL)");
   } catch (error) {
     console.warn("[Database] Failed to connect:", error);
     _db = null;
@@ -128,8 +120,9 @@ export async function upsertUser(user: InsertUser): Promise<void> {
       updateSet.lastSignedIn = new Date();
     }
 
-    // MySQL uses onDuplicateKeyUpdate instead of onConflictDoUpdate
-    await db.insert(users).values(values).onDuplicateKeyUpdate({
+    // PostgreSQL uses onConflictDoUpdate
+    await db.insert(users).values(values).onConflictDoUpdate({
+      target: users.openId,
       set: updateSet,
     });
   } catch (error) {
@@ -175,7 +168,7 @@ export async function getWaitlistEntries() {
 export async function addToWaitlist(data: { email: string; name?: string; sport?: string; school?: string; phone?: string; role?: string }) {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
-  await db.insert(waitlist).values(data).onDuplicateKeyUpdate({ set: { email: data.email } });
+  await db.insert(waitlist).values(data).onConflictDoUpdate({ target: waitlist.email, set: { email: data.email } });
 }
 
 // ─── CRM ──────────────────────────────────────────────────────────────────────
@@ -265,7 +258,7 @@ export async function createSubscription(data: {
   await db.execute(sql`
     INSERT INTO subscriptions (userId, stripeSubscriptionId, stripeCustomerId, tierId, status, currentPeriodStart, currentPeriodEnd)
     VALUES (${data.userId}, ${data.stripeSubscriptionId}, ${data.stripeCustomerId}, ${data.tierId}, ${data.status}, ${data.currentPeriodStart}, ${data.currentPeriodEnd})
-    ON DUPLICATE KEY UPDATE status=${data.status}, tierId=${data.tierId}, currentPeriodStart=${data.currentPeriodStart}, currentPeriodEnd=${data.currentPeriodEnd}
+    ON CONFLICT (stripeSubscriptionId) DO UPDATE SET status=${data.status}, tierId=${data.tierId}, currentPeriodStart=${data.currentPeriodStart}, currentPeriodEnd=${data.currentPeriodEnd}
   `);
 }
 
