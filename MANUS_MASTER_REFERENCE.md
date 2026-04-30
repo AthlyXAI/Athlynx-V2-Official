@@ -1,5 +1,5 @@
 # ATHLYNX MANUS MASTER REFERENCE FILE
-## Last Updated: April 29, 2026 — UNIFIED IDENTITY UPDATE
+## Last Updated: April 30, 2026 — UNIFIED IDENTITY UPDATE
 ## READ THIS FILE AT THE START OF EVERY MANUS TASK
 
 ---
@@ -15,7 +15,7 @@
 | **Address** | 19039 Cloyanna Ln, Humble, TX 77346 |
 | **Website** | athlynx.ai |
 | **GitHub Account** | chaddozier75-cmd |
-| **GitHub Repo** | chaddozier75-cmd/Athlynx-V2-Official |
+| **GitHub Repo** | AthlyXAI/Athlynx-V2-Official |
 | **Bank** | 1 business account — shared across all subsidiaries |
 
 > **Backup emails (READ-ONLY — no accounts, no repos, no services):**
@@ -88,7 +88,7 @@
 
 | Item | Value |
 |------|-------|
-| **Repo** | https://github.com/chaddozier75-cmd/Athlynx-V2-Official |
+| **Repo** | https://github.com/AthlyXAI/Athlynx-V2-Official |
 | **Branch** | main — auto-deploys to Vercel on every push |
 | **Rule** | ALWAYS push here. No other repos. No exceptions. |
 
@@ -109,7 +109,7 @@
 
 | Connector | Purpose |
 |-----------|----------|
-| GitHub | Code — chaddozier75-cmd/Athlynx-V2-Official |
+| GitHub | Code — AthlyXAI/Athlynx-V2-Official |
 | Vercel | Deployment — athlynx.ai |
 | Stripe | Payments + subscriptions (LIVE mode) |
 | Supabase | Database |
@@ -185,7 +185,7 @@
 
 1. **1 email everywhere:** cdozier14@athlynx.ai
 2. **1 phone everywhere:** +1-601-498-5282
-3. **1 repo:** chaddozier75-cmd/Athlynx-V2-Official
+3. **1 repo:** AthlyXAI/Athlynx-V2-Official
 4. **1 AI agent stack:** Manus + Gemini + Claude — all same account
 5. **Backup emails are READ-ONLY** — no accounts, no repos, no services on them
 6. **1 bank account** — all subsidiaries route through DHG parent
@@ -200,11 +200,11 @@
 
 At the start of every new Manus task, tell Manus:
 
-> **"Read MANUS_MASTER_REFERENCE.md from GitHub repo chaddozier75-cmd/Athlynx-V2-Official before doing anything."**
+> **"Read MANUS_MASTER_REFERENCE.md from GitHub repo AthlyXAI/Athlynx-V2-Official before doing anything."**
 
 Manus will run:
 ```
-gh repo clone chaddozier75-cmd/Athlynx-V2-Official
+gh repo clone AthlyXAI/Athlynx-V2-Official
 cat MANUS_MASTER_REFERENCE.md
 ```
 
