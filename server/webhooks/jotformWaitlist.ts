@@ -105,7 +105,7 @@ export function registerJotformWaitlistWebhook(app: Express): void {
         sport:  sport  || null,
         school: school || null,
         role,
-      }).onDuplicateKeyUpdate({
+      }).onConflictDoUpdate({ target: waitlist.email,
         // If the same email submits twice, update their info rather than error
         set: {
           name:   name   || null,
