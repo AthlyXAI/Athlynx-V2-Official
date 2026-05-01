@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
 
 // ─── REAL MARKET DATA (sourced from Grand View Research, MarketsandMarkets, Opendorse NIL Report 2025) ───
 const MARKET_DATA = [
@@ -130,8 +132,101 @@ const TEAM = [
 
 const YEARS = ["2025", "2026", "2027", "2028", "2029"];
 
+// ─── Investor Request Gate ───────────────────────────────────────────────────
+function InvestorRequestGate({ onGranted }: { onGranted: () => void }) {
+  const [form, setForm] = useState({
+    fullName: "", email: "", phone: "", company: "", title: "",
+    investmentRange: "$250K – $500K" as "Under $50K" | "$50K – $250K" | "$250K – $500K" | "$500K – $1M" | "$1M+",
+    accredited: false, message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const submit = trpc.investor.submitRequest.useMutation({
+    onSuccess: () => setSubmitted(true),
+    onError: (e) => toast.error(e.message),
+  });
+  if (submitted) {
+    return (
+      <div className="min-h-screen bg-[#040c1a] flex items-center justify-center p-6">
+        <div className="max-w-lg w-full text-center">
+          <div className="text-6xl mb-6">🏆</div>
+          <h1 className="text-4xl font-black text-white mb-4">Request Received</h1>
+          <p className="text-white/60 text-lg mb-6">Thank you, {form.fullName}. Our team will reach out within 1–2 business days.</p>
+          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-6">
+            <p className="text-white/40 text-sm">Direct contact</p>
+            <p className="text-white font-bold mt-1">cdozier14@athlynx.ai</p>
+            <p className="text-white/60 text-sm">+1 (601) 498-5282</p>
+          </div>
+          <button onClick={onGranted} className="text-blue-400 underline text-sm">View investor materials anyway →</button>
+          <p className="text-white/20 text-xs mt-4">CONFIDENTIAL · FOR ACCREDITED INVESTOR USE ONLY · © 2026 Dozier Holdings Group, LLC</p>
+        </div>
+      </div>
+    );
+  }
+  return (
+    <div className="min-h-screen bg-[#040c1a] flex items-center justify-center p-6">
+      <div className="max-w-2xl w-full">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-400/30 rounded-full px-4 py-1.5 mb-6">
+            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+            <span className="text-blue-400 text-xs font-black tracking-widest uppercase">Pre-Seed Round — Open Now</span>
+          </div>
+          <h1 className="text-5xl font-black text-white mb-3">Investor Access</h1>
+          <p className="text-white/50 text-lg">Complete the form to request access to the ATHLYNX investor portal.</p>
+          <p className="text-blue-400 font-bold mt-2">$135B market · Zero full-stack competitors · Pre-Seed open</p>
+        </div>
+        <div className="bg-[#0d1b3e] border border-white/10 rounded-3xl p-8 space-y-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {([
+              { key: "fullName", label: "Full Name *", placeholder: "Chad A. Dozier Sr." },
+              { key: "email", label: "Email Address *", placeholder: "you@fund.com" },
+              { key: "phone", label: "Phone Number", placeholder: "+1 (555) 000-0000" },
+              { key: "company", label: "Company / Fund", placeholder: "Sequoia Capital" },
+              { key: "title", label: "Title / Role", placeholder: "Managing Partner" },
+            ] as const).map(({ key, label, placeholder }) => (
+              <div key={key}>
+                <label className="text-white/50 text-xs font-bold uppercase tracking-wider block mb-1.5">{label}</label>
+                <input type="text" placeholder={placeholder} value={(form as any)[key]}
+                  onChange={(e) => setForm(f => ({ ...f, [key]: e.target.value }))}
+                  className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400/50" />
+              </div>
+            ))}
+            <div>
+              <label className="text-white/50 text-xs font-bold uppercase tracking-wider block mb-1.5">Investment Range *</label>
+              <select value={form.investmentRange} onChange={(e) => setForm(f => ({ ...f, investmentRange: e.target.value as any }))}
+                className="w-full bg-[#0a1628] border border-white/10 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400/50">
+                {["Under $50K", "$50K – $250K", "$250K – $500K", "$500K – $1M", "$1M+"].map(r => <option key={r} value={r}>{r}</option>)}
+              </select>
+            </div>
+          </div>
+          <div>
+            <label className="text-white/50 text-xs font-bold uppercase tracking-wider block mb-1.5">Message (Optional)</label>
+            <textarea placeholder="Tell us about your investment thesis..." value={form.message}
+              onChange={(e) => setForm(f => ({ ...f, message: e.target.value }))} rows={3}
+              className="w-full bg-white/5 border border-white/10 text-white placeholder:text-white/20 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-blue-400/50 resize-none" />
+          </div>
+          <label className="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" checked={form.accredited} onChange={(e) => setForm(f => ({ ...f, accredited: e.target.checked }))}
+              className="mt-1 w-4 h-4 rounded accent-blue-500" />
+            <span className="text-white/60 text-sm">I confirm I am an <strong className="text-white">accredited investor</strong> as defined by SEC Rule 501 of Regulation D.</span>
+          </label>
+          <button onClick={() => {
+            if (!form.fullName.trim() || !form.email.trim()) return toast.error("Full name and email are required");
+            submit.mutate(form);
+          }} disabled={submit.isPending}
+            className="w-full bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-black py-4 rounded-2xl text-lg transition-all shadow-xl shadow-blue-500/20">
+            {submit.isPending ? "Submitting..." : "Request Investor Access →"}
+          </button>
+          <p className="text-white/20 text-xs text-center">CONFIDENTIAL — FOR ACCREDITED INVESTOR USE ONLY · © 2026 Dozier Holdings Group, LLC · ATHLYNX, Inc. · Humble, TX 77346</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function InvestorHub() {
   const [activeTab, setActiveTab] = useState<"revenue" | "pl">("revenue");
+  const [accessGranted, setAccessGranted] = useState(false);
+  if (!accessGranted) return <InvestorRequestGate onGranted={() => setAccessGranted(true)} />;
 
   return (
     <div className="min-h-screen bg-[#040c1a] text-white font-sans">

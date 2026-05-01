@@ -16,6 +16,7 @@ import { customAuthRouter } from "./routers/customAuthRouter";
 import { adminRouter } from "./routers/adminRouter";
 import { feedbackRouter } from "./routers/feedbackRouter";
 import { dataRouter } from "./routers/dataRouter";
+import { investorRouter } from "./routers/investorRouter";
 
 export const appRouter = router({
   system: systemRouter,
@@ -35,6 +36,7 @@ export const appRouter = router({
   admin: adminRouter,
   feedback: feedbackRouter,
   data: dataRouter,
+  investor: investorRouter,
 });
 
 export type AppRouter = typeof appRouter;
