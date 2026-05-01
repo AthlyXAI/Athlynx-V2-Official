@@ -118,6 +118,8 @@ import DataCenters from "./pages/DataCenters";
 import TheVirt from "./pages/TheVirt";
 import Podcast from "./pages/Podcast";
 import InvestorDeck from "./pages/InvestorDeck";
+import InvestorHub from "./pages/InvestorHub";
+
 
 import ManusPartnership from "./pages/ManusPartnership";
 import Partners from "./pages/Partners";
