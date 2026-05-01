@@ -330,6 +330,11 @@ function Router() {
       <Route path="/the-virt" component={TheVirt} />
       <Route path="/investor-hub" component={InvestorHub} />
       <Route path="/investor-deck" component={InvestorDeck} />
+
+
+    
+
+      
       <Route path="/manus-partnership" component={ManusPartnership} />
       <Route path="/partners" component={Partners} />
       <Route path="/partner-portal" component={PartnerPortal} />
