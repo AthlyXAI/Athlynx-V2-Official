@@ -1,6 +1,7 @@
 # ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
-## Last Updated: Friday, May 1, 2026 — 1:30 AM CST — BUILD FIXED & LIVE
-## Session Summary: BUILD ERROR FIXED — stray </div> in Home.tsx caused 4 consecutive failed Vercel deploys. Fixed and confirmed locally (7,446 modules, 25s build). Investor section removed from Home page — replaced with slim banner 'ATHLYNX IS ACTIVELY SEEKING INVESTORS' linking to /investor-hub. Athlete hero is back at top. All 68 missing images fixed. Slides JPG. Gated investor page with request form (cdozier14@athlynx.ai + gtse@athlynx.ai) — IN PROGRESS. Zoom/Calendly at calendly.com/cdozier14 — already in Contact.tsx. AWS SNS PENDING. STRIPE_WEBHOOK_SECRET still needs Vercel env var. Public launch July 1, 2026.
+## Last Updated: Friday, May 1, 2026 — 3:00 PM CST — ALL SESSION TODOS COMPLETE
+## Session Summary (May 1 2026 PM): STRIPE_WEBHOOK_SECRET set in Vercel (webhook we_1TSLO6GvvjXZw2uEQjqGTiUw, 2 old duplicates deleted). Gated investor page with request form LIVE — notifies cdozier14@athlynx.ai + gtse@athlynx.ai on every submission. Calendly (calendly.com/cdozier14) wired into Admin CRM header. Chad A. Dozier Sr. set as role=admin in Neon DB with phone +16014985282. AWS SNS DONE (carrier activated). AWS SES LIVE — athlynx.ai domain verified, DKIM SUCCESS. Email + SMS at signup/login confirmed wired. SENDGRID_API_KEY already in Vercel. All 6 TODOs complete. Public launch July 1, 2026.
+## NEVER RUN manus-config save-config — it overwrites connector settings.
 ## READ THIS FILE AT THE START OF EVERY NEW SESSION
 
 ---
@@ -47,6 +48,7 @@
 5. **Do not lie or say something is done when it is not.**
 6. **Do not repeat the same mistake twice.**
 7. **Always commit and push to GitHub before ending any task.**
+8. **NEVER run manus-config save-config** — it overwrites connector settings and disables Vercel and other connectors.
 
 ---
 
@@ -126,8 +128,8 @@
 | Meta Ads Manager | Advertising |
 | Zapier | Automation workflows |
 | Neon | Postgres database |
-| Twilio | SMS notifications |
-| AWS | Cloud infrastructure |
+| Twilio | SMS notifications (replaced by AWS SNS — LIVE) |
+| AWS | Cloud infrastructure — SES LIVE, SNS LIVE |
 | OpenAI | AI features |
 | Google Cloud | OAuth + APIs |
 
@@ -165,6 +167,8 @@
 | Partners | https://athlynx.ai/partners |
 | Store | https://athlynx.ai/store |
 | Billing | https://athlynx.ai/billing |
+| Investor Hub | https://athlynx.ai/investor-hub |
+| Investor Deck | https://athlynx.ai/investor-deck |
 
 ---
 
@@ -194,6 +198,7 @@
 8. **No breaking changes** — never delete working code without a replacement
 9. **Always push to main** — never create new branches without reason
 10. **Always commit and push before ending any task**
+11. **NEVER run manus-config save-config**
 
 ---
 
