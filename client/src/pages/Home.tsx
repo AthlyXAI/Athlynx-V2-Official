@@ -407,7 +407,6 @@ export default function Home() {
           </div>
         </div>
       </a>
-      </div>
       {/* Announcement bar */}
       <div className="bg-[#1e4bb8] text-center text-xs py-1.5 tracking-widest font-semibold text-blue-200">
         THE FUTURE OF ATHLETE SUCCESS
