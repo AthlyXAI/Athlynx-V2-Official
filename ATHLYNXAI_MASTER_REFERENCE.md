@@ -1,6 +1,6 @@
 # ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
-## Last Updated: Friday, May 1, 2026 — 5:45 PM CST — EMAIL LIVE, SMS PENDING AWS ACTIVATION
-## Session Summary (May 1 2026 5:45PM): AWS Support Case 177767167100909 OPEN — toll-free +18664502081 stuck in Pending status, AWS will activate. Email CONFIRMED WORKING. SMS code is correct and will fire automatically once AWS activates the number. AWS key rotated — AKIAZTTXNG2OCLA5Z5FK — SMS CONFIRMED WORKING via toll-free +18664502081. Email CONFIRMED WORKING via AWS SES. Phone field added to register schema — SMS now fires IMMEDIATELY on signup. Chad account: role=admin, credits=999999, aiCredits=999999, stripePlanId=elite, trialEndsAt=NULL. Vercel build fixed (cron .ts files replaced with compiled .js). All 6 original TODOs complete. Manus complaint sent to support@manus.im, support@netlify.com, ir@meta.com. Email CONFIRMED WORKING via AWS SES. Toll-free +18664502081 carrier-approved and LIVE. Both email+SMS fire on every signup. Vercel env vars updated. STRIPE_WEBHOOK_SECRET set in Vercel (webhook we_1TSLO6GvvjXZw2uEQjqGTiUw, 2 old duplicates deleted). Gated investor page with request form LIVE — notifies cdozier14@athlynx.ai + gtse@athlynx.ai on every submission. Calendly (calendly.com/cdozier14) wired into Admin CRM header. Chad A. Dozier Sr. set as role=admin in Neon DB with phone +16014985282. AWS SNS DONE (carrier activated). AWS SES LIVE — athlynx.ai domain verified, DKIM SUCCESS. Email + SMS at signup/login confirmed wired. SENDGRID_API_KEY already in Vercel. All 6 TODOs complete. Public launch July 1, 2026.
+## Last Updated: Friday, May 1, 2026 — 10:00 PM CST
+## Session Summary (May 1 2026 10PM): AWS toll-free registration v3 SUBMITTED (was DENIED x2 — fixed missing businessType + monthlyMessageVolume + optInImage). 7 missing DB tables created in Neon (training_logs, broadcast_messages, credit_package_purchases, subscription_expiry_notices, athlete_data_events, athlete_data_sources, athlete_data_summaries). 5 test user accounts deleted — DB clean. Manus complaint forwarded to specialist team with screenshots. Handoff report: ATHLYNXAI_HANDOFF_REPORT_MAY1_2026.md
 ## NEVER RUN manus-config save-config — it overwrites connector settings.
 ## READ THIS FILE AT THE START OF EVERY NEW SESSION
 
@@ -198,7 +198,7 @@
 8. **No breaking changes** — never delete working code without a replacement
 9. **Always push to main** — never create new branches without reason
 10. **Always commit and push before ending any task**
-11. **NEVER run manus-config save-config**
+11. **NEVER run `manus-config save-config`** — it disables ALL connectors in the Manus UI and breaks the entire session. This happened twice on May 1, 2026.
 
 ---
 
@@ -206,12 +206,13 @@
 
 At the start of every new session:
 
-> **"Read ATHLYNXAI_MASTER_REFERENCE.md from GitHub repo AthlyXAI/Athlynx-V2-Official before doing anything."**
+> **"Read ATHLYNXAI_MASTER_REFERENCE.md from GitHub before doing anything. https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_MASTER_REFERENCE.md — Verify: https://github.com/AthlyXAI/Athlynx-V2-Official/commits/main — Handoff Report: https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_HANDOFF_REPORT_MAY1_2026.md"**
 
 The AI agent will run:
 ```
 gh repo clone AthlyXAI/Athlynx-V2-Official
 cat ATHLYNXAI_MASTER_REFERENCE.md
+cat ATHLYNXAI_HANDOFF_REPORT_MAY1_2026.md
 ```
 
 And will have full context immediately.
