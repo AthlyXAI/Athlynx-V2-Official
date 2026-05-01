@@ -1,6 +1,6 @@
 # ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
-## Last Updated: Friday, May 1, 2026 — 3:00 PM CST — ALL SESSION TODOS COMPLETE
-## Session Summary (May 1 2026 PM): STRIPE_WEBHOOK_SECRET set in Vercel (webhook we_1TSLO6GvvjXZw2uEQjqGTiUw, 2 old duplicates deleted). Gated investor page with request form LIVE — notifies cdozier14@athlynx.ai + gtse@athlynx.ai on every submission. Calendly (calendly.com/cdozier14) wired into Admin CRM header. Chad A. Dozier Sr. set as role=admin in Neon DB with phone +16014985282. AWS SNS DONE (carrier activated). AWS SES LIVE — athlynx.ai domain verified, DKIM SUCCESS. Email + SMS at signup/login confirmed wired. SENDGRID_API_KEY already in Vercel. All 6 TODOs complete. Public launch July 1, 2026.
+## Last Updated: Friday, May 1, 2026 — 4:00 PM CST — EMAIL + SMS LIVE
+## Session Summary (May 1 2026 4PM): AWS key rotated — AKIAZTTXNG2OCLA5Z5FK — SMS CONFIRMED WORKING (MessageId a48b3e3f). Email CONFIRMED WORKING via AWS SES. Toll-free +18664502081 carrier-approved and LIVE. Both email+SMS fire on every signup. Vercel env vars updated. STRIPE_WEBHOOK_SECRET set in Vercel (webhook we_1TSLO6GvvjXZw2uEQjqGTiUw, 2 old duplicates deleted). Gated investor page with request form LIVE — notifies cdozier14@athlynx.ai + gtse@athlynx.ai on every submission. Calendly (calendly.com/cdozier14) wired into Admin CRM header. Chad A. Dozier Sr. set as role=admin in Neon DB with phone +16014985282. AWS SNS DONE (carrier activated). AWS SES LIVE — athlynx.ai domain verified, DKIM SUCCESS. Email + SMS at signup/login confirmed wired. SENDGRID_API_KEY already in Vercel. All 6 TODOs complete. Public launch July 1, 2026.
 ## NEVER RUN manus-config save-config — it overwrites connector settings.
 ## READ THIS FILE AT THE START OF EVERY NEW SESSION
 
