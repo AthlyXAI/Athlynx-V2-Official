@@ -29,39 +29,46 @@ const RECONNECT_COOLDOWN_MS = 30_000; // don't hammer DB — wait 30s between re
 // If the pool goes stale or the initial connect fails, reset and retry after cooldown.
 export async function getDb() {
   if (_db) return _db;
-  if (!(process.env.DATABASE_URL || '').trim()) return null;
 
   const now = Date.now();
   if (now - _lastConnectAttempt < RECONNECT_COOLDOWN_MS) {
-    // Still in cooldown — return null instead of hammering the DB
     return null;
   }
   _lastConnectAttempt = now;
 
-  try {
-    // Destroy stale pool if it exists
-    if (_pool) {
-      try { await _pool.end(); } catch (_) {}
+  // Try Neon (primary) first, then PlanetScale (backup) — 100% uptime dual failover
+  const urls = [
+    { url: (process.env.DATABASE_URL || '').trim(), label: 'Neon' },
+    { url: (process.env.PLANETSCALE_DATABASE_URL || '').trim(), label: 'PlanetScale' },
+  ].filter(u => u.url);
+
+  for (const { url, label } of urls) {
+    try {
+      if (_pool) {
+        try { await _pool.end(); } catch (_) {}
+        _pool = null;
+      }
+      _pool = new Pool({
+        connectionString: url,
+        ssl: { rejectUnauthorized: false },
+        max: 10,
+        connectionTimeoutMillis: 8000,
+        idleTimeoutMillis: 30000,
+      });
+      const client = await _pool.connect();
+      client.release();
+      _db = drizzle(_pool);
+      console.log(`[Database] Connected via ${label} (PostgreSQL)`);
+      return _db;
+    } catch (error) {
+      console.warn(`[Database] ${label} failed, trying next...`, (error as Error).message);
+      _db = null;
       _pool = null;
     }
-    _pool = new Pool({
-      connectionString: (process.env.DATABASE_URL || '').trim(),
-      ssl: { rejectUnauthorized: false },
-      max: 10,
-      connectionTimeoutMillis: 10000,
-      idleTimeoutMillis: 30000,
-    });
-    // Verify the connection is actually alive before caching
-    const client = await _pool.connect();
-    client.release();
-    _db = drizzle(_pool);
-    console.log("[Database] Connected successfully (PostgreSQL)");
-  } catch (error) {
-    console.warn("[Database] Failed to connect:", error);
-    _db = null;
-    _pool = null;
   }
-  return _db;
+
+  console.warn('[Database] All database connections failed');
+  return null;
 }
 
 export async function upsertUser(user: InsertUser): Promise<void> {

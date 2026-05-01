@@ -150,6 +150,13 @@ export const adminRouter = router({
     return { success: true, message: "Test SMS sent to +1-601-498-5282" };
   }),
 
+  // ── Send Daily Report Now ────────────────────────────────────────────────────
+  sendDailyReport: adminProcedure.mutation(async () => {
+    const { sendDailyReport } = await import("../jobs/dailyReport");
+    await sendDailyReport();
+    return { success: true, message: "Daily report sent to cdozier14@athlynx.ai" };
+  }),
+
   // ── Real Stripe Revenue Stats ─────────────────────────────────────────────
   getRevenueStats: adminProcedure.query(async () => {
     const stripeKey = process.env.STRIPE_SECRET_KEY;
