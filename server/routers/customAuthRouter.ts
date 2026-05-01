@@ -314,22 +314,18 @@ export const customAuthRouter = router({
     .mutation(async ({ input, ctx }) => {
       const db = await getDb();
       if (!db) throw new Error("Database unavailable");
-      // Check if this is the first time saving a phone (for Welcome SMS)
-      const isFirstPhone = !ctx.user.phone;
       await db
         .update(users)
         .set({ phone: input.phone })
         .where(eq(users.id, ctx.user.id));
-      // Send Welcome SMS if this is the first phone number saved
-      if (isFirstPhone) {
-        try {
-          const { sendWelcomeSMS, sendOwnerSignupSMSAlert } = await import("../services/aws-sns");
-          await sendWelcomeSMS(input.phone, ctx.user.name ?? "Athlete");
-          await sendOwnerSignupSMSAlert({ name: ctx.user.name ?? "Athlete", email: ctx.user.email ?? "" });
-          console.log("[AUTH] Welcome SMS sent to", input.phone);
-        } catch (smsErr) {
-          console.error("[AUTH] Welcome SMS failed:", smsErr);
-        }
+      // Always send Welcome SMS when phone is saved (fires on first save after registration)
+      try {
+        const { sendWelcomeSMS, sendOwnerSignupSMSAlert } = await import("../services/aws-sns");
+        await sendWelcomeSMS(input.phone, ctx.user.name ?? "Athlete");
+        await sendOwnerSignupSMSAlert({ name: ctx.user.name ?? "Athlete", email: ctx.user.email ?? "" });
+        console.log("[AUTH] Welcome SMS sent to", input.phone);
+      } catch (smsErr) {
+        console.error("[AUTH] Welcome SMS failed:", smsErr);
       }
       return { success: true };
     }),
