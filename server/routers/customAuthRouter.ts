@@ -188,6 +188,7 @@ export const customAuthRouter = router({
         name: z.string().min(1),
         email: z.string().min(1),
         password: z.string().min(1),
+        phone: z.string().optional(),
       })
     )
     .mutation(async ({ input, ctx }) => {
@@ -219,6 +220,7 @@ export const customAuthRouter = router({
         loginMethod: "email",
         lastSignedIn: new Date(),
         trialEndsAt,
+        ...(input.phone ? { phone: input.phone } : {}),
       });
 
       // Store the password hash
@@ -290,13 +292,14 @@ export const customAuthRouter = router({
         }
       }
 
-      // Send Welcome SMS if phone number was provided
-      if (user?.phone) {
+      // Send Welcome SMS if phone number was provided at registration
+      const phoneToSMS = input.phone || user?.phone;
+      if (phoneToSMS) {
         try {
           const { sendWelcomeSMS, sendOwnerSignupSMSAlert } = await import("../services/aws-sns");
-          await sendWelcomeSMS(user.phone, input.name);
+          await sendWelcomeSMS(phoneToSMS, input.name);
           await sendOwnerSignupSMSAlert({ name: input.name, email: input.email });
-          console.log("[AUTH] Welcome SMS sent to", user.phone);
+          console.log("[AUTH] Welcome SMS sent to", phoneToSMS);
         } catch (smsErr) {
           console.error("[AUTH] Welcome SMS failed:", smsErr);
         }

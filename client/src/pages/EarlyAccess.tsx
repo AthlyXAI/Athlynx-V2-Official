@@ -61,6 +61,7 @@ export default function EarlyAccess() {
       name: fullName.trim(),
       email: email.trim(),
       password: password.trim(),
+      ...(phone.trim() ? { phone: phone.trim() } : {}),
     })
   }
 
