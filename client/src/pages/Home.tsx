@@ -592,6 +592,28 @@ export default function Home() {
           <p className="text-center text-blue-500 text-[10px] mt-2">Source: Dozier Holdings Group Financial Records · Chase Bank Dispute Documentation · Apr 30, 2026</p>
         </div>
 
+        {/* PM MIND MAP & WHITEBOARD */}
+        <div className="px-4 pb-8 max-w-4xl mx-auto">
+          <div className="text-center mb-5">
+            <span className="text-xs font-black tracking-widest text-blue-300 uppercase">— Project Architecture: PM Mind Map & Cloud Whiteboard —</span>
+            <p className="text-blue-400 text-[11px] mt-1">Every layer of AthlynXAI mapped — ownership, code, infrastructure, features, financials, and pending items.</p>
+          </div>
+          <div className="flex flex-col gap-4">
+            <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(59,130,246,0.3)" }}>
+              <div className="px-4 py-2 flex items-center gap-2" style={{ background: "rgba(30,58,138,0.8)" }}>
+                <span className="text-cyan-300 font-black text-xs tracking-widest">MIND MAP — FULL PLATFORM OVERVIEW</span>
+              </div>
+              <img src="/investor/athlynxai_pm_mindmap.png" alt="AthlynXAI PM Mind Map" className="w-full h-auto object-contain" loading="lazy" />
+            </div>
+            <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid rgba(59,130,246,0.3)" }}>
+              <div className="px-4 py-2 flex items-center gap-2" style={{ background: "rgba(30,58,138,0.8)" }}>
+                <span className="text-cyan-300 font-black text-xs tracking-widest">WHITEBOARD — CLOUD ARCHITECTURE DIAGRAM</span>
+              </div>
+              <img src="/investor/athlynxai_pm_whiteboard.png" alt="AthlynXAI Whiteboard Architecture" className="w-full h-auto object-contain" loading="lazy" />
+            </div>
+          </div>
+        </div>
+
         {/* CORPORATE STRUCTURE */}
         <div className="px-4 pb-8 max-w-4xl mx-auto">
           <div className="text-center mb-5">
