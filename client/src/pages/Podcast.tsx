@@ -14,12 +14,14 @@ const SHOW_INFO = {
 };
 
 const PLATFORMS = [
-  { name: "Apple Podcasts", icon: "🎧", url: "#", color: "from-blue-700 to-blue-900" },
-  { name: "Spotify", icon: "🎵", url: "#", color: "from-green-600 to-green-800" },
-  { name: "YouTube", icon: "▶️", url: "#", color: "from-red-600 to-red-800" },
-  { name: "Google Podcasts", icon: "🎙️", url: "#", color: "from-blue-600 to-blue-800" },
-  { name: "Amazon Music", icon: "🎶", url: "#", color: "from-cyan-600 to-cyan-800" },
-  { name: "iHeart Radio", icon: "📻", url: "#", color: "from-red-500 to-red-700" },
+  { name: "Apple Podcasts", icon: "🎧", url: "https://podcasts.apple.com", color: "from-blue-700 to-blue-900" },
+  { name: "Spotify", icon: "🎵", url: "https://open.spotify.com", color: "from-green-600 to-green-800" },
+  { name: "YouTube", icon: "▶️", url: "https://youtube.com/@athlynxai", color: "from-red-600 to-red-800" },
+  { name: "Amazon Music", icon: "🎶", url: "https://music.amazon.com", color: "from-cyan-600 to-cyan-800" },
+  { name: "iHeart Radio", icon: "📻", url: "https://iheart.com", color: "from-red-500 to-red-700" },
+  { name: "Pocket Casts", icon: "🎙️", url: "https://pocketcasts.com", color: "from-orange-600 to-orange-800" },
+  { name: "TikTok", icon: "📱", url: "https://tiktok.com/@athlynxai", color: "from-pink-600 to-purple-800" },
+  { name: "Instagram", icon: "📸", url: "https://instagram.com/athlynxai", color: "from-purple-600 to-pink-700" },
 ];
 
 const EPISODES = [

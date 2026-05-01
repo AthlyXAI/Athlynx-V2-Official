@@ -85,6 +85,60 @@ const staticProducts = [
   { id: 18, sku: "TRAIN-LADDER", name: "Speed Ladder", category: "training", price: 24.99, image: "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=600&q=80", rating: 4.6, reviews: 345, description: "20ft agility ladder", requiresQuote: false },
   { id: 19, sku: "TRAIN-CONES", name: "Agility Cones (20pk)", category: "training", price: 19.99, image: "https://images.unsplash.com/photo-1599058917765-a780eda07a3e?w=600&q=80", rating: 4.7, reviews: 456, description: "High-visibility training cones", requiresQuote: false },
   { id: 20, sku: "BB-PITCH-MACH", name: "Pitching Machine", category: "baseball", price: 1299.99, image: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=600&q=80", rating: 4.9, reviews: 34, description: "Variable speed pitching machine", requiresQuote: false },
+
+  // PREMIUM SPORTS EQUIPMENT — KUIU/SITKA LEVEL
+  // Football — Elite
+  { id: 21, sku: "FB-HELMET-PRO", name: "Riddell SpeedFlex Precision Diamond Helmet", category: "football", price: 699.99, image: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=600&q=80", rating: 5.0, reviews: 89, description: "NFL-grade impact protection, custom fit", requiresQuote: false },
+  { id: 22, sku: "FB-PADS-ELITE", name: "Schutt NOMAD Elite Shoulder Pads", category: "football", price: 349.99, image: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=600&q=80", rating: 4.9, reviews: 67, description: "Pro-grade shoulder pads, skill positions", requiresQuote: false },
+  { id: 23, sku: "FB-CLEATS-ELITE", name: "Nike Alpha Menace Elite 3 Cleats", category: "football", price: 189.99, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80", rating: 4.8, reviews: 234, description: "Carbon fiber plate, elite traction", requiresQuote: false },
+
+  // Basketball — Elite
+  { id: 24, sku: "BK-BALL-WILSON", name: "Wilson Evolution Game Ball", category: "basketball", price: 169.99, image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?w=600&q=80", rating: 5.0, reviews: 1245, description: "Official NCAA game ball, microfiber composite", requiresQuote: false },
+  { id: 25, sku: "BK-HOOP-PRO", name: "Spalding Pro Slam Portable Hoop", category: "basketball", price: 599.99, image: "https://images.unsplash.com/photo-1519861531473-9200262188bf?w=600&q=80", rating: 4.8, reviews: 156, description: "Adjustable 7.5–10ft, 44\" acrylic backboard", requiresQuote: false },
+  { id: 26, sku: "BK-SHOES-LEBRON", name: "Nike LeBron NXXT Gen AMPD", category: "basketball", price: 249.99, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80", rating: 4.9, reviews: 445, description: "React foam + Air Zoom, elite court feel", requiresQuote: false },
+
+  // Baseball — Elite
+  { id: 27, sku: "BB-BAT-RAWLINGS", name: "Rawlings Quatro Pro BBCOR Bat", category: "baseball", price: 449.99, image: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=600&q=80", rating: 4.9, reviews: 178, description: "Carbon fiber composite, max pop", requiresQuote: false },
+  { id: 28, sku: "BB-GLOVE-RAWLINGS", name: "Rawlings Heart of the Hide PRO206-9", category: "baseball", price: 379.99, image: "https://images.unsplash.com/photo-1529768167801-9173d94c2a42?w=600&q=80", rating: 5.0, reviews: 312, description: "Pro-grade kip leather, 12\" pattern", requiresQuote: false },
+  { id: 29, sku: "BB-CATCHER-PRO", name: "All-Star System 7 Catcher's Set", category: "baseball", price: 599.99, image: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=600&q=80", rating: 4.9, reviews: 89, description: "Helmet, chest protector, leg guards", requiresQuote: false },
+
+  // Hunting & Outdoor — KUIU/Sitka Level
+  { id: 30, sku: "HUNT-KUIU-ULTRA", name: "KUIU Ultra Merino 145 Base Layer", category: "hunting", price: 119.99, image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80", rating: 5.0, reviews: 234, description: "Ultralight merino wool, odor control", requiresQuote: false },
+  { id: 31, sku: "HUNT-SITKA-FANATIC", name: "Sitka Fanatic Jacket — Optifade", category: "hunting", price: 599.99, image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80", rating: 5.0, reviews: 156, description: "GORE-TEX, Optifade camo, ultralight", requiresQuote: false },
+  { id: 32, sku: "HUNT-BINO-SWAROVSKI", name: "Swarovski EL 10x42 Binoculars", category: "hunting", price: 2799.99, image: "https://images.unsplash.com/photo-1518791841217-8f162f1912da?w=600&q=80", rating: 5.0, reviews: 67, description: "World-class glass, field flattener lenses", requiresQuote: false },
+  { id: 33, sku: "HUNT-RANGEFINDER", name: "Leupold RX-2800 TBR/W Rangefinder", category: "hunting", price: 499.99, image: "https://images.unsplash.com/photo-1518791841217-8f162f1912da?w=600&q=80", rating: 4.9, reviews: 123, description: "2800 yard range, True Ballistic Range", requiresQuote: false },
+  { id: 34, sku: "HUNT-PACK-KUIU", name: "KUIU Pro 7200 Hunting Pack", category: "hunting", price: 649.99, image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80", rating: 5.0, reviews: 89, description: "7200ci capacity, ultralight frame", requiresQuote: false },
+
+  // Fishing — Premium
+  { id: 35, sku: "FISH-ROD-SAGE", name: "Sage R8 Core Fly Rod", category: "fishing", price: 1095.00, image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80", rating: 5.0, reviews: 45, description: "9ft 5wt, graphite composite, lifetime warranty", requiresQuote: false },
+  { id: 36, sku: "FISH-REEL-ABEL", name: "Abel Super 7/8 Fly Reel", category: "fishing", price: 895.00, image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80", rating: 5.0, reviews: 34, description: "USA-made, machined aluminum, drag system", requiresQuote: false },
+  { id: 37, sku: "FISH-WADERS-SIMMS", name: "Simms G3 Guide Stockingfoot Waders", category: "fishing", price: 699.99, image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&q=80", rating: 4.9, reviews: 178, description: "GORE-TEX Pro, 4-layer, lifetime warranty", requiresQuote: false },
+
+  // Golf — Premium
+  { id: 38, sku: "GOLF-DRIVER-TAYLORMADE", name: "TaylorMade Qi10 Max Driver", category: "golf", price: 599.99, image: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=600&q=80", rating: 4.9, reviews: 234, description: "460cc, Carbonwood face, 10.5° loft", requiresQuote: false },
+  { id: 39, sku: "GOLF-IRONS-TITLEIST", name: "Titleist T100 Iron Set (4-PW)", category: "golf", price: 1399.99, image: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=600&q=80", rating: 5.0, reviews: 89, description: "Tour-proven forged irons, 7-piece set", requiresQuote: false },
+  { id: 40, sku: "GOLF-BAG-TITLEIST", name: "Titleist Players 4 Stand Bag", category: "golf", price: 299.99, image: "https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=600&q=80", rating: 4.8, reviews: 156, description: "Lightweight, dual strap, 14-way top", requiresQuote: false },
+
+  // Training & Recovery — Elite
+  { id: 41, sku: "FIT-RACK-POWER", name: "Rogue Monster Lite Power Rack", category: "fitness", price: 1895.00, image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80", rating: 5.0, reviews: 456, description: "11-gauge steel, 1000lb capacity, USA-made", requiresQuote: false },
+  { id: 42, sku: "FIT-BARBELL-ROGUE", name: "Rogue Ohio Bar — Cerakote", category: "fitness", price: 395.00, image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80", rating: 5.0, reviews: 789, description: "20kg, 190,000 PSI tensile strength", requiresQuote: false },
+  { id: 43, sku: "FIT-PLATES-BUMPER", name: "Rogue Bumper Plates (260lb Set)", category: "fitness", price: 695.00, image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80", rating: 4.9, reviews: 345, description: "High-density rubber, IWF spec", requiresQuote: false },
+  { id: 44, sku: "RECOV-NORMATEC", name: "Hyperice Normatec 3 Legs", category: "training", price: 699.99, image: "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=600&q=80", rating: 5.0, reviews: 567, description: "Dynamic air compression recovery system", requiresQuote: false },
+  { id: 45, sku: "RECOV-THERAGUN", name: "Theragun PRO Plus", category: "training", price: 599.99, image: "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=600&q=80", rating: 4.9, reviews: 1234, description: "6 attachments, 60lb force, app-connected", requiresQuote: false },
+  { id: 46, sku: "RECOV-ICEBATH", name: "Edge Theory Labs Cold Plunge", category: "training", price: 4999.99, image: "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=600&q=80", rating: 5.0, reviews: 89, description: "Chills to 37°F, filtration system, 100 gal", requiresQuote: false },
+
+  // Nutrition — Elite
+  { id: 47, sku: "NUT-WHEY-OPTIMUM", name: "Optimum Nutrition Gold Standard Whey (10lb)", category: "apparel", price: 149.99, image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80", rating: 4.9, reviews: 5678, description: "100% whey protein, 24g protein per serving", requiresQuote: false },
+  { id: 48, sku: "NUT-CREATINE-PRO", name: "Thorne Creatine — 90 Servings", category: "apparel", price: 49.99, image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80", rating: 5.0, reviews: 2345, description: "NSF Certified for Sport, 5g pure creatine", requiresQuote: false },
+  { id: 49, sku: "NUT-GATORADE-BULK", name: "Gatorade Endurance Formula (Case)", category: "apparel", price: 89.99, image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=80", rating: 4.8, reviews: 3456, description: "32 x 32oz bottles, electrolyte formula", requiresQuote: false },
+
+  // NIL & Branding
+  { id: 50, sku: "NIL-BRAND-KIT", name: "AthlynXAI Athlete Brand Kit", category: "apparel", price: 299.99, image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&q=80", rating: 5.0, reviews: 234, description: "Logo, social templates, press kit, bio page", requiresQuote: false },
+  { id: 51, sku: "NIL-JERSEY-CUSTOM", name: "Custom NIL Jersey (Name + Number)", category: "apparel", price: 149.99, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80", rating: 4.9, reviews: 567, description: "Sublimated, any sport, any design", requiresQuote: false },
+
+  // FuelBots with real images
+  { id: 502, sku: "FB-RUNNER", name: "FuelBot — AI Running Companion", category: "fuelbots", price: 0, image: "/partners/fuel-bot-running.jpg", rating: 5.0, reviews: 0, description: "Runs alongside athletes at full speed — Contact for lease", requiresQuote: true },
+  { id: 503, sku: "FB-TRAINER", name: "FuelBot — AI Training Coach", category: "fuelbots", price: 0, image: "/partners/fuel-bot-training.jpg", rating: 5.0, reviews: 0, description: "AI-powered athletic trainer — Contact for lease", requiresQuote: true },
 ];
 
 // Product type from database
@@ -131,10 +185,10 @@ export default function Store() {
     { id: "basketball", name: "Basketball", icon: "🏀" },
     { id: "fishing", name: "Fishing", icon: "🎣" },
     { id: "golf", name: "Golf", icon: "⛳" },
-    { id: "hunting", name: "Hunting", icon: "🦌" },
+    { id: "hunting", name: "Hunting & Outdoor", icon: "🦌" },
     { id: "fitness", name: "Fitness", icon: "💪" },
-    { id: "apparel", name: "Apparel", icon: "👕" },
-    { id: "training", name: "Training", icon: "🏋️" },
+    { id: "apparel", name: "Apparel & Nutrition", icon: "👕" },
+    { id: "training", name: "Training & Recovery", icon: "🏋️" },
   ];
 
   // No backend store router — use static products only
