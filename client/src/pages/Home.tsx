@@ -436,24 +436,21 @@ export default function Home() {
             <span className="text-xs font-black tracking-widest text-blue-300 uppercase">— Official Investor Pitch Deck —</span>
           </div>
           <div className="flex gap-3 overflow-x-auto pb-4" style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}>
-            {[
-              "/investor/slide_1_cover_generated.webp",
-              "/investor/slide_2_problem_generated.webp",
-              "/investor/slide_3_solution_generated.webp",
-              "/investor/slide_4_market_generated.webp",
-              "/investor/slide_5_competition_generated.webp",
-              "/investor/slide_6_product_generated.webp",
-              "/investor/slide_7_business_model_generated.webp",
-              "/investor/slide_8_financials_generated.webp",
-              "/investor/slide_9_funding_generated.webp",
-              "/investor/slide_10_team_generated.webp",
-              "/investor/slide_11_traction_generated.webp",
-              "/investor/slide_12_ask_generated.webp",
-            ].map((src, i) => (
-              <div key={i} className="flex-shrink-0 rounded-xl overflow-hidden" style={{ width: "85vw", maxWidth: "480px", scrollSnapAlign: "start", border: "1px solid rgba(59,130,246,0.3)" }}>
-                <img src={src} alt={`Slide ${i + 1}`} className="w-full h-auto object-contain" loading="lazy" />
+            {Array.from({length: 12}, (_, i) => i + 1).map((num) => (
+              <div key={num} className="flex-shrink-0 rounded-xl overflow-hidden" style={{ width: "85vw", maxWidth: "480px", scrollSnapAlign: "start", border: "1px solid rgba(59,130,246,0.3)" }}>
+                <picture>
+                  <source srcSet={`/investor/slide_${String(num).padStart(2,'0')}.jpg`} type="image/jpeg" />
+                  <img
+                    src={`/investor/slide_${String(num).padStart(2,'0')}.jpg`}
+                    alt={`AthlynXAI Investor Deck Slide ${num}`}
+                    className="w-full h-auto object-contain"
+                    loading={num <= 3 ? "eager" : "lazy"}
+                    decoding="async"
+                    style={{ display: "block", backgroundColor: "#0a1628" }}
+                  />
+                </picture>
                 <div className="bg-[#0a1628] px-3 py-2 text-center">
-                  <span className="text-blue-400 text-[10px] font-bold">{i + 1} / 12</span>
+                  <span className="text-blue-400 text-[10px] font-bold">{num} / 12</span>
                 </div>
               </div>
             ))}
