@@ -154,6 +154,10 @@ export default function AdminCRM() {
     onError: (e) => toast.error("SMS failed: " + e.message),
   });
   const revenueQuery = trpc.admin.getRevenueStats.useQuery(undefined, { enabled: activeTab === "overview", refetchInterval: 60000 });
+  const sendDailyReportMutation = trpc.admin.sendDailyReport.useMutation({
+    onSuccess: () => toast.success("✅ Daily report sent to cdozier14@athlynx.ai"),
+    onError: (e) => toast.error("Report failed: " + e.message),
+  });
 
   // Loading state
   if (authLoading) {
@@ -189,6 +193,27 @@ export default function AdminCRM() {
   const waitlist = waitlistQuery.data?.entries ?? [];
   const activityEvents = activityQuery.data?.events ?? [];
   const allUsers = usersQuery.data?.users ?? [];
+
+  // Export users as CSV (Salesforce-style)
+  const exportUsersCSV = () => {
+    const header = "ID,Name,Email,Sport,School,Role,Plan,Trial Ends,Credits,Joined";
+    const rows = allUsers.map((u: typeof allUsers[0]) => [
+      u.id, `"${u.name ?? ""}"`  , `"${u.email ?? ""}"`, `"${u.sport ?? ""}"`, `"${u.school ?? ""}"`,
+      u.role ?? "", u.stripePlanId ?? "free",
+      u.trialEndsAt ? new Date(u.trialEndsAt).toLocaleDateString() : "",
+      u.credits ?? 0,
+      u.createdAt ? new Date(u.createdAt).toLocaleDateString() : "",
+    ].join(","));
+    const csv = [header, ...rows].join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `athlynxai-users-${new Date().toISOString().split("T")[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast.success("Users exported");
+  };
 
   // Export waitlist as CSV
   const exportWaitlistCSV = () => {
@@ -359,48 +384,131 @@ export default function AdminCRM() {
                   {testSmsMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <Phone className="w-4 h-4" />}
                   Test SMS
                 </button>
-              </div>
-              <p className="text-white/30 text-xs mt-3">Email → cdozier14@athlynx.ai · SMS → +1-601-498-5282</p>
-            </div>
-            {/* Recent users */}
-            <div className="bg-[#0d1f3c] border border-white/10 rounded-2xl p-5">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-white font-black text-base">Recent Users</h3>
-                <button onClick={() => setActiveTab("contacts")} className="text-[#00c2ff] text-xs font-bold hover:underline flex items-center gap-1">
-                  View All <ChevronRight className="w-3 h-3" />
+                <button
+                  onClick={() => sendDailyReportMutation.mutate()}
+                  disabled={sendDailyReportMutation.isPending}
+                  className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-red-700 to-red-600 text-white font-black rounded-xl text-sm hover:from-red-600 hover:to-red-500 transition-all disabled:opacity-50"
+                >
+                  {sendDailyReportMutation.isPending ? <Loader2 className="w-4 h-4 animate-spin" /> : <BarChart3 className="w-4 h-4" />}
+                  Send Daily Report
                 </button>
+              </div>
+              <p className="text-white/30 text-xs mt-3">Email → cdozier14@athlynx.ai · SMS → +1-601-498-5282 · Daily report auto-fires at 8 AM CST</p>
+            </div>
+            {/* Live User Dashboard — Salesforce + ZoomInfo Level */}
+            <div className="bg-[#0d1f3c] border border-white/10 rounded-2xl p-5">
+              <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
+                <div>
+                  <h3 className="text-white font-black text-base flex items-center gap-2">
+                    <Users className="w-5 h-5 text-[#00c2ff]" /> Live User Dashboard
+                    <span className="text-[10px] bg-green-900/50 border border-green-700/50 text-green-300 px-2 py-0.5 rounded-full font-semibold">LIVE • 30s refresh</span>
+                  </h3>
+                  <p className="text-white/30 text-xs mt-0.5">{allUsers.length} total users · Gravatar enriched · Real-time</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => { usersQuery.refetch(); toast.success("Refreshed"); }}
+                    className="flex items-center gap-1.5 px-3 py-2 bg-white/5 border border-white/10 text-white/60 rounded-xl text-xs font-bold hover:bg-white/10 transition-colors"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" /> Refresh
+                  </button>
+                  <button
+                    onClick={exportUsersCSV}
+                    className="flex items-center gap-1.5 px-3 py-2 bg-white/5 border border-white/10 text-white/60 rounded-xl text-xs font-bold hover:bg-white/10 transition-colors"
+                  >
+                    <Download className="w-3.5 h-3.5" /> Export CSV
+                  </button>
+                </div>
               </div>
               {usersQuery.isLoading ? (
                 <div className="flex items-center justify-center py-8"><Loader2 className="w-6 h-6 text-[#00c2ff] animate-spin" /></div>
               ) : allUsers.length === 0 ? (
-                <p className="text-white/30 text-sm text-center py-6">No users yet</p>
+                <div className="text-center py-10">
+                  <Users className="w-12 h-12 text-white/10 mx-auto mb-3" />
+                  <p className="text-white/30 text-sm">No users yet — be the first to sign up at athlynx.ai</p>
+                </div>
               ) : (
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-white/10">
-                        {["Name", "Email", "Role", "Joined"].map(h => (
-                          <th key={h} className="text-white/40 text-xs font-semibold uppercase tracking-wide text-left pb-2 pr-4">{h}</th>
+                        {["User", "Sport / School", "Plan", "Trial", "Credits", "Role", "Joined"].map(h => (
+                          <th key={h} className="text-white/40 text-xs font-semibold uppercase tracking-wide text-left pb-3 pr-4 whitespace-nowrap">{h}</th>
                         ))}
                       </tr>
                     </thead>
                     <tbody>
-                      {allUsers.slice(0, 10).map((u: typeof allUsers[0]) => (
-                        <tr key={u.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                          <td className="py-2.5 pr-4 text-white font-semibold">{u.name ?? "—"}</td>
-                          <td className="py-2.5 pr-4 text-white/50">{u.email ?? "—"}</td>
-                          <td className="py-2.5 pr-4">
-                            <select
-                              value={u.role ?? "athlete"}
-                              onChange={(e) => updateUserRole.mutate({ userId: u.id, role: e.target.value as "athlete" | "coach" | "brand" | "admin" })}
-                              className="bg-white/10 border border-white/10 text-white text-xs rounded-lg px-2 py-1 focus:outline-none"
-                            >
-                              {["athlete", "coach", "brand", "admin"].map((r: string) => <option key={r} value={r}>{r}</option>)}
-                            </select>
-                          </td>
-                          <td className="py-2.5 text-white/30 text-xs">{u.createdAt ? new Date(u.createdAt).toLocaleDateString() : "—"}</td>
-                        </tr>
-                      ))}
+                      {allUsers.map((u: typeof allUsers[0]) => {
+                        const trialDaysLeft = u.trialEndsAt ? Math.max(0, Math.ceil((new Date(u.trialEndsAt).getTime() - Date.now()) / 86400000)) : null;
+                        const isOnTrial = trialDaysLeft !== null && trialDaysLeft > 0;
+                        const hasSubscription = !!u.stripeSubscriptionId;
+                        return (
+                          <tr key={u.id} className="border-b border-white/5 hover:bg-white/5 transition-colors group">
+                            {/* User column with avatar */}
+                            <td className="py-3 pr-4">
+                              <div className="flex items-center gap-3">
+                                <div className="relative flex-shrink-0">
+                                  {u.avatarUrl ? (
+                                    <img src={u.avatarUrl} alt={u.name ?? ""} className="w-9 h-9 rounded-full object-cover border-2 border-[#00c2ff]/30" />
+                                  ) : (
+                                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#00c2ff] to-[#0066ff] flex items-center justify-center text-white font-black text-sm">
+                                      {(u.name ?? "?").charAt(0).toUpperCase()}
+                                    </div>
+                                  )}
+                                  <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full border-2 border-[#0d1f3c] bg-green-400" />
+                                </div>
+                                <div className="min-w-0">
+                                  <div className="text-white font-bold text-sm truncate max-w-[140px]">{u.name ?? "—"}</div>
+                                  <div className="text-white/40 text-xs truncate max-w-[140px]">{u.email ?? "—"}</div>
+                                </div>
+                              </div>
+                            </td>
+                            {/* Sport / School */}
+                            <td className="py-3 pr-4">
+                              <div className="text-white/70 text-xs font-semibold">{u.sport ?? "—"}</div>
+                              <div className="text-white/30 text-xs">{u.school ?? ""}</div>
+                            </td>
+                            {/* Plan */}
+                            <td className="py-3 pr-4">
+                              <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${
+                                hasSubscription ? "bg-green-900/60 text-green-300 border border-green-700/50" :
+                                isOnTrial ? "bg-blue-900/60 text-blue-300 border border-blue-700/50" :
+                                "bg-white/5 text-white/30 border border-white/10"
+                              }`}>
+                                {hasSubscription ? (u.stripePlanId ?? "Pro") : isOnTrial ? "Trial" : "Free"}
+                              </span>
+                            </td>
+                            {/* Trial */}
+                            <td className="py-3 pr-4">
+                              {isOnTrial ? (
+                                <span className="text-xs text-yellow-400 font-bold">{trialDaysLeft}d left</span>
+                              ) : hasSubscription ? (
+                                <span className="text-xs text-green-400">✓ Active</span>
+                              ) : (
+                                <span className="text-xs text-white/20">Expired</span>
+                              )}
+                            </td>
+                            {/* Credits */}
+                            <td className="py-3 pr-4">
+                              <span className="text-xs text-[#00c2ff] font-bold">{(u.credits ?? 0).toLocaleString()}</span>
+                            </td>
+                            {/* Role (editable) */}
+                            <td className="py-3 pr-4">
+                              <select
+                                value={u.role ?? "user"}
+                                onChange={(e) => updateUserRole.mutate({ userId: u.id, role: e.target.value as "athlete" | "coach" | "brand" | "admin" })}
+                                className="bg-white/10 border border-white/10 text-white text-xs rounded-lg px-2 py-1 focus:outline-none hover:bg-white/20 transition-colors"
+                              >
+                                {["user", "athlete", "coach", "brand", "admin"].map((r: string) => <option key={r} value={r}>{r}</option>)}
+                              </select>
+                            </td>
+                            {/* Joined */}
+                            <td className="py-3 text-white/30 text-xs whitespace-nowrap">
+                              {u.createdAt ? new Date(u.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "—"}
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
