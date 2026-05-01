@@ -117,7 +117,8 @@ import VCTech from "./pages/VCTech";
 import DataCenters from "./pages/DataCenters";
 import TheVirt from "./pages/TheVirt";
 import Podcast from "./pages/Podcast";
-import InvestorHub from "./pages/InvestorHub";
+import InvestorDeck from "./pages/InvestorDeck";
+
 import ManusPartnership from "./pages/ManusPartnership";
 import Partners from "./pages/Partners";
 import PartnerPortal from "./pages/PartnerPortal";
