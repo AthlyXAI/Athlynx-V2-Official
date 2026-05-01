@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=development tsx watch server/_core/index.ts",
     "build": "vite build && esbuild server/_core/index.ts --platform=node --target=node18 --packages=external --bundle --format=esm --outdir=dist",
-    "build:vercel": "vite build --config vite.vercel.config.ts && esbuild server/entry.ts --bundle --platform=node --target=node18 --format=cjs --outfile=api/index.js && esbuild api/cron/social-post.ts --bundle --platform=node --target=node18 --format=cjs --outfile=api/cron/social-post.js && esbuild api/cron/daily-report.ts --bundle --platform=node --target=node18 --format=cjs --outfile=api/cron/daily-report.js",
+    "build:vercel": "vite build --config vite.vercel.config.ts && esbuild server/entry.ts --bundle --platform=node --target=node18 --format=cjs --outfile=api/index.js",
     "start": "NODE_ENV=production node dist/index.js",
     "check": "tsc --noEmit",
     "format": "prettier --write .",
