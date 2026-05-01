@@ -123,5 +123,6 @@ scripts/seed-tidb.cjs
 *.MP4
 *.mov
 *.MOV
-# api/index.js — NOT ignored, Vercel needs this as serverless function
-# api/cron files — NOT ignored, Vercel needs these for cron jobs
+api/index.js
+api/cron/daily-report.js
+api/cron/social-post.js
