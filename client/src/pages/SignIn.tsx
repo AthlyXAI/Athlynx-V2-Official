@@ -116,7 +116,7 @@ export default function SignIn() {
 
       {/* Main Card */}
       <div style={{
-        background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(0,200,255,0.2)',
+        background: 'rgba(13,31,60,1)', border: '1px solid rgba(0,200,255,0.2)',
         borderRadius: '16px', padding: '40px', width: '100%', maxWidth: '420px',
         boxShadow: '0 0 40px rgba(0,150,255,0.1)',
       }}>
@@ -161,9 +161,9 @@ export default function SignIn() {
 
         {/* Divider */}
         <div style={{ display: 'flex', alignItems: 'center', margin: '0 0 20px' }}>
-          <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+          <div style={{ flex: 1, height: '1px', background: 'rgba(13,31,60,1)' }} />
           <span style={{ color: '#64748b', fontSize: '13px', padding: '0 12px' }}>or sign in with email</span>
-          <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+          <div style={{ flex: 1, height: '1px', background: 'rgba(13,31,60,1)' }} />
         </div>
 
         {error && (
@@ -175,11 +175,11 @@ export default function SignIn() {
         <form onSubmit={handleEmailSignIn}>
           <div style={{ marginBottom: '16px' }}>
             <label style={{ display: 'block', color: '#94a3b8', fontSize: '13px', marginBottom: '6px' }}>Email Address</label>
-            <input type="text" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" style={{ width: '100%', padding: '12px 14px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(0,200,255,0.25)', borderRadius: '8px', color: '#fff', fontSize: '15px', outline: 'none', boxSizing: 'border-box' }} />
+            <input type="text" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" style={{ width: '100%', padding: '12px 14px', background: 'rgba(13,31,60,1)', border: '1px solid rgba(0,200,255,0.25)', borderRadius: '8px', color: '#fff', fontSize: '15px', outline: 'none', boxSizing: 'border-box' }} />
           </div>
           <div style={{ marginBottom: '8px' }}>
             <label style={{ display: 'block', color: '#94a3b8', fontSize: '13px', marginBottom: '6px' }}>Password</label>
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" style={{ width: '100%', padding: '12px 14px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(0,200,255,0.25)', borderRadius: '8px', color: '#fff', fontSize: '15px', outline: 'none', boxSizing: 'border-box' }} />
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" style={{ width: '100%', padding: '12px 14px', background: 'rgba(13,31,60,1)', border: '1px solid rgba(0,200,255,0.25)', borderRadius: '8px', color: '#fff', fontSize: '15px', outline: 'none', boxSizing: 'border-box' }} />
           </div>
           <div style={{ textAlign: 'right', marginBottom: '20px' }}>
             <span onClick={() => setLocation('/forgot-password')} style={{ color: '#00c8ff', cursor: 'pointer', fontSize: '13px' }}>Forgot password?</span>

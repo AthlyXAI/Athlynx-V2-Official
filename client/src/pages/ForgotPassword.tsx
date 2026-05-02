@@ -117,7 +117,7 @@ export default function ForgotPassword() {
                     placeholder="athlete@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/20 focus:border-[#00c2ff]/50 h-11"
+                    className="bg-[#0d1f3c] border-white/10 text-white placeholder:text-white/20 focus:border-[#00c2ff]/50 h-11"
                     autoComplete="email"
                     required
                   />
@@ -165,7 +165,7 @@ export default function ForgotPassword() {
                     placeholder="123456"
                     value={code}
                     onChange={(e) => setCode(e.target.value.replace(/\D/g, "").slice(0, 6))}
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/20 focus:border-[#00c2ff]/50 h-11 text-center text-2xl tracking-[0.5em] font-mono"
+                    className="bg-[#0d1f3c] border-white/10 text-white placeholder:text-white/20 focus:border-[#00c2ff]/50 h-11 text-center text-2xl tracking-[0.5em] font-mono"
                     maxLength={6}
                     required
                   />
@@ -220,7 +220,7 @@ export default function ForgotPassword() {
                       placeholder="Min 8 characters"
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      className="bg-white/5 border-white/10 text-white placeholder:text-white/20 focus:border-[#00c2ff]/50 h-11 pr-10"
+                      className="bg-[#0d1f3c] border-white/10 text-white placeholder:text-white/20 focus:border-[#00c2ff]/50 h-11 pr-10"
                       autoComplete="new-password"
                       required
                     />
@@ -242,7 +242,7 @@ export default function ForgotPassword() {
                     placeholder="Repeat your password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="bg-white/5 border-white/10 text-white placeholder:text-white/20 focus:border-[#00c2ff]/50 h-11"
+                    className="bg-[#0d1f3c] border-white/10 text-white placeholder:text-white/20 focus:border-[#00c2ff]/50 h-11"
                     autoComplete="new-password"
                     required
                   />

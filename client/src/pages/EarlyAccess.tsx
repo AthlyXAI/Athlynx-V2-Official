@@ -142,7 +142,7 @@ export default function EarlyAccess() {
       fontFamily: 'system-ui, sans-serif', padding: '20px',
     }}>
       <div style={{
-        background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(0,200,255,0.2)',
+        background: 'rgba(13,31,60,1)', border: '1px solid rgba(0,200,255,0.2)',
         borderRadius: '16px', padding: '40px', width: '100%', maxWidth: '440px',
         boxShadow: '0 0 40px rgba(0,150,255,0.1)',
       }}>
@@ -212,9 +212,9 @@ export default function EarlyAccess() {
 
         {/* Divider */}
         <div style={{ display: 'flex', alignItems: 'center', margin: '16px 0' }}>
-          <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+          <div style={{ flex: 1, height: '1px', background: 'rgba(13,31,60,1)' }} />
           <span style={{ color: '#64748b', fontSize: '12px', padding: '0 12px' }}>or sign up with email</span>
-          <div style={{ flex: 1, height: '1px', background: 'rgba(255,255,255,0.1)' }} />
+          <div style={{ flex: 1, height: '1px', background: 'rgba(13,31,60,1)' }} />
         </div>
 
         {/* Error */}
@@ -242,7 +242,7 @@ export default function EarlyAccess() {
               required
               style={{
                 width: '100%', padding: '11px 14px',
-                background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(0,200,255,0.25)',
+                background: 'rgba(13,31,60,1)', border: '1px solid rgba(0,200,255,0.25)',
                 borderRadius: '8px', color: '#fff', fontSize: '14px',
                 outline: 'none', boxSizing: 'border-box',
               }}
@@ -261,7 +261,7 @@ export default function EarlyAccess() {
               required
               style={{
                 width: '100%', padding: '11px 14px',
-                background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(0,200,255,0.25)',
+                background: 'rgba(13,31,60,1)', border: '1px solid rgba(0,200,255,0.25)',
                 borderRadius: '8px', color: '#fff', fontSize: '14px',
                 outline: 'none', boxSizing: 'border-box',
               }}
@@ -279,7 +279,7 @@ export default function EarlyAccess() {
               placeholder="+1 (555) 000-0000"
               style={{
                 width: '100%', padding: '11px 14px',
-                background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(0,200,255,0.25)',
+                background: 'rgba(13,31,60,1)', border: '1px solid rgba(0,200,255,0.25)',
                 borderRadius: '8px', color: '#fff', fontSize: '14px',
                 outline: 'none', boxSizing: 'border-box',
               }}
@@ -299,7 +299,7 @@ export default function EarlyAccess() {
               minLength={8}
               style={{
                 width: '100%', padding: '11px 14px',
-                background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(0,200,255,0.25)',
+                background: 'rgba(13,31,60,1)', border: '1px solid rgba(0,200,255,0.25)',
                 borderRadius: '8px', color: '#fff', fontSize: '14px',
                 outline: 'none', boxSizing: 'border-box',
               }}

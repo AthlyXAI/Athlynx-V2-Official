@@ -383,7 +383,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#1a3a8f] text-white">
       {/* ═══ INVESTOR BANNER ═══ */}
-      <a href="/investor" style={{ textDecoration: 'none' }}>
+      <a href="/investor-hub" style={{ textDecoration: 'none' }}>
         <div className="relative overflow-hidden cursor-pointer group" style={{ background: 'linear-gradient(135deg, #060e24 0%, #0d2151 35%, #112d6b 65%, #060e24 100%)', borderBottom: '1px solid rgba(99,179,237,0.2)' }}>
           <div className="absolute top-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(99,179,237,0.6) 50%, transparent)' }} />
           <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(99,179,237,0.3) 50%, transparent)' }} />

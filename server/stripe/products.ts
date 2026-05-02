@@ -3,10 +3,12 @@
  * All prices are in USD cents.
  *
  * Live Price IDs (created April 26, 2026 — acct_1SkhxSDWqFuLp4sz):
- *   Athlete Free    → price_1TQalMGvvjXZw2uEAgeLldvx  ($0.00/month — 7-day trial, converts to Starter)
- *   Athlete Starter → price_1TQalOGvvjXZw2uEP2eqJJAE  ($9.99/month)
- *   Athlete Pro     → price_1TQalQGvvjXZw2uEjYMwKUgW  ($19.99/month)
- *   Athlete Elite   → (set STRIPE_PRICE_ELITE in Vercel)  ($39.99/month)
+ *   Athlete Free    → price_1TQalMGvvjXZw2uEAgeLldvx  ($0.00/month — 7-day trial)
+ *   Athlete Starter → price_1TS10jRjBH07kRLYuKlrgPob  ($9.99/month) | price_1TS10lRjBH07kRLYR4geUOp2 (yearly)
+ *   Athlete Pro     → price_1TS10nRjBH07kRLY2gj0j9Ky  ($19.99/month) | price_1TS10pRjBH07kRLYIv5YlRp6 (yearly)
+ *   Athlete Elite   → price_1TS10rRjBH07kRLYKhisofLX  ($39.99/month) | price_1TS10tRjBH07kRLYck9FDMYT (yearly)
+ *   Athlete Champion → price_1TROkRRjBH07kRLYsB9xfOYa ($59.99/month)
+ *   Athlete MVP     → price_1TROkeRjBH07kRLYXQPS1Vvj  ($99.99/month)
  *
  * Env vars (set in Vercel dashboard):
  *   STRIPE_PRICE_FREE, STRIPE_PRICE_STARTER, STRIPE_PRICE_PRO, STRIPE_PRICE_ELITE
@@ -50,8 +52,8 @@ export const STRIPE_PLANS = [
       "Diamond Grind Training",
       "7-Day Free Trial",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_STARTER ?? process.env.STRIPE_PRICE_STARTER_MONTHLY ?? "price_1TQalOGvvjXZw2uEP2eqJJAE",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_STARTER_YEARLY ?? "price_1TQalOGvvjXZw2uEP2eqJJAE",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_STARTER ?? process.env.STRIPE_PRICE_STARTER_MONTHLY ?? "price_1TS10jRjBH07kRLYuKlrgPob",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_STARTER_YEARLY ?? "price_1TS10lRjBH07kRLYR4geUOp2",
     badge: "Best for Beginners",
     color: "#0099ff",
     trialDays: 7,
@@ -70,8 +72,8 @@ export const STRIPE_PLANS = [
       "AI Sales Automation",
       "Priority Support",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_PRO ?? process.env.STRIPE_PRICE_PRO_MONTHLY ?? "price_1TQalQGvvjXZw2uEjYMwKUgW",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_PRO_YEARLY ?? "price_1TQalQGvvjXZw2uEjYMwKUgW",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_PRO ?? process.env.STRIPE_PRICE_PRO_MONTHLY ?? "price_1TS10nRjBH07kRLY2gj0j9Ky",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_PRO_YEARLY ?? "price_1TS10pRjBH07kRLYIv5YlRp6",
     badge: "Most Popular",
     color: "#00c2ff",
     trialDays: 7,
@@ -90,8 +92,8 @@ export const STRIPE_PLANS = [
       "White-label Branding",
       "API Access",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_ELITE ?? "price_1TQalQGvvjXZw2uEjYMwKUgW",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_ELITE_YEARLY ?? "price_1TQalQGvvjXZw2uEjYMwKUgW",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_ELITE ?? "price_1TS10rRjBH07kRLYKhisofLX",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_ELITE_YEARLY ?? "price_1TS10tRjBH07kRLYck9FDMYT",
     badge: "Best Value",
     color: "#7c3aed",
     trialDays: 7,
@@ -110,8 +112,8 @@ export const STRIPE_PLANS = [
       "Priority Deal Matching",
       "Champion Badge",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_CHAMPION ?? "price_1TRP8fGvvjXZw2uEkSzl2zwi",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_CHAMPION_YEARLY ?? "price_1TRP8fGvvjXZw2uEkSzl2zwi",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_CHAMPION ?? "price_1TROkRRjBH07kRLYsB9xfOYa",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_CHAMPION_YEARLY ?? "price_1TROkRRjBH07kRLYsB9xfOYa",
     badge: "Champion Tier",
     color: "#f59e0b",
     trialDays: 7,
@@ -130,8 +132,8 @@ export const STRIPE_PLANS = [
       "White-Glove Service",
       "MVP Badge & Verified",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_MVP ?? "price_1TRP8hGvvjXZw2uEeZcjmeaD",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_MVP_YEARLY ?? "price_1TRP8hGvvjXZw2uEeZcjmeaD",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_MVP ?? "price_1TROkeRjBH07kRLYXQPS1Vvj",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_MVP_YEARLY ?? "price_1TROkeRjBH07kRLYXQPS1Vvj",
     badge: "MVP — Top Tier",
     color: "#ef4444",
     trialDays: 7,

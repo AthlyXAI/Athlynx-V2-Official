@@ -56,7 +56,7 @@ function Input({
       className={cn(
         // Premium dark glass input — Athlynx style
         "h-11 w-full min-w-0 rounded-xl border px-4 py-2.5 text-base md:text-sm",
-        "bg-[#050d1f]/90 border-blue-700/60 text-white",
+        "bg-[#0a1628] border-blue-600/70 text-white font-medium",
         "caret-blue-400 placeholder:text-blue-400/50",
         "shadow-[inset_0_2px_4px_rgba(0,0,0,0.7),inset_0_0_0_1px_rgba(59,130,246,0.06)]",
         "transition-all duration-200 outline-none",

@@ -327,7 +327,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
   // ── Role Selection ──
   if (step === "role") {
     return (
-      <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end md:items-center justify-center p-4">
+      <div className="fixed inset-0 z-50 bg-[#050c1a] backdrop-blur-sm flex items-end md:items-center justify-center p-4">
         <div className="bg-[#0d1a3a] border border-blue-700/50 rounded-3xl w-full max-w-lg max-h-[90vh] overflow-y-auto shadow-2xl shadow-blue-900/50">
           {/* Header */}
           <div className="sticky top-0 bg-gradient-to-r from-blue-700 to-indigo-700 rounded-t-3xl p-5 text-center">
@@ -342,7 +342,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
                 <button
                   key={role.id}
                   onClick={() => handleRoleSelect(role.id)}
-                  className="flex items-center gap-3 p-3.5 rounded-2xl bg-blue-900/30 border border-blue-800/40 hover:bg-blue-800/50 hover:border-blue-600/60 transition-all text-left group"
+                  className="flex items-center gap-3 p-3.5 rounded-2xl bg-blue-900 border border-blue-800/40 hover:bg-blue-800/50 hover:border-blue-600/60 transition-all text-left group"
                 >
                   <span className="text-2xl shrink-0">{role.emoji}</span>
                   <div>
@@ -367,7 +367,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
   // ── Questions (Chat UI) ──
   if (step === "questions") {
     return (
-      <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end md:items-center justify-center p-4">
+      <div className="fixed inset-0 z-50 bg-[#050c1a] backdrop-blur-sm flex items-end md:items-center justify-center p-4">
         <div className="bg-[#0d1a3a] border border-blue-700/50 rounded-3xl w-full max-w-lg shadow-2xl shadow-blue-900/50 flex flex-col max-h-[90vh]">
           {/* Header */}
           <div className="bg-gradient-to-r from-blue-700 to-indigo-700 rounded-t-3xl p-4 shrink-0">
@@ -376,7 +376,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <div className="flex items-center gap-2 flex-1">
-                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-lg">{roleObj?.emoji}</div>
+                <div className="w-8 h-8 rounded-full bg-[#0f2240] flex items-center justify-center text-lg">{roleObj?.emoji}</div>
                 <div>
                   <div className="font-black text-white text-sm">AI Trainer</div>
                   <div className="text-blue-200 text-xs">{roleObj?.label} Onboarding</div>
@@ -389,7 +389,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
               )}
             </div>
             {/* Progress bar */}
-            <div className="mt-3 bg-white/20 rounded-full h-1.5">
+            <div className="mt-3 bg-[#0f2240] rounded-full h-1.5">
               <div
                 className="bg-white rounded-full h-1.5 transition-all duration-500"
                 style={{ width: `${progress}%` }}
@@ -431,7 +431,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
 
           {/* Input area */}
           {step === "questions" && currentQ && !saveOnboarding.isPending && (
-            <div className="p-4 border-t border-blue-800/50 shrink-0">
+            <div className="p-4 border-t border-blue-700 shrink-0 bg-[#0a1628]">
               {currentQ.type === "select" && currentQ.options ? (
                 <div className="space-y-2">
                   <div className="flex flex-wrap gap-2">
@@ -442,7 +442,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
                         className={`px-3 py-1.5 rounded-xl text-sm font-bold transition-all border ${
                           currentAnswer === opt
                             ? "bg-blue-600 text-white border-blue-500"
-                            : "bg-blue-900/30 text-blue-300 border-blue-800/40 hover:bg-blue-800/50"
+                            : "bg-blue-900 text-blue-300 border-blue-800/40 hover:bg-blue-800/50"
                         }`}
                       >
                         {opt}
@@ -464,7 +464,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
                     onChange={e => setCurrentAnswer(e.target.value)}
                     onKeyDown={e => e.key === "Enter" && handleAnswer()}
                     placeholder={currentQ.placeholder}
-                    className="flex-1 bg-[#050d1f]/90 border-blue-500 text-white placeholder:text-blue-400/60 rounded-xl shadow-[inset_0_2px_4px_rgba(0,0,0,0.7)] focus:border-blue-400 focus:shadow-[0_0_0_3px_rgba(59,130,246,0.4)] caret-blue-400"
+                    className="flex-1 bg-[#0d1b3e] border-2 border-blue-500 text-white font-semibold text-base placeholder:text-blue-300/80 rounded-xl focus:border-blue-400 focus:ring-2 focus:ring-blue-400/50 caret-white"
                     autoFocus
                   />
                   {currentQ.optional && (
@@ -490,7 +490,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
 
   // ── Done ──
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 bg-[#050c1a] backdrop-blur-sm flex items-center justify-center p-4">
       <div className="bg-[#0d1a3a] border border-green-700/50 rounded-3xl w-full max-w-sm p-8 text-center shadow-2xl">
         <div className="text-6xl mb-4">🎉</div>
         <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-3" />
