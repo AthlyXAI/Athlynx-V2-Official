@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, Redirect } from "wouter";
+import { PushNotificationBell } from "@/components/PushNotificationBell";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
@@ -259,6 +260,7 @@ export default function AdminCRM() {
             <button onClick={() => { statsQuery.refetch(); toast.success("Refreshed"); }} className="p-2 bg-white/5 border border-white/10 rounded-xl text-white/50 hover:text-white hover:bg-white/10 transition-colors">
               <RefreshCw className="w-4 h-4" />
             </button>
+            <PushNotificationBell />
             <a href="https://calendly.com/cdozier14" target="_blank" rel="noopener noreferrer"
               className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-black rounded-xl transition-colors flex items-center gap-2">
               📅 Schedule Meeting

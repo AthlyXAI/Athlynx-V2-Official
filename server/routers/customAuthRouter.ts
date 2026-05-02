@@ -304,7 +304,18 @@ export const customAuthRouter = router({
           console.error("[AUTH] Welcome SMS failed:", smsErr);
         }
       }
-
+      // Send push notification to admin devices
+      try {
+        const { sendPushToAdmins } = await import("../services/push-notifications");
+        await sendPushToAdmins({
+          title: "🆕 New ATHLYNX User!",
+          body: `${input.name} (${input.email}) just signed up`,
+          url: "/admin",
+          tag: "new-user",
+        });
+      } catch (pushErr) {
+        console.warn("[AUTH] Push notification failed:", pushErr);
+      }
       return { success: true, user };
     }),
 
