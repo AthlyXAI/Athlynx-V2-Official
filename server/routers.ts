@@ -18,6 +18,7 @@ import { feedbackRouter } from "./routers/feedbackRouter";
 import { dataRouter } from "./routers/dataRouter";
 import { investorRouter } from "./routers/investorRouter";
 import { pushRouter } from "./routers/pushRouter";
+import { expirationRouter } from "./routers/expirationRouter";
 
 export const appRouter = router({
   system: systemRouter,
@@ -39,6 +40,7 @@ export const appRouter = router({
   data: dataRouter,
   investor: investorRouter,
   push: pushRouter,
+  expiration: expirationRouter,
 });
 
 export type AppRouter = typeof appRouter;

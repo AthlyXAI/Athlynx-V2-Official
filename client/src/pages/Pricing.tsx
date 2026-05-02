@@ -18,6 +18,7 @@ const PLAN_ICONS: Record<string, React.ReactNode> = {
   athlete_champion: <Shield className="w-6 h-6" />,
   athlete_mvp: <Star className="w-6 h-6" />,
   nil_vault: <Shield className="w-6 h-6" />,
+  pro_teams: <Star className="w-6 h-6" />,
 };
 
 // Hardcoded fallback plans shown when tRPC backend is unavailable
@@ -80,6 +81,16 @@ const FALLBACK_PLANS = [
     priceYearly: 95988,
     features: ["Everything in Champion", "1-on-1 Strategy Sessions", "VIP Athlete Network", "Unlimited AI Credits", "White-Glove Service", "MVP Badge & Verified"],
     badge: "MVP — Top Tier",
+    color: "#ef4444",
+  },
+  {
+    id: "pro_teams",
+    name: "Pro Teams",
+    description: "Full platform access for professional sports organizations — NFL, NBA, MLB, NHL, MLS, WNBA, Pro Soccer, Pro Baseball.",
+    priceMonthly: 250000,
+    priceYearly: 2400000,
+    features: ["Roster Management", "Contract & Cap Tracking", "AI Scouting Intelligence", "Brand Deals & NIL", "Advanced Analytics", "Dedicated Account Manager", "API Access", "30-Day Trial"],
+    badge: "Pro Teams",
     color: "#ef4444",
   },
 ];

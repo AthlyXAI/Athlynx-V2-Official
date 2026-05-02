@@ -3,6 +3,7 @@ import { Link, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import AIOnboarding from "./AIOnboarding";
+import ExpirationWarningPopup from "./ExpirationWarningPopup";
 
 const APPS = [
   { id: "nil-portal", label: "NIL Portal", icon: "/logos/nil-portal-logo.png", badge: "LIVE", href: "/nil-portal" },
@@ -23,6 +24,7 @@ const APPS = [
   { id: "athlete-journey", label: "Athlete Journey", icon: "/logos/athlynx-logo.png", badge: "NEW", href: "/athlete-journey" },
   { id: "athlete-legal-hub", label: "Legal & Deals", icon: "/logos/athlynx-logo.png", badge: "NEW", href: "/athlete-legal-hub" },
   { id: "athlete-store", label: "Athlete Store", icon: "/logos/athlynx-logo.png", badge: "NEW", href: "/athlete-store" },
+  { id: "pro-teams", label: "Pro Teams", icon: "/logos/athlynx-logo.png", badge: "PRO", href: "/pro-teams" },
   { id: "white-label", label: "White-Label", icon: "/logos/athlynx-logo.png", badge: "BIZ", href: "/white-label" },
   { id: "crm", label: "CRM", icon: "/logos/athlynx-logo.png", badge: "PRO", href: "/admin/crm" },
   { id: "analytics", label: "Analytics", icon: "/logos/athlynx-logo.png", badge: "PRO", href: "/analytics" },
@@ -183,6 +185,8 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
 
   return (
     <div className="min-h-screen bg-[#1a3a8f] text-white">
+      {/* Subscription Expiry Warning Popup — fires when days <= 5 or expired */}
+      {user && <ExpirationWarningPopup />}
       {showOnboarding && user && (
         <AIOnboarding onComplete={(_data: Record<string, string>) => {
           localStorage.setItem(`onboarding_done_${user.email || user.id}`, "1");

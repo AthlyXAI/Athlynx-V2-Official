@@ -119,6 +119,7 @@ import TheVirt from "./pages/TheVirt";
 import Podcast from "./pages/Podcast";
 import InvestorDeck from "./pages/InvestorDeck";
 import InvestorHub from "./pages/InvestorHub";
+import ProTeams from "./pages/ProTeams";
 
 
 import ManusPartnership from "./pages/ManusPartnership";
@@ -332,6 +333,7 @@ function Router() {
       <Route path="/the-virt" component={TheVirt} />
       <Route path="/investor-hub" component={InvestorHub} />
       <Route path="/investor-deck" component={InvestorDeck} />
+      <Route path="/pro-teams" component={ProTeams} />
 
 
     

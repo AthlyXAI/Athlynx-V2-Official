@@ -141,6 +141,29 @@ export const STRIPE_PLANS = [
     color: "#ef4444",
     trialDays: 7,
   },
+  {
+    id: "pro_teams",
+    name: "Pro Teams",
+    description: "Full platform access for professional sports organizations — NFL, NBA, MLB, NHL, MLS, WNBA, Pro Soccer, Pro Baseball. Roster management, contract tracking, AI scouting, training, and brand deals.",
+    priceMonthly: 250000, // $2,500/month
+    priceYearly: 2400000, // $24,000/yr ($2,000/mo)
+    features: [
+      "Up to 100 roster slots",
+      "Contract tracking & cap management",
+      "AI Scouting Intelligence",
+      "Team messaging & scheduling",
+      "Training & performance logs",
+      "Brand deals & NIL management",
+      "Advanced analytics dashboard",
+      "Dedicated account manager",
+      "API access",
+    ],
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_PRO_TEAMS ?? "price_pro_teams_monthly",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_PRO_TEAMS_YEARLY ?? "price_pro_teams_yearly",
+    badge: "Pro Teams",
+    color: "#ef4444",
+    trialDays: 30,
+  }
 ] as const;
 
 export type PlanId = (typeof STRIPE_PLANS)[number]["id"];
