@@ -146,15 +146,93 @@ export default function Dashboard() {
 
       <div className="pt-20 pb-16 px-4">
         <div className="container mx-auto max-w-7xl">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">
-              Welcome back, <span className="text-cyan-400">{user.name ?? "Athlete"}</span>! 👋
-            </h1>
-            <p className="text-gray-400">
-              {user.role === "admin"
-                ? "Admin Dashboard — Full Platform Access"
-                : "Manage your subscription, AI credits, and account settings"}
-            </p>
+          {/* ── PLAYER PROFILE CARD ── */}
+          <div className="mb-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 overflow-hidden">
+            {/* Cover banner */}
+            <div className="h-28 bg-gradient-to-r from-blue-900 via-cyan-900 to-blue-900 relative">
+              {myProfile?.coverUrl && (
+                <img src={myProfile.coverUrl} alt="Cover" className="w-full h-full object-cover absolute inset-0" />
+              )}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              {user.role === "admin" && (
+                <div className="absolute top-3 right-3 bg-red-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full tracking-widest uppercase">
+                  FOUNDER
+                </div>
+              )}
+            </div>
+            {/* Profile info */}
+            <div className="px-5 pb-5">
+              <div className="flex items-end justify-between -mt-10 mb-3">
+                {/* Avatar */}
+                <div className="w-20 h-20 rounded-full border-4 border-[#1a1a2e] overflow-hidden bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shrink-0">
+                  {user.avatarUrl ? (
+                    <img src={user.avatarUrl} alt={user.name ?? ""} className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="text-white font-black text-2xl">{user.name?.charAt(0) ?? "A"}</span>
+                  )}
+                </div>
+                {/* Action buttons */}
+                <div className="flex gap-2 pb-1">
+                  <a href="/profile" className="bg-cyan-500 hover:bg-cyan-400 text-black text-xs font-black px-4 py-2 rounded-full transition-all">
+                    Edit Profile
+                  </a>
+                  <a href="/x-factor" className="bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-bold px-4 py-2 rounded-full transition-all">
+                    X-Factor Feed
+                  </a>
+                </div>
+              </div>
+              {/* Name + role */}
+              <div className="flex items-center gap-2 flex-wrap mb-1">
+                <h2 className="text-xl font-black text-white">{user.name ?? "Athlete"}</h2>
+                <svg className="w-5 h-5 text-cyan-400" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                {user.role === "admin" && (
+                  <span className="text-[10px] font-black bg-red-500/20 text-red-400 border border-red-500/30 px-2 py-0.5 rounded-full uppercase tracking-wider">Founder & CEO</span>
+                )}
+              </div>
+              {/* Sport / School / Position */}
+              <div className="text-cyan-400 text-sm mb-2">
+                {[myProfile?.position, myProfile?.sport, myProfile?.school].filter(Boolean).join(" • ") || "Complete your profile →"}
+              </div>
+              {/* Bio */}
+              <p className="text-gray-300 text-sm leading-relaxed mb-4 max-w-2xl">
+                {myProfile?.bio || "Your bio will appear here. Click Edit Profile to add it."}
+              </p>
+              {/* Stats row */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+                {[
+                  { label: "Sport", value: myProfile?.sport || "—" },
+                  { label: "School", value: myProfile?.school || "—" },
+                  { label: "NIL Value", value: myProfile?.nilValue ? `$${Number(myProfile.nilValue).toLocaleString()}` : "—" },
+                  { label: "Plan", value: planName || "Free" },
+                ].map((s) => (
+                  <div key={s.label} className="bg-white/5 rounded-xl p-3 text-center">
+                    <div className="text-white font-black text-sm truncate">{s.value}</div>
+                    <div className="text-gray-500 text-xs mt-0.5">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+              {/* Social links */}
+              {(myProfile?.instagram || myProfile?.twitter) && (
+                <div className="flex gap-3 flex-wrap">
+                  {myProfile?.instagram && (
+                    <a href={`https://instagram.com/${myProfile.instagram}`} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-xs text-pink-400 hover:text-pink-300 bg-pink-500/10 border border-pink-500/20 px-3 py-1.5 rounded-full transition-all">
+                      📸 @{myProfile.instagram}
+                    </a>
+                  )}
+                  {myProfile?.twitter && (
+                    <a href={`https://twitter.com/${myProfile.twitter}`} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-xs text-sky-400 hover:text-sky-300 bg-sky-500/10 border border-sky-500/20 px-3 py-1.5 rounded-full transition-all">
+                      🐦 @{myProfile.twitter}
+                    </a>
+                  )}
+                  <a href="/community-feedback"
+                    className="flex items-center gap-1.5 text-xs text-cyan-400 hover:text-cyan-300 bg-cyan-500/10 border border-cyan-500/20 px-3 py-1.5 rounded-full transition-all">
+                    💬 Talk to the Founder
+                  </a>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="flex gap-6 flex-col lg:flex-row">
