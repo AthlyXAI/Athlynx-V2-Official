@@ -7,6 +7,20 @@
 
 ---
 
+## ⚠️ CRITICAL BUG — FIX FIRST NEXT SESSION
+
+**BUG: `athlynx.ai` shows SIGNUP PAGE instead of HOME landing page on mobile**
+- Root `/` is routed to `Home` in App.tsx (line 195) — route is correct
+- But on mobile browsers (Safari, Chrome, fresh/incognito), `athlynx.ai` loads the EarlyAccess signup page
+- NOT a routing issue in App.tsx — the route is correct
+- NOT a vercel.json issue — do NOT touch vercel.json rewrites (broke login twice)
+- NOT a static HTML issue — do NOT add static overrides to root (broke login)
+- Suspected: Service worker or auth middleware intercepting root and redirecting to `/signup`
+- **FIX APPROACH**: Check if there is a service worker, auth guard, or middleware redirecting `/` to `/signup` before React renders
+- **TEST**: Open `athlynx.ai` in incognito on mobile — should show Home landing page with athlete photos
+
+---
+
 ## 1. Session Starter (Use This Every New Session)
 
 ```
