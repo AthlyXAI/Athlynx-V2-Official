@@ -120,6 +120,8 @@ import Podcast from "./pages/Podcast";
 import InvestorDeck from "./pages/InvestorDeck";
 import InvestorHub from "./pages/InvestorHub";
 import ProTeams from "./pages/ProTeams";
+import AthletePublicProfile from "./pages/AthletePublicProfile";
+import BrowseAthletes from "./pages/BrowseAthletes";
 
 
 import ManusPartnership from "./pages/ManusPartnership";
@@ -334,6 +336,9 @@ function Router() {
       <Route path="/investor-hub" component={InvestorHub} />
       <Route path="/investor-deck" component={InvestorDeck} />
       <Route path="/pro-teams" component={ProTeams} />
+      <Route path="/athlete/:id" component={AthletePublicProfile} />
+      <Route path="/browse-athletes" component={BrowseAthletes} />
+      <Route path="/discover" component={BrowseAthletes} />
 
 
     

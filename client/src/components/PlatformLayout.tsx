@@ -26,6 +26,7 @@ const APPS = [
   { id: "athlete-store", label: "Athlete Store", icon: "/logos/athlynx-logo.png", badge: "NEW", href: "/athlete-store" },
   { id: "pro-teams", label: "Pro Teams", icon: "/logos/athlynx-logo.png", badge: "PRO", href: "/pro-teams" },
   { id: "community-feedback", label: "Talk to Founder", icon: "/logos/athlynx-logo.png", badge: "NEW", href: "/community-feedback" },
+  { id: "browse-athletes", label: "Browse Athletes", icon: "/logos/athlynx-logo.png", badge: "NEW", href: "/browse-athletes" },
   { id: "white-label", label: "White-Label", icon: "/logos/athlynx-logo.png", badge: "BIZ", href: "/white-label" },
   { id: "crm", label: "CRM", icon: "/logos/athlynx-logo.png", badge: "PRO", href: "/admin/crm" },
   { id: "analytics", label: "Analytics", icon: "/logos/athlynx-logo.png", badge: "PRO", href: "/analytics" },
