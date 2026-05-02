@@ -1,6 +1,6 @@
 # ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
-## Last Updated: Saturday, May 2, 2026
-## Session Summary (May 2 2026 — EXTENDED): ExpirationWarningPopup + expirationRouter + AdminCRM Expiry tab + ProTeams page + InvestorHub Real Athletes + AWS Nishant reply + athlete_profiles DB migrated + Chad founder bio + real photo avatar + first founder post pinned + X-Factor founder banner + Talk to Founder nav + player profile card on Dashboard + AthletePublicProfile page (/athlete/:id) + BrowseAthletes page (/browse-athletes) + LinkedIn launch post LIVE. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY2_2026.md
+## Last Updated: Saturday, May 2, 2026 — Session 3
+## Session Summary (May 2 2026 — SESSION 3): Root redirect bug fixed (athlynx.ai now shows Home on mobile) + App icons fixed (50+ unique emoji icons, no more screenshots) + Profile page rebuilt (7 tabs: Posts/Stats/NIL/AI Trainer/Wizards/Social/Recruiting) + Social Command Center built (/social-command) + socialRouter tRPC built + socialPostCron fixed (correct Buffer GraphQL schema) + All env vars set in Vercel (Gemini/Gravatar/Nebius/SendGrid/Stripe/Buffer) + LinkedIn reposted + Gravatar synced + athlynx-sports-brand.png screenshot REPLACED with real AthlynxAI logo + Unsplash placeholders removed + ComingSoon updated (July 2026, real logo). Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY2_2026_S3.md
 ## NEVER RUN manus-config save-config — it overwrites connector settings.
 ## READ THIS FILE AT THE START OF EVERY NEW SESSION
 
@@ -30,8 +30,10 @@
 | Agent | Role | Account |
 |-------|------|---------|
 | **AI Agent** | Primary autonomous agent — builds, deploys, manages | cdozier14@athlynx.ai |
-| **Google Gemini** | Language + multimodal AI — embedded in platform | cdozier14@athlynx.ai (Google Workspace) |
+| **Google Gemini** | Language + multimodal AI — use via OpenAI SDK with gemini-2.5-flash | cdozier14@athlynx.ai (Google Workspace) |
 | **Claude** | Reasoning + document AI — secondary | cdozier14@athlynx.ai |
+
+> **GEMINI NOTE:** Direct REST API is on free tier (quota exhausted daily). Always use via pre-configured OpenAI SDK: `model='gemini-2.5-flash'`
 
 ---
 
@@ -41,7 +43,7 @@
 
 ## CRITICAL PREFERENCES — NEVER IGNORE THESE
 
-1. **ALL PDF and document text must be 20pt or larger, bold, black** — no exceptions. Older gentlemen on the team cannot read small text.
+1. **ALL PDF and document text must be 20pt or larger, bold, black** — no exceptions.
 2. **Always push ALL code changes to GitHub immediately** — never leave code only in the sandbox.
 3. **Never change anything on the live site** without explicit instruction.
 4. **Show work step by step** — Chad does not trust work he cannot verify.
@@ -49,6 +51,7 @@
 6. **Do not repeat the same mistake twice.**
 7. **Always commit and push to GitHub before ending any task.**
 8. **NEVER run manus-config save-config** — it overwrites connector settings and disables Vercel and other connectors.
+9. **NO SCREENSHOTS, NO PLACEHOLDERS, NO MOCK DATA, NO EMPTY SHELLS** — ever. Use real logos, real data, real content.
 
 ---
 
@@ -108,6 +111,60 @@
 
 ---
 
+## BUFFER API — CRITICAL (NEVER CHANGE THIS)
+
+| Item | Value |
+|------|-------|
+| **Token (AthlynXAI)** | kB3LprBJtIH1-1F1v_DQcjOIRFdX13YFQVPXrpz9gD_ |
+| **Org ID** | 69e5eb4fa8900ccfe436f53a |
+| **Expires** | May 2, 2027 |
+| **API Endpoint** | https://api.buffer.com/graphql |
+
+**CORRECT GraphQL mutation (NEVER use fragments or scheduledAt: null):**
+```graphql
+mutation CreatePost($channelId: String!, $text: String!) {
+  createPost(input: {
+    channelId: $channelId
+    text: $text
+    schedulingType: automatic
+    mode: shareNow
+  }) {
+    __typename
+  }
+}
+```
+Success = `PostActionSuccess`. **NEVER use `... on Post { id }` — return type is PostActionPayload.**
+
+**All 10 Channel IDs:**
+- Instagram chad_dozier: `69e6cca6031bfa423c26478e`
+- LinkedIn: `69e6cd3f031bfa423c264c63`
+- YouTube: `69e6cd7c031bfa423c264dd5`
+- TikTok chadadozierdozier: `69e6cd99031bfa423c264e8c` *(video only)*
+- Google Business: `69e6cdf3031bfa423c2650a8`
+- X/Twitter ChadADozier2: `69e6ce05031bfa423c265121`
+- TikTok cdozier75: `69e6ce56031bfa423c2652c8` *(video only)*
+- Instagram chaddozier14: `69e6ce77031bfa423c265389`
+- Facebook Athlynx Ecosystem: `69f29ddf5c4c051afaf3e12e`
+- Facebook Chad Allen Dozier Sr: `69f3f06f5c4c051afaf9eeb7`
+
+---
+
+## REAL ATHLYNX LOGO
+
+**File in repo:** `/client/public/athlynx-icon.png` — this is the REAL logo (phone + blue arrow + AthlynxAI text)
+**Live URL:** `https://athlynx.ai/athlynx-icon.png`
+**Use this everywhere. Never use athlynx-sports-brand.png (was a screenshot — now fixed).**
+
+---
+
+## GRAVATAR
+
+- **Chad's Gravatar email:** `chaddozier75@gmail.com` (not cdozier14@athlynx.ai)
+- **Gravatar URL:** `https://www.gravatar.com/avatar/400fe18dbc29cd824f277af7e41710b0?s=200&d=mp`
+- **DB updated:** Chad's avatarUrl in Neon DB set to this URL
+
+---
+
 ## CONNECTOR APPS — ALL UNDER cdozier14@athlynx.ai
 
 | Connector | Purpose |
@@ -132,6 +189,7 @@
 | AWS | Cloud infrastructure — SES LIVE, SNS LIVE |
 | OpenAI | AI features |
 | Google Cloud | OAuth + APIs |
+| Buffer | Social media scheduling (AthlynXAI token) |
 
 ---
 
@@ -143,6 +201,8 @@
 | Login | https://athlynx.ai/login |
 | Sign Up | https://athlynx.ai/signup |
 | Dashboard / Portal | https://athlynx.ai/dashboard |
+| Profile | https://athlynx.ai/profile |
+| Social Command Center | https://athlynx.ai/social-command |
 | Pricing | https://athlynx.ai/pricing |
 | AI Wizards | https://athlynx.ai/ai-wizards |
 | NIL Portal | https://athlynx.ai/nil-portal |
@@ -169,6 +229,8 @@
 | Billing | https://athlynx.ai/billing |
 | Investor Hub | https://athlynx.ai/investor-hub |
 | Investor Deck | https://athlynx.ai/investor-deck |
+| Pro Teams | https://athlynx.ai/pro-teams |
+| Browse Athletes | https://athlynx.ai/browse-athletes |
 
 ---
 
@@ -198,7 +260,8 @@
 8. **No breaking changes** — never delete working code without a replacement
 9. **Always push to main** — never create new branches without reason
 10. **Always commit and push before ending any task**
-11. **NEVER run `manus-config save-config`** — it disables ALL connectors in the Manus UI and breaks the entire session. This happened twice on May 1, 2026.
+11. **NEVER run `manus-config save-config`** — it disables ALL connectors in the Manus UI
+12. **NO SCREENSHOTS, NO PLACEHOLDERS, NO MOCK DATA** — use real logos, real data, real content always
 
 ---
 
@@ -206,16 +269,7 @@
 
 At the start of every new session:
 
-> **"Read ATHLYNXAI_MASTER_REFERENCE.md from GitHub before doing anything. https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_MASTER_REFERENCE.md — Verify: https://github.com/AthlyXAI/Athlynx-V2-Official/commits/main — Handoff Report: https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_HANDOFF_REPORT_MAY2_2026.md"**
-
-The AI agent will run:
-```
-gh repo clone AthlyXAI/Athlynx-V2-Official
-cat ATHLYNXAI_MASTER_REFERENCE.md
-cat ATHLYNXAI_HANDOFF_REPORT_MAY2_2026.md
-```
-
-And will have full context immediately.
+> **"Read ATHLYNXAI_MASTER_REFERENCE.md from GitHub before doing anything. https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_MASTER_REFERENCE.md — Verify: https://github.com/AthlyXAI/Athlynx-V2-Official/commits/main — Handoff Report: https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_HANDOFF_REPORT_MAY2_2026_S3.md"**
 
 ---
 
