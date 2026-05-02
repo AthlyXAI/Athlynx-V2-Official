@@ -1,7 +1,7 @@
-// ATHLYNX Service Worker — v1.2.2
+// ATHLYNX Service Worker — v1.2.3
 // Offline-first PWA: cache-first for assets, network-first for API
 
-const CACHE_VERSION = 'athlynx-v1.2.2';
+const CACHE_VERSION = 'athlynx-v1.2.3';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 

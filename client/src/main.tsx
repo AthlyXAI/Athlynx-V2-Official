@@ -48,10 +48,30 @@ const queryClient = new QueryClient({
   },
 });
 
+// Public/marketing routes — NEVER redirect away from these even if unauthenticated
+const PUBLIC_ROUTES = [
+  '/', '/signup', '/early-access', '/early-access-v2',
+  '/signin', '/login', '/callback', '/auth/callback',
+  '/forgot-password', '/demo', '/how-it-works',
+  '/welcome', '/about', '/platform',
+  '/investor-hub', '/investor-deck', '/founders',
+  '/pricing', '/partners', '/nil-portal',
+  '/diamond-grind', '/warriors-playbook',
+  '/faith', '/ai-recruiter',
+];
+
 const redirectToLoginIfUnauthorized = (error: unknown) => {
   if (!(error instanceof TRPCClientError)) return;
-  if (typeof window === "undefined") return;
-  if (error.message === UNAUTHED_ERR_MSG) window.location.href = '/signup';
+  if (typeof window === 'undefined') return;
+  if (error.message !== UNAUTHED_ERR_MSG) return;
+  const currentPath = window.location.pathname;
+  // Never redirect away from public/marketing pages — visitors must see the home page
+  const isPublicRoute = PUBLIC_ROUTES.some(
+    route => currentPath === route || currentPath.startsWith(route + '/')
+  );
+  if (isPublicRoute) return;
+  // Redirect to /signin (not /signup) — session expired for existing user
+  window.location.href = '/signin';
 };
 
 queryClient.getQueryCache().subscribe(event => {
