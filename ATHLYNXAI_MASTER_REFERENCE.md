@@ -1,6 +1,6 @@
 # ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
 ## Last Updated: Saturday, May 2, 2026
-## Session Summary (May 2 2026): ExpirationWarningPopup built (mandatory modal days<=5 or expired, snooze 24h) wired into PlatformLayout. expirationRouter created (admin getWarnings/getOverdue/markSent). AdminCRM new Expiry tab with expiring + overdue tables. ProTeams.tsx page + route /pro-teams + pricing tier + APPS nav entry. Pro Teams added to Stripe products.ts. InvestorHub Real Athletes section added. AWS reply to Nishant (Case 177767167100909) sent — confirmed registration v3 submitted. Handoff report: ATHLYNXAI_HANDOFF_REPORT_MAY2_2026.md
+## Session Summary (May 2 2026 — EXTENDED): ExpirationWarningPopup + expirationRouter + AdminCRM Expiry tab + ProTeams page + InvestorHub Real Athletes + AWS Nishant reply + athlete_profiles DB migrated + Chad founder bio + real photo avatar + first founder post pinned + X-Factor founder banner + Talk to Founder nav + player profile card on Dashboard + AthletePublicProfile page (/athlete/:id) + BrowseAthletes page (/browse-athletes) + LinkedIn launch post LIVE. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY2_2026.md
 ## NEVER RUN manus-config save-config — it overwrites connector settings.
 ## READ THIS FILE AT THE START OF EVERY NEW SESSION
 
