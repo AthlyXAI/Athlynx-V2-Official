@@ -160,4 +160,56 @@ export const investorRouter = router({
 
       return { success: true, message: "Request submitted. We will be in touch within 1–2 business days." };
     }),
+
+  /**
+   * Request specific investor document (deck, strategy PDF, financials)
+   * Gated — sends notification to Chad + Glenn with document type requested
+   */
+  requestDocument: publicProcedure
+    .input(
+      z.object({
+        fullName: z.string().min(2, "Full name required"),
+        email: z.string().email("Valid email required"),
+        phone: z.string().optional(),
+        company: z.string().optional(),
+        documentType: z.enum(["investor_deck", "strategy_pdf", "financials", "full_package"]),
+        message: z.string().optional(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const { fullName, email, phone, company, documentType, message } = input;
+      const docLabels: Record<string, string> = {
+        investor_deck: "Investor Deck (PPTX)",
+        strategy_pdf: "Investor Strategy PDF",
+        financials: "Complete Financial Package (XLSX)",
+        full_package: "Full Investor Package (All Documents)",
+      };
+      const docLabel = docLabels[documentType] || documentType;
+      const adminHtml = `<html><body style="font-family:Arial,sans-serif;background:#040c1a;color:#fff;padding:24px">
+        <h2 style="color:#00c2ff">Document Request — ${docLabel}</h2>
+        <p><strong>Name:</strong> ${fullName}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ""}
+        ${company ? `<p><strong>Company:</strong> ${company}</p>` : ""}
+        <p><strong>Document Requested:</strong> ${docLabel}</p>
+        ${message ? `<p><strong>Message:</strong> ${message}</p>` : ""}
+        <hr style="border-color:#1a3a8f">
+        <p style="color:#00c2ff">Reply to: ${email}</p>
+      </body></html>`;
+      const confirmHtml = `<html><body style="font-family:Arial,sans-serif;background:#040c1a;color:#fff;padding:24px">
+        <h2 style="color:#00c2ff">ATHLYNX AI — Document Request Received</h2>
+        <p>Hi ${fullName},</p>
+        <p>We received your request for: <strong style="color:#00c2ff">${docLabel}</strong></p>
+        <p>Chad or Glenn will send it to you within 1–2 business days.</p>
+        <p style="color:#666">cdozier14@athlynx.ai | +1 (601) 498-5282</p>
+        <p style="color:#00c2ff">Iron Sharpens Iron — Proverbs 27:17</p>
+      </body></html>`;
+      const subject = `📎 Document Request — ${fullName} wants ${docLabel}`;
+      await Promise.allSettled([
+        sendEmail({ to: "cdozier14@athlynx.ai", subject, html: adminHtml }),
+        sendEmail({ to: "gtse@athlynx.ai", subject, html: adminHtml }),
+        sendEmail({ to: email, subject: "ATHLYNX — Document Request Received", html: confirmHtml }),
+      ]);
+      return { success: true };
+    }),
 });
