@@ -31,7 +31,7 @@ export const feedRouter = router({
         .from(posts)
         .leftJoin(users, eq(posts.userId, users.id))
         .where(eq(posts.visibility, "public"))
-        .orderBy(desc(posts.createdAt))
+        .orderBy(desc(posts.isPinned), desc(posts.createdAt))
         .limit(limit)
         .offset(offset);
     }),

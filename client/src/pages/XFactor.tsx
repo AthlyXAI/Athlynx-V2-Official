@@ -383,6 +383,45 @@ export default function XFactor() {
             </div>
           </div>
 
+          {/* ── FOUNDER WELCOME BANNER ── */}
+          <div className="border-b border-slate-800 bg-gradient-to-r from-blue-950/60 to-slate-900/60 p-4">
+            <div className="flex items-start gap-3">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#00c2ff] to-blue-700 flex items-center justify-center text-white font-black text-lg shrink-0 ring-2 ring-[#00c2ff]/40">
+                CD
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-white font-black text-sm">Chad A. Dozier Sr.</span>
+                  <span className="bg-[#00c2ff] text-black text-[9px] font-black px-1.5 py-0.5 rounded-full">FOUNDER</span>
+                  <span className="text-slate-500 text-xs">Founder & CEO, ATHLYNX AI</span>
+                </div>
+                <p className="text-slate-300 text-sm leading-relaxed mb-3">
+                  🏆 Welcome to ATHLYNX — the platform built <strong>FOR YOU</strong>. Every sport. Every level. Youth to Pro to Retired. I built this because athletes deserve better. Your NIL deals, your recruiting profile, your training, your future — all in one place.
+                </p>
+                <p className="text-slate-400 text-xs mb-3">
+                  I read every message. Tell me what you need. This platform exists to serve you.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Link href="/community-feedback">
+                    <button className="flex items-center gap-1.5 bg-[#00c2ff]/10 hover:bg-[#00c2ff]/20 border border-[#00c2ff]/30 text-[#00c2ff] text-xs font-bold px-3 py-1.5 rounded-full transition-all">
+                      💬 Talk to the Founder
+                    </button>
+                  </Link>
+                  <Link href="/profile">
+                    <button className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 text-xs font-bold px-3 py-1.5 rounded-full transition-all">
+                      👤 Set Up Your Profile
+                    </button>
+                  </Link>
+                  <Link href="/nil-portal">
+                    <button className="flex items-center gap-1.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 text-xs font-bold px-3 py-1.5 rounded-full transition-all">
+                      💰 Find NIL Deals
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Feed */}
           <div>
             {FEED_POSTS.map(post => (
