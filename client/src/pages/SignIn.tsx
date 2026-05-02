@@ -11,19 +11,25 @@ import {
 
 export default function SignIn() {
   const [, setLocation] = useLocation()
-  const [email, setEmail] = useState('')
+  const urlParams = new URLSearchParams(window.location.search)
+  const existingAccount = urlParams.get('msg') === 'existing'
+  // Pre-fill email if passed from signup page (when password mismatch on existing account)
+  const emailFromUrl = urlParams.get('email') || ''
+  const [email, setEmail] = useState(emailFromUrl)
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [socialLoading, setSocialLoading] = useState<string | null>(null)
 
-  const urlParams = new URLSearchParams(window.location.search)
-  const existingAccount = urlParams.get('msg') === 'existing'
-
   const loginMutation = trpc.auth.login.useMutation({
     onSuccess: () => { window.location.href = '/portal' },
     onError: (err) => {
-      setError(err.message || 'Invalid email or password')
+      const msg = err.message || ''
+      if (msg.toLowerCase().includes('invalid')) {
+        setError('Wrong password. Try again or use Forgot Password below.')
+      } else {
+        setError(msg || 'Sign-in failed. Please try again.')
+      }
       setLoading(false)
     },
   })

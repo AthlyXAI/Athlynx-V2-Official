@@ -28,6 +28,16 @@ export default function EarlyAccess() {
     onError: (err) => { setError(err.message || 'Sign-up failed.'); setSocialLoading(null) },
   })
 
+  // Auto-login when account already exists — seamless redirect to portal
+  const loginMutation = trpc.auth.login.useMutation({
+    onSuccess: () => { window.location.href = '/portal' },
+    onError: () => {
+      // Password mismatch — send to signin with email pre-filled
+      window.location.href = '/signin?email=' + encodeURIComponent(email.trim())
+      setLoading(false)
+    },
+  })
+
   const registerMutation = trpc.auth.register.useMutation({
     onSuccess: () => {
       // Save phone number if provided — this also triggers the Welcome SMS on the server
@@ -40,8 +50,8 @@ export default function EarlyAccess() {
     onError: (err) => {
       const msg = err.message || ''
       if (msg.toLowerCase().includes('already exists')) {
-        // Account exists — redirect to sign in with a friendly message
-        window.location.href = '/signin?msg=existing'
+        // Account exists — silently auto-login with same credentials and go to portal
+        loginMutation.mutate({ email: email.trim(), password: password.trim() })
       } else {
         setError(msg || 'Registration failed. Please try again.')
         setLoading(false)
