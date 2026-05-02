@@ -8,6 +8,88 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { CreditsBadge } from "@/components/CreditsBadge";
 
+// ─── APP ICON HELPER — renders emoji in a colored circle when no real icon exists ───
+// Each app has a unique emoji + gradient so no two look the same
+const APP_ICONS: Record<string, { emoji: string; bg: string }> = {
+  // Core Platform
+  "Portal": { emoji: "🏟️", bg: "from-cyan-500 to-blue-600" },
+  "Messenger": { emoji: "💬", bg: "from-blue-500 to-indigo-600" },
+  "Dashboard": { emoji: "📊", bg: "from-blue-600 to-cyan-500" },
+  "Feed": { emoji: "📰", bg: "from-sky-500 to-blue-600" },
+  "Profile": { emoji: "👤", bg: "from-indigo-500 to-blue-600" },
+  "Social Hub": { emoji: "🌐", bg: "from-teal-500 to-cyan-600" },
+  "Comms Hub": { emoji: "📡", bg: "from-blue-500 to-violet-600" },
+  "Notifications": { emoji: "🔔", bg: "from-yellow-500 to-orange-500" },
+  // NIL & Business
+  "NIL Portal": { emoji: "💰", bg: "from-yellow-500 to-orange-500" },
+  "NIL Vault": { emoji: "🔐", bg: "from-amber-500 to-yellow-600" },
+  "NIL Marketplace": { emoji: "🛒", bg: "from-orange-500 to-red-500" },
+  "NIL Calculator": { emoji: "🧮", bg: "from-yellow-600 to-amber-500" },
+  "NIL Jobs": { emoji: "💼", bg: "from-orange-600 to-amber-500" },
+  "Elite Events": { emoji: "🏆", bg: "from-yellow-400 to-orange-500" },
+  "X-Factor": { emoji: "⚡", bg: "from-yellow-500 to-red-500" },
+  "Athlete Calendar": { emoji: "📅", bg: "from-blue-500 to-indigo-500" },
+  "Contracts": { emoji: "📝", bg: "from-slate-500 to-blue-600" },
+  "Athlete Legal Hub": { emoji: "⚖️", bg: "from-slate-600 to-blue-700" },
+  "Athlete Life Hub": { emoji: "🌟", bg: "from-cyan-500 to-teal-600" },
+  "Agent Finder": { emoji: "🤝", bg: "from-green-500 to-teal-600" },
+  "Financial Advisors": { emoji: "📈", bg: "from-green-600 to-emerald-500" },
+  "Athlete Legal": { emoji: "🏛️", bg: "from-slate-600 to-gray-700" },
+  "Store": { emoji: "🛍️", bg: "from-pink-500 to-rose-500" },
+  "Marketplace": { emoji: "🏪", bg: "from-orange-500 to-amber-500" },
+  // AI Tools
+  "AI Recruiter": { emoji: "🤖", bg: "from-purple-500 to-violet-600" },
+  "AI Training Bot": { emoji: "🧠", bg: "from-violet-500 to-purple-600" },
+  "AI Content": { emoji: "✨", bg: "from-fuchsia-500 to-purple-600" },
+  "AI Sales": { emoji: "📣", bg: "from-purple-600 to-indigo-600" },
+  "Fuel Bots": { emoji: "⚡", bg: "from-yellow-500 to-orange-500" },
+  "Team Bots": { emoji: "👥", bg: "from-blue-500 to-indigo-600" },
+  "Wizards Hub": { emoji: "🪄", bg: "from-violet-600 to-purple-700" },
+  "CRM Command": { emoji: "🎯", bg: "from-red-500 to-rose-600" },
+  // Recruiting & Transfer
+  "Transfer Portal": { emoji: "🚀", bg: "from-green-500 to-emerald-600" },
+  "Transfer Intelligence": { emoji: "🔍", bg: "from-emerald-500 to-teal-600" },
+  "Signing Day": { emoji: "✍️", bg: "from-green-600 to-lime-600" },
+  "Athlete Playbook": { emoji: "📖", bg: "from-teal-500 to-green-600" },
+  "School Branding": { emoji: "🎓", bg: "from-blue-600 to-indigo-600" },
+  "Athlete Website": { emoji: "🌐", bg: "from-cyan-600 to-blue-600" },
+  "Scout Wizard": { emoji: "🔭", bg: "from-green-500 to-teal-500" },
+  "Career Wizard": { emoji: "🧭", bg: "from-emerald-600 to-green-700" },
+  // Sports Apps
+  "Diamond Grind": { emoji: "⚾", bg: "from-red-500 to-rose-600" },
+  "Warriors Playbook": { emoji: "🏀", bg: "from-orange-500 to-red-500" },
+  "Court Kings": { emoji: "👑", bg: "from-yellow-500 to-orange-500" },
+  "Gridiron Nexus": { emoji: "🏈", bg: "from-green-600 to-emerald-700" },
+  "Pitch Pulse": { emoji: "⚽", bg: "from-green-500 to-lime-600" },
+  "Fairway Elite": { emoji: "⛳", bg: "from-green-400 to-teal-500" },
+  "Hunt Pro": { emoji: "🦌", bg: "from-amber-700 to-yellow-800" },
+  "Reel Masters": { emoji: "🎣", bg: "from-blue-600 to-teal-600" },
+  // Media & Content
+  "Studio": { emoji: "🎬", bg: "from-pink-500 to-fuchsia-600" },
+  "Music": { emoji: "🎵", bg: "from-fuchsia-500 to-pink-600" },
+  "Podcast": { emoji: "🎙️", bg: "from-purple-500 to-pink-600" },
+  "Media Showcase": { emoji: "🎥", bg: "from-rose-500 to-pink-600" },
+  "Athlynx Browser": { emoji: "🔗", bg: "from-blue-500 to-cyan-600" },
+  // Health & Wellness
+  "Training": { emoji: "💪", bg: "from-teal-500 to-cyan-600" },
+  "Athlete Health": { emoji: "❤️", bg: "from-red-400 to-rose-500" },
+  "Career Hub": { emoji: "🏢", bg: "from-blue-500 to-indigo-600" },
+  "Medical": { emoji: "🏥", bg: "from-teal-600 to-cyan-700" },
+  "Wellness Portal": { emoji: "🧘", bg: "from-teal-400 to-green-500" },
+  "Mindset": { emoji: "🧠", bg: "from-cyan-500 to-teal-600" },
+  "Nutrition": { emoji: "🥗", bg: "from-green-500 to-lime-500" },
+  "Faith": { emoji: "✝️", bg: "from-amber-500 to-yellow-500" },
+  // DHG Empire
+  "DHG Home": { emoji: "🦀", bg: "from-slate-500 to-blue-700" },
+  "Investor Hub": { emoji: "💎", bg: "from-blue-600 to-indigo-700" },
+  "Military Division": { emoji: "🎖️", bg: "from-slate-600 to-gray-700" },
+  "White Label": { emoji: "🏷️", bg: "from-slate-500 to-blue-600" },
+  "Partners": { emoji: "🤝", bg: "from-blue-600 to-slate-700" },
+  "Softmor": { emoji: "🏗️", bg: "from-orange-600 to-amber-700" },
+  "Bitcoin Mining": { emoji: "₿", bg: "from-yellow-500 to-orange-600" },
+  "Robotics": { emoji: "🤖", bg: "from-slate-500 to-cyan-700" },
+};
+
 // ─── ALL ATHLYNX APPS — ORGANIZED BY CATEGORY ───────────────────────────────
 const appCategories = [
   {
@@ -15,14 +97,14 @@ const appCategories = [
     color: "from-cyan-500 to-blue-600",
     borderColor: "border-cyan-500/40",
     apps: [
-      { name: "Portal", icon: "/nil-portal-app-logo.jpeg", href: "/portal", desc: "Your athlete command center" },
+      { name: "Portal", icon: "", href: "/portal", desc: "Your athlete command center" },
       { name: "Messenger", icon: "/messenger.png", href: "/messenger", desc: "Real-time messaging & chat" },
-      { name: "Dashboard", icon: "/athlynx-icon.png", href: "/dashboard", desc: "Stats, goals & overview" },
-      { name: "Feed", icon: "/athlynx-sports-brand.png", href: "/feed", desc: "Live athlete feed" },
-      { name: "Profile", icon: "/athlynx-app-icon.png", href: "/profile", desc: "Your public athlete profile" },
-      { name: "Social Hub", icon: "/athlynx-icon.png", href: "/social-hub", desc: "Connect with athletes globally" },
-      { name: "Comms Hub", icon: "/messenger.png", href: "/comms-hub", desc: "All communications in one place" },
-      { name: "Notifications", icon: "/athlynx-icon.png", href: "/notifications", desc: "Alerts & updates" },
+      { name: "Dashboard", icon: "", href: "/dashboard", desc: "Stats, goals & overview" },
+      { name: "Feed", icon: "", href: "/feed", desc: "Live athlete feed" },
+      { name: "Profile", icon: "", href: "/profile", desc: "Your public athlete profile" },
+      { name: "Social Hub", icon: "", href: "/social-hub", desc: "Connect with athletes globally" },
+      { name: "Comms Hub", icon: "", href: "/comms-hub", desc: "All communications in one place" },
+      { name: "Notifications", icon: "", href: "/notifications", desc: "Alerts & updates" },
     ],
   },
   {
@@ -35,16 +117,16 @@ const appCategories = [
       { name: "NIL Marketplace", icon: "/nil-vault.png", href: "/nil-marketplace", desc: "Buy, sell & negotiate deals" },
       { name: "NIL Calculator", icon: "/nil-vault-icon.png", href: "/nil-calculator", desc: "Calculate your NIL value" },
       { name: "NIL Jobs", icon: "/nil-portal-logo.jpeg", href: "/nil-jobs", desc: "Headhunter & NIL job board" },
-      { name: "Elite Events", icon: "/athlynx-icon.png", href: "/elite-events", desc: "7v7, Elite 11, All-Stars, Combines" },
+      { name: "Elite Events", icon: "", href: "/elite-events", desc: "7v7, Elite 11, All-Stars, Combines" },
       { name: "X-Factor", icon: "/xfactor-logo-dark.png", href: "/x-factor", desc: "Athlete social feed & scouting" },
       { name: "Athlete Calendar", icon: "/nil-vault-icon.png", href: "/athlete-calendar", desc: "Games, NIL deadlines & recruiting" },
       { name: "Contracts", icon: "/contracts-logo.png", href: "/contracts", desc: "Smart contract management" },
       { name: "Athlete Legal Hub", icon: "/contracts-logo.png", href: "/athlete-legal-hub", desc: "Legal tools for athletes" },
-      { name: "Athlete Life Hub", icon: "/athlynx-icon.png", href: "/athlete-life", desc: "Life-to-retirement platform" },
+      { name: "Athlete Life Hub", icon: "", href: "/athlete-life", desc: "Life-to-retirement platform" },
       { name: "Agent Finder", icon: "/nil-portal-logo.jpeg", href: "/agent-finder", desc: "Find certified sports agents" },
       { name: "Financial Advisors", icon: "/analytics-logo.png", href: "/athlete-financial", desc: "Wealth management for athletes" },
       { name: "Athlete Legal", icon: "/contracts-logo.png", href: "/athlete-legal", desc: "LegalZoom for athletes" },
-      { name: "Store", icon: "/athlynx-sports-brand.png", href: "/store", desc: "Merch & branded products" },
+      { name: "Store", icon: "", href: "/store", desc: "Merch & branded products" },
       { name: "Marketplace", icon: "/deals-logo.png", href: "/marketplace", desc: "Equipment & services" },
     ],
   },
@@ -59,7 +141,7 @@ const appCategories = [
       { name: "AI Sales", icon: "/ai-sales.png", href: "/ai-sales", desc: "Automate your NIL sales" },
       { name: "Fuel Bots", icon: "/fuelbots-icon.png", href: "/fuel-bots", desc: "Nutrition & recovery AI" },
       { name: "Team Bots", icon: "/fuelbots-icon.png", href: "/team-bots", desc: "Team management AI" },
-      { name: "Wizards Hub", icon: "/athlynx-icon.png", href: "/wizards", desc: "AI-powered career wizards" },
+      { name: "Wizards Hub", icon: "", href: "/wizards", desc: "AI-powered career wizards" },
       { name: "CRM Command", icon: "/analytics-logo.png", href: "/crm-command", desc: "Athlete relationship manager" },
     ],
   },
@@ -71,11 +153,11 @@ const appCategories = [
       { name: "Transfer Portal", icon: "/transfer-portal-icon.png", href: "/transfer-portal", desc: "Find your next school" },
       { name: "Transfer Intelligence", icon: "/transfer-portal.png", href: "/transfer-intelligence", desc: "AI transfer analytics" },
       { name: "Signing Day", icon: "/transfer-portal-icon.png", href: "/signing-day", desc: "Signing day tracker" },
-      { name: "Athlete Playbook", icon: "/athlynx-app-icon.png", href: "/athlete-playbook", desc: "Recruiting playbook" },
-      { name: "School Branding", icon: "/athlynx-sports-brand.png", href: "/school-branding", desc: "School NIL licensing" },
+      { name: "Athlete Playbook", icon: "", href: "/athlete-playbook", desc: "Recruiting playbook" },
+      { name: "School Branding", icon: "", href: "/school-branding", desc: "School NIL licensing" },
       { name: "Athlete Website", icon: "/website-logo.png", href: "/athlete-website-builder", desc: "Build your recruiting site" },
       { name: "Scout Wizard", icon: "/ai-recruiter.png", href: "/wizards/scout", desc: "AI scouting assistant" },
-      { name: "Career Wizard", icon: "/athlynx-icon.png", href: "/wizards/career", desc: "Career path planning" },
+      { name: "Career Wizard", icon: "", href: "/wizards/career", desc: "Career path planning" },
     ],
   },
   {
@@ -88,8 +170,8 @@ const appCategories = [
       { name: "Court Kings", icon: "/court-kings-icon.png", href: "/court-kings", desc: "Basketball recruiting" },
       { name: "Gridiron Nexus", icon: "/gridiron-nexus-icon.png", href: "/gridiron-nexus", desc: "Football excellence" },
       { name: "Pitch Pulse", icon: "/pitch-pulse-icon.png", href: "/pitch-pulse", desc: "Soccer intelligence" },
-      { name: "Fairway Elite", icon: "/athlynx-sports-brand.png", href: "/fairway-elite", desc: "Golf recruiting" },
-      { name: "Hunt Pro", icon: "/athlynx-sports-brand.png", href: "/hunt-pro", desc: "Hunting & outdoors" },
+      { name: "Fairway Elite", icon: "", href: "/fairway-elite", desc: "Golf recruiting" },
+      { name: "Hunt Pro", icon: "", href: "/hunt-pro", desc: "Hunting & outdoors" },
       { name: "Reel Masters", icon: "/reel-masters-icon.png", href: "/reel-masters", desc: "Fishing & outdoors" },
     ],
   },
@@ -98,12 +180,12 @@ const appCategories = [
     color: "from-pink-500 to-fuchsia-600",
     borderColor: "border-pink-500/40",
     apps: [
-      { name: "Studio", icon: "/athlynx-sports-brand.png", href: "/studio", desc: "Content creation studio" },
-      { name: "Music", icon: "/athlynx-icon.png", href: "/music", desc: "Athlete music platform" },
-      { name: "Podcast", icon: "/athlynx-icon.png", href: "/podcast", desc: "Athlete podcast network" },
-      { name: "Media Showcase", icon: "/athlynx-sports-brand.png", href: "/media-showcase", desc: "Highlight reels & media" },
-      { name: "Athlynx Browser", icon: "/athlynx-icon.png", href: "/athlynx-browser", desc: "Sports content browser" },
-      { name: "Social Hub", icon: "/athlynx-sports-brand.png", href: "/social-hub", desc: "All social in one place" },
+      { name: "Studio", icon: "", href: "/studio", desc: "Content creation studio" },
+      { name: "Music", icon: "", href: "/music", desc: "Athlete music platform" },
+      { name: "Podcast", icon: "", href: "/podcast", desc: "Athlete podcast network" },
+      { name: "Media Showcase", icon: "", href: "/media-showcase", desc: "Highlight reels & media" },
+      { name: "Athlynx Browser", icon: "", href: "/athlynx-browser", desc: "Sports content browser" },
+      { name: "Social Hub", icon: "", href: "/social-hub", desc: "All social in one place" },
     ],
   },
   {
@@ -111,9 +193,9 @@ const appCategories = [
     color: "from-teal-500 to-cyan-600",
     borderColor: "border-teal-500/40",
     apps: [
-      { name: "Training", icon: "/athlynx-sports-brand.png", href: "/training", desc: "Elite training programs" },
+      { name: "Training", icon: "", href: "/training", desc: "Elite training programs" },
       { name: "Athlete Health", icon: "/wellness-logo-final.png", href: "/athlete-health", desc: "Doctors, PTs, trainers & nutrition" },
-      { name: "Career Hub", icon: "/athlynx-app-icon.png", href: "/athlete-career", desc: "Post-sports career & retirement" },
+      { name: "Career Hub", icon: "", href: "/athlete-career", desc: "Post-sports career & retirement" },
       { name: "Medical", icon: "/wellness-logo-final.png", href: "/medical", desc: "Sports medicine & rehab" },
       { name: "Wellness Portal", icon: "/wellness-logo-final.png", href: "/wellness", desc: "Mental & physical wellness" },
       { name: "Mindset", icon: "/wellness-logo-v2.png", href: "/mindset", desc: "Mental performance coaching" },
@@ -129,11 +211,11 @@ const appCategories = [
       { name: "DHG Home", icon: "/dhg-logo.png", href: "/dhg-home", desc: "Dozier Holdings Group" },
       { name: "Investor Hub", icon: "/dhg-crab-shield.png", href: "/investor-hub", desc: "Investor relations" },
       { name: "Military Division", icon: "/military-division-icon.png", href: "/military-division", desc: "Veteran athlete pipeline" },
-      { name: "White Label", icon: "/athlynx-sports-brand.png", href: "/white-label", desc: "License the platform" },
+      { name: "White Label", icon: "", href: "/white-label", desc: "License the platform" },
       { name: "Partners", icon: "/dhg-logo.png", href: "/partners", desc: "Strategic partnerships" },
       { name: "Softmor", icon: "/dhg-logo.png", href: "/softmor", desc: "Construction & infrastructure" },
-      { name: "Bitcoin Mining", icon: "/athlynx-icon.png", href: "/bitcoin-mining", desc: "Crypto & digital assets" },
-      { name: "Robotics", icon: "/athlynx-icon.png", href: "/robotics", desc: "AI robotics division" },
+      { name: "Bitcoin Mining", icon: "", href: "/bitcoin-mining", desc: "Crypto & digital assets" },
+      { name: "Robotics", icon: "", href: "/robotics", desc: "AI robotics division" },
     ],
   },
 ];
@@ -159,6 +241,16 @@ export default function Portal() {
 
   const { data: feedPosts, refetch: refetchFeed } = trpc.feed.getFeed.useQuery(
     { limit: 20, offset: 0 },
+    { enabled: isAuthenticated }
+  );
+
+  // Live stats for profile tab
+  const { data: myPosts } = trpc.feed.getUserPosts.useQuery(
+    { userId: user?.id ?? 0 },
+    { enabled: !!user?.id }
+  );
+  const { data: myProfile } = trpc.profile.getMyProfile.useQuery(
+    undefined,
     { enabled: isAuthenticated }
   );
 
@@ -382,15 +474,21 @@ export default function Portal() {
           <div className="max-w-2xl mx-auto">
             <Card className="bg-slate-800 border-slate-700">
               <CardContent className="p-8 text-center">
-                <div className="w-24 h-24 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center text-white text-4xl font-black mx-auto mb-4">
-                  {user?.name?.charAt(0)?.toUpperCase() || "A"}
+                <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden border-4 border-cyan-500/50 shadow-xl">
+                  {user?.avatarUrl ? (
+                    <img src={user.avatarUrl} alt={user.name || 'Profile'} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-r from-blue-600 to-cyan-500 flex items-center justify-center text-white text-4xl font-black">
+                      {user?.name?.charAt(0)?.toUpperCase() || "A"}
+                    </div>
+                  )}
                 </div>
                 <h2 className="text-2xl font-black text-white mb-1">{user?.name || "Athlete"}</h2>
                 <p className="text-cyan-400 text-sm mb-6">{user?.email || ""}</p>
                 <div className="grid grid-cols-3 gap-4 mb-6">
                   {[
-                    { label: "Posts", value: "0" },
-                    { label: "Followers", value: "0" },
+                    { label: "Posts", value: String(myPosts?.length ?? 0) },
+                    { label: "Followers", value: String(myProfile?.followers ?? 0) },
                     { label: "NIL Deals", value: "0" },
                   ].map((stat) => (
                     <div key={stat.label} className="bg-slate-900 rounded-xl p-3">
@@ -467,17 +565,25 @@ export default function Portal() {
                     {cat.apps.map((app) => (
                       <Link key={app.href} href={app.href}>
                         <div className={`group flex flex-col items-center p-3 rounded-2xl bg-slate-800/80 border ${cat.borderColor} hover:bg-slate-700 hover:border-opacity-80 hover:scale-105 transition-all duration-200 cursor-pointer text-center`}>
-                          <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${cat.color} flex items-center justify-center mb-2 shadow-lg overflow-hidden`}>
-                            <img
-                              src={app.icon}
-                              alt={app.name}
-                              className="w-full h-full object-cover rounded-2xl"
-                              onError={(e) => {
-                                const target = e.target as HTMLImageElement;
-                                target.style.display = "none";
-                                target.parentElement!.innerHTML = `<span class="text-2xl font-black text-white">${app.name.charAt(0)}</span>`;
-                              }}
-                            />
+                          <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${APP_ICONS[app.name]?.bg || cat.color} flex items-center justify-center mb-2 shadow-lg overflow-hidden`}>
+                            {app.icon ? (
+                              <img
+                                src={app.icon}
+                                alt={app.name}
+                                className="w-full h-full object-cover rounded-2xl"
+                                onError={(e) => {
+                                  const target = e.target as HTMLImageElement;
+                                  const appIcon = APP_ICONS[app.name];
+                                  target.style.display = "none";
+                                  target.parentElement!.className = `w-14 h-14 rounded-2xl bg-gradient-to-br ${appIcon?.bg || cat.color} flex items-center justify-center mb-2 shadow-lg`;
+                                  target.parentElement!.innerHTML = `<span style="font-size:26px;line-height:1">${appIcon?.emoji || app.name.charAt(0)}</span>`;
+                                }}
+                              />
+                            ) : (
+                              <span style={{ fontSize: '26px', lineHeight: '1' }}>
+                                {APP_ICONS[app.name]?.emoji || app.name.charAt(0)}
+                              </span>
+                            )}
                           </div>
                           <span className="text-white text-xs font-bold leading-tight">{app.name}</span>
                           <span className="text-slate-400 text-xs mt-0.5 hidden group-hover:block leading-tight">{app.desc}</span>

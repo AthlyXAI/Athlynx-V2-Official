@@ -195,6 +195,8 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/demo" component={Demo} />
       <Route path="/how-it-works" component={Demo} />
+      <Route path="/welcome" component={Home} />
+      <Route path="/platform" component={Home} />
       <Route path="/trial-expired" component={TrialExpired} />
       <Route path="/signup" component={EarlyAccess} />
       <Route path="/early-access" component={EarlyAccess} />
