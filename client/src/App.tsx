@@ -52,6 +52,7 @@ import AthletePlaybook from "./pages/AthletePlaybook";
 import AthleteWebsiteBuilder from "./pages/AthleteWebsiteBuilder";
 import AthlynxBrowser from "./pages/AthlynxBrowser";
 import SocialHub from "./pages/SocialHub";
+import SocialCommandCenter from "./pages/SocialCommandCenter";
 import CommsHub from "./pages/CommsHub";
 import LegalHub from "./pages/LegalHub";
 import HIPAACompliance from "./pages/HIPAACompliance";
@@ -243,6 +244,8 @@ function Router() {
       <Route path="/athlete-website-builder" component={AthleteWebsiteBuilder} />
       <Route path="/athlynx-browser" component={AthlynxBrowser} />
       <Route path="/social-hub" component={SocialHub} />
+      <Route path="/social-command" component={SocialCommandCenter} />
+      <Route path="/social-command-center" component={SocialCommandCenter} />
       <Route path="/comms-hub" component={CommsHub} />
       <Route path="/legal-hub" component={LegalHub} />
       <Route path="/athlete-legal-hub" component={AthleteLeagalHub} />
