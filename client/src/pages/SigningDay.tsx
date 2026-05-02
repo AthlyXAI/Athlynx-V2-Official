@@ -56,7 +56,7 @@ export default function SigningDay() {
       finalists: ["Alabama", "Georgia", "Ohio State"],
       viewers: 15234,
       status: "live",
-      thumbnail: "https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=400",
+      thumbnail: "/athlete1.jpg",
     },
     {
       id: 2,
@@ -66,7 +66,7 @@ export default function SigningDay() {
       finalists: ["UConn", "Stanford", "South Carolina"],
       viewers: 8921,
       status: "live",
-      thumbnail: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400",
+      thumbnail: "/athlete2.jpg",
     },
   ];
 

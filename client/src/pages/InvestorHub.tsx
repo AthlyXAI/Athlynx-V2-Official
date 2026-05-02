@@ -689,10 +689,10 @@ export default function InvestorHub() {
               { src: "/brand/athlynx-promo.png", label: "Athlete Promo" },
               { src: "/brand/athlynx-investor.png", label: "Investor View" },
               { src: "/brand/dhg-empire-hero.png", label: "DHG Empire" },
-              { src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80", label: "Football Training" },
-              { src: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&q=80", label: "Basketball" },
-              { src: "https://images.unsplash.com/photo-1529516548873-9ce57c8f155e?w=400&q=80", label: "Baseball" },
-              { src: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=400&q=80", label: "Track & Field" },
+              { src: "/athlete1.jpg", label: "Football Training" },
+              { src: "/athlete2.jpg", label: "Basketball" },
+              { src: "/athlete1.jpg", label: "Baseball" },
+              { src: "/athlete2.jpg", label: "Track & Field" },
             ].map((item, i) => (
               <div key={i} className="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-red-400/50 transition-all group relative">
                 <img src={item.src} alt={item.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />

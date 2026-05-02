@@ -44,7 +44,7 @@ const TEMPLATES = [
     price: 19.99,
     features: ["Professional layout", "Stats showcase", "Highlight video embed", "Contact form", "Mobile responsive"],
     color: "from-blue-500 to-cyan-500",
-    preview: "https://images.unsplash.com/photo-1461896836934- voices-of-the-future?w=400",
+    preview: "/athlynx-icon.png",
   },
   {
     id: "nil-ready",
@@ -54,7 +54,7 @@ const TEMPLATES = [
     features: ["Brand partnership section", "Social media integration", "NIL deal showcase", "Media kit download", "Analytics dashboard"],
     color: "from-blue-600 to-red-500",
     popular: true,
-    preview: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=400",
+    preview: "/athlete2.jpg",
   },
   {
     id: "full-package",
@@ -63,7 +63,7 @@ const TEMPLATES = [
     price: 49.99,
     features: ["Everything in NIL Ready", "Custom domain", "SEO optimization", "Email marketing", "Priority support", "Unlimited updates"],
     color: "from-red-500 to-red-500",
-    preview: "https://images.unsplash.com/photo-1526232761682-d26e03ac148e?w=400",
+    preview: "/athlete1.jpg",
   },
 ];
 
