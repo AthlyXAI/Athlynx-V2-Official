@@ -23,6 +23,8 @@ import { useState, useRef, useEffect } from "react";
 import { useLocation } from "wouter";
 import { MessageCircle, X, ChevronDown, Sparkles, Trophy, Zap, Star, Users, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { trpc } from "@/lib/trpc";
+import { useAuth } from "@/_core/hooks/useAuth";
 
 // ─── Career Tier Definitions ─────────────────────────────────────────────────
 export const CAREER_TIERS = [
@@ -224,6 +226,20 @@ export default function AIWizard({
   const [location] = useLocation();
   const inputRef = useRef<HTMLInputElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const { user } = useAuth();
+
+  // Real Gemini AI via tRPC trainerChat
+  const trainerChatMutation = trpc.ai.trainerChat.useMutation({
+    onSuccess: (data: any) => {
+      setIsTyping(false);
+      setChatHistory(prev => [...prev, { role: "ai", text: data.reply || data.message || "I'm here to help!" }]);
+    },
+    onError: () => {
+      setIsTyping(false);
+      const fallback = pageCtx?.tips?.[Math.floor(Math.random() * (pageCtx.tips?.length || 1))] || "I'm here to help with your athletic journey!";
+      setChatHistory(prev => [...prev, { role: "ai", text: fallback }]);
+    },
+  });
 
   const tier = CAREER_TIERS.find(t => t.id === currentTier) ?? CAREER_TIERS[1];
   const nextTier = CAREER_TIERS.find(t => t.id === tier.nextTier);
@@ -251,30 +267,25 @@ export default function AIWizard({
     }
   }, [isOpen]);
 
-  const sendMessage = async () => {
-    if (!message.trim()) return;
+   const sendMessage = async () => {
+    if (!message.trim() || trainerChatMutation.isPending) return;
     const userMsg = message.trim();
     setMessage("");
     setChatHistory(prev => [...prev, { role: "user", text: userMsg }]);
     setIsTyping(true);
 
-    // Simulate AI response (in production this calls the OpenAI API via tRPC)
-    await new Promise(r => setTimeout(r, 800 + Math.random() * 600));
-
-    const responses = [
-      `Great question. As a ${tier.label}, your focus right now should be on ${tier.unlocks[0].toLowerCase()} and ${tier.unlocks[1].toLowerCase()}.`,
-      `I've analyzed your profile. ${pageCtx.tips[Math.floor(Math.random() * pageCtx.tips.length)]}`,
-      nextTier
-        ? `You're ${Math.floor(Math.random() * 40 + 60)}% of the way to unlocking ${nextTier.label} ${nextTier.emoji}. Keep pushing.`
-        : `You've reached Legacy status. Your data is now part of your family's athletic history forever. 👑`,
-      `Based on athletes at your level, the top performers do one thing differently: they track everything. Every rep, every stat, every contact.`,
-    ];
-
-    setIsTyping(false);
-    setChatHistory(prev => [...prev, {
-      role: "ai",
-      text: responses[Math.floor(Math.random() * responses.length)],
-    }]);
+    if (user) {
+      // Real Gemini AI — powered by Google Gemini 2.5 Flash
+      trainerChatMutation.mutate({ message: userMsg });
+    } else {
+      // Not logged in — prompt to sign in
+      await new Promise(r => setTimeout(r, 500));
+      setIsTyping(false);
+      setChatHistory(prev => [...prev, {
+        role: "ai",
+        text: `Sign in to unlock your personal AI Trainer powered by Google Gemini. I can help you with recruiting, NIL deals, training, and your entire athletic career. 🏆`,
+      }]);
+    }
   };
 
   return (
