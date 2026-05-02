@@ -1,6 +1,6 @@
 # ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
-## Last Updated: Friday, May 1, 2026 — 10:00 PM CST
-## Session Summary (May 1 2026 10PM): AWS toll-free registration v3 SUBMITTED (was DENIED x2 — fixed missing businessType + monthlyMessageVolume + optInImage). 7 missing DB tables created in Neon (training_logs, broadcast_messages, credit_package_purchases, subscription_expiry_notices, athlete_data_events, athlete_data_sources, athlete_data_summaries). 5 test user accounts deleted — DB clean. Manus complaint forwarded to specialist team with screenshots. Handoff report: ATHLYNXAI_HANDOFF_REPORT_MAY1_2026.md
+## Last Updated: Saturday, May 2, 2026
+## Session Summary (May 2 2026): ExpirationWarningPopup built (mandatory modal days<=5 or expired, snooze 24h) wired into PlatformLayout. expirationRouter created (admin getWarnings/getOverdue/markSent). AdminCRM new Expiry tab with expiring + overdue tables. ProTeams.tsx page + route /pro-teams + pricing tier + APPS nav entry. Pro Teams added to Stripe products.ts. InvestorHub Real Athletes section added. AWS reply to Nishant (Case 177767167100909) sent — confirmed registration v3 submitted. Handoff report: ATHLYNXAI_HANDOFF_REPORT_MAY2_2026.md
 ## NEVER RUN manus-config save-config — it overwrites connector settings.
 ## READ THIS FILE AT THE START OF EVERY NEW SESSION
 
@@ -206,13 +206,13 @@
 
 At the start of every new session:
 
-> **"Read ATHLYNXAI_MASTER_REFERENCE.md from GitHub before doing anything. https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_MASTER_REFERENCE.md — Verify: https://github.com/AthlyXAI/Athlynx-V2-Official/commits/main — Handoff Report: https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_HANDOFF_REPORT_MAY1_2026.md"**
+> **"Read ATHLYNXAI_MASTER_REFERENCE.md from GitHub before doing anything. https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_MASTER_REFERENCE.md — Verify: https://github.com/AthlyXAI/Athlynx-V2-Official/commits/main — Handoff Report: https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_HANDOFF_REPORT_MAY2_2026.md"**
 
 The AI agent will run:
 ```
 gh repo clone AthlyXAI/Athlynx-V2-Official
 cat ATHLYNXAI_MASTER_REFERENCE.md
-cat ATHLYNXAI_HANDOFF_REPORT_MAY1_2026.md
+cat ATHLYNXAI_HANDOFF_REPORT_MAY2_2026.md
 ```
 
 And will have full context immediately.

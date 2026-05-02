@@ -122,7 +122,7 @@ function AddContactModal({ onClose, onSuccess }: { onClose: () => void; onSucces
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function AdminCRM() {
   const { user, loading: authLoading } = useAuth();
-  const [activeTab, setActiveTab] = useState<"overview" | "contacts" | "pipeline" | "waitlist" | "activity">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "contacts" | "pipeline" | "waitlist" | "activity" | "expiry">("overview");
   const [search, setSearch] = useState("");
   const [showAddContact, setShowAddContact] = useState(false);
 
@@ -132,6 +132,8 @@ export default function AdminCRM() {
   const pipelineQuery = trpc.crm.getPipeline.useQuery(undefined, { enabled: activeTab === "pipeline" });
   const waitlistQuery = trpc.crm.getWaitlist.useQuery({ limit: 200 }, { enabled: activeTab === "waitlist" });
   const activityQuery = trpc.crm.getActivityLog.useQuery({ limit: 100 }, { enabled: activeTab === "activity" });
+  const expiryQuery = trpc.expiration.getWarnings.useQuery(undefined, { enabled: activeTab === "expiry", refetchInterval: 60000 });
+  const overdueQuery = trpc.expiration.getOverdue.useQuery(undefined, { enabled: activeTab === "expiry", refetchInterval: 60000 });
   const usersQuery = trpc.crm.getUsers.useQuery({ limit: 100 }, { enabled: activeTab === "overview" });
 
   const deleteContact = trpc.crm.deleteContact.useMutation({
@@ -237,6 +239,7 @@ export default function AdminCRM() {
     { id: "pipeline", label: "Pipeline", icon: LayoutGrid },
     { id: "waitlist", label: "Waitlist", icon: List },
     { id: "activity", label: "Activity", icon: Activity },
+    { id: "expiry", label: "⏰ Expiring", icon: Clock },
   ] as const;
 
   return (
@@ -730,6 +733,125 @@ export default function AdminCRM() {
                 </div>
               </div>
             )}
+          </div>
+        )}
+        {/* ── EXPIRY WARNINGS TAB ── */}
+        {activeTab === "expiry" && (
+          <div className="space-y-6">
+            {/* Expiring Soon */}
+            <div className="bg-[#0a1628] border border-yellow-500/20 rounded-2xl overflow-hidden">
+              <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Clock className="w-5 h-5 text-yellow-400" />
+                  <span className="text-white font-black text-sm">Expiring Soon (≤5 days)</span>
+                  <span className="bg-yellow-500/20 text-yellow-400 text-xs font-bold px-2 py-0.5 rounded-full">
+                    {(expiryQuery.data ?? []).filter((u: any) => !u.isExpired && !u.hasPaidSub).length}
+                  </span>
+                </div>
+                <button onClick={() => expiryQuery.refetch()} className="text-white/30 hover:text-white transition-colors"><RefreshCw className="w-4 h-4" /></button>
+              </div>
+              {expiryQuery.isLoading ? (
+                <div className="p-8 text-center"><Loader2 className="w-6 h-6 animate-spin text-white/30 mx-auto" /></div>
+              ) : (expiryQuery.data ?? []).filter((u: any) => !u.isExpired && !u.hasPaidSub).length === 0 ? (
+                <div className="p-6 text-center text-white/30 text-sm">No users expiring within 5 days</div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="bg-white/5 border-b border-white/10">
+                        <th className="text-left px-4 py-3 text-white/50 font-semibold">User</th>
+                        <th className="text-left px-4 py-3 text-white/50 font-semibold">Email</th>
+                        <th className="text-left px-4 py-3 text-white/50 font-semibold">Days Left</th>
+                        <th className="text-left px-4 py-3 text-white/50 font-semibold">Expires</th>
+                        <th className="text-left px-4 py-3 text-white/50 font-semibold">Last Email Sent</th>
+                        <th className="text-left px-4 py-3 text-white/50 font-semibold">Email Log</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(expiryQuery.data ?? []).filter((u: any) => !u.isExpired && !u.hasPaidSub).map((u: any) => (
+                        <tr key={u.id} className="border-b border-white/5 hover:bg-white/5">
+                          <td className="px-4 py-3 text-white font-semibold">{u.name || "—"}</td>
+                          <td className="px-4 py-3 text-white/60">{u.email}</td>
+                          <td className="px-4 py-3">
+                            <span className={`font-black px-2 py-0.5 rounded-full text-xs ${
+                              u.daysLeft <= 1 ? "bg-red-500/20 text-red-400" :
+                              u.daysLeft <= 3 ? "bg-yellow-500/20 text-yellow-400" :
+                              "bg-blue-500/20 text-blue-400"
+                            }`}>{u.daysLeft}d</span>
+                          </td>
+                          <td className="px-4 py-3 text-white/50">{u.trialEndsAt ? new Date(u.trialEndsAt).toLocaleDateString() : "—"}</td>
+                          <td className="px-4 py-3 text-white/50">
+                            {u.emailLog?.[0] ? new Date(u.emailLog[0].emailSentAt).toLocaleString() : "None sent"}
+                          </td>
+                          <td className="px-4 py-3">
+                            <div className="flex flex-wrap gap-1">
+                              {(u.emailLog ?? []).map((e: any, i: number) => (
+                                <span key={i} className={`text-[10px] px-1.5 py-0.5 rounded font-bold ${
+                                  e.status === "sent" ? "bg-green-900/50 text-green-400" : "bg-red-900/50 text-red-400"
+                                }`}>{e.emailType}</span>
+                              ))}
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            {/* Overdue / Expired */}
+            <div className="bg-[#0a1628] border border-red-500/20 rounded-2xl overflow-hidden">
+              <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <XCircle className="w-5 h-5 text-red-400" />
+                  <span className="text-white font-black text-sm">Expired — No Subscription</span>
+                  <span className="bg-red-500/20 text-red-400 text-xs font-bold px-2 py-0.5 rounded-full">
+                    {(overdueQuery.data ?? []).length}
+                  </span>
+                </div>
+                <button onClick={() => overdueQuery.refetch()} className="text-white/30 hover:text-white transition-colors"><RefreshCw className="w-4 h-4" /></button>
+              </div>
+              {overdueQuery.isLoading ? (
+                <div className="p-8 text-center"><Loader2 className="w-6 h-6 animate-spin text-white/30 mx-auto" /></div>
+              ) : (overdueQuery.data ?? []).length === 0 ? (
+                <div className="p-6 text-center text-white/30 text-sm">No expired accounts without subscription</div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full text-xs">
+                    <thead>
+                      <tr className="bg-white/5 border-b border-white/10">
+                        <th className="text-left px-4 py-3 text-white/50 font-semibold">User</th>
+                        <th className="text-left px-4 py-3 text-white/50 font-semibold">Email</th>
+                        <th className="text-left px-4 py-3 text-white/50 font-semibold">Expired</th>
+                        <th className="text-left px-4 py-3 text-white/50 font-semibold">Days Ago</th>
+                        <th className="text-left px-4 py-3 text-white/50 font-semibold">Plan</th>
+                        <th className="text-left px-4 py-3 text-white/50 font-semibold">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(overdueQuery.data ?? []).map((u: any) => (
+                        <tr key={u.id} className="border-b border-white/5 hover:bg-white/5">
+                          <td className="px-4 py-3 text-white font-semibold">{u.name || "—"}</td>
+                          <td className="px-4 py-3 text-white/60">{u.email}</td>
+                          <td className="px-4 py-3 text-white/50">{u.trialEndsAt ? new Date(u.trialEndsAt).toLocaleDateString() : "—"}</td>
+                          <td className="px-4 py-3">
+                            <span className="bg-red-500/20 text-red-400 font-black px-2 py-0.5 rounded-full text-xs">{u.expiredDaysAgo}d ago</span>
+                          </td>
+                          <td className="px-4 py-3 text-white/40">{u.stripePlanId || "free"}</td>
+                          <td className="px-4 py-3">
+                            <a href={`mailto:${u.email}?subject=Your ATHLYNX trial has expired&body=Hi ${u.name || 'there'},%0A%0AYour ATHLYNX free trial has ended. Upgrade now at https://athlynx.ai/billing to restore full access.%0A%0AChad Dozier%0AATHLYNX AI`}
+                              className="text-xs bg-blue-600 hover:bg-blue-500 text-white font-bold px-3 py-1 rounded-lg transition-colors">
+                              Email
+                            </a>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>

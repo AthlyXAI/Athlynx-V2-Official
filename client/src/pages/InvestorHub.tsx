@@ -674,6 +674,39 @@ export default function InvestorHub() {
           </div>
         </section>
 
+        {/* ── REAL ATHLETES ── */}
+        <section>
+          <div className="text-center mb-8">
+            <p className="text-red-400 text-xs font-black tracking-widest uppercase mb-2">Proof of Concept</p>
+            <h2 className="text-4xl font-black text-white">Real Athletes. Real Results.</h2>
+            <p className="text-white/50 mt-2 max-w-2xl mx-auto">
+              ATHLYNX is already in the hands of real athletes — from youth to college to pro. These are the people we built this for.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-6">
+            {[
+              { src: "/professional-athlete-dashboard.png", label: "Platform Dashboard" },
+              { src: "/brand/athlynx-promo.png", label: "Athlete Promo" },
+              { src: "/brand/athlynx-investor.png", label: "Investor View" },
+              { src: "/brand/dhg-empire-hero.png", label: "DHG Empire" },
+              { src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80", label: "Football Training" },
+              { src: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&q=80", label: "Basketball" },
+              { src: "https://images.unsplash.com/photo-1529516548873-9ce57c8f155e?w=400&q=80", label: "Baseball" },
+              { src: "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=400&q=80", label: "Track & Field" },
+            ].map((item, i) => (
+              <div key={i} className="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-red-400/50 transition-all group relative">
+                <img src={item.src} alt={item.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <p className="text-white text-xs font-bold">{item.label}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="text-center">
+            <p className="text-white/30 text-xs">Real athlete photos (IMG_0973–IMG_1519) — upload via manus-upload-file to replace placeholders</p>
+          </div>
+        </section>
+
         {/* ── CONTACT CTA ── */}
         <section className="bg-gradient-to-r from-red-500/20 via-red-400/10 to-red-500/20 border-2 border-red-400/50 rounded-3xl p-12 text-center">
           <div className="text-6xl mb-5">🏆</div>
