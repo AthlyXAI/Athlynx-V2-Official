@@ -147,7 +147,7 @@ export default function EarlyAccess() {
         boxShadow: '0 0 40px rgba(0,150,255,0.1)',
       }}>
         {/* Title */}
-        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '20px' }}>
           <div style={{
             fontSize: '28px', fontWeight: '900',
             background: 'linear-gradient(135deg, #00c8ff, #0066cc)',
@@ -156,9 +156,31 @@ export default function EarlyAccess() {
           }}>
             ATHLYNX AI
           </div>
-          <p style={{ color: '#94a3b8', fontSize: '14px', margin: 0 }}>
+          <p style={{ color: '#94a3b8', fontSize: '14px', margin: '0 0 12px' }}>
             Create your free account — 7-day trial
           </p>
+          {/* Sign In link — prominent at top */}
+          <div style={{
+            background: 'rgba(0,194,255,0.08)',
+            border: '1px solid rgba(0,194,255,0.3)',
+            borderRadius: '10px',
+            padding: '10px 16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
+          }}>
+            <span style={{ color: '#94a3b8', fontSize: '14px' }}>Already have an account?</span>
+            <span
+              onClick={() => setLocation('/signin')}
+              style={{
+                color: '#00c8ff', cursor: 'pointer', fontWeight: '800',
+                fontSize: '14px', textDecoration: 'underline',
+              }}
+            >
+              Sign In →
+            </span>
+          </div>
         </div>
 
         {/* Social Buttons */}
