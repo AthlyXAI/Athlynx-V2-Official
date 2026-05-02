@@ -24,13 +24,13 @@ export default function EarlyAccess() {
   const savePhoneMutation = trpc.auth.savePhone.useMutation()
 
   const syncFirebaseMutation = trpc.auth.syncFirebaseUser.useMutation({
-    onSuccess: () => { window.location.href = '/profile' },
+    onSuccess: () => { window.location.href = '/onboarding' },
     onError: (err) => { setError(err.message || 'Sign-up failed.'); setSocialLoading(null) },
   })
 
-  // Auto-login when account already exists — seamless redirect to profile
+  // Auto-login when account already exists — seamless redirect to portal
   const loginMutation = trpc.auth.login.useMutation({
-    onSuccess: () => { window.location.href = '/profile' },
+    onSuccess: () => { window.location.href = '/portal' },
     onError: () => {
       // Password mismatch — send to signin with email pre-filled
       window.location.href = '/signin?email=' + encodeURIComponent(email.trim())
@@ -44,8 +44,8 @@ export default function EarlyAccess() {
       if (phone.trim()) {
         savePhoneMutation.mutate({ phone: phone.trim() })
       }
-      // Redirect to profile to set up their page
-      window.location.href = '/profile'
+      // Redirect to onboarding to set up profile
+      window.location.href = '/onboarding'
     },
     onError: (err) => {
       const msg = err.message || ''
