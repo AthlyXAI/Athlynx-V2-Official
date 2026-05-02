@@ -4,11 +4,14 @@
  *
  * Live Price IDs (created April 26, 2026 — acct_1SkhxSDWqFuLp4sz):
  *   Athlete Free    → price_1TQalMGvvjXZw2uEAgeLldvx  ($0.00/month — 7-day trial)
- *   Athlete Starter → price_1TS10jRjBH07kRLYuKlrgPob  ($9.99/month) | price_1TS10lRjBH07kRLYR4geUOp2 (yearly)
- *   Athlete Pro     → price_1TS10nRjBH07kRLY2gj0j9Ky  ($19.99/month) | price_1TS10pRjBH07kRLYIv5YlRp6 (yearly)
- *   Athlete Elite   → price_1TS10rRjBH07kRLYKhisofLX  ($39.99/month) | price_1TS10tRjBH07kRLYck9FDMYT (yearly)
- *   Athlete Champion → price_1TROkRRjBH07kRLYsB9xfOYa ($59.99/month)
- *   Athlete MVP     → price_1TROkeRjBH07kRLYXQPS1Vvj  ($99.99/month)
+ *   Athlete Starter → price_1TPlWnGvvjXZw2uERob8Jumv  ($9.99/month) | price_1TPlWoGvvjXZw2uE8PUwJd0Z (yearly)
+ *   Athlete Pro     → price_1TSbsrGvvjXZw2uENz7ZGGud  ($19.99/month) | price_1TSbssGvvjXZw2uE1vgkuxQy (yearly)
+ *   Athlete Elite   → price_1TSbstGvvjXZw2uERYqPeuTR  ($39.99/month) | price_1TSbsuGvvjXZw2uEE2GpcYXs (yearly)
+ *   Athlete Champion → price_1TRP8fGvvjXZw2uEkSzl2zwi ($59.99/month)
+ *   Athlete MVP     → price_1TRP8hGvvjXZw2uEeZcjmeaD  ($99.99/month)
+ *   100 AI Credits  → price_1TPlWvGvvjXZw2uETBtpFhqU  ($9.99)
+ *   500 AI Credits  → price_1TPlWxGvvjXZw2uEW8Ww1qi1  ($39.99)
+ *   1000 AI Credits → price_1TPlWyGvvjXZw2uET83zN0aZ  ($69.99)
  *
  * Env vars (set in Vercel dashboard):
  *   STRIPE_PRICE_FREE, STRIPE_PRICE_STARTER, STRIPE_PRICE_PRO, STRIPE_PRICE_ELITE
@@ -52,8 +55,8 @@ export const STRIPE_PLANS = [
       "Diamond Grind Training",
       "7-Day Free Trial",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_STARTER ?? process.env.STRIPE_PRICE_STARTER_MONTHLY ?? "price_1TS10jRjBH07kRLYuKlrgPob",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_STARTER_YEARLY ?? "price_1TS10lRjBH07kRLYR4geUOp2",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_STARTER ?? process.env.STRIPE_PRICE_STARTER_MONTHLY ?? "price_1TPlWnGvvjXZw2uERob8Jumv",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_STARTER_YEARLY ?? "price_1TPlWoGvvjXZw2uE8PUwJd0Z",
     badge: "Best for Beginners",
     color: "#0099ff",
     trialDays: 7,
@@ -72,8 +75,8 @@ export const STRIPE_PLANS = [
       "AI Sales Automation",
       "Priority Support",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_PRO ?? process.env.STRIPE_PRICE_PRO_MONTHLY ?? "price_1TS10nRjBH07kRLY2gj0j9Ky",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_PRO_YEARLY ?? "price_1TS10pRjBH07kRLYIv5YlRp6",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_PRO ?? process.env.STRIPE_PRICE_PRO_MONTHLY ?? "price_1TSbsrGvvjXZw2uENz7ZGGud",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_PRO_YEARLY ?? "price_1TSbssGvvjXZw2uE1vgkuxQy",
     badge: "Most Popular",
     color: "#00c2ff",
     trialDays: 7,
@@ -92,8 +95,8 @@ export const STRIPE_PLANS = [
       "White-label Branding",
       "API Access",
     ],
-    stripePriceIdMonthly: process.env.STRIPE_PRICE_ELITE ?? "price_1TS10rRjBH07kRLYKhisofLX",
-    stripePriceIdYearly: process.env.STRIPE_PRICE_ELITE_YEARLY ?? "price_1TS10tRjBH07kRLYck9FDMYT",
+    stripePriceIdMonthly: process.env.STRIPE_PRICE_ELITE ?? "price_1TSbstGvvjXZw2uERYqPeuTR",
+    stripePriceIdYearly: process.env.STRIPE_PRICE_ELITE_YEARLY ?? "price_1TSbsuGvvjXZw2uEE2GpcYXs",
     badge: "Best Value",
     color: "#7c3aed",
     trialDays: 7,
@@ -149,7 +152,7 @@ export const CREDIT_PACKS = [
     description: "100 AI credits — use for AI Trainers, Teammates & Companions.",
     credits: 100,
     price: 999,   // $9.99
-    stripePriceId: process.env.STRIPE_PRICE_CREDITS_100 ?? "price_1TPlXLGvvjXZw2uE9BVsgXi8",
+    stripePriceId: process.env.STRIPE_PRICE_CREDITS_100 ?? "price_1TPlWvGvvjXZw2uETBtpFhqU",
   },
   {
     id: "credits_500",
@@ -157,7 +160,7 @@ export const CREDIT_PACKS = [
     description: "500 AI credits — best value for active users.",
     credits: 500,
     price: 3999,  // $39.99
-    stripePriceId: process.env.STRIPE_PRICE_CREDITS_500 ?? "price_1TPlXNGvvjXZw2uEybgWAotO",
+    stripePriceId: process.env.STRIPE_PRICE_CREDITS_500 ?? "price_1TPlWxGvvjXZw2uEW8Ww1qi1",
   },
   {
     id: "credits_1000",
@@ -165,6 +168,6 @@ export const CREDIT_PACKS = [
     description: "1,000 AI credits — power users and teams.",
     credits: 1000,
     price: 6999,  // $69.99
-    stripePriceId: process.env.STRIPE_PRICE_CREDITS_1000 ?? "price_1TPlXPGvvjXZw2uE2UckX9uN",
+    stripePriceId: process.env.STRIPE_PRICE_CREDITS_1000 ?? "price_1TPlWyGvvjXZw2uET83zN0aZ",
   },
 ] as const;

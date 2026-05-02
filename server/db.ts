@@ -111,6 +111,11 @@ export async function upsertUser(user: InsertUser): Promise<void> {
     if (!values.lastSignedIn) {
       values.lastSignedIn = new Date();
     }
+    // Give new users 100 starting AI credits on first creation
+    // NOTE: only set in values (INSERT), NOT in updateSet — so existing credits are never overwritten
+    values.credits = 100;
+    values.aiCredits = 100;
+
     if (user.trialEndsAt !== undefined) {
       values.trialEndsAt = user.trialEndsAt;
       updateSet.trialEndsAt = user.trialEndsAt;
