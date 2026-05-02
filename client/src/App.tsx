@@ -122,6 +122,7 @@ import InvestorHub from "./pages/InvestorHub";
 import ProTeams from "./pages/ProTeams";
 import AthletePublicProfile from "./pages/AthletePublicProfile";
 import BrowseAthletes from "./pages/BrowseAthletes";
+import Welcome from "./pages/Welcome";
 
 
 import ManusPartnership from "./pages/ManusPartnership";
@@ -339,6 +340,9 @@ function Router() {
       <Route path="/athlete/:id" component={AthletePublicProfile} />
       <Route path="/browse-athletes" component={BrowseAthletes} />
       <Route path="/discover" component={BrowseAthletes} />
+      <Route path="/welcome" component={Welcome} />
+      <Route path="/about" component={Welcome} />
+      <Route path="/platform" component={Welcome} />
 
 
     
