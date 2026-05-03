@@ -226,7 +226,8 @@ interface AIOnboardingProps {
 }
 
 export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProps) {
-  const [step, setStep] = useState<"role" | "questions" | "done">("role");
+  const [step, setStep] = useState<"welcome" | "role" | "questions" | "activating" | "done">("welcome");
+  const [activationStep, setActivationStep] = useState(0);
   const [selectedRole, setSelectedRole] = useState<RoleId | null>(null);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
@@ -235,23 +236,36 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const saveOnboarding = trpc.profile.saveOnboarding.useMutation({
-    onSuccess: () => {
-      setStep("done");
-      // Auto-redirect to pricing/trial after 2 seconds
-      setTimeout(() => {
-        onComplete(answers);
-        window.location.href = "/portal";
-      }, 2000);
-    },
-    onError: () => {
-      // Even if backend save fails, still complete onboarding
-      setStep("done");
-      setTimeout(() => {
-        onComplete(answers);
-        window.location.href = "/portal";
-      }, 2000);
-    },
+    onSuccess: () => { runActivation(); },
+    onError: () => { runActivation(); },
   });
+
+  // Cinematic welcome auto-advance
+  useEffect(() => {
+    if (step === "welcome") {
+      const t = setTimeout(() => setStep("role"), 3200);
+      return () => clearTimeout(t);
+    }
+  }, [step]);
+
+  const runActivation = () => {
+    setStep("activating");
+    const totalSteps = 5;
+    for (let i = 0; i < totalSteps; i++) {
+      setTimeout(() => {
+        setActivationStep(i + 1);
+        if (i === totalSteps - 1) {
+          setTimeout(() => {
+            setStep("done");
+            setTimeout(() => {
+              onComplete(answers);
+              window.location.href = "/portal";
+            }, 2000);
+          }, 800);
+        }
+      }, i * 700);
+    }
+  };
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -323,6 +337,87 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
       saveOnboarding.mutate({ role: selectedRole!, data: newAnswers });
     }
   };
+
+  // ── WELCOME SCREEN ── Cinematic intro
+  if (step === "welcome") {
+    return (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-[#020812]">
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-transparent to-indigo-900/30" />
+          <div className="absolute inset-0" style={{ backgroundImage: "linear-gradient(rgba(0,100,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,100,255,0.04) 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/8 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "4s" }} />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-600/8 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "5s", animationDelay: "1s" }} />
+        </div>
+        <div className="relative z-10 text-center px-6">
+          <div className="mb-6">
+            <img src="/athlynx-icon.png" alt="ATHLYNX" className="w-20 h-20 rounded-2xl mx-auto shadow-2xl shadow-blue-500/30" style={{ animation: "bounce 2s infinite" }} />
+          </div>
+          <h1 className="text-4xl md:text-6xl font-black text-white mb-3 tracking-tight">
+            Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">ATHLYNX</span>
+          </h1>
+          <p className="text-blue-300 text-lg font-medium mb-2">The Athlete's Playbook</p>
+          <p className="text-blue-500 text-sm mb-6">Building your personalized experience...</p>
+          <div className="flex items-center justify-center gap-2">
+            {[0, 1, 2].map(i => (
+              <div key={i} className="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style={{ animationDelay: `${i * 0.15}s` }} />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── ACTIVATION SCREEN ── Real-time profile building
+  if (step === "activating") {
+    const activationSteps = [
+      { text: "Securing your account", icon: "🔐" },
+      { text: "Building your profile", icon: "🏆" },
+      { text: "Activating your AI Trainer", icon: "🤖" },
+      { text: "Connecting you to the platform", icon: "📊" },
+      { text: "You're ready. Welcome to ATHLYNX", icon: "🚀" },
+    ];
+    return (
+      <div className="fixed inset-0 z-[100] bg-[#020812] flex items-center justify-center">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-indigo-900/20" />
+        <div className="relative z-10 w-full max-w-sm px-6 text-center">
+          <div className="mb-6">
+            <img src="/athlynx-icon.png" alt="ATHLYNX" className="w-16 h-16 rounded-2xl mx-auto shadow-2xl shadow-blue-500/30" />
+          </div>
+          <h2 className="text-2xl font-black text-white mb-2">Building Your Profile</h2>
+          <p className="text-blue-400 text-sm mb-8">
+            {answers.firstName ? `Welcome, ${answers.firstName}. ` : ""}Your ATHLYNX journey starts now.
+          </p>
+          <div className="space-y-3 mb-8">
+            {activationSteps.map((s, i) => {
+              const done = activationStep > i;
+              const active = activationStep === i;
+              return (
+                <div key={i} className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-500 ${
+                  done ? "bg-blue-600/20 border border-blue-500/30" :
+                  active ? "bg-blue-900/30 border border-blue-700/30" :
+                  "opacity-30"
+                }`}>
+                  <div className={`text-xl ${done ? "" : active ? "animate-bounce" : ""}`}>
+                    {done ? "✅" : s.icon}
+                  </div>
+                  <span className={`text-sm font-semibold flex-1 text-left ${
+                    done ? "text-white" : active ? "text-blue-300" : "text-blue-700"
+                  }`}>{s.text}</span>
+                  {done && <div className="w-2 h-2 bg-green-400 rounded-full" />}
+                </div>
+              );
+            })}
+          </div>
+          <div className="h-1.5 bg-blue-900/50 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full transition-all duration-700"
+              style={{ width: `${(activationStep / activationSteps.length) * 100}%` }}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // ── Role Selection ──
   if (step === "role") {
