@@ -581,7 +581,7 @@ export function SEOManager() {
       const ogDesc = document.querySelector('meta[property="og:description"]');
       if (ogDesc) ogDesc.setAttribute("content", config.description);
       const ogUrl = document.querySelector('meta[property="og:url"]');
-      if (ogUrl) ogUrl.setAttribute("content", `https://athlynx.com${path}`);
+      if (ogUrl) ogUrl.setAttribute("content", `https://athlynx.ai${path}`);
 
       // Twitter
       const twTitle = document.querySelector('meta[name="twitter:title"]');
@@ -592,7 +592,7 @@ export function SEOManager() {
       // Canonical
       let canonical = document.querySelector('link[rel="canonical"]');
       if (canonical) {
-        canonical.setAttribute("href", `https://athlynx.com${path}`);
+        canonical.setAttribute("href", `https://athlynx.ai${path}`);
       }
     } else {
       // Fallback: generate title from path

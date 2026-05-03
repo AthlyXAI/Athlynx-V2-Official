@@ -113,7 +113,7 @@ export default function DHGHome() {
   ];
 
   const leadership = [
-    { name: "Chad A. Dozier Sr.", role: "Founder & CEO", image: "/family/chad-portrait.jpg" },
+    { name: "Chad A. Dozier Sr.", role: "Founder & CEO", image: "/chad-dozier-ceo.png" },
     { name: "Glenn Tse", role: "Partner", image: null },
     { name: "Jimmy Boyd", role: "Partner", image: null },
     { name: "Andrew Kustes", role: "Partner", image: null },

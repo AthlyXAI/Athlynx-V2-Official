@@ -36,9 +36,9 @@ export default function AppStoreSubmission() {
     size: "85 MB",
     languages: ["English", "Spanish", "French", "German", "Portuguese", "Chinese"],
     developer: "NPI, Inc. (A Dozier Holdings Group Company)",
-    website: "https://athlynx.com",
-    support: "support@athlynx.com",
-    privacy: "https://athlynx.com/privacy"
+    website: "https://athlynx.ai",
+    support: "support@athlynx.ai",
+    privacy: "https://athlynx.ai/privacy"
   };
 
   const screenshots = [
