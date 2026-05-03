@@ -39,7 +39,7 @@ export default function PitchPulse() {
           </div>
           <div className="flex items-center gap-3">
             <Link href="/signin" className="text-sm text-gray-300 hover:text-white">Log In</Link>
-            <Link href="/signin" className="bg-green-600 hover:bg-green-500 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">
+            <Link href="/signup" className="bg-green-600 hover:bg-green-500 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">
               Create Player Profile
             </Link>
           </div>
@@ -61,7 +61,7 @@ export default function PitchPulse() {
             The complete soccer ecosystem. Player rankings, tournaments, training programs, and the pathway to professional soccer.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/signin" className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold text-lg px-8 py-4 rounded-xl transition-all hover:scale-105">
+            <Link href="/signup" className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-500 text-white font-bold text-lg px-8 py-4 rounded-xl transition-all hover:scale-105">
               👤 Create Player Profile
             </Link>
             <button className="flex items-center justify-center gap-2 border border-green-500 text-green-400 hover:bg-green-500/10 font-bold text-lg px-8 py-4 rounded-xl transition-all">
