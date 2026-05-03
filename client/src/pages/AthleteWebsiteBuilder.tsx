@@ -535,7 +535,7 @@ export default function AthleteWebsiteBuilder() {
                 <div className="w-3 h-3 rounded-full bg-green-500" />
               </div>
               <div className="flex-1 bg-slate-700 rounded-md px-3 py-1 text-sm text-slate-400">
-                {profile.name.toLowerCase().replace(/\s+/g, "-") || "athlete"}.athlynx.com
+                {profile.name.toLowerCase().replace(/\s+/g, "-") || "athlete"}.athlynx.ai
               </div>
             </div>
             
@@ -640,7 +640,7 @@ export default function AthleteWebsiteBuilder() {
                 🚀 Publish My Website
               </Button>
               <p className="text-slate-400 text-sm mt-4">
-                Your website will be live at <span className="text-cyan-400">{profile.name.toLowerCase().replace(/\s+/g, "-") || "athlete"}.athlynx.com</span>
+                Your website will be live at <span className="text-cyan-400">{profile.name.toLowerCase().replace(/\s+/g, "-") || "athlete"}.athlynx.ai</span>
               </p>
             </div>
           </div>

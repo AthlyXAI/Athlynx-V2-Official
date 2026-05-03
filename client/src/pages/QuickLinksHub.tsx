@@ -2,27 +2,27 @@ import { Link } from "wouter";
 
 const systems = {
   core: [
-    { name: "Portal Website", description: "Main marketing site with features, pricing, and athlete showcase", icon: "/images/website-logo.png", link: "/" },
-    { name: "NIL Portal App", description: "Instagram-style social feed for athletes to build their brand", icon: "/images/mobile-app-logo.png", link: "/apps" },
-    { name: "NIL Messenger", description: "Private messaging for agents, lawyers, and business conversations", icon: "/images/messenger-icon.jpeg", link: "/messages" },
-    { name: "Transfer Portal", description: "Track athletes, NIL valuations, connect with scouts", icon: "/images/nil-portal-icon.jpeg", link: "/transfer-portal", featured: true },
+    { name: "Portal Website", description: "Main marketing site with features, pricing, and athlete showcase", icon: "/athlynx-icon.png", link: "/" },
+    { name: "NIL Portal App", description: "Instagram-style social feed for athletes to build their brand", icon: "/mobile-app-logo.png", link: "/apps" },
+    { name: "NIL Messenger", description: "Private messaging for agents, lawyers, and business conversations", icon: "/nil-messenger-logo.jpeg", link: "/messages" },
+    { name: "Transfer Portal", description: "Track athletes, NIL valuations, connect with scouts", icon: "/nil-portal-app-logo.jpeg", link: "/transfer-portal", featured: true },
   ],
   management: [
-    { name: "User Management", description: "Manage athletes, agents, brands, and subscriber accounts", icon: "/images/users-logo.png", link: "/dashboard" },
-    { name: "Admin Dashboard", description: "System settings, configurations, and platform controls", icon: "/images/admin-logo.png", link: "/project-management" },
-    { name: "Deals Marketplace", description: "Browse and manage NIL deals, sponsorships, and endorsements", icon: "/images/deals-logo.png", link: "/nil-marketplace" },
-    { name: "Video Upload", description: "Upload and manage athlete highlight reels and content", icon: "/images/videos-logo.png", link: "/media" },
-    { name: "Analytics Dashboard", description: "Platform metrics, user engagement, and revenue tracking", icon: "/images/analytics-logo.png", link: "/athlete-dashboard" },
-    { name: "Contract Management", description: "Create, sign, and manage NIL contracts and agreements", icon: "/images/contracts-logo.png", link: "/nil-marketplace" },
+    { name: "User Management", description: "Manage athletes, agents, brands, and subscriber accounts", icon: "/users-logo.png", link: "/dashboard" },
+    { name: "Admin Dashboard", description: "System settings, configurations, and platform controls", icon: "/admin-logo.png", link: "/project-management" },
+    { name: "Deals Marketplace", description: "Browse and manage NIL deals, sponsorships, and endorsements", icon: "/deals-logo.png", link: "/nil-marketplace" },
+    { name: "Video Upload", description: "Upload and manage athlete highlight reels and content", icon: "/videos-logo.png", link: "/media" },
+    { name: "Analytics Dashboard", description: "Platform metrics, user engagement, and revenue tracking", icon: "/analytics-logo.png", link: "/athlete-dashboard" },
+    { name: "Contract Management", description: "Create, sign, and manage NIL contracts and agreements", icon: "/contracts-logo.png", link: "/nil-marketplace" },
   ],
   athlete: [
-    { name: "Fuel Bots", description: "AI robotic trainers for performance optimization", icon: "/images/fuelbots-logo.png", link: "/ai/training" },
-    { name: "Wellness & Performance", description: "Mental and physical health support for athletes", icon: "/images/wellness-logo.png", link: "/medical" },
-    { name: "Diamond Grind", description: "Baseball-specific training and analytics platform", icon: "/images/diamond-grind-icon.png", link: "/diamond-grind" },
+    { name: "Fuel Bots", description: "AI robotic trainers for performance optimization", icon: "/fuelbots-logo.png", link: "/ai/training" },
+    { name: "Wellness & Performance", description: "Mental and physical health support for athletes", icon: "/wellness-logo-final.png", link: "/medical" },
+    { name: "Diamond Grind", description: "Baseball-specific training and analytics platform", icon: "/diamond-grind-icon.png", link: "/diamond-grind" },
   ],
   corporate: [
-    { name: "DHG Corporate", description: "Dozier Holdings Group corporate structure and leadership", icon: "/images/dhg-logo.png", link: "/dhg" },
-    { name: "Softmor Inc", description: "Technology division - ATHLYNX platform development", icon: "/images/hub-logo.png", link: "/softmor" },
+    { name: "DHG Corporate", description: "Dozier Holdings Group corporate structure and leadership", icon: "/dhg-logo.png", link: "/dhg" },
+    { name: "Softmor Inc", description: "Technology division - ATHLYNX platform development", icon: "/hub-logo.png", link: "/softmor" },
   ],
 };
 

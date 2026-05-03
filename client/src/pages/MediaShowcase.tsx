@@ -10,10 +10,10 @@ const videos = [
 ];
 
 const appIcons = [
-  { name: "NIL Portal", icon: "/images/nil-portal-icon.jpeg", description: "Social network for athletes", url: "/nil-portal" },
-  { name: "NIL Messenger", icon: "/images/nil-messenger-icon.jpeg", description: "Secure encrypted messaging", url: "/messages" },
-  { name: "Diamond Grind", icon: "/images/diamond-grind-icon.png", description: "Baseball training & performance", url: "/diamond-grind" },
-  { name: "NIL Deals", icon: "/images/nil-deals-icon.png", description: "Brand partnerships & deals", url: "/nil-marketplace" },
+  { name: "NIL Portal", icon: "/nil-portal-app-logo.jpeg", description: "Social network for athletes", url: "/nil-portal" },
+  { name: "NIL Messenger", icon: "/nil-messenger-logo.jpeg", description: "Secure encrypted messaging", url: "/messages" },
+  { name: "Diamond Grind", icon: "/diamond-grind-icon.png", description: "Baseball training & performance", url: "/diamond-grind" },
+  { name: "NIL Deals", icon: "/nil-vault-icon.png", description: "Brand partnerships & deals", url: "/nil-marketplace" },
 ];
 
 export default function MediaShowcase() {
@@ -102,7 +102,7 @@ export default function MediaShowcase() {
               key={activeVideo.src}
               controls
               className="w-full h-full"
-              poster="/images/athlynx-logo-dark.png"
+              poster="/athlynx-icon.png"
               onPlay={() => setIsPlaying(true)}
               onPause={() => setIsPlaying(false)}
             >

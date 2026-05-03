@@ -137,8 +137,8 @@ const staticProducts = [
   { id: 51, sku: "NIL-JERSEY-CUSTOM", name: "Custom NIL Jersey (Name + Number)", category: "apparel", price: 149.99, image: "/img-athlete-apparel.jpg", rating: 4.9, reviews: 567, description: "Sublimated, any sport, any design", requiresQuote: false },
 
   // FuelBots with real images
-  { id: 502, sku: "FB-RUNNER", name: "FuelBot — AI Running Companion", category: "fuelbots", price: 0, image: "/partners/fuel-bot-running.jpg", rating: 5.0, reviews: 0, description: "Runs alongside athletes at full speed — Contact for lease", requiresQuote: true },
-  { id: 503, sku: "FB-TRAINER", name: "FuelBot — AI Training Coach", category: "fuelbots", price: 0, image: "/partners/fuel-bot-training.jpg", rating: 5.0, reviews: 0, description: "AI-powered athletic trainer — Contact for lease", requiresQuote: true },
+  { id: 502, sku: "FB-RUNNER", name: "FuelBot — AI Running Companion", category: "fuelbots", price: 0, image: "/fuel-bot-running.jpg", rating: 5.0, reviews: 0, description: "Runs alongside athletes at full speed — Contact for lease", requiresQuote: true },
+  { id: 503, sku: "FB-TRAINER", name: "FuelBot — AI Training Coach", category: "fuelbots", price: 0, image: "/fuel-bot-training.jpg", rating: 5.0, reviews: 0, description: "AI-powered athletic trainer — Contact for lease", requiresQuote: true },
 ];
 
 // Product type from database

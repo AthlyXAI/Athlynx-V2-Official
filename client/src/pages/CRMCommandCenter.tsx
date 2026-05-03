@@ -431,7 +431,7 @@ function PartnersModule() {
     // FOUNDING TEAM
     { id: 1, name: "Chad Allen Dozier Sr.", role: "Founder/CEO/Chairman", equity: "51%", accessCode: "CHAD-FOUNDER-2026", email: "cdozier14@athlynx.ai", phone: "(601) 498-5282" },
     { id: 2, name: "Glenn Tse", role: "COO/Secretary", equity: "15%", accessCode: "GLENN-PARTNER-2026", email: "gtse@athlynx.ai", phone: "" },
-    { id: 3, name: "James 'Jimmy' Boyd", role: "VP Operations", equity: "12%", accessCode: "JIMMY-PARTNER-2026", email: "jboyd@athlynx.com", phone: "" },
+    { id: 3, name: "James 'Jimmy' Boyd", role: "VP Operations", equity: "12%", accessCode: "JIMMY-PARTNER-2026", email: "jboyd@athlynx.ai", phone: "" },
     { id: 4, name: "Andrew 'Andy' Kustes", role: "VP Technology", equity: "8%", accessCode: "ANDREW-PARTNER-2026", email: "akustes@athlynx.ai", phone: "" },
     { id: 5, name: "Leronius 'Lee' Marshall", role: "VP Business Dev", equity: "8%", accessCode: "LEE-PARTNER-2026", email: "lmarshall@athlynx.ai", phone: "" },
     // ADVISORS & TRUSTEES
@@ -1232,9 +1232,9 @@ function WebHostingModule() {
 // ============================================
 function AthleteSitesModule() {
   const athleteSites = [
-    { id: 1, name: "Demo Athlete", sport: "Baseball", domain: "demoathlete.athlynx.com", status: "live", views: 1250, plan: "Pro" },
-    { id: 2, name: "Sample Player", sport: "Basketball", domain: "sampleplayer.athlynx.com", status: "live", views: 890, plan: "Starter" },
-    { id: 3, name: "Test Recruit", sport: "Football", domain: "testrecruit.athlynx.com", status: "building", views: 0, plan: "Pro" },
+    { id: 1, name: "Demo Athlete", sport: "Baseball", domain: "demoathlete.athlynx.ai", status: "live", views: 1250, plan: "Pro" },
+    { id: 2, name: "Sample Player", sport: "Basketball", domain: "sampleplayer.athlynx.ai", status: "live", views: 890, plan: "Starter" },
+    { id: 3, name: "Test Recruit", sport: "Football", domain: "testrecruit.athlynx.ai", status: "building", views: 0, plan: "Pro" },
   ];
 
   const siteTemplates = [
