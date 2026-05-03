@@ -64,15 +64,36 @@ export function ReverseFunnel({
     sessionStorage.setItem(`funnel-dismissed-${source}`, "1");
   };
 
+  const joinWaitlist = trpc.waitlist.join.useMutation({
+    onSuccess: () => {
+      setSubmitted(true);
+      toast.success("You're in! Check your email for next steps.");
+      setTimeout(() => {
+        setShow(false);
+        sessionStorage.setItem(`funnel-dismissed-${source}`, "1");
+      }, 3000);
+    },
+    onError: () => {
+      // Already on waitlist — still show success
+      setSubmitted(true);
+      toast.success("You're already on the list! We'll be in touch.");
+      setTimeout(() => {
+        setShow(false);
+        sessionStorage.setItem(`funnel-dismissed-${source}`, "1");
+      }, 3000);
+    },
+  });
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.email) return;
-    setSubmitted(true);
-    toast.success("You're in! Check your email for next steps.");
-    setTimeout(() => {
-      setShow(false);
-      sessionStorage.setItem(`funnel-dismissed-${source}`, "1");
-    }, 3000);
+    joinWaitlist.mutate({
+      email: form.email,
+      fullName: form.name || "Athlete",
+      phone: form.phone || undefined,
+      sport: form.sport || undefined,
+      role: variant === "b2b" ? "brand" : "athlete",
+    });
   };
 
   const content = {

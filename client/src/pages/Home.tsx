@@ -1,6 +1,7 @@
 // v1.4.0 - Apr 25 2026 - Clean Auth0 sign-up, no trial text
 import { Link } from "wouter";
 import { useState, useEffect, useRef } from "react";
+import { ReverseFunnel } from "@/components/ReverseFunnel";
 
 function EnterPortalToggle() {
   const [visible, setVisible] = useState(false);
@@ -1014,6 +1015,9 @@ export default function Home() {
 
       {/* ═══ STICKY FLOATING ENTER THE PORTAL BUTTON ═══ */}
       <EnterPortalToggle />
+
+      {/* ═══ REVERSE FUNNEL — Exit-intent + time-based lead capture ═══ */}
+      <ReverseFunnel trigger="exit-intent" source="homepage" variant="athlete" />
     </div>
   );
 }

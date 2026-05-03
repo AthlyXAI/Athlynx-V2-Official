@@ -3,6 +3,8 @@ import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import XFactorPhoneMockup from "../components/XFactorPhoneMockup";
+import { trpc } from "@/lib/trpc";
+import { useAuth } from "@/_core/hooks/useAuth";
 import {
   Zap, Trophy, Star, TrendingUp, Heart, MessageCircle, Repeat2,
   Share2, Bookmark, MoreHorizontal, Search, Bell, Home, User,
@@ -93,6 +95,109 @@ const TRENDING_TAGS = [
 
 const XFACTOR_CATEGORIES = ["All", "Football", "Basketball", "Baseball", "Soccer", "Track", "Highlights", "Combines", "Commitments"];
 
+// ─── XFactor Feed — Real DB data with seeded fallback ─────────────────────────
+function XFactorFeed({ activeCategory, activeTab, postText, setPostText }: {
+  activeCategory: string;
+  activeTab: string;
+  postText: string;
+  setPostText: (v: string) => void;
+}) {
+  const { user } = useAuth();
+  const utils = trpc.useUtils();
+  const { data: feedData, isLoading } = trpc.feed.getFeed.useQuery({ limit: 20 }, {
+    refetchInterval: 30000,
+    retry: 1,
+  });
+  const likePost = trpc.feed.likePost.useMutation({
+    onSuccess: () => utils.feed.getFeed.invalidate(),
+  });
+  const createPost = trpc.feed.createPost.useMutation({
+    onSuccess: () => {
+      setPostText("");
+      utils.feed.getFeed.invalidate();
+    },
+  });
+
+  const posts = feedData?.posts ?? [];
+  const filteredPosts = activeCategory === "All"
+    ? posts
+    : posts.filter((p: any) => p.type?.toLowerCase().includes(activeCategory.toLowerCase()) || (p.content as string)?.toLowerCase().includes(activeCategory.toLowerCase()));
+
+  const displayPosts = filteredPosts.length > 0 ? filteredPosts : FEED_POSTS;
+
+  const handlePost = () => {
+    if (!postText.trim() || !user) return;
+    createPost.mutate({ content: postText, type: "update" });
+  };
+
+  return (
+    <div>
+      {/* Compose Box */}
+      <div className="px-4 py-4 border-b border-slate-800">
+        <div className="flex gap-3">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+            {user?.name?.split(" ").map((n: string) => n[0]).join("").slice(0, 2) || "CD"}
+          </div>
+          <div className="flex-1">
+            <textarea
+              value={postText}
+              onChange={e => setPostText(e.target.value)}
+              placeholder="Share your X-Factor moment..."
+              className="w-full bg-transparent text-white placeholder-slate-600 text-base resize-none outline-none min-h-[60px]"
+              rows={2}
+            />
+            <div className="flex items-center justify-between mt-2 pt-2 border-t border-slate-800">
+              <div className="flex items-center gap-3 text-blue-400">
+                <button className="hover:text-blue-300 transition-colors"><ImageIcon className="w-5 h-5" /></button>
+                <button className="hover:text-blue-300 transition-colors"><BarChart2 className="w-5 h-5" /></button>
+                <button className="hover:text-blue-300 transition-colors"><MapPin className="w-5 h-5" /></button>
+              </div>
+              <button
+                onClick={handlePost}
+                disabled={!postText.trim() || createPost.isPending}
+                className="bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold px-5 py-1.5 rounded-full text-sm transition-colors flex items-center gap-1.5"
+              >
+                <Zap className="w-4 h-4" />
+                {createPost.isPending ? "Posting..." : "Post"}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Posts */}
+      {isLoading ? (
+        <div className="p-8 text-center">
+          <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+          <p className="text-slate-500 text-sm">Loading X-Factor feed...</p>
+        </div>
+      ) : (
+        <div>
+          {displayPosts.map((post: any) => (
+            <PostCard key={post.id} post={post} onLike={() => likePost.mutate({ postId: post.id })} />
+          ))}
+          {displayPosts.length === 0 && (
+            <div className="p-8 text-center text-slate-500">
+              <Trophy className="w-8 h-8 mx-auto mb-2 text-blue-600" />
+              <p className="text-sm">Be the first to post your X-Factor moment!</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Load More */}
+      <div className="p-6 text-center">
+        <button
+          onClick={() => utils.feed.getFeed.invalidate()}
+          className="text-blue-400 hover:text-blue-300 text-sm font-medium hover:underline"
+        >
+          Refresh feed
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function XFactorScore({ score }: { score: number }) {
   const color = score >= 90 ? "text-yellow-400" : score >= 80 ? "text-blue-400" : "text-slate-400";
   return (
@@ -103,7 +208,7 @@ function XFactorScore({ score }: { score: number }) {
   );
 }
 
-function PostCard({ post }: { post: typeof FEED_POSTS[0] }) {
+function PostCard({ post, onLike }: { post: any; onLike?: () => void }) {
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
 
@@ -113,7 +218,7 @@ function PostCard({ post }: { post: typeof FEED_POSTS[0] }) {
         {/* Avatar */}
         <div className="flex-shrink-0">
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center text-white font-bold text-sm">
-            {post.user.avatar}
+            {post.user?.avatar ?? (post.authorName ?? "A").split(" ").map((n: string) => n[0]).join("").slice(0, 2)}
           </div>
         </div>
 
@@ -121,12 +226,12 @@ function PostCard({ post }: { post: typeof FEED_POSTS[0] }) {
         <div className="flex-1 min-w-0">
           {/* Header */}
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="font-bold text-white text-sm">{post.user.name}</span>
-            {post.user.verified && <Verified className="w-4 h-4 text-blue-400 fill-blue-400" />}
-            <XFactorScore score={post.user.xScore} />
-            <span className="text-slate-500 text-sm">{post.user.handle}</span>
+            <span className="font-bold text-white text-sm">{post.user?.name ?? post.authorName ?? "Athlete"}</span>
+            {post.user?.verified && <Verified className="w-4 h-4 text-blue-400 fill-blue-400" />}
+            {post.user?.xScore && <XFactorScore score={post.user.xScore} />}
+            <span className="text-slate-500 text-sm">{post.user?.handle ?? ""}</span>
             <span className="text-slate-600 text-sm">·</span>
-            <span className="text-slate-500 text-sm">{post.time}</span>
+            <span className="text-slate-500 text-sm">{post.time ?? (post.createdAt ? new Date(post.createdAt).toLocaleDateString() : "now")}</span>
             <div className="ml-auto">
               <button className="text-slate-600 hover:text-slate-400 p-1">
                 <MoreHorizontal className="w-4 h-4" />
@@ -135,9 +240,11 @@ function PostCard({ post }: { post: typeof FEED_POSTS[0] }) {
           </div>
 
           {/* Sport badge */}
-          <div className="flex items-center gap-2 mt-0.5 mb-2">
-            <span className="text-xs text-slate-500">{post.user.sport} · {post.user.position} · {post.user.school}</span>
-          </div>
+          {post.user?.sport && (
+            <div className="flex items-center gap-2 mt-0.5 mb-2">
+              <span className="text-xs text-slate-500">{post.user.sport}{post.user.position ? ` · ${post.user.position}` : ""}{post.user.school ? ` · ${post.user.school}` : ""}</span>
+            </div>
+          )}
 
           {/* Highlight badge */}
           {post.highlight && (
@@ -152,32 +259,34 @@ function PostCard({ post }: { post: typeof FEED_POSTS[0] }) {
           <p className="text-slate-200 text-sm leading-relaxed mb-3">{post.content}</p>
 
           {/* Tags */}
-          <div className="flex flex-wrap gap-1.5 mb-3">
-            {post.tags.map(tag => (
-              <span key={tag} className="text-blue-400 text-xs hover:underline cursor-pointer">{tag}</span>
-            ))}
-          </div>
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mb-3">
+              {post.tags.map((tag: string) => (
+                <span key={tag} className="text-blue-400 text-xs hover:underline cursor-pointer">{tag}</span>
+              ))}
+            </div>
+          )}
 
           {/* Actions */}
           <div className="flex items-center justify-between text-slate-500 max-w-xs">
             <button className="flex items-center gap-1.5 hover:text-blue-400 transition-colors group">
               <MessageCircle className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              <span className="text-xs">{post.stats.comments.toLocaleString()}</span>
+              <span className="text-xs">{(post.stats?.comments ?? post.commentCount ?? 0).toLocaleString()}</span>
             </button>
             <button className="flex items-center gap-1.5 hover:text-green-400 transition-colors group">
               <Repeat2 className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              <span className="text-xs">{post.stats.reposts.toLocaleString()}</span>
+              <span className="text-xs">{(post.stats?.reposts ?? 0).toLocaleString()}</span>
             </button>
             <button
-              onClick={() => setLiked(!liked)}
+              onClick={() => { setLiked(!liked); if (!liked && onLike) onLike(); }}
               className={`flex items-center gap-1.5 transition-colors group ${liked ? "text-pink-500" : "hover:text-pink-400"}`}
             >
               <Heart className={`w-4 h-4 group-hover:scale-110 transition-transform ${liked ? "fill-pink-500" : ""}`} />
-              <span className="text-xs">{(post.stats.likes + (liked ? 1 : 0)).toLocaleString()}</span>
+              <span className="text-xs">{((post.stats?.likes ?? post.likes ?? 0) + (liked ? 1 : 0)).toLocaleString()}</span>
             </button>
             <button className="flex items-center gap-1.5 hover:text-blue-400 transition-colors group">
               <Eye className="w-4 h-4 group-hover:scale-110 transition-transform" />
-              <span className="text-xs">{(post.stats.views / 1000).toFixed(1)}K</span>
+              <span className="text-xs">{((post.stats?.views ?? post.viewCount ?? 0) / 1000).toFixed(1)}K</span>
             </button>
             <button
               onClick={() => setBookmarked(!bookmarked)}
@@ -425,19 +534,8 @@ export default function XFactor() {
             </div>
           </div>
 
-          {/* Feed */}
-          <div>
-            {FEED_POSTS.map(post => (
-              <PostCard key={post.id} post={post} />
-            ))}
-          </div>
-
-          {/* Load More */}
-          <div className="p-6 text-center">
-            <button className="text-blue-400 hover:text-blue-300 text-sm font-medium hover:underline">
-              Load more posts
-            </button>
-          </div>
+          {/* Feed — Real DB Data */}
+          <XFactorFeed activeCategory={activeCategory} activeTab={activeTab} postText={postText} setPostText={setPostText} />
         </div>
 
         {/* Right Sidebar */}
