@@ -176,7 +176,7 @@ export default function EarlyAccess() {
               </div>
             </div>
             <img 
-              src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png" 
+              src="/athlynx-icon.png" 
               alt="DHG Crab - The Crown" 
               className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full shadow-[0_0_80px_rgba(6,182,212,0.8)] border-8 border-cyan-400/70 transform hover:scale-110 transition-transform duration-300"
             />
@@ -238,7 +238,7 @@ export default function EarlyAccess() {
                 <div className="relative">
                   <div className="absolute inset-0 bg-cyan-400 blur-2xl opacity-60 group-hover:opacity-80 transition-opacity"></div>
                   <img 
-                    src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/TptlbGHFTBamgRix.png" 
+                    src="/athlynx-icon.png" 
                     alt="Diamond Grind" 
                     className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl shadow-2xl transform group-hover:scale-110 transition-transform"
                   />
@@ -265,7 +265,7 @@ export default function EarlyAccess() {
                 <div className="relative">
                   <div className="absolute inset-0 bg-blue-500 blur-xl opacity-40 group-hover:opacity-60 transition-opacity"></div>
                   <img 
-                    src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/QNTbeHFuYniqJHLn.png" 
+                    src="/athlynx-icon.png" 
                     alt="NIL Portal" 
                     className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl shadow-2xl transform group-hover:scale-110 transition-transform"
                   />
@@ -291,7 +291,7 @@ export default function EarlyAccess() {
                 <div className="relative">
                   <div className="absolute inset-0 bg-blue-400 blur-xl opacity-40 group-hover:opacity-60 transition-opacity"></div>
                   <img 
-                    src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/EeLChdOizNwqbjTd.png" 
+                    src="/athlynx-icon.png" 
                     alt="Messenger" 
                     className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl shadow-2xl transform group-hover:scale-110 transition-transform"
                   />
@@ -317,7 +317,7 @@ export default function EarlyAccess() {
                 <div className="relative">
                   <div className="absolute inset-0 bg-cyan-400 blur-xl opacity-40 group-hover:opacity-60 transition-opacity"></div>
                   <img 
-                    src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/zXVECIAqcyZDAOuV.png" 
+                    src="/athlynx-icon.png" 
                     alt="Transfer Portal" 
                     className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl shadow-2xl transform group-hover:scale-110 transition-transform"
                   />
@@ -347,7 +347,7 @@ export default function EarlyAccess() {
               <div className="relative group cursor-pointer text-center">
                 <div className="absolute inset-0 bg-cyan-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
-                  src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/HcanzWKcSkXMpmUO.png" 
+                  src="/athlynx-icon.png" 
                   alt="Warriors Playbook" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />
@@ -359,7 +359,7 @@ export default function EarlyAccess() {
               <div className="relative group cursor-pointer text-center">
                 <div className="absolute inset-0 bg-blue-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
-                  src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/mlASPvSCUQZpELyh.png" 
+                  src="/athlynx-icon.png" 
                   alt="Faith" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />
@@ -371,7 +371,7 @@ export default function EarlyAccess() {
               <div className="relative group cursor-pointer text-center">
                 <div className="absolute inset-0 bg-green-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
-                  src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/aDzQEREXtGvMmnFc.png" 
+                  src="/athlynx-icon.png" 
                   alt="NIL Vault" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />
@@ -383,7 +383,7 @@ export default function EarlyAccess() {
               <div className="relative group cursor-pointer text-center">
                 <div className="absolute inset-0 bg-blue-600 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
-                  src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/aZXZLwryoTRrDQBs.png" 
+                  src="/athlynx-icon.png" 
                   alt="AI Sales" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />
@@ -395,7 +395,7 @@ export default function EarlyAccess() {
               <div className="relative group cursor-pointer text-center">
                 <div className="absolute inset-0 bg-red-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
-                  src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/jmJopPCZNYcSzojv.png" 
+                  src="/athlynx-icon.png" 
                   alt="AI Recruiter" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />
@@ -407,7 +407,7 @@ export default function EarlyAccess() {
               <div className="relative group cursor-pointer text-center">
                 <div className="absolute inset-0 bg-indigo-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
-                  src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/ZIXWdkuFjiAnPjQj.png" 
+                  src="/athlynx-icon.png" 
                   alt="AI Content" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />

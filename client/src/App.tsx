@@ -214,6 +214,7 @@ function Router() {
 
       {/* ── Platform Apps ── */}
       <Route path="/messenger" component={MessengerApp} />
+      <Route path="/nil-messenger" component={MessengerApp} />
       <Route path="/messages" component={Messages} />
       <Route path="/nil-portal" component={NILPortal} />
       <Route path="/nil-vault" component={NILVault} />
@@ -251,6 +252,7 @@ function Router() {
       <Route path="/athlete-legal-hub" component={AthleteLeagalHub} />
       <Route path="/athlete-life" component={AthleteLifeHub} />
       <Route path="/life-hub" component={AthleteLifeHub} />
+      <Route path="/athlete-life-hub" component={AthleteLifeHub} />
       <Route path="/agent-finder" component={AgentFinder} />
       <Route path="/agents" component={AgentFinder} />
       <Route path="/athlete-financial" component={AthleteFinancial} />
@@ -274,6 +276,7 @@ function Router() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/admin/crm" component={AdminCRM} />
+      <Route path="/admin-crm" component={AdminCRM} />
       <Route path="/admin/users" component={AdminUsers} />
       <Route path="/admin/broadcast" component={AdminBroadcast} />
 
@@ -408,6 +411,7 @@ function Router() {
 
       {/* ── Wizards ── */}
       <Route path="/wizards" component={WizardHub} />
+      <Route path="/ai-wizards" component={WizardHub} />
       <Route path="/wizards/agent" component={AgentWizard} />
       <Route path="/wizards/career" component={CareerWizard} />
       <Route path="/wizards/financial" component={FinancialWizard} />

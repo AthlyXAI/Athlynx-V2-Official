@@ -9,7 +9,7 @@ export default function InvestorDeck() {
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
             <div className="flex justify-center mb-6">
-              <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png" alt="DHG" className="h-24 w-24" />
+              <img src="/images/logos/dhg-logo.png" alt="DHG" className="h-24 w-24" onError={(e) => { (e.target as HTMLImageElement).src = '/dhg-logo.png'; }} />
             </div>
             <div className="inline-block px-4 py-2 bg-cyan-500/20 border border-cyan-500/30 rounded-full mb-6">
               <span className="text-cyan-400 text-sm font-semibold tracking-wider">INVESTMENT OPPORTUNITY</span>

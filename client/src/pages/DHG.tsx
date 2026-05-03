@@ -35,7 +35,7 @@ const SUBSIDIARIES = [
     tagline: "Find Your Next Chapter",
     desc: "AI-powered transfer portal helping athletes find the right school, the right program, and the right opportunity to elevate their career.",
     status: "LIVE",
-    icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/zXVECIAqcyZDAOuV.png",
+    icon: "/images/logos/dhg-logo.png",
     href: "https://transferportal.ai",
   },
   {
@@ -43,7 +43,7 @@ const SUBSIDIARIES = [
     tagline: "Elite Baseball Training",
     desc: "Performance analytics and training programs built for baseball athletes who refuse to settle. Grind harder. Play smarter.",
     status: "LIVE",
-    icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/TptlbGHFTBamgRix.png",
+    icon: "/images/logos/dhg-logo.png",
     href: "/diamond-grind",
   },
   {
@@ -51,7 +51,7 @@ const SUBSIDIARIES = [
     tagline: "Strategy. Film. Victory.",
     desc: "The digital playbook for coaches and teams. Film room, play designer, and team strategy board — all in one platform.",
     status: "LIVE",
-    icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/HcanzWKcSkXMpmUO.png",
+    icon: "/images/logos/dhg-logo.png",
     href: "/warriors-playbook",
   },
   {
@@ -59,7 +59,7 @@ const SUBSIDIARIES = [
     tagline: "AI Ecosystem",
     desc: "The AI automation ecosystem powering the next generation of athlete and business intelligence across the DHG portfolio.",
     status: "BUILDING",
-    icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/aZXZLwryoTRrDQBs.png",
+    icon: "/images/logos/dhg-logo.png",
     href: "https://aibotecosys.com",
   },
   {

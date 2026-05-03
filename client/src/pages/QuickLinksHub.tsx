@@ -32,7 +32,7 @@ export default function QuickLinksHub() {
       {/* Header */}
       <div className="text-center py-10 border-b border-white/10">
         <div className="flex items-center justify-center gap-4 mb-4">
-          <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/QNTbeHFuYniqJHLn.png" alt="NIL Portal" className="w-16 h-16 rounded-xl" />
+          <img src="/athlynx-icon.png" alt="NIL Portal" className="w-16 h-16 rounded-xl" />
           <h1 className="text-4xl font-extrabold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent">
             NIL Portal
           </h1>
@@ -104,7 +104,7 @@ export default function QuickLinksHub() {
 
       {/* Footer */}
       <div className="text-center py-8 border-t border-white/10">
-        <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/QNTbeHFuYniqJHLn.png" alt="NIL Portal" className="w-10 h-10 rounded-lg mx-auto mb-3" />
+        <img src="/athlynx-icon.png" alt="NIL Portal" className="w-10 h-10 rounded-lg mx-auto mb-3" />
         <p className="text-white font-semibold">NIL Portal Inc. - A Dozier Holdings Group Company</p>
         <p className="text-white/50 text-sm mt-1">14 integrated systems with shared database</p>
         <p className="text-white/50 text-sm mt-2">© 2024 NIL Portal Inc. All rights reserved.</p>

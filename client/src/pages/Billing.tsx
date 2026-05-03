@@ -17,13 +17,22 @@ const PLAN_LABELS: Record<string, { label: string; icon: React.ReactNode; color:
 const OWNER_EMAILS = ["cdozier14@athlynx.ai", "cdozier14@athlynx.ai"];
 
 export default function Billing() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [, navigate] = useLocation();
 
   const { data: subscription, isLoading } = trpc.stripe.getSubscription.useQuery(undefined, {
     enabled: !!user,
   });
   const createBillingPortal = trpc.stripe.createBillingPortal.useMutation();
+
+  // Wait for auth to resolve before showing sign-in wall
+  if (authLoading) {
+    return (
+      <div className="min-h-screen bg-[#0a0f1e] flex items-center justify-center">
+        <div className="text-white text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   if (!user) {
     return (

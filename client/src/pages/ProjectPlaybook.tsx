@@ -584,7 +584,7 @@ export default function ProjectPlaybook() {
       <div className="border-t border-white/10 py-8">
         <div className="container mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png" alt="DHG" className="w-8 h-8" />
+            <img src="/athlynx-icon.png" alt="DHG" className="w-8 h-8" />
             <span className="text-gray-400">Powered by</span>
             <span className="text-cyan-400 font-bold">Dozier Holdings Group</span>
           </div>

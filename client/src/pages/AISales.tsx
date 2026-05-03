@@ -82,7 +82,7 @@ export default function AISales() {
         {/* Header */}
         <div className="bg-gradient-to-r from-[#1a3a8f] to-[#1a2a4a] border border-cyan-700 rounded-xl p-5">
           <div className="flex items-center gap-4">
-            <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/aZXZLwryoTRrDQBs.png" alt="AI Sales" className="w-14 h-14 rounded-2xl object-cover shadow-lg" />
+            <img src="/ai-sales.png" alt="AI Sales" className="w-14 h-14 rounded-2xl object-cover shadow-lg" />
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-2xl font-black text-white">AI SALES</h2>

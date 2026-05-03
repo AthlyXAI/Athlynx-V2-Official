@@ -46,7 +46,7 @@ const COMPANIES: Company[] = [
     icon: <Dumbbell className="w-6 h-6" />,
     status: "active",
     link: "/diamond-grind",
-    logo: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/TptlbGHFTBamgRix.png",
+    logo: "/images/logos/dhg-logo.png",
   },
   {
     name: "Warriors Playbook",
@@ -57,7 +57,7 @@ const COMPANIES: Company[] = [
     icon: <Shield className="w-6 h-6" />,
     status: "active",
     link: "/warriors-playbook",
-    logo: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/HcanzWKcSkXMpmUO.png",
+    logo: "/images/logos/dhg-logo.png",
   },
   {
     name: "NIL Portal Inc.",
@@ -68,7 +68,7 @@ const COMPANIES: Company[] = [
     icon: <Star className="w-6 h-6" />,
     status: "active",
     link: "/nil-portal",
-    logo: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/lwxugmjkXJoyYfVC.png",
+    logo: "/images/logos/dhg-logo.png",
   },
   {
     name: "Softmor Inc.",
@@ -97,7 +97,7 @@ const COMPANIES: Company[] = [
     description: "Custom GPU server infrastructure and cloud computing solutions. Tier-4 data center operations supporting AI workloads and enterprise applications.",
     icon: <Server className="w-6 h-6" />,
     status: "development",
-    logo: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/aZXZLwryoTRrDQBs.png",
+    logo: "/images/logos/dhg-logo.png",
   },
   {
     name: "VC Energy, LLC",

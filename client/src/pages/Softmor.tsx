@@ -70,7 +70,7 @@ export default function Softmor() {
 
           <div className="flex items-center gap-4 mb-6">
             <div className="w-16 h-16 rounded-xl overflow-hidden">
-              <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png" alt="Softmor Inc - Technology Division of Dozier Holdings Group" className="w-full h-full object-contain bg-white p-1 rounded-xl" />
+              <img src="/images/logos/dhg-logo.png" alt="Softmor Inc - Technology Division of Dozier Holdings Group" className="w-full h-full object-contain bg-white p-1 rounded-xl" onError={(e) => { (e.target as HTMLImageElement).src = '/dhg-logo.png'; }} />
             </div>
             <div>
               <p className="text-cyan-400 text-sm font-medium tracking-wider">DHG TECHNOLOGY DIVISION</p>

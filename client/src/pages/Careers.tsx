@@ -123,7 +123,7 @@ export default function Careers() {
           </div>
         </Link>
         <div className="flex items-center justify-center gap-4 mb-4">
-          <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png" alt="DHG" className="w-16 h-16 rounded-full border-4 border-cyan-400/50" />
+          <img src="/athlynxai-icon.png" alt="DHG" className="w-16 h-16 rounded-full border-4 border-cyan-400/50" />
         </div>
         <h1 className="text-5xl font-black text-white mb-2">JOIN OUR TEAM</h1>
         <p className="text-cyan-400 text-xl font-bold uppercase tracking-wider mb-4">Dozier Holdings Group</p>

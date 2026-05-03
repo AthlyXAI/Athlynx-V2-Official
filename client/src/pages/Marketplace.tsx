@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 
-const CDN = "/athlynx-icon.png";
+const CDN = "/economic-vision.png";
 
 const CATEGORIES = ["All", "Featured", "Football", "Basketball", "Baseball", "Soccer", "Training & Fitness", "Recovery", "NIL Gear", "Nutrition", "Robot Trainers", "AI Compute", "Custom Servers", "GPU Cloud"];
 
@@ -143,7 +143,7 @@ const PRODUCTS = [
     name: "Nebius AI — Llama-3.1 Token Factory",
     tagline: "Enterprise AI compute for athlete intelligence platforms",
     specs: ["Llama-3.1 405B / 70B / 8B via API", "Token Factory — pay-per-token pricing", "Low-latency inference at scale", "Integrated with AthlynXAI AI Wizards", "$5,000 startup credits available"],
-    image: `/athlynx-icon.png`,
+    image: `/athlynxai-icon.png`,
     tag: "AI Infrastructure",
     featured: true,
   },
@@ -155,7 +155,7 @@ const PRODUCTS = [
     name: "Nebius GPU Cloud — H100 / A100",
     tagline: "On-demand NVIDIA GPU clusters for AI model training",
     specs: ["NVIDIA H100 80GB SXM5", "NVIDIA A100 80GB PCIe", "Kubernetes-native deployment", "S3-compatible object storage", "Global data centers — EU & US"],
-    image: `/athlynx-icon.png`,
+    image: `/athlynxai-icon.png`,
     tag: "Model Training",
     featured: false,
   },
@@ -168,7 +168,7 @@ const PRODUCTS = [
     name: "FuelBot — AI Robot Athletic Trainer",
     tagline: "The world's first AI-powered robot personal trainer for athletes",
     specs: ["Quadruped robot with real-time motion tracking", "AI-powered personalized workout coaching", "Runs alongside athletes at full speed", "Integrated with AthlynXAI athlete profiles", "Available for teams, universities & facilities"],
-    image: `/partners/fuel-bot-running.jpg`,
+    image: `/fuel-bot-running.jpg`,
     tag: "Robot Training",
     featured: true,
     videoSrc: "/partners/fuelbot-demo1.mp4",
@@ -181,7 +181,7 @@ const PRODUCTS = [
     name: "FuelBot Team Edition — Multi-Unit Package",
     tagline: "Deploy AI robot trainers across your entire athletic program",
     specs: ["5-unit team deployment package", "Central coaching dashboard", "Individual athlete performance tracking", "Integrates with AthlynXAI Admin CRM", "Dedicated FuelBots support team"],
-    image: `/partners/fuel-bot-training.jpg`,
+    image: `/fuel-bot-training.jpg`,
     tag: "Team Sports",
     featured: false,
     videoSrc: "/partners/fuelbot-demo2.mp4",
@@ -195,7 +195,7 @@ const PRODUCTS = [
     name: "Yovole Robot Dog — AI Athletic Companion",
     tagline: "Next-generation quadruped robot for athlete training — coming to AthlynXAI",
     specs: ["Advanced quadruped locomotion AI", "Real-time athlete pace matching", "Guinness World Record speed capability", "Designed for elite sports training", "Partnership in discussions — launching soon"],
-    image: `/athlynx-icon.png`,
+    image: `/athlynxai-icon.png`,
     tag: "Coming Soon",
     featured: false,
     comingSoon: true,

@@ -5,20 +5,20 @@ import { Badge } from "@/components/ui/badge";
 import { ChevronLeft, ChevronRight, Play, Quote } from "lucide-react";
 
 const CHAD_PHOTOS = [
-  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/FBZpDFtgpfccCmJU.png",
-  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/njcSBgdVMQaiXBHv.png",
-  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/pDhQvrPPogxqLYSQ.png",
-  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/tFVPmoZRQTPmgrJq.png",
-  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/nYSwBctuqiLNmZKH.png",
-  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/BiQQBGyrGgmwbixD.png",
-  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/rPCgYqdqsUeWubiV.png",
+  "/athlynx-official-logo.png",
+  "/athlynx-official-logo.png",
+  "/athlynx-official-logo.png",
+  "/athlynx-official-logo.png",
+  "/athlynx-official-logo.png",
+  "/athlynx-official-logo.png",
+  "/athlynx-official-logo.png",
 ];
 
 const ACTION_PHOTOS = [
-  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/mdIJLfTkeZzcljGq.png",
-  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/lQjoLdGtkuRqoxxh.png",
-  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/mAYQdvZyYAqmaxml.png",
-  "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/EOYOAyTecNwpHgPE.png",
+  "/athlynx-official-logo.png",
+  "/athlynx-official-logo.png",
+  "/athlynx-official-logo.png",
+  "/athlynx-official-logo.png",
 ];
 
 export default function About() {
@@ -199,7 +199,7 @@ export default function About() {
         <div className="mb-20">
           <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-2xl">
             <img
-              src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/fSlDgRPvyWWGgRQm.png"
+              src="/athlynx-official-logo.png"
               alt="Chad Dozier story"
               className="w-full object-cover"
             />

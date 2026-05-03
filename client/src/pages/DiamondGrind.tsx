@@ -39,7 +39,7 @@ export default function DiamondGrind() {
       <div className="space-y-4 pb-20 lg:pb-4">
         <div className="bg-gradient-to-r from-[#1a3a8f] to-[#1a2a4a] border border-red-700 rounded-xl p-5">
           <div className="flex items-center gap-4">
-            <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/TptlbGHFTBamgRix.png" alt="Diamond Grind" className="w-14 h-14 rounded-2xl object-cover shadow-lg" />
+            <img src="/diamond-grind-baseball-icon.png" alt="Diamond Grind" className="w-14 h-14 rounded-2xl object-cover shadow-lg" />
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-2xl font-black text-white">DIAMOND GRIND</h2>

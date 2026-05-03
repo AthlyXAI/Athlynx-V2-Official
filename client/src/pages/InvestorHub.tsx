@@ -637,20 +637,20 @@ export default function InvestorHub() {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
             {[
-              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/ydpPJqxoUuYjoMOv.jpeg",
-              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/MExVQpbINekjvtdi.jpeg",
-              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/SVLssKtsBNPGFzlL.jpeg",
-              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/fiXLiePYMkRBoDLs.jpeg",
-              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/pamaeyweONGRuGQu.jpeg",
-              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/BnbmnQdZMYXZZyOH.jpeg",
-              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/jjgVguHDufPhZCFc.jpeg",
-              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/IpUSUjFrXsJVenwV.jpeg",
-              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/wsbUKDatgPuEDhfD.jpeg",
-              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/ylSktYkpNOUchbaA.jpeg",
-              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/gDheQZRmMGoaglYv.jpeg",
-              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/TznRUUkCDQRrEJWZ.jpeg",
-              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/ssYIopBxIgocgrZu.jpeg",
-              "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/BiexhyGzoUwPbabU.jpeg",
+              "/athlete1.jpg",
+              "/athlete1.jpg",
+              "/athlete1.jpg",
+              "/athlete1.jpg",
+              "/athlete1.jpg",
+              "/athlete1.jpg",
+              "/athlete1.jpg",
+              "/athlete1.jpg",
+              "/athlete1.jpg",
+              "/athlete1.jpg",
+              "/athlete1.jpg",
+              "/athlete1.jpg",
+              "/athlete1.jpg",
+              "/athlete1.jpg",
             ].map((src, i) => (
               <div key={i} className="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-blue-400/50 transition-all group">
                 <img src={src} alt={`GTC San Jose 2026 — ${i + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />

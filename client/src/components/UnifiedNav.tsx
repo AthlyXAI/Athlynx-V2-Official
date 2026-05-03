@@ -6,9 +6,9 @@ const navItems = [
     category: "CORE APPS",
     items: [
       { name: "NIL Portal", href: "/nil-portal", icon: "/logos/nil-portal-logo.png" },
-      { name: "Diamond Grind", href: "/diamond-grind", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/TptlbGHFTBamgRix.png" },
+      { name: "Diamond Grind", href: "/diamond-grind", icon: "/athlynx-icon.png" },
       { name: "Messenger", href: "/messages", icon: "/logos/nil-messenger-logo.png" },
-      { name: "NIL Deals", href: "/nil-marketplace", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/aDzQEREXtGvMmnFc.png" },
+      { name: "NIL Deals", href: "/nil-marketplace", icon: "/athlynx-icon.png" },
     ]
   },
   {
@@ -25,10 +25,10 @@ const navItems = [
   {
     category: "WHITE-LABEL SPORTS",
     items: [
-      { name: "Court Kings", href: "/court-kings", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/IYSXsjNLtHxVaazj.png" },
-      { name: "Gridiron Nexus", href: "/gridiron-nexus", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/HcanzWKcSkXMpmUO.png" },
-      { name: "Pitch Pulse", href: "/pitch-pulse", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/CVjahruZfJTZcuBW.png" },
-      { name: "Reel Masters", href: "/reel-masters", icon: "https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/aZXZLwryoTRrDQBs.png" },
+      { name: "Court Kings", href: "/court-kings", icon: "/athlynx-icon.png" },
+      { name: "Gridiron Nexus", href: "/gridiron-nexus", icon: "/athlynx-icon.png" },
+      { name: "Pitch Pulse", href: "/pitch-pulse", icon: "/athlynx-icon.png" },
+      { name: "Reel Masters", href: "/reel-masters", icon: "/athlynx-icon.png" },
     ]
   },
   {

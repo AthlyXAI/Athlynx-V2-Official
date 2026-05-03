@@ -182,7 +182,7 @@ function ECard({ person }: { person: typeof leadership[0] }) {
           </div>
           {/* DHG Logo watermark */}
           <div className="absolute top-4 right-4 opacity-30">
-            <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png" alt="DHG" className="w-16 h-16 rounded-lg" />
+            <img src="/athlynxai-icon.png" alt="DHG" className="w-16 h-16 rounded-lg" />
           </div>
         </div>
 
@@ -273,7 +273,7 @@ function ECard({ person }: { person: typeof leadership[0] }) {
         <div className="px-6 pb-6">
           <div className="flex items-center justify-between pt-4 border-t border-white/10">
             <div className="flex items-center gap-2">
-              <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png" alt="DHG" className="w-8 h-8 rounded" />
+              <img src="/athlynxai-icon.png" alt="DHG" className="w-8 h-8 rounded" />
               <div>
                 <p className="text-white/50 text-xs">Parent Company</p>
                 <p className="text-cyan-400 text-sm font-semibold">Dozier Holdings Group</p>
@@ -307,7 +307,7 @@ export default function Team() {
           </div>
         </Link>
         <div className="flex items-center justify-center gap-4 mb-4">
-          <img src="https://raw.githubusercontent.com/chaddozier-bot/athlynx-assets/main/icons/AzsuZOzvfgvscIdI.png" alt="DHG" className="w-20 h-20 rounded-full border-4 border-cyan-400/50" />
+          <img src="/athlynxai-icon.png" alt="DHG" className="w-20 h-20 rounded-full border-4 border-cyan-400/50" />
         </div>
         <h1 className="text-5xl font-black text-white mb-2">LEADERSHIP TEAM</h1>
         <p className="text-cyan-400 text-xl font-bold uppercase tracking-wider">Dozier Holdings Group</p>
