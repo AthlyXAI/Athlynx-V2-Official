@@ -169,6 +169,7 @@ import TrialExpired from "./pages/TrialExpired";
 // ── Utility ──
 import Notifications from "./pages/Notifications";
 import Contact from "./pages/Contact";
+import ChadCard from "./pages/ChadCard";
 import QuickLinksHub from "./pages/QuickLinksHub";
 import ProjectManagement from "./pages/ProjectManagement";
 import ProjectChecklist from "./pages/ProjectChecklist";
@@ -404,6 +405,8 @@ function Router() {
       {/* ── Utility ── */}
       <Route path="/notifications" component={Notifications} />
       <Route path="/contact" component={Contact} />
+      <Route path="/card" component={ChadCard} />
+      <Route path="/chad" component={ChadCard} />
       <Route path="/quick-links" component={QuickLinksHub} />
       <Route path="/project-management" component={ProjectManagement} />
       <Route path="/project-checklist" component={ProjectChecklist} />

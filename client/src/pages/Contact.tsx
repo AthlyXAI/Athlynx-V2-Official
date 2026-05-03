@@ -16,6 +16,8 @@ const CHAD_CONTACT = {
   telegram: "https://t.me/chaddozier",
   wechat: "chaddozier",                   // WeChat ID — users must add manually
   calendly: "https://calendly.com/cdozier14",
+  zoom: "https://zoom.us/j/chaddozier",
+  dotcard: "https://athlynxapp.vip",
   website: "https://athlynx.ai",
 };
 
@@ -320,17 +322,62 @@ export default function Contact() {
               <p className="text-white/60 text-sm mb-4">
                 Schedule a call directly with Chad — investor meetings, partnership discussions, or platform demos.
               </p>
-              <a
-                href={CHAD_CONTACT.calendly}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 w-full bg-cyan-500 hover:bg-cyan-400 text-black font-black py-3 rounded-xl transition-colors text-sm"
+              <div className="flex gap-2">
+                <a
+                  href={CHAD_CONTACT.calendly}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 flex-1 bg-cyan-500 hover:bg-cyan-400 text-black font-black py-3 rounded-xl transition-colors text-sm"
+                >
+                  <Calendar className="w-4 h-4" />
+                  Calendly
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+                <a
+                  href={CHAD_CONTACT.zoom}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 flex-1 bg-blue-600 hover:bg-blue-500 text-white font-black py-3 rounded-xl transition-colors text-sm"
+                >
+                  🎥 Zoom
+                  <ExternalLink className="w-3 h-3" />
+                </a>
+              </div>
+              <p className="text-white/30 text-xs text-center mt-2">calendly.com/cdozier14 · zoom.us</p>
+            </div>
+
+            {/* ── dot.card + vCard ── */}
+            <div className="bg-slate-900/80 border border-white/10 rounded-2xl p-5">
+              <h3 className="text-base font-bold text-white mb-3">Digital Business Card</h3>
+              <div className="flex gap-2">
+                <a
+                  href={CHAD_CONTACT.dotcard}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 flex-1 bg-gray-800 hover:bg-gray-700 border border-white/20 text-white font-bold py-2.5 rounded-xl transition-colors text-sm"
+                >
+                  🔗 dot.card Profile
+                </a>
+                <a
+                  href="/card"
+                  className="flex items-center justify-center gap-2 flex-1 bg-[#1a3a8f] hover:bg-[#1a4aaf] border border-blue-700 text-white font-bold py-2.5 rounded-xl transition-colors text-sm"
+                >
+                  🏆 ATHLYNX Card
+                </a>
+              </div>
+              <button
+                onClick={() => {
+                  const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:Chad Allen Dozier Sr\nN:Dozier;Chad;Allen;Sr;\nTITLE:Founder, CEO & Chairman\nORG:Dozier Holdings Group;ATHLYNX AI;Softmor Inc\nTEL;TYPE=CELL:+16014985282\nEMAIL;TYPE=WORK:cdozier14@athlynx.ai\nURL:https://athlynx.ai\nADR;TYPE=WORK:;;19039 Cloyanna Ln;Humble;TX;77346;USA\nNOTE:Founder. Builder. Servant Leader.\nEND:VCARD`;
+                  const blob = new Blob([vcard], { type: "text/vcard" });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement("a");
+                  a.href = url; a.download = "Chad_Dozier.vcf"; a.click();
+                  URL.revokeObjectURL(url);
+                }}
+                className="w-full mt-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white/70 font-bold py-2.5 rounded-xl transition-colors text-sm"
               >
-                <Calendar className="w-4 h-4" />
-                Schedule a Meeting on Calendly
-                <ExternalLink className="w-3 h-3" />
-              </a>
-              <p className="text-white/30 text-xs text-center mt-2">calendly.com/cdozier14</p>
+                📇 Save Contact (.vcf)
+              </button>
             </div>
 
             {/* ── Response Time ── */}
