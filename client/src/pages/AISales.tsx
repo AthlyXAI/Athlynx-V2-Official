@@ -5,7 +5,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 
 export default function AISales() {
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState<"pitch" | "analyze">("pitch");
+  const [activeTab, setActiveTab] = useState<"pitch" | "analyze" | "ratecard" | "outreach">("pitch");
 
   // Pitch form state
   const [pitchForm, setPitchForm] = useState({
@@ -321,6 +321,137 @@ export default function AISales() {
                 </div>
               </div>
             )}
+          </div>
+        )}
+
+
+        {/* Rate Card Tab */}
+        {activeTab === "ratecard" && (
+          <div className="space-y-3">
+            <div className="bg-[#0d1f3c] border border-cyan-900 rounded-xl p-5">
+              <h3 className="text-white font-bold text-lg mb-2">💰 NIL Rate Card Builder</h3>
+              <p className="text-blue-400 text-sm mb-4">Know your worth. Use these benchmarks to set your rates for brand deals.</p>
+              <div className="space-y-4">
+                {[
+                  { tier: "Nano Athlete", followers: "1K–10K", icon: "🌱", color: "border-green-600", rates: [
+                    { type: "Instagram Post", range: "$50–$500" },
+                    { type: "Instagram Story", range: "$25–$200" },
+                    { type: "TikTok Video", range: "$100–$800" },
+                    { type: "YouTube Integration", range: "$200–$1,500" },
+                  ]},
+                  { tier: "Micro Athlete", followers: "10K–50K", icon: "⚡", color: "border-blue-600", rates: [
+                    { type: "Instagram Post", range: "$500–$2,500" },
+                    { type: "Instagram Story", range: "$200–$1,000" },
+                    { type: "TikTok Video", range: "$800–$3,000" },
+                    { type: "YouTube Integration", range: "$1,500–$5,000" },
+                  ]},
+                  { tier: "Mid-Tier Athlete", followers: "50K–500K", icon: "🔥", color: "border-yellow-600", rates: [
+                    { type: "Instagram Post", range: "$2,500–$25,000" },
+                    { type: "Instagram Story", range: "$1,000–$10,000" },
+                    { type: "TikTok Video", range: "$3,000–$30,000" },
+                    { type: "YouTube Integration", range: "$5,000–$50,000" },
+                  ]},
+                  { tier: "Elite Athlete", followers: "500K+", icon: "👑", color: "border-red-600", rates: [
+                    { type: "Instagram Post", range: "$25,000–$100,000+" },
+                    { type: "Instagram Story", range: "$10,000–$50,000+" },
+                    { type: "TikTok Video", range: "$30,000–$150,000+" },
+                    { type: "YouTube Integration", range: "$50,000–$500,000+" },
+                  ]},
+                ].map((tier, ti) => (
+                  <div key={ti} className={`bg-[#1a2a4a] border ${tier.color} rounded-xl p-4`}>
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-xl">{tier.icon}</span>
+                      <div>
+                        <div className="text-white font-black text-sm">{tier.tier}</div>
+                        <div className="text-blue-400 text-xs">{tier.followers} followers</div>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      {tier.rates.map((rate, ri) => (
+                        <div key={ri} className="bg-[#0d1b3e] rounded-xl p-2.5">
+                          <div className="text-blue-400 text-xs mb-0.5">{rate.type}</div>
+                          <div className="text-white font-bold text-sm">{rate.range}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                <div className="bg-[#1a2a4a] border border-blue-800 rounded-xl p-4 text-center">
+                  <p className="text-blue-300 text-xs">Rates vary based on engagement rate, sport, school, and brand alignment. Always negotiate — these are starting points, not ceilings.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Outreach Email Tab */}
+        {activeTab === "outreach" && (
+          <div className="space-y-3">
+            <div className="bg-[#0d1f3c] border border-cyan-900 rounded-xl p-5">
+              <h3 className="text-white font-bold text-lg mb-2">📧 Brand Outreach Email Templates</h3>
+              <p className="text-blue-400 text-sm mb-4">Copy, personalize, and send. These templates have a proven response rate.</p>
+              <div className="space-y-4">
+                {[
+                  { subject: "Partnership Inquiry — [Your Name] | [Sport] | [School]", type: "Cold Outreach", icon: "📤", color: "border-blue-600",
+                    body: `Hi [Brand Contact Name],
+
+My name is [Your Name], and I'm a [Year] [Sport] athlete at [School]. I've been a genuine fan of [Brand] for [X years/since X], and I believe there's a strong alignment between your brand and my audience.
+
+Here's a quick snapshot of my platform:
+• Sport: [Sport] | Position: [Position]
+• School: [School] | Class of [Year]
+• Instagram: [X] followers | [X]% engagement rate
+• TikTok: [X] followers | [X] average views
+
+I'd love to explore a partnership — whether that's a product feature, sponsored post, or a longer-term ambassador relationship. I'm open to discussing what works best for your current campaigns.
+
+Would you be open to a 15-minute call this week?
+
+Best,
+[Your Name]
+[Instagram Handle] | [Email] | [Phone]` },
+                  { subject: "Re: NIL Partnership — [Your Name] Follow-Up", type: "Follow-Up", icon: "🔄", color: "border-yellow-600",
+                    body: `Hi [Name],
+
+I wanted to follow up on my email from [X days ago] regarding a potential partnership.
+
+I know inboxes get busy — I just wanted to make sure this didn't get lost. I'm genuinely excited about the possibility of working with [Brand] and believe I can deliver real value to your audience.
+
+I'm flexible on structure — product gifting, paid post, or ambassador program. Happy to start small and prove the ROI.
+
+Let me know if you'd like to connect!
+
+[Your Name]` },
+                  { subject: "Thank You — [Brand] Partnership Meeting", type: "Post-Meeting", icon: "🤝", color: "border-green-600",
+                    body: `Hi [Name],
+
+Thank you for taking the time to meet with me today. I really enjoyed learning more about [Brand]'s vision for [campaign/initiative].
+
+As discussed, I'm excited about the opportunity to [specific deliverable discussed]. I'll have the [proposal/rate card/content calendar] over to you by [date].
+
+Looking forward to building something great together.
+
+[Your Name]` },
+                ].map((template, ti) => (
+                  <div key={ti} className={`bg-[#1a2a4a] border ${template.color} rounded-xl p-4`}>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xl">{template.icon}</span>
+                        <div>
+                          <div className="text-white font-black text-sm">{template.type}</div>
+                          <div className="text-blue-400 text-xs">Subject: {template.subject}</div>
+                        </div>
+                      </div>
+                      <button onClick={() => { navigator.clipboard.writeText(template.body); }}
+                        className="text-xs bg-blue-700/40 hover:bg-blue-700 text-white font-bold px-3 py-1.5 rounded-lg transition-colors shrink-0">
+                        📋 Copy
+                      </button>
+                    </div>
+                    <pre className="text-blue-200 text-xs whitespace-pre-wrap font-sans leading-relaxed bg-[#0d1b3e] rounded-xl p-3 max-h-48 overflow-y-auto">{template.body}</pre>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         )}
 

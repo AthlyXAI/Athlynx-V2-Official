@@ -638,19 +638,19 @@ export default function InvestorHub() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
             {[
               "/chad-dozier-ceo.png",
-              "/athlete1.jpg",
-              "/images/athlete-focus.jpg",
-              "/athlete2.jpg",
-              "/images/champion-hero.jpg",
+              "/athlete-football.jpg",
+              "/athlete-basketball.jpg",
+              "/athlete-baseball.jpg",
+              "/athlete-track.jpg",
               "/app-mockup-hero.png",
-              "/athlete1.jpg",
-              "/images/athlete-focus.jpg",
-              "/athlete2.jpg",
+              "/athlete-soccer.jpg",
+              "/athlete-training.jpg",
+              "/professional-athlete-dashboard.png",
               "/app-mockup-profile.png",
-              "/images/champion-hero.jpg",
-              "/athlete1.jpg",
-              "/images/athlete-focus.jpg",
-              "/athlete2.jpg",
+              "/athlete-football.jpg",
+              "/athlete-basketball.jpg",
+              "/athlete-baseball.jpg",
+              "/athlete-track.jpg",
             ].map((src, i) => (
               <div key={i} className="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-blue-400/50 transition-all group">
                 <img src={src} alt={`GTC San Jose 2026 — ${i + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
@@ -689,10 +689,10 @@ export default function InvestorHub() {
               { src: "/brand/athlynx-promo.png", label: "Athlete Promo" },
               { src: "/brand/athlynx-investor.png", label: "Investor View" },
               { src: "/brand/dhg-empire-hero.png", label: "DHG Empire" },
-              { src: "/athlete1.jpg", label: "Football Training" },
-              { src: "/athlete2.jpg", label: "Basketball" },
-              { src: "/athlete1.jpg", label: "Baseball" },
-              { src: "/athlete2.jpg", label: "Track & Field" },
+              { src: "/athlete-football.jpg", label: "Football Training" },
+              { src: "/athlete-basketball.jpg", label: "Basketball" },
+              { src: "/athlete-baseball.jpg", label: "Baseball" },
+              { src: "/athlete-track.jpg", label: "Track & Field" },
             ].map((item, i) => (
               <div key={i} className="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-red-400/50 transition-all group relative">
                 <img src={item.src} alt={item.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
@@ -703,7 +703,7 @@ export default function InvestorHub() {
             ))}
           </div>
           <div className="text-center">
-            <p className="text-white/30 text-xs">Real athlete photos (IMG_0973–IMG_1519) — upload via manus-upload-file to replace placeholders</p>
+            
           </div>
         </section>
 

@@ -7,6 +7,9 @@ import { useState } from "react";
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import { Button } from "@/components/ui/button";
+import { trpc } from "@/lib/trpc";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { useToast } from "@/hooks/use-toast";
 
 const LEAGUES = [
   { name: "NFL", icon: "🏈", teams: 32, sport: "Football" },
@@ -268,16 +271,26 @@ export default function ProTeams() {
                     </li>
                   ))}
                 </ul>
-                <a
-                  href="mailto:cdozier14@athlynx.ai?subject=Pro Teams Access Request"
-                  className={`block w-full text-center py-3 rounded-xl font-black text-sm transition-all ${
-                    t.highlight
-                      ? "bg-red-500 hover:bg-red-400 text-white"
-                      : "bg-white/10 hover:bg-white/20 border border-white/20 text-white"
-                  }`}
-                >
-                  {t.price === "Custom" ? "Contact Us" : "Request Access"}
-                </a>
+                {t.stripeId ? (
+                  <button
+                    onClick={() => handleCheckout(t.stripeId!, t.name)}
+                    disabled={checkoutLoading === t.stripeId}
+                    className={`block w-full text-center py-3 rounded-xl font-black text-sm transition-all disabled:opacity-60 ${
+                      t.highlight
+                        ? "bg-red-500 hover:bg-red-400 text-white"
+                        : "bg-white/10 hover:bg-white/20 border border-white/20 text-white"
+                    }`}
+                  >
+                    {checkoutLoading === t.stripeId ? "Loading..." : t.highlight ? "Subscribe Now →" : "Get Started →"}
+                  </button>
+                ) : (
+                  <a
+                    href="mailto:cdozier14@athlynx.ai?subject=Pro Teams Enterprise Request"
+                    className="block w-full text-center py-3 rounded-xl font-black text-sm transition-all bg-white/10 hover:bg-white/20 border border-white/20 text-white"
+                  >
+                    Contact Us
+                  </a>
+                )}
               </div>
             ))}
           </div>

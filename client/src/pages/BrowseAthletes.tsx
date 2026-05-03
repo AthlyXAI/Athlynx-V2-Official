@@ -184,6 +184,48 @@ export default function BrowseAthletes() {
           </div>
         </div>
 
+        {/* Featured Athletes Banner */}
+        <div className="max-w-6xl mx-auto px-4 pt-6">
+          <div className="bg-gradient-to-r from-[#0d1b3e] to-[#1a2a4a] border border-[#00c2ff]/20 rounded-2xl p-5 mb-6">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <div className="text-[#00c2ff] text-xs font-black uppercase tracking-widest mb-1">⭐ Featured Athletes</div>
+                <h3 className="text-white font-black text-lg">Top Prospects on ATHLYNX</h3>
+              </div>
+              <Link href="/nil-portal">
+                <button className="text-xs bg-[#00c2ff]/10 border border-[#00c2ff]/30 text-[#00c2ff] font-bold px-3 py-1.5 rounded-full">
+                  NIL Portal →
+                </button>
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {[
+                { name: "Marcus Williams", sport: "Football", pos: "QB", school: "Westlake HS", status: "available", xScore: 94, img: "/athlete-football.jpg" },
+                { name: "Aaliyah Johnson", sport: "Basketball", pos: "PG", school: "Oak Ridge Academy", status: "committed", xScore: 91, img: "/athlete-basketball.jpg" },
+                { name: "Carlos Rivera", sport: "Baseball", pos: "P/OF", school: "Houston CC", status: "available", xScore: 88, img: "/athlete-baseball.jpg" },
+                { name: "Jordan Miles", sport: "Track & Field", pos: "Sprinter", school: "Centennial HS", status: "available", xScore: 86, img: "/athlete-track.jpg" },
+              ].map((a, i) => (
+                <div key={i} className="bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-[#00c2ff]/40 transition-all group cursor-pointer">
+                  <div className="h-24 overflow-hidden">
+                    <img src={a.img} alt={a.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  </div>
+                  <div className="p-2.5">
+                    <div className="text-white font-black text-xs leading-tight">{a.name}</div>
+                    <div className="text-white/40 text-xs">{a.pos} · {a.sport}</div>
+                    <div className="text-white/30 text-xs truncate">{a.school}</div>
+                    <div className="flex items-center justify-between mt-1.5">
+                      <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${a.status === "available" ? "bg-green-500/20 text-green-400" : "bg-blue-500/20 text-blue-400"}`}>
+                        {a.status === "available" ? "Available" : "Committed"}
+                      </span>
+                      <span className="text-[#00c2ff] text-xs font-black">{a.xScore}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Results */}
         <div className="max-w-6xl mx-auto px-4 py-6">
           {/* Count */}

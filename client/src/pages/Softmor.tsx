@@ -1,4 +1,8 @@
 import { Link } from 'wouter';
+import { useState } from 'react';
+import { trpc } from '@/lib/trpc';
+import { useAuth } from '@/_core/hooks/useAuth';
+import { useToast } from '@/hooks/use-toast';
 import { Code, Smartphone, Users, Shield, Zap, Globe, ChevronRight, ExternalLink } from 'lucide-react';
 
 const products = [
@@ -54,6 +58,30 @@ const whiteLabelApps = [
 ];
 
 export default function Softmor() {
+  const { user } = useAuth();
+  const { toast } = useToast();
+  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+
+  const checkoutMutation = trpc.stripe.createSubscriptionCheckout.useMutation({
+    onSuccess: (data) => { if (data.url) window.location.href = data.url; },
+    onError: (e) => { toast({ title: "Error", description: e.message || "Checkout failed", variant: "destructive" }); setCheckoutLoading(null); },
+  });
+
+  const CONCREATOR_PRICES: Record<string, string> = {
+    'Pulse': 'price_1TSno2RjBH07kRLYhcLTOiWk',
+    'Insight': 'price_1TSno2RjBH07kRLY4TxrGTu9',
+    'Command': 'price_1TSno2RjBH07kRLYMSX2RcDm',
+    'Enterprise': 'price_1TSno2RjBH07kRLYIX9Q1qR8',
+  };
+
+  const handleConCreatorCheckout = (tierName: string) => {
+    const priceId = CONCREATOR_PRICES[tierName];
+    if (!priceId) return;
+    if (!user) { toast({ title: "Sign In Required", description: "Please sign in to subscribe.", variant: "destructive" }); return; }
+    setCheckoutLoading(tierName);
+    checkoutMutation.mutate({ priceId, successUrl: window.location.origin + '/payment-success?plan=concreator-' + tierName.toLowerCase(), cancelUrl: window.location.href });
+  };
+
   return (
     <div className="min-h-screen bg-[#0a1628] text-white">
       {/* Hero */}
@@ -209,7 +237,14 @@ export default function Softmor() {
                 <div className="text-white font-black text-lg mb-1">{tier.name}</div>
                 <div className="text-2xl font-black text-cyan-300 mb-1">{tier.price}<span className="text-sm font-normal text-gray-400">/mo</span></div>
                 <div className="text-xs text-gray-400 mb-1">{tier.credits} AI Credits</div>
-                <div className="text-xs text-gray-500">{tier.reports}</div>
+                <div className="text-xs text-gray-500 mb-3">{tier.reports}</div>
+                <button
+                  onClick={() => handleConCreatorCheckout(tier.name)}
+                  disabled={checkoutLoading === tier.name}
+                  className={`w-full text-xs font-black py-2 rounded-lg transition-all disabled:opacity-60 ${tier.recommended ? 'bg-emerald-500 hover:bg-emerald-400 text-white' : 'bg-white/10 hover:bg-white/20 text-white border border-white/20'}`}
+                >
+                  {checkoutLoading === tier.name ? 'Loading...' : tier.name === 'Enterprise' ? 'Contact Sales' : 'Subscribe →'}
+                </button>
               </div>
             ))}
           </div>

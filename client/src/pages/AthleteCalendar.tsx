@@ -386,6 +386,46 @@ export default function AthleteCalendar() {
           </div>
         )}
 
+        {/* ── Important Dates 2026 ── */}
+        <div className="bg-[#0d1b3e] border border-blue-900/60 rounded-2xl p-5">
+          <h3 className="text-white font-bold mb-4">📅 Key Dates for Athletes — 2026</h3>
+          <div className="space-y-3">
+            {[
+              { date: "May 1, 2026", event: "NCAA Spring Signing Period Opens", sport: "All Sports", type: "recruiting", priority: "high" as const },
+              { date: "June 1, 2026", event: "NCAA Transfer Portal Opens (Summer)", sport: "All Sports", type: "recruiting", priority: "high" as const },
+              { date: "June 15, 2026", event: "Elite 11 QB Competition", sport: "Football", type: "game", priority: "medium" as const },
+              { date: "July 1, 2026", event: "NIL Collective Deals — New Fiscal Year", sport: "All Sports", type: "nil", priority: "high" as const },
+              { date: "July 15, 2026", event: "EYBL Peach Jam — Nike Circuit", sport: "Basketball", type: "game", priority: "high" as const },
+              { date: "August 1, 2026", event: "NCAA Fall Practice Start (Football)", sport: "Football", type: "practice", priority: "medium" as const },
+              { date: "September 5, 2026", event: "College Football Season Opener", sport: "Football", type: "game", priority: "high" as const },
+              { date: "October 1, 2026", event: "Early Signing Period Opens (Basketball)", sport: "Basketball", type: "recruiting", priority: "high" as const },
+              { date: "November 1, 2026", event: "NCAA Early Signing Period (Football)", sport: "Football", type: "recruiting", priority: "high" as const },
+              { date: "December 15, 2026", event: "Transfer Portal Opens (Winter)", sport: "All Sports", type: "recruiting", priority: "high" as const },
+            ].map((item, i) => {
+              const colors = EVENT_COLORS[item.type as EventType];
+              const Icon = EVENT_ICONS[item.type as EventType];
+              return (
+                <div key={i} className={`${colors.bg} ${colors.border} border rounded-xl p-3 flex items-center gap-3`}>
+                  <div className={`w-8 h-8 rounded-lg ${colors.badge} flex items-center justify-center shrink-0`}>
+                    <Icon className="w-4 h-4 text-white" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-white font-bold text-sm">{item.event}</span>
+                      {item.priority === "high" && <span className="text-xs bg-red-600/30 border border-red-500/40 text-red-300 font-bold px-1.5 py-0.5 rounded-full">KEY DATE</span>}
+                    </div>
+                    <div className="flex items-center gap-3 mt-0.5">
+                      <span className="text-slate-400 text-xs">{item.date}</span>
+                      <span className="text-slate-500 text-xs">• {item.sport}</span>
+                    </div>
+                  </div>
+                  <button className="text-blue-400 hover:text-white text-xs font-bold transition-colors shrink-0">+ Add</button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
         {/* ── Google Calendar Sync CTA ── */}
         <div className="bg-gradient-to-r from-blue-900/40 to-slate-800/60 border border-blue-700/40 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>

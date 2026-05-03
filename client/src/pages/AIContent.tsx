@@ -6,7 +6,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 
 export default function AIContent() {
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState<"caption" | "bio" | "plan">("caption");
+  const [activeTab, setActiveTab] = useState<"caption" | "bio" | "plan" | "hashtags" | "tips">("caption");
   const [captionForm, setCaptionForm] = useState({ platform: "instagram" as "instagram"|"twitter"|"tiktok"|"linkedin", contentType: "highlight" as "highlight"|"training"|"gameday"|"nil_deal"|"motivation"|"recruiting", context: "", sport: "" });
   const [captionResult, setCaptionResult] = useState("");
   const [bioForm, setBioForm] = useState({ platform: "instagram" as "instagram"|"twitter"|"tiktok"|"linkedin", sport: "", school: "", position: "", achievements: "" });
@@ -37,12 +37,18 @@ export default function AIContent() {
         </div>
         {/* Tabs */}
         <div className="flex gap-2 overflow-x-auto pb-1">
-          {(["caption", "bio", "plan"] as const).map(tab => (
-            <button key={tab} onClick={() => setActiveTab(tab)}
+          {([
+            { id: "caption", label: "📱 Captions" },
+            { id: "bio", label: "✍️ Bio Writer" },
+            { id: "plan", label: "📅 30-Day Plan" },
+            { id: "hashtags", label: "#️⃣ Hashtags" },
+            { id: "tips", label: "💡 Tips" },
+          ] as const).map(tab => (
+            <button key={tab.id} onClick={() => setActiveTab(tab.id as typeof activeTab)}
               className={`flex-shrink-0 px-4 py-2.5 rounded-xl font-bold text-sm transition-all ${
-                activeTab === tab ? "bg-red-600 text-white" : "bg-[#1a2a4a] text-blue-300 hover:bg-[#1a3a6a]"
+                activeTab === tab.id ? "bg-red-600 text-white" : "bg-[#1a2a4a] text-blue-300 hover:bg-[#1a3a6a]"
               }`}>
-              {tab === "caption" ? "📱 Caption Generator" : tab === "bio" ? "✍️ Bio Writer" : "📅 Content Plan"}
+              {tab.label}
             </button>
           ))}
         </div>
@@ -183,6 +189,104 @@ export default function AIContent() {
                 <pre className="text-white text-sm whitespace-pre-wrap font-sans leading-relaxed">{planResult}</pre>
               </div>
             )}
+          </div>
+        )}
+
+        {/* Hashtag Generator Tab */}
+        {activeTab === "hashtags" && (
+          <div className="space-y-3">
+            <div className="bg-[#0d1f3c] border border-red-900 rounded-xl p-5">
+              <h3 className="text-white font-bold text-lg mb-4">#️⃣ Hashtag Sets by Sport & Goal</h3>
+              <div className="space-y-4">
+                {[
+                  { sport: "Football", icon: "🏈", sets: [
+                    { label: "Recruiting", tags: "#FootballRecruiting #CFBRecruiting #D1Football #FootballScholarship #CollegeFootball #RecruitingClass2027 #NCAAFB #HighSchoolFootball" },
+                    { label: "NIL", tags: "#NILFootball #FootballNIL #CollegeAthleteNIL #NILDeal #AthleteMarketing #BrandAmbassador #NIL2026" },
+                    { label: "Training", tags: "#FootballTraining #QBTraining #WRTraining #DBTraining #FootballDrills #GridironGrind #FootballWorkout" },
+                  ]},
+                  { sport: "Basketball", icon: "🏀", sets: [
+                    { label: "Recruiting", tags: "#BasketballRecruiting #HoopsDreams #D1Basketball #CollegeHoops #BasketballScholarship #NBAdraft #EYBLBasketball" },
+                    { label: "NIL", tags: "#BasketballNIL #NILHoops #CollegeBasketball #AthleteNIL #HoopsNIL #BasketballBrand" },
+                    { label: "Highlights", tags: "#BasketballHighlights #HoopsHighlights #BasketballMix #NBAProspect #CollegeHoopsHighlights" },
+                  ]},
+                  { sport: "Baseball", icon: "⚾", sets: [
+                    { label: "Recruiting", tags: "#BaseballRecruiting #CollegeBaseball #D1Baseball #BaseballScholarship #PGBaseball #PerfectGame #BaseballProspect" },
+                    { label: "Training", tags: "#BaseballTraining #PitchingMechanics #HittingDrills #BaseballGrind #BaseballDevelopment #DiamondGrind" },
+                  ]},
+                  { sport: "Soccer", icon: "⚽", sets: [
+                    { label: "Recruiting", tags: "#SoccerRecruiting #CollegeSoccer #D1Soccer #SoccerScholarship #USYouthSoccer #SoccerProspect" },
+                    { label: "NIL", tags: "#SoccerNIL #NILSoccer #CollegeSoccerNIL #SoccerBrand #AthleteMarketing" },
+                  ]},
+                  { sport: "Track & Field", icon: "💨", sets: [
+                    { label: "Recruiting", tags: "#TrackRecruiting #TrackAndField #D1Track #TrackScholarship #SprintLife #TrackProspect #CollegeTrack" },
+                    { label: "Training", tags: "#SprintTraining #TrackWorkout #SpeedTraining #TrackLife #AthleteTraining #SprintDrills" },
+                  ]},
+                  { sport: "General Athlete", icon: "🏆", sets: [
+                    { label: "NIL & Brand", tags: "#NIL #NILDeal #CollegeAthlete #AthleteMarketing #BrandAmbassador #ATHLYNX #AthlynxAI #NILPortal" },
+                    { label: "Motivation", tags: "#AthleteLife #GrindSeason #NeverSettle #EliteAthlete #ChampionMindset #NoExcuses #WorkEthic #AthleteMotivation" },
+                    { label: "ATHLYNX", tags: "#ATHLYNX #AthlynxAI #AthletePlaybook #NILPlatform #AthleteSuccess #DozierHoldingsGroup" },
+                  ]},
+                ].map((sport, si) => (
+                  <div key={si} className="bg-[#1a2a4a] rounded-xl p-4">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="text-xl">{sport.icon}</span>
+                      <span className="text-white font-bold">{sport.sport}</span>
+                    </div>
+                    <div className="space-y-2">
+                      {sport.sets.map((set, ssi) => (
+                        <div key={ssi} className="bg-[#0d1b3e] rounded-xl p-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-blue-400 text-xs font-bold uppercase">{set.label}</span>
+                            <button onClick={() => { navigator.clipboard.writeText(set.tags); toast.success("Hashtags copied!"); }}
+                              className="text-xs text-blue-400 hover:text-white border border-blue-700 px-2 py-1 rounded-lg transition-colors">
+                              📋 Copy
+                            </button>
+                          </div>
+                          <p className="text-blue-200 text-xs leading-relaxed">{set.tags}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Content Tips Tab */}
+        {activeTab === "tips" && (
+          <div className="space-y-3">
+            <div className="bg-[#0d1f3c] border border-red-900 rounded-xl p-5">
+              <h3 className="text-white font-bold text-lg mb-4">💡 Content Strategy for Athletes</h3>
+              <div className="space-y-4">
+                {[
+                  { title: "The 3-2-1 Rule", icon: "📊", color: "border-blue-600", content: "Post 3 training/performance posts, 2 personal/behind-the-scenes posts, and 1 brand/NIL post per week. This ratio keeps your audience engaged while building your brand value for sponsors." },
+                  { title: "Best Times to Post", icon: "⏰", color: "border-green-600", content: "Instagram: 6-9 AM and 5-8 PM EST. Twitter/X: 8-10 AM and 6-9 PM EST. TikTok: 7-9 AM, 12-3 PM, and 7-11 PM EST. Post when your audience is most active — typically before school/work and after dinner." },
+                  { title: "Highlight Reel Checklist", icon: "🎬", color: "border-red-600", content: "Keep it under 90 seconds. Lead with your best play in the first 5 seconds. Include your name, position, school, and graduation year in the first frame. Add upbeat music. End with contact info. Update it every season." },
+                  { title: "NIL-Ready Content", icon: "💰", color: "border-yellow-600", content: "Brands look for athletes who post consistently, engage authentically, and align with their values. Showcase your personality, not just your stats. Document your journey — brands buy into stories, not just highlights." },
+                  { title: "Engagement Over Followers", icon: "❤️", color: "border-pink-600", content: "A 10K follower account with 8% engagement is worth more to a brand than a 100K account with 0.5% engagement. Reply to comments, ask questions in your captions, and build a real community." },
+                  { title: "Cross-Platform Strategy", icon: "📱", color: "border-purple-600", content: "Create once, distribute everywhere. Film a training video → post the full version on YouTube → cut a 60-second version for Instagram Reels → cut a 15-second version for TikTok → post a still frame on Twitter with a link. One piece of content, four platforms." },
+                ].map((tip, ti) => (
+                  <div key={ti} className={`bg-[#1a2a4a] border ${tip.color} rounded-xl p-4`}>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-xl">{tip.icon}</span>
+                      <h4 className="text-white font-bold">{tip.title}</h4>
+                    </div>
+                    <p className="text-blue-200 text-sm leading-relaxed">{tip.content}</p>
+                  </div>
+                ))}
+                {/* CTA */}
+                <div className="bg-gradient-to-br from-red-900/50 to-[#1530a0] border border-red-700/60 rounded-xl p-5 text-center">
+                  <div className="text-3xl mb-2">🚀</div>
+                  <h3 className="text-white font-black text-lg mb-1">Ready to Build Your Brand?</h3>
+                  <p className="text-blue-300 text-sm mb-4">Use the Caption Generator and 30-Day Plan to start posting with purpose today.</p>
+                  <button onClick={() => setActiveTab("caption")}
+                    className="bg-red-700 hover:bg-red-600 text-white font-bold py-2.5 px-6 rounded-xl transition-colors">
+                    Generate My First Caption →
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>

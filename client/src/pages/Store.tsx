@@ -78,8 +78,8 @@ const staticProducts = [
   { id: 11, sku: "GOLF-BALLS-24", name: "Golf Balls (24pk)", category: "golf", price: 39.99, image: "/athlynx-icon.png", rating: 4.6, reviews: 289, description: "Tour-quality golf balls", requiresQuote: false },
   { id: 12, sku: "HUNT-SCOPE", name: "Hunting Rifle Scope", category: "hunting", price: 349.99, image: "/athlynx-icon.png", rating: 4.8, reviews: 78, description: "4-16x50mm illuminated scope", requiresQuote: false },
   { id: 13, sku: "HUNT-JACKET", name: "Camo Jacket", category: "hunting", price: 149.99, image: "/athlynx-icon.png", rating: 4.7, reviews: 112, description: "Waterproof hunting jacket", requiresQuote: false },
-  { id: 14, sku: "FIT-DUMBBELLS", name: "Adjustable Dumbbells", category: "fitness", price: 399.99, image: "/athlete2.jpg", rating: 4.8, reviews: 567, description: "5-50lb adjustable set", requiresQuote: false },
-  { id: 15, sku: "FIT-BENCH", name: "Weight Bench Pro", category: "fitness", price: 299.99, image: "/athlete2.jpg", rating: 4.7, reviews: 234, description: "Adjustable incline/decline bench", requiresQuote: false },
+  { id: 14, sku: "FIT-DUMBBELLS", name: "Adjustable Dumbbells", category: "fitness", price: 399.99, image: "/athlete-training.jpg", rating: 4.8, reviews: 567, description: "5-50lb adjustable set", requiresQuote: false },
+  { id: 15, sku: "FIT-BENCH", name: "Weight Bench Pro", category: "fitness", price: 299.99, image: "/athlete-training.jpg", rating: 4.7, reviews: 234, description: "Adjustable incline/decline bench", requiresQuote: false },
   { id: 16, sku: "APP-TEE", name: "ATHLYNX Performance Tee", category: "apparel", price: 34.99, image: "/athlynx-official-logo.png", rating: 4.8, reviews: 234, description: "Moisture-wicking athletic tee", requiresQuote: false },
   { id: 17, sku: "APP-HOODIE", name: "ATHLYNX Hoodie", category: "apparel", price: 69.99, image: "/athlynx-official-logo.png", rating: 4.9, reviews: 189, description: "Premium fleece hoodie", requiresQuote: false },
   { id: 18, sku: "TRAIN-LADDER", name: "Speed Ladder", category: "training", price: 24.99, image: "/athlynx-icon.png", rating: 4.6, reviews: 345, description: "20ft agility ladder", requiresQuote: false },
@@ -120,9 +120,9 @@ const staticProducts = [
   { id: 40, sku: "GOLF-BAG-TITLEIST", name: "Titleist Players 4 Stand Bag", category: "golf", price: 299.99, image: "/athlynx-icon.png", rating: 4.8, reviews: 156, description: "Lightweight, dual strap, 14-way top", requiresQuote: false },
 
   // Training & Recovery — Elite
-  { id: 41, sku: "FIT-RACK-POWER", name: "Rogue Monster Lite Power Rack", category: "fitness", price: 1895.00, image: "/athlete2.jpg", rating: 5.0, reviews: 456, description: "11-gauge steel, 1000lb capacity, USA-made", requiresQuote: false },
-  { id: 42, sku: "FIT-BARBELL-ROGUE", name: "Rogue Ohio Bar — Cerakote", category: "fitness", price: 395.00, image: "/athlete2.jpg", rating: 5.0, reviews: 789, description: "20kg, 190,000 PSI tensile strength", requiresQuote: false },
-  { id: 43, sku: "FIT-PLATES-BUMPER", name: "Rogue Bumper Plates (260lb Set)", category: "fitness", price: 695.00, image: "/athlete2.jpg", rating: 4.9, reviews: 345, description: "High-density rubber, IWF spec", requiresQuote: false },
+  { id: 41, sku: "FIT-RACK-POWER", name: "Rogue Monster Lite Power Rack", category: "fitness", price: 1895.00, image: "/athlete-training.jpg", rating: 5.0, reviews: 456, description: "11-gauge steel, 1000lb capacity, USA-made", requiresQuote: false },
+  { id: 42, sku: "FIT-BARBELL-ROGUE", name: "Rogue Ohio Bar — Cerakote", category: "fitness", price: 395.00, image: "/athlete-training.jpg", rating: 5.0, reviews: 789, description: "20kg, 190,000 PSI tensile strength", requiresQuote: false },
+  { id: 43, sku: "FIT-PLATES-BUMPER", name: "Rogue Bumper Plates (260lb Set)", category: "fitness", price: 695.00, image: "/athlete-training.jpg", rating: 4.9, reviews: 345, description: "High-density rubber, IWF spec", requiresQuote: false },
   { id: 44, sku: "RECOV-NORMATEC", name: "Hyperice Normatec 3 Legs", category: "training", price: 699.99, image: "/athlynx-icon.png", rating: 5.0, reviews: 567, description: "Dynamic air compression recovery system", requiresQuote: false },
   { id: 45, sku: "RECOV-THERAGUN", name: "Theragun PRO Plus", category: "training", price: 599.99, image: "/athlynx-icon.png", rating: 4.9, reviews: 1234, description: "6 attachments, 60lb force, app-connected", requiresQuote: false },
   { id: 46, sku: "RECOV-ICEBATH", name: "Edge Theory Labs Cold Plunge", category: "training", price: 4999.99, image: "/athlynx-icon.png", rating: 5.0, reviews: 89, description: "Chills to 37°F, filtration system, 100 gal", requiresQuote: false },

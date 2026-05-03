@@ -352,6 +352,71 @@ export default function AthleteLifeHub() {
         </div>
       </div>
 
+      {/* Quick Resources */}
+      <div className="py-10 border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-black text-white mb-2">⚡ Quick Resources</h2>
+            <p className="text-slate-400 text-sm">Essential tools and information every athlete needs to know</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { icon: "📋", title: "NIL State Laws", desc: "All 50 states have different NIL rules. Know yours before you sign anything.", link: "/athlete-legal", cta: "Check Your State" },
+              { icon: "💰", title: "NIL Value Calculator", desc: "Estimate your NIL market value based on your sport, school, and social following.", link: "/nil-calculator", cta: "Calculate My Value" },
+              { icon: "🤝", title: "Find an Agent", desc: "Browse NFLPA, NBPA, and MLB-certified agents who specialize in your sport.", link: "/agent-finder", cta: "Find My Agent" },
+              { icon: "⚖️", title: "Contract Review", desc: "Never sign a NIL deal without legal review. Our attorneys review contracts fast.", link: "/athlete-legal", cta: "Get Review" },
+              { icon: "🏦", title: "Athlete Banking", desc: "Special banking products designed for athletes — NIL income management, tax prep, and more.", link: "/athlete-financial", cta: "Open Account" },
+              { icon: "🎓", title: "Scholarship Wizard", desc: "AI-powered scholarship matching across all sports and academic levels.", link: "/wizard-hub", cta: "Find Scholarships" },
+            ].map((r, i) => (
+              <div key={i} className="bg-white/5 border border-white/10 hover:border-blue-400/50 rounded-xl p-4 transition-all group">
+                <div className="text-3xl mb-3">{r.icon}</div>
+                <h3 className="text-white font-black text-sm mb-1">{r.title}</h3>
+                <p className="text-slate-400 text-xs leading-relaxed mb-3">{r.desc}</p>
+                <a href={r.link} className="text-blue-400 hover:text-white text-xs font-bold transition-colors group-hover:text-white">
+                  {r.cta} →
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* NIL State Laws Quick Reference */}
+      <div className="py-10 border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-black text-white mb-2">⚖️ NIL Laws — Know Your State</h2>
+            <p className="text-slate-400 text-sm">Every state has different NIL rules. These are the key states for college athletes.</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {[
+              { state: "Texas", status: "✅ Open", key: "No restrictions on NIL deals. Athletes can sign with agents. No school approval required.", color: "border-green-600" },
+              { state: "California", status: "✅ Open", key: "SB 206 — first state to pass NIL law. Athletes can hire agents and earn from endorsements.", color: "border-green-600" },
+              { state: "Florida", status: "✅ Open", key: "Comprehensive NIL law. Athletes can earn from social media, appearances, and endorsements.", color: "border-green-600" },
+              { state: "Alabama", status: "✅ Open", key: "NIL allowed. Athletes must disclose deals to their school. No pay-for-play.", color: "border-green-600" },
+              { state: "Mississippi", status: "✅ Open", key: "NIL allowed. Athletes must report deals. School cannot restrict deals with competing brands.", color: "border-green-600" },
+              { state: "Georgia", status: "✅ Open", key: "NIL allowed. Athletes can earn from autographs, appearances, and social media.", color: "border-green-600" },
+              { state: "Ohio", status: "✅ Open", key: "NIL allowed. Athletes can hire agents. Schools cannot prevent athletes from earning NIL.", color: "border-green-600" },
+              { state: "Pennsylvania", status: "✅ Open", key: "NIL allowed. Athletes can earn from any legal source. School approval not required.", color: "border-green-600" },
+              { state: "New York", status: "✅ Open", key: "NIL allowed. Comprehensive protections for athletes. Agents permitted.", color: "border-green-600" },
+            ].map((state, si) => (
+              <div key={si} className={`bg-white/5 border ${state.color} rounded-xl p-4`}>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-white font-black text-sm">{state.state}</span>
+                  <span className="text-xs font-bold text-green-400">{state.status}</span>
+                </div>
+                <p className="text-slate-400 text-xs leading-relaxed">{state.key}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-4">
+            <a href="/athlete-legal" className="text-blue-400 hover:text-white text-sm font-bold transition-colors">
+              View All 50 States + Full Legal Guide →
+            </a>
+          </div>
+        </div>
+      </div>
+
       {/* Bottom CTA */}
       <div className="border-t border-white/10 py-12">
         <div className="max-w-3xl mx-auto px-4 text-center">
