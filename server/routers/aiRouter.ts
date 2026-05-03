@@ -1,8 +1,9 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { protectedProcedure, router } from "../_core/trpc";
+import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { invokeLLM } from "../_core/llm";
 import { chatWithGemini, buildTrainerBotSystemPrompt } from "../services/gemini";
+import { nebiusComplete, calculateXFactorScore, nebiusHealthCheck, NEBIUS_MODELS } from "../services/nebius";
 import { getDb, getTrainerHistory, saveTrainerMessage } from "../db";
 import { users, creditTransactions, athleteProfiles, aiTrainerSessions } from "../../drizzle/schema";
 import { eq, sql } from "drizzle-orm";
@@ -537,5 +538,88 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
       if (!db) return { cleared: 0 };
       const result = await db.delete(aiTrainerSessions).where(eq(aiTrainerSessions.userId, ctx.user!.id));
       return { cleared: (result as any).rowsAffected ?? 0 };
+    }),
+
+  // ─── NEBIUS AI ENGINE ─────────────────────────────────────────────────────
+  // nebiusHealthCheck — verify Nebius AI is live and responding
+  nebiusHealthCheck: publicProcedure
+    .query(async () => {
+      const result = await nebiusHealthCheck();
+      return result;
+    }),
+
+  // calculateXFactor — AI-powered athlete X-Factor score using Nebius Llama 3.1 70B
+  calculateXFactor: protectedProcedure
+    .input(z.object({
+      name: z.string().optional(),
+      sport: z.string().optional(),
+      position: z.string().optional(),
+      school: z.string().optional(),
+      gpa: z.number().optional(),
+      height: z.string().optional(),
+      weight: z.number().optional(),
+      sportStats: z.record(z.union([z.string(), z.number()])).optional(),
+      recruitingStatus: z.string().optional(),
+      nilValue: z.number().optional(),
+      followers: z.number().optional(),
+    }))
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "wizardAdvice");
+      const db = await getDb();
+      let athleteData = { ...input };
+      // Auto-fill from DB profile if fields missing
+      if (db) {
+        const [profile] = await db.select().from(athleteProfiles).where(eq(athleteProfiles.userId, ctx.user!.id)).limit(1);
+        if (profile) {
+          athleteData = {
+            name: input.name || ctx.user!.name || "Athlete",
+            sport: input.sport || profile.sport || "Unknown",
+            position: input.position || profile.position || "Unknown",
+            school: input.school || profile.school || "Unknown",
+            gpa: input.gpa ?? (profile.gpa ? Number(profile.gpa) : undefined),
+            height: input.height || profile.height || undefined,
+            weight: input.weight ?? (profile.weight ? Number(profile.weight) : undefined),
+            sportStats: input.sportStats || (profile.sportStats as any) || {},
+            recruitingStatus: input.recruitingStatus || profile.recruitingStatus || "available",
+            nilValue: input.nilValue ?? (profile.nilValue ? Number(profile.nilValue) : undefined),
+            followers: input.followers ?? (profile.instagramFollowers ? Number(profile.instagramFollowers) : undefined),
+          };
+        }
+      }
+      const result = await calculateXFactorScore({
+        name: athleteData.name || ctx.user!.name || "Athlete",
+        sport: athleteData.sport || "Unknown",
+        position: athleteData.position || "Unknown",
+        school: athleteData.school || "Unknown",
+        gpa: athleteData.gpa,
+        height: athleteData.height,
+        weight: athleteData.weight,
+        sportStats: athleteData.sportStats,
+        recruitingStatus: athleteData.recruitingStatus,
+        nilValue: athleteData.nilValue,
+        followers: athleteData.followers,
+      });
+      return result;
+    }),
+
+  // nebiusChat — direct chat with Nebius Llama 3.1 70B (premium AI feature)
+  nebiusChat: protectedProcedure
+    .input(z.object({
+      message: z.string().min(1).max(4000),
+      systemPrompt: z.string().optional(),
+      model: z.enum([
+        "meta-llama/Meta-Llama-3.1-70B-Instruct-fast",
+        "meta-llama/Meta-Llama-3.1-8B-Instruct-fast",
+        "meta-llama/Meta-Llama-3.1-405B-Instruct",
+      ]).optional(),
+    }))
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "wizardAdvice");
+      const reply = await nebiusComplete(
+        input.message,
+        input.systemPrompt || "You are the ATHLYNX AI — an elite sports intelligence assistant. Help athletes with NIL deals, recruiting, training, and career development.",
+        (input.model as any) || NEBIUS_MODELS.LLAMA_70B
+      );
+      return { reply };
     }),
 });

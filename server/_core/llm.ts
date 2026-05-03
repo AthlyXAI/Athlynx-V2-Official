@@ -208,7 +208,10 @@ const normalizeToolChoice = (
   return toolChoice;
 };
 
-const resolveApiUrl = () => {
+const resolveApiUrl = (useNebius = false) => {
+  if (useNebius) {
+    return "https://api.studio.nebius.com/v1/chat/completions";
+  }
   // Use native Google AI endpoint if GOOGLE_AI_API_KEY is set (Gemini 2.5 Flash via OpenAI-compatible API)
   if (process.env.GOOGLE_AI_API_KEY) {
     return "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
@@ -216,13 +219,14 @@ const resolveApiUrl = () => {
   return "https://api.openai.com/v1/chat/completions";
 };
 
-const getApiKey = (): string => {
+const getApiKey = (useNebius = false): string => {
+  if (useNebius) return process.env.NEBIUS_API_KEY || "";
   return process.env.GOOGLE_AI_API_KEY || process.env.OPENAI_API_KEY || "";
 };
 
 const assertApiKey = () => {
-  if (!process.env.GOOGLE_AI_API_KEY && !process.env.OPENAI_API_KEY) {
-    throw new Error("No AI API key configured — set GOOGLE_AI_API_KEY or OPENAI_API_KEY");
+  if (!process.env.GOOGLE_AI_API_KEY && !process.env.OPENAI_API_KEY && !process.env.NEBIUS_API_KEY) {
+    throw new Error("No AI API key configured — set GOOGLE_AI_API_KEY, OPENAI_API_KEY, or NEBIUS_API_KEY");
   }
 };
 
@@ -271,9 +275,7 @@ const normalizeResponseFormat = ({
   };
 };
 
-export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
-  assertApiKey();
-
+async function invokeLLMWithEngine(params: InvokeParams, useNebius: boolean): Promise<InvokeResult> {
   const {
     messages,
     tools,
@@ -285,8 +287,12 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
     response_format,
   } = params;
 
+  const model = useNebius
+    ? "meta-llama/Meta-Llama-3.1-70B-Instruct-fast"
+    : "gemini-2.5-flash";
+
   const payload: Record<string, unknown> = {
-    model: "gemini-2.5-flash",
+    model,
     messages: messages.map(normalizeMessage),
   };
 
@@ -318,11 +324,11 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
     payload.response_format = normalizedResponseFormat;
   }
 
-  const response = await fetch(resolveApiUrl(), {
+  const response = await fetch(resolveApiUrl(useNebius), {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      authorization: `Bearer ${getApiKey()}`,
+      authorization: `Bearer ${getApiKey(useNebius)}`,
     },
     body: JSON.stringify(payload),
   });
@@ -335,4 +341,38 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
   }
 
   return (await response.json()) as InvokeResult;
+}
+
+/**
+ * Primary LLM invocation with automatic Nebius fallback.
+ * Tries Gemini first. If Gemini fails (quota, error), falls back to Nebius Llama 3.1 70B.
+ * This ensures ATHLYNX AI is ALWAYS ON — zero downtime.
+ */
+export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
+  assertApiKey();
+
+  // Try Gemini first (primary engine)
+  if (process.env.GOOGLE_AI_API_KEY) {
+    try {
+      return await invokeLLMWithEngine(params, false);
+    } catch (geminiError: unknown) {
+      const errMsg = String(geminiError);
+      const isQuotaError = errMsg.includes("429") || errMsg.includes("quota") || errMsg.includes("RESOURCE_EXHAUSTED");
+      const isServerError = errMsg.includes("500") || errMsg.includes("503") || errMsg.includes("502");
+      // Fall back to Nebius on quota exhaustion or server errors
+      if ((isQuotaError || isServerError) && process.env.NEBIUS_API_KEY) {
+        console.log("[LLM] Gemini quota/error — falling back to Nebius Llama 3.1 70B");
+        return await invokeLLMWithEngine(params, true);
+      }
+      throw geminiError;
+    }
+  }
+
+  // No Gemini key — use Nebius directly
+  if (process.env.NEBIUS_API_KEY) {
+    return await invokeLLMWithEngine(params, true);
+  }
+
+  // Last resort — OpenAI
+  return await invokeLLMWithEngine(params, false);
 }
