@@ -4,6 +4,7 @@
 
 
 import { useState } from 'react';
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';

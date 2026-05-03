@@ -455,7 +455,11 @@ export default function Profile() {
   const { user, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState("posts");
   const [editMode, setEditMode] = useState(false);
-  const [editForm, setEditForm] = useState({ sport: "", position: "", school: "", bio: "", height: "", weight: "", gpa: "" });
+  const [editForm, setEditForm] = useState({
+    sport: "", position: "", school: "", bio: "", height: "", weight: "", gpa: "",
+    fortyYardDash: "", qbRating: "", verticalLeap: "", benchPress: "",
+    instagram: "", twitter: "", tiktokHandle: "", linkedinUrl: "", youtubeUrl: "", facebookUrl: "", hudlUrl: "",
+  });
   const utils = trpc.useUtils();
 
   const { data: profile } = trpc.profile.getMyProfile.useQuery(undefined, { enabled: !!user });
@@ -482,23 +486,49 @@ export default function Profile() {
     .reduce((sum: number, d: any) => sum + Number(d.dealValue || 0), 0);
 
   const openEdit = () => {
+    const stats = (profile as any)?.sportStats as any || {};
     setEditForm({
       sport: profile?.sport || "", position: profile?.position || "",
       school: profile?.school || "", bio: profile?.bio || "",
       height: profile?.height || "",
       weight: profile?.weight != null ? String(profile.weight) : "",
       gpa: profile?.gpa != null ? String(profile.gpa) : "",
+      fortyYardDash: stats.fortyYardDash || "",
+      qbRating: stats.qbRating || "",
+      verticalLeap: stats.verticalLeap || "",
+      benchPress: stats.benchPress || "",
+      instagram: profile?.instagram || "",
+      twitter: profile?.twitter || "",
+      tiktokHandle: (profile as any)?.tiktokHandle || "",
+      linkedinUrl: (profile as any)?.linkedinUrl || "",
+      youtubeUrl: (profile as any)?.youtubeUrl || "",
+      facebookUrl: (profile as any)?.facebookUrl || "",
+      hudlUrl: profile?.hudlUrl || "",
     });
     setEditMode(true);
   };
 
   const handleEditSave = () => {
+    const sportStats: any = {};
+    if (editForm.fortyYardDash) sportStats.fortyYardDash = editForm.fortyYardDash;
+    if (editForm.qbRating) sportStats.qbRating = editForm.qbRating;
+    if (editForm.verticalLeap) sportStats.verticalLeap = editForm.verticalLeap;
+    if (editForm.benchPress) sportStats.benchPress = editForm.benchPress;
+    if (editForm.height) sportStats.height = editForm.height;
+    if (editForm.gpa) sportStats.gpa = Number(editForm.gpa);
     updateProfileMutation.mutate({
       sport: editForm.sport || undefined, position: editForm.position || undefined,
       school: editForm.school || undefined, bio: editForm.bio || undefined,
       height: editForm.height || undefined,
       weight: editForm.weight ? Number(editForm.weight) : undefined,
       gpa: editForm.gpa ? Number(editForm.gpa) : undefined,
+      sportStats: Object.keys(sportStats).length > 0 ? sportStats : undefined,
+      instagram: editForm.instagram || undefined,
+      twitter: editForm.twitter || undefined,
+      tiktokHandle: editForm.tiktokHandle || undefined,
+      linkedinUrl: editForm.linkedinUrl || undefined,
+      youtubeUrl: editForm.youtubeUrl || undefined,
+      facebookUrl: editForm.facebookUrl || undefined,
     });
   };
 
@@ -610,6 +640,47 @@ export default function Profile() {
                   <textarea value={editForm.bio} onChange={e => setEditForm(p => ({ ...p, bio: e.target.value }))}
                     placeholder="Tell your story..." rows={2}
                     className="w-full bg-[#0d1f3c] border border-blue-800 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500 placeholder-blue-600 resize-none" />
+                </div>
+                {/* Sport-Specific Stats */}
+                <div className="bg-[#0d1f3c] border border-blue-800 rounded-xl p-3">
+                  <div className="text-white font-bold text-xs mb-2">⚡ Sport Stats (for your recruiting profile)</div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      { label: "40-Yd Dash", key: "fortyYardDash", placeholder: "4.62" },
+                      { label: "QB Rating", key: "qbRating", placeholder: "105.6" },
+                      { label: "Vertical Leap", key: "verticalLeap", placeholder: "36\"" },
+                      { label: "Bench Press", key: "benchPress", placeholder: "225 lbs" },
+                    ].map(f => (
+                      <div key={f.key}>
+                        <label className="text-blue-400 text-[10px] mb-1 block">{f.label}</label>
+                        <input value={(editForm as any)[f.key]} onChange={e => setEditForm(p => ({ ...p, [f.key]: e.target.value }))}
+                          placeholder={f.placeholder}
+                          className="w-full bg-[#1a3a8f] border border-blue-700 text-white text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue-500 placeholder-blue-600" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                {/* Social URLs */}
+                <div className="bg-[#0d1f3c] border border-blue-800 rounded-xl p-3">
+                  <div className="text-white font-bold text-xs mb-2">🌐 Social Profiles (reverse funnel)</div>
+                  <div className="space-y-2">
+                    {[
+                      { label: "📸 Instagram", key: "instagram", placeholder: "yourhandle" },
+                      { label: "🐦 X / Twitter", key: "twitter", placeholder: "yourhandle" },
+                      { label: "🎵 TikTok", key: "tiktokHandle", placeholder: "@yourhandle" },
+                      { label: "💼 LinkedIn", key: "linkedinUrl", placeholder: "https://linkedin.com/in/..." },
+                      { label: "▶️ YouTube", key: "youtubeUrl", placeholder: "https://youtube.com/@..." },
+                      { label: "👥 Facebook", key: "facebookUrl", placeholder: "https://facebook.com/..." },
+                      { label: "🎬 Hudl", key: "hudlUrl", placeholder: "https://hudl.com/profile/..." },
+                    ].map(f => (
+                      <div key={f.key} className="flex items-center gap-2">
+                        <span className="text-xs w-24 shrink-0 text-blue-300">{f.label}</span>
+                        <input value={(editForm as any)[f.key]} onChange={e => setEditForm(p => ({ ...p, [f.key]: e.target.value }))}
+                          placeholder={f.placeholder}
+                          className="flex-1 bg-[#1a3a8f] border border-blue-700 text-white text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue-500 placeholder-blue-600" />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             ) : (

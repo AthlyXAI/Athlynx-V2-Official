@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 

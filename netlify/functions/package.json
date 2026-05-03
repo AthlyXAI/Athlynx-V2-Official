@@ -1,7 +1,0 @@
-{
-  "name": "athlynx-functions",
-  "version": "1.0.0",
-  "dependencies": {
-    "twilio": "^4.19.0"
-  }
-}

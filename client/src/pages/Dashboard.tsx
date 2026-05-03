@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { toast } from "sonner";

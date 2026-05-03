@@ -5,6 +5,7 @@
  * Clean, Instagram/Twitter-style layout.
  */
 import { useState } from "react";
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useRoute } from "wouter";
 import { trpc } from "@/lib/trpc";

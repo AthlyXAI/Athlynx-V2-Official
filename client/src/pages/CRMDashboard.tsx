@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { Briefcase, Star, TrendingUp, Search, Filter, ChevronRight, CheckCircle, DollarSign, Users, Zap, Award, ArrowLeft, MapPin, Clock, Building2, Target, BarChart3 } from "lucide-react";

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { 

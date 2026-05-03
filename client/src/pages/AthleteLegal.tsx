@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import {
   Scale, FileText, Shield, AlertTriangle, CheckCircle,

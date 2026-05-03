@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Mail, Phone, Linkedin, Globe, MapPin, Building2, Download, Camera } from "lucide-react";
 

@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { 
   Rocket, 

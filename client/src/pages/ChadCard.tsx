@@ -4,6 +4,7 @@
  * Matches his dot.card style exactly
  */
 import { useState } from "react";
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 

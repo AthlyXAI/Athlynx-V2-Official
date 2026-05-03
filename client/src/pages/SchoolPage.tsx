@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useParams } from "wouter";
 import { Button } from "@/components/ui/button";

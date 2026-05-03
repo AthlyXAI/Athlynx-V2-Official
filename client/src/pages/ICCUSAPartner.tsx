@@ -1,4 +1,5 @@
 import { Link } from 'wouter';
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Server, Cpu, HardDrive, Zap, Shield, Award, ExternalLink, ChevronRight, Star, Globe, Phone, Mail, CheckCircle, TrendingUp, Database, Monitor } from 'lucide-react';
 import { Button } from '@/components/ui/button';

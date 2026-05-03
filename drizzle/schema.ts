@@ -531,3 +531,18 @@ export const athleteCalendarEvents = pgTable("athlete_calendar_events", {
 });
 export type AthleteCalendarEvent = typeof athleteCalendarEvents.$inferSelect;
 export type InsertAthleteCalendarEvent = typeof athleteCalendarEvents.$inferInsert;
+
+// ─── Athlete Stories (Instagram/Facebook-style 24hr stories) ─────────────────
+export const athleteStories = pgTable("athlete_stories", {
+  id: serial("id").primaryKey(),
+  userId: integer("userId").notNull(),
+  mediaUrl: text("mediaUrl"),
+  mediaType: varchar("mediaType", { length: 16 }).default("image"),
+  caption: text("caption"),
+  storyType: varchar("storyType", { length: 32 }).default("update"),
+  expiresAt: timestamp("expiresAt"),
+  viewCount: integer("viewCount").default(0),
+  isActive: boolean("isActive").default(true),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+export type AthleteStory = typeof athleteStories.$inferSelect;

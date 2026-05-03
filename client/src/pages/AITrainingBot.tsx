@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useLocation } from "wouter";
 import { toast } from "sonner";

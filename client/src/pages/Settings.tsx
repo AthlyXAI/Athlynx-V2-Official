@@ -2,7 +2,7 @@ import { useState } from "react";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
-import DashboardLayout from "@/components/DashboardLayout";
+import PlatformLayout from "@/components/PlatformLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -25,7 +25,7 @@ export default function Settings() {
   const creditsQuery = trpc.stripe.getPlans.useQuery(undefined, { enabled: !!user });
 
   return (
-    <DashboardLayout>
+    <PlatformLayout>
       <div className="max-w-3xl mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-white">Settings</h1>
@@ -230,6 +230,6 @@ export default function Settings() {
         </Tabs>
       <MobileBottomNav />
     </div>
-    </DashboardLayout>
+    </PlatformLayout>
   );
 }

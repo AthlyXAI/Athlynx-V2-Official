@@ -23,6 +23,7 @@ import { socialRouter } from "./routers/socialRouter";
 import { concreatorRouter } from "./routers/concreatorRouter";
 import { aiCommandRouter } from "./routers/aiCommandRouter";
 import { calendarRouter } from "./routers/calendarRouter";
+import { storiesRouter } from "./routers/storiesRouter";
 
 export const appRouter = router({
   system: systemRouter,
@@ -49,6 +50,7 @@ export const appRouter = router({
   concreator: concreatorRouter,
   aiCommand: aiCommandRouter,
   calendar: calendarRouter,
+  stories: storiesRouter,
 });
 
 export type AppRouter = typeof appRouter;

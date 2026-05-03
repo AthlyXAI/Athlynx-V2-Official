@@ -1,4 +1,5 @@
 import { Link } from 'wouter';
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Server, Zap, Globe, Shield, TrendingUp, ChevronRight, ArrowLeft, Building2, Cpu, Wifi } from 'lucide-react';
 

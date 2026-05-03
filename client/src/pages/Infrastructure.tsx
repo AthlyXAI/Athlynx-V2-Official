@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { useLocation } from "wouter";
 

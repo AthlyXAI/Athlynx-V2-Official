@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Handshake, Users, DollarSign, BarChart3, Shield, Zap, Globe, Code, Building, Star, CheckCircle, ArrowRight, Server, Cpu, Mail, Database, Cloud, GitBranch, Lock, Workflow } from "lucide-react";
 
@@ -16,7 +17,7 @@ const TECH_STACK = [
   { name: "Cloudflare", category: "CDN & Security", role: "DNS, CDN, DDoS Protection & Zero Trust", status: "LIVE", color: "from-red-500 to-red-600", badge: "CDN" },
   { name: "AWS", category: "Cloud", role: "S3 Storage, Lambda & Cloud Services", status: "LIVE", color: "from-red-500 to-red-600", badge: "CLOUD" },
   { name: "Railway", category: "Backend Hosting", role: "Server & API Deployment", status: "LIVE", color: "from-blue-700 to-blue-800", badge: "HOST" },
-  { name: "Netlify", category: "Hosting", role: "Static Site & JAMstack Deployment", status: "LIVE", color: "from-teal-500 to-cyan-600", badge: "HOST" },
+  { name: "AWS SES + SNS", category: "Cloud", role: "Email Delivery (SES) & SMS Notifications (SNS) — Production", status: "LIVE", color: "from-orange-500 to-yellow-600", badge: "CLOUD" },
 
   // Database
   { name: "Neon", category: "Database", role: "Serverless Postgres — Primary Database", status: "LIVE", color: "from-green-500 to-teal-600", badge: "DB" },

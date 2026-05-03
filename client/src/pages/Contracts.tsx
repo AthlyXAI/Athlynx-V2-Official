@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { FileSignature, Download, Shield, Users, DollarSign, Briefcase, FileText, CheckCircle, Star } from "lucide-react";
 

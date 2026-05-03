@@ -1,6 +1,6 @@
 import { useState } from "react";
 import MobileBottomNav from '@/components/MobileBottomNav'
-import DashboardLayout from "@/components/DashboardLayout";
+import PlatformLayout from "@/components/PlatformLayout";
 import {
   Trophy, Star, Zap, Users, MapPin, Calendar, Clock, Filter,
   ChevronRight, ExternalLink, Search, Flame, Shield, Award,
@@ -288,7 +288,7 @@ export default function EliteEvents() {
   const regular = filtered.filter(e => !e.featured);
 
   return (
-    <DashboardLayout>
+    <PlatformLayout>
       <div className="max-w-7xl mx-auto space-y-6 pb-12 px-2">
 
         {/* ── Hero Header ── */}
@@ -480,7 +480,7 @@ export default function EliteEvents() {
         </div>
 
       </div>
-    </DashboardLayout>
+    </PlatformLayout>
   );
 }
 
