@@ -268,8 +268,10 @@ export async function sendOwnerNewUserAlert(opts: {
   const memberNum = opts.memberNumber ? String(opts.memberNumber).padStart(4, "0") : null;
   const OWNER_EMAILS = [
     "cdozier14@athlynx.ai",
-    "cdozier14@athlynx.ai",
-    "cdozier14@athlynx.ai",
+    "cdozier14@dozierholdingsgroup.com.mx",
+    "cdozier@dozierholdingsgroup.com",
+    "chaddozier75@gmail.com",
+    "chad.dozier@icloud.com",
   ];
   const html = `<!DOCTYPE html>
 <html>

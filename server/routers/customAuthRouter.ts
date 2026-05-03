@@ -117,20 +117,29 @@ export const customAuthRouter = router({
         }
       }
 
-      // Notify Chad when a brand new user signs up via Google/Firebase
+      // Notify Chad (all 5 emails) when a brand new user signs up via Google/Firebase
       if (isNewUser) {
         try {
-          const { sendEmail } = await import("../services/email");
+          const { sendOwnerNewUserAlert } = await import("../services/aws-ses");
           const signupTime = new Date().toLocaleString("en-US", {
             timeZone: "America/Chicago",
             dateStyle: "full",
             timeStyle: "short",
           });
-          await sendEmail(
-          "cdozier14@athlynx.ai",
-          "adminNewUser",
-          { userName: name, userEmail: email, signupTime }
-          );
+          const trialDate = new Date();
+          trialDate.setDate(trialDate.getDate() + 7);
+          const trialStr = trialDate.toLocaleString("en-US", {
+            timeZone: "America/Chicago",
+            dateStyle: "full",
+            timeStyle: "short",
+          });
+          await sendOwnerNewUserAlert({
+            name,
+            email,
+            loginMethod,
+            signedUpAt: signupTime,
+            trialEndsAt: trialStr,
+          });
         } catch (notifyErr) {
           console.error("[AUTH] Admin notification email failed:", notifyErr);
         }
@@ -252,19 +261,28 @@ export const customAuthRouter = router({
 
       const user = await getUserByOpenId(openId);
 
-      // Notify Chad every time a new user registers
+      // Notify Chad (all 5 emails) every time a new user registers
       try {
-        const { sendEmail } = await import("../services/email");
+        const { sendOwnerNewUserAlert } = await import("../services/aws-ses");
         const signupTime = new Date().toLocaleString("en-US", {
           timeZone: "America/Chicago",
           dateStyle: "full",
           timeStyle: "short",
         });
-        await sendEmail(
-          "cdozier14@athlynx.ai",
-          "adminNewUser",
-          { userName: input.name, userEmail: input.email, signupTime }
-        );
+        const trialEndDate = new Date();
+        trialEndDate.setDate(trialEndDate.getDate() + 7);
+        const trialStr = trialEndDate.toLocaleString("en-US", {
+          timeZone: "America/Chicago",
+          dateStyle: "full",
+          timeStyle: "short",
+        });
+        await sendOwnerNewUserAlert({
+          name: input.name,
+          email: input.email,
+          loginMethod: "email/password",
+          signedUpAt: signupTime,
+          trialEndsAt: trialStr,
+        });
       } catch (notifyErr) {
         console.error("[AUTH] Admin notification email failed:", notifyErr);
       }
