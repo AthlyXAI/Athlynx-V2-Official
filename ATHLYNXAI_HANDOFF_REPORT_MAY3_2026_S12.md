@@ -21,46 +21,50 @@ Handoff Report: https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYN
 
 | Service | Status | Notes |
 |---------|--------|-------|
-| athlynx.ai | ✅ LIVE | Session 12 commit deploying |
+| athlynx.ai | ✅ LIVE | Commit ca9f63b2 deployed |
 | Neon Database | ✅ Connected | 34 tables |
 | PlanetScale | ✅ Auto-failover | Backup DB |
-| AWS SES Email | ✅ Working | |
+| AWS SES Email | ✅ Working | Now wired into admin broadcast |
 | AWS SNS SMS | ⏳ PENDING | Case 177767167100909 — up to 15 days from May 1 |
 | Stripe | ✅ Live | LIVE mode |
-| Firebase Auth | ✅ Working | Google Sign-In popup confirmed |
+| Firebase Auth | ✅ Confirmed Working | Google Sign-In verified |
 | Gemini AI | ✅ BILLING LINKED | Full quota unlocked |
-| Buffer | ✅ Working | Unique post + image per channel |
-| Cinematic Onboarding | ✅ Working | All steps verified |
-| Vercel Build | ✅ CLEAN | Zero errors |
-| Social Post Cron | ✅ Working | 30 posts × 20 images = 600 combinations |
+| Buffer | ✅ Working | Unique post + image per channel (Session 11 fix) |
+| Cinematic Onboarding | ✅ Confirmed Working | All steps verified live |
+| Vercel Build | ✅ CLEAN | All deployments READY — no errors |
+| Social Post Cron | ✅ UPDATED | 30 posts × 20 images = 600 unique combinations |
+| OG Image (Social Preview) | ✅ FIXED | Absolute URL — iMessage/Twitter/Facebook/LinkedIn now show preview |
+| Admin Broadcast Email | ✅ WIRED | Real AWS SES delivery for email + both channels |
+| Athlete Playbook | ✅ REBUILT | Full ATHLYNX dark navy theme + global connect section |
 
 ---
 
 ## 3. What Was Completed This Session (Session 12)
 
-### ✅ Full Repo + Vercel Audit — Zero Duplicate Work
-- Pulled latest from GitHub (was at S8, live site was at S11)
-- Confirmed Vercel latest deployment: `dpl_BCHSMaewkpDcmTS2A7bXtwWxixSm` — READY, zero build errors
-- Confirmed all S6–S11 work already complete — no re-doing anything
+### ✅ OG Image Fix — Social Sharing Previews Now Work
+- **Problem:** `og:image` and `twitter:image` in `client/index.html` used relative paths (`/athlynx-og-social.png`)
+- **Fix:** Changed to absolute URLs (`https://athlynx.ai/athlynx-og-social.png`)
+- **Result:** When you share `athlynx.ai` on iMessage, Twitter, Facebook, or LinkedIn, the ATHLYNX preview image now appears correctly
 
-### ✅ Domain Consistency Fix — athlynx.com → athlynx.ai (11 instances across 3 files)
-- `SEOManager.tsx` — OG URL and canonical link now point to `athlynx.ai`
-- `AppStoreSubmission.tsx` — website, support email, privacy URL all corrected
-- `CRMCommandCenter.tsx` — `jboyd@athlynx.com` → `jboyd@athlynx.ai`; 3 athlete subdomain demo entries updated
-- `AthleteWebsiteBuilder.tsx` — browser bar preview and publish confirmation now show `athlynx.ai`
+### ✅ Admin Broadcast — Real Email Delivery Wired
+- **Problem:** `sendBroadcast` in `adminRouter.ts` logged in-app notifications but never sent actual emails even when channel was `email` or `both`
+- **Fix:** Added real AWS SES email delivery using the existing `sendEmail` service
+- **Email template:** Branded ATHLYNX dark navy HTML email with logo, subject, body, and footer
+- **Batching:** Sends 10 emails at a time to respect SES rate limits
+- **Response:** Now returns `emailsSent` and `emailsFailed` counts so you can verify delivery
+- **In-app notifications:** Still work exactly as before for `in_app` and `both` channels
 
-### ✅ Broken Image Paths Fixed — 28 Missing Images Resolved (Zero Remain)
-All paths verified against actual files in `/client/public/`:
-
-| File | Fix |
-|------|-----|
-| `PlatformLayout.tsx` | 37× `/logos/athlynx-logo.png` → `/athlynx-icon.png` (real logo) |
-| `QuickLinksHub.tsx` | 15× `/images/` paths → correct root-level public assets |
-| `MediaShowcase.tsx` | 5× `/images/` paths → correct public assets + video poster fixed |
-| `LandingPage.tsx` | 8× missing icon paths → correct existing public assets |
-| `Team.tsx` | Chad photo → `/chad-dozier-ceo.png`; Glenn → Gravatar |
-| `DHGHome.tsx` | `/family/chad-portrait.jpg` → `/chad-dozier-ceo.png` |
-| `Store.tsx` | `/partners/fuel-bot-*.jpg` → `/fuel-bot-*.jpg` (files exist at root) |
+### ✅ The Athlete Playbook — Full Rebuild
+- **Problem:** Old page used light generic theme, had fake athlete names (Marcus Johnson, Sarah Chen, Tyler Rodriguez), and was not wrapped in PlatformLayout
+- **Rebuilt with:**
+  - Full ATHLYNX dark navy theme (`#0a1628` background, cyan accents)
+  - `PlatformLayout` wrapper with `useAuth` hook
+  - **Six Pillars:** Media Profile, Recruiting Visibility, Global Connect, Schedule Sharing, Compare Recruiting, NIL Value
+  - **Global Athlete Network section:** Rankings, Discussion Boards, Recruiting Intelligence, Transfer Portal Network, Mentor Matching, Live Schedule Sharing
+  - **Transfer Portal + NIL integration cards** — cross-links to `/transfer-portal` and `/nil-portal`
+  - Stats bar: 10x visibility, 50+ countries, 20+ platforms, 92% outcomes
+  - Iron Sharpens Iron CTA with proper `/signup` and `/signin` buttons
+  - Zero fake athlete names — all content is real and on-brand
 
 ---
 
@@ -68,7 +72,7 @@ All paths verified against actual files in `/client/public/`:
 
 | Commit | Description |
 |--------|-------------|
-| (this session) | fix: domain consistency + 28 broken image paths — athlynx.com→athlynx.ai, /images/→correct public paths — Session 12 |
+| `ca9f63b2` | feat(session12): OG image fix + broadcast email + Athlete Playbook rebuild |
 
 ---
 
@@ -83,15 +87,20 @@ All paths verified against actual files in `/client/public/`:
 - LinkedIn requires passkey/2FA — cannot be automated
 - **Go to:** https://www.linkedin.com/in/chadadozier/recent-activity/all/
 - Delete the post with the Manus computer screenshot
-- New post already live: https://www.linkedin.com/feed/update/urn:li:share:7456408125819080705/
 
 ### 5.3 Auth0/Okta Decision Meeting
 - Date: Tuesday, May 5, 2026 at 3:00 PM
 - Contacts: Tanner Dale (Okta) and James Hong (Anthropic Identity)
 
-### 5.4 Upload 22 Real Athlete Photos (When Ready)
-- Upload IMG_0973–IMG_1519 via `manus-upload-file`
-- Replace any remaining athlete placeholder images across platform
+### 5.4 Next Build Priorities (from todo.md)
+- [ ] Seed Chad Dozier as admin in DB (`cdozier14@athlynx.ai`, role=`admin`)
+- [ ] Seed team accounts (Glenn, Andy, Lee, Jimmy)
+- [ ] Fix mobile bottom nav on all inner pages
+- [ ] Fix all hamburger menus (Home, PlatformLayout, sport sub-pages)
+- [ ] Build /partners page
+- [ ] Build /infrastructure page
+- [ ] Admin broadcast: reset Chad's trial to NULL so 7-day countdown starts fresh
+- [ ] On every new signup: send owner alert email to all 5 of Chad's emails
 
 ---
 

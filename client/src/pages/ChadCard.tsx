@@ -93,7 +93,7 @@ ORG:Dozier Holdings Group;ATHLYNX AI;Softmor Inc
 TEL;TYPE=CELL:+16014985282
 EMAIL;TYPE=WORK:cdozier14@athlynx.ai
 URL:https://athlynx.ai
-ADR;TYPE=WORK:;;19039 Cloyanna Ln;Humble;TX;77346;USA
+ADR;TYPE=WORK:;;12306 Lake Portal Drive;Houston;TX;77047;USA
 NOTE:Founder. Builder. Servant Leader.
 END:VCARD`;
     const blob = new Blob([vcard], { type: "text/vcard" });

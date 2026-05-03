@@ -1,6 +1,9 @@
 # ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
 ## Last Updated: Sunday, May 3, 2026 — Session 12
-## Session Summary (May 3 2026 — SESSION 12): Full repo + Vercel audit — domain consistency fixed (athlynx.com→athlynx.ai across SEOManager, AppStoreSubmission, CRMCommandCenter, AthleteWebsiteBuilder) — 28 broken image paths resolved across PlatformLayout, QuickLinksHub, MediaShowcase, LandingPage, Team, DHGHome, Store — Zero missing images remain in codebase. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY3_2026_S12.md
+## Session Summary (May 3 2026 — SESSION 12): OG image fixed (absolute URL — social previews now work) — Admin Broadcast wired with real AWS SES email delivery — Athlete Playbook fully rebuilt (dark navy theme, 6 pillars, global connect, no fake names). Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY3_2026_S12.md
+## Session Summary (May 3 2026 — SESSION 11): Social media rotation FIXED — each channel now gets a unique post + unique image per cron run. 30 posts × 20 images = 600 unique combinations. No more repeated content across channels. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY3_2026_S11.md
+## Session Summary (May 3 2026 — SESSION 10): Vercel build fixed (corrupt \x01 char in EarlyAccessUpdated.tsx) — Gemini billing LINKED (My Billing Account → project AthlynxAI, ID: 01F25A-3FE15E-646E10) — /card page added — athlynxapp.vip removed. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY3_2026_S10.md
+## Session Summary (May 3 2026 — SESSION 8): 27 AI-generated real images added — ALL placeholder images eliminated platform-wide (Store 76 fixes, About, Marketplace, EarlyAccess, Team, AthletePlaybook, AthletePublicProfile, components) — Google Sign-In CONFIRMED WORKING (popup opens correctly) — Cinematic Onboarding CONFIRMED WORKING (Welcome→Role→Questions all verified live). Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY3_2026_S8.md
 ## NEVER RUN manus-config save-config — it overwrites connector settings.
 ## READ THIS FILE AT THE START OF EVERY NEW SESSION
 
@@ -14,7 +17,7 @@
 | **Company** | Dozier Holdings Group (DHG) — Parent Company |
 | **Primary Email** | cdozier14@athlynx.ai |
 | **Phone** | +1-601-498-5282 (USA/MS) |
-| **Address** | 19039 Cloyanna Ln, Humble, TX 77346 |
+| **Address** | HQ: 12306 Lake Portal Drive, Houston, TX 77047 | SE: 831 West 28th Street, Laurel, MS 39440 |
 | **Website** | athlynx.ai |
 | **GitHub Account** | chaddozier75-cmd |
 | **GitHub Repo** | AthlyXAI/Athlynx-V2-Official |

@@ -17,18 +17,18 @@ import {
 
 // Family photo gallery - photos to be uploaded
 const familyPhotos = [
-  { src: "", caption: "Family is everything" },
-  { src: "", caption: "Building dreams together" },
-  { src: "", caption: "The foundation of it all" },
-  { src: "", caption: "Love that drives us forward" },
-  { src: "", caption: "Moments that matter" },
-  { src: "", caption: "Together we rise" },
-  { src: "", caption: "Faith, family, future" },
-  { src: "", caption: "Where it all began" },
-  { src: "", caption: "The heart of our mission" },
-  { src: "", caption: "Dreams do come true" },
-  { src: "", caption: "Love conquers all" },
-  { src: "", caption: "Building legacy" },
+  { src: "/img-founder-vision.jpg", caption: "The Vision — Houston, TX" },
+  { src: "/img-founder-team.jpg", caption: "Building the Team" },
+  { src: "/img-founder-mission.jpg", caption: "The Mission" },
+  { src: "/img-founder-houston.jpg", caption: "Houston — Our Home Base" },
+  { src: "/img-founder-vision.jpg", caption: "Eyes on the Future" },
+  { src: "/chad-dozier-ceo.png", caption: "Chad A. Dozier Sr. — Founder & CEO" },
+  { src: "/img-founder-team.jpg", caption: "Together We Rise" },
+  { src: "/img-founder-mission.jpg", caption: "Faith, Family, Future" },
+  { src: "/img-founder-houston.jpg", caption: "Where It All Began" },
+  { src: "/img-founder-vision.jpg", caption: "Dreams Do Come True" },
+  { src: "/img-founder-team.jpg", caption: "Iron Sharpens Iron" },
+  { src: "/img-founder-houston.jpg", caption: "Building Legacy" },
 ];
 
 export default function FounderStory() {

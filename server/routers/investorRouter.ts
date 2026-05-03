@@ -101,7 +101,7 @@ export const investorRouter = router({
   </div>
 </td></tr>
 <tr><td style="padding:16px 32px;border-top:1px solid #1e3a6e;text-align:center;">
-  <p style="color:#475569;font-size:11px;margin:0;">ATHLYNX AI · Dozier Holdings Group · Humble, TX 77346</p>
+  <p style="color:#475569;font-size:11px;margin:0;">ATHLYNX AI · Dozier Holdings Group · Houston, TX 77047</p>
 </td></tr>
 </table>
 </td></tr>
