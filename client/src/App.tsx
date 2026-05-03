@@ -22,6 +22,7 @@ import AuthCallback from "./pages/AuthCallback";
 import Onboarding from "./pages/Onboarding";
 import ForgotPassword from "./pages/ForgotPassword";
 import EarlyAccess from "./pages/EarlyAccess";
+import SignUp from "./pages/SignUp";
 import EarlyAccessUpdated from "./pages/EarlyAccessUpdated";
 import Success from "./pages/Success";
 import ComingSoon from "./pages/ComingSoon";
@@ -206,7 +207,7 @@ function Router() {
       <Route path="/welcome" component={Home} />
       <Route path="/platform" component={Home} />
       <Route path="/trial-expired" component={TrialExpired} />
-      <Route path="/signup" component={EarlyAccess} />
+      <Route path="/signup" component={SignUp} />
       <Route path="/early-access" component={EarlyAccess} />
       <Route path="/early-access-v2" component={EarlyAccessUpdated} />
       <Route path="/signin" component={SignIn} />
