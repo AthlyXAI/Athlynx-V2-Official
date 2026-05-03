@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
@@ -459,6 +460,7 @@ function MilestoneCard({ target, current, label, isRevenue = false }: { target: 
       <div className="text-xs text-slate-400">
         {isRevenue ? `$${current}` : current} / {isRevenue ? `$${target}` : target}
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

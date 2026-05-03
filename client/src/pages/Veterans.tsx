@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -400,6 +401,7 @@ export default function Veterans() {
           Faith. Country. Family. Leadership.
         </p>
       </footer>
+    <MobileBottomNav />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Building, FileText, Users, Scale, Download, ExternalLink, Calendar, MapPin } from "lucide-react";
 
 export default function CorporateDocuments() {
@@ -240,6 +241,7 @@ export default function CorporateDocuments() {
           <p className="text-slate-400 text-sm">© 2026 Dozier Holdings Group, LLC. All rights reserved.</p>
         </div>
       </footer>
+    <MobileBottomNav />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -677,6 +678,7 @@ export default function FuelBots() {
 
       <UnifiedNav />
       <UnifiedFooter />
+    <MobileBottomNav />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { Link } from 'wouter';
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Server, Zap, Globe, Shield, TrendingUp, ChevronRight, ArrowLeft, Building2, Cpu, Wifi } from 'lucide-react';
 
 export default function DataCenters() {
@@ -58,6 +59,7 @@ export default function DataCenters() {
           </div>
         </div>
       </section>
+    <MobileBottomNav />
     </div>
   );
 }

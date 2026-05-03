@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from 'wouter';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -256,6 +257,7 @@ export default function WellnessPortal() {
       </section>
 
       <UnifiedFooter />
+    <MobileBottomNav />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Badge } from "@/components/ui/badge";
 import { Bot, CheckCircle2, Clock, Users, Zap, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
@@ -335,6 +336,7 @@ export default function Implementation() {
           </CardContent>
         </Card>
       </section>
+    <MobileBottomNav />
     </div>
   );
 }

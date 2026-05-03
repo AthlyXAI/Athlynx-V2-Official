@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/hooks/useAuth";
@@ -327,6 +328,7 @@ export default function CommunityFeedback() {
         <p className="text-gray-600 text-sm">ATHLYNX Community Feedback · A Dozier Holdings Group Company</p>
         <Link href="/" className="text-blue-400 text-sm hover:text-blue-300 mt-2 inline-block">← Back to ATHLYNX Platform</Link>
       </footer>
+    <MobileBottomNav />
     </div>
   );
 }

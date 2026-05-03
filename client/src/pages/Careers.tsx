@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { Briefcase, MapPin, DollarSign, Clock, Send, CheckCircle, Building2, Users, Rocket, Heart } from "lucide-react";
 import { toast } from "sonner";
@@ -387,6 +388,7 @@ export default function Careers() {
       <div className="text-center py-8 border-t border-white/10 mt-10">
         <p className="text-white/50 text-sm">© 2025 Dozier Holdings Group, LLC. All Rights Reserved.</p>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import {
   DollarSign, TrendingUp, PieChart, Shield, Calculator,
   Star, MapPin, Calendar, CheckCircle, ArrowRight, Award,
@@ -320,6 +321,7 @@ export default function AthleteFinancial() {
           </button>
         </div>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

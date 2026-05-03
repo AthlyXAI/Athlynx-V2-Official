@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -399,6 +400,7 @@ export default function FounderStory() {
           MIC DROP. FOCKER OUT.
         </p>
       </footer>
+    <MobileBottomNav />
     </div>
   );
 }

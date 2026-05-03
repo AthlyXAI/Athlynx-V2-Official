@@ -3,6 +3,7 @@
 // First Media Conglomerate to do it!
 
 import { useState } from 'react';
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -387,6 +388,7 @@ export default function CommsHub() {
           </div>
         </div>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

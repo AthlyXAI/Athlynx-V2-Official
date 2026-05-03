@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import {
   Scale, FileText, Shield, AlertTriangle, CheckCircle,
   Star, MapPin, Calendar, ArrowRight, Award, Gavel,
@@ -333,6 +334,7 @@ export default function AthleteLegal() {
           </button>
         </div>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

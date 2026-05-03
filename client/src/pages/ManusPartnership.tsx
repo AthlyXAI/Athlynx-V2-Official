@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Button } from "@/components/ui/button";
 
 /**
@@ -317,6 +318,7 @@ export default function ManusPartnership() {
           </p>
         </div>
       </footer>
+    <MobileBottomNav />
     </div>
   );
 }

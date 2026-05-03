@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
@@ -281,6 +282,7 @@ export default function PartnerPortal() {
           </div>
         </div>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

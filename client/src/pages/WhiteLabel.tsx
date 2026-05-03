@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 
 export default function WhiteLabel() {
@@ -226,6 +227,7 @@ export default function WhiteLabel() {
           </button>
         </Link>
       </section>
+    <MobileBottomNav />
     </div>
   );
 }

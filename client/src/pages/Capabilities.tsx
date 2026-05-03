@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Bot, CheckCircle2, Circle } from "lucide-react";
@@ -288,6 +289,7 @@ export default function Capabilities() {
           </CardContent>
         </Card>
       </section>
+    <MobileBottomNav />
     </div>
   );
 }

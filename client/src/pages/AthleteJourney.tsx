@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -286,6 +287,7 @@ export default function AthleteJourney() {
           </div>
         </div>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

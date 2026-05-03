@@ -1,4 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Bot, Calendar, Mail, TrendingUp, Users, FileText, Presentation, Search, MessageSquare, Wrench, FolderKanban, AlertTriangle, Target, Megaphone, LineChart, PenTool, DollarSign, Handshake, Phone, Database } from "lucide-react";
@@ -273,6 +274,7 @@ export default function TeamBots() {
           ))}
         </Tabs>
       </section>
+    <MobileBottomNav />
     </div>
   );
 }

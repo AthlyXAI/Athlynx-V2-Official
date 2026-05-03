@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { 
   Brain, 
@@ -397,6 +398,7 @@ export default function Mindset() {
       </section>
 
       <UnifiedFooter />
+    <MobileBottomNav />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 
 export default function Medical() {
@@ -202,6 +203,7 @@ export default function Medical() {
           </div>
         </div>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

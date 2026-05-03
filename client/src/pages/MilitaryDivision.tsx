@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { useState } from "react";
 
 export default function MilitaryDivision() {
@@ -597,6 +598,7 @@ export default function MilitaryDivision() {
           </div>
         </div>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

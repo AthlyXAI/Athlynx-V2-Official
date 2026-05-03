@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { 
   Server, 
   Cpu, 
@@ -996,6 +997,7 @@ export default function InfrastructureManager() {
           </TabsContent>
         </Tabs>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

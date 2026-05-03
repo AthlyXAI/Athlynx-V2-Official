@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { useState } from "react";
 import { 
   Building2, Trophy, Users, Globe, TrendingUp, Shield, 
@@ -467,6 +468,7 @@ export default function DHGHome() {
           </div>
         </div>
       </footer>
+    <MobileBottomNav />
     </div>
   );
 }

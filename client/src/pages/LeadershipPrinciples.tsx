@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { 
   Users, 
@@ -455,6 +456,7 @@ export default function LeadershipPrinciples() {
       </section>
 
       <UnifiedFooter />
+    <MobileBottomNav />
     </div>
   );
 }

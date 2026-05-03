@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useLocation } from "wouter";
 import { toast } from "sonner";
 import { trpc } from "@/lib/trpc";
@@ -231,6 +232,7 @@ export default function AITrainingBot() {
           </p>
         </div>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

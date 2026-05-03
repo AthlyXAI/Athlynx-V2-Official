@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 
 export default function Training() {
@@ -226,6 +227,7 @@ export default function Training() {
           </div>
         </div>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

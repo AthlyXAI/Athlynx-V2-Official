@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Shield, CheckCircle, Lock, Server, Users, FileText, AlertTriangle, Phone } from "lucide-react";
 
 export default function HIPAACompliance() {
@@ -246,6 +247,7 @@ export default function HIPAACompliance() {
           </p>
         </div>
       </footer>
+    <MobileBottomNav />
     </div>
   );
 }

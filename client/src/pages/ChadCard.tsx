@@ -4,6 +4,7 @@
  * Matches his dot.card style exactly
  */
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 
 const CHAD_PHOTO = "https://www.gravatar.com/avatar/400fe18dbc29cd824f277af7e41710b0?s=400&d=mp";
@@ -221,6 +222,7 @@ END:VCARD`;
           </p>
         </div>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

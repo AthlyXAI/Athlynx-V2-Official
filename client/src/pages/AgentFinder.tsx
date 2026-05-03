@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { useLocation } from "wouter";
 import {
   Search, Filter, Star, MapPin, Phone, Mail, ExternalLink,
@@ -352,6 +353,7 @@ export default function AgentFinder() {
           </button>
         </div>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

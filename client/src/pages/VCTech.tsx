@@ -1,4 +1,5 @@
 import { Link } from 'wouter';
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Code2, Cpu, Globe, Shield, Zap, ChevronRight, ArrowLeft, Building2, Layers, Database, Cloud } from 'lucide-react';
 
 export default function VCTech() {
@@ -121,6 +122,7 @@ export default function VCTech() {
           </div>
         </div>
       </section>
+    <MobileBottomNav />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { 
   Rocket, 
   TrendingUp, 
@@ -363,6 +364,7 @@ export default function EmpireVision() {
           <p className="text-white/50 text-sm">© 2025 Dozier Holdings Group, LLC. Building the Future of Athlete Success.</p>
         </div>
       </footer>
+    <MobileBottomNav />
     </div>
   );
 }

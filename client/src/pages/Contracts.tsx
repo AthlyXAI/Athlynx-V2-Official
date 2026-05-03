@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { FileSignature, Download, Shield, Users, DollarSign, Briefcase, FileText, CheckCircle, Star } from "lucide-react";
 
 export default function Contracts() {
@@ -204,6 +205,7 @@ export default function Contracts() {
           </p>
         </div>
       </footer>
+    <MobileBottomNav />
     </div>
   );
 }

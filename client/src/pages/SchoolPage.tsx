@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useParams } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -581,6 +582,7 @@ export default function SchoolPage() {
           </div>
         </div>
       </main>
+    <MobileBottomNav />
     </div>
   );
 }

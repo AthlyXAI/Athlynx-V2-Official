@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { Mail, MapPin, Linkedin, Send, CheckCircle, MessageCircle, Building2, Users, Briefcase, Calendar, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
@@ -388,6 +389,7 @@ export default function Contact() {
         <p className="text-white/50 text-sm">© 2026 Dozier Holdings Group, LLC. All Rights Reserved.</p>
         <p className="text-white/30 text-xs mt-1">ATHLYNX · Softmor Inc · DHG · To God Be The Glory 🙏</p>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

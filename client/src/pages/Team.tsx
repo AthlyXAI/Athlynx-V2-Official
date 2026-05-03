@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Mail, Phone, Linkedin, Globe, MapPin, Building2, Download, Camera } from "lucide-react";
 
 const leadership = [
@@ -414,6 +415,7 @@ export default function Team() {
       <div className="text-center py-8 border-t border-white/10 mt-10">
         <p className="text-white/50 text-sm">© 2025 Dozier Holdings Group, LLC. All Rights Reserved.</p>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }

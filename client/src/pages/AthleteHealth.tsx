@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import {
   Heart, Activity, Brain, Apple, Zap, Shield,
   Star, MapPin, Calendar, CheckCircle, ArrowRight,
@@ -361,6 +362,7 @@ export default function AthleteHealth() {
           </button>
         </div>
       </div>
+    <MobileBottomNav />
     </div>
   );
 }
