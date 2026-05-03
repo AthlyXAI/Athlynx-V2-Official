@@ -111,6 +111,7 @@ import AthleteLegal from "./pages/AthleteLegal";
 import AthleteHealth from "./pages/AthleteHealth";
 import AthleteCareer from "./pages/AthleteCareer";
 import MasterAdmin from "./pages/MasterAdmin";
+import EmployeePortal from "./pages/EmployeePortal";
 import RobotCompanions from "./pages/RobotCompanions";
 import AppStoreSubmission from "./pages/AppStoreSubmission";
 import Apps from "./pages/Apps";
@@ -277,6 +278,8 @@ function Router() {
       <Route path="/athlete-journey" component={AthleteJourney} />
       <Route path="/about" component={About} />
       <Route path="/master-admin" component={MasterAdmin} />
+      <Route path="/employee-portal" component={EmployeePortal} />
+      <Route path="/team-portal" component={EmployeePortal} />
       <Route path="/hipaa" component={HIPAACompliance} />
       <Route path="/wizard-hub" component={WizardHub} />
       <Route path="/crm" component={CRMDashboard} />

@@ -49,7 +49,9 @@ const APPS = [
   { id: "crm", label: "CRM", icon: "/athlynx-icon.png", badge: "PRO", href: "/admin/crm" },
   { id: "analytics", label: "Analytics", icon: "/athlynx-icon.png", badge: "PRO", href: "/analytics" },
   { id: "admin", label: "Admin", icon: "/logos/dhg-crab-logo.png", badge: "ADMIN", href: "/admin" },
+  { id: "employee-portal", label: "Team Portal", icon: "/logos/dhg-crab-logo.png", badge: "TEAM", href: "/employee-portal" },
 ];
+
 
 const BADGE_COLORS: Record<string, string> = {
   LIVE: "bg-green-600",
@@ -62,6 +64,7 @@ const BADGE_COLORS: Record<string, string> = {
   BIZ: "bg-indigo-600",
   PRO: "bg-blue-700",
   ADMIN: "bg-red-700",
+  TEAM: "bg-emerald-700",
 };
 
 interface PlatformLayoutProps {

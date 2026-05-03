@@ -36,9 +36,12 @@ export default function TransferPortal() {
   const [submitted, setSubmitted] = useState(false);
   const [eligResult, setEligResult] = useState<string | null>(null);
 
+  // Live DB data — falls back to static if empty
+  const { data: dbAthletes = [] } = trpc.nil.getTransferEntries.useQuery({ limit: 50 });
+  const liveAthletes = dbAthletes.length > 0 ? dbAthletes : FALLBACK_ATHLETES;
   const filteredAthletes = sport === "All"
-    ? SHOWCASE_ATHLETES
-    : SHOWCASE_ATHLETES.filter(a => a.sport === sport);
+    ? liveAthletes
+    : liveAthletes.filter((a: any) => a.sport === sport);
 
   const eligibilityMutation = trpc.ai.robotChat.useMutation({
     onSuccess: (d) => setEligResult(d.reply || "Analysis complete."),
@@ -89,7 +92,7 @@ export default function TransferPortal() {
           </div>
           <div className="grid grid-cols-3 gap-3 mt-4">
             {[
-              { label: "Athletes Available", value: SHOWCASE_ATHLETES.filter(a => a.status === "Available").length.toString() },
+              { label: "Athletes in Portal", value: (dbAthletes.length || FALLBACK_ATHLETES.length).toString() },
               { label: "Schools Recruiting", value: RECRUITING_SCHOOLS.length.toString() },
               { label: "Avg NIL Value", value: "$694K" },
             ].map((s, i) => (

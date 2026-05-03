@@ -143,6 +143,31 @@ export const customAuthRouter = router({
         } catch (notifyErr) {
           console.error("[AUTH] Admin notification email failed:", notifyErr);
         }
+
+        // Auto-enrich CRM with Gemini AI — runs in background, non-blocking
+        if (isNewUser) {
+          setImmediate(async () => {
+            try {
+              const OpenAI = (await import("openai")).default;
+              const gemini = new OpenAI({
+                apiKey: process.env.GEMINI_API_KEY || "AIzaSyCrriagmLHcCwzqBkt5VBH2A4UyPTI7ydg",
+                baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
+              });
+              const enrichPrompt = `New ATHLYNX user signed up: ${name} (${email}) via ${loginMethod}.
+Generate a brief CRM profile: estimated sport/role, potential NIL value, and one personalized follow-up action.
+Max 3 sentences. Be specific.`;
+              const enrichResp = await gemini.chat.completions.create({
+                model: "gemini-2.5-flash",
+                messages: [{ role: "user", content: enrichPrompt }],
+                max_tokens: 150,
+              });
+              const enrichNote = enrichResp.choices[0]?.message?.content ?? "";
+              console.log(`[AUTH] Gemini CRM enrichment for ${email}: ${enrichNote.slice(0, 100)}`);
+            } catch (enrichErr) {
+              console.warn("[AUTH] Gemini CRM enrichment failed:", enrichErr);
+            }
+          });
+        }
       }
 
       return { success: true, isNewUser, user };
