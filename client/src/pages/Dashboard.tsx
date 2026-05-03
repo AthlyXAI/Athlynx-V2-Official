@@ -212,9 +212,85 @@ export default function Dashboard() {
                   </div>
                 ))}
               </div>
+              {/* ─── ATHLETE RECRUITING CARD — ATHLYNX STYLE ─── */}
+              {myProfile && (
+                <div className="mt-3 space-y-3">
+                  {/* Coaches Viewed Banner */}
+                  {(myProfile as any).coachViews > 0 && (
+                    <div className="flex items-center gap-3 bg-gradient-to-r from-blue-900/60 to-cyan-900/40 border border-cyan-500/30 rounded-xl p-3">
+                      <div className="relative shrink-0">
+                        <div className="w-12 h-12 bg-blue-700/50 rounded-xl flex items-center justify-center">
+                          <svg className="w-6 h-6 text-cyan-400" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                        </div>
+                        <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-white text-[10px] font-black">{(myProfile as any).coachViews}</span>
+                      </div>
+                      <div>
+                        <div className="text-white font-black text-sm">{(myProfile as any).coachViews} COACHES VIEWED YOUR PROFILE TODAY</div>
+                        <div className="text-cyan-400 text-xs">Your recruiting profile is getting attention 🔥</div>
+                      </div>
+                    </div>
+                  )}
+                  {/* Sport Stats */}
+                  {(myProfile as any).sportStats && (
+                    <div className="bg-white/5 border border-white/10 rounded-xl p-3">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span className="text-white font-bold text-xs">ATHLETE STATS</span>
+                        {(myProfile as any).nilVerified && (
+                          <span className="flex items-center gap-1 text-[10px] font-black text-cyan-400 bg-cyan-900/40 border border-cyan-500/30 px-2 py-0.5 rounded-full">
+                            <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                            NIL VERIFIED
+                          </span>
+                        )}
+                      </div>
+                      <div className="grid grid-cols-3 gap-2">
+                        {(() => {
+                          const stats = (myProfile as any).sportStats as any;
+                          const items = [
+                            stats.fortyYardDash ? { label: "40 YD DASH", value: stats.fortyYardDash } : null,
+                            stats.gpa ? { label: "GPA", value: stats.gpa } : null,
+                            stats.qbRating ? { label: "QB RATING", value: stats.qbRating } : null,
+                            stats.height ? { label: "HEIGHT", value: stats.height } : null,
+                            stats.weight ? { label: "WEIGHT", value: `${stats.weight} LBS` } : null,
+                            stats.verticalLeap ? { label: "VERTICAL", value: `${stats.verticalLeap}"` } : null,
+                            ...((stats.custom || []) as any[]).map((c: any) => ({ label: c.label.toUpperCase(), value: c.value })),
+                          ].filter(Boolean).slice(0, 6);
+                          return items.map((item: any, i: number) => (
+                            <div key={i} className="bg-white/5 rounded-lg p-2 text-center">
+                              <div className="text-white font-black text-sm">{item.value}</div>
+                              <div className="text-gray-400 text-[10px] mt-0.5">{item.label}</div>
+                            </div>
+                          ));
+                        })()}
+                      </div>
+                    </div>
+                  )}
+                  {/* Colleges Showing Interest */}
+                  {(myProfile as any).collegesInterested && ((myProfile as any).collegesInterested as any[]).length > 0 && (
+                    <div className="bg-white/5 border border-white/10 rounded-xl p-3">
+                      <div className="text-white font-bold text-xs mb-2">COLLEGES SHOWING INTEREST</div>
+                      <div className="flex gap-3 flex-wrap">
+                        {((myProfile as any).collegesInterested as any[]).map((c: any, i: number) => (
+                          <div key={i} className="flex items-center gap-2 bg-white/5 rounded-lg px-3 py-2">
+                            {c.logo && <img src={c.logo} alt={c.name} className="w-8 h-8 object-contain" onError={(e) => { (e.target as HTMLImageElement).style.display='none'; }} />}
+                            <span className="text-white text-xs font-bold">{c.name}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {/* Highlight Reel */}
+                  {myProfile.highlightUrl && (
+                    <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden">
+                      <div className="text-white font-bold text-xs p-3 pb-2">HIGHLIGHT REEL</div>
+                      <video className="w-full max-h-48 object-cover" controls muted playsInline>
+                        <source src={myProfile.highlightUrl} />
+                      </video>
+                    </div>
+                  )}
+                </div>
+              )}
               {/* Social links */}
-              {(myProfile?.instagram || myProfile?.twitter) && (
-                <div className="flex gap-3 flex-wrap">
+              {(myProfile?.instagram || myProfile?.twitter) && (                <div className="flex gap-3 flex-wrap">
                   {myProfile?.instagram && (
                     <a href={`https://instagram.com/${myProfile.instagram}`} target="_blank" rel="noopener noreferrer"
                       className="flex items-center gap-1.5 text-xs text-pink-400 hover:text-pink-300 bg-pink-500/10 border border-pink-500/20 px-3 py-1.5 rounded-full transition-all">

@@ -108,6 +108,17 @@ export const athleteProfiles = pgTable("athlete_profiles", {
   highlightUrl: text("highlightUrl"),
   instagram: varchar("instagram", { length: 128 }),
   twitter: varchar("twitter", { length: 128 }),
+  // ─── Sport-specific stats (JSON) — 40-yd dash, QB rating, GPA, etc.
+  sportStats: json("sportStats"),
+  // ─── Recruiting intelligence
+  coachViews: integer("coachViews").default(0),
+  collegesInterested: json("collegesInterested"),
+  nilVerified: boolean("nilVerified").default(false),
+  // ─── Full social URLs for reverse funnel
+  facebookUrl: text("facebookUrl"),
+  youtubeUrl: text("youtubeUrl"),
+  linkedinUrl: text("linkedinUrl"),
+  tiktokHandle: varchar("tiktokHandle", { length: 128 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().notNull(),
 });
@@ -498,3 +509,25 @@ export const aiTrainerSessions = pgTable("ai_trainer_sessions", {
 });
 export type AiTrainerSession = typeof aiTrainerSessions.$inferSelect;
 export type InsertAiTrainerSession = typeof aiTrainerSessions.$inferInsert;
+
+// ─── Athlete Calendar Events ──────────────────────────────────────────────────
+export const calendarEventTypeValues = ["game", "practice", "nil", "recruiting", "team", "personal", "training", "media"] as const;
+export type CalendarEventType = (typeof calendarEventTypeValues)[number];
+export const calendarEventTypeEnum = pgEnum("calendar_event_type", calendarEventTypeValues);
+
+export const athleteCalendarEvents = pgTable("athlete_calendar_events", {
+  id: serial("id").primaryKey(),
+  userId: integer("userId").notNull(),
+  title: varchar("title", { length: 255 }).notNull(),
+  date: varchar("date", { length: 10 }).notNull(), // YYYY-MM-DD
+  time: varchar("time", { length: 10 }),
+  type: calendarEventTypeEnum("type").default("personal").notNull(),
+  location: varchar("location", { length: 255 }),
+  description: text("description"),
+  priority: varchar("priority", { length: 16 }).default("medium"),
+  isPublic: boolean("isPublic").default(false),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+});
+export type AthleteCalendarEvent = typeof athleteCalendarEvents.$inferSelect;
+export type InsertAthleteCalendarEvent = typeof athleteCalendarEvents.$inferInsert;

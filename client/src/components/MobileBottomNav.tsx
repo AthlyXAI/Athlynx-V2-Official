@@ -1,42 +1,20 @@
 /**
- * MobileBottomNav — Reusable mobile bottom navigation bar
- * Use on any page that does NOT use PlatformLayout (which has its own built-in bottom nav)
- * Shows 5 icons: Home, NIL, Chat, Transfer, Profile/Sign In
+ * ATHLYNX — Facebook-style Mobile Bottom Nav
+ * 6 items: Home | Reels | Athletes | NIL | Notifications | Profile (with real photo)
+ * Profile photo shows real Gravatar/avatarUrl — exactly like Facebook
  */
 import { Link, useLocation } from 'wouter'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/_core/hooks/useAuth'
 
 export default function MobileBottomNav() {
   const [location] = useLocation()
   const { user } = useAuth()
 
-  const navItems = [
-    {
-      href: '/feed',
-      label: 'Home',
-      icon: 'M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z',
-    },
-    {
-      href: '/reels',
-      label: 'Reels',
-      icon: 'M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z',
-    },
-    {
-      href: '/messenger',
-      label: 'Chat',
-      icon: 'M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z',
-    },
-    {
-      href: '/nil-portal',
-      label: 'NIL',
-      icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z',
-    },
-    {
-      href: user ? '/profile' : '/signin',
-      label: user ? 'Profile' : 'Sign In',
-      icon: 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z',
-    },
-  ]
+  const initials = user?.name
+    ? user.name.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()
+    : 'A'
+
+  const isActive = (href: string) => location === href || location.startsWith(href + '/')
 
   return (
     <nav
@@ -47,25 +25,95 @@ export default function MobileBottomNav() {
         paddingBottom: 'max(env(safe-area-inset-bottom, 8px), 8px)',
       }}
     >
-      <div className="flex items-center justify-around py-2">
-        {navItems.map((item) => {
-          const isActive = location === item.href || location.startsWith(item.href + '/')
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex flex-col items-center gap-0.5 p-2 rounded-lg transition-colors"
-              style={{ color: isActive ? '#00c8ff' : '#4a6fa5' }}
-            >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d={item.icon} />
-              </svg>
-              <span style={{ fontSize: '9px', fontWeight: isActive ? '700' : '500' }}>
-                {item.label}
-              </span>
-            </Link>
-          )
-        })}
+      <div className="flex items-center justify-around py-1.5">
+
+        {/* Home */}
+        <Link href="/feed" className="flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-xl" style={{ color: isActive('/feed') ? '#00c8ff' : '#6b7db3' }}>
+          {isActive('/feed') ? (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+          ) : (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          )}
+          <span style={{ fontSize: '10px', fontWeight: isActive('/feed') ? '700' : '500' }}>Home</span>
+        </Link>
+
+        {/* Reels */}
+        <Link href="/reels" className="flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-xl" style={{ color: isActive('/reels') ? '#00c8ff' : '#6b7db3' }}>
+          {isActive('/reels') ? (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18 3v2h-2V3H8v2H6V3H4v18h2v-2h2v2h8v-2h2v2h2V3h-2zM8 17H6v-2h2v2zm0-4H6v-2h2v2zm0-4H6V7h2v2zm10 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2V7h2v2z"/></svg>
+          ) : (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          )}
+          <span style={{ fontSize: '10px', fontWeight: isActive('/reels') ? '700' : '500' }}>Reels</span>
+        </Link>
+
+        {/* Athletes / Friends */}
+        <Link href="/browse-athletes" className="flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-xl" style={{ color: isActive('/browse-athletes') ? '#00c8ff' : '#6b7db3' }}>
+          {isActive('/browse-athletes') ? (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          ) : (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          )}
+          <span style={{ fontSize: '10px', fontWeight: isActive('/browse-athletes') ? '700' : '500' }}>Athletes</span>
+        </Link>
+
+        {/* NIL Portal */}
+        <Link href="/nil-portal" className="flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-xl" style={{ color: isActive('/nil-portal') ? '#00c8ff' : '#6b7db3' }}>
+          {isActive('/nil-portal') ? (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+          ) : (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          )}
+          <span style={{ fontSize: '10px', fontWeight: isActive('/nil-portal') ? '700' : '500' }}>NIL</span>
+        </Link>
+
+        {/* Notifications */}
+        <Link href="/notifications" className="flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-xl" style={{ color: isActive('/notifications') ? '#00c8ff' : '#6b7db3' }}>
+          {isActive('/notifications') ? (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+          ) : (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          )}
+          <span style={{ fontSize: '10px', fontWeight: isActive('/notifications') ? '700' : '500' }}>Alerts</span>
+        </Link>
+
+        {/* Profile — real photo like Facebook */}
+        <Link
+          href={user ? '/profile' : '/signin'}
+          className="flex flex-col items-center gap-0.5 px-2 py-1.5 rounded-xl"
+          style={{ color: isActive('/profile') ? '#00c8ff' : '#6b7db3' }}
+        >
+          <div
+            className="w-6 h-6 rounded-full overflow-hidden flex items-center justify-center"
+            style={{
+              border: isActive('/profile') ? '2px solid #00c8ff' : '2px solid #6b7db3',
+              background: '#1a3a8f',
+              flexShrink: 0,
+            }}
+          >
+            {user?.avatarUrl ? (
+              <img
+                src={user.avatarUrl}
+                alt={user.name || 'Profile'}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  const el = e.target as HTMLImageElement
+                  el.style.display = 'none'
+                  const parent = el.parentElement
+                  if (parent) {
+                    parent.innerHTML = `<span style="color:white;font-size:9px;font-weight:900">${initials}</span>`
+                  }
+                }}
+              />
+            ) : (
+              <span style={{ color: 'white', fontSize: '9px', fontWeight: '900' }}>{initials}</span>
+            )}
+          </div>
+          <span style={{ fontSize: '10px', fontWeight: isActive('/profile') ? '700' : '500' }}>
+            {user ? 'Profile' : 'Sign In'}
+          </span>
+        </Link>
+
       </div>
 
       {/* Sign In strip for guests */}

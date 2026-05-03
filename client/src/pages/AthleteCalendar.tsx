@@ -1,88 +1,114 @@
+/**
+ * ATHLYNX — Athlete Calendar
+ * The complete athlete life calendar — from youth to pro
+ * Games · Camps · Showcases · Leagues · Signings · NIL · Scholarships
+ * Endorsements · Highlights · Life Events · Share to Feed
+ * Real DB events — add, edit, delete, share
+ */
 import { useState } from "react";
-import MobileBottomNav from '@/components/MobileBottomNav'
+import PlatformLayout from "@/components/PlatformLayout";
+import { trpc } from "@/lib/trpc";
+import { useAuth } from "@/_core/hooks/useAuth";
+import { toast } from "sonner";
 import { Link } from "wouter";
-import DashboardLayout from "@/components/DashboardLayout";
-import {
-  Calendar,
-  ChevronLeft,
-  ChevronRight,
-  Plus,
-  Clock,
-  MapPin,
-  Trophy,
-  Dumbbell,
-  Briefcase,
-  Users,
-  Star,
-  ExternalLink,
-  Bell,
-  Filter,
-} from "lucide-react";
 
-type EventType = "game" | "practice" | "nil" | "recruiting" | "team" | "personal";
+type EventType =
+  | "game" | "practice" | "nil" | "recruiting" | "team" | "personal"
+  | "training" | "media" | "camp" | "showcase" | "signing" | "scholarship"
+  | "endorsement" | "league" | "tournament" | "highlight" | "life";
 
-interface AthleteEvent {
-  id: number;
-  title: string;
-  date: string;
-  time: string;
-  type: EventType;
-  location?: string;
-  description?: string;
-  priority?: "high" | "medium" | "low";
-}
-
-const EVENT_COLORS: Record<EventType, { bg: string; border: string; text: string; badge: string }> = {
-  game:       { bg: "bg-red-900/40",    border: "border-red-500/50",    text: "text-red-300",    badge: "bg-red-600" },
-  practice:   { bg: "bg-blue-900/40",   border: "border-blue-500/50",   text: "text-blue-300",   badge: "bg-blue-600" },
-  nil:        { bg: "bg-yellow-900/40", border: "border-yellow-500/50", text: "text-yellow-300", badge: "bg-yellow-600" },
-  recruiting: { bg: "bg-green-900/40",  border: "border-green-500/50",  text: "text-green-300",  badge: "bg-green-600" },
-  team:       { bg: "bg-purple-900/40", border: "border-purple-500/50", text: "text-purple-300", badge: "bg-purple-600" },
-  personal:   { bg: "bg-slate-800/60",  border: "border-slate-600/50",  text: "text-slate-300",  badge: "bg-slate-600" },
+const EVENT_CONFIG: Record<EventType, { color: string; bg: string; border: string; icon: string; label: string }> = {
+  game:        { color: "text-red-300",    bg: "bg-red-900/40",     border: "border-red-500/50",     icon: "🏆", label: "Game" },
+  practice:    { color: "text-blue-300",   bg: "bg-blue-900/40",    border: "border-blue-500/50",    icon: "🏋️", label: "Practice" },
+  nil:         { color: "text-yellow-300", bg: "bg-yellow-900/40",  border: "border-yellow-500/50",  icon: "💰", label: "NIL Deal" },
+  recruiting:  { color: "text-green-300",  bg: "bg-green-900/40",   border: "border-green-500/50",   icon: "🎓", label: "Recruiting" },
+  team:        { color: "text-purple-300", bg: "bg-purple-900/40",  border: "border-purple-500/50",  icon: "👥", label: "Team" },
+  personal:    { color: "text-slate-300",  bg: "bg-slate-800/60",   border: "border-slate-600/50",   icon: "📅", label: "Personal" },
+  training:    { color: "text-cyan-300",   bg: "bg-cyan-900/40",    border: "border-cyan-500/50",    icon: "⚡", label: "Training" },
+  media:       { color: "text-pink-300",   bg: "bg-pink-900/40",    border: "border-pink-500/50",    icon: "📸", label: "Media" },
+  camp:        { color: "text-orange-300", bg: "bg-orange-900/40",  border: "border-orange-500/50",  icon: "⛺", label: "Camp" },
+  showcase:    { color: "text-indigo-300", bg: "bg-indigo-900/40",  border: "border-indigo-500/50",  icon: "🌟", label: "Showcase" },
+  signing:     { color: "text-emerald-300",bg: "bg-emerald-900/40", border: "border-emerald-500/50", icon: "✍️", label: "Signing Day" },
+  scholarship: { color: "text-amber-300",  bg: "bg-amber-900/40",   border: "border-amber-500/50",   icon: "🎓", label: "Scholarship" },
+  endorsement: { color: "text-rose-300",   bg: "bg-rose-900/40",    border: "border-rose-500/50",    icon: "🤝", label: "Endorsement" },
+  league:      { color: "text-teal-300",   bg: "bg-teal-900/40",    border: "border-teal-500/50",    icon: "🏅", label: "League" },
+  tournament:  { color: "text-violet-300", bg: "bg-violet-900/40",  border: "border-violet-500/50",  icon: "🥇", label: "Tournament" },
+  highlight:   { color: "text-lime-300",   bg: "bg-lime-900/40",    border: "border-lime-500/50",    icon: "🎬", label: "Highlight" },
+  life:        { color: "text-fuchsia-300",bg: "bg-fuchsia-900/40", border: "border-fuchsia-500/50", icon: "🌟", label: "Life Event" },
 };
-
-const EVENT_ICONS: Record<EventType, React.ElementType> = {
-  game:       Trophy,
-  practice:   Dumbbell,
-  nil:        Briefcase,
-  recruiting: Star,
-  team:       Users,
-  personal:   Calendar,
-};
-
-const SAMPLE_EVENTS: AthleteEvent[] = [
-  { id: 1,  title: "Game vs. State University",    date: "2026-05-02", time: "7:00 PM", type: "game",       location: "Home Stadium",              priority: "high" },
-  { id: 2,  title: "Morning Practice",             date: "2026-04-30", time: "6:30 AM", type: "practice",   location: "Training Facility",         priority: "medium" },
-  { id: 3,  title: "Nike NIL Deal Deadline",       date: "2026-05-01", time: "5:00 PM", type: "nil",        description: "Sign contract by EOD",   priority: "high" },
-  { id: 4,  title: "Official Visit — UT Austin",   date: "2026-05-05", time: "10:00 AM", type: "recruiting", location: "Austin, TX",               priority: "high" },
-  { id: 5,  title: "Film Session",                 date: "2026-04-30", time: "3:00 PM", type: "team",       location: "Film Room",                 priority: "medium" },
-  { id: 6,  title: "Strength & Conditioning",      date: "2026-05-01", time: "8:00 AM", type: "practice",   location: "Weight Room",               priority: "medium" },
-  { id: 7,  title: "Brand Deal Call — Gatorade",   date: "2026-05-03", time: "2:00 PM", type: "nil",        description: "Zoom call with brand team", priority: "high" },
-  { id: 8,  title: "Team Meeting",                 date: "2026-05-04", time: "9:00 AM", type: "team",       location: "Meeting Room A",            priority: "medium" },
-  { id: 9,  title: "Away Game @ Tech",             date: "2026-05-08", time: "6:00 PM", type: "game",       location: "Tech Stadium",              priority: "high" },
-  { id: 10, title: "Agent Meeting",                date: "2026-05-06", time: "1:00 PM", type: "nil",        description: "Review Q2 NIL pipeline",  priority: "high" },
-  { id: 11, title: "Unofficial Visit — LSU",       date: "2026-05-10", time: "11:00 AM", type: "recruiting", location: "Baton Rouge, LA",          priority: "medium" },
-  { id: 12, title: "Media Day",                    date: "2026-05-07", time: "10:00 AM", type: "team",      location: "Press Box",                 priority: "medium" },
-];
 
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const DAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
-function getDaysInMonth(year: number, month: number) {
-  return new Date(year, month + 1, 0).getDate();
-}
-function getFirstDayOfMonth(year: number, month: number) {
-  return new Date(year, month, 1).getDay();
-}
+const QUICK_EVENT_TEMPLATES = [
+  { type: "game" as EventType,        title: "Game vs. ", icon: "🏆", desc: "Add a game" },
+  { type: "camp" as EventType,        title: "Camp — ",   icon: "⛺", desc: "Training camp" },
+  { type: "showcase" as EventType,    title: "Showcase — ", icon: "🌟", desc: "Recruiting showcase" },
+  { type: "nil" as EventType,         title: "NIL Meeting — ", icon: "💰", desc: "NIL deal/meeting" },
+  { type: "signing" as EventType,     title: "Signing Day", icon: "✍️", desc: "Sign your letter" },
+  { type: "scholarship" as EventType, title: "Scholarship — ", icon: "🎓", desc: "Scholarship event" },
+  { type: "endorsement" as EventType, title: "Brand Deal — ", icon: "🤝", desc: "Endorsement" },
+  { type: "tournament" as EventType,  title: "Tournament — ", icon: "🥇", desc: "Tournament" },
+  { type: "highlight" as EventType,   title: "Highlight Reel Drop", icon: "🎬", desc: "Share highlight" },
+  { type: "life" as EventType,        title: "Life Event — ", icon: "🌟", desc: "Personal milestone" },
+];
 
 export default function AthleteCalendar() {
+  const { user } = useAuth();
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [filterType, setFilterType] = useState<EventType | "all">("all");
-  const [view, setView] = useState<"month" | "list">("month");
-  const [showCalendly, setShowCalendly] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [editingEvent, setEditingEvent] = useState<any>(null);
+  const [newEvent, setNewEvent] = useState({
+    title: "", date: today.toISOString().split("T")[0], time: "", type: "game" as EventType,
+    location: "", description: "", priority: "medium" as "high" | "medium" | "low",
+    shareToFeed: false,
+  });
+
+  const utils = trpc.useUtils();
+  const { data: events = [], isLoading } = trpc.calendar.getMyEvents.useQuery(
+    undefined, { enabled: !!user }
+  );
+
+  const createEvent = trpc.calendar.createEvent.useMutation({
+    onSuccess: () => {
+      utils.calendar.getMyEvents.invalidate();
+      setShowAddModal(false);
+      setNewEvent({ title: "", date: today.toISOString().split("T")[0], time: "", type: "game", location: "", description: "", priority: "medium", shareToFeed: false });
+      toast.success("Event added to your calendar!");
+    },
+    onError: (e) => toast.error(e.message),
+  });
+
+  const updateEvent = trpc.calendar.updateEvent.useMutation({
+    onSuccess: () => { utils.calendar.getMyEvents.invalidate(); setEditingEvent(null); toast.success("Event updated!"); },
+    onError: (e) => toast.error(e.message),
+  });
+
+  const deleteEvent = trpc.calendar.deleteEvent.useMutation({
+    onSuccess: () => { utils.calendar.getMyEvents.invalidate(); toast.success("Event removed"); },
+    onError: (e) => toast.error(e.message),
+  });
+
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+
+  const getEventsForDay = (day: number) => {
+    const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    return (events as any[]).filter((e: any) => e.date === dateStr && (filterType === "all" || e.type === filterType));
+  };
+
+  const selectedDateEvents = selectedDate
+    ? (events as any[]).filter((e: any) => e.date === selectedDate && (filterType === "all" || e.type === filterType))
+    : [];
+
+  const upcomingEvents = (events as any[])
+    .filter((e: any) => e.date >= today.toISOString().split("T")[0])
+    .sort((a: any, b: any) => a.date.localeCompare(b.date))
+    .slice(0, 8);
 
   const prevMonth = () => {
     if (currentMonth === 0) { setCurrentMonth(11); setCurrentYear(y => y - 1); }
@@ -93,293 +119,142 @@ export default function AthleteCalendar() {
     else setCurrentMonth(m => m + 1);
   };
 
-  const daysInMonth = getDaysInMonth(currentYear, currentMonth);
-  const firstDay = getFirstDayOfMonth(currentYear, currentMonth);
-
-  const getEventsForDate = (day: number) => {
-    const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-    return SAMPLE_EVENTS.filter(e => e.date === dateStr && (filterType === "all" || e.type === filterType));
+  const openAddWithTemplate = (template: typeof QUICK_EVENT_TEMPLATES[0]) => {
+    setNewEvent(p => ({ ...p, title: template.title, type: template.type }));
+    setShowAddModal(true);
   };
 
-  const upcomingEvents = SAMPLE_EVENTS
-    .filter(e => e.date >= today.toISOString().split("T")[0] && (filterType === "all" || e.type === filterType))
-    .sort((a, b) => a.date.localeCompare(b.date))
-    .slice(0, 8);
-
-  const selectedEvents = selectedDate
-    ? SAMPLE_EVENTS.filter(e => e.date === selectedDate && (filterType === "all" || e.type === filterType))
-    : [];
-
-  const filterButtons: { type: EventType | "all"; label: string }[] = [
-    { type: "all",       label: "All" },
-    { type: "game",      label: "Games" },
-    { type: "practice",  label: "Practice" },
-    { type: "nil",       label: "NIL" },
-    { type: "recruiting",label: "Recruiting" },
-    { type: "team",      label: "Team" },
-  ];
+  if (!user) {
+    return (
+      <PlatformLayout title="Athlete Calendar">
+        <div className="text-center py-12">
+          <div className="text-5xl mb-4">📅</div>
+          <div className="text-white font-bold text-lg mb-2">Sign in to manage your calendar</div>
+          <a href="/signin" className="inline-block bg-blue-600 text-white font-bold px-6 py-2.5 rounded-xl">Sign In</a>
+        </div>
+      </PlatformLayout>
+    );
+  }
 
   return (
-    <DashboardLayout>
-      <div className="max-w-6xl mx-auto space-y-6 pb-10 px-2">
+    <PlatformLayout title="Athlete Calendar">
+      <div className="space-y-4 pb-24 lg:pb-4">
 
-        {/* ── Header ── */}
-        <div className="bg-gradient-to-r from-[#1a3a8f] to-[#0d1b3e] border border-blue-700 rounded-2xl p-5">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg">
-                <Calendar className="w-7 h-7 text-white" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-black text-white">Athlete Calendar</h1>
-                <p className="text-blue-300 text-sm">Games · Practice · NIL Deals · Recruiting · Team Events</p>
-              </div>
+        {/* Header */}
+        <div className="bg-gradient-to-r from-[#1a3a8f] to-[#1a2a4a] border border-blue-700 rounded-xl p-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-xl font-black text-white">📅 Athlete Calendar</h2>
+              <p className="text-blue-300 text-xs mt-0.5">Games · Camps · Showcases · Signings · NIL · Scholarships · Endorsements · Life Events</p>
             </div>
-            <div className="flex gap-2 flex-wrap">
-              <button
-                onClick={() => setShowCalendly(!showCalendly)}
-                className="flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-4 py-2 rounded-xl text-sm transition-all"
-              >
-                <ExternalLink className="w-4 h-4" /> Calendly
-              </button>
-              <button className="flex items-center gap-2 bg-blue-700 hover:bg-blue-600 text-white font-bold px-4 py-2 rounded-xl text-sm transition-all">
-                <Plus className="w-4 h-4" /> Add Event
-              </button>
-              <a
-                href="https://calendar.google.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 border border-blue-600 text-blue-300 hover:bg-blue-900/40 font-bold px-4 py-2 rounded-xl text-sm transition-all"
-              >
-                <ExternalLink className="w-4 h-4" /> Google Calendar
-              </a>
-            </div>
+            <button onClick={() => setShowAddModal(true)}
+              className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-xl transition-colors">
+              <span>+</span> Add Event
+            </button>
           </div>
         </div>
 
-        {/* ── Calendly Banner ── */}
-        {showCalendly && (
-          <div className="bg-gradient-to-r from-cyan-900/40 to-blue-900/40 border border-cyan-500/40 rounded-2xl p-5">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <h3 className="text-white font-bold text-lg mb-1">Share Your Booking Link</h3>
-                <p className="text-cyan-300 text-sm mb-3">Let agents, brands, coaches, and media book time with you directly through Calendly.</p>
-                <div className="flex flex-wrap gap-3">
-                  <a href="https://calendly.com" target="_blank" rel="noopener noreferrer"
-                    className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-5 py-2.5 rounded-xl text-sm transition-all flex items-center gap-2">
-                    <ExternalLink className="w-4 h-4" /> Set Up Calendly
-                  </a>
-                  <button className="border border-cyan-600 text-cyan-300 hover:bg-cyan-900/40 font-bold px-5 py-2.5 rounded-xl text-sm transition-all">
-                    Connect Existing Account
-                  </button>
-                </div>
-              </div>
-              <button onClick={() => setShowCalendly(false)} className="text-slate-400 hover:text-white text-xl font-bold">✕</button>
-            </div>
-          </div>
-        )}
-
-        {/* ── Filter + View Toggle ── */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-2 flex-wrap">
-            <Filter className="w-4 h-4 text-slate-400" />
-            {filterButtons.map(fb => (
-              <button
-                key={fb.type}
-                onClick={() => setFilterType(fb.type)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
-                  filterType === fb.type
-                    ? "bg-cyan-600 text-white"
-                    : "bg-slate-800 text-slate-400 hover:text-white border border-slate-700"
-                }`}
-              >
-                {fb.label}
+        {/* Quick add templates */}
+        <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-3">
+          <div className="text-white font-bold text-xs mb-2">Quick Add</div>
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {QUICK_EVENT_TEMPLATES.map(t => (
+              <button key={t.type} onClick={() => openAddWithTemplate(t)}
+                className="flex-shrink-0 flex items-center gap-1.5 bg-[#0d1f3c] border border-blue-800 hover:border-blue-600 text-white text-xs font-semibold px-3 py-2 rounded-xl transition-colors">
+                <span>{t.icon}</span><span>{t.label}</span>
               </button>
             ))}
           </div>
-          <div className="flex gap-2">
-            <button
-              onClick={() => setView("month")}
-              className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all ${view === "month" ? "bg-blue-700 text-white" : "bg-slate-800 text-slate-400 border border-slate-700"}`}
-            >
-              Month
+        </div>
+
+        {/* Filter tabs */}
+        <div className="flex gap-1 bg-[#0d1f3c] border border-blue-900 rounded-xl p-1 overflow-x-auto">
+          {(["all", "game", "camp", "showcase", "nil", "signing", "scholarship", "endorsement", "recruiting", "highlight", "life"] as const).map(type => (
+            <button key={type} onClick={() => setFilterType(type as EventType | "all")}
+              className={`flex-1 min-w-fit py-1.5 px-2 text-xs font-bold rounded-lg transition-colors whitespace-nowrap ${filterType === type ? "bg-blue-600 text-white" : "text-blue-400 hover:text-white"}`}>
+              {type === "all" ? "All" : EVENT_CONFIG[type as EventType]?.icon + " " + EVENT_CONFIG[type as EventType]?.label}
             </button>
-            <button
-              onClick={() => setView("list")}
-              className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all ${view === "list" ? "bg-blue-700 text-white" : "bg-slate-800 text-slate-400 border border-slate-700"}`}
-            >
-              List
-            </button>
+          ))}
+        </div>
+
+        {/* Calendar grid */}
+        <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl overflow-hidden">
+          <div className="flex items-center justify-between p-4 border-b border-blue-900">
+            <button onClick={prevMonth} className="p-2 hover:bg-blue-900 rounded-lg transition-colors text-blue-300">‹</button>
+            <h3 className="text-white font-black text-lg">{MONTHS[currentMonth]} {currentYear}</h3>
+            <button onClick={nextMonth} className="p-2 hover:bg-blue-900 rounded-lg transition-colors text-blue-300">›</button>
+          </div>
+          <div className="grid grid-cols-7 border-b border-blue-900">
+            {DAYS.map(d => <div key={d} className="py-2 text-center text-blue-400 text-xs font-bold">{d}</div>)}
+          </div>
+          <div className="grid grid-cols-7">
+            {Array.from({ length: firstDayOfMonth }).map((_, i) => (
+              <div key={`e${i}`} className="h-14 border-b border-r border-blue-900/30" />
+            ))}
+            {Array.from({ length: daysInMonth }).map((_, i) => {
+              const day = i + 1;
+              const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+              const dayEvents = getEventsForDay(day);
+              const isToday = day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
+              const isSelected = selectedDate === dateStr;
+              return (
+                <div key={day} onClick={() => setSelectedDate(isSelected ? null : dateStr)}
+                  className={`h-14 border-b border-r border-blue-900/30 p-1 cursor-pointer transition-colors ${isSelected ? "bg-blue-700/40" : "hover:bg-blue-900/20"}`}>
+                  <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mb-0.5 ${isToday ? "bg-blue-600 text-white" : "text-blue-300"}`}>{day}</div>
+                  <div className="space-y-0.5">
+                    {dayEvents.slice(0, 2).map((e: any) => {
+                      const cfg = EVENT_CONFIG[e.type as EventType] ?? EVENT_CONFIG.personal;
+                      return (
+                        <div key={e.id} className="text-[8px] font-bold px-1 rounded truncate bg-blue-600 text-white">
+                          {cfg.icon} {e.title}
+                        </div>
+                      );
+                    })}
+                    {dayEvents.length > 2 && <div className="text-[8px] text-blue-400">+{dayEvents.length - 2} more</div>}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
 
-        {view === "month" ? (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* ── Month Calendar ── */}
-            <div className="lg:col-span-2 bg-slate-800/60 border border-slate-700 rounded-2xl p-4">
-              {/* Month Nav */}
-              <div className="flex items-center justify-between mb-4">
-                <button onClick={prevMonth} className="p-2 hover:bg-slate-700 rounded-xl transition-all">
-                  <ChevronLeft className="w-5 h-5 text-slate-300" />
-                </button>
-                <h2 className="text-white font-black text-lg">{MONTHS[currentMonth]} {currentYear}</h2>
-                <button onClick={nextMonth} className="p-2 hover:bg-slate-700 rounded-xl transition-all">
-                  <ChevronRight className="w-5 h-5 text-slate-300" />
-                </button>
-              </div>
-              {/* Day Headers */}
-              <div className="grid grid-cols-7 mb-2">
-                {DAYS.map(d => (
-                  <div key={d} className="text-center text-xs font-bold text-slate-500 py-1">{d}</div>
-                ))}
-              </div>
-              {/* Calendar Grid */}
-              <div className="grid grid-cols-7 gap-1">
-                {Array.from({ length: firstDay }).map((_, i) => (
-                  <div key={`empty-${i}`} className="h-14 rounded-xl" />
-                ))}
-                {Array.from({ length: daysInMonth }).map((_, i) => {
-                  const day = i + 1;
-                  const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-                  const events = getEventsForDate(day);
-                  const isToday = day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
-                  const isSelected = selectedDate === dateStr;
-                  return (
-                    <button
-                      key={day}
-                      onClick={() => setSelectedDate(isSelected ? null : dateStr)}
-                      className={`h-14 rounded-xl flex flex-col items-center justify-start pt-1.5 transition-all relative ${
-                        isSelected ? "bg-cyan-700/60 border border-cyan-500" :
-                        isToday ? "bg-blue-800/60 border border-blue-500" :
-                        "hover:bg-slate-700/60 border border-transparent"
-                      }`}
-                    >
-                      <span className={`text-sm font-bold ${isToday ? "text-cyan-400" : "text-slate-300"}`}>{day}</span>
-                      <div className="flex gap-0.5 mt-0.5 flex-wrap justify-center">
-                        {events.slice(0, 3).map(e => (
-                          <div key={e.id} className={`w-1.5 h-1.5 rounded-full ${EVENT_COLORS[e.type].badge}`} />
-                        ))}
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
+        {/* Selected date events */}
+        {selectedDate && (
+          <div className="space-y-2">
+            <div className="flex items-center justify-between px-1">
+              <h3 className="text-white font-bold text-sm">
+                {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
+              </h3>
+              <button onClick={() => { setNewEvent(p => ({ ...p, date: selectedDate })); setShowAddModal(true); }}
+                className="text-xs bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-lg font-bold">+ Add</button>
             </div>
-
-            {/* ── Sidebar: Selected Day / Upcoming ── */}
-            <div className="space-y-4">
-              {selectedDate && selectedEvents.length > 0 ? (
-                <div className="bg-slate-800/60 border border-slate-700 rounded-2xl p-4">
-                  <h3 className="text-white font-bold mb-3 text-sm">
-                    {new Date(selectedDate + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
-                  </h3>
-                  <div className="space-y-2">
-                    {selectedEvents.map(e => {
-                      const Icon = EVENT_ICONS[e.type];
-                      const colors = EVENT_COLORS[e.type];
-                      return (
-                        <div key={e.id} className={`${colors.bg} ${colors.border} border rounded-xl p-3`}>
-                          <div className="flex items-start gap-2">
-                            <Icon className={`w-4 h-4 ${colors.text} mt-0.5 shrink-0`} />
-                            <div className="flex-1 min-w-0">
-                              <div className="text-white font-semibold text-sm truncate">{e.title}</div>
-                              <div className="flex items-center gap-2 mt-1">
-                                <Clock className="w-3 h-3 text-slate-400" />
-                                <span className="text-slate-400 text-xs">{e.time}</span>
-                              </div>
-                              {e.location && (
-                                <div className="flex items-center gap-2 mt-0.5">
-                                  <MapPin className="w-3 h-3 text-slate-400" />
-                                  <span className="text-slate-400 text-xs">{e.location}</span>
-                                </div>
-                              )}
-                              {e.description && <p className="text-slate-400 text-xs mt-1">{e.description}</p>}
-                            </div>
-                            {e.priority === "high" && (
-                              <Bell className="w-3.5 h-3.5 text-red-400 shrink-0" />
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              ) : (
-                <div className="bg-slate-800/60 border border-slate-700 rounded-2xl p-4">
-                  <h3 className="text-white font-bold mb-3 text-sm">Upcoming Events</h3>
-                  <div className="space-y-2">
-                    {upcomingEvents.map(e => {
-                      const Icon = EVENT_ICONS[e.type];
-                      const colors = EVENT_COLORS[e.type];
-                      return (
-                        <div key={e.id} className={`${colors.bg} ${colors.border} border rounded-xl p-3`}>
-                          <div className="flex items-start gap-2">
-                            <Icon className={`w-4 h-4 ${colors.text} mt-0.5 shrink-0`} />
-                            <div className="flex-1 min-w-0">
-                              <div className="text-white font-semibold text-xs truncate">{e.title}</div>
-                              <div className="text-slate-400 text-xs mt-0.5">
-                                {new Date(e.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })} · {e.time}
-                              </div>
-                            </div>
-                            {e.priority === "high" && <Bell className="w-3 h-3 text-red-400 shrink-0" />}
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {/* ── Legend ── */}
-              <div className="bg-slate-800/60 border border-slate-700 rounded-2xl p-4">
-                <h3 className="text-white font-bold mb-3 text-sm">Event Types</h3>
-                <div className="space-y-1.5">
-                  {(Object.keys(EVENT_COLORS) as EventType[]).map(type => {
-                    const Icon = EVENT_ICONS[type];
-                    const colors = EVENT_COLORS[type];
-                    return (
-                      <div key={type} className="flex items-center gap-2">
-                        <div className={`w-2.5 h-2.5 rounded-full ${colors.badge}`} />
-                        <Icon className={`w-3.5 h-3.5 ${colors.text}`} />
-                        <span className="text-slate-400 text-xs capitalize">{type === "nil" ? "NIL Deals" : type.charAt(0).toUpperCase() + type.slice(1)}</span>
-                      </div>
-                    );
-                  })}
-                </div>
+            {selectedDateEvents.length === 0 ? (
+              <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-4 text-center text-blue-400 text-sm">
+                No events on this day.
+                <button onClick={() => { setNewEvent(p => ({ ...p, date: selectedDate })); setShowAddModal(true); }} className="text-blue-300 underline ml-1">Add one?</button>
               </div>
-            </div>
-          </div>
-        ) : (
-          /* ── List View ── */
-          <div className="space-y-3">
-            <h3 className="text-white font-bold text-sm">All Upcoming Events</h3>
-            {upcomingEvents.map(e => {
-              const Icon = EVENT_ICONS[e.type];
-              const colors = EVENT_COLORS[e.type];
+            ) : selectedDateEvents.map((event: any) => {
+              const cfg = EVENT_CONFIG[event.type as EventType] ?? EVENT_CONFIG.personal;
               return (
-                <div key={e.id} className={`${colors.bg} ${colors.border} border rounded-2xl p-4 flex items-start gap-4`}>
-                  <div className={`w-10 h-10 rounded-xl ${colors.badge} flex items-center justify-center shrink-0`}>
-                    <Icon className="w-5 h-5 text-white" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-white font-bold">{e.title}</span>
-                      {e.priority === "high" && (
-                        <span className="bg-red-600/30 border border-red-500/40 text-red-300 text-xs font-bold px-2 py-0.5 rounded-full">HIGH PRIORITY</span>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-4 mt-1 flex-wrap">
-                      <div className="flex items-center gap-1 text-slate-400 text-xs">
-                        <Clock className="w-3 h-3" />
-                        {new Date(e.date + "T12:00:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} · {e.time}
+                <div key={event.id} className={`${cfg.bg} border ${cfg.border} rounded-xl p-4`}>
+                  <div className="flex items-start gap-3">
+                    <div className="text-2xl shrink-0">{cfg.icon}</div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1 flex-wrap">
+                        <span className="font-bold text-white text-sm">{event.title}</span>
+                        <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-800 ${cfg.color}`}>{cfg.label}</span>
+                        {event.priority === "high" && <span className="text-[10px] bg-red-600 text-white px-1.5 py-0.5 rounded-full font-bold">HIGH</span>}
                       </div>
-                      {e.location && (
-                        <div className="flex items-center gap-1 text-slate-400 text-xs">
-                          <MapPin className="w-3 h-3" /> {e.location}
-                        </div>
-                      )}
+                      <div className={`flex items-center gap-3 text-xs ${cfg.color} flex-wrap`}>
+                        {event.time && <span>🕐 {event.time}</span>}
+                        {event.location && <span>📍 {event.location}</span>}
+                      </div>
+                      {event.description && <p className="text-blue-200 text-xs mt-1">{event.description}</p>}
                     </div>
-                    {e.description && <p className="text-slate-400 text-xs mt-1">{e.description}</p>}
+                    <div className="flex gap-1 shrink-0">
+                      <button onClick={() => setEditingEvent(event)} className="w-7 h-7 bg-blue-900/50 hover:bg-blue-700 rounded-lg flex items-center justify-center text-blue-300 text-xs transition-colors">✏️</button>
+                      <button onClick={() => deleteEvent.mutate({ id: event.id })} className="w-7 h-7 bg-red-900/50 hover:bg-red-700 rounded-lg flex items-center justify-center text-red-300 text-xs transition-colors">🗑️</button>
+                    </div>
                   </div>
                 </div>
               );
@@ -387,64 +262,187 @@ export default function AthleteCalendar() {
           </div>
         )}
 
-        {/* ── Important Dates 2026 ── */}
-        <div className="bg-[#0d1b3e] border border-blue-900/60 rounded-2xl p-5">
-          <h3 className="text-white font-bold mb-4">📅 Key Dates for Athletes — 2026</h3>
-          <div className="space-y-3">
-            {[
-              { date: "May 1, 2026", event: "NCAA Spring Signing Period Opens", sport: "All Sports", type: "recruiting", priority: "high" as const },
-              { date: "June 1, 2026", event: "NCAA Transfer Portal Opens (Summer)", sport: "All Sports", type: "recruiting", priority: "high" as const },
-              { date: "June 15, 2026", event: "Elite 11 QB Competition", sport: "Football", type: "game", priority: "medium" as const },
-              { date: "July 1, 2026", event: "NIL Collective Deals — New Fiscal Year", sport: "All Sports", type: "nil", priority: "high" as const },
-              { date: "July 15, 2026", event: "EYBL Peach Jam — Nike Circuit", sport: "Basketball", type: "game", priority: "high" as const },
-              { date: "August 1, 2026", event: "NCAA Fall Practice Start (Football)", sport: "Football", type: "practice", priority: "medium" as const },
-              { date: "September 5, 2026", event: "College Football Season Opener", sport: "Football", type: "game", priority: "high" as const },
-              { date: "October 1, 2026", event: "Early Signing Period Opens (Basketball)", sport: "Basketball", type: "recruiting", priority: "high" as const },
-              { date: "November 1, 2026", event: "NCAA Early Signing Period (Football)", sport: "Football", type: "recruiting", priority: "high" as const },
-              { date: "December 15, 2026", event: "Transfer Portal Opens (Winter)", sport: "All Sports", type: "recruiting", priority: "high" as const },
-            ].map((item, i) => {
-              const colors = EVENT_COLORS[item.type as EventType];
-              const Icon = EVENT_ICONS[item.type as EventType];
-              return (
-                <div key={i} className={`${colors.bg} ${colors.border} border rounded-xl p-3 flex items-center gap-3`}>
-                  <div className={`w-8 h-8 rounded-lg ${colors.badge} flex items-center justify-center shrink-0`}>
-                    <Icon className="w-4 h-4 text-white" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-white font-bold text-sm">{item.event}</span>
-                      {item.priority === "high" && <span className="text-xs bg-red-600/30 border border-red-500/40 text-red-300 font-bold px-1.5 py-0.5 rounded-full">KEY DATE</span>}
-                    </div>
-                    <div className="flex items-center gap-3 mt-0.5">
-                      <span className="text-slate-400 text-xs">{item.date}</span>
-                      <span className="text-slate-500 text-xs">• {item.sport}</span>
-                    </div>
-                  </div>
-                  <button className="text-blue-400 hover:text-white text-xs font-bold transition-colors shrink-0">+ Add</button>
-                </div>
-              );
-            })}
+        {/* Upcoming events */}
+        <div className="space-y-2">
+          <div className="flex items-center justify-between px-1">
+            <h3 className="text-white font-bold text-sm">Upcoming Events</h3>
+            <Link href="/feed" className="text-blue-400 text-xs hover:text-white">Share to Feed →</Link>
           </div>
+          {isLoading && <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-4 animate-pulse h-16" />}
+          {!isLoading && upcomingEvents.length === 0 && (
+            <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-6 text-center">
+              <div className="text-4xl mb-3">📅</div>
+              <div className="text-white font-bold mb-1">No upcoming events</div>
+              <div className="text-blue-400 text-sm mb-3">Add your games, camps, showcases, NIL meetings, and life events</div>
+              <button onClick={() => setShowAddModal(true)} className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-5 py-2 rounded-xl text-sm">Add First Event</button>
+            </div>
+          )}
+          {upcomingEvents.map((event: any) => {
+            const cfg = EVENT_CONFIG[event.type as EventType] ?? EVENT_CONFIG.personal;
+            return (
+              <div key={event.id} className={`${cfg.bg} border ${cfg.border} rounded-xl p-3 flex items-center gap-3`}>
+                <div className="text-xl shrink-0">{cfg.icon}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-bold text-white text-sm truncate">{event.title}</div>
+                  <div className={`text-xs ${cfg.color} flex items-center gap-2 flex-wrap`}>
+                    <span>{new Date(event.date + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span>
+                    {event.time && <span>· {event.time}</span>}
+                    {event.location && <span>· 📍 {event.location}</span>}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  {event.priority === "high" && <span className="text-[10px] bg-red-600 text-white px-2 py-0.5 rounded-full font-bold">HIGH</span>}
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-900 ${cfg.color}`}>{cfg.label}</span>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
-        {/* ── Google Calendar Sync CTA ── */}
-        <div className="bg-gradient-to-r from-blue-900/40 to-slate-800/60 border border-blue-700/40 rounded-2xl p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div>
-            <h3 className="text-white font-bold">Sync with Google Calendar</h3>
-            <p className="text-slate-400 text-sm">Keep all your events in one place — games, NIL deadlines, and recruiting visits sync automatically.</p>
+        {/* Stats summary */}
+        {(events as any[]).length > 0 && (
+          <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-4">
+            <div className="text-white font-bold text-sm mb-3">Your Athletic Journey</div>
+            <div className="grid grid-cols-4 gap-2">
+              {[
+                { label: "Games", count: (events as any[]).filter((e: any) => e.type === "game").length, icon: "🏆" },
+                { label: "Camps", count: (events as any[]).filter((e: any) => e.type === "camp").length, icon: "⛺" },
+                { label: "NIL Events", count: (events as any[]).filter((e: any) => e.type === "nil" || e.type === "endorsement").length, icon: "💰" },
+                { label: "Milestones", count: (events as any[]).filter((e: any) => ["signing", "scholarship", "life"].includes(e.type)).length, icon: "🌟" },
+              ].map(s => (
+                <div key={s.label} className="bg-[#0d1f3c] rounded-xl p-2 text-center">
+                  <div className="text-xl mb-1">{s.icon}</div>
+                  <div className="text-white font-black text-lg">{s.count}</div>
+                  <div className="text-blue-400 text-[10px]">{s.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
-          <a
-            href="https://calendar.google.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-xl text-sm transition-all whitespace-nowrap flex items-center gap-2"
-          >
-            <ExternalLink className="w-4 h-4" /> Connect Google Calendar
+        )}
+
+        {/* Google Calendar sync */}
+        <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-4 flex items-center gap-3">
+          <div className="text-2xl">📅</div>
+          <div className="flex-1">
+            <div className="text-white font-bold text-sm">Sync with Google Calendar</div>
+            <div className="text-blue-400 text-xs">Keep all your ATHLYNX events in sync</div>
+          </div>
+          <a href="https://calendar.google.com" target="_blank" rel="noopener noreferrer"
+            className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-3 py-2 rounded-lg transition-colors shrink-0">
+            Open →
           </a>
         </div>
+      </div>
 
-      <MobileBottomNav />
-    </div>
-    </DashboardLayout>
+      {/* Add/Edit Event Modal */}
+      {(showAddModal || editingEvent) && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+          <div className="bg-[#0d1b3e] border border-blue-700 rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto p-5 space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-white font-black text-lg">{editingEvent ? "Edit Event" : "Add Event"}</h3>
+              <button onClick={() => { setShowAddModal(false); setEditingEvent(null); }}
+                className="w-8 h-8 bg-blue-900 rounded-full flex items-center justify-center hover:bg-blue-700 text-white transition-colors">✕</button>
+            </div>
+
+            {/* Event type selector */}
+            <div>
+              <label className="text-blue-400 text-xs mb-2 block">Event Type</label>
+              <div className="grid grid-cols-4 gap-1.5">
+                {(Object.entries(EVENT_CONFIG) as [EventType, typeof EVENT_CONFIG[EventType]][]).map(([type, cfg]) => (
+                  <button key={type} onClick={() => editingEvent
+                    ? setEditingEvent((p: any) => ({ ...p, type }))
+                    : setNewEvent(p => ({ ...p, type }))}
+                    className={`flex flex-col items-center gap-1 py-2 px-1 rounded-xl text-[10px] font-bold transition-colors border ${
+                      (editingEvent ? editingEvent.type : newEvent.type) === type
+                        ? `${cfg.bg} ${cfg.border} ${cfg.color}`
+                        : "bg-[#1a3a8f] border-blue-900 text-blue-400 hover:border-blue-600"
+                    }`}>
+                    <span className="text-base">{cfg.icon}</span>
+                    <span>{cfg.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Form fields */}
+            {[
+              { label: "Title *", key: "title", placeholder: "Game vs. State, Nike Camp, Signing Day..." },
+              { label: "Date *", key: "date", type: "date" },
+              { label: "Time", key: "time", placeholder: "7:00 PM" },
+              { label: "Location", key: "location", placeholder: "Stadium, City, Zoom..." },
+              { label: "Description", key: "description", placeholder: "Details, notes, links..." },
+            ].map(f => (
+              <div key={f.key}>
+                <label className="text-blue-400 text-xs mb-1 block">{f.label}</label>
+                <input
+                  type={f.type || "text"}
+                  value={editingEvent ? editingEvent[f.key] || "" : (newEvent as any)[f.key]}
+                  onChange={e => editingEvent
+                    ? setEditingEvent((p: any) => ({ ...p, [f.key]: e.target.value }))
+                    : setNewEvent(p => ({ ...p, [f.key]: e.target.value }))}
+                  placeholder={f.placeholder}
+                  className="w-full bg-[#1a3a8f] border border-blue-800 text-white text-sm rounded-xl px-3 py-2.5 focus:outline-none focus:border-blue-500 placeholder-blue-600"
+                />
+              </div>
+            ))}
+
+            <div>
+              <label className="text-blue-400 text-xs mb-1 block">Priority</label>
+              <div className="flex gap-2">
+                {(["high", "medium", "low"] as const).map(p => (
+                  <button key={p} onClick={() => editingEvent
+                    ? setEditingEvent((ev: any) => ({ ...ev, priority: p }))
+                    : setNewEvent(ev => ({ ...ev, priority: p }))}
+                    className={`flex-1 py-2 text-xs font-bold rounded-xl border transition-colors capitalize ${
+                      (editingEvent ? editingEvent.priority : newEvent.priority) === p
+                        ? p === "high" ? "bg-red-600 border-red-500 text-white"
+                          : p === "medium" ? "bg-yellow-600 border-yellow-500 text-white"
+                          : "bg-slate-600 border-slate-500 text-white"
+                        : "bg-[#1a3a8f] border-blue-800 text-blue-400 hover:border-blue-600"
+                    }`}>
+                    {p === "high" ? "🔴 High" : p === "medium" ? "🟡 Medium" : "🟢 Low"}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Share to Feed toggle */}
+            <div className="flex items-center gap-3 bg-[#1a3a8f] border border-blue-800 rounded-xl p-3">
+              <div className="flex-1">
+                <div className="text-white text-sm font-bold">Share to Feed</div>
+                <div className="text-blue-400 text-xs">Let other athletes see this event</div>
+              </div>
+              <button
+                onClick={() => editingEvent
+                  ? setEditingEvent((p: any) => ({ ...p, shareToFeed: !p.shareToFeed }))
+                  : setNewEvent(p => ({ ...p, shareToFeed: !p.shareToFeed }))}
+                className={`w-12 h-6 rounded-full transition-colors relative ${(editingEvent ? editingEvent.shareToFeed : newEvent.shareToFeed) ? "bg-blue-600" : "bg-blue-900"}`}>
+                <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${(editingEvent ? editingEvent.shareToFeed : newEvent.shareToFeed) ? "translate-x-7" : "translate-x-1"}`} />
+              </button>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  if (editingEvent) {
+                    updateEvent.mutate({ id: editingEvent.id, title: editingEvent.title, date: editingEvent.date, time: editingEvent.time, type: editingEvent.type, location: editingEvent.location, description: editingEvent.description, priority: editingEvent.priority });
+                  } else {
+                    if (!newEvent.title || !newEvent.date) { toast.error("Title and date are required"); return; }
+                    createEvent.mutate({ title: newEvent.title, date: newEvent.date, time: newEvent.time || undefined, type: newEvent.type, location: newEvent.location || undefined, description: newEvent.description || undefined, priority: newEvent.priority });
+                  }
+                }}
+                disabled={createEvent.isPending || updateEvent.isPending}
+                className="flex-1 bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-bold py-3 rounded-xl transition-colors">
+                {createEvent.isPending || updateEvent.isPending ? "Saving..." : editingEvent ? "Update Event" : "Add to Calendar"}
+              </button>
+              <button onClick={() => { setShowAddModal(false); setEditingEvent(null); }}
+                className="flex-1 border border-blue-700 text-blue-300 font-bold py-3 rounded-xl hover:bg-blue-900 transition-colors">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </PlatformLayout>
   );
 }

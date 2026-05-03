@@ -41,6 +41,14 @@ export const profileRouter = router({
           instagram: athleteProfiles.instagram,
           twitter: athleteProfiles.twitter,
           followers: athleteProfiles.followers,
+          sportStats: athleteProfiles.sportStats,
+          coachViews: athleteProfiles.coachViews,
+          collegesInterested: athleteProfiles.collegesInterested,
+          nilVerified: athleteProfiles.nilVerified,
+          facebookUrl: athleteProfiles.facebookUrl,
+          youtubeUrl: athleteProfiles.youtubeUrl,
+          linkedinUrl: athleteProfiles.linkedinUrl,
+          tiktokHandle: athleteProfiles.tiktokHandle,
           name: users.name,
           email: users.email,
           avatarUrl: users.avatarUrl,
@@ -70,6 +78,11 @@ export const profileRouter = router({
       followers: z.number().optional(),
       coverUrl: z.string().optional(),
       highlightUrl: z.string().optional(),
+      sportStats: z.any().optional(),
+      facebookUrl: z.string().optional(),
+      youtubeUrl: z.string().optional(),
+      linkedinUrl: z.string().optional(),
+      tiktokHandle: z.string().optional(),
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
@@ -96,6 +109,11 @@ export const profileRouter = router({
         followers: input.followers,
         coverUrl: input.coverUrl,
         highlightUrl: input.highlightUrl,
+        sportStats: input.sportStats,
+        facebookUrl: input.facebookUrl,
+        youtubeUrl: input.youtubeUrl,
+        linkedinUrl: input.linkedinUrl,
+        tiktokHandle: input.tiktokHandle,
       };
       if (existing.length > 0) {
         await db.update(athleteProfiles).set(profileData).where(eq(athleteProfiles.userId, ctx.user.id));
