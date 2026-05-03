@@ -350,7 +350,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
         </div>
         <div className="relative z-10 text-center px-6">
           <div className="mb-6">
-            <img src="/athlynx-icon.png" alt="ATHLYNX" className="w-20 h-20 rounded-2xl mx-auto shadow-2xl shadow-blue-500/30" style={{ animation: "bounce 2s infinite" }} />
+            <img src="/img-athlete-multisport.jpg" alt="ATHLYNX" className="w-20 h-20 rounded-2xl mx-auto shadow-2xl shadow-blue-500/30" style={{ animation: "bounce 2s infinite" }} />
           </div>
           <h1 className="text-4xl md:text-6xl font-black text-white mb-3 tracking-tight">
             Welcome to <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">ATHLYNX</span>
@@ -381,7 +381,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-indigo-900/20" />
         <div className="relative z-10 w-full max-w-sm px-6 text-center">
           <div className="mb-6">
-            <img src="/athlynx-icon.png" alt="ATHLYNX" className="w-16 h-16 rounded-2xl mx-auto shadow-2xl shadow-blue-500/30" />
+            <img src="/img-athlete-multisport.jpg" alt="ATHLYNX" className="w-16 h-16 rounded-2xl mx-auto shadow-2xl shadow-blue-500/30" />
           </div>
           <h2 className="text-2xl font-black text-white mb-2">Building Your Profile</h2>
           <p className="text-blue-400 text-sm mb-8">

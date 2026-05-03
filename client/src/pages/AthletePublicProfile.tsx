@@ -86,7 +86,7 @@ export default function AthletePublicProfile() {
             </button>
           </Link>
           <div className="flex items-center gap-2">
-            <img src="/athlynx-icon.png" alt="ATHLYNX" className="w-7 h-7 rounded-lg" />
+            <img src="/img-athlete-multisport.jpg" alt="ATHLYNX" className="w-7 h-7 rounded-lg" />
             <span className="text-white font-black text-sm">ATHLYNX</span>
           </div>
           {isOwnProfile ? (
@@ -430,7 +430,7 @@ export default function AthletePublicProfile() {
         <div className="fixed bottom-0 left-0 right-0 bg-[#040c1a]/95 backdrop-blur border-t border-white/10 px-4 py-3">
           <div className="max-w-3xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <img src="/athlynx-icon.png" alt="ATHLYNX" className="w-7 h-7 rounded-lg" />
+              <img src="/img-athlete-multisport.jpg" alt="ATHLYNX" className="w-7 h-7 rounded-lg" />
               <div>
                 <div className="text-white font-black text-xs leading-none">ATHLYNX</div>
                 <div className="text-white/30 text-[10px]">The Athlete's Platform</div>

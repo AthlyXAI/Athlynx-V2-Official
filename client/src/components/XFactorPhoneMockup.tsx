@@ -139,7 +139,7 @@ export default function XFactorPhoneMockup() {
             {/* App header */}
             <div className="flex items-center justify-between py-2 border-b border-white/10 mb-3">
               <div className="flex items-center gap-1.5">
-                <img src="/athlynx-icon.png" alt="ATHLYNX" className="w-5 h-5 rounded-md object-cover" style={{ boxShadow: "0 0 8px rgba(0,194,255,0.6)" }} />
+                <img src="/img-athlete-multisport.jpg" alt="ATHLYNX" className="w-5 h-5 rounded-md object-cover" style={{ boxShadow: "0 0 8px rgba(0,194,255,0.6)" }} />
                 <span className="text-white font-black text-sm tracking-tight">ATHLYNX</span>
               </div>
               <div className="flex gap-1">
@@ -154,7 +154,7 @@ export default function XFactorPhoneMockup() {
               <div className="w-16 h-20 rounded-xl bg-gradient-to-br from-blue-800 to-blue-950 border border-blue-700/50 flex items-center justify-center flex-shrink-0 overflow-hidden">
                 <div className="text-center">
                   <div className="text-white font-black text-xl">{profile.name.split(" ")[0][0]}{profile.name.split(" ")[1]}</div>
-                  <img src="/athlynx-icon.png" alt="ATHLYNX" className="w-6 h-6 rounded-md object-cover mx-auto mt-1" />
+                  <img src="/img-athlete-multisport.jpg" alt="ATHLYNX" className="w-6 h-6 rounded-md object-cover mx-auto mt-1" />
                   <div className="text-white/60 text-[9px]">#{profileIdx + 7}</div>
                 </div>
               </div>

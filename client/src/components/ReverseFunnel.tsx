@@ -120,7 +120,7 @@ export function ReverseFunnel({
           {/* Header */}
           <div className="flex items-start justify-between mb-4">
             <div className="flex items-center gap-2">
-              <img src="/athlynx-icon.png" alt="ATHLYNX" className="w-8 h-8 rounded-lg" />
+              <img src="/img-athlete-multisport.jpg" alt="ATHLYNX" className="w-8 h-8 rounded-lg" />
               <span className="text-xs font-bold text-blue-300 uppercase tracking-widest">ATHLYNX</span>
             </div>
             <button onClick={handleDismiss} className="text-white/40 hover:text-white transition-colors p-1">
@@ -259,7 +259,7 @@ export function AIAssistantButton() {
             {/* Header */}
             <div className="flex items-center justify-between px-4 py-3 bg-[#1a237e] border-b border-blue-800">
               <div className="flex items-center gap-2">
-                <img src="/athlynx-icon.png" alt="" className="w-6 h-6 rounded-lg" />
+                <img src="/img-athlete-multisport.jpg" alt="" className="w-6 h-6 rounded-lg" />
                 <span className="text-white font-bold text-sm">ATHLYNX AI</span>
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
               </div>

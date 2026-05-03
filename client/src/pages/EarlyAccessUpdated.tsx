@@ -176,7 +176,7 @@ export default function EarlyAccess() {
               </div>
             </div>
             <img 
-              src="/athlynx-icon.png" 
+              src="/crab-logo-official.png" 
               alt="DHG Crab - The Crown" 
               className="relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full shadow-[0_0_80px_rgba(6,182,212,0.8)] border-8 border-cyan-400/70 transform hover:scale-110 transition-transform duration-300"
             />
@@ -238,8 +238,8 @@ export default function EarlyAccess() {
                 <div className="relative">
                   <div className="absolute inset-0 bg-cyan-400 blur-2xl opacity-60 group-hover:opacity-80 transition-opacity"></div>
                   <img 
-                    src="/athlynx-icon.png" 
-                    alt="Diamond Grind" 
+                    src="/diamond-grind-icon.png" 
+alt="Diamond Grind" 
                     className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl shadow-2xl transform group-hover:scale-110 transition-transform"
                   />
                 </div>
@@ -265,8 +265,8 @@ export default function EarlyAccess() {
                 <div className="relative">
                   <div className="absolute inset-0 bg-blue-500 blur-xl opacity-40 group-hover:opacity-60 transition-opacity"></div>
                   <img 
-                    src="/athlynx-icon.png" 
-                    alt="NIL Portal" 
+                    src="/nil-portal-app-logo.jpeg" 
+alt="NIL Portal" 
                     className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl shadow-2xl transform group-hover:scale-110 transition-transform"
                   />
                 </div>
@@ -291,8 +291,8 @@ export default function EarlyAccess() {
                 <div className="relative">
                   <div className="absolute inset-0 bg-blue-400 blur-xl opacity-40 group-hover:opacity-60 transition-opacity"></div>
                   <img 
-                    src="/athlynx-icon.png" 
-                    alt="Messenger" 
+                    src="/messenger.png" 
+alt="Messenger" 
                     className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl shadow-2xl transform group-hover:scale-110 transition-transform"
                   />
                 </div>
@@ -317,8 +317,8 @@ export default function EarlyAccess() {
                 <div className="relative">
                   <div className="absolute inset-0 bg-cyan-400 blur-xl opacity-40 group-hover:opacity-60 transition-opacity"></div>
                   <img 
-                    src="/athlynx-icon.png" 
-                    alt="Transfer Portal" 
+                    src="/transfer-portal-icon.png" 
+alt="Transfer Portal" 
                     className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl shadow-2xl transform group-hover:scale-110 transition-transform"
                   />
                 </div>
@@ -347,8 +347,8 @@ export default function EarlyAccess() {
               <div className="relative group cursor-pointer text-center">
                 <div className="absolute inset-0 bg-cyan-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
-                  src="/athlynx-icon.png" 
-                  alt="Warriors Playbook" 
+                  src="/warriors-playbook-icon.png" 
+alt="Warriors Playbook" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />
                 <p className="text-xs text-gray-400 mt-2 group-hover:text-cyan-400">Warriors Playbook</p>
@@ -371,8 +371,8 @@ export default function EarlyAccess() {
               <div className="relative group cursor-pointer text-center">
                 <div className="absolute inset-0 bg-green-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
-                  src="/athlynx-icon.png" 
-                  alt="NIL Vault" 
+                  src="/nil-vault-icon.png" 
+alt="NIL Vault" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />
                 <p className="text-xs text-gray-400 mt-2 group-hover:text-cyan-400">NIL Vault</p>
@@ -383,8 +383,8 @@ export default function EarlyAccess() {
               <div className="relative group cursor-pointer text-center">
                 <div className="absolute inset-0 bg-blue-600 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
-                  src="/athlynx-icon.png" 
-                  alt="AI Sales" 
+                  src="/ai-sales.png" 
+alt="AI Sales" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />
                 <p className="text-xs text-gray-400 mt-2 group-hover:text-cyan-400">AI Sales</p>
@@ -395,8 +395,8 @@ export default function EarlyAccess() {
               <div className="relative group cursor-pointer text-center">
                 <div className="absolute inset-0 bg-red-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
-                  src="/athlynx-icon.png" 
-                  alt="AI Recruiter" 
+                  src="/ai-recruiter.png" 
+alt="AI Recruiter" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />
                 <p className="text-xs text-gray-400 mt-2 group-hover:text-cyan-400">AI Recruiter</p>
@@ -407,8 +407,8 @@ export default function EarlyAccess() {
               <div className="relative group cursor-pointer text-center">
                 <div className="absolute inset-0 bg-indigo-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
-                  src="/athlynx-icon.png" 
-                  alt="AI Content" 
+                  src="/ai-content.png" 
+alt="AI Content" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />
                 <p className="text-xs text-gray-400 mt-2 group-hover:text-cyan-400">AI Content</p>
