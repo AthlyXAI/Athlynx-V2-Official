@@ -62,23 +62,16 @@ function isMobile(): boolean {
   return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 }
 
-/** Sign in with any provider — redirect on mobile, popup on desktop */
+/** Sign in with any provider — always use popup (opens real browser window, avoids disallowed_useragent on mobile) */
 async function signInWithProvider(
   provider: GoogleAuthProvider | OAuthProvider | FacebookAuthProvider | TwitterAuthProvider
 ): Promise<{ idToken: string; user: FirebaseUser }> {
   if (!isFirebaseConfigured || !auth) throw new Error('Firebase is not configured');
-
-  if (isMobile()) {
-    // Store pending provider so AuthCallback can handle it
-    sessionStorage.setItem('pendingAuthProvider', 'redirect');
-    await signInWithRedirect(auth, provider);
-    // Page redirects away — this line never runs
-    throw new Error('Redirecting to sign in...');
-  } else {
-    const result = await signInWithPopup(auth, provider);
-    const idToken = await result.user.getIdToken();
-    return { idToken, user: result.user };
-  }
+  // Always use popup — signInWithRedirect causes Error 403 disallowed_useragent on mobile
+  // because it opens in an embedded WebView. Popup opens a real browser window which Google allows.
+  const result = await signInWithPopup(auth, provider);
+  const idToken = await result.user.getIdToken();
+  return { idToken, user: result.user };
 }
 
 /**

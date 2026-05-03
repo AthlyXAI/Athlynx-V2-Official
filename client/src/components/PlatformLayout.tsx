@@ -163,15 +163,20 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
   const [onboardingDismissed, setOnboardingDismissed] = useState(false);
   const { user, loading: authLoading } = useAuth();
 
-  // Check onboarding status from localStorage (Okta auth - no backend session needed)
-  // Use email as stable key since Auth0 sub may differ from DB numeric ID
+  // Check onboarding status — check DB flag first, then localStorage
   useEffect(() => {
     if (user && !authLoading && !onboardingDismissed) {
       const key = `onboarding_done_${user.email || user.id}`;
       const completed = localStorage.getItem(key);
-      // Also check legacy key by id
       const legacyCompleted = localStorage.getItem(`onboarding_done_${user.id}`);
-      if (!completed && !legacyCompleted) {
+      // Check DB onboardingCompleted flag (set to 1 for existing users)
+      const dbCompleted = (user as any)?.onboardingCompleted === 1 || (user as any)?.onboardingCompleted === true;
+      if (dbCompleted) {
+        // Sync localStorage so we don't check DB every time
+        localStorage.setItem(key, '1');
+        return;
+      }
+      if (!completed && !legacyCompleted && !dbCompleted) {
         // Small delay so it doesn't flash on every page load
         const timer = setTimeout(() => setShowOnboarding(true), 1500);
         return () => clearTimeout(timer);
@@ -369,6 +374,20 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
             </div>
           </Link>
 
+          {/* Sign In CTA — only show when not logged in */}
+          {!user && (
+            <div className="bg-gradient-to-br from-[#1a3a8f] to-[#0d1b3e] rounded-xl border border-blue-600 p-4 text-center">
+              <div className="text-white font-black text-sm mb-1">🏆 Join ATHLYNX Free</div>
+              <div className="text-blue-300 text-xs mb-3">7-day free trial. No credit card needed.</div>
+              <Link href="/signup" className="block w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-400 hover:to-blue-500 text-white font-black text-sm py-2.5 rounded-xl transition-all mb-2">
+                Start Free Trial →
+              </Link>
+              <Link href="/signin" className="block w-full text-blue-400 hover:text-white text-xs py-1.5 rounded-lg hover:bg-blue-900 transition-colors">
+                Already a member? Sign In
+              </Link>
+            </div>
+          )}
+
           {/* Apps nav */}
           <div className="bg-[#1a3a8f] rounded-xl border border-blue-900 p-3">
             <div className="text-blue-400 text-xs font-semibold uppercase tracking-wider mb-2 px-1">Your Apps</div>
@@ -505,9 +524,9 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
             { href: "/nil-portal", icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z", label: "NIL" },
             { href: "/messenger", icon: "M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z", label: "Chat" },
             { href: "/transfer-portal", icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z", label: "Transfer" },
-            { href: "/profile", icon: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z", label: "Profile" },
+            { href: "/profile", icon: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z", label: user ? "Profile" : "Sign In" },
           ].map((item) => (
-            <Link key={item.href} href={item.href} className={`flex flex-col items-center gap-0.5 p-2 rounded-lg transition-colors ${location === item.href ? 'text-blue-400' : 'text-blue-600 hover:text-blue-400'}`}>
+            <Link key={item.href} href={item.href === "/profile" && !user ? "/signin" : item.href} className={`flex flex-col items-center gap-0.5 p-2 rounded-lg transition-colors ${location === item.href ? 'text-blue-400' : 'text-blue-600 hover:text-blue-400'}`}>
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d={item.icon} />
               </svg>
@@ -515,6 +534,15 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
             </Link>
           ))}
         </div>
+        {/* Sign In banner for non-logged-in users */}
+        {!user && (
+          <div className="flex items-center justify-between px-4 py-2 bg-blue-700/30 border-t border-blue-700/50">
+            <span className="text-blue-200 text-xs">Already a member?</span>
+            <Link href="/signin" className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-4 py-1.5 rounded-lg transition-colors">
+              Sign In
+            </Link>
+          </div>
+        )}
       </nav>
 
       {/* AI Assistant — always available, everywhere, any device */}
