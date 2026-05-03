@@ -334,21 +334,40 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
           </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* Mobile menu — full app drawer */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-[#0d1b3e] border-t border-blue-900 px-4 py-3">
-            <input
-              type="text"
-              placeholder="Search athletes, teams, deals..."
-              className="w-full bg-[#1a3a8f] text-white text-sm rounded-full px-4 py-2 border border-blue-800 focus:outline-none mb-3"
-            />
-            <div className="grid grid-cols-5 gap-2">
-              {APPS.slice(0, 10).map(app => (
-                <Link key={app.id} href={app.href} onClick={() => setMobileMenuOpen(false)} className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-blue-900">
-                  <img src={app.icon} alt={app.label} className="w-8 h-8 rounded-lg object-cover" onError={e => { (e.target as HTMLImageElement).src = "/logos/dhg-crab-logo.png"; }} />
-                  <span className="text-[9px] text-blue-300 text-center leading-tight">{app.label}</span>
-                </Link>
-              ))}
+          <div className="md:hidden bg-[#0a1628] border-t border-blue-900 overflow-y-auto" style={{ maxHeight: '80vh' }}>
+            {/* Quick nav links */}
+            <div className="px-4 pt-3 pb-2 flex flex-col gap-0 border-b border-blue-900/60">
+              <Link href="/feed" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 text-white font-bold py-3 border-b border-blue-900/30 text-sm">🏠 Home Feed</Link>
+              <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 text-white font-bold py-3 border-b border-blue-900/30 text-sm">👤 My Profile</Link>
+              <Link href="/nil-portal" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 text-white font-bold py-3 border-b border-blue-900/30 text-sm">💰 NIL Portal</Link>
+              <Link href="/transfer-portal" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 text-white font-bold py-3 border-b border-blue-900/30 text-sm">🔄 Transfer Portal</Link>
+              <Link href="/messenger" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 text-white font-bold py-3 text-sm">💬 Messenger</Link>
+            </div>
+            {/* All Apps Grid */}
+            <div className="px-4 py-3">
+              <div className="text-blue-400 text-xs font-bold uppercase tracking-widest mb-3">All Apps</div>
+              <div className="grid grid-cols-4 gap-2">
+                {APPS.map(app => (
+                  <Link key={app.id} href={app.href} onClick={() => setMobileMenuOpen(false)} className="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-blue-900/60 active:bg-blue-800 transition-colors">
+                    <img src={app.icon} alt={app.label} className="w-10 h-10 rounded-xl object-cover shadow" onError={e => { (e.target as HTMLImageElement).src = "/athlynx-icon.png"; }} />
+                    <span className="text-[9px] text-blue-200 text-center leading-tight font-medium">{app.label}</span>
+                    {app.badge && <span className="text-[7px] font-black px-1 py-0.5 rounded-full bg-blue-700 text-blue-200">{app.badge}</span>}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            {/* Auth buttons */}
+            <div className="px-4 py-4 flex flex-col gap-2 border-t border-blue-900 sticky bottom-0 bg-[#0a1628]">
+              {user ? (
+                <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-center bg-blue-700 text-white font-black px-4 py-3 rounded-xl text-sm">View My Profile →</Link>
+              ) : (
+                <>
+                  <Link href="/signup" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-center bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-black px-4 py-3.5 rounded-xl text-base">JOIN FREE — 7 DAYS 🏆</Link>
+                  <Link href="/signin" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-center bg-[#1a3a8f] text-white font-bold px-4 py-3 rounded-xl text-sm border border-blue-700">Already a member? Sign In →</Link>
+                </>
+              )}
             </div>
           </div>
         )}
