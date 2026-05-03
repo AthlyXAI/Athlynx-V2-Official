@@ -239,7 +239,7 @@ export default function EarlyAccess() {
                   <div className="absolute inset-0 bg-cyan-400 blur-2xl opacity-60 group-hover:opacity-80 transition-opacity"></div>
                   <img 
                     src="/diamond-grind-icon.png" 
-alt="Diamond Grind" 
+                    alt="Diamond Grind" 
                     className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl shadow-2xl transform group-hover:scale-110 transition-transform"
                   />
                 </div>
@@ -266,7 +266,7 @@ export default function EarlyAccess() {
                   <div className="absolute inset-0 bg-blue-500 blur-xl opacity-40 group-hover:opacity-60 transition-opacity"></div>
                   <img 
                     src="/nil-portal-app-logo.jpeg" 
-alt="NIL Portal" 
+                    alt="NIL Portal" 
                     className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl shadow-2xl transform group-hover:scale-110 transition-transform"
                   />
                 </div>
@@ -292,7 +292,7 @@ export default function EarlyAccess() {
                   <div className="absolute inset-0 bg-blue-400 blur-xl opacity-40 group-hover:opacity-60 transition-opacity"></div>
                   <img 
                     src="/messenger.png" 
-alt="Messenger" 
+                    alt="Messenger" 
                     className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl shadow-2xl transform group-hover:scale-110 transition-transform"
                   />
                 </div>
@@ -318,7 +318,7 @@ export default function EarlyAccess() {
                   <div className="absolute inset-0 bg-cyan-400 blur-xl opacity-40 group-hover:opacity-60 transition-opacity"></div>
                   <img 
                     src="/transfer-portal-icon.png" 
-alt="Transfer Portal" 
+                    alt="Transfer Portal" 
                     className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-xl shadow-2xl transform group-hover:scale-110 transition-transform"
                   />
                 </div>
@@ -348,7 +348,7 @@ export default function EarlyAccess() {
                 <div className="absolute inset-0 bg-cyan-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
                   src="/warriors-playbook-icon.png" 
-alt="Warriors Playbook" 
+                    alt="Warriors Playbook" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />
                 <p className="text-xs text-gray-400 mt-2 group-hover:text-cyan-400">Warriors Playbook</p>
@@ -372,7 +372,7 @@ export default function EarlyAccess() {
                 <div className="absolute inset-0 bg-green-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
                   src="/nil-vault-icon.png" 
-alt="NIL Vault" 
+                    alt="NIL Vault" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />
                 <p className="text-xs text-gray-400 mt-2 group-hover:text-cyan-400">NIL Vault</p>
@@ -384,7 +384,7 @@ export default function EarlyAccess() {
                 <div className="absolute inset-0 bg-blue-600 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
                   src="/ai-sales.png" 
-alt="AI Sales" 
+                    alt="AI Sales" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />
                 <p className="text-xs text-gray-400 mt-2 group-hover:text-cyan-400">AI Sales</p>
@@ -396,7 +396,7 @@ export default function EarlyAccess() {
                 <div className="absolute inset-0 bg-red-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
                   src="/ai-recruiter.png" 
-alt="AI Recruiter" 
+                    alt="AI Recruiter" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />
                 <p className="text-xs text-gray-400 mt-2 group-hover:text-cyan-400">AI Recruiter</p>
@@ -408,7 +408,7 @@ export default function EarlyAccess() {
                 <div className="absolute inset-0 bg-indigo-500 blur-xl opacity-30 group-hover:opacity-50 transition-opacity"></div>
                 <img 
                   src="/ai-content.png" 
-alt="AI Content" 
+                    alt="AI Content" 
                   className="relative w-full aspect-square rounded-xl shadow-lg transform group-hover:scale-105 transition-transform mx-auto"
                 />
                 <p className="text-xs text-gray-400 mt-2 group-hover:text-cyan-400">AI Content</p>
