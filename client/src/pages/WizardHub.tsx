@@ -28,7 +28,7 @@ const wizards = [
     color: "from-blue-500 to-cyan-500",
     description: "Find & vet sports agents, understand contracts, negotiate deals",
     features: ["Agent database", "Contract templates", "Negotiation tips", "Red flag alerts"],
-    href: "/wizard/agent",
+    href: "/wizards/agent",
     popular: true,
   },
   {
@@ -38,7 +38,7 @@ const wizards = [
     color: "from-blue-600 to-red-500",
     description: "NIL compliance, contract review, legal protection guidance",
     features: ["Contract review", "NIL compliance", "Rights protection", "Legal templates"],
-    href: "/wizard/lawyer",
+    href: "/wizards/lawyer",
     popular: true,
   },
   {
@@ -48,7 +48,7 @@ const wizards = [
     color: "from-green-500 to-emerald-500",
     description: "Money management, taxes, investments, budgeting for athletes",
     features: ["Budget planning", "Tax guidance", "Investment basics", "NIL income management"],
-    href: "/wizard/financial",
+    href: "/wizards/financial",
     popular: true,
   },
   {
@@ -58,7 +58,7 @@ const wizards = [
     color: "from-red-500 to-red-500",
     description: "NCAA rules, academic eligibility, scholarship opportunities",
     features: ["NCAA rules explained", "Eligibility tracker", "Scholarship finder", "Academic planning"],
-    href: "/wizard/scholarship",
+    href: "/wizards/scholarship",
     popular: false,
   },
   {
@@ -68,7 +68,7 @@ const wizards = [
     color: "from-red-500 to-red-500",
     description: "See yourself through a scout's eyes, improve your profile",
     features: ["Profile analysis", "Improvement tips", "Highlight review", "Combine prep"],
-    href: "/wizard/scout",
+    href: "/wizards/scout",
     popular: false,
   },
   {
@@ -78,7 +78,7 @@ const wizards = [
     color: "from-cyan-500 to-blue-500",
     description: "Navigate the transfer portal step-by-step",
     features: ["Portal timeline", "Communication templates", "School research", "Decision framework"],
-    href: "/wizard/transfer",
+    href: "/wizards/transfer",
     popular: true,
   },
   {
@@ -88,7 +88,7 @@ const wizards = [
     color: "from-red-500 to-red-500",
     description: "Balance athletics, academics, and personal life",
     features: ["Time management", "Mental wellness", "Relationship advice", "Career planning"],
-    href: "/wizard/life",
+    href: "/wizards/life",
     popular: false,
   },
   {
@@ -98,7 +98,7 @@ const wizards = [
     color: "from-indigo-500 to-blue-600",
     description: "Prepare for life after sports, build your future",
     features: ["Resume building", "Interview prep", "Network building", "Industry connections"],
-    href: "/wizard/career",
+    href: "/wizards/career",
     popular: false,
   },
 ];
