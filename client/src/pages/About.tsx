@@ -5,20 +5,20 @@ import { Badge } from "@/components/ui/badge";
 import { ChevronLeft, ChevronRight, Play, Quote } from "lucide-react";
 
 const CHAD_PHOTOS = [
-  "/athlynx-official-logo.png",
-  "/athlynx-official-logo.png",
-  "/athlynx-official-logo.png",
-  "/athlynx-official-logo.png",
-  "/athlynx-official-logo.png",
-  "/athlynx-official-logo.png",
-  "/athlynx-official-logo.png",
+  "/chad-dozier-ceo.png",
+  "/img-athlete-multisport.jpg",
+  "/img-athlete-football.jpg",
+  "/img-athlete-basketball.jpg",
+  "/img-athlete-baseball.jpg",
+  "/img-athlete-track.jpg",
+  "/img-athlete-training.jpg",
 ];
 
 const ACTION_PHOTOS = [
-  "/athlynx-official-logo.png",
-  "/athlynx-official-logo.png",
-  "/athlynx-official-logo.png",
-  "/athlynx-official-logo.png",
+  "/img-athlete-football.jpg",
+  "/img-athlete-basketball.jpg",
+  "/img-athlete-baseball.jpg",
+  "/img-athlete-soccer.jpg",
 ];
 
 export default function About() {
@@ -199,7 +199,7 @@ export default function About() {
         <div className="mb-20">
           <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-2xl">
             <img
-              src="/athlynx-official-logo.png"
+              src="/img-athlete-multisport.jpg"
               alt="Chad Dozier story"
               className="w-full object-cover"
             />
