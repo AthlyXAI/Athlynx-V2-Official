@@ -4,6 +4,7 @@ import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import AIOnboarding from "./AIOnboarding";
 import ExpirationWarningPopup from "./ExpirationWarningPopup";
+import { AIAssistantButton } from "./ReverseFunnel";
 
 const APPS = [
   { id: "nil-portal", label: "NIL Portal", icon: "/logos/nil-portal-logo.png", badge: "LIVE", href: "/nil-portal" },
@@ -515,6 +516,9 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
           ))}
         </div>
       </nav>
+
+      {/* AI Assistant — always available, everywhere, any device */}
+      <AIAssistantButton />
     </div>
   );
 }

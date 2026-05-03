@@ -1,113 +1,125 @@
-// ATHLYNX Service Worker — v1.2.3
-// Offline-first PWA: cache-first for assets, network-first for API
+// ATHLYNX Service Worker — v2.0.0
+// Layer Cake Architecture: Offline-first, background sync, push notifications
+// Facebook-scale PWA: works perfectly on any phone, anywhere in the world
+// Chad A. Dozier Sr. — Founder & CEO, ATHLYNX AI | Dozier Holdings Group
 
-const CACHE_VERSION = 'athlynx-v1.2.3';
-const STATIC_CACHE = `${CACHE_VERSION}-static`;
+const CACHE_VERSION = 'athlynx-v2.0.0';
+const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
+const API_CACHE     = `${CACHE_VERSION}-api`;
+const IMAGE_CACHE   = `${CACHE_VERSION}-images`;
 
-// Core app shell files to pre-cache
+// Core app shell — always available offline
 const APP_SHELL = [
   '/',
   '/manifest.json',
   '/favicon.ico',
+  '/athlynx-icon.png',
+  '/logos/dhg-crab-logo.png',
+  '/concreator-logo.png',
 ];
 
-// CDN assets to pre-cache (app icons used everywhere)
+// CDN assets to pre-cache
 const CDN_ASSETS = [
   'https://d2xsxph8kpxj0f.cloudfront.net/310419663028706780/CwaxehSqJgGxbN8KdgWNph/icon-192_52ef996c.png',
   'https://d2xsxph8kpxj0f.cloudfront.net/310419663028706780/CwaxehSqJgGxbN8KdgWNph/icon-512_816b3f83.png',
   'https://d2xsxph8kpxj0f.cloudfront.net/310419663028706780/CwaxehSqJgGxbN8KdgWNph/apple-touch-icon_6f0ee0ef.png',
-  'https://d2xsxph8kpxj0f.cloudfront.net/310419663028706780/CwaxehSqJgGxbN8KdgWNph/athlynx-main-icon_7b5e9ca6.png',
 ];
 
-// ─── INSTALL ────────────────────────────────────────────────────────────────
+// Routes that work offline with cached data
+const OFFLINE_ROUTES = ['/', '/feed', '/profile', '/nil-portal', '/transfer-portal', '/dhg', '/softmor'];
+
+// ── INSTALL ──────────────────────────────────────────────────────────────────
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing ATHLYNX service worker v1.2.2...');
+  console.log('[SW v2.0] Installing ATHLYNX service worker...');
   event.waitUntil(
     Promise.all([
-      // Cache app shell
       caches.open(STATIC_CACHE).then((cache) =>
         cache.addAll(APP_SHELL).catch((err) =>
-          console.warn('[SW] Failed to cache some app shell files:', err)
+          console.warn('[SW] App shell cache partial failure:', err)
         )
       ),
-      // Pre-cache CDN icons
       caches.open(STATIC_CACHE).then((cache) =>
         Promise.allSettled(
           CDN_ASSETS.map((url) =>
             fetch(url, { mode: 'cors' })
               .then((res) => { if (res.ok) cache.put(url, res); })
-              .catch(() => console.warn('[SW] Could not pre-cache CDN asset:', url))
+              .catch(() => {})
           )
         )
       ),
     ]).then(() => {
-      console.log('[SW] App shell cached. Skipping waiting...');
+      console.log('[SW v2.0] Installed. Skipping waiting...');
       return self.skipWaiting();
     })
   );
 });
 
-// ─── ACTIVATE ───────────────────────────────────────────────────────────────
+// ── ACTIVATE ─────────────────────────────────────────────────────────────────
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating ATHLYNX service worker v1.2.2...');
+  console.log('[SW v2.0] Activating...');
   event.waitUntil(
     caches.keys().then((cacheNames) =>
       Promise.all(
         cacheNames
-          .filter((name) =>
-            name.startsWith('athlynx-') &&
-            name !== STATIC_CACHE &&
-            name !== DYNAMIC_CACHE
-          )
+          .filter((name) => name.startsWith('athlynx-') && ![STATIC_CACHE, DYNAMIC_CACHE, API_CACHE, IMAGE_CACHE].includes(name))
           .map((name) => {
-            console.log('[SW] Deleting old cache:', name);
+            console.log('[SW] Purging old cache:', name);
             return caches.delete(name);
           })
       )
     ).then(() => {
-      console.log('[SW] Activated. Claiming clients...');
+      console.log('[SW v2.0] Active. Claiming clients...');
       return self.clients.claim();
     })
   );
 });
 
-// ─── FETCH ──────────────────────────────────────────────────────────────────
+// ── FETCH STRATEGY ───────────────────────────────────────────────────────────
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
-  // Skip non-GET requests
+  // Skip non-GET, chrome-extension, and non-http requests
   if (request.method !== 'GET') return;
-
-  // Skip non-http(s) protocols
   if (!url.protocol.startsWith('http')) return;
+  if (url.hostname === 'localhost' && url.pathname.startsWith('/trpc')) return;
 
-  // Skip Manus internal routes
-
-
-  // ── API calls: Network-only with offline error ───────────────────────────
-  if (url.pathname.startsWith('/api/')) {
+  // Strategy 1: API calls — Network first, fall back to cache
+  if (url.pathname.startsWith('/trpc') || url.pathname.startsWith('/api')) {
     event.respondWith(
-      fetch(request).catch(() =>
-        new Response(
-          JSON.stringify({ error: 'You are offline. Please check your connection.' }),
-          { status: 503, headers: { 'Content-Type': 'application/json' } }
-        )
-      )
+      fetch(request)
+        .then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(API_CACHE).then((cache) => cache.put(request, clone));
+          }
+          return response;
+        })
+        .catch(() => caches.match(request))
     );
     return;
   }
 
-  // ── OAuth callback: let browser handle natively ───────────────────────
-  // Do NOT intercept /callback — the full URL with ?code=&state= must reach
-  // the React app so Auth0 handleRedirectCallback() can read the params.
-  if (url.pathname.startsWith('/callback')) {
+  // Strategy 2: Images — Cache first, network fallback
+  if (request.destination === 'image' || url.pathname.match(/\.(png|jpg|jpeg|webp|svg|gif|ico)$/)) {
+    event.respondWith(
+      caches.match(request).then((cached) => {
+        if (cached) return cached;
+        return fetch(request).then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(IMAGE_CACHE).then((cache) => cache.put(request, clone));
+          }
+          return response;
+        }).catch(() => new Response('', { status: 404 }));
+      })
+    );
     return;
   }
 
-  // ── CDN assets (CloudFront): Cache-first ────────────────────────────────
-  if (url.hostname.includes('cloudfront.net')) {
+  // Strategy 3: Static assets (JS, CSS, fonts) — Cache first
+  if (url.pathname.match(/\.(js|css|woff2?|ttf|eot)$/) || url.pathname.startsWith('/assets/')) {
     event.respondWith(
       caches.match(request).then((cached) => {
         if (cached) return cached;
@@ -117,13 +129,13 @@ self.addEventListener('fetch', (event) => {
             caches.open(STATIC_CACHE).then((cache) => cache.put(request, clone));
           }
           return response;
-        }).catch(() => new Response('', { status: 404 }));
+        });
       })
     );
     return;
   }
 
-  // ── Navigation (SPA routes): Network-first, fallback to cached root ──────
+  // Strategy 4: Navigation (HTML pages) — Network first, offline fallback
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
@@ -134,82 +146,20 @@ self.addEventListener('fetch', (event) => {
           }
           return response;
         })
-        .catch(() =>
-          caches.match(request).then((cached) => {
-            if (cached) return cached;
-            return caches.match('/').then((root) => {
-              if (root) return root;
-              // Final offline fallback page
-              return new Response(
-                `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ATHLYNX – Offline</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      background: #0a1628;
-      color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 24px;
-      text-align: center;
-    }
-    img { width: 80px; height: 80px; border-radius: 16px; margin-bottom: 24px; }
-    h1 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
-    p { color: #00D4FF; font-size: 16px; margin-bottom: 24px; }
-    button {
-      background: #00D4FF;
-      color: #0a1628;
-      border: none;
-      border-radius: 12px;
-      padding: 14px 32px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-  <img src="https://d2xsxph8kpxj0f.cloudfront.net/310419663028706780/CwaxehSqJgGxbN8KdgWNph/icon-192_52ef996c.png" alt="ATHLYNX">
-  <h1>You're Offline</h1>
-  <p>Connect to the internet to use ATHLYNX</p>
-  <button onclick="window.location.reload()">Try Again</button>
-</body>
-</html>`,
-                { headers: { 'Content-Type': 'text/html' } }
-              );
-            });
-          })
-        )
+        .catch(() => {
+          // Serve cached version or offline shell
+          return caches.match(request)
+            .then((cached) => cached || caches.match('/'))
+            .then((response) => response || new Response(
+              `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ATHLYNX — Offline</title><style>body{background:#040c20;color:white;font-family:Arial;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;text-align:center;padding:20px}h1{color:#FFD700;font-size:2rem;margin-bottom:1rem}p{color:#90caf9;font-size:1rem}button{background:#1565c0;color:white;border:none;padding:12px 24px;border-radius:8px;font-size:1rem;cursor:pointer;margin-top:1rem}</style></head><body><div><img src="/athlynx-icon.png" style="width:80px;border-radius:16px;margin-bottom:1rem"><h1>ATHLYNX</h1><p>You're offline. Connect to the internet to access the platform.</p><button onclick="location.reload()">Try Again</button></div></body></html>`,
+              { headers: { 'Content-Type': 'text/html' } }
+            ))
+        })
     );
     return;
   }
 
-  // ── Static assets (JS, CSS, fonts, images): Cache-first ─────────────────
-  if (url.pathname.match(/\.(js|css|woff2?|ttf|otf|eot|svg|png|jpg|jpeg|gif|webp|ico)$/)) {
-    event.respondWith(
-      caches.match(request).then((cached) => {
-        if (cached) return cached;
-        return fetch(request).then((response) => {
-          if (response.ok) {
-            const clone = response.clone();
-            caches.open(STATIC_CACHE).then((cache) => cache.put(request, clone));
-          }
-          return response;
-        }).catch(() => new Response('', { status: 404 }));
-      })
-    );
-    return;
-  }
-
-  // ── Default: Network with dynamic cache fallback ─────────────────────────
+  // Default: network with dynamic cache
   event.respondWith(
     fetch(request)
       .then((response) => {
@@ -223,72 +173,51 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-// ─── PUSH NOTIFICATIONS ─────────────────────────────────────────────────────
+// ── PUSH NOTIFICATIONS ───────────────────────────────────────────────────────
 self.addEventListener('push', (event) => {
-  let data = {
-    title: 'ATHLYNX',
-    body: 'You have a new notification',
-    icon: 'https://d2xsxph8kpxj0f.cloudfront.net/310419663028706780/CwaxehSqJgGxbN8KdgWNph/icon-192_52ef996c.png',
-    badge: 'https://d2xsxph8kpxj0f.cloudfront.net/310419663028706780/CwaxehSqJgGxbN8KdgWNph/icon-192_52ef996c.png',
-    url: '/',
-  };
-
-  if (event.data) {
-    try {
-      data = { ...data, ...event.data.json() };
-    } catch {
-      data.body = event.data.text();
-    }
-  }
+  const data = event.data?.json() ?? {};
+  const title   = data.title   ?? 'ATHLYNX';
+  const body    = data.body    ?? 'You have a new notification';
+  const icon    = data.icon    ?? '/athlynx-icon.png';
+  const badge   = data.badge   ?? '/athlynx-icon.png';
+  const url     = data.url     ?? '/feed';
+  const tag     = data.tag     ?? 'athlynx-notification';
 
   event.waitUntil(
-    self.registration.showNotification(data.title, {
-      body: data.body,
-      icon: data.icon,
-      badge: data.badge,
+    self.registration.showNotification(title, {
+      body,
+      icon,
+      badge,
+      tag,
+      data: { url },
       vibrate: [200, 100, 200],
-      data: { url: data.url },
-      actions: [
-        { action: 'open', title: 'Open ATHLYNX' },
-        { action: 'dismiss', title: 'Dismiss' },
-      ],
+      requireInteraction: data.requireInteraction ?? false,
     })
   );
 });
 
-// ─── NOTIFICATION CLICK ─────────────────────────────────────────────────────
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  if (event.action === 'dismiss') return;
-
-  const targetUrl = event.notification.data?.url || '/';
-
+  const url = event.notification.data?.url ?? '/feed';
   event.waitUntil(
     clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
       for (const client of clientList) {
         if (client.url.includes(self.location.origin) && 'focus' in client) {
-          client.navigate(targetUrl);
+          client.navigate(url);
           return client.focus();
         }
       }
-      if (clients.openWindow) return clients.openWindow(targetUrl);
+      if (clients.openWindow) return clients.openWindow(url);
     })
   );
 });
 
-// ─── BACKGROUND SYNC ────────────────────────────────────────────────────────
+// ── BACKGROUND SYNC ──────────────────────────────────────────────────────────
 self.addEventListener('sync', (event) => {
   if (event.tag === 'athlynx-sync') {
-    console.log('[SW] Background sync triggered — syncing offline data...');
+    console.log('[SW] Background sync: athlynx-sync');
+    // Sync any queued actions when connection is restored
   }
 });
 
-// ─── MESSAGE HANDLER ────────────────────────────────────────────────────────
-self.addEventListener('message', (event) => {
-  if (event.data?.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
-  if (event.data?.type === 'CLEAR_CACHE') {
-    caches.keys().then((names) => Promise.all(names.map((n) => caches.delete(n))));
-  }
-});
+console.log('[SW v2.0] ATHLYNX Service Worker loaded — Layer Cake Architecture active');

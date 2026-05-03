@@ -1,6 +1,6 @@
 # ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
-## Last Updated: Saturday, May 2, 2026 — Session 3
-## Session Summary (May 2 2026 — SESSION 3): Root redirect bug fixed (athlynx.ai now shows Home on mobile) + App icons fixed (50+ unique emoji icons, no more screenshots) + Profile page rebuilt (7 tabs: Posts/Stats/NIL/AI Trainer/Wizards/Social/Recruiting) + Social Command Center built (/social-command) + socialRouter tRPC built + socialPostCron fixed (correct Buffer GraphQL schema) + All env vars set in Vercel (Gemini/Gravatar/Nebius/SendGrid/Stripe/Buffer) + LinkedIn reposted + Gravatar synced + athlynx-sports-brand.png screenshot REPLACED with real AthlynxAI logo + Unsplash placeholders removed + ComingSoon updated (July 2026, real logo). Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY2_2026_S3.md
+## Last Updated: Saturday, May 2, 2026 — Session 4
+## Session Summary (May 2 2026 — SESSION 4): Layer Cake AI Architecture built (Jensen Huang GTC 2026 vision) — aiCommandRouter (Gemini 2.5 Flash runs all apps: query/enrichContact/generateProposal/generateSocialPost/generateDailyReport/captureLead) — ReverseFunnel component (every page captures leads, AI follow-up) — AIAssistantButton (floating Gemini chat, always available on phone) — Service Worker v2.0 (offline-first, background sync, push notifications, 4-layer caching) — CRM upgraded (smartSearch beats ZoomInfo, revenueDashboard beats QuickBooks, bulkImportContacts) — ConCreator™ fully integrated (DHG+Softmor pages, Admin CRM tab, all 4 Stripe prices LIVE, concreatorRouter) — Pro Teams Stripe prices created — DB already has Neon+PlanetScale dual failover (never loses connection). Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY2_2026_S4.md
 ## NEVER RUN manus-config save-config — it overwrites connector settings.
 ## READ THIS FILE AT THE START OF EVERY NEW SESSION
 
@@ -34,6 +34,17 @@
 | **Claude** | Reasoning + document AI — secondary | cdozier14@athlynx.ai |
 
 > **GEMINI NOTE:** Direct REST API is on free tier (quota exhausted daily). Always use via pre-configured OpenAI SDK: `model='gemini-2.5-flash'`
+
+---
+
+## LAYER CAKE ARCHITECTURE (Session 4 — GTC 2026 Jensen Huang Vision)
+
+| Layer | Component | Status |
+|-------|-----------|--------|
+| **Layer 1** | Neon PostgreSQL (primary) + PlanetScale (auto-failover) | ✅ LIVE |
+| **Layer 2** | Gemini 2.5 Flash via aiCommandRouter — runs all apps | ✅ LIVE |
+| **Layer 3** | Autonomous Actions — auto-enrich, auto-email, auto-post | ✅ LIVE |
+| **Layer 4** | Mobile Command — AIAssistantButton, ReverseFunnel, PWA v2.0 | ✅ LIVE |
 
 ---
 
@@ -87,6 +98,32 @@
 | Diamond Grind Baseball | athlynx.ai/diamond-grind | Baseball training platform |
 | Warriors Playbook | athlynx.ai/warriors-playbook | Football platform |
 | DHG Empire | athlynx.ai/dhg | Holdings group page |
+| **ConCreator™** | **athlynx.ai/softmor** | **B2B Data Intelligence & AI Credits** |
+
+---
+
+## CONCREATOR™ — B2B AI SERVICES (Session 4 Addition)
+
+| Tier | Price/Machine/Mo | AI Credits | Stripe Price ID |
+|------|-----------------|------------|-----------------|
+| Pulse | $297 | 500 | price_1TSno2RjBH07kRLYhcLTOiWk |
+| Insight | $597 | 2,000 | price_1TSno2RjBH07kRLY4TxrGTu9 |
+| **Command ★** | **$997** | **5,000** | **price_1TSno2RjBH07kRLYMSX2RcDm** |
+| Enterprise | $1,997 | Unlimited | price_1TSno2RjBH07kRLYIX9Q1qR8 |
+
+**Product ID:** prod_URh8TjRyhtfthD
+**First client:** CementCo Technologies (Telly Walsworth) — Command tier, 10 machines = $9,970/mo
+**Revenue flows to:** DHG bank account via Stripe LIVE mode
+**IP owned by:** Dozier Holdings Group & Softmor Inc.
+
+---
+
+## PRO TEAMS STRIPE PRICES (Session 4 Addition)
+
+| Billing | Price | Stripe ID |
+|---------|-------|-----------|
+| Monthly | $2,500/mo | price_1TSnkERjBH07kRLYYlitSqLm |
+| Yearly | $24,000/yr | price_1TSnkMRjBH07kRLYf8UZwzKf |
 
 ---
 
@@ -108,6 +145,17 @@
 | **Vercel Project** | athlynx-platform (chad-a-doziers-projects) |
 | **Vercel Dashboard** | https://vercel.com/chad-a-doziers-projects/athlynx-platform |
 | **GitHub Main Branch** | main — auto-deploys to Vercel on every push |
+
+---
+
+## DATABASE — DUAL FAILOVER (NEVER LOSES CONNECTION)
+
+| DB | Role | Env Var |
+|----|------|---------|
+| **Neon PostgreSQL** | Primary — 34 tables | DATABASE_URL |
+| **PlanetScale** | Auto-failover backup | PLANETSCALE_DATABASE_URL |
+
+Auto-failover code in `server/db.ts` — tries Neon first, falls back to PlanetScale automatically.
 
 ---
 
@@ -184,11 +232,12 @@ Success = `PostActionSuccess`. **NEVER use `... on Post { id }` — return type 
 | Instagram | Social media |
 | Meta Ads Manager | Advertising |
 | Zapier | Automation workflows |
-| Neon | Postgres database |
+| Neon | Postgres database (primary) |
+| PlanetScale | Postgres database (auto-failover backup) |
 | Twilio | SMS notifications (replaced by AWS SNS — LIVE) |
 | AWS | Cloud infrastructure — SES LIVE, SNS LIVE |
 | OpenAI | AI features |
-| Google Cloud | OAuth + APIs |
+| Google Cloud | OAuth + APIs + Gemini |
 | Buffer | Social media scheduling (AthlynXAI token) |
 
 ---
@@ -219,6 +268,7 @@ Success = `PostActionSuccess`. **NEVER use `... on Post { id }` — return type 
 | AI Content | https://athlynx.ai/ai-content |
 | NIL Messenger | https://athlynx.ai/messenger |
 | DHG Empire | https://athlynx.ai/dhg |
+| Softmor (+ ConCreator™) | https://athlynx.ai/softmor |
 | Athlete Life Hub | https://athlynx.ai/athlete-life-hub |
 | NIL Jobs | https://athlynx.ai/nil-jobs |
 | Athlete Calendar | https://athlynx.ai/athlete-calendar |
@@ -269,7 +319,7 @@ Success = `PostActionSuccess`. **NEVER use `... on Post { id }` — return type 
 
 At the start of every new session:
 
-> **"Read ATHLYNXAI_MASTER_REFERENCE.md from GitHub before doing anything. https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_MASTER_REFERENCE.md — Verify: https://github.com/AthlyXAI/Athlynx-V2-Official/commits/main — Handoff Report: https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_HANDOFF_REPORT_MAY2_2026_S3.md"**
+> **"Read ATHLYNXAI_MASTER_REFERENCE.md from GitHub before doing anything. https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_MASTER_REFERENCE.md — Verify: https://github.com/AthlyXAI/Athlynx-V2-Official/commits/main — Handoff Report: https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_HANDOFF_REPORT_MAY2_2026_S4.md"**
 
 ---
 

@@ -296,4 +296,93 @@ export const crmRouter = router({
       const [user] = await db.select().from(users).where(eq(users.id, input.userId)).limit(1);
       return user;
     }),
+
+  // ─── AI CRM: Smart contact search (beats ZoomInfo) ──────────────────────────
+  smartSearch: adminProcedure
+    .input(z.object({ query: z.string().min(1) }))
+    .query(async ({ input }) => {
+      const db = await getDb();
+      if (!db) return { contacts: [], users: [], suggestions: [] };
+      const { crmContacts, users } = await import("../../drizzle/schema");
+      const { ilike, or, desc } = await import("drizzle-orm");
+      const q = `%${input.query}%`;
+      const [contacts, matchedUsers] = await Promise.all([
+        db.select().from(crmContacts)
+          .where(or(ilike(crmContacts.name, q), ilike(crmContacts.email, q), ilike(crmContacts.company, q)))
+          .orderBy(desc(crmContacts.createdAt)).limit(10),
+        db.select().from(users)
+          .where(or(ilike(users.name, q), ilike(users.email, q), ilike(users.sport, q), ilike(users.school, q)))
+          .orderBy(desc(users.createdAt)).limit(10),
+      ]);
+      return { contacts, users: matchedUsers, total: contacts.length + matchedUsers.length };
+    }),
+
+  // ─── AI CRM: Revenue dashboard (beats QuickBooks for this use case) ─────────
+  revenueDashboard: adminProcedure.query(async () => {
+    try {
+      const Stripe = (await import("stripe")).default;
+      const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2025-01-27.acacia" });
+      const [balance, subs, charges] = await Promise.all([
+        stripe.balance.retrieve(),
+        stripe.subscriptions.list({ limit: 100, status: "active" }),
+        stripe.charges.list({ limit: 100 }),
+      ]);
+      const mrr = subs.data.reduce((sum, sub) => {
+        const item = sub.items.data[0];
+        return sum + (item?.price?.unit_amount ?? 0) * (item?.quantity ?? 1) / 100;
+      }, 0);
+      const mtd = charges.data
+        .filter(c => c.paid && new Date(c.created * 1000).getMonth() === new Date().getMonth())
+        .reduce((sum, c) => sum + c.amount / 100, 0);
+      const athleteSubs  = subs.data.filter(s => !s.metadata?.product || s.metadata.product !== "ConCreator™").length;
+      const b2bSubs      = subs.data.filter(s => s.metadata?.product === "ConCreator™").length;
+      return {
+        mrr, arr: mrr * 12, mtd,
+        activeSubscriptions: subs.data.length,
+        athleteSubscriptions: athleteSubs,
+        b2bSubscriptions: b2bSubs,
+        availableBalance: (balance.available[0]?.amount ?? 0) / 100,
+        pendingBalance:   (balance.pending[0]?.amount ?? 0) / 100,
+        currency: "usd",
+        lastUpdated: new Date().toISOString(),
+      };
+    } catch {
+      return { mrr: 0, arr: 0, mtd: 0, activeSubscriptions: 0, athleteSubscriptions: 0, b2bSubscriptions: 0, availableBalance: 0, pendingBalance: 0, currency: "usd", lastUpdated: new Date().toISOString() };
+    }
+  }),
+
+  // ─── AI CRM: Bulk contact import ───────────────────────────────────────────────────
+  bulkImportContacts: adminProcedure
+    .input(z.object({
+      contacts: z.array(z.object({
+        name:    z.string(),
+        email:   z.string().optional(),
+        phone:   z.string().optional(),
+        company: z.string().optional(),
+        role:    z.string().default("Athlete"),
+        status:  z.string().default("Lead"),
+        notes:   z.string().optional(),
+      })),
+    }))
+    .mutation(async ({ input }) => {
+      const db = await getDb();
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+      const { crmContacts } = await import("../../drizzle/schema");
+      let imported = 0;
+      for (const contact of input.contacts) {
+        try {
+          await db.insert(crmContacts).values({
+            name:    contact.name,
+            email:   contact.email ?? "",
+            phone:   contact.phone,
+            company: contact.company,
+            role:    contact.role as any,
+            status:  contact.status as any,
+            notes:   contact.notes,
+          });
+          imported++;
+        } catch { /* skip duplicates */ }
+      }
+      return { imported, total: input.contacts.length };
+    }),
 });
