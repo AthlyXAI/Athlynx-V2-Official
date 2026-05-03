@@ -18,6 +18,7 @@ import Platform from "./pages/Platform";
 import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
 import SignIn from "./pages/SignIn";
+import Reels from "./pages/Reels";
 import AuthCallback from "./pages/AuthCallback";
 import Onboarding from "./pages/Onboarding";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -219,6 +220,8 @@ function Router() {
       <Route path="/forgot-password" component={ForgotPassword} />
       <Route path="/success" component={Success} />
       <Route path="/feed" component={Feed} />
+      <Route path="/reels" component={Reels} />
+      <Route path="/highlights" component={Reels} />
       <Route path="/profile/:id?" component={Profile} />
 
       {/* ── Platform Apps ── */}

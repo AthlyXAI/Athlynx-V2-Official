@@ -17,9 +17,9 @@ export default function MobileBottomNav() {
       icon: 'M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z',
     },
     {
-      href: '/nil-portal',
-      label: 'NIL',
-      icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z',
+      href: '/reels',
+      label: 'Reels',
+      icon: 'M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z',
     },
     {
       href: '/messenger',
@@ -27,9 +27,9 @@ export default function MobileBottomNav() {
       icon: 'M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z',
     },
     {
-      href: '/transfer-portal',
-      label: 'Transfer',
-      icon: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z',
+      href: '/nil-portal',
+      label: 'NIL',
+      icon: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z',
     },
     {
       href: user ? '/profile' : '/signin',

@@ -16,7 +16,8 @@ const APPS = [
   { id: "ai-sales", label: "AI Sales", icon: "/athlynx-icon.png", badge: "AI", href: "/ai-sales" },
   { id: "ai-recruiter", label: "AI Recruiter", icon: "/athlynx-icon.png", badge: "AI", href: "/ai-recruiter" },
   { id: "ai-content", label: "AI Content", icon: "/athlynx-icon.png", badge: "BLEND", href: "/ai-content" },
-  { id: "faith", label: "Faith", icon: "/athlynx-icon.png", badge: "", href: "/faith" },
+  { id: "feed", label: "My Feed", icon: "/athlynx-icon.png", badge: "", href: "/feed" },
+  { id: "reels", label: "Reels", icon: "/athlynx-icon.png", badge: "NEW", href: "/reels" },
   { id: "robotics", label: "Robotics", icon: "/athlynx-icon.png", badge: "SOON", href: "/robotics" },
   { id: "trainerbot", label: "TrainerBot", icon: "/athlynx-icon.png", badge: "NEW", href: "/trainerbot" },
   { id: "infrastructure", label: "Infrastructure", icon: "/athlynx-icon.png", badge: "INFRA", href: "/infrastructure" },
@@ -539,15 +540,15 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#1a3a8f] border-t border-blue-900 z-50" style={{paddingBottom: 'max(env(safe-area-inset-bottom, 8px), 8px)'}}>
         <div className="flex items-center justify-around py-2">
           {[
-            { href: "/feed", icon: "M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z", label: "Home" },
-            { href: "/nil-portal", icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z", label: "NIL" },
-            { href: "/messenger", icon: "M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z", label: "Chat" },
-            { href: "/transfer-portal", icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z", label: "Transfer" },
-            { href: "/profile", icon: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z", label: user ? "Profile" : "Sign In" },
+            { href: "/feed", icon: "M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z", label: "Home", filled: true },
+            { href: "/reels", icon: "M15 10l4.553-2.069A1 1 0 0121 8.87v6.26a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z", label: "Reels", filled: false },
+            { href: "/messenger", icon: "M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z", label: "Chat", filled: true },
+            { href: "/nil-portal", icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z", label: "NIL", filled: true },
+            { href: "/profile", icon: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z", label: user ? "Profile" : "Sign In", filled: true },
           ].map((item) => (
-            <Link key={item.href} href={item.href === "/profile" && !user ? "/signin" : item.href} className={`flex flex-col items-center gap-0.5 p-2 rounded-lg transition-colors ${location === item.href ? 'text-blue-400' : 'text-blue-600 hover:text-blue-400'}`}>
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d={item.icon} />
+            <Link key={item.href} href={item.href === "/profile" && !user ? "/signin" : item.href} className={`flex flex-col items-center gap-0.5 p-2 rounded-lg transition-colors ${location === item.href ? 'text-cyan-400' : 'text-blue-600 hover:text-blue-400'}`}>
+              <svg className="w-5 h-5" fill={item.filled ? 'currentColor' : 'none'} stroke={item.filled ? 'none' : 'currentColor'} strokeWidth="1.8" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
               </svg>
               <span className="text-[9px]">{item.label}</span>
             </Link>
