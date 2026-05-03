@@ -54,7 +54,7 @@ const TEMPLATES = [
     features: ["Brand partnership section", "Social media integration", "NIL deal showcase", "Media kit download", "Analytics dashboard"],
     color: "from-blue-600 to-red-500",
     popular: true,
-    preview: "/athlete2.jpg",
+    preview: "/sport-basketball.jpg",
   },
   {
     id: "full-package",
@@ -63,7 +63,7 @@ const TEMPLATES = [
     price: 49.99,
     features: ["Everything in NIL Ready", "Custom domain", "SEO optimization", "Email marketing", "Priority support", "Unlimited updates"],
     color: "from-red-500 to-red-500",
-    preview: "/athlete1.jpg",
+    preview: "/sport-football.jpg",
   },
 ];
 

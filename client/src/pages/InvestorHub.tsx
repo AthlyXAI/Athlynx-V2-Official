@@ -638,19 +638,19 @@ export default function InvestorHub() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
             {[
               "/chad-dozier-ceo.png",
-              "/athlete1.jpg",
+              "/sport-football.jpg",
               "/images/athlete-focus.jpg",
-              "/athlete2.jpg",
+              "/sport-basketball.jpg",
               "/images/champion-hero.jpg",
               "/app-mockup-hero.png",
-              "/athlete1.jpg",
+              "/sport-track.jpg",
               "/images/athlete-focus.jpg",
-              "/athlete2.jpg",
+              "/sport-training.jpg",
               "/app-mockup-profile.png",
               "/images/champion-hero.jpg",
-              "/athlete1.jpg",
+              "/sport-football.jpg",
               "/images/athlete-focus.jpg",
-              "/athlete2.jpg",
+              "/sport-basketball.jpg",
             ].map((src, i) => (
               <div key={i} className="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-blue-400/50 transition-all group">
                 <img src={src} alt={`GTC San Jose 2026 — ${i + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
@@ -689,10 +689,10 @@ export default function InvestorHub() {
               { src: "/brand/athlynx-promo.png", label: "Athlete Promo" },
               { src: "/brand/athlynx-investor.png", label: "Investor View" },
               { src: "/brand/dhg-empire-hero.png", label: "DHG Empire" },
-              { src: "/athlete1.jpg", label: "Football Training" },
-              { src: "/athlete2.jpg", label: "Basketball" },
-              { src: "/athlete1.jpg", label: "Baseball" },
-              { src: "/athlete2.jpg", label: "Track & Field" },
+              { src: "/sport-football.jpg", label: "Football Training" },
+              { src: "/sport-basketball.jpg", label: "Basketball" },
+              { src: "/images/athlete-focus.jpg", label: "Baseball" },
+              { src: "/sport-track.jpg", label: "Track & Field" },
             ].map((item, i) => (
               <div key={i} className="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-red-400/50 transition-all group relative">
                 <img src={item.src} alt={item.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
