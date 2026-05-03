@@ -188,55 +188,141 @@ const MOBILE_NAV_SECTIONS: MobileSection[] = [
 function MobileNavMenu({ onClose, onInstall }: { onClose: () => void; onInstall: () => void }) {
   const [openSection, setOpenSection] = useState<string | null>(null);
   return (
-    <div className="md:hidden bg-[#0a1628] border-t border-blue-900 overflow-y-auto max-h-[80vh]">
-      {/* PWA Install CTA */}
-      <button
-        onClick={onInstall}
-        className="w-full flex items-center gap-3 bg-green-700 hover:bg-green-600 text-white font-black px-4 py-4 border-b border-blue-900/60 transition-colors"
-      >
-        <svg className="w-5 h-5 text-white flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>
-        <div className="text-left">
-          <div className="text-white font-black text-sm">Add ATHLYNX to Your Phone</div>
-          <div className="text-green-200 text-xs font-normal">Works like a native app — no App Store needed</div>
-        </div>
-      </button>
-      {/* Quick links */}
-      <div className="px-4 py-3 flex flex-col gap-0">
-        <Link href="/feed" className="flex items-center gap-3 text-white font-bold py-3.5 border-b border-blue-900/40 text-sm" onClick={onClose}>ENTER PLATFORM</Link>
-        <Link href="/demo" className="flex items-center gap-3 text-red-300 font-bold py-3.5 border-b border-blue-900/40 text-sm" onClick={onClose}>HOW IT WORKS</Link>
-        <Link href="/pricing" className="flex items-center gap-3 text-white py-3.5 border-b border-blue-900/40 text-sm" onClick={onClose}>PRICING</Link>
-        <Link href="/founders" className="flex items-center gap-3 text-white py-3.5 border-b border-blue-900/40 text-sm" onClick={onClose}>FOUNDERS</Link>
+    // Full-screen overlay — fixed, covers entire viewport
+    <div
+      className="fixed inset-0 z-[9999] flex flex-col"
+      style={{ background: '#07112b' }}
+    >
+      {/* Header row */}
+      <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
+        <img src="/athlynx-icon.png" alt="ATHLYNX" className="h-9 w-auto" />
+        <button
+          onClick={onClose}
+          className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+          aria-label="Close menu"
+        >
+          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
-      {/* Collapsible sections */}
-      {MOBILE_NAV_SECTIONS.map(section => (
-        <div key={section.label} className="border-t border-blue-900/60">
+
+      {/* Scrollable nav body */}
+      <div className="flex-1 overflow-y-auto">
+        {/* Primary links */}
+        <div className="px-5 pt-4 pb-2 flex flex-col">
+          {[
+            { href: '/', label: 'Home' },
+            { href: '/feed', label: 'Enter Platform', accent: true },
+            { href: '/pricing', label: 'Pricing' },
+            { href: '/nil-portal', label: 'NIL Portal', sub: 'Get paid for your name' },
+            { href: '/transfer-portal', label: 'Transfer Portal', sub: 'Find your next school' },
+            { href: '/ai-recruiter', label: 'AI Recruiter', sub: 'Get discovered by coaches' },
+            { href: '/founders', label: 'About Us' },
+            { href: '/contact', label: 'Contact' },
+          ].map(item => (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={onClose}
+              className="flex items-center justify-between py-4 border-b border-white/8 group"
+            >
+              <div>
+                <span className={`text-xl font-bold tracking-tight ${
+                  item.accent ? 'text-[#00c2ff]' : 'text-white'
+                }`}>{item.label}</span>
+                {item.sub && <div className="text-white/40 text-xs mt-0.5">{item.sub}</div>}
+              </div>
+              <svg className="w-5 h-5 text-white/20 group-hover:text-white/60 transition-colors" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          ))}
+        </div>
+
+        {/* Sports section — collapsible */}
+        <div className="border-t border-white/10">
           <button
-            onClick={() => setOpenSection(openSection === section.label ? null : section.label)}
-            className="w-full flex items-center justify-between px-4 py-3.5 text-white font-bold text-sm hover:bg-blue-900/30 transition-colors"
+            onClick={() => setOpenSection(openSection === 'Sports' ? null : 'Sports')}
+            className="w-full flex items-center justify-between px-5 py-4 text-white"
           >
-            <span>{section.label}</span>
-            <span className="text-blue-400 text-xs">{openSection === section.label ? '▲' : '▼'}</span>
+            <span className="text-xl font-bold tracking-tight">Sports</span>
+            <svg className={`w-5 h-5 text-white/40 transition-transform duration-200 ${openSection === 'Sports' ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
           </button>
-          {openSection === section.label && (
-            <div className="bg-[#060e1f] px-4 pb-2">
-              {section.links.map(link => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="flex items-center gap-2 text-blue-200 py-2.5 border-b border-blue-900/30 text-sm hover:text-white transition-colors"
-                  onClick={onClose}
-                >
-                  {link.label}
+          {openSection === 'Sports' && (
+            <div className="px-5 pb-4 grid grid-cols-2 gap-x-4 gap-y-1">
+              {[
+                { href: '/gridiron-nexus', label: '🏈 Football' },
+                { href: '/diamond-grind', label: '⚾ Baseball' },
+                { href: '/court-kings', label: '🏀 Basketball' },
+                { href: '/net-setters', label: '🏐 Volleyball' },
+                { href: '/fairway-elite', label: '⛳ Golf' },
+                { href: '/mat-warriors', label: '🤼 Wrestling' },
+                { href: '/swim-surge', label: '🏊 Swimming' },
+                { href: '/track-elite', label: '🏃 Track' },
+                { href: '/reel-masters', label: '🎣 Fishing' },
+                { href: '/ice-breakers', label: '🏒 Hockey' },
+              ].map(s => (
+                <Link key={s.href} href={s.href} onClick={onClose}
+                  className="py-2.5 text-white/70 hover:text-white text-base font-medium transition-colors">
+                  {s.label}
                 </Link>
               ))}
             </div>
           )}
         </div>
-      ))}
-      {/* Auth buttons */}
-      <div className="px-4 py-4 flex flex-col gap-2 border-t border-blue-900">
-        <Link href="/signup" className="flex items-center justify-center gap-2 bg-gradient-to-r from-red-400 to-red-500 text-black font-black px-4 py-4 rounded-2xl text-base" onClick={onClose}>JOIN FREE — 7 DAYS</Link>
-        <Link href="/signin" className="flex items-center justify-center gap-2 bg-blue-600 text-white font-bold px-4 py-4 rounded-2xl text-base" onClick={onClose}>SIGN IN</Link>
+
+        {/* Solutions section — collapsible */}
+        <div className="border-t border-white/10">
+          <button
+            onClick={() => setOpenSection(openSection === 'Solutions' ? null : 'Solutions')}
+            className="w-full flex items-center justify-between px-5 py-4 text-white"
+          >
+            <span className="text-xl font-bold tracking-tight">Solutions</span>
+            <svg className={`w-5 h-5 text-white/40 transition-transform duration-200 ${openSection === 'Solutions' ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          {openSection === 'Solutions' && (
+            <div className="px-5 pb-4 flex flex-col gap-0">
+              {[
+                { href: '/nil-marketplace', label: 'NIL Marketplace' },
+                { href: '/nil-vault', label: 'NIL Vault' },
+                { href: '/ai-content', label: 'AI Content' },
+                { href: '/ai-training-bot', label: 'AI Training Bot' },
+                { href: '/elite-events', label: 'Elite Events' },
+                { href: '/pro-teams', label: 'Pro Teams' },
+                { href: '/store', label: 'Athlete Store' },
+              ].map(s => (
+                <Link key={s.href} href={s.href} onClick={onClose}
+                  className="py-3 text-white/70 hover:text-white text-base font-medium border-b border-white/5 transition-colors">
+                  {s.label}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Footer CTA — always visible at bottom */}
+      <div className="px-5 py-5 border-t border-white/10 flex flex-col gap-3" style={{ paddingBottom: 'max(20px, env(safe-area-inset-bottom))' }}>
+        <Link href="/signup" onClick={onClose}
+          className="flex items-center justify-center bg-[#00c2ff] hover:bg-[#00a8e0] text-black font-black text-lg py-4 rounded-2xl transition-all shadow-lg shadow-[#00c2ff]/20">
+          JOIN FREE — 7 DAYS 🏆
+        </Link>
+        <div className="flex gap-3">
+          <Link href="/signin" onClick={onClose}
+            className="flex-1 flex items-center justify-center border border-white/20 text-white font-bold text-sm py-3 rounded-xl hover:bg-white/5 transition-colors">
+            Sign In
+          </Link>
+          <button onClick={onInstall}
+            className="flex-1 flex items-center justify-center border border-white/20 text-white/60 font-bold text-sm py-3 rounded-xl hover:bg-white/5 transition-colors">
+            📲 Add to Phone
+          </button>
+        </div>
+        <p className="text-white/20 text-xs text-center">ATHLYNX · Dozier Holdings Group · Houston, TX</p>
       </div>
     </div>
   );

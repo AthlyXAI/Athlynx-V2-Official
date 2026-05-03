@@ -194,11 +194,13 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
   const { data: creditsData } = trpc.ai.getCredits.useQuery(undefined, { enabled: !!user, refetchInterval: 30000 });
   const liveCredits = creditsData?.credits ?? user?.credits ?? 0;
   // Trial state derived from DB user
+  const isAdmin = (user as any)?.role === 'admin';
   const trialEndsAt = (user as any)?.trialEndsAt ? new Date((user as any).trialEndsAt) : null;
   const _now = new Date();
   const trialDaysLeft = trialEndsAt ? Math.max(0, Math.ceil((trialEndsAt.getTime() - _now.getTime()) / (1000 * 60 * 60 * 24))) : 0;
-  const isInTrial = !!trialEndsAt && trialEndsAt > _now && !(user as any)?.stripeSubscriptionId;
-  const trialExpired = !!trialEndsAt && trialEndsAt <= _now && !(user as any)?.stripeSubscriptionId;
+  // Admins always have full access — never show trial UI or paywall
+  const isInTrial = !isAdmin && !!trialEndsAt && trialEndsAt > _now && !(user as any)?.stripeSubscriptionId;
+  const trialExpired = !isAdmin && !!trialEndsAt && trialEndsAt <= _now && !(user as any)?.stripeSubscriptionId;
 
   const planLabel = sub?.plan === "athlete_pro" ? "PRO" :
     sub?.plan === "athlete_elite" ? "ELITE" :
@@ -335,38 +337,137 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
           </div>
         </div>
 
-        {/* Mobile menu — full app drawer */}
+        {/* Mobile menu — full-screen overlay, social-first */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-[#0a1628] border-t border-blue-900 overflow-y-auto" style={{ maxHeight: '80vh' }}>
-            {/* Quick nav links */}
-            <div className="px-4 pt-3 pb-2 flex flex-col gap-0 border-b border-blue-900/60">
-              <Link href="/feed" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 text-white font-bold py-3 border-b border-blue-900/30 text-sm">🏠 Home Feed</Link>
-              <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 text-white font-bold py-3 border-b border-blue-900/30 text-sm">👤 My Profile</Link>
-              <Link href="/nil-portal" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 text-white font-bold py-3 border-b border-blue-900/30 text-sm">💰 NIL Portal</Link>
-              <Link href="/transfer-portal" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 text-white font-bold py-3 border-b border-blue-900/30 text-sm">🔄 Transfer Portal</Link>
-              <Link href="/messenger" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3 text-white font-bold py-3 text-sm">💬 Messenger</Link>
+          <div
+            className="fixed inset-0 z-[9999] flex flex-col md:hidden"
+            style={{ background: '#07112b' }}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
+              <img src="/athlynx-icon.png" alt="ATHLYNX" className="h-9 w-auto" />
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+                aria-label="Close menu"
+              >
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
-            {/* All Apps Grid */}
-            <div className="px-4 py-3">
-              <div className="text-blue-400 text-xs font-bold uppercase tracking-widest mb-3">All Apps</div>
-              <div className="grid grid-cols-4 gap-2">
-                {APPS.map(app => (
-                  <Link key={app.id} href={app.href} onClick={() => setMobileMenuOpen(false)} className="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-blue-900/60 active:bg-blue-800 transition-colors">
-                    <img src={app.icon} alt={app.label} className="w-10 h-10 rounded-xl object-cover shadow" onError={e => { (e.target as HTMLImageElement).src = "/athlynx-icon.png"; }} />
-                    <span className="text-[9px] text-blue-200 text-center leading-tight font-medium">{app.label}</span>
-                    {app.badge && <span className="text-[7px] font-black px-1 py-0.5 rounded-full bg-blue-700 text-blue-200">{app.badge}</span>}
+
+            {/* Scrollable body */}
+            <div className="flex-1 overflow-y-auto">
+
+              {/* User greeting if logged in */}
+              {user && (
+                <div className="px-5 py-4 border-b border-white/10 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-blue-700 border-2 border-[#00c2ff] flex items-center justify-center overflow-hidden flex-shrink-0">
+                    {user.avatarUrl
+                      ? <img src={user.avatarUrl} alt={user.name ?? ''} className="w-full h-full object-cover" />
+                      : <span className="text-white font-black text-sm">{(user.name ?? 'A').charAt(0).toUpperCase()}</span>
+                    }
+                  </div>
+                  <div>
+                    <div className="text-white font-black text-base">{user.name ?? 'Athlete'}</div>
+                    <div className="text-[#00c2ff] text-xs font-semibold">ATHLYNX Member</div>
+                  </div>
+                </div>
+              )}
+
+              {/* Core nav */}
+              <div className="px-5 pt-3 pb-2 flex flex-col">
+                {[
+                  { href: '/feed',            label: 'Home Feed',        sub: 'Your athlete social feed' },
+                  { href: '/nil-portal',      label: 'NIL Portal',       sub: 'Get paid for your name', accent: true },
+                  { href: '/transfer-portal', label: 'Transfer Portal',  sub: 'Find your next school' },
+                  { href: '/ai-recruiter',    label: 'AI Recruiter',     sub: 'Get discovered by coaches' },
+                  { href: '/athlete-playbook',label: 'Athlete Playbook', sub: 'Your recruiting blueprint' },
+                  { href: '/x-factor',        label: 'X-Factor Feed',    sub: 'Athlete culture & highlights' },
+                  { href: '/messenger',       label: 'Messenger',        sub: 'Direct messages' },
+                  { href: '/pricing',         label: 'Pricing' },
+                ].map(item => (
+                  <Link key={item.href} href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-between py-4 border-b border-white/8 group"
+                  >
+                    <div>
+                      <span className={`text-lg font-bold tracking-tight ${
+                        item.accent ? 'text-[#00c2ff]' : 'text-white'
+                      }`}>{item.label}</span>
+                      {item.sub && <div className="text-white/40 text-xs mt-0.5">{item.sub}</div>}
+                    </div>
+                    <svg className="w-4 h-4 text-white/20 group-hover:text-white/60 transition-colors flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
                   </Link>
                 ))}
               </div>
+
+              {/* Sports */}
+              <div className="border-t border-white/10">
+                <div className="px-5 py-3">
+                  <div className="text-white/40 text-xs font-bold uppercase tracking-widest mb-3">Sports</div>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                    {[
+                      { href: '/gridiron-nexus', label: '🏈 Football' },
+                      { href: '/diamond-grind',  label: '⚾ Baseball' },
+                      { href: '/court-kings',    label: '🏀 Basketball' },
+                      { href: '/net-setters',    label: '🏐 Volleyball' },
+                      { href: '/fairway-elite',  label: '⛳ Golf' },
+                      { href: '/mat-warriors',   label: '🤼 Wrestling' },
+                      { href: '/swim-surge',     label: '🏊 Swimming' },
+                      { href: '/track-elite',    label: '🏃 Track & Field' },
+                      { href: '/ice-breakers',   label: '🏒 Hockey' },
+                      { href: '/reel-masters',   label: '🎣 Fishing' },
+                    ].map(s => (
+                      <Link key={s.href} href={s.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="py-2.5 text-white/70 hover:text-white text-base font-medium transition-colors">
+                        {s.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* All Apps compact grid */}
+              <div className="border-t border-white/10 px-5 py-3">
+                <div className="text-white/40 text-xs font-bold uppercase tracking-widest mb-3">All Apps</div>
+                <div className="grid grid-cols-4 gap-2">
+                  {APPS.slice(0, 16).map(app => (
+                    <Link key={app.id} href={app.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex flex-col items-center gap-1 p-2 rounded-xl hover:bg-white/5 active:bg-white/10 transition-colors">
+                      <img src={app.icon} alt={app.label} className="w-10 h-10 rounded-xl object-cover shadow"
+                        onError={e => { (e.target as HTMLImageElement).src = '/athlynx-icon.png'; }} />
+                      <span className="text-[9px] text-white/50 text-center leading-tight font-medium">{app.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
             </div>
-            {/* Auth buttons */}
-            <div className="px-4 py-4 flex flex-col gap-2 border-t border-blue-900 sticky bottom-0 bg-[#0a1628]">
+
+            {/* Footer CTA */}
+            <div className="px-5 py-4 border-t border-white/10 flex flex-col gap-3"
+              style={{ paddingBottom: 'max(20px, env(safe-area-inset-bottom))' }}>
               {user ? (
-                <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-center bg-blue-700 text-white font-black px-4 py-3 rounded-xl text-sm">View My Profile →</Link>
+                <Link href="/profile" onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center bg-[#1a3a8f] border border-[#00c2ff]/40 text-white font-black py-3.5 rounded-2xl text-base">
+                  My Profile →
+                </Link>
               ) : (
                 <>
-                  <Link href="/signup" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-center bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-black px-4 py-3.5 rounded-xl text-base">JOIN FREE — 7 DAYS 🏆</Link>
-                  <Link href="/signin" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-center bg-[#1a3a8f] text-white font-bold px-4 py-3 rounded-xl text-sm border border-blue-700">Already a member? Sign In →</Link>
+                  <Link href="/signup" onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-center bg-[#00c2ff] hover:bg-[#00a8e0] text-black font-black text-lg py-4 rounded-2xl shadow-lg shadow-[#00c2ff]/20 transition-all">
+                    JOIN FREE — 7 DAYS 🏆
+                  </Link>
+                  <Link href="/signin" onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-center border border-white/20 text-white font-bold py-3.5 rounded-2xl hover:bg-white/5 transition-colors">
+                    Sign In
+                  </Link>
                 </>
               )}
             </div>
