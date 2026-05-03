@@ -182,6 +182,41 @@ export default function DHG() {
           </p>
         </div>
 
+        {/* ConCreator™ — Softmor's Enterprise AI Product */}
+        <div className="bg-gradient-to-br from-[#0a1628] via-[#0d2040] to-[#0a1628] border border-cyan-600/50 rounded-2xl p-5">
+          <div className="flex items-center gap-3 mb-3">
+            <img src="/concreator-logo.png" alt="ConCreator" className="w-12 h-12 rounded-xl border border-cyan-500/30" />
+            <div>
+              <div className="flex items-center gap-2">
+                <h3 className="text-white font-black">ConCreator™</h3>
+                <span className="text-xs bg-green-900 text-green-400 px-2 py-0.5 rounded-full font-bold">LIVE</span>
+              </div>
+              <div className="text-cyan-400 text-xs">Data Intelligence &amp; AI Credit System · by Softmor Inc.</div>
+            </div>
+          </div>
+          <p className="text-blue-200 text-sm leading-relaxed mb-4">
+            ConCreator™ is Softmor's enterprise-grade AI data intelligence platform — delivering machine analytics, anomaly detection, predictive trend analysis, and automated reporting. Four tiers from $297 to $1,997/month per machine.
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
+            {[
+              { tier: 'Pulse', price: '$297/mo', credits: '500 credits' },
+              { tier: 'Insight', price: '$597/mo', credits: '2,000 credits' },
+              { tier: 'Command', price: '$997/mo', credits: '5,000 credits', rec: true },
+              { tier: 'Enterprise', price: '$1,997/mo', credits: 'Unlimited' },
+            ].map((t, i) => (
+              <div key={i} className={`rounded-lg p-3 text-center border ${t.rec ? 'border-emerald-500/50 bg-emerald-900/20' : 'border-white/10 bg-white/5'}`}>
+                <div className="text-white text-xs font-black">{t.tier}</div>
+                <div className="text-cyan-400 text-xs font-bold">{t.price}</div>
+                <div className="text-gray-500 text-xs">{t.credits}</div>
+                {t.rec && <div className="text-emerald-400 text-xs font-bold mt-1">RECOMMENDED</div>}
+              </div>
+            ))}
+          </div>
+          <a href="/softmor" className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-600/20 border border-cyan-500/40 rounded-lg text-cyan-400 text-sm font-semibold hover:bg-cyan-600/30 transition">
+            View Full ConCreator™ Details →
+          </a>
+        </div>
+
         {/* Portfolio — The Legs */}
         <div className="bg-[#1a3a8f] border border-blue-900 rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-4">

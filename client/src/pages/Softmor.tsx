@@ -173,6 +173,82 @@ export default function Softmor() {
         </div>
       </div>
 
+      {/* ConCreator™ Data Intelligence */}
+      <div className="container py-16">
+        <div className="bg-gradient-to-br from-blue-900/60 via-[#0a1628] to-cyan-900/40 border border-cyan-500/40 rounded-2xl p-8 md:p-12">
+          <div className="flex items-center gap-5 mb-6">
+            <img src="/concreator-logo.png" alt="ConCreator" className="w-16 h-16 rounded-2xl shadow-lg border border-cyan-500/30" />
+            <div>
+              <div className="flex items-center gap-2 mb-1">
+                <h2 className="text-3xl font-bold text-white">ConCreator™</h2>
+                <span className="text-xs px-2 py-1 rounded-full bg-green-500/20 text-green-400 font-bold">LIVE</span>
+              </div>
+              <p className="text-cyan-400 font-semibold">Data Intelligence &amp; AI Credit System</p>
+              <p className="text-gray-400 text-sm">Powered by Softmor Inc. · A Dozier Holdings Group Product</p>
+            </div>
+          </div>
+
+          <p className="text-gray-300 mb-8 max-w-3xl leading-relaxed">
+            ConCreator™ is Softmor's enterprise data intelligence platform — delivering AI-powered machine analytics, 
+            predictive trend analysis, and automated reporting for industrial and enterprise clients. 
+            Four tiers. Unlimited potential. Every machine. Every day.
+          </p>
+
+          {/* Tiers */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {[
+              { name: 'Pulse', price: '$297', credits: '500', reports: 'Monthly', color: 'from-blue-600/20 to-blue-800/20', border: 'border-blue-600/40' },
+              { name: 'Insight', price: '$597', credits: '2,000', reports: 'Weekly + Monthly', color: 'from-cyan-600/20 to-cyan-800/20', border: 'border-cyan-500/40' },
+              { name: 'Command', price: '$997', credits: '5,000', reports: 'Daily + Weekly + Monthly', color: 'from-emerald-600/20 to-emerald-800/20', border: 'border-emerald-500/40', recommended: true },
+              { name: 'Enterprise', price: '$1,997', credits: 'Unlimited', reports: 'Full Suite + Custom', color: 'from-purple-600/20 to-purple-800/20', border: 'border-purple-500/40' },
+            ].map((tier, i) => (
+              <div key={i} className={`relative bg-gradient-to-br ${tier.color} border ${tier.border} rounded-xl p-4`}>
+                {tier.recommended && (
+                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 text-xs bg-emerald-500 text-white px-2 py-0.5 rounded-full font-bold whitespace-nowrap">RECOMMENDED</div>
+                )}
+                <div className="text-white font-black text-lg mb-1">{tier.name}</div>
+                <div className="text-2xl font-black text-cyan-300 mb-1">{tier.price}<span className="text-sm font-normal text-gray-400">/mo</span></div>
+                <div className="text-xs text-gray-400 mb-1">{tier.credits} AI Credits</div>
+                <div className="text-xs text-gray-500">{tier.reports}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* AI Actions */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {[
+              { action: 'Standard Report Generation', credits: '50 credits', icon: '📊' },
+              { action: 'AI Anomaly Detection Alert', credits: '25 credits', icon: '🚨' },
+              { action: 'Predictive Trend Analysis', credits: '150 credits', icon: '📈' },
+              { action: 'Custom Data Query', credits: '100 credits', icon: '🤖' },
+            ].map((item, i) => (
+              <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                <div className="text-2xl mb-2">{item.icon}</div>
+                <div className="text-white text-sm font-semibold mb-1">{item.action}</div>
+                <div className="text-cyan-400 text-xs font-bold">{item.credits}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Revenue highlight */}
+          <div className="bg-white/5 border border-white/10 rounded-xl p-5 mb-6">
+            <div className="text-white font-bold mb-2">📍 10-Machine Revenue Projection (Command Tier)</div>
+            <div className="flex flex-wrap gap-6">
+              <div><div className="text-2xl font-black text-cyan-400">$9,970</div><div className="text-xs text-gray-400">Per Month</div></div>
+              <div><div className="text-2xl font-black text-cyan-400">$119,640</div><div className="text-xs text-gray-400">Per Year</div></div>
+              <div><div className="text-2xl font-black text-cyan-400">$419,640</div><div className="text-xs text-gray-400">Year 1 with License</div></div>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            <a href="mailto:cdozier14@athlynx.ai" className="px-6 py-3 bg-cyan-500 rounded-lg font-semibold hover:bg-cyan-600 transition text-white">Request a Demo</a>
+            <a href="mailto:cdozier14@athlynx.ai" className="px-6 py-3 bg-white/10 border border-white/20 rounded-lg font-semibold hover:bg-white/20 transition text-white">Get Pricing</a>
+          </div>
+
+          <p className="text-xs text-gray-500 mt-4">ConCreator™ is a registered trademark of Dozier Holdings Group. © 2026 Dozier Holdings Group &amp; Softmor Inc. All Rights Reserved. Governing Law: State of Texas. Disputes: binding arbitration in Houston, TX.</p>
+        </div>
+      </div>
+
       {/* White Label Apps */}
       <div className="container py-16">
         <h2 className="text-3xl font-bold mb-2">White-Label Sport Apps</h2>
