@@ -17,7 +17,7 @@ const CHAD_CONTACT = {
   wechat: "chaddozier",                   // WeChat ID — users must add manually
   calendly: "https://calendly.com/cdozier14",
   zoom: "https://zoom.us/j/chaddozier",
-  dotcard: "https://athlynxapp.vip",
+  dotcard: "https://athlynx.ai/card",
   website: "https://athlynx.ai",
 };
 
@@ -349,22 +349,12 @@ export default function Contact() {
             {/* ── dot.card + vCard ── */}
             <div className="bg-slate-900/80 border border-white/10 rounded-2xl p-5">
               <h3 className="text-base font-bold text-white mb-3">Digital Business Card</h3>
-              <div className="flex gap-2">
-                <a
-                  href={CHAD_CONTACT.dotcard}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 flex-1 bg-gray-800 hover:bg-gray-700 border border-white/20 text-white font-bold py-2.5 rounded-xl transition-colors text-sm"
-                >
-                  🔗 dot.card Profile
-                </a>
-                <a
-                  href="/card"
-                  className="flex items-center justify-center gap-2 flex-1 bg-[#1a3a8f] hover:bg-[#1a4aaf] border border-blue-700 text-white font-bold py-2.5 rounded-xl transition-colors text-sm"
-                >
-                  🏆 ATHLYNX Card
-                </a>
-              </div>
+              <a
+                href="/card"
+                className="flex items-center justify-center gap-2 w-full bg-[#1a3a8f] hover:bg-[#1a4aaf] border border-blue-700 text-white font-bold py-2.5 rounded-xl transition-colors text-sm"
+              >
+                🏆 View My Digital Card — athlynx.ai/card
+              </a>
               <button
                 onClick={() => {
                   const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:Chad Allen Dozier Sr\nN:Dozier;Chad;Allen;Sr;\nTITLE:Founder, CEO & Chairman\nORG:Dozier Holdings Group;ATHLYNX AI;Softmor Inc\nTEL;TYPE=CELL:+16014985282\nEMAIL;TYPE=WORK:cdozier14@athlynx.ai\nURL:https://athlynx.ai\nADR;TYPE=WORK:;;19039 Cloyanna Ln;Humble;TX;77346;USA\nNOTE:Founder. Builder. Servant Leader.\nEND:VCARD`;
