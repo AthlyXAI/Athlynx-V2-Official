@@ -41,7 +41,7 @@ export default function GridironNexus() {
           </div>
           <div className="flex items-center gap-3">
             <Link href="/signin" className="text-sm text-gray-300 hover:text-white">Log In</Link>
-            <Link href="/signin" className="bg-red-600 hover:bg-red-500 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">
+            <Link href="/signup" className="bg-red-600 hover:bg-red-500 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">
               Sign Up Free
             </Link>
           </div>
@@ -218,7 +218,7 @@ export default function GridironNexus() {
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-4xl font-black text-white mb-4">Ready to Own the Gridiron?</h2>
           <p className="text-gray-300 mb-8">Join 1.2M+ football players already on ATHLYNX. Your next level starts here.</p>
-          <Link href="/signin" className="inline-block bg-red-600 hover:bg-red-500 text-white font-black text-xl px-10 py-5 rounded-xl transition-all hover:scale-105">
+          <Link href="/signup" className="inline-block bg-red-600 hover:bg-red-500 text-white font-black text-xl px-10 py-5 rounded-xl transition-all hover:scale-105">
             🏈 Start Free — 7 Days on Us
           </Link>
         </div>

@@ -54,7 +54,7 @@ export default function RacketKings() {
           </div>
           <div className="flex items-center gap-3">
             <Link href="/signin" className="text-sm text-gray-300 hover:text-white">Log In</Link>
-            <Link href="/signin" className="bg-green-700 hover:bg-green-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">Sign Up Free</Link>
+            <Link href="/signup" className="bg-green-700 hover:bg-green-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">Sign Up Free</Link>
           </div>
         </div>
       </header>
@@ -116,7 +116,7 @@ export default function RacketKings() {
             <div className="bg-gradient-to-r from-green-900/30 to-lime-900/20 border border-green-800/40 rounded-2xl p-8 text-center">
               <h2 className="text-3xl font-black text-white mb-3">Your Path to College Tennis</h2>
               <p className="text-gray-300 mb-6 max-w-2xl mx-auto">Tennis is one of the most scholarship-rich sports in college athletics. ATHLYNX Racket Kings connects you with the tournaments, rankings, and coaches that can fund your education and your future.</p>
-              <Link href="/signin" className="inline-flex items-center gap-2 bg-green-700 hover:bg-green-600 text-white font-black px-8 py-4 rounded-xl text-lg transition-all hover:scale-105">🎾 Create Your Tennis Profile Free</Link>
+              <Link href="/signup" className="inline-flex items-center gap-2 bg-green-700 hover:bg-green-600 text-white font-black px-8 py-4 rounded-xl text-lg transition-all hover:scale-105">🎾 Create Your Tennis Profile Free</Link>
             </div>
           </div>
         )}

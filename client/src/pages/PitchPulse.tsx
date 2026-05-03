@@ -194,7 +194,7 @@ export default function PitchPulse() {
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-4xl font-black text-white mb-4">Your Soccer Journey Starts Now</h2>
           <p className="text-gray-300 mb-8">Join 2.1M+ soccer players on Pitch Pulse. Get discovered. Go pro.</p>
-          <Link href="/signin" className="inline-block bg-green-600 hover:bg-green-500 text-white font-black text-xl px-10 py-5 rounded-xl transition-all hover:scale-105">
+          <Link href="/signup" className="inline-block bg-green-600 hover:bg-green-500 text-white font-black text-xl px-10 py-5 rounded-xl transition-all hover:scale-105">
             ⚽ Start Free — 7 Days on Us
           </Link>
         </div>

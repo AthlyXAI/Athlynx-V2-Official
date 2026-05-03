@@ -42,6 +42,7 @@ import TransferPortal from "./pages/TransferPortal";
 import TransferPortalFOS from "./pages/TransferPortalFOS";
 import TransferPortalIntelligence from "./pages/TransferPortalIntelligence";
 import DiamondGrind from "./pages/DiamondGrind";
+import DiamondGrindPublic from "./pages/DiamondGrindPublic";
 import WarriorsPlaybook from "./pages/WarriorsPlaybook";
 import AISales from "./pages/AISales";
 import AIRecruiter from "./pages/AIRecruiter";
@@ -240,7 +241,7 @@ function Router() {
       <Route path="/transfer-portal-v2" component={TransferPortal} />
       <Route path="/transfer-intelligence" component={TransferPortalIntelligence} />
       <Route path="/diamond-grind" component={DiamondGrind} />
-      <Route path="/baseball" component={DiamondGrind} />
+      <Route path="/baseball" component={DiamondGrindPublic} />
       <Route path="/warriors-playbook" component={WarriorsPlaybook} />
       <Route path="/playbook" component={WarriorsPlaybook} />
       <Route path="/ai-sales" component={AISales} />

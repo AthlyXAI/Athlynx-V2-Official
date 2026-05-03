@@ -54,7 +54,7 @@ export default function TrackElite() {
           </div>
           <div className="flex items-center gap-3">
             <Link href="/signin" className="text-sm text-gray-300 hover:text-white">Log In</Link>
-            <Link href="/signin" className="bg-yellow-700 hover:bg-yellow-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">Sign Up Free</Link>
+            <Link href="/signup" className="bg-yellow-700 hover:bg-yellow-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">Sign Up Free</Link>
           </div>
         </div>
       </header>
@@ -116,7 +116,7 @@ export default function TrackElite() {
             <div className="bg-gradient-to-r from-yellow-900/30 to-orange-900/20 border border-yellow-800/40 rounded-2xl p-8 text-center">
               <h2 className="text-3xl font-black text-white mb-3">Every Second Counts</h2>
               <p className="text-gray-300 mb-6 max-w-2xl mx-auto">From your first 5K to the Olympic Trials — ATHLYNX Track Elite tracks every PR, every meet, and every recruiting contact. Your times tell the story. We make sure coaches hear it.</p>
-              <Link href="/signin" className="inline-flex items-center gap-2 bg-yellow-600 hover:bg-yellow-500 text-black font-black px-8 py-4 rounded-xl text-lg transition-all hover:scale-105">🏃 Create Your Track Profile Free</Link>
+              <Link href="/signup" className="inline-flex items-center gap-2 bg-yellow-600 hover:bg-yellow-500 text-black font-black px-8 py-4 rounded-xl text-lg transition-all hover:scale-105">🏃 Create Your Track Profile Free</Link>
             </div>
           </div>
         )}

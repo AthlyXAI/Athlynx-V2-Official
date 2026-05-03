@@ -55,7 +55,7 @@ export default function IceBreakers() {
           </div>
           <div className="flex items-center gap-3">
             <Link href="/signin" className="text-sm text-gray-300 hover:text-white">Log In</Link>
-            <Link href="/signin" className="bg-cyan-700 hover:bg-cyan-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">
+            <Link href="/signup" className="bg-cyan-700 hover:bg-cyan-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">
               Sign Up Free
             </Link>
           </div>
@@ -136,7 +136,7 @@ export default function IceBreakers() {
             <div className="bg-gradient-to-r from-cyan-900/30 to-blue-900/30 border border-cyan-800/40 rounded-2xl p-8 text-center">
               <h2 className="text-3xl font-black text-white mb-3">The Path to College Hockey Starts Here</h2>
               <p className="text-gray-300 mb-6 max-w-2xl mx-auto">From Mite to USHL — ATHLYNX Ice Breakers tracks your entire hockey journey and connects you with the coaches, scouts, and brands that can take you to the next level.</p>
-              <Link href="/signin" className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white font-black px-8 py-4 rounded-xl text-lg transition-all hover:scale-105">
+              <Link href="/signup" className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white font-black px-8 py-4 rounded-xl text-lg transition-all hover:scale-105">
                 🏒 Create Your Hockey Profile Free
               </Link>
             </div>

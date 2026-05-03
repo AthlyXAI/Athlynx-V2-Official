@@ -54,7 +54,7 @@ export default function SwimSurge() {
           </div>
           <div className="flex items-center gap-3">
             <Link href="/signin" className="text-sm text-gray-300 hover:text-white">Log In</Link>
-            <Link href="/signin" className="bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">Sign Up Free</Link>
+            <Link href="/signup" className="bg-blue-600 hover:bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">Sign Up Free</Link>
           </div>
         </div>
       </header>
@@ -116,7 +116,7 @@ export default function SwimSurge() {
             <div className="bg-gradient-to-r from-blue-900/30 to-cyan-900/20 border border-blue-800/40 rounded-2xl p-8 text-center">
               <h2 className="text-3xl font-black text-white mb-3">Every Tenth of a Second Matters</h2>
               <p className="text-gray-300 mb-6 max-w-2xl mx-auto">From your first swim meet to the Olympic Trials — ATHLYNX Swim Surge tracks every time drop, every qualifying standard, and every recruiting contact. Your times open doors. We make sure coaches see them.</p>
-              <Link href="/signin" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-black px-8 py-4 rounded-xl text-lg transition-all hover:scale-105">🏊 Create Your Swim Profile Free</Link>
+              <Link href="/signup" className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white font-black px-8 py-4 rounded-xl text-lg transition-all hover:scale-105">🏊 Create Your Swim Profile Free</Link>
             </div>
           </div>
         )}

@@ -54,7 +54,7 @@ export default function MatWarriors() {
           </div>
           <div className="flex items-center gap-3">
             <Link href="/signin" className="text-sm text-gray-300 hover:text-white">Log In</Link>
-            <Link href="/signin" className="bg-red-700 hover:bg-red-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">Sign Up Free</Link>
+            <Link href="/signup" className="bg-red-700 hover:bg-red-600 text-white text-sm font-bold px-4 py-2 rounded-lg transition-colors">Sign Up Free</Link>
           </div>
         </div>
       </header>
@@ -116,7 +116,7 @@ export default function MatWarriors() {
             <div className="bg-gradient-to-r from-red-900/30 to-orange-900/20 border border-red-800/40 rounded-2xl p-8 text-center">
               <h2 className="text-3xl font-black text-white mb-3">Warriors Are Made on the Mat</h2>
               <p className="text-gray-300 mb-6 max-w-2xl mx-auto">Wrestling builds champions — in sport and in life. ATHLYNX Mat Warriors connects you with the tournaments, coaches, and opportunities that take your wrestling to the next level.</p>
-              <Link href="/signin" className="inline-flex items-center gap-2 bg-red-700 hover:bg-red-600 text-white font-black px-8 py-4 rounded-xl text-lg transition-all hover:scale-105">🤼 Create Your Wrestling Profile Free</Link>
+              <Link href="/signup" className="inline-flex items-center gap-2 bg-red-700 hover:bg-red-600 text-white font-black px-8 py-4 rounded-xl text-lg transition-all hover:scale-105">🤼 Create Your Wrestling Profile Free</Link>
             </div>
           </div>
         )}
