@@ -295,7 +295,7 @@ export default function DHG() {
           <div className="space-y-2 text-sm">
             <div className="flex items-center gap-3 text-blue-200">
               <span className="text-blue-500">📍</span>
-              <span>19039 Cloyanna Ln, Humble TX 77346</span>
+              <span>HQ: 12306 Lake Portal Drive, Houston, TX 77047 | SE: 831 West 28th Street, Laurel, MS 39440</span>
             </div>
             <div className="flex items-center gap-3 text-blue-200">
               <span className="text-blue-500">✉️</span>

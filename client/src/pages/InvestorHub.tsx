@@ -216,7 +216,7 @@ function InvestorRequestGate({ onGranted }: { onGranted: () => void }) {
             className="w-full bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-black py-4 rounded-2xl text-lg transition-all shadow-xl shadow-blue-500/20">
             {submit.isPending ? "Submitting..." : "Request Investor Access →"}
           </button>
-          <p className="text-white/20 text-xs text-center">CONFIDENTIAL — FOR ACCREDITED INVESTOR USE ONLY · © 2026 Dozier Holdings Group, LLC · ATHLYNX, Inc. · Humble, TX 77346</p>
+          <p className="text-white/20 text-xs text-center">CONFIDENTIAL — FOR ACCREDITED INVESTOR USE ONLY · © 2026 Dozier Holdings Group, LLC · ATHLYNX, Inc. · Houston, TX 77047</p>
         </div>
       </div>
     </div>
@@ -738,7 +738,7 @@ export default function InvestorHub() {
             </a>
           </div>
 
-          <p className="text-white/20 text-xs mt-10">CONFIDENTIAL — FOR ACCREDITED INVESTOR USE ONLY · © 2025 Dozier Holdings Group, LLC · ATHLYNX, Inc. · All Rights Reserved · Humble, TX 77346</p>
+          <p className="text-white/20 text-xs mt-10">CONFIDENTIAL — FOR ACCREDITED INVESTOR USE ONLY · © 2025 Dozier Holdings Group, LLC · ATHLYNX, Inc. · All Rights Reserved · Houston, TX 77047</p>
           <p className="text-white/15 text-xs mt-1">This document contains forward-looking statements. Past performance is not indicative of future results. Investment involves risk.</p>
         </section>
 

@@ -17,7 +17,7 @@
 | **Company** | Dozier Holdings Group (DHG) — Parent Company |
 | **Primary Email** | cdozier14@athlynx.ai |
 | **Phone** | +1-601-498-5282 (USA/MS) |
-| **Address** | 19039 Cloyanna Ln, Humble, TX 77346 |
+| **Address** | HQ: 12306 Lake Portal Drive, Houston, TX 77047 | SE: 831 West 28th Street, Laurel, MS 39440 |
 | **Website** | athlynx.ai |
 | **GitHub Account** | chaddozier75-cmd |
 | **GitHub Repo** | AthlyXAI/Athlynx-V2-Official |

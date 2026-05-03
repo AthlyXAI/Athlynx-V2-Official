@@ -357,7 +357,7 @@ export default function Contact() {
               </a>
               <button
                 onClick={() => {
-                  const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:Chad Allen Dozier Sr\nN:Dozier;Chad;Allen;Sr;\nTITLE:Founder, CEO & Chairman\nORG:Dozier Holdings Group;ATHLYNX AI;Softmor Inc\nTEL;TYPE=CELL:+16014985282\nEMAIL;TYPE=WORK:cdozier14@athlynx.ai\nURL:https://athlynx.ai\nADR;TYPE=WORK:;;19039 Cloyanna Ln;Humble;TX;77346;USA\nNOTE:Founder. Builder. Servant Leader.\nEND:VCARD`;
+                  const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:Chad Allen Dozier Sr\nN:Dozier;Chad;Allen;Sr;\nTITLE:Founder, CEO & Chairman\nORG:Dozier Holdings Group;ATHLYNX AI;Softmor Inc\nTEL;TYPE=CELL:+16014985282\nEMAIL;TYPE=WORK:cdozier14@athlynx.ai\nURL:https://athlynx.ai\nADR;TYPE=WORK:;;12306 Lake Portal Drive;Houston;TX;77047;USA\nNOTE:Founder. Builder. Servant Leader.\nEND:VCARD`;
                   const blob = new Blob([vcard], { type: "text/vcard" });
                   const url = URL.createObjectURL(blob);
                   const a = document.createElement("a");
