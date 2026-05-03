@@ -100,6 +100,7 @@ export const adminRouter = router({
       else if (input.recipientFilter === "free") rq = rq.where(sql`${users.stripeSubscriptionId} IS NULL AND (${users.trialEndsAt} IS NULL OR ${users.trialEndsAt} <= ${now})`) as typeof rq;
       const recipients = await rq;
 
+      // ── In-App Notifications ─────────────────────────────────────────────
       if (input.channel === "in_app" || input.channel === "both") {
         const rows = recipients.map((u: { id: number; name: string; email: string }) => ({
           userId: u.id, type: "custom" as const, title: input.subject, message: input.body,
@@ -108,12 +109,44 @@ export const adminRouter = router({
         for (let i = 0; i < rows.length; i += 100) await db.insert(notifications).values(rows.slice(i, i + 100));
       }
 
+      // ── Email Delivery ───────────────────────────────────────────────────
+      let emailsSent = 0;
+      let emailsFailed = 0;
+      if (input.channel === "email" || input.channel === "both") {
+        const emailHtml = `
+          <div style="font-family:sans-serif;max-width:600px;margin:0 auto;background:#0a1628;color:#e2e8f0;padding:32px;border-radius:12px;">
+            <div style="text-align:center;margin-bottom:24px;">
+              <img src="https://athlynx.ai/athlynx-icon.png" alt="ATHLYNX" style="height:48px;" />
+            </div>
+            <h2 style="color:#00d4ff;font-size:22px;margin-bottom:8px;">${input.subject}</h2>
+            <div style="background:#0f1f3d;border-radius:8px;padding:20px;margin:16px 0;line-height:1.7;white-space:pre-wrap;">${input.body.replace(/\n/g, '<br/>')}</div>
+            <hr style="border:none;border-top:1px solid #1e3a5f;margin:24px 0;"/>
+            <p style="color:#64748b;font-size:12px;text-align:center;">You're receiving this because you're an ATHLYNX member.<br/>
+            <a href="https://athlynx.ai" style="color:#00d4ff;">athlynx.ai</a> — Iron Sharpens Iron</p>
+          </div>
+        `;
+        // Send in batches of 10 to avoid rate limits
+        for (let i = 0; i < recipients.length; i += 10) {
+          const batch = recipients.slice(i, i + 10);
+          await Promise.all(batch.map(async (u: { id: number; name: string; email: string }) => {
+            const ok = await sendEmail({
+              to: u.email,
+              subject: `ATHLYNX: ${input.subject}`,
+              html: emailHtml,
+              text: `${input.subject}\n\n${input.body}\n\n---\nATHLYNX — athlynx.ai`,
+            });
+            if (ok) emailsSent++; else emailsFailed++;
+          }));
+        }
+        console.log(`[Broadcast] Email: ${emailsSent} sent, ${emailsFailed} failed`);
+      }
+
       await db.insert(broadcastMessages).values({
         senderId: ctx.user.id, subject: input.subject, body: input.body,
         channel: input.channel, recipientFilter: input.recipientFilter,
         recipientCount: recipients.length, status: "sent",
       });
-      return { success: true, recipientCount: recipients.length };
+      return { success: true, recipientCount: recipients.length, emailsSent, emailsFailed };
     }),
 
   getBroadcasts: adminProcedure.query(async () => {

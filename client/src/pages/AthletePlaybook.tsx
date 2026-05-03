@@ -1,372 +1,331 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Trophy, Camera, Users, TrendingUp, Calendar, Target, Star, MessageCircle, ArrowRight, CheckCircle2 } from "lucide-react";
+/**
+ * ATHLYNX — The Athlete Playbook
+ * Your complete guide to boosting recruiting presence, building a media profile,
+ * and connecting globally with athletes, coaches, and brands.
+ *
+ * Required platform section — always present per ATHLYNXAI_MASTER_REFERENCE.md
+ */
+import PlatformLayout from "@/components/PlatformLayout";
 import { Link } from "wouter";
+import { useAuth } from "@/_core/hooks/useAuth";
+
+const PILLARS = [
+  {
+    icon: "📸",
+    title: "Build Your Media Profile",
+    desc: "Create a professional digital presence that makes coaches stop scrolling.",
+    items: [
+      "AI-powered highlight reel creation and optimization",
+      "Social media strategy tailored to your sport and position",
+      "Content calendar for consistent, on-brand posting",
+      "Engagement tactics to grow your athlete following",
+      "Platform-specific best practices — Instagram, TikTok, X, YouTube",
+    ],
+    color: "from-blue-600 to-cyan-500",
+    bg: "bg-blue-900/20 border-blue-700/40",
+  },
+  {
+    icon: "📈",
+    title: "Boost Recruiting Visibility",
+    desc: "Get seen by the right coaches before your competition does.",
+    items: [
+      "Optimize your ATHLYNX profile for recruiter search algorithms",
+      "Showcase stats, awards, and achievements in the right format",
+      "Create recruiting videos that coaches actually watch",
+      "Target schools that match your talent level and academic goals",
+      "Follow-up strategies that get real responses from coaches",
+    ],
+    color: "from-green-600 to-emerald-500",
+    bg: "bg-green-900/20 border-green-700/40",
+  },
+  {
+    icon: "🌍",
+    title: "Connect Globally",
+    desc: "Build a worldwide network of athletes, coaches, and mentors.",
+    items: [
+      "Join sport-specific global athlete communities on ATHLYNX",
+      "Discuss recruiting strategies with athletes from every country",
+      "Compare recruiting timelines and offer patterns worldwide",
+      "Connect with athletes already enrolled at your target schools",
+      "Build relationships with international scouts and coaches",
+    ],
+    color: "from-purple-600 to-violet-500",
+    bg: "bg-purple-900/20 border-purple-700/40",
+  },
+  {
+    icon: "📅",
+    title: "Share Your Schedule",
+    desc: "Make it effortless for recruiters to see you compete.",
+    items: [
+      "Maintain a live competition calendar visible to coaches",
+      "Share showcase, camp, and tournament attendance",
+      "Invite recruiters to key games with one tap",
+      "Post game results and highlights within minutes",
+      "Track which coaches viewed your schedule and follow up",
+    ],
+    color: "from-orange-600 to-amber-500",
+    bg: "bg-orange-900/20 border-orange-700/40",
+  },
+  {
+    icon: "⚖️",
+    title: "Compare Recruiting Efforts",
+    desc: "Benchmark your progress and learn from athletes who made it.",
+    items: [
+      "Analyze successful recruiting timelines by sport and position",
+      "Compare offer patterns across D1, D2, D3, NAIA, and JUCO",
+      "Learn from athletes who used the transfer portal successfully",
+      "Understand NIL deal structures at every level of competition",
+      "Identify gaps in your recruiting strategy before it's too late",
+    ],
+    color: "from-red-600 to-rose-500",
+    bg: "bg-red-900/20 border-red-700/40",
+  },
+  {
+    icon: "💰",
+    title: "Maximize Your NIL Value",
+    desc: "Your name, image, and likeness are worth more than you think.",
+    items: [
+      "Calculate your real NIL value using ATHLYNX's AI engine",
+      "Connect with brands that match your sport and audience",
+      "Negotiate deals with AI-powered contract analysis",
+      "Store and track all NIL contracts in your NIL Vault",
+      "Grow your NIL value as your recruiting profile improves",
+    ],
+    color: "from-yellow-600 to-yellow-400",
+    bg: "bg-yellow-900/20 border-yellow-700/40",
+  },
+];
+
+const GLOBAL_FEATURES = [
+  {
+    icon: "🏆",
+    title: "Global Athlete Rankings",
+    desc: "See where you rank against athletes in your sport — by state, region, country, and worldwide.",
+  },
+  {
+    icon: "💬",
+    title: "Athlete Discussion Boards",
+    desc: "Talk recruiting with athletes from every corner of the world. Share strategies, compare offers, get real advice.",
+  },
+  {
+    icon: "📊",
+    title: "Recruiting Intelligence",
+    desc: "Real-time data on which schools are recruiting your position, what stats they want, and when they make offers.",
+  },
+  {
+    icon: "🔄",
+    title: "Transfer Portal Network",
+    desc: "Connect with athletes in the portal. Find out which schools are looking, what they offer, and how to get noticed.",
+  },
+  {
+    icon: "🤝",
+    title: "Mentor Matching",
+    desc: "Get paired with athletes who've been through the recruiting process at your target schools.",
+  },
+  {
+    icon: "📱",
+    title: "Live Schedule Sharing",
+    desc: "Share your game schedule globally. Coaches and scouts worldwide can see when and where to find you.",
+  },
+];
+
+const STATS = [
+  { value: "10x", label: "Recruiter Visibility Increase" },
+  { value: "50+", label: "Countries Connected" },
+  { value: "20+", label: "Integrated Platforms" },
+  { value: "92%", label: "Better Recruiting Outcomes" },
+];
 
 export default function AthletePlaybook() {
-  const playbookSections = [
-    {
-      icon: <Camera className="h-6 w-6" />,
-      title: "Build Your Media Presence",
-      description: "Create a compelling digital profile that showcases your athletic achievements, highlights, and personality.",
-      strategies: [
-        "Professional highlight reel creation and optimization",
-        "Social media strategy for athlete branding",
-        "Content calendar for consistent posting",
-        "Engagement tactics to grow your following",
-        "Platform-specific best practices (Instagram, TikTok, X)"
-      ]
-    },
-    {
-      icon: <TrendingUp className="h-6 w-6" />,
-      title: "Boost Recruiting Visibility",
-      description: "Get noticed by coaches and scouts with strategic positioning and proactive outreach.",
-      strategies: [
-        "Optimize your athletic profile for recruiter searches",
-        "Showcase statistics and achievements effectively",
-        "Create compelling recruiting videos",
-        "Target schools that match your talent level",
-        "Follow up strategies that get responses"
-      ]
-    },
-    {
-      icon: <Users className="h-6 w-6" />,
-      title: "Connect Globally",
-      description: "Build a network of athletes, coaches, and mentors who can help advance your career.",
-      strategies: [
-        "Join sport-specific athlete communities",
-        "Participate in virtual camps and showcases",
-        "Connect with athletes at target schools",
-        "Build relationships with coaches and scouts",
-        "Leverage alumni networks for introductions"
-      ]
-    },
-    {
-      icon: <Calendar className="h-6 w-6" />,
-      title: "Share Your Schedule",
-      description: "Make it easy for recruiters to see you compete by sharing your game and event schedule.",
-      strategies: [
-        "Maintain an up-to-date competition calendar",
-        "Share showcase and camp attendance",
-        "Invite recruiters to key games",
-        "Post game results and highlights promptly",
-        "Track recruiter attendance and follow-ups"
-      ]
-    },
-    {
-      icon: <Target className="h-6 w-6" />,
-      title: "Compare Recruiting Efforts",
-      description: "Learn from other athletes' successes and benchmark your progress against peers.",
-      strategies: [
-        "Analyze successful recruiting timelines",
-        "Compare offer patterns by sport and position",
-        "Learn from athletes who transferred successfully",
-        "Understand NIL deal structures at different levels",
-        "Identify gaps in your recruiting strategy"
-      ]
-    },
-    {
-      icon: <MessageCircle className="h-6 w-6" />,
-      title: "Master Communication",
-      description: "Communicate effectively with coaches, recruiters, and potential sponsors.",
-      strategies: [
-        "Craft compelling introduction emails",
-        "Follow-up timing and frequency best practices",
-        "Phone call preparation and talking points",
-        "In-person meeting strategies",
-        "Thank you note templates that work"
-      ]
-    }
-  ];
+  const { user, loading: authLoading } = useAuth();
 
-  const successStories = [
-    {
-      name: "Marcus Johnson",
-      sport: "Basketball",
-      from: "D2 School",
-      to: "D1 Power 5",
-      result: "Increased NIL value by 400%",
-      quote: "The Athlete Playbook showed me exactly how to position myself for the transfer portal. Within 3 months, I had multiple D1 offers."
-    },
-    {
-      name: "Sarah Chen",
-      sport: "Soccer",
-      from: "NAIA",
-      to: "D1 Mid-Major",
-      result: "Secured 3 NIL deals worth $25K",
-      quote: "Building my media presence using the strategies in the playbook opened doors I never thought possible."
-    },
-    {
-      name: "Tyler Rodriguez",
-      sport: "Baseball",
-      from: "JUCO",
-      to: "D1 Program",
-      result: "Full scholarship + NIL opportunities",
-      quote: "The networking strategies helped me connect with coaches who actually wanted to see me play."
-    }
-  ];
+  if (authLoading) {
+    return (
+      <PlatformLayout title="The Athlete Playbook">
+        <div className="animate-pulse space-y-4 p-6">
+          <div className="h-48 bg-blue-900/30 rounded-xl" />
+          <div className="grid grid-cols-3 gap-4">
+            {[1,2,3].map(i => <div key={i} className="h-32 bg-blue-900/20 rounded-xl" />)}
+          </div>
+        </div>
+      </PlatformLayout>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
-      {/* Header */}
-      <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50">
-        <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Trophy className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold">Athlynx</span>
-          </div>
-          <nav className="hidden md:flex items-center gap-6">
-            <Link href="/" className="text-sm font-medium hover:text-primary transition-colors">
-              Home
-            </Link>
-            <Link href="/playbook" className="text-sm font-medium text-primary">
-              Athlete Playbook
-            </Link>
-            <Link href="/transfer-portal" className="text-sm font-medium hover:text-primary transition-colors">
-              Transfer Portal
-            </Link>
-            <Link href="/nil-marketplace" className="text-sm font-medium hover:text-primary transition-colors">
-              NIL Marketplace
-            </Link>
-            <Link href="/messages" className="text-sm font-medium hover:text-primary transition-colors">
-              Messages
-            </Link>
-          </nav>
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm">Log In</Button>
-            <Button size="sm">Sign Up Free</Button>
-          </div>
-        </div>
-      </header>
+    <PlatformLayout title="The Athlete Playbook">
+      <div className="space-y-0">
 
-      {/* Hero Section */}
-      <section className="container py-16 md:py-24">
-        <div className="max-w-4xl mx-auto text-center space-y-6">
-          {/* Logos Row */}
-          <div className="flex justify-center items-center gap-8 mb-8">
-            <img src="/img-athlete-training.jpg" alt="Partnership" className="h-20 w-20 rounded-xl shadow-lg" />
-            <img src="/img-athlete-training.jpg" alt="Athlete Success" className="h-24 w-24 rounded-xl shadow-lg" />
-          </div>
-          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium">
-            <Star className="h-4 w-4" />
-            WARRIOR MENTALITY • ALPHA MINDSET • CHAMPION RESULTS
-          </div>
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight">
-            The Warrior's <span className="text-primary">Playbook</span>
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Master the strategies that top recruits use to boost their recruiting presence, 
-            build their media profile, and connect with opportunities worldwide. Your roadmap 
-            to athletic success starts here.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button size="lg">
-              Get Started Free <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button size="lg" variant="outline">
-              Download Full Playbook (PDF)
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Key Benefits */}
-      <section className="border-y bg-muted/30 py-12">
-        <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-primary">10x</div>
-              <div className="text-sm text-muted-foreground">Increase in Recruiter Visibility</div>
+        {/* ── Hero ──────────────────────────────────────────────── */}
+        <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0a1628] via-[#0f2040] to-[#0a1628] border border-blue-900/40 p-8 md:p-12 mb-8">
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(0,212,255,0.08),_transparent_60%)]" />
+          <div className="relative z-10 max-w-3xl">
+            <div className="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/30 rounded-full px-4 py-1.5 mb-6">
+              <span className="text-cyan-400 text-xs font-bold tracking-widest">THE ATHLETE PLAYBOOK</span>
+              <span className="bg-cyan-500 text-black text-xs font-bold px-2 py-0.5 rounded-full">POWERED BY ATHLYNX</span>
             </div>
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-primary">5,000+</div>
-              <div className="text-sm text-muted-foreground">Athletes Using These Strategies</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-4xl font-bold text-primary">92%</div>
-              <div className="text-sm text-muted-foreground">Report Better Recruiting Outcomes</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Playbook Sections */}
-      <section className="container py-24 space-y-12">
-        <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <h2 className="text-4xl font-bold">Six Pillars of Athletic Success</h2>
-          <p className="text-xl text-muted-foreground">
-            Each section of the playbook provides actionable strategies you can implement immediately 
-            to advance your athletic career.
-          </p>
-        </div>
-
-        <Tabs defaultValue="media" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-3 lg:grid-cols-6 h-auto">
-            <TabsTrigger value="media" className="flex flex-col gap-1 py-3">
-              <Camera className="h-4 w-4" />
-              <span className="text-xs">Media</span>
-            </TabsTrigger>
-            <TabsTrigger value="recruiting" className="flex flex-col gap-1 py-3">
-              <TrendingUp className="h-4 w-4" />
-              <span className="text-xs">Recruiting</span>
-            </TabsTrigger>
-            <TabsTrigger value="network" className="flex flex-col gap-1 py-3">
-              <Users className="h-4 w-4" />
-              <span className="text-xs">Network</span>
-            </TabsTrigger>
-            <TabsTrigger value="schedule" className="flex flex-col gap-1 py-3">
-              <Calendar className="h-4 w-4" />
-              <span className="text-xs">Schedule</span>
-            </TabsTrigger>
-            <TabsTrigger value="compare" className="flex flex-col gap-1 py-3">
-              <Target className="h-4 w-4" />
-              <span className="text-xs">Compare</span>
-            </TabsTrigger>
-            <TabsTrigger value="communication" className="flex flex-col gap-1 py-3">
-              <MessageCircle className="h-4 w-4" />
-              <span className="text-xs">Communicate</span>
-            </TabsTrigger>
-          </TabsList>
-
-          {playbookSections.map((section, index) => (
-            <TabsContent key={index} value={["media", "recruiting", "network", "schedule", "compare", "communication"][index]} className="mt-8">
-              <Card className="border-2">
-                <CardHeader>
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="bg-primary/10 p-3 rounded-full text-primary">
-                      {section.icon}
-                    </div>
-                    <div>
-                      <CardTitle className="text-3xl">{section.title}</CardTitle>
-                      <CardDescription className="text-base mt-2">{section.description}</CardDescription>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div>
-                    <h3 className="text-xl font-semibold mb-4">Key Strategies:</h3>
-                    <ul className="space-y-3">
-                      {section.strategies.map((strategy, idx) => (
-                        <li key={idx} className="flex items-start gap-3">
-                          <CheckCircle2 className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                          <span>{strategy}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="pt-4">
-                    <Button>
-                      Learn More About This Strategy <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          ))}
-        </Tabs>
-      </section>
-
-      {/* Success Stories */}
-      <section className="bg-muted/30 py-24">
-        <div className="container space-y-12">
-          <div className="text-center space-y-4 max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold">Real Athletes, Real Results</h2>
-            <p className="text-xl text-muted-foreground">
-              See how athletes like you used the Athlete Playbook to transform their careers
+            <h1 className="text-4xl md:text-6xl font-black text-white mb-4 leading-tight">
+              Your Complete<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">
+                Athlete Playbook
+              </span>
+            </h1>
+            <p className="text-lg text-blue-200 mb-8 max-w-2xl leading-relaxed">
+              Everything you need to boost your recruiting presence, build your media profile,
+              and connect with athletes, coaches, and brands across the globe.
+              Your roadmap from unrecruited to unstoppable.
             </p>
+            <div className="flex flex-wrap gap-4">
+              {user ? (
+                <Link href="/profile">
+                  <button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold px-8 py-3 rounded-xl transition-all shadow-lg shadow-cyan-500/20">
+                    Build My Profile →
+                  </button>
+                </Link>
+              ) : (
+                <Link href="/signup">
+                  <button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold px-8 py-3 rounded-xl transition-all shadow-lg shadow-cyan-500/20">
+                    Start Free — 7 Days →
+                  </button>
+                </Link>
+              )}
+              <Link href="/transfer-portal">
+                <button className="border border-blue-600 text-blue-300 hover:bg-blue-900/40 font-bold px-8 py-3 rounded-xl transition-all">
+                  Transfer Portal
+                </button>
+              </Link>
+            </div>
           </div>
+        </section>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {successStories.map((story, index) => (
-              <Card key={index} className="border-2">
-                <CardHeader>
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="bg-primary text-primary-foreground rounded-full h-12 w-12 flex items-center justify-center font-bold text-lg">
-                      {story.name.charAt(0)}
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg">{story.name}</CardTitle>
-                      <CardDescription>{story.sport}</CardDescription>
-                    </div>
+        {/* ── Stats Bar ─────────────────────────────────────────── */}
+        <section className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          {STATS.map((s, i) => (
+            <div key={i} className="bg-[#0f1f3d] border border-blue-900/40 rounded-xl p-5 text-center">
+              <div className="text-3xl font-black text-cyan-400 mb-1">{s.value}</div>
+              <div className="text-xs text-blue-300 font-medium">{s.label}</div>
+            </div>
+          ))}
+        </section>
+
+        {/* ── Six Pillars ───────────────────────────────────────── */}
+        <section className="mb-10">
+          <div className="mb-6">
+            <h2 className="text-2xl font-black text-white">Six Pillars of Athletic Success</h2>
+            <p className="text-blue-300 text-sm mt-1">Actionable strategies you can implement immediately to advance your career.</p>
+          </div>
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+            {PILLARS.map((p, i) => (
+              <div key={i} className={`${p.bg} border rounded-xl p-6 space-y-4`}>
+                <div className="flex items-center gap-3">
+                  <span className="text-3xl">{p.icon}</span>
+                  <div>
+                    <h3 className="text-white font-black text-base">{p.title}</h3>
+                    <p className="text-blue-300 text-xs mt-0.5">{p.desc}</p>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <span>{story.from}</span>
-                    <ArrowRight className="h-4 w-4" />
-                    <span className="font-semibold text-primary">{story.to}</span>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="bg-primary/10 text-primary px-3 py-2 rounded-md text-sm font-medium">
-                    {story.result}
-                  </div>
-                  <p className="text-sm italic">"{story.quote}"</p>
-                </CardContent>
-              </Card>
+                </div>
+                <ul className="space-y-2">
+                  {p.items.map((item, j) => (
+                    <li key={j} className="flex items-start gap-2 text-sm text-blue-200">
+                      <span className="text-cyan-400 mt-0.5 flex-shrink-0">✓</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA Section */}
-      <section className="container py-24">
-        <div className="bg-primary text-primary-foreground rounded-2xl p-12 text-center space-y-6">
-          <h2 className="text-4xl md:text-5xl font-bold">Ready to Level Up Your Game?</h2>
-          <p className="text-xl opacity-90 max-w-2xl mx-auto">
-            Join Athlynx today and get instant access to the complete Athlete Playbook, 
-            plus all the tools you need to execute these strategies.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button size="lg" variant="secondary" className="text-lg px-8">
-              Create Free Account <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 bg-transparent text-primary-foreground border-primary-foreground hover:bg-primary-foreground/10">
-              Download Playbook PDF
-            </Button>
+        {/* ── Global Connect ────────────────────────────────────── */}
+        <section className="bg-gradient-to-br from-[#0a1628] to-[#0d1f3c] border border-blue-900/40 rounded-2xl p-8 mb-8">
+          <div className="mb-8 text-center">
+            <div className="inline-flex items-center gap-2 bg-purple-500/10 border border-purple-500/30 rounded-full px-4 py-1.5 mb-4">
+              <span className="text-purple-400 text-xs font-bold tracking-widest">🌍 GLOBAL ATHLETE NETWORK</span>
+            </div>
+            <h2 className="text-3xl font-black text-white mb-3">Connect With Athletes Worldwide</h2>
+            <p className="text-blue-300 max-w-2xl mx-auto text-sm leading-relaxed">
+              ATHLYNX connects athletes across every sport, every country, and every level of competition.
+              Share your schedule. Compare recruiting efforts. Build your global brand.
+              <strong className="text-cyan-400"> Iron Sharpens Iron.</strong>
+            </p>
           </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t bg-muted/30 py-12">
-        <div className="container">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Trophy className="h-6 w-6 text-primary" />
-                <span className="font-bold text-lg">Athlynx</span>
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+            {GLOBAL_FEATURES.map((f, i) => (
+              <div key={i} className="bg-[#0f1f3d]/60 border border-blue-800/30 rounded-xl p-5">
+                <div className="text-2xl mb-3">{f.icon}</div>
+                <h3 className="text-white font-bold text-sm mb-2">{f.title}</h3>
+                <p className="text-blue-300 text-xs leading-relaxed">{f.desc}</p>
               </div>
-              <p className="text-sm text-muted-foreground">
-                The all-in-one platform for student athletes to manage their careers and maximize their potential.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h3 className="font-semibold">Platform</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link href="/playbook" className="hover:text-primary transition-colors">Athlete Playbook</Link></li>
-                <li><Link href="/transfer-portal" className="hover:text-primary transition-colors">Transfer Portal</Link></li>
-                <li><Link href="/nil-marketplace" className="hover:text-primary transition-colors">NIL Marketplace</Link></li>
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <h3 className="font-semibold">Company</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><Link href="/about" className="hover:text-primary transition-colors">About Us</Link></li>
-                <li><Link href="/team" className="hover:text-primary transition-colors">Our Team</Link></li>
-              </ul>
-            </div>
-            <div className="space-y-4">
-              <h3 className="font-semibold">Contact</h3>
-              <p className="text-sm text-muted-foreground">
-                cdozier14@athlynx.ai
-              </p>
-            </div>
+            ))}
           </div>
-          <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-            <p>&copy; 2024 Dozier Holdings Group. All rights reserved.</p>
+        </section>
+
+        {/* ── Transfer Portal + NIL Integration ────────────────── */}
+        <section className="grid md:grid-cols-2 gap-5 mb-8">
+          <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/20 border border-green-700/40 rounded-xl p-6">
+            <div className="text-3xl mb-3">🔄</div>
+            <h3 className="text-white font-black text-lg mb-2">Transfer Portal Intelligence</h3>
+            <p className="text-green-200 text-sm leading-relaxed mb-4">
+              The Athlete Playbook integrates directly with ATHLYNX's Transfer Portal.
+              Athletes from smaller schools use the playbook to improve their profile,
+              enter the portal, and land at bigger programs — increasing their NIL value in the process.
+            </p>
+            <Link href="/transfer-portal">
+              <button className="bg-green-600 hover:bg-green-500 text-white text-sm font-bold px-5 py-2 rounded-lg transition-colors">
+                Explore Transfer Portal →
+              </button>
+            </Link>
           </div>
-        </div>
-      </footer>
-    </div>
+          <div className="bg-gradient-to-br from-yellow-900/30 to-amber-900/20 border border-yellow-700/40 rounded-xl p-6">
+            <div className="text-3xl mb-3">💰</div>
+            <h3 className="text-white font-black text-lg mb-2">NIL Marketplace Access</h3>
+            <p className="text-yellow-200 text-sm leading-relaxed mb-4">
+              A stronger recruiting profile means a higher NIL value. The Athlete Playbook
+              shows you exactly how to build the brand that brands want to pay for.
+              Your name, image, and likeness are your business.
+            </p>
+            <Link href="/nil-portal">
+              <button className="bg-yellow-600 hover:bg-yellow-500 text-white text-sm font-bold px-5 py-2 rounded-lg transition-colors">
+                Enter NIL Portal →
+              </button>
+            </Link>
+          </div>
+        </section>
+
+        {/* ── CTA ───────────────────────────────────────────────── */}
+        <section className="bg-gradient-to-r from-cyan-600 to-blue-700 rounded-2xl p-8 text-center">
+          <h2 className="text-3xl font-black text-white mb-3">Ready to Execute the Playbook?</h2>
+          <p className="text-cyan-100 mb-6 max-w-xl mx-auto text-sm">
+            Join ATHLYNX today and get full access to The Athlete Playbook, the Transfer Portal,
+            the NIL Marketplace, and every tool you need to go from unrecruited to unstoppable.
+          </p>
+          <div className="flex flex-wrap gap-4 justify-center">
+            {user ? (
+              <Link href="/dashboard">
+                <button className="bg-white text-blue-700 font-black px-8 py-3 rounded-xl hover:bg-blue-50 transition-colors shadow-lg">
+                  Go to My Dashboard →
+                </button>
+              </Link>
+            ) : (
+              <>
+                <Link href="/signup">
+                  <button className="bg-white text-blue-700 font-black px-8 py-3 rounded-xl hover:bg-blue-50 transition-colors shadow-lg">
+                    Start Free — 7 Days →
+                  </button>
+                </Link>
+                <Link href="/signin">
+                  <button className="border-2 border-white text-white font-bold px-8 py-3 rounded-xl hover:bg-white/10 transition-colors">
+                    Sign In
+                  </button>
+                </Link>
+              </>
+            )}
+          </div>
+          <p className="text-cyan-200 text-xs mt-4">Iron Sharpens Iron — Proverbs 27:17</p>
+        </section>
+
+      </div>
+    </PlatformLayout>
   );
 }
