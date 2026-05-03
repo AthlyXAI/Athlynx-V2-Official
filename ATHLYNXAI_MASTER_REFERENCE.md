@@ -1,9 +1,18 @@
 # ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
-## Last Updated: Sunday, May 3, 2026 — Session 13
-## Session Summary (May 3 2026 — SESSION 12): OG image fixed (absolute URL — social previews now work) — Admin Broadcast wired with real AWS SES email delivery — Athlete Playbook fully rebuilt (dark navy theme, 6 pillars, global connect, no fake names). Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY3_2026_S12.md
-## Session Summary (May 3 2026 — SESSION 11): Social media rotation FIXED — each channel now gets a unique post + unique image per cron run. 30 posts × 20 images = 600 unique combinations. No more repeated content across channels. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY3_2026_S11.md
-## Session Summary (May 3 2026 — SESSION 10): Vercel build fixed (corrupt \x01 char in EarlyAccessUpdated.tsx) — Gemini billing LINKED (My Billing Account → project AthlynxAI, ID: 01F25A-3FE15E-646E10) — /card page added — athlynxapp.vip removed. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY3_2026_S10.md
-## Session Summary (May 3 2026 — SESSION 8): 27 AI-generated real images added — ALL placeholder images eliminated platform-wide (Store 76 fixes, About, Marketplace, EarlyAccess, Team, AthletePlaybook, AthletePublicProfile, components) — Google Sign-In CONFIRMED WORKING (popup opens correctly) — Cinematic Onboarding CONFIRMED WORKING (Welcome→Role→Questions all verified live). Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY3_2026_S8.md
+## Last Updated: Sunday, May 3, 2026 — Session 14
+
+## Session Summary (May 3 2026 — SESSION 14):
+- **DB Seeding:** Chad, Glenn, Andy, Lee, Jimmy all seeded as `admin` in Neon DB.
+- **Trial Reset:** Chad's trial reset to NULL (fresh 7-day countdown).
+- **Email Alerts:** Signup alerts now use AWS SES and send to all 5 of Chad's emails.
+- **Team Credentials:** Sent full email credentials and setup instructions (iOS/Android/Desktop) to Glenn, Jimmy, Lee, and Andy.
+- **Signup Flow:** Rebuilt `/signup` as a full, dedicated form (name, email, phone, sport, school, year, password) with social auth and trial gating.
+- **Mobile Nav:** `MobileBottomNav` (Home, Reels, Chat, NIL, Profile) added to ALL 154 platform pages.
+- **Hamburger Menus:** Fixed `PlatformLayout` to show ALL apps in a 4-column grid.
+- **Sport Pages:** Fixed all `/signin` links to point to `/signup`. Built dedicated `/baseball` public landing page.
+- **Reels:** Built full-screen vertical video feed (`/reels`) — Facebook Reels style with swipe, like, comment, share, save. Wired into bottom nav.
+- **Handoff:** ATHLYNXAI_HANDOFF_REPORT_MAY3_2026_S14.md
+
 ## NEVER RUN manus-config save-config — it overwrites connector settings.
 ## READ THIS FILE AT THE START OF EVERY NEW SESSION
 
@@ -51,10 +60,6 @@
 
 ---
 
-## OWNER & FOUNDER
-
----
-
 ## CRITICAL PREFERENCES — NEVER IGNORE THESE
 
 1. **ALL PDF and document text must be 20pt or larger, bold, black** — no exceptions.
@@ -77,7 +82,7 @@
 | Glenn Tse | CFO / COO | glenn.tse@gmail.com | gtse@athlynx.ai |
 | Lee Marshall | VP Sales | leronious@gmail.com | lmarshall@athlynx.ai |
 | Jimmy Boyd | VP Real Estate | jboydbamabayou@yahoo.com | jboyd@athlynx.ai |
-| Andrew Kustes | VP Technology | contact@virtualbluetechnologies.com | akustes@athlynx.ai |
+| Andrew Kustes | VP Technology | andrewkustes1974@gmail.com | akustes@athlynx.ai |
 | David Ford | Trusted Advisor | david.ford@aocmedicalllc.com | dford@athlynx.ai |
 
 ---
@@ -98,7 +103,7 @@
 |---------|--------|---------|
 | ATHLYNX AI | athlynx.ai | Main athlete platform |
 | Dozier Holdings Group | dozierholdingsgroup.com | Parent holding company |
-| Diamond Grind Baseball | athlynx.ai/diamond-grind | Baseball training platform |
+| Diamond Grind Baseball | athlynx.ai/baseball | Baseball training platform |
 | Warriors Playbook | athlynx.ai/warriors-playbook | Football platform |
 | DHG Empire | athlynx.ai/dhg | Holdings group page |
 | **ConCreator™** | **athlynx.ai/softmor** | **B2B Data Intelligence & AI Credits** |
@@ -260,7 +265,7 @@ Success = `PostActionSuccess`. **NEVER use `... on Post { id }` — return type 
 | NIL Portal | https://athlynx.ai/nil-portal |
 | Transfer Portal | https://athlynx.ai/transfer-portal |
 | Founders | https://athlynx.ai/founders |
-| Diamond Grind | https://athlynx.ai/diamond-grind |
+| Diamond Grind | https://athlynx.ai/baseball |
 | Warriors Playbook | https://athlynx.ai/warriors-playbook |
 | AI Recruiter | https://athlynx.ai/ai-recruiter |
 | NIL Vault | https://athlynx.ai/nil-vault |
@@ -278,12 +283,12 @@ Success = `PostActionSuccess`. **NEVER use `... on Post { id }` — return type 
 | Elite Events | https://athlynx.ai/elite-events |
 | X-Factor Feed | https://athlynx.ai/x-factor |
 | Partners | https://athlynx.ai/partners |
-| Store | https://athlynx.ai/store |
 | Billing | https://athlynx.ai/billing |
 | Investor Hub | https://athlynx.ai/investor-hub |
 | Investor Deck | https://athlynx.ai/investor-deck |
 | Pro Teams | https://athlynx.ai/pro-teams |
 | Browse Athletes | https://athlynx.ai/browse-athletes |
+| Reels | https://athlynx.ai/reels |
 
 ---
 
@@ -322,7 +327,7 @@ Success = `PostActionSuccess`. **NEVER use `... on Post { id }` — return type 
 
 At the start of every new session:
 
-> **"Read ATHLYNXAI_MASTER_REFERENCE.md from GitHub before doing anything. https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_MASTER_REFERENCE.md — Verify: https://github.com/AthlyXAI/Athlynx-V2-Official/commits/main — Handoff Report: https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_HANDOFF_REPORT_MAY2_2026_S4.md"**
+> **"Read ATHLYNXAI_MASTER_REFERENCE.md from GitHub before doing anything. https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_MASTER_REFERENCE.md — Verify: https://github.com/AthlyXAI/Athlynx-V2-Official/commits/main — Handoff Report: https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYNXAI_HANDOFF_REPORT_MAY3_2026_S14.md"**
 
 ---
 
