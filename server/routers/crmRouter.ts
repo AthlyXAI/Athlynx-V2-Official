@@ -321,7 +321,7 @@ export const crmRouter = router({
   revenueDashboard: adminProcedure.query(async () => {
     try {
       const Stripe = (await import("stripe")).default;
-      const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2025-01-27.acacia" });
+      const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-03-25.dahlia" });
       const [balance, subs, charges] = await Promise.all([
         stripe.balance.retrieve(),
         stripe.subscriptions.list({ limit: 100, status: "active" }),

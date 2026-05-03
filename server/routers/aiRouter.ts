@@ -507,7 +507,7 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
       const history = await getTrainerHistory(ctx.user!.id, 20);
       const systemPrompt = `You are the AthlynXAI Personal AI Trainer Bot — an elite, dedicated AI coach assigned exclusively to this athlete. You know everything about them and remember every conversation.${profileContext}\n\nYour role covers:\n- Personalized training plans and daily workouts\n- NIL deal strategy and brand partnerships\n- Recruiting guidance and coach outreach\n- Mental performance and mindset coaching\n- Nutrition and recovery protocols\n- Transfer portal strategy\n- Financial literacy for athletes\n- Career planning and life after sports\n\nBe direct, motivating, and specific. Use the athlete's actual profile data in your responses. Remember previous conversations. You are their personal coach — not a generic assistant. Speak like an elite trainer who knows this athlete deeply.`;
       // Use native Gemini SDK for the trainer bot — better memory, faster, more personalized
-      const geminiHistory = history.map(h => ({
+      const geminiHistory = history.map((h: { role: string; content: string }) => ({
         role: h.role === "assistant" ? "model" as const : "user" as const,
         content: h.content,
       }));

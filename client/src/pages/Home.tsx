@@ -746,7 +746,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
             <div className="bg-[#1a3a8f] border border-blue-700 rounded-2xl p-8 text-center">
-              <div className="w-20 h-20 bg-blue-800 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-black text-white border-2 border-blue-500">CD</div>
+              <img src="https://www.gravatar.com/avatar/400fe18dbc29cd824f277af7e41710b0?s=200&d=identicon" alt="Chad A. Dozier" className="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-blue-500 object-cover" />
               <div className="text-white font-black text-xl mb-1">Chad A. Dozier</div>
               <div className="text-blue-400 text-sm uppercase tracking-widest mb-4">Founder & CEO</div>
               <p className="text-blue-300 text-sm leading-relaxed">
@@ -755,7 +755,7 @@ export default function Home() {
               </p>
             </div>
             <div className="bg-[#1a3a8f] border border-blue-700 rounded-2xl p-8 text-center">
-              <div className="w-20 h-20 bg-blue-800 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-black text-white border-2 border-blue-500">GT</div>
+              <img src="https://www.gravatar.com/avatar/957a05e8df8fc733496a8f23e3440343?s=200&d=identicon" alt="Glenn Tse" className="w-20 h-20 rounded-full mx-auto mb-4 border-2 border-blue-500 object-cover" />
               <div className="text-white font-black text-xl mb-1">Glenn Tse</div>
               <div className="text-blue-400 text-sm uppercase tracking-widest mb-4">Co-Founder & CTO</div>
               <p className="text-blue-300 text-sm leading-relaxed">

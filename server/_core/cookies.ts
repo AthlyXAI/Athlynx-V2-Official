@@ -2,7 +2,7 @@ import type { CookieOptions, Request } from "express";
 
 export function getSessionCookieOptions(
   req: Request
-): { domain?: string; httpOnly: boolean; path: string; sameSite: string; secure: boolean } {
+): CookieOptions {
   // On Vercel (production), x-forwarded-proto is always "https".
   // We also check req.protocol as a fallback for local dev.
   const fwd = req.headers["x-forwarded-proto"];

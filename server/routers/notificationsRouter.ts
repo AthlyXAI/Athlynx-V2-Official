@@ -32,8 +32,8 @@ export const notificationsRouter = router({
     const userId = Number(ctx.user.id);
     await db
       .update(notifications)
-      .set({ isRead: "yes", readAt: new Date() })
-      .where(and(sql`${notifications.userId} = ${userId}`, eq(notifications.isRead, "no")));
+      .set({ isRead: true, readAt: new Date() })
+      .where(and(sql`${notifications.userId} = ${userId}`, eq(notifications.isRead, false)));
     return { success: true };
   }),
 
@@ -45,7 +45,7 @@ export const notificationsRouter = router({
       const userId = Number(ctx.user.id);
       await db
         .update(notifications)
-        .set({ isRead: "yes", readAt: new Date() })
+        .set({ isRead: true, readAt: new Date() })
         .where(and(eq(notifications.id, input.id), sql`${notifications.userId} = ${userId}`));
       return { success: true };
     }),
@@ -68,7 +68,7 @@ export const notificationsRouter = router({
         type: input.type,
         link: input.link,
         priority: input.priority,
-        isRead: "no",
+        isRead: false,
       });
       return { success: true };
     }),
@@ -81,7 +81,7 @@ export const notificationsRouter = router({
     const result = await db
       .select({ count: count() })
       .from(notifications)
-      .where(and(sql`${notifications.userId} = ${userId}`, eq(notifications.isRead, "no")));
+      .where(and(sql`${notifications.userId} = ${userId}`, eq(notifications.isRead, false)));
     return { count: result[0]?.count ?? 0 };
   }),
 
@@ -106,7 +106,7 @@ export const notificationsRouter = router({
         message: input.message,
         type: input.type,
         priority: input.priority,
-        isRead: "no",
+        isRead: false,
       });
       return { success: true, sent: 1 };
     }),
@@ -134,8 +134,8 @@ export const notificationsRouter = router({
           message: input.message,
           type: input.type,
           priority: input.priority,
-          isBroadcast: "yes" as const,
-          isRead: "no" as const,
+          isBroadcast: true as const,
+          isRead: false as const,
         }))
       );
       return { success: true, sent: allUsers.length };

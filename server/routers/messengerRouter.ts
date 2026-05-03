@@ -55,7 +55,7 @@ export const messengerRouter = router({
         .leftJoin(users, eq(messages.senderId, users.id))
         .where(and(
           eq(messages.conversationId, input.conversationId),
-          eq(messages.isDeleted, "no")
+          eq(messages.isDeleted, false)
         ))
         .orderBy(desc(messages.createdAt))
         .limit(input.limit);

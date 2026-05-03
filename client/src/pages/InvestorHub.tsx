@@ -637,20 +637,20 @@ export default function InvestorHub() {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
             {[
+              "/chad-dozier-ceo.png",
               "/athlete1.jpg",
+              "/images/athlete-focus.jpg",
+              "/athlete2.jpg",
+              "/images/champion-hero.jpg",
+              "/app-mockup-hero.png",
               "/athlete1.jpg",
+              "/images/athlete-focus.jpg",
+              "/athlete2.jpg",
+              "/app-mockup-profile.png",
+              "/images/champion-hero.jpg",
               "/athlete1.jpg",
-              "/athlete1.jpg",
-              "/athlete1.jpg",
-              "/athlete1.jpg",
-              "/athlete1.jpg",
-              "/athlete1.jpg",
-              "/athlete1.jpg",
-              "/athlete1.jpg",
-              "/athlete1.jpg",
-              "/athlete1.jpg",
-              "/athlete1.jpg",
-              "/athlete1.jpg",
+              "/images/athlete-focus.jpg",
+              "/athlete2.jpg",
             ].map((src, i) => (
               <div key={i} className="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-blue-400/50 transition-all group">
                 <img src={src} alt={`GTC San Jose 2026 — ${i + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />

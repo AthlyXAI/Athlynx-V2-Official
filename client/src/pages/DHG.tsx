@@ -151,13 +151,11 @@ export default function DHG() {
           <h3 className="text-white font-black text-lg mb-4">Leadership</h3>
           <div className="space-y-3">
             {[
-              { name: "Chad A. Dozier", title: "Founder & CEO", desc: "Visionary entrepreneur, athlete advocate, and cancer survivor. Built DHG from a hospital room to a billion-dollar vision.", initials: "CD" },
-              { name: "Glenn Tse", title: "Co-Founder & Strategic Partner", desc: "Technology leader and cancer survivor. Met Chad at Hope Lodge. Together they turned adversity into an empire.", initials: "GT" },
+              { name: "Chad A. Dozier", title: "Founder & CEO", desc: "Visionary entrepreneur, athlete advocate, and cancer survivor. Built DHG from a hospital room to a billion-dollar vision.", avatar: "https://www.gravatar.com/avatar/400fe18dbc29cd824f277af7e41710b0?s=200&d=identicon" },
+              { name: "Glenn Tse", title: "Co-Founder & Strategic Partner", desc: "Technology leader and cancer survivor. Met Chad at Hope Lodge. Together they turned adversity into an empire.", avatar: "https://www.gravatar.com/avatar/957a05e8df8fc733496a8f23e3440343?s=200&d=identicon" },
             ].map((person, i) => (
               <div key={i} className="flex items-start gap-4 bg-[#1530a0] rounded-xl p-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-blue-900 flex items-center justify-center text-sm font-black border-2 border-blue-400 shrink-0 text-white">
-                  {person.initials}
-                </div>
+                <img src={person.avatar} alt={person.name} className="w-12 h-12 rounded-full border-2 border-blue-400 shrink-0 object-cover" />
                 <div>
                   <div className="font-black text-white">{person.name}</div>
                   <div className="text-blue-400 text-xs font-semibold mb-1">{person.title}</div>

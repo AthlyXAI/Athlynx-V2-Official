@@ -122,7 +122,7 @@ function AddContactModal({ onClose, onSuccess }: { onClose: () => void; onSucces
 // ─── Main Component ───────────────────────────────────────────────────────────
 export default function AdminCRM() {
   const { user, loading: authLoading } = useAuth();
-  const [activeTab, setActiveTab] = useState<"overview" | "contacts" | "pipeline" | "waitlist" | "activity" | "expiry">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "contacts" | "pipeline" | "waitlist" | "activity" | "expiry" | "concreator">("overview");
   const [search, setSearch] = useState("");
   const [showAddContact, setShowAddContact] = useState(false);
 

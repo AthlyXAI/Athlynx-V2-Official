@@ -54,7 +54,7 @@ export function usePushNotifications() {
       const reg = await navigator.serviceWorker.ready;
       const sub = await reg.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(vapidData.publicKey),
+        applicationServerKey: urlBase64ToUint8Array(vapidData.publicKey) as BufferSource,
       });
       const json = sub.toJSON();
       await subscribeMutation.mutateAsync({

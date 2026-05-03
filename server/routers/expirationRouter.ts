@@ -47,7 +47,7 @@ export const expirationRouter = router({
 
     // Attach latest email log for each user
     const results = await Promise.all(
-      expiringUsers.map(async (u) => {
+      expiringUsers.map(async (u: typeof expiringUsers[number]) => {
         const notices = await db!
           .select({
             emailType: subscriptionExpiryNotices.emailType,
@@ -111,7 +111,7 @@ export const expirationRouter = router({
       )
       .orderBy(desc(users.trialEndsAt));
 
-    return overdueUsers.map((u) => ({
+    return overdueUsers.map((u: typeof overdueUsers[number]) => ({
       ...u,
       expiredDaysAgo: u.trialEndsAt
         ? Math.floor((now.getTime() - new Date(u.trialEndsAt).getTime()) / (1000 * 60 * 60 * 24))

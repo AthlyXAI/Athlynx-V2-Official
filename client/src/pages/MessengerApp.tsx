@@ -44,11 +44,11 @@ export default function MessengerApp() {
 
   // Supabase real-time: subscribe to new messages instantly (no polling)
   useEffect(() => {
-    if (!activeConvoId) return;
+    if (!activeConvoId) return undefined;
     const unsubscribe = subscribeToMessages(activeConvoId, () => {
       refetchMessages();
     });
-    return unsubscribe;
+    return () => { void unsubscribe(); };
   }, [activeConvoId]);
 
   // Track user presence (online status)

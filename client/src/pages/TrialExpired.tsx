@@ -42,11 +42,11 @@ export default function TrialExpired() {
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState("");
 
-  const createCheckout = trpc.stripe.createCheckoutSession.useMutation({
+  const createCheckout = trpc.stripe.createSubscriptionCheckout.useMutation({
     onSuccess: (data) => {
       if (data.url) window.location.href = data.url;
     },
-    onError: (err) => {
+    onError: (err: { message?: string }) => {
       setError(err.message || "Could not start checkout. Please try again.");
       setLoading(null);
     },
@@ -57,7 +57,7 @@ export default function TrialExpired() {
     setError("");
     createCheckout.mutate({
       planId,
-      interval: "monthly",
+      interval: "month",
       origin: window.location.origin,
     });
   };
