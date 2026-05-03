@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from 'wouter';
 import {
   Building2, Cpu, Database, Zap, Coins, Home, Utensils, Wine, Heart, TreePine,
@@ -271,6 +272,7 @@ export default function DHGCorporate() {
         </div>
         <p className="text-center text-xs text-gray-600 mt-4">© {new Date().getFullYear()} Dozier Holdings Group. All rights reserved. | Iron Sharpens Iron</p>
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

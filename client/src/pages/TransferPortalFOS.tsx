@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -449,6 +450,7 @@ export default function TransferPortalFOS() {
           </p>
         </div>
       </footer>
+      <MobileBottomNav />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useLocation } from "wouter";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
@@ -227,6 +228,7 @@ export default function Billing() {
           </Card>
         )}
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

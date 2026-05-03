@@ -1,4 +1,5 @@
 import { Link } from 'wouter';
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { useState } from 'react';
 import { trpc } from '@/lib/trpc';
 import { useAuth } from '@/_core/hooks/useAuth';
@@ -387,6 +388,7 @@ export default function Softmor() {
           </a>
         </div>
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 
 const stats = [
@@ -198,6 +199,7 @@ export default function TrackElite() {
       <footer className="border-t border-yellow-950/30 py-8 text-center">
         <p className="text-gray-600 text-sm">Track Elite · Powered by ATHLYNX AI · athlynx.ai/track · Iron Sharpens Iron — Proverbs 27:17</p>
       </footer>
+      <MobileBottomNav />
     </div>
   );
 }

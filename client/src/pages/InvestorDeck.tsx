@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import MobileBottomNav from '@/components/MobileBottomNav'
 
 export default function InvestorDeck() {
   return (
@@ -350,6 +351,7 @@ export default function InvestorDeck() {
           </p>
         </div>
       </footer>
+      <MobileBottomNav />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 
 const stats = [
@@ -217,6 +218,7 @@ export default function ReelMasters() {
         <p className="text-gray-600 text-sm">Reel Masters · Powered by ATHLYNX · A Dozier Holdings Group Company</p>
         <Link href="/" className="text-cyan-400 text-sm hover:text-cyan-300 mt-2 inline-block">← Back to ATHLYNX Platform</Link>
       </footer>
+      <MobileBottomNav />
     </div>
   );
 }

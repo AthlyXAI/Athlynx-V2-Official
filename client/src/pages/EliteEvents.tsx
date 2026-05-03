@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import DashboardLayout from "@/components/DashboardLayout";
 import {
   Trophy, Star, Zap, Users, MapPin, Calendar, Clock, Filter,
@@ -562,6 +563,7 @@ function EventCard({ event, featured }: { event: EliteEvent; featured?: boolean 
           {event.registrationOpen ? (<><span>Register</span><ChevronRight className="w-3 h-3" /></>) : "Invite Only"}
         </button>
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

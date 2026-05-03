@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import XFactorPhoneMockup from "../components/XFactorPhoneMockup";
 import {
@@ -189,6 +190,7 @@ function PostCard({ post }: { post: typeof FEED_POSTS[0] }) {
           </div>
         </div>
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

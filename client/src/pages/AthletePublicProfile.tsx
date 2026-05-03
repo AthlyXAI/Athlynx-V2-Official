@@ -5,6 +5,7 @@
  * Clean, Instagram/Twitter-style layout.
  */
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useRoute } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -444,6 +445,7 @@ export default function AthletePublicProfile() {
           </div>
         </div>
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

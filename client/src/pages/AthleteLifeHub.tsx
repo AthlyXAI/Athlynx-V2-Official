@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { useLocation } from "wouter";
 import {
   Shield, DollarSign, Scale, Heart, Briefcase, TrendingUp,
@@ -444,6 +445,7 @@ export default function AthleteLifeHub() {
           </div>
         </div>
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

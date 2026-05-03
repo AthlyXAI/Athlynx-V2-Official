@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import DashboardLayout from "@/components/DashboardLayout";
 import {
@@ -442,7 +443,8 @@ export default function AthleteCalendar() {
           </a>
         </div>
 
-      </div>
+      <MobileBottomNav />
+    </div>
     </DashboardLayout>
   );
 }

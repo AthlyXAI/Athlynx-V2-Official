@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { useLocation } from "wouter";
 
 const PILLARS = [
@@ -345,6 +346,7 @@ export default function Infrastructure() {
           </p>
         </div>
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

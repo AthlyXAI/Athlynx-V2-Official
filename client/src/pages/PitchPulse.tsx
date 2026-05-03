@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 
 const stats = [
@@ -203,6 +204,7 @@ export default function PitchPulse() {
         <p className="text-gray-600 text-sm">Pitch Pulse · Powered by ATHLYNX · A Dozier Holdings Group Company</p>
         <Link href="/" className="text-green-400 text-sm hover:text-green-300 mt-2 inline-block">← Back to ATHLYNX Platform</Link>
       </footer>
+      <MobileBottomNav />
     </div>
   );
 }

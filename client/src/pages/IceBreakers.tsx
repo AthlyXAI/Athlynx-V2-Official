@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 
 const stats = [
@@ -233,6 +234,7 @@ export default function IceBreakers() {
       <footer className="border-t border-blue-950/30 py-8 text-center">
         <p className="text-gray-600 text-sm">Ice Breakers · Powered by ATHLYNX AI · athlynx.ai/hockey · Iron Sharpens Iron — Proverbs 27:17</p>
       </footer>
+      <MobileBottomNav />
     </div>
   );
 }

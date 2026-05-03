@@ -1,4 +1,5 @@
 import { Link } from 'wouter';
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Play, Pause, SkipForward, SkipBack, Volume2, Clock, Mic, Headphones, Radio, ExternalLink, ChevronRight, Share2, Download, Star } from 'lucide-react';
 import { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
@@ -419,6 +420,7 @@ export default function Podcast() {
           </div>
         </div>
       )}
+      <MobileBottomNav />
     </div>
   );
 }

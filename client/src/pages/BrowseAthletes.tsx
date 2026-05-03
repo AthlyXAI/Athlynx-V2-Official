@@ -4,6 +4,7 @@
  * Scouts, coaches, and brands use this to discover athletes.
  */
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import PlatformLayout from "@/components/PlatformLayout";
@@ -288,7 +289,8 @@ export default function BrowseAthletes() {
             </div>
           </div>
         </div>
-      </div>
+      <MobileBottomNav />
+    </div>
     </PlatformLayout>
   );
 }

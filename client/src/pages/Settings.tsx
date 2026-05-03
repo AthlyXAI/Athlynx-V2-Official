@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import DashboardLayout from "@/components/DashboardLayout";
@@ -227,7 +228,8 @@ export default function Settings() {
             </Card>
           </TabsContent>
         </Tabs>
-      </div>
+      <MobileBottomNav />
+    </div>
     </DashboardLayout>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 
 const stats = [
@@ -209,6 +210,7 @@ export default function CourtKings() {
         <p className="text-gray-600 text-sm">Court Kings · Powered by ATHLYNX · A Dozier Holdings Group Company</p>
         <Link href="/" className="text-blue-500 text-sm hover:text-blue-300 mt-2 inline-block">← Back to ATHLYNX Platform</Link>
       </footer>
+      <MobileBottomNav />
     </div>
   );
 }

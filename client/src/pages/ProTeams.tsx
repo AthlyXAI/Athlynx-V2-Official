@@ -4,6 +4,7 @@
  * Roster management, contract tracking, scouting, training, and brand deals.
  */
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import { Button } from "@/components/ui/button";
@@ -327,7 +328,8 @@ export default function ProTeams() {
           </div>
         </section>
 
-      </div>
+      <MobileBottomNav />
+    </div>
     </PlatformLayout>
   );
 }

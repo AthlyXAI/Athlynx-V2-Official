@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -506,6 +507,7 @@ export default function TransferPortalIntelligence() {
           </TabsContent>
         </Tabs>
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

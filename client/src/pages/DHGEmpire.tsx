@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from 'wouter';
 import {
   Building2, Users, Cpu, Home, Utensils, Wine, Heart, TreePine, Zap, Database,
@@ -451,6 +452,7 @@ export default function DHGEmpire() {
           </div>
         </div>
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

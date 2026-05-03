@@ -1,4 +1,5 @@
 import PlatformLayout from "@/components/PlatformLayout";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Mail, Phone } from "lucide-react";
 
 const TEAM = [
@@ -176,7 +177,8 @@ export default function Founders() {
           <div className="text-blue-400 text-sm">2026 · Dozier Holdings Group · Houston, TX</div>
           <div className="text-blue-600 text-xs mt-1">Attitude of Gratitude · To God Be The Glory · Always 🙏</div>
         </div>
-      </div>
+      <MobileBottomNav />
+    </div>
     </PlatformLayout>
   );
 }

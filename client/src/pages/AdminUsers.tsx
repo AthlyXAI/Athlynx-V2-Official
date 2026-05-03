@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useLocation } from "wouter";
@@ -317,6 +318,7 @@ export default function AdminUsers() {
           )}
         </Card>
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

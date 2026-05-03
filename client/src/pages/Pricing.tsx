@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -388,6 +389,7 @@ export default function Pricing() {
           <p className="text-blue-700 text-xs mt-4">ATHLYNX AI Corporation · A Dozier Holdings Group Company · 2026</p>
         </div>
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

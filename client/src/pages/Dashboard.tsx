@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { toast } from "sonner";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -928,6 +929,7 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

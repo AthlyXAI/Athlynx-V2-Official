@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
 
@@ -355,6 +356,7 @@ export default function AthleteDashboard() {
           </div>
         )}
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

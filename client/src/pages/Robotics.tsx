@@ -1,4 +1,5 @@
 import PlatformLayout from "@/components/PlatformLayout";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { useState, useRef, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -218,6 +219,7 @@ function RobotChat({ user }: { user: any }) {
           </button>
         </div>
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

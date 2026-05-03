@@ -4,6 +4,7 @@
  * Gravatar avatar sync — all in one page
  */
 import PlatformLayout from "@/components/PlatformLayout";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { useState } from "react";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -317,7 +318,8 @@ export default function SocialCommandCenter() {
             </Link>
           ))}
         </div>
-      </div>
+      <MobileBottomNav />
+    </div>
     </PlatformLayout>
   );
 }

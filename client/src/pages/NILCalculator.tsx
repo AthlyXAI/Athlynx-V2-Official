@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -491,6 +492,7 @@ export default function NILCalculator() {
           "Everyone is an NIL Commodity" - Chad Allen Dozier Sr.
         </p>
       </footer>
+      <MobileBottomNav />
     </div>
   );
 }

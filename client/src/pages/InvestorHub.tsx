@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
@@ -219,6 +220,7 @@ function InvestorRequestGate({ onGranted }: { onGranted: () => void }) {
           <p className="text-white/20 text-xs text-center">CONFIDENTIAL — FOR ACCREDITED INVESTOR USE ONLY · © 2026 Dozier Holdings Group, LLC · ATHLYNX, Inc. · Houston, TX 77047</p>
         </div>
       </div>
+      <MobileBottomNav />
     </div>
   );
 }

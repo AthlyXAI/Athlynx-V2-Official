@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Handshake, Users, DollarSign, BarChart3, Shield, Zap, Globe, Code, Building, Star, CheckCircle, ArrowRight, Server, Cpu, Mail, Database, Cloud, GitBranch, Lock, Workflow } from "lucide-react";
 
 const TECH_STACK = [
@@ -449,6 +450,7 @@ export default function Partners() {
           </p>
         </div>
       </footer>
+      <MobileBottomNav />
     </div>
   );
 }

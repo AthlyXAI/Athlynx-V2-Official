@@ -1,4 +1,5 @@
 import { useState } from "react";
+import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, Redirect } from "wouter";
 import { PushNotificationBell } from "@/components/PushNotificationBell";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -115,6 +116,7 @@ function AddContactModal({ onClose, onSuccess }: { onClose: () => void; onSucces
           </button>
         </div>
       </div>
+      <MobileBottomNav />
     </div>
   );
 }
