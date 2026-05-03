@@ -237,6 +237,7 @@ export default function AdminCRM() {
     { id: "overview", label: "Overview", icon: BarChart3 },
     { id: "contacts", label: "Contacts", icon: Users },
     { id: "pipeline", label: "Pipeline", icon: LayoutGrid },
+    { id: "concreator", label: "🤖 ConCreator™", icon: Building2 },
     { id: "waitlist", label: "Waitlist", icon: List },
     { id: "activity", label: "Activity", icon: Activity },
     { id: "expiry", label: "⏰ Expiring", icon: Clock },
@@ -854,6 +855,189 @@ export default function AdminCRM() {
             </div>
           </div>
         )}
+
+        {/* ─── CONCREATOR™ B2B CLIENT TAB ──────────────────────────────────── */}
+        {activeTab === "concreator" && (
+          <div className="space-y-6">
+
+            {/* Header */}
+            <div className="bg-gradient-to-br from-[#0a1628] via-[#0d2040] to-[#0a1628] border border-cyan-600/40 rounded-2xl p-6">
+              <div className="flex items-center gap-4 mb-4">
+                <img src="/concreator-logo.png" alt="ConCreator" className="w-14 h-14 rounded-2xl border border-cyan-500/30" />
+                <div>
+                  <h2 className="text-white font-black text-2xl">ConCreator™ B2B Clients</h2>
+                  <p className="text-cyan-400 text-sm">Data Intelligence &amp; AI Credit System · Powered by Softmor Inc. · A Dozier Holdings Group Product</p>
+                </div>
+              </div>
+              <p className="text-blue-200 text-sm leading-relaxed max-w-3xl">
+                Every company that comes to DHG/Softmor for AI software, hardware integration, or data intelligence is billed here.
+                They pay per machine, per month. You own the IP. They get the service. Revenue flows directly to DHG.
+              </p>
+            </div>
+
+            {/* Revenue Summary */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { label: "Active Clients", value: "1", sub: "CementCo · Command Tier", color: "text-cyan-400" },
+                { label: "Active Machines", value: "10", sub: "$9,970/mo projected", color: "text-green-400" },
+                { label: "Monthly Revenue", value: "$9,970", sub: "Command × 10 machines", color: "text-yellow-400" },
+                { label: "Annual Revenue", value: "$119,640", sub: "Year 1 + license", color: "text-blue-400" },
+              ].map(({ label, value, sub, color }) => (
+                <div key={label} className="bg-[#0d1f3c] border border-white/10 rounded-2xl p-5">
+                  <div className="text-white/50 text-xs font-semibold uppercase tracking-wide mb-2">{label}</div>
+                  <div className={`text-2xl font-black ${color} mb-1`}>{value}</div>
+                  <div className="text-white/30 text-xs">{sub}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Tier Reference */}
+            <div className="bg-[#0d1f3c] border border-white/10 rounded-2xl p-5">
+              <h3 className="text-white font-black text-base mb-4">ConCreator™ Pricing Tiers — Per Machine / Per Month</h3>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-white/10">
+                      {["Tier", "Price/Machine/Mo", "AI Credits", "Reports", "Stripe Price ID", "Add Client"].map(h => (
+                        <th key={h} className="text-white/40 text-xs font-semibold uppercase tracking-wide text-left pb-3 pr-4 whitespace-nowrap">{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { tier: "Pulse", price: "$297/mo", credits: "500", reports: "Monthly only", priceId: "price_1TSno2RjBH07kRLYhcLTOiWk", color: "text-blue-400" },
+                      { tier: "Insight", price: "$597/mo", credits: "2,000", reports: "Weekly + Monthly", priceId: "price_1TSno2RjBH07kRLY4TxrGTu9", color: "text-cyan-400" },
+                      { tier: "Command ★", price: "$997/mo", credits: "5,000", reports: "Daily + Weekly + Monthly", priceId: "price_1TSno2RjBH07kRLYMSX2RcDm", color: "text-emerald-400", rec: true },
+                      { tier: "Enterprise", price: "$1,997/mo", credits: "Unlimited", reports: "Full Suite + Custom", priceId: "price_1TSno2RjBH07kRLYIX9Q1qR8", color: "text-purple-400" },
+                    ].map((t) => (
+                      <tr key={t.tier} className={`border-b border-white/5 hover:bg-white/5 transition-colors ${t.rec ? 'bg-emerald-900/10' : ''}`}>
+                        <td className="py-3 pr-4">
+                          <span className={`font-black ${t.color}`}>{t.tier}</span>
+                          {t.rec && <span className="ml-2 text-[10px] bg-emerald-500 text-white px-2 py-0.5 rounded-full font-bold">RECOMMENDED</span>}
+                        </td>
+                        <td className="py-3 pr-4 text-white font-bold">{t.price}</td>
+                        <td className="py-3 pr-4 text-white/70">{t.credits}</td>
+                        <td className="py-3 pr-4 text-white/50 text-xs">{t.reports}</td>
+                        <td className="py-3 pr-4">
+                          <code className="text-xs text-cyan-400 bg-cyan-900/20 px-2 py-0.5 rounded">{t.priceId}</code>
+                        </td>
+                        <td className="py-3 pr-4">
+                          <a href={`mailto:cdozier14@athlynx.ai?subject=New ConCreator ${t.tier} Client&body=Company:%0AContact:%0AEmail:%0APhone:%0AMachines:%0ATier: ${t.tier}%0APrice ID: ${t.priceId}`}
+                            className="text-xs bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-3 py-1.5 rounded-lg transition-colors">
+                            + Add Client
+                          </a>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="text-white/20 text-xs mt-3">Add-ons: Extra Machine (prorated) · API Raw Data Feed +$199/mo · White-Label Branding +$99/mo · Dedicated Account Manager +$499/mo · Extra 1,000 Credits $49</p>
+            </div>
+
+            {/* Active Clients */}
+            <div className="bg-[#0d1f3c] border border-white/10 rounded-2xl p-5">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-white font-black text-base">Active B2B Clients</h3>
+                <a href="mailto:cdozier14@athlynx.ai?subject=New ConCreator Client Onboarding"
+                  className="flex items-center gap-2 px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-black rounded-xl transition-colors">
+                  <Plus className="w-4 h-4" /> Onboard New Client
+                </a>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-white/10">
+                      {["Company", "Contact", "Tier", "Machines", "Monthly Rev", "AI Credits", "Status", "Sold By"].map(h => (
+                        <th key={h} className="text-white/40 text-xs font-semibold uppercase tracking-wide text-left pb-3 pr-4 whitespace-nowrap">{h}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                      <td className="py-3 pr-4">
+                        <div className="text-white font-bold">CementCo Technologies</div>
+                        <div className="text-white/30 text-xs">Industrial · Mississippi</div>
+                      </td>
+                      <td className="py-3 pr-4">
+                        <div className="text-white/70 text-xs">Telly Walsworth</div>
+                        <div className="text-cyan-400 text-xs">CEO</div>
+                      </td>
+                      <td className="py-3 pr-4">
+                        <span className="bg-emerald-900/60 text-emerald-300 border border-emerald-700/50 text-xs px-2 py-0.5 rounded-full font-bold">Command</span>
+                      </td>
+                      <td className="py-3 pr-4 text-white font-bold">10</td>
+                      <td className="py-3 pr-4 text-green-400 font-black">$9,970</td>
+                      <td className="py-3 pr-4 text-white/70">5,000/mo</td>
+                      <td className="py-3 pr-4">
+                        <span className="bg-blue-900/60 text-blue-300 border border-blue-700/50 text-xs px-2 py-0.5 rounded-full font-bold">Proposal Sent</span>
+                      </td>
+                      <td className="py-3 pr-4">
+                        <div className="text-white/70 text-xs">Chad A. Dozier</div>
+                        <div className="text-white/30 text-xs">DHG / Softmor</div>
+                      </td>
+                    </tr>
+                    <tr className="border-b border-white/5">
+                      <td colSpan={8} className="py-8 text-center">
+                        <div className="text-white/20 text-sm">More clients coming — every DHG company can sell ConCreator™</div>
+                        <a href="mailto:cdozier14@athlynx.ai?subject=New ConCreator Client"
+                          className="inline-flex items-center gap-2 mt-3 px-5 py-2 bg-white/5 border border-white/10 text-white/50 text-sm font-bold rounded-xl hover:bg-white/10 transition-colors">
+                          <Plus className="w-4 h-4" /> Add Next Client
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* AI Credit Actions Reference */}
+            <div className="bg-[#0d1f3c] border border-white/10 rounded-2xl p-5">
+              <h3 className="text-white font-black text-base mb-4">AI Credit Actions — What Clients Pay For</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { action: "Standard Report Generation", credits: "50 credits", icon: "📊", desc: "Daily/weekly/monthly auto-reports" },
+                  { action: "AI Anomaly Detection", credits: "25 credits", icon: "🚨", desc: "Flags unusual machine behavior" },
+                  { action: "Predictive Trend Analysis", credits: "150 credits", icon: "📈", desc: "AI forecasts output & maintenance" },
+                  { action: "Custom Data Query", credits: "100 credits", icon: "🤖", desc: "Ask any machine data question" },
+                  { action: "Year-End Summary Report", credits: "FREE", icon: "🏆", desc: "Included with all tiers annually" },
+                  { action: "Extra Credit Block", credits: "$49 / 1,000", icon: "⚡", desc: "Buy more anytime, no tier upgrade" },
+                  { action: "White-Label Branding", credits: "+$99/mo", icon: "🎨", desc: "Client logo on all reports" },
+                  { action: "API Raw Data Feed", credits: "+$199/mo", icon: "🔗", desc: "Build custom dashboards" },
+                ].map((item, i) => (
+                  <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                    <div className="text-2xl mb-2">{item.icon}</div>
+                    <div className="text-white text-sm font-semibold mb-1">{item.action}</div>
+                    <div className="text-cyan-400 text-xs font-bold mb-1">{item.credits}</div>
+                    <div className="text-white/40 text-xs">{item.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* How to Sell */}
+            <div className="bg-gradient-to-r from-[#0a1628] to-[#1a3a8f] border border-blue-600/40 rounded-2xl p-5">
+              <h3 className="text-white font-black text-base mb-3">How Any DHG Company Sells ConCreator™</h3>
+              <div className="grid md:grid-cols-4 gap-4">
+                {[
+                  { step: "1", title: "Identify the Client", desc: "Any company with machines, data, or AI needs. Industrial, manufacturing, logistics, healthcare, sports." },
+                  { step: "2", title: "Send the Deck", desc: "ConCreatorFULLv2 deck + credit tiers deck. Recommend Command tier as the floor." },
+                  { step: "3", title: "Onboard in CRM", desc: "Add client here. Set tier, machine count, monthly revenue. Email cdozier14@athlynx.ai to activate Stripe billing." },
+                  { step: "4", title: "Get Paid", desc: "Stripe bills client monthly. Revenue flows to DHG bank account. Credits reset monthly — drives natural upsell." },
+                ].map((s) => (
+                  <div key={s.step} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                    <div className="text-3xl font-black text-blue-400 mb-2">{s.step}</div>
+                    <div className="text-white font-bold text-sm mb-1">{s.title}</div>
+                    <div className="text-blue-200 text-xs leading-relaxed">{s.desc}</div>
+                  </div>
+                ))}
+              </div>
+              <p className="text-white/30 text-xs mt-4">ConCreator™ is a registered trademark of Dozier Holdings Group. © 2026 DHG &amp; Softmor Inc. All Rights Reserved. Governing Law: State of Texas.</p>
+            </div>
+
+          </div>
+        )}
+
       </div>
 
       {/* Add Contact Modal */}
