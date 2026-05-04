@@ -19,6 +19,34 @@ Handoff Report: https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYN
 
 ## 2. What Was Completed This Session (Session 21)
 
+### ✅ INVESTOR HUB REBUILT TO WORLD-CLASS
+- Rebuilt `InvestorHub.tsx` with IPO end-game messaging (2029-2030).
+- Added real market data ($135B Sports Tech TAM, $2.5B NIL Market).
+- Added 5-year P&L proforma table with numbers that add up.
+- Added competitive moat section (ATHLYNX vs Opendorse/Hudl/INFLCR).
+- Added GTC San Jose 2026 context and photos.
+- Added core team equity structure (Chad 51%, Glenn 24%, Jimmy 10%, Andy 10%, Lee 5%).
+
+### ✅ INVESTORS TOP NAV LINK
+- Added a prominent gold/yellow `💰 INVESTORS` link to the top navigation bar in `PlatformLayout.tsx`.
+- Visible on all pages, directing users to the newly rebuilt Investor Hub.
+
+### ✅ SUBSCRIPTION EXPIRY WARNING SYSTEM
+- Verified the server-side cron job (`subscriptionExpiryJob.ts`) is running hourly.
+- Verified the email cadence: 7, 5, 4, 3, 2, 1 days before expiry, and on expiry.
+- Added an **Expiry Warnings** tab to the Admin Dashboard (`AdminDashboard.tsx`) to view all users with expiring trials and overdue accounts.
+
+### ✅ BUFFER SOCIAL CHANNELS FIXED
+- Fixed the GraphQL mutation format in `socialRouter.ts` (removed fragments, added `schedulingType: automatic` and `mode: shareNow`).
+- Updated the channel IDs to the correct ones from the master reference (all 10 channels, including both Instagrams and both Facebooks).
+
+### ✅ STRIPE CONNECT PAYROLL ONBOARDING
+- Scheduled the Stripe Connect payroll onboarding emails to be sent to the team (Glenn, Lee, Jimmy, Andy) at 8:00 AM CST.
+- Emails include instructions to log in, go to the Payroll tab, and connect their bank accounts via Stripe Express.
+
+### ✅ HOME HERO MESSAGING UPDATED
+- Updated the tagline on the Home page (`Home.tsx`) to: "Youth → High School → College → Pro → Retired — Every Level. Every Sport. One Platform."
+
 ### ✅ VIDEO UPLOAD HUB — LIVE
 - `VideoUploadHub.tsx` — drag-and-drop video upload, multi-video gallery
 - Drag-and-drop MP4/MOV/AVI up to 500MB with progress bar
@@ -106,6 +134,7 @@ Handoff Report: https://github.com/AthlyXAI/Athlynx-V2-Official/blob/main/ATHLYN
 
 | Commit | Description |
 |--------|-------------|
+| `c3fbabd` | Session 21 — INVESTORS nav link, Buffer fix, Home hero, Admin Expiry Warnings tab, payroll emails scheduled |
 | `5d4bc80` | VideoUploadHub + sport stats + AthletePublicProfile upgrades |
 | `b536aa9` | Store wired to real Stripe products |
 | `518337d` | Permanent Social Command Center — off Manus, on Vercel |
