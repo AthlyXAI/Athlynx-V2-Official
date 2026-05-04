@@ -235,6 +235,10 @@ export default function AdminDashboard() {
               <Activity className="h-4 w-4 mr-2" />
               Logs
             </TabsTrigger>
+            <TabsTrigger value="payroll" className="data-[state=active]:bg-green-500/20 data-[state=active]:text-green-400">
+              <DollarSign className="h-4 w-4 mr-2" />
+              Payroll
+            </TabsTrigger>
           </TabsList>
 
           {/* Overview Tab */}
@@ -684,9 +688,224 @@ export default function AdminDashboard() {
               </CardContent>
             </Card>
           </TabsContent>
+
+          {/* Payroll Tab */}
+          <TabsContent value="payroll">
+            <PayrollPanel />
+          </TabsContent>
         </Tabs>
       </div>
       <MobileBottomNav />
+    </div>
+  );
+}
+
+// ─── Payroll Panel Component ──────────────────────────────────────────────────
+function PayrollPanel() {
+  const [netRevenue, setNetRevenue] = useState("");
+  const [payrollResult, setPayrollResult] = useState<any>(null);
+  const [onboardingEmail, setOnboardingEmail] = useState("");
+  const [onboardingLink, setOnboardingLink] = useState("");
+
+  const payrollConfig = trpc.stripe.getPayrollConfig.useQuery(undefined, { retry: false });
+  const processPayroll = trpc.stripe.processPayroll.useMutation({
+    onSuccess: (data) => { setPayrollResult(data); payrollConfig.refetch(); },
+  });
+  const createOnboarding = trpc.stripe.createConnectOnboardingLink.useMutation({
+    onSuccess: (data) => { setOnboardingLink(data.url); },
+  });
+
+  const team = payrollConfig.data ?? [];
+  const connectedCount = team.filter((m: any) => m.connected).length;
+  const totalPct = team.reduce((sum: number, m: any) => sum + m.percentageOfRevenue, 0);
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-green-950/40 to-slate-900/60 border border-green-800/30 rounded-2xl p-6">
+        <div className="flex items-center gap-3 mb-2">
+          <DollarSign className="w-6 h-6 text-green-400" />
+          <h2 className="text-xl font-black text-white">Team Payroll — Stripe Connect</h2>
+        </div>
+        <p className="text-slate-400 text-sm">Automated revenue distribution to your team. Each member connects their bank account once via Stripe Express — then you run payroll in one click.</p>
+        <div className="flex gap-6 mt-4">
+          <div className="text-center">
+            <div className="text-2xl font-black text-green-400">{connectedCount}/{team.length}</div>
+            <div className="text-slate-500 text-xs">Connected</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-black text-blue-400">{totalPct}%</div>
+            <div className="text-slate-500 text-xs">Total Distributed</div>
+          </div>
+          <div className="text-center">
+            <div className="text-2xl font-black text-slate-400">{100 - totalPct}%</div>
+            <div className="text-slate-500 text-xs">Chad Retains</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Team Members */}
+      <div className="space-y-3">
+        <h3 className="text-white font-black text-lg">Team Members</h3>
+        {payrollConfig.isLoading ? (
+          <div className="text-slate-500 text-sm">Loading...</div>
+        ) : (
+          team.map((member: any) => (
+            <div key={member.email} className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5 flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-700 to-blue-900 flex items-center justify-center text-white font-black text-sm flex-shrink-0">
+                {member.name.split(" ").map((n: string) => n[0]).join("")}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-white font-black">{member.name}</div>
+                <div className="text-slate-500 text-sm">{member.role} · {member.email}</div>
+                <div className="flex items-center gap-2 mt-1">
+                  <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                    member.connected
+                      ? "bg-green-900/40 text-green-400 border border-green-800/40"
+                      : "bg-yellow-900/40 text-yellow-400 border border-yellow-800/40"
+                  }`}>
+                    {member.connected ? "✅ Connected" : "⏳ Not Connected"}
+                  </span>
+                  <span className="text-blue-400 text-xs font-bold">{member.percentageOfRevenue}% of net revenue</span>
+                </div>
+              </div>
+              {!member.connected && (
+                <button
+                  onClick={() => {
+                    setOnboardingEmail(member.email);
+                    createOnboarding.mutate({ email: member.email, origin: window.location.origin });
+                  }}
+                  disabled={createOnboarding.isPending}
+                  className="bg-blue-600 hover:bg-blue-500 disabled:opacity-40 text-white text-xs font-black px-4 py-2 rounded-full transition-colors flex-shrink-0"
+                >
+                  {createOnboarding.isPending && onboardingEmail === member.email ? "Generating..." : "Send Onboarding Link"}
+                </button>
+              )}
+              {member.connected && (
+                <span className="text-green-400 text-xs font-bold flex-shrink-0">Bank Connected ✓</span>
+              )}
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Onboarding Link Result */}
+      {onboardingLink && (
+        <div className="bg-blue-950/40 border border-blue-800/30 rounded-2xl p-5">
+          <div className="text-white font-black mb-2">✅ Onboarding Link Generated</div>
+          <p className="text-slate-400 text-sm mb-3">Send this link to your team member. They click it, connect their bank account via Stripe, and they're set up for payroll.</p>
+          <div className="flex gap-2">
+            <input
+              value={onboardingLink}
+              readOnly
+              className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-blue-300 text-xs font-mono"
+            />
+            <button
+              onClick={() => { navigator.clipboard.writeText(onboardingLink); }}
+              className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-black px-4 py-2 rounded-lg transition-colors"
+            >
+              Copy
+            </button>
+          </div>
+          <p className="text-slate-600 text-xs mt-2">Link expires in 24 hours. Generate a new one if needed.</p>
+        </div>
+      )}
+
+      {/* Run Payroll */}
+      <div className="bg-gradient-to-r from-green-950/40 to-slate-900/60 border border-green-800/30 rounded-2xl p-6">
+        <h3 className="text-white font-black text-lg mb-2">Run Payroll</h3>
+        <p className="text-slate-400 text-sm mb-4">Enter the net revenue for this billing cycle. AthlynXAI will automatically distribute the correct percentage to each connected team member via Stripe.</p>
+        <div className="flex gap-3 items-end">
+          <div className="flex-1">
+            <label className="text-slate-400 text-xs font-bold uppercase tracking-wider block mb-1">Net Revenue ($)</label>
+            <input
+              type="number"
+              value={netRevenue}
+              onChange={e => setNetRevenue(e.target.value)}
+              placeholder="e.g. 10000"
+              className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white text-lg font-bold outline-none focus:border-green-500"
+            />
+          </div>
+          <button
+            onClick={() => {
+              if (!netRevenue || isNaN(Number(netRevenue))) return;
+              processPayroll.mutate({ netRevenue: Number(netRevenue) });
+            }}
+            disabled={processPayroll.isPending || !netRevenue || connectedCount === 0}
+            className="bg-green-600 hover:bg-green-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-black px-8 py-3 rounded-xl transition-colors flex items-center gap-2"
+          >
+            <DollarSign className="w-5 h-5" />
+            {processPayroll.isPending ? "Processing..." : "Run Payroll"}
+          </button>
+        </div>
+        {connectedCount === 0 && (
+          <p className="text-yellow-400 text-xs mt-2">⚠️ No team members connected yet. Send onboarding links above first.</p>
+        )}
+
+        {/* Payroll Preview */}
+        {netRevenue && Number(netRevenue) > 0 && (
+          <div className="mt-4 space-y-2">
+            <div className="text-slate-400 text-xs font-bold uppercase tracking-wider">Payroll Preview</div>
+            {team.map((member: any) => (
+              <div key={member.email} className="flex items-center justify-between text-sm">
+                <span className="text-slate-300">{member.name} ({member.percentageOfRevenue}%)</span>
+                <span className="text-green-400 font-black">${((Number(netRevenue) * member.percentageOfRevenue) / 100).toFixed(2)}</span>
+              </div>
+            ))}
+            <div className="border-t border-slate-700 pt-2 flex items-center justify-between text-sm font-black">
+              <span className="text-white">Chad Retains ({100 - totalPct}%)</span>
+              <span className="text-blue-400">${((Number(netRevenue) * (100 - totalPct)) / 100).toFixed(2)}</span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Payroll Results */}
+      {payrollResult && (
+        <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-5">
+          <div className="text-white font-black mb-3">✅ Payroll Processed</div>
+          <div className="space-y-2">
+            {payrollResult.results?.map((r: any, i: number) => (
+              <div key={i} className="flex items-center justify-between text-sm">
+                <span className="text-slate-300">{r.name}</span>
+                <div className="flex items-center gap-2">
+                  <span className="text-green-400 font-bold">${(r.amount / 100).toFixed(2)}</span>
+                  <span className={`text-xs px-2 py-0.5 rounded-full font-bold ${
+                    r.status === "paid" ? "bg-green-900/40 text-green-400" :
+                    r.status === "not_connected" ? "bg-yellow-900/40 text-yellow-400" :
+                    "bg-red-900/40 text-red-400"
+                  }`}>{r.status}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="border-t border-slate-700 mt-3 pt-3 text-sm">
+            <span className="text-slate-400">Total distributed: </span>
+            <span className="text-green-400 font-black">${((payrollResult.totalDistributed ?? 0) / 100).toFixed(2)}</span>
+          </div>
+        </div>
+      )}
+
+      {/* How It Works */}
+      <div className="bg-slate-900/40 border border-slate-800 rounded-2xl p-5">
+        <h3 className="text-white font-black mb-3">How to Set Up Your Guys</h3>
+        <div className="space-y-3">
+          {[
+            { step: "1", title: "Send Onboarding Link", desc: "Click 'Send Onboarding Link' next to each team member. Copy the link and send it to them via email or text." },
+            { step: "2", title: "They Connect Their Bank", desc: "Glenn, Lee, Jimmy, and Andy each click the link, enter their info, and connect their bank account via Stripe Express. Takes 5 minutes." },
+            { step: "3", title: "Run Payroll", desc: "After each billing cycle, enter the net revenue and click 'Run Payroll'. Stripe automatically sends the correct amount to each person's bank." },
+            { step: "4", title: "Automatic From Here", desc: "Once connected, payroll is one click. Stripe handles the transfers, tax forms (1099), and compliance." },
+          ].map((item) => (
+            <div key={item.step} className="flex items-start gap-3">
+              <div className="w-7 h-7 rounded-full bg-blue-600 flex items-center justify-center text-white font-black text-xs flex-shrink-0">{item.step}</div>
+              <div>
+                <div className="text-white font-bold text-sm">{item.title}</div>
+                <div className="text-slate-400 text-xs leading-relaxed">{item.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
