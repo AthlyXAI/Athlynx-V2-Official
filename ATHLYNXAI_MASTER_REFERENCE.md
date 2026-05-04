@@ -1,4 +1,7 @@
 # ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
+## Last Updated: Monday, May 4, 2026 — Session 26
+## Session Summary (May 4 2026 — SESSION 26): PLATFORM BULLETPROOFED + GCP CLEAN + STRIPE EMAIL SENT. Fixed stale-cache crash (vercel.json no-cache on ALL SPA routes). Added RouteErrorBoundary to all 63 missing pages (167/167 covered). Fixed nav tab splash screen loop (onboarding check now runs once per session via useRef guard). GCP cleanup: AthlynxAI14 + Default Gemini Project deleted. Stripe support email sent (business name correction + DHG account closure request). Apple BM DNS confirmed live — verification blocked by Apple server outage, retry tomorrow. Stripe keys confirmed: sk_live_51SqfSOGvvjXZw2uE... / whsec_sYcaDuTUJ4... / mk_1SqfSPGvvjXZw2uE3FSTWyRy. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY4_2026_S26.md
+
 ## Last Updated: Monday, May 4, 2026 — Session 25
 ## Session Summary (May 4 2026 — SESSION 25): FULL STACK LIVE + ARCHITECTURE DOC SENT. Apple BM DNS TXT live. All keys updated in Vercel (Gemini, Nebius, Stripe AthlynXAI Corp, Buffer, AWS, SendGrid, Gravatar). Login crash fixed (RouteErrorBoundary missing import — 18 pages). Full stack test passed: athlynx.ai HTTP 200, Gemini LIVE, Nebius LIVE, Stripe charges+payouts enabled, Buffer 10 channels, SendGrid email delivered. Investor one-pager built for Joseph Dragone May 8 meeting. Nebius finalist monitor scheduled May 15. Permanent key vault added to master reference. Apple BM TXT record (apple-domain-verification=bJrYOUZpnt2fSugJ) added to Vercel DNS for athlynx.ai. Permanent rules added: DNS via Vercel only (Rule 13), deploy pipeline Manus→GitHub→Vercel (Rule 14). Investor one-pager built for Joseph Dragone meeting May 8 (ATHLYNXAI_INVESTOR_ONE_PAGER_DRAGONE.pdf). Nebius AI finalist check scheduled for May 15 9AM CST. Stripe Atlas + GCP cleanup deferred to Session 26. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY4_2026_S25.md
 
@@ -350,9 +353,9 @@ Success = `PostActionSuccess`. **NEVER use `... on Post { id }` — return type 
 | **Nebius API Key** | `v1.CmQKHHN0YXRpY2tleS1lMDB6a3h2OXY0NXd3ejE1aGcSIXNlcnZpY2VhY2NvdW50LWUwMGpoeXB0eG5mZ2JldjE1djIMCJCDy88GEP36ksUBOgwIj4bjmgcQgLbu-QFAAloDZTAw.AAAAAAAAAAE953FV2ng69mdutC1iPxnzugOH4jcySQyuJoEJcLDEMDVqata5QDCnYPe98voBXE0zEC0shxtiq8f2bO5Pm98G` |
 | **Nebius Service Account** | `serviceaccount-e00jhyptxnfgbev15v` |
 | **Stripe Account** | `acct_1SqfSOGvvjXZw2uE` — AthlynXAI Corporation — LIVE MODE ONLY |
-| **Stripe Secret Key** | `sk_live_51SqfSOGvvjXZw2uE...` (in Vercel: STRIPE_SECRET_KEY) |
+| **Stripe Secret Key** | `sk_live_51SqfSOGvvjXZw2uE...jveUBPx` (full key in Vercel: STRIPE_SECRET_KEY — confirmed May 4, 2026) |
 | **Stripe Publishable Key** | `mk_1SqfSPGvvjXZw2uE3FSTWyRy` |
-| **Stripe Webhook Secret** | `whsec_sYcaDuTUJ4...` (in Vercel: STRIPE_WEBHOOK_SECRET) |
+| **Stripe Webhook Secret** | `whsec_sYcaDuTUJ4kUsPO8b5Rv8edIdp2x0tTo` (in Vercel: STRIPE_WEBHOOK_SECRET) |
 | **Stripe Webhook Endpoint** | `https://athlynx.ai/api/webhooks/stripe` (we_1TT8LBGvvjXZw2uEEIRxkfyM) |
 | **Buffer Access Token** | `dAiVY17LAcoFkFv0iexUKHHkhgShIkytlaXz1SpWyqD` (expires May 2027) |
 | **Buffer Bot Token** | `gylqPGOh7hF12vJvtu8ZUTX40vM3k_K1u65X5VJkFv8` |
