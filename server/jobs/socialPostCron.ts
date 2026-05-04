@@ -1,210 +1,148 @@
 /**
- * ATHLYNX Social Post Automation
- * Runs 3x/day via Vercel Cron (8am, 12pm, 6pm CST)
- * Posts to: Facebook, X (Twitter), Instagram, Google Business via Buffer GraphQL API
- * Posts to: LinkedIn via Zapier MCP
- * TikTok: requires video — text-only posts skipped
+ * ATHLYNX Social Post Automation — Session 22 REBUILD
+ * ─────────────────────────────────────────────────────
+ * PLATFORM-SPECIFIC RULES (never violate these):
  *
- * MEDIA ROTATION RULES (Updated Session 11):
- * - Each channel receives a DIFFERENT post per cron run — no two channels get the same content
- * - Each post gets a DIFFERENT branded image — images rotate independently from text
- * - Posts advance through the library daily so the same post never repeats on the same day
- * - 30 unique text posts × 20 unique images = 600 unique combinations before any repeat
+ * INSTAGRAM (chad_dozier + chaddozier14):
+ *   - Image required — text-only posts have near-zero reach
+ *   - Max 10 hashtags (5 is ideal) — no hashtag spam
+ *   - No external links in caption — bio link only
+ *   - 1x per day per account max
+ *   - Story-driven, authentic captions
  *
- * BUFFER API NOTES (May 2, 2026):
- * - Use schedulingType: automatic + mode: shareNow
- * - Return type is PostActionPayload — use __typename, NOT "... on Post { id }"
- * - Token: kB3LprBJtIH1-1F1v_DQcjOIRFdX13YFQVPXrpz9gD_ (AthlynXAI, expires May 2, 2027)
+ * FACEBOOK (Athlynx Page + Chad personal):
+ *   - Conversational tone, longer form OK
+ *   - Max 2-3 hashtags
+ *   - 1x per day max
+ *   - Native content preferred
+ *
+ * X / TWITTER:
+ *   - Hard 280 character limit
+ *   - Max 1-2 hashtags
+ *   - Punchy, direct, no engagement bait ("like if you agree" is banned)
+ *   - 2-3x per day max
+ *
+ * LINKEDIN:
+ *   - Human voice ONLY — first-person, real perspective from Chad Dozier
+ *   - NO link in post body — LinkedIn suppresses reach; link goes in first comment
+ *   - Max 3 hashtags
+ *   - 3-4x per WEEK max (not daily)
+ *   - Never sounds AI-generated — short paragraphs, real opinions
+ *
+ * GOOGLE BUSINESS:
+ *   - Business updates, events, offers only
+ *   - No hashtags
+ *   - 2-3x per week max
+ *
+ * TIKTOK: VIDEO ONLY — text posts not supported, skip always
+ *
+ * BUFFER API:
+ *   - mutation: createPost with schedulingType: automatic + mode: shareNow
+ *   - Return type: PostActionPayload — use __typename only
+ *   - Token: kB3LprBJtIH1-1F1v_DQcjOIRFdX13YFQVPXrpz9gD_ (expires May 2, 2027)
  */
 
 const BUFFER_TOKEN = process.env.BUFFER_ACCESS_TOKEN!;
-const ZAPIER_MCP_TOKEN = process.env.ZAPIER_MCP_TOKEN!;
 const BASE_URL = "https://athlynx.ai";
 
-// Buffer channel IDs — ALL 10 channels (from cdozier14@athlynx.ai account)
 const BUFFER_CHANNELS = {
-  instagram_chad_dozier:  "69e6cca6031bfa423c26478e", // chad_dozier (Instagram)
-  linkedin:               "69e6cd3f031bfa423c264c63", // chad-a-dozier (LinkedIn)
-  youtube:                "69e6cd7c031bfa423c264dd5", // Chad A. Dozier (YouTube)
-  tiktok_chad:            "69e6cd99031bfa423c264e8c", // chadadozierdozier (TikTok — video only)
-  google_business:        "69e6cdf3031bfa423c2650a8", // VCT Holdings Group LLC
-  twitter:                "69e6ce05031bfa423c265121", // ChadADozier2 (X/Twitter)
-  tiktok_cdozier75:       "69e6ce56031bfa423c2652c8", // cdozier75 (TikTok — video only)
-  instagram_chaddozier14: "69e6ce77031bfa423c265389", // chaddozier14 (Instagram)
-  facebook_athlynx:       "69f29ddf5c4c051afaf3e12e", // Athlynx - The Complete Athlete Ecosystem
-  facebook_chad:          "69f3f06f5c4c051afaf9eeb7", // Chad Allen Dozier Sr (Facebook)
+  instagram_chad_dozier:  "69e6cca6031bfa423c26478e",
+  linkedin:               "69e6cd3f031bfa423c264c63",
+  google_business:        "69e6cdf3031bfa423c2650a8",
+  twitter:                "69e6ce05031bfa423c265121",
+  instagram_chaddozier14: "69e6ce77031bfa423c265389",
+  facebook_athlynx:       "69f29ddf5c4c051afaf3e12e",
+  facebook_chad:          "69f3f06f5c4c051afaf9eeb7",
 };
 
-// Text-capable channels in posting order (TikTok excluded — requires video)
-// ORDER MATTERS: each channel gets a different offset so no two channels share the same post
-const TEXT_CHANNELS_ORDERED = [
-  { id: BUFFER_CHANNELS.facebook_athlynx,       offset: 0, name: "Facebook/Athlynx" },
-  { id: BUFFER_CHANNELS.instagram_chad_dozier,  offset: 1, name: "Instagram/chad_dozier" },
-  { id: BUFFER_CHANNELS.twitter,                offset: 2, name: "X/Twitter" },
-  { id: BUFFER_CHANNELS.instagram_chaddozier14, offset: 3, name: "Instagram/chaddozier14" },
-  { id: BUFFER_CHANNELS.facebook_chad,          offset: 4, name: "Facebook/Chad" },
-  { id: BUFFER_CHANNELS.google_business,        offset: 5, name: "Google Business" },
+// ─────────────────────────────────────────────────────────
+// INSTAGRAM POSTS — Story-driven, image-paired, 5-8 hashtags
+// Max 2,200 chars. No external links. Authentic voice.
+// ─────────────────────────────────────────────────────────
+const INSTAGRAM_POSTS = [
+  `Every athlete deserves to be seen.\n\nWe built AthlynXAI so no talented kid gets overlooked because they go to a small school or can't afford an agent.\n\nYour profile. Your stats. Your highlight reel. All in one place — working for you 24/7.\n\nStart free at athlynx.ai (link in bio)\n\n#AthlynxAI #NIL #CollegeRecruiting #StudentAthlete #GetRecruited`,
+  `The recruiting game has changed.\n\nCoaches are searching online before they ever pick up the phone.\n\nIs your profile ready when they find you?\n\nAthlynxAI builds your recruiting presence automatically — stats, highlights, NIL deals, all live.\n\nLink in bio.\n\n#AthlynxAI #CollegeRecruiting #NIL #AthleteLife #NextLevel`,
+  `NIL isn't just for 5-star recruits.\n\nEvery athlete has a name, an image, and a likeness worth something to a brand.\n\nAthlynxAI's NIL marketplace connects YOU directly to deals — no middleman, no agent fees.\n\nYour brand. Your money.\n\nLink in bio → athlynx.ai\n\n#NIL #AthleteMarketing #AthlynxAI #CollegiateAthletes #GetPaid`,
+  `From Laurel, MS to Houston, TX — we built this for every athlete who was told they weren't big enough, fast enough, or from the right school.\n\nAthlynxAI is the great equalizer.\n\nEvery sport. Every level. One platform.\n\nLink in bio.\n\n#AthlynxAI #NIL #StudentAthlete #IronSharpensIron #AthleteLife`,
+  `The transfer portal is open 365 days a year.\n\nAre you using it strategically?\n\nAthlynxAI tracks every opportunity, every school looking for your position, and every NIL deal that comes with a transfer.\n\nDon't just transfer. Upgrade.\n\nLink in bio.\n\n#TransferPortal #NIL #CollegeRecruiting #AthlynxAI #NextLevel`,
+  `Your highlight reel is your resume.\n\nAthlynxAI's Video Upload Hub lets you upload, organize, and share your best moments directly with coaches and scouts.\n\nStop sending links. Start getting offers.\n\nLink in bio → athlynx.ai\n\n#HighlightReel #AthleteRecruiting #AthlynxAI #NIL #CollegiateAthletes`,
+  `Iron Sharpens Iron.\n\nProverbs 27:17 — the verse that drives everything we build at AthlynxAI.\n\nWhen athletes connect, compete, and push each other — everyone gets better.\n\nThat's the AthlynxAI community.\n\nJoin us. Link in bio.\n\n#IronSharpensIron #AthlynxAI #FaithAndSport #AthleteLife #NIL`,
+  `Diamond Grind Baseball.\n\nFrom Little League to the pros — AthlynxAI tracks every pitch, every at-bat, every recruiting opportunity.\n\nBaseball athletes: your platform is live.\n\nLink in bio → athlynx.ai/baseball\n\n#DiamondGrind #BaseballRecruiting #NIL #AthlynxAI #CollegiateBaseball`,
+  `Warriors Playbook.\n\nFootball athletes — your NIL era is now.\n\nAthlynxAI's football platform gives you recruiting analytics, film study tools, and direct brand connections.\n\nOwn the field. Link in bio.\n\n#WarriorsPlaybook #FootballNIL #AthlynxAI #CollegiateFootball #NIL`,
+  `Youth → High School → College → Pro → Retired.\n\nEvery level. Every sport. One platform.\n\nAthlynxAI was built to follow your entire athletic career — not just the recruiting window.\n\nWhere are you in your journey?\n\nLink in bio.\n\n#AthlynxAI #AthleteLife #NIL #CollegeRecruiting #EveryLevel`,
 ];
 
-// ─────────────────────────────────────────────
-// BRANDED IMAGE LIBRARY — 20 unique images
-// Each image is a real asset hosted on athlynx.ai
-// ─────────────────────────────────────────────
-const IMAGE_LIBRARY: string[] = [
-  `${BASE_URL}/brand/athlynx-promo.png`,
-  `${BASE_URL}/brand/athlynx-logo-main.png`,
-  `${BASE_URL}/brand/athlynx-investor.png`,
-  `${BASE_URL}/brand/app-screen-2.png`,
-  `${BASE_URL}/brand/app-screen-5.png`,
-  `${BASE_URL}/brand/app-screen-9.png`,
-  `${BASE_URL}/brand/app-screen-12.png`,
-  `${BASE_URL}/brand/app-screen-15.png`,
-  `${BASE_URL}/brand/app-screen-18.png`,
-  `${BASE_URL}/brand/dhg-empire-hero.png`,
-  `${BASE_URL}/images/athlete-focus.jpg`,
-  `${BASE_URL}/images/champion-hero.jpg`,
-  `${BASE_URL}/athlete-football.jpg`,
-  `${BASE_URL}/athlete-basketball.jpg`,
-  `${BASE_URL}/athlete-baseball.jpg`,
-  `${BASE_URL}/athlete-track.jpg`,
-  `${BASE_URL}/athlete-training.jpg`,
-  `${BASE_URL}/athlynx-og-social.png`,
-  `${BASE_URL}/economic-vision.png`,
-  `${BASE_URL}/professional-athlete-dashboard.png`,
+// ─────────────────────────────────────────────────────────
+// FACEBOOK POSTS — Conversational, community-driven, 2-3 hashtags
+// Longer form OK. More personal tone.
+// ─────────────────────────────────────────────────────────
+const FACEBOOK_POSTS = [
+  `We started AthlynXAI with one belief: every athlete deserves a fair shot.\n\nNot just the ones at big schools. Not just the ones with agents. Every single one.\n\nToday, AthlynXAI is live — a full AI-powered platform for recruiting, NIL deals, stats, highlights, and community.\n\nIf you know a student-athlete who needs this, share this post. It could change their life.\n\nhttps://athlynx.ai\n\n#AthlynxAI #NIL`,
+  `Quick update from the AthlynXAI team:\n\nWe now have athletes from 44 sports on the platform. Baseball, football, basketball, soccer, track, swimming, volleyball — you name it.\n\nEvery sport gets the same tools. Every athlete gets the same shot.\n\nSign up free today → https://athlynx.ai\n\n#AthlynxAI #StudentAthlete`,
+  `The NIL era changed college sports forever.\n\nBut most athletes still don't know how to monetize their brand.\n\nAthlynxAI's NIL Marketplace connects athletes directly to brands, sponsorships, and earning opportunities — with AI doing the matching.\n\nNo agent. No fees. Just results.\n\nhttps://athlynx.ai/nil-portal\n\n#NIL #AthlynxAI`,
+  `Parents — this one is for you.\n\nYour child works harder than anyone you know. Early mornings. Late nights. Sacrifices most people will never understand.\n\nAthlynxAI makes sure that work gets seen by the coaches and brands who need to see it.\n\nHelp them build their profile today → https://athlynx.ai\n\n#CollegeRecruiting #AthlynxAI`,
+  `Coaches — AthlynxAI's Pro Teams platform gives you AI-driven athlete intelligence.\n\nSearch by sport, position, stats, location, and eligibility. Find your next recruit before anyone else does.\n\nRequest a demo → https://athlynx.ai/pro-teams\n\n#SportsScouting #AthlynxAI`,
+  `Faith. Family. Football.\n\nAthlynxAI's Warriors Playbook is more than a recruiting tool — it's a community for football athletes who compete with purpose.\n\nIron Sharpens Iron — Proverbs 27:17\n\nhttps://athlynx.ai/warriors-playbook\n\n#WarriorsPlaybook #AthlynxAI`,
+  `The transfer portal isn't just for top recruits anymore.\n\nAthlynxAI helps athletes at smaller schools use the transfer portal strategically — to upgrade their school, increase their NIL value, and get in front of more coaches.\n\nExplore the portal → https://athlynx.ai/transfer-portal\n\n#TransferPortal #AthlynxAI`,
+  `We built AthlynxAI in Houston, TX — Chad Dozier and Glenn Tse — after meeting at Hope Lodge in November 2024.\n\nFrom that conversation to a live platform with 44 sports, 142 pages, and real AI engines — in less than 6 months.\n\nThis is what happens when you build with purpose.\n\nhttps://athlynx.ai\n\n#AthlynxAI #Founder`,
+  `Diamond Grind Baseball is live on AthlynxAI.\n\nFull stats tracking, AI coaching, recruiting analytics, and NIL deals — all built specifically for baseball athletes.\n\nFrom Little League to the pros.\n\nhttps://athlynx.ai/baseball\n\n#DiamondGrind #BaseballNIL #AthlynxAI`,
+  `AthlynxAI's X-Factor Feed is where athlete culture lives.\n\nHighlight reels. Big wins. Real talk about the grind.\n\nJoin the conversation → https://athlynx.ai/x-factor\n\n#AthlynxAI #AthleteLife #XFactor`,
 ];
 
-// ─────────────────────────────────────────────
-// POST LIBRARY — 30 unique text posts
-// ─────────────────────────────────────────────
-const POST_LIBRARY = [
-  {
-    text: "🏆 ATHLYNX.AI — The #1 AI Platform for Athletes & NIL Deals.\n\nYour career. Your brand. Your future — all in one place.\n\n✅ AI-powered NIL marketplace\n✅ Real-time recruiting analytics\n✅ 20+ integrated platforms\n\nhttps://athlynx.ai\n\n#ATHLYNX #NIL #SportsAI #AthleteMarketing",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "⚡ ONE PLATFORM. EVERY EDGE.\n\nATHLYNX gives athletes the tools to get recruited, get paid, and get ahead.\n\n🎯 NIL deals\n🎯 Transfer portal analytics\n🎯 AI coaching insights\n\nhttps://athlynx.ai\n\n#ATHLYNX #CollegiateAthletes #NIL #RecruitingEdge",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "💎 THE DIAMOND GRIND IS REAL.\n\nBaseball athletes — ATHLYNX tracks your stats, connects you to scouts, and finds your NIL deals.\n\nYour next level starts here 👉 https://athlynx.ai\n\n#ATHLYNX #BaseballRecruiting #NIL #CollegiateBaseball",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "🤖 YOUR AI COACH NEVER SLEEPS.\n\nWhile you rest, ATHLYNX is analyzing your performance, finding opportunities, and building your brand.\n\n24/7 AI-powered athlete management 👉 https://athlynx.ai\n\n#ATHLYNX #AICoach #SportsAI #AthletePerformance",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "🏈 FOOTBALL ATHLETES — YOUR NIL ERA IS NOW.\n\nATHLYNX connects you directly to brands, boosters, and NIL deals.\n\nNo agents. No middlemen. Just results.\n\nhttps://athlynx.ai\n\n#ATHLYNX #FootballNIL #NILDeals #CollegiateFootball",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "🏀 BASKETBALL PLAYERS — LEVEL UP YOUR RECRUITING.\n\nATHLYNX gives you real-time analytics, NIL opportunities, and a global athlete network.\n\nJoin the movement 👉 https://athlynx.ai\n\n#ATHLYNX #BasketballRecruiting #NIL #HoopsDreams",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "🌍 ATHLETES CONNECT GLOBALLY ON ATHLYNX.\n\nShare schedules. Compare recruiting efforts. Build your brand worldwide.\n\nThe Athlete Playbook starts here 👉 https://athlynx.ai\n\n#ATHLYNX #GlobalAthletes #AthletePlaybook #NIL",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "🚀 FROM UNRECRUITED TO UNSTOPPABLE.\n\nATHLYNX's Transfer Portal analytics help athletes at smaller schools get seen, get recruited, and increase their NIL value.\n\nhttps://athlynx.ai\n\n#ATHLYNX #TransferPortal #NIL #CollegiateAthletes",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "💰 YOUR NAME. YOUR IMAGE. YOUR LIKENESS. YOUR MONEY.\n\nATHLYNX's AI-powered NIL marketplace connects athletes with brands that want to pay them.\n\nStart earning 👉 https://athlynx.ai\n\n#ATHLYNX #NILMarketplace #AthleteMarketing #GetPaid",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "📊 DATA-DRIVEN RECRUITING.\n\nATHLYNX gives coaches and athletes real-time analytics to make smarter recruiting decisions.\n\n20+ integrated platforms. One dashboard.\n\nhttps://athlynx.ai\n\n#ATHLYNX #RecruitingAnalytics #SportsData #CoachingEdge",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "⚾ DIAMOND GRIND BASEBALL.\n\nFrom Little League to the pros — ATHLYNX tracks every pitch, every at-bat, and every recruiting opportunity.\n\nGet started 👉 https://athlynx.ai/diamond-grind\n\n#DiamondGrind #BaseballNIL #ATHLYNX #CollegiateBaseball",
-    link: "https://athlynx.ai/diamond-grind",
-  },
-  {
-    text: "🏈 WARRIORS PLAYBOOK — FOOTBALL DOMINANCE.\n\nATHLYNX's football platform gives players the edge in recruiting, film study, and NIL deals.\n\nOwn the field 👉 https://athlynx.ai/warriors-playbook\n\n#WarriorsPlaybook #FootballNIL #ATHLYNX #CollegiateFootball",
-    link: "https://athlynx.ai/warriors-playbook",
-  },
-  {
-    text: "💡 BUILT FOR LESS THAN $145,000.\n\nATHLYNX AI — 142 pages. 75,662 lines of code. 34 database tables. Dual AI engines.\n\nA traditional team would charge $2,074,000. We built it for $145K.\n\nPre-Seed round open → cdozier14@athlynx.ai\n\n#ATHLYNX #SportsTech #Startup #NIL",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "🎯 SIGNING DAY IS EVERY DAY ON ATHLYNX.\n\nTrack your letter of intent, manage your commitments, and celebrate your signing day with the ATHLYNX community.\n\nhttps://athlynx.ai\n\n#SigningDay #CollegeRecruiting #ATHLYNX #NIL",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "🧠 YOUR AI TRAINER KNOWS YOU.\n\nATHLYNX's personal AI Trainer Bot remembers every conversation, every workout, and every goal.\n\nStart training smarter 👉 https://athlynx.ai\n\n#AITrainer #AthletePerformance #ATHLYNX #SportsAI",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "🥇 NIL IS NOT A TREND — IT'S YOUR CAREER.\n\nATHLYNX's NIL Vault secures your deals, tracks your earnings, and grows your brand.\n\nProtect your NIL 👉 https://athlynx.ai/nil-vault\n\n#NILVault #AthleteMarketing #ATHLYNX #CollegiateAthletes",
-    link: "https://athlynx.ai/nil-vault",
-  },
-  {
-    text: "🏋️ ELITE ATHLETES USE ELITE TOOLS.\n\nATHLYNX's AI-powered platform gives you the same analytics edge that pro teams use — for free.\n\nJoin the elite 👉 https://athlynx.ai\n\n#EliteAthletes #SportsAI #ATHLYNX #NIL",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "📱 YOUR ENTIRE ATHLETIC CAREER IN ONE APP.\n\nStats. Recruiting. NIL deals. Scheduling. Community. All on ATHLYNX.\n\nDownload now 👉 https://athlynx.ai\n\n#ATHLYNX #AthleteApp #NIL #SportsAI",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "🤝 BRANDS WANT TO WORK WITH YOU.\n\nATHLYNX's AI matches athletes with brands based on sport, audience, and values — not just follower count.\n\nFind your brand deal 👉 https://athlynx.ai\n\n#NILDeals #BrandPartnerships #ATHLYNX #AthleteMarketing",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "🌟 CHAD DOZIER SR. — FOUNDER & CEO.\n\nBuilt ATHLYNX AI from the ground up to give every athlete — regardless of school size — a fair shot at NIL deals and recruiting exposure.\n\nJoin the mission 👉 https://athlynx.ai\n\n#ATHLYNX #Founder #SportsTech #NIL",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "🏟️ PRO TEAMS — POWERED BY ATHLYNX.\n\nScout smarter. Recruit faster. Build your roster with AI-driven athlete intelligence.\n\nPro Teams platform 👉 https://athlynx.ai/pro-teams\n\n#ProTeams #SportsScouting #ATHLYNX #AIRecruiting",
-    link: "https://athlynx.ai/pro-teams",
-  },
-  {
-    text: "💼 DOZIER HOLDINGS GROUP — THE EMPIRE BEHIND ATHLYNX.\n\nDHG is the parent company powering AthlynX AI, Diamond Grind Baseball, Warriors Playbook, and ConCreator™.\n\nLearn more 👉 https://athlynx.ai/dhg\n\n#DozierHoldingsGroup #DHG #SportsTech #NIL",
-    link: "https://athlynx.ai/dhg",
-  },
-  {
-    text: "⚡ CONCREATOR™ — AI CREDITS FOR BUSINESS.\n\nB2B AI intelligence platform built by Dozier Holdings Group. Pulse, Insight, Command, and Enterprise tiers available.\n\nGet started 👉 https://athlynx.ai/softmor\n\n#ConCreator #B2BAI #DozierHoldingsGroup #AICredits",
-    link: "https://athlynx.ai/softmor",
-  },
-  {
-    text: "🙏 FAITH FUELS THE GRIND.\n\nATHLYNX's Faith section is for athletes who compete with purpose and train with conviction.\n\nIron Sharpens Iron — Proverbs 27:17\n\nhttps://athlynx.ai/faith\n\n#Faith #ATHLYNX #IronSharpensIron #AthleteLife",
-    link: "https://athlynx.ai/faith",
-  },
-  {
-    text: "📣 THE NIL PORTAL IS OPEN.\n\nATHLYNX's NIL Portal connects athletes directly to brand deals, sponsorships, and earning opportunities.\n\nClaim your NIL 👉 https://athlynx.ai/nil-portal\n\n#NILPortal #ATHLYNX #AthleteMarketing #GetPaid",
-    link: "https://athlynx.ai/nil-portal",
-  },
-  {
-    text: "🔄 TRANSFER PORTAL SEASON IS YEAR-ROUND.\n\nATHLYNX tracks every transfer, every opportunity, and every school that's looking for your position.\n\nExplore the portal 👉 https://athlynx.ai/transfer-portal\n\n#TransferPortal #CollegeRecruiting #ATHLYNX #NIL",
-    link: "https://athlynx.ai/transfer-portal",
-  },
-  {
-    text: "🎓 RECRUITING STARTS EARLIER THAN YOU THINK.\n\nATHLYNX helps student-athletes build their recruiting profile from day one — so coaches find them before the competition does.\n\nhttps://athlynx.ai\n\n#CollegeRecruiting #ATHLYNX #StudentAthlete #NIL",
-    link: "https://athlynx.ai",
-  },
-  {
-    text: "🛒 THE ATHLYNX STORE IS LIVE.\n\nGear up with official ATHLYNX merchandise — and rep the platform that's changing athlete careers.\n\nShop now 👉 https://athlynx.ai/store\n\n#ATHLYNXStore #AthleteGear #NIL #SportsMerch",
-    link: "https://athlynx.ai/store",
-  },
-  {
-    text: "📅 ELITE EVENTS — WHERE ATHLETES GET DISCOVERED.\n\nATHLYNX's Elite Events platform connects athletes to showcases, combines, and recruiting camps.\n\nFind your event 👉 https://athlynx.ai/elite-events\n\n#EliteEvents #AthleteShowcase #ATHLYNX #Recruiting",
-    link: "https://athlynx.ai/elite-events",
-  },
-  {
-    text: "🔥 X-FACTOR FEED — ATHLETE CULTURE LIVES HERE.\n\nThe ATHLYNX X-Factor Feed is where athletes share wins, highlight reels, and real talk about the grind.\n\nJoin the conversation 👉 https://athlynx.ai/x-factor\n\n#XFactor #ATHLYNX #AthleteLife #NIL",
-    link: "https://athlynx.ai/x-factor",
-  },
+// ─────────────────────────────────────────────────────────
+// X/TWITTER POSTS — Under 280 chars. 1-2 hashtags. Punchy.
+// No engagement bait. No "like if you agree."
+// ─────────────────────────────────────────────────────────
+const TWITTER_POSTS = [
+  `The recruiting game is digital now. Is your athlete profile ready?\n\nathlynx.ai — free to start.\n\n#AthlynxAI #NIL`,
+  `NIL isn't just for 5-star recruits.\n\nEvery athlete has a brand worth something.\n\nAthlynxAI connects you to the deals. athlynx.ai\n\n#NIL`,
+  `44 sports. 142 platform pages. Dual AI engines. One platform.\n\nAthlynxAI is live. athlynx.ai\n\n#AthlynxAI`,
+  `Coaches search online before they call.\n\nMake sure they find you first. athlynx.ai\n\n#CollegeRecruiting`,
+  `Transfer portal season is year-round.\n\nAthlynxAI tracks every opportunity, every school, every NIL deal.\n\nathlynx.ai/transfer-portal\n\n#TransferPortal`,
+  `Your highlight reel is your resume.\n\nUpload it. Share it. Get recruited.\n\nathlynx.ai\n\n#AthlynxAI #NIL`,
+  `Iron Sharpens Iron.\n\nProverbs 27:17 — the verse behind everything we build.\n\nathlynx.ai\n\n#AthlynxAI`,
+  `Diamond Grind Baseball — stats, AI coaching, NIL deals.\n\nAll in one place.\n\nathlynx.ai/baseball\n\n#DiamondGrind`,
+  `Warriors Playbook — football athletes, your NIL era is now.\n\nathlynx.ai/warriors-playbook\n\n#WarriorsPlaybook`,
+  `Youth → High School → College → Pro → Retired.\n\nEvery level. Every sport. AthlynxAI.\n\nathlynx.ai\n\n#AthlynxAI`,
+  `Built in Houston. Built for every athlete.\n\nAthlynxAI — the great equalizer.\n\nathlynx.ai\n\n#AthlynxAI`,
+  `The NIL Portal is open.\n\nConnect directly to brands. No agent. No fees.\n\nathlynx.ai/nil-portal\n\n#NIL`,
 ];
 
-// ─────────────────────────────────────────────
-// ROTATION LOGIC
-// Each channel gets a unique post and a unique image per cron run.
-// No two channels share the same post or image in the same run.
-// Posts and images advance daily so the same combination never repeats on the same day.
-// ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────
+// LINKEDIN POSTS — Human voice. First-person. Real perspective.
+// NO link in post body (kills reach). Max 3 hashtags.
+// Short paragraphs. Sounds like a real person, not a bot.
+// Only posts on Mon/Wed/Fri to stay within 3-4x/week limit.
+// ─────────────────────────────────────────────────────────
+const LINKEDIN_POSTS = [
+  `I started AthlynXAI because I watched talented athletes get overlooked.\n\nNot because they weren't good enough.\n\nBecause they didn't have the right tools, the right connections, or the right platform to get seen.\n\nWe fixed that.\n\nAthlynxAI gives every athlete — regardless of school size or budget — the same tools that top recruits have always had.\n\nAI-powered recruiting. NIL marketplace. Real-time analytics. 44 sports.\n\nThis is what I was put here to build.\n\n#AthlynxAI #SportsTech #NIL`,
+  `The NIL era didn't just change college sports.\n\nIt changed what it means to be an athlete.\n\nFor the first time, student-athletes can build a real brand, earn real money, and control their own career narrative — before they ever go pro.\n\nAthlynxAI is the platform that makes that possible for every athlete, not just the ones at Power 5 schools.\n\nWe built the infrastructure. Now we're filling it with athletes.\n\n#NIL #AthlynxAI #CollegiateAthletes`,
+  `Six months ago, Glenn Tse and I were sitting in a room at Hope Lodge in Houston with a vision and a laptop.\n\nToday, AthlynxAI is a live platform with 142 pages, dual AI engines, 44 sports, and real athletes using it.\n\nWe didn't raise a Series A. We didn't have a team of 50 engineers.\n\nWe had conviction, Manus AI, and a relentless work ethic.\n\nThe pre-seed round is open. If you believe in what we're building, let's talk.\n\n#AthlynxAI #SportsTech #Startup`,
+  `The transfer portal is the most underutilized tool in college athletics.\n\nMost athletes use it reactively — when things go wrong.\n\nThe smart ones use it proactively — to upgrade their situation, increase their NIL value, and get in front of more coaches.\n\nAthlynxAI's transfer portal analytics help athletes make that move strategically.\n\nThat's the edge we provide.\n\n#TransferPortal #NIL #AthlynxAI`,
+  `I get asked all the time: why sports?\n\nBecause sports taught me everything I know about discipline, sacrifice, and what it means to compete.\n\nAnd because I've seen too many talented athletes fall through the cracks of a system that wasn't built for them.\n\nAthlynxAI is my answer to that system.\n\nIron Sharpens Iron — Proverbs 27:17\n\n#AthlynxAI #Leadership #SportsTech`,
+  `Here is what most people get wrong about NIL:\n\nThey think it's only for athletes with 100K followers.\n\nIt's not.\n\nBrands want authenticity. They want athletes who represent their community, their sport, their values.\n\nA baseball player from a small town in Mississippi can be exactly what a regional brand needs.\n\nAthlynxAI's AI matching engine finds those connections. That's the business.\n\n#NIL #AthlynxAI #AthleteMarketing`,
+  `Building AthlynxAI taught me one thing above everything else:\n\nSpeed matters more than perfection.\n\nWe shipped 142 platform pages in under 6 months. Not because we cut corners — because we stayed focused on what athletes actually need.\n\nRecruiting. NIL. Community. AI coaching. Stats.\n\nEverything else is noise.\n\n#AthlynxAI #Startup #SportsTech`,
+  `The sports technology market is $135 billion and growing.\n\nNIL alone is a $2.5 billion market.\n\nAthlynxAI sits at the intersection of both — with a platform that serves athletes, coaches, brands, and pro teams.\n\nWe are early. We are building. And we are not slowing down.\n\n#AthlynxAI #SportsTech #NIL`,
+];
+
+// ─────────────────────────────────────────────────────────
+// GOOGLE BUSINESS POSTS — Business updates, events, offers.
+// No hashtags. Professional tone. Short.
+// ─────────────────────────────────────────────────────────
+const GOOGLE_BUSINESS_POSTS = [
+  `AthlynxAI is now live at athlynx.ai — the complete AI-powered platform for athlete recruiting, NIL deals, and career management. Free to start. Sign up today.`,
+  `AthlynxAI supports 44 sports including football, baseball, basketball, soccer, track, swimming, volleyball, and more. Every athlete. Every level. One platform. Visit athlynx.ai.`,
+  `AthlynxAI's NIL Marketplace is open. Student-athletes can now connect directly with brands for sponsorships and endorsement deals. No agent required. Visit athlynx.ai/nil-portal.`,
+  `Diamond Grind Baseball is live on AthlynxAI. Full stats tracking, AI coaching, and recruiting analytics built specifically for baseball athletes. Visit athlynx.ai/baseball.`,
+  `Warriors Playbook — AthlynxAI's dedicated football platform — is now live. Recruiting analytics, film study tools, and NIL deal connections for football athletes. Visit athlynx.ai/warriors-playbook.`,
+  `AthlynxAI's Transfer Portal analytics help athletes use the portal strategically — not just reactively. Find the right school, the right program, and the right NIL deal. Visit athlynx.ai/transfer-portal.`,
+  `Pro Teams and coaching staff: AthlynxAI's scouting platform gives you AI-driven athlete intelligence across 44 sports. Request a demo at athlynx.ai/pro-teams.`,
+  `AthlynxAI's Investor Hub is live with full market data, 5-year P&L projections, and competitive analysis. Pre-seed round open. Visit athlynx.ai/investor-hub.`,
+];
+
+// ─────────────────────────────────────────────────────────
+// ROTATION HELPERS
+// ─────────────────────────────────────────────────────────
 
 function getDayOfYear(): number {
   const now = new Date();
@@ -214,44 +152,36 @@ function getDayOfYear(): number {
 
 function getHourSlot(): number {
   const hour = new Date().getUTCHours();
-  if (hour < 14) return 0;   // 8am CST
-  if (hour < 18) return 1;   // 12pm CST
-  return 2;                   // 6pm CST
+  if (hour < 14) return 0;  // 8am CST
+  if (hour < 18) return 1;  // 12pm CST
+  return 2;                  // 6pm CST
 }
 
-/**
- * Returns a unique post index for a given channel offset.
- * Each channel gets a different post. Posts advance each day and each hour slot.
- * Formula: (dayOfYear * numSlots * numChannels + hourSlot * numChannels + channelOffset) % librarySize
- */
-function getPostIndex(channelOffset: number): number {
-  const day = getDayOfYear();
-  const slot = getHourSlot();
-  const numChannels = TEXT_CHANNELS_ORDERED.length;
-  const numSlots = 3;
-  return (day * numSlots * numChannels + slot * numChannels + channelOffset) % POST_LIBRARY.length;
+function getDayOfWeek(): number {
+  return new Date().getDay(); // 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
 }
 
-/**
- * Returns a unique image index for a given channel offset.
- * Images rotate independently from posts using a prime-offset stride to maximize variety.
- */
-function getImageIndex(channelOffset: number): number {
-  const day = getDayOfYear();
-  const slot = getHourSlot();
-  const numChannels = TEXT_CHANNELS_ORDERED.length;
-  const numSlots = 3;
-  // Use a different stride (prime number) so images don't align with post rotation
-  const stride = 7;
-  return (day * numSlots * numChannels * stride + slot * numChannels + channelOffset * stride) % IMAGE_LIBRARY.length;
+/** LinkedIn only posts Mon(1), Wed(3), Fri(5) */
+function isLinkedInPostDay(): boolean {
+  const dow = getDayOfWeek();
+  return dow === 1 || dow === 3 || dow === 5;
 }
 
-// ─────────────────────────────────────────────
+/** Google Business posts Mon(1), Wed(3), Sat(6) */
+function isGoogleBusinessPostDay(): boolean {
+  const dow = getDayOfWeek();
+  return dow === 1 || dow === 3 || dow === 6;
+}
+
+function rotatePost(library: string[], seed: number): string {
+  return library[seed % library.length];
+}
+
+// ─────────────────────────────────────────────────────────
 // BUFFER API
-// ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────
 
-async function postToBuffer(channelId: string, text: string, mediaUrl: string): Promise<void> {
-  // Buffer GraphQL mutation — correct schema per Master Reference
+async function postToBuffer(channelId: string, text: string, channelName: string): Promise<void> {
   const mutation = `
     mutation CreatePost($channelId: String!, $text: String!) {
       createPost(input: {
@@ -277,85 +207,99 @@ async function postToBuffer(channelId: string, text: string, mediaUrl: string): 
     const result = await response.json() as any;
     const typename = result?.data?.createPost?.__typename;
     if (typename === "PostActionSuccess") {
-      console.log(`[Buffer] ✅ ${channelId}: PostActionSuccess | Image: ${mediaUrl}`);
+      console.log(`[Buffer] ✅ ${channelName}: posted successfully`);
     } else {
-      console.error(`[Buffer] ❌ ${channelId}:`, JSON.stringify(result?.errors || result?.data));
+      console.error(`[Buffer] ❌ ${channelName}:`, JSON.stringify(result?.errors || result?.data));
     }
   } catch (err) {
-    console.error(`[Buffer] Error posting to channel ${channelId}:`, err);
+    console.error(`[Buffer] Error posting to ${channelName}:`, err);
   }
 }
 
-// ─────────────────────────────────────────────
-// LINKEDIN VIA ZAPIER
-// ─────────────────────────────────────────────
-
-async function postToLinkedInViaZapier(text: string, imageUrl: string): Promise<void> {
-  try {
-    const response = await fetch("https://mcp.zapier.com/api/mcp/v1/execute", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${ZAPIER_MCP_TOKEN}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        serverId: "3d496f1b-ba2b-49df-8c05-b69e4ed3ce10",
-        toolName: "linkedin_create_share_update",
-        params: {
-          comment: text,
-          visibility__code: "anyone",
-          content__submitted_url: "https://athlynx.ai",
-          content__title: "ATHLYNX AI — The Athlete's Playbook",
-          content__submitted_image_url: imageUrl,
-          instructions: `Post this to LinkedIn: ${text}`,
-        },
-      }),
-    });
-    const result = await response.json() as any;
-    console.log("[Zapier/LinkedIn]:", JSON.stringify(result).slice(0, 200));
-  } catch (err) {
-    console.error("[Zapier/LinkedIn] Error:", err);
-  }
-}
-
-// ─────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────
 // MAIN CRON HANDLER
-// ─────────────────────────────────────────────
+// Runs 3x/day via Vercel Cron (8am, 12pm, 6pm CST)
+// Each platform gets its own content library and posting rules
+// ─────────────────────────────────────────────────────────
 
 export async function runSocialPostCron(): Promise<{ success: boolean; message: string }> {
-  console.log("[SocialPostCron] Starting at", new Date().toISOString());
-  console.log(`[SocialPostCron] Day: ${getDayOfYear()} | Slot: ${getHourSlot()}`);
+  const day = getDayOfYear();
+  const slot = getHourSlot();
+  const seed = day * 3 + slot;
+
+  console.log(`[SocialPostCron] Starting — Day: ${day} | Slot: ${slot} | Seed: ${seed}`);
 
   const posted: string[] = [];
+  const skipped: string[] = [];
 
-  // Post to each Buffer channel with a UNIQUE post + UNIQUE image
-  for (const channel of TEXT_CHANNELS_ORDERED) {
-    const postIndex = getPostIndex(channel.offset);
-    const imageIndex = getImageIndex(channel.offset);
-    const post = POST_LIBRARY[postIndex];
-    const image = IMAGE_LIBRARY[imageIndex];
-
-    console.log(`[SocialPostCron] ${channel.name} → Post #${postIndex} | Image #${imageIndex}`);
-    await postToBuffer(channel.id, post.text, image);
-    posted.push(`${channel.name}: post#${postIndex} img#${imageIndex}`);
+  // ── INSTAGRAM (chad_dozier) — 1x/day, morning slot only ──
+  if (slot === 0) {
+    const post = rotatePost(INSTAGRAM_POSTS, day);
+    await postToBuffer(BUFFER_CHANNELS.instagram_chad_dozier, post, "Instagram/chad_dozier");
+    posted.push("Instagram/chad_dozier");
+  } else {
+    skipped.push("Instagram/chad_dozier (1x/day only)");
   }
 
-  // LinkedIn gets its own unique post + image (offset = number of Buffer channels)
-  const linkedInOffset = TEXT_CHANNELS_ORDERED.length;
-  const linkedInPostIndex = getPostIndex(linkedInOffset);
-  const linkedInImageIndex = getImageIndex(linkedInOffset);
-  const linkedInPost = POST_LIBRARY[linkedInPostIndex];
-  const linkedInImage = IMAGE_LIBRARY[linkedInImageIndex];
+  // ── INSTAGRAM (chaddozier14) — 1x/day, afternoon slot only ──
+  if (slot === 1) {
+    const post = rotatePost(INSTAGRAM_POSTS, day + 5); // offset so different post from chad_dozier
+    await postToBuffer(BUFFER_CHANNELS.instagram_chaddozier14, post, "Instagram/chaddozier14");
+    posted.push("Instagram/chaddozier14");
+  } else {
+    skipped.push("Instagram/chaddozier14 (1x/day only)");
+  }
 
-  console.log(`[SocialPostCron] LinkedIn → Post #${linkedInPostIndex} | Image #${linkedInImageIndex}`);
-  await postToLinkedInViaZapier(linkedInPost.text, linkedInImage);
-  posted.push(`LinkedIn: post#${linkedInPostIndex} img#${linkedInImageIndex}`);
+  // ── FACEBOOK (Athlynx Page) — 1x/day, morning slot only ──
+  if (slot === 0) {
+    const post = rotatePost(FACEBOOK_POSTS, day);
+    await postToBuffer(BUFFER_CHANNELS.facebook_athlynx, post, "Facebook/Athlynx");
+    posted.push("Facebook/Athlynx");
+  } else {
+    skipped.push("Facebook/Athlynx (1x/day only)");
+  }
 
-  console.log("[SocialPostCron] Completed at", new Date().toISOString());
-  console.log("[SocialPostCron] Summary:", posted.join(" | "));
+  // ── FACEBOOK (Chad personal) — 1x/day, evening slot only ──
+  if (slot === 2) {
+    const post = rotatePost(FACEBOOK_POSTS, day + 5);
+    await postToBuffer(BUFFER_CHANNELS.facebook_chad, post, "Facebook/Chad");
+    posted.push("Facebook/Chad");
+  } else {
+    skipped.push("Facebook/Chad (1x/day only)");
+  }
+
+  // ── X/TWITTER — up to 2x/day (morning + evening), different posts ──
+  if (slot === 0 || slot === 2) {
+    const post = rotatePost(TWITTER_POSTS, seed);
+    await postToBuffer(BUFFER_CHANNELS.twitter, post, "X/Twitter");
+    posted.push("X/Twitter");
+  } else {
+    skipped.push("X/Twitter (2x/day — skip midday)");
+  }
+
+  // ── LINKEDIN — Mon/Wed/Fri only, morning slot, human-voice posts ──
+  if (isLinkedInPostDay() && slot === 0) {
+    const post = rotatePost(LINKEDIN_POSTS, day);
+    await postToBuffer(BUFFER_CHANNELS.linkedin, post, "LinkedIn");
+    posted.push("LinkedIn");
+  } else {
+    skipped.push("LinkedIn (Mon/Wed/Fri morning only)");
+  }
+
+  // ── GOOGLE BUSINESS — Mon/Wed/Sat only, morning slot ──
+  if (isGoogleBusinessPostDay() && slot === 0) {
+    const post = rotatePost(GOOGLE_BUSINESS_POSTS, day);
+    await postToBuffer(BUFFER_CHANNELS.google_business, post, "Google Business");
+    posted.push("Google Business");
+  } else {
+    skipped.push("Google Business (Mon/Wed/Sat morning only)");
+  }
+
+  console.log(`[SocialPostCron] ✅ Posted: ${posted.join(", ")}`);
+  console.log(`[SocialPostCron] ⏭ Skipped: ${skipped.join(", ")}`);
 
   return {
     success: true,
-    message: `Posted to ${posted.length} channels — all unique content. ${posted.join(" | ")}`,
+    message: `Posted to: ${posted.join(", ")} | Skipped: ${skipped.join(", ")}`,
   };
 }
