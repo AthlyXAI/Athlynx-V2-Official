@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { useLocation } from "wouter";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 
 const PILLARS = [
   {
@@ -57,30 +58,37 @@ const PILLARS = [
 const PARTNERSHIPS = [
   {
     name: "Nebius AI Cloud",
-    role: "GPU Cloud & AI Model Hosting — $5,000 Credits ACTIVE",
-    desc: "Nebius AI Cloud powers the ATHLYNX secondary AI engine — Llama 3.1 70B on NVIDIA H200 GPUs. Automatic fallback when Gemini quota is reached. $5,000 in GPU credits activated May 3, 2026.",
+    role: "GPU Cloud & AI Model Hosting — $5,000 Credits ACTIVE · Never Stops",
+    desc: "Nebius AI Cloud is the backbone of the ATHLYNX AI engine — Llama 3.3 70B running on NVIDIA H200 GPUs, 24/7, no interruptions. $5,000 in GPU credits activated May 3, 2026. Paired with Google Gemini 2.5 Flash as the primary language model and Meta's infrastructure for scale. This stack never stops: Nebius handles the heavy GPU compute, Gemini handles intelligence, and Meta handles global reach. Together they power every AI Trainer, X-Factor score, NIL deal analysis, and Fuel Bot on the platform.",
     icon: "🧠",
     status: "LIVE — $5K Credits Active"
   },
   {
-    name: "NVIDIA",
-    role: "GPU Clusters & AI Compute",
-    desc: "H100 and B200 GPU clusters powering ATHLYNX AI Trainers, real-time analytics, and athlete performance modeling at scale.",
+    name: "Google Gemini 2.5 Flash",
+    role: "Primary AI Language Engine — Multimodal Intelligence",
+    desc: "Google Gemini 2.5 Flash is the primary AI brain of ATHLYNX — powering every AI Wizard, X-Factor scoring engine, NIL contract analysis, recruiting assistant, and Fuel Bot conversation. When Gemini reaches quota, Nebius (Llama 3.3 70B on H200 GPUs) automatically takes over with zero downtime. The dual-engine stack means the platform never goes dark.",
+    icon: "✨",
+    status: "LIVE — Primary Engine"
+  },
+  {
+    name: "NVIDIA H200 GPUs via Nebius",
+    role: "World's Most Powerful AI Chips — Running AthlynXAI",
+    desc: "NVIDIA H200 GPUs — the same chips powering the world's most advanced AI labs — are running AthlynXAI's Fuel Bots, X-Factor AI, and athlete intelligence models through Nebius AI Cloud. Nominated for the Nebius AI Discovery Award (Digital Health category, May 15 finalist announcement). AthlynXAI is the first athlete platform in the world running H200-grade AI compute.",
     icon: "🟢",
-    status: "Partnership Discussions"
+    status: "LIVE via Nebius"
+  },
+  {
+    name: "Siemon",
+    role: "High-Speed Fiber & Optical Connectivity — 200G / 400G / 800G",
+    desc: "Data centers need more than bandwidth — they need a seamless bridge between fiber cabling and the hardware driving next-gen AI performance. Siemon's PAM4 high-speed optical transceivers (200G, 400G, 800G) provide the physical connectivity layer that makes AthlynXAI's Nebius GPU clusters and AI infrastructure possible. The same fiber backbone that powers hyperscale AI and HPC environments now powers AthlynXAI.",
+    icon: "🔗",
+    status: "Infrastructure Layer"
   },
   {
     name: "ICC-USA",
     role: "Data Center Construction & Compliance",
     desc: "Industry-leading data center construction, certification, and compliance infrastructure for all DHG facility builds.",
     icon: "🏗️",
-    status: "Partnership Discussions"
-  },
-  {
-    name: "RunSun Cloud",
-    role: "Cloud Infrastructure & CDN",
-    desc: "Global cloud backbone and content delivery network ensuring sub-5ms latency for every athlete on the ATHLYNX platform worldwide.",
-    icon: "☁️",
     status: "Partnership Discussions"
   },
   {

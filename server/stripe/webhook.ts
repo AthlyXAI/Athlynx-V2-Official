@@ -77,10 +77,11 @@ function getStripe(): Stripe {
 
 export function registerStripeWebhook(app: Application) {
   // MUST use raw body parser BEFORE express.json() for webhook signature verification
-  app.post(
-    "/api/stripe/webhook",
-    express.raw({ type: "application/json" }),
-    async (req: Request, res: Response) => {
+  // Canonical path: /api/webhooks/stripe (matches Stripe dashboard destination: athlynx-stripe-webhook)
+  // Legacy path: /api/stripe/webhook (kept for backward compatibility)
+  const rawParser = express.raw({ type: "application/json" });
+
+  async function handleWebhook(req: Request, res: Response) {
       const sig = req.headers["stripe-signature"];
       const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET ?? "";
 
@@ -251,6 +252,9 @@ export function registerStripeWebhook(app: Application) {
       }
 
       res.json({ received: true });
-    }
-  );
+  }
+
+  // Register both paths — canonical new path first
+  app.post("/api/webhooks/stripe", rawParser, handleWebhook);
+  app.post("/api/stripe/webhook", rawParser, handleWebhook);
 }
