@@ -114,7 +114,12 @@ export default function SignUp() {
     'Football', 'Basketball', 'Baseball', 'Soccer', 'Track & Field',
     'Swimming', 'Wrestling', 'Tennis', 'Volleyball', 'Hockey',
     'Softball', 'Golf', 'Lacrosse', 'Gymnastics', 'Cross Country',
-    'Rowing', 'Water Polo', 'Field Hockey', 'Cheer', 'Other',
+    'Rowing', 'Water Polo', 'Field Hockey', 'Cheerleading',
+    'Rugby', 'Cricket', 'Cycling', 'Triathlon', 'Fencing',
+    'Archery', 'Equestrian', 'Skiing', 'Snowboarding', 'Surfing',
+    'Skateboarding', 'Boxing', 'MMA', 'Judo', 'Karate',
+    'Taekwondo', 'Badminton', 'Table Tennis', 'Squash', 'Handball',
+    'Water Skiing', 'Diving', 'Synchronized Swimming', 'Polo', 'Other',
   ]
 
   const YEARS = ['Freshman', 'Sophomore', 'Junior', 'Senior', 'Graduate', 'Professional', 'Coach', 'Parent', 'Agent', 'Other']

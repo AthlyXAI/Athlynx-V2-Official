@@ -85,6 +85,16 @@ import TrackElite from "./pages/TrackElite";
 import SwimSurge from "./pages/SwimSurge";
 import MatWarriors from "./pages/MatWarriors";
 import RacketKings from "./pages/RacketKings";
+import LacrosseElite from "./pages/LacrosseElite";
+import SoftballNation from "./pages/SoftballNation";
+import GymnasticsVault from "./pages/GymnasticsVault";
+import RugbyElite from "./pages/RugbyElite";
+import CricketElite from "./pages/CricketElite";
+import CrossCountryElite from "./pages/CrossCountryElite";
+import RowingElite from "./pages/RowingElite";
+import WaterPoloElite from "./pages/WaterPoloElite";
+import FieldHockeyElite from "./pages/FieldHockeyElite";
+import CheerElite from "./pages/CheerElite";
 import SigningDay from "./pages/SigningDay";
 import Training from "./pages/Training";
 
@@ -322,6 +332,27 @@ function Router() {
       <Route path="/wrestling" component={MatWarriors} />
       <Route path="/racket-kings" component={RacketKings} />
       <Route path="/tennis" component={RacketKings} />
+      <Route path="/lacrosse-elite" component={LacrosseElite} />
+      <Route path="/lacrosse" component={LacrosseElite} />
+      <Route path="/softball-nation" component={SoftballNation} />
+      <Route path="/softball" component={SoftballNation} />
+      <Route path="/gymnastics-vault" component={GymnasticsVault} />
+      <Route path="/gymnastics" component={GymnasticsVault} />
+      <Route path="/rugby-elite" component={RugbyElite} />
+      <Route path="/rugby" component={RugbyElite} />
+      <Route path="/cricket-elite" component={CricketElite} />
+      <Route path="/cricket" component={CricketElite} />
+      <Route path="/cross-country-elite" component={CrossCountryElite} />
+      <Route path="/cross-country" component={CrossCountryElite} />
+      <Route path="/rowing-elite" component={RowingElite} />
+      <Route path="/rowing" component={RowingElite} />
+      <Route path="/water-polo-elite" component={WaterPoloElite} />
+      <Route path="/water-polo" component={WaterPoloElite} />
+      <Route path="/field-hockey-elite" component={FieldHockeyElite} />
+      <Route path="/field-hockey" component={FieldHockeyElite} />
+      <Route path="/cheer-elite" component={CheerElite} />
+      <Route path="/cheer" component={CheerElite} />
+      <Route path="/cheerleading" component={CheerElite} />
 
       {/* ── Commerce & Infrastructure ── */}
       <Route path="/marketplace" component={Marketplace} />

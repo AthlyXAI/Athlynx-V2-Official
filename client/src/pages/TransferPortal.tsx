@@ -23,7 +23,7 @@ const RECRUITING_SCHOOLS = [
   { name: "Michigan", sport: "Basketball", openings: "2 SF, 1 PF", scholarship: true, nilProgram: "Strong", conference: "Big Ten", logo: "〽️" },
 ];
 
-const SPORTS = ["All", "Football", "Basketball", "Baseball", "Soccer"];
+const SPORTS = ["All", "Football", "Basketball", "Baseball", "Soccer", "Track & Field", "Swimming", "Tennis", "Volleyball", "Wrestling", "Golf", "Lacrosse", "Hockey", "Softball", "Cross Country", "Gymnastics", "Rugby", "Cricket", "Rowing", "Water Polo", "Field Hockey", "Cheerleading"];
 
 export default function TransferPortal() {
   const { user } = useAuth();
