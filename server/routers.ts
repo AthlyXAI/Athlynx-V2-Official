@@ -26,6 +26,7 @@ import { calendarRouter } from "./routers/calendarRouter";
 import { storiesRouter } from "./routers/storiesRouter";
 import { mediaRouter } from "./routers/mediaRouter";
 import { connectionsRouter } from "./routers/connectionsRouter";
+import { autoPostRouter } from "./routers/autoPostRouter";
 
 export const appRouter = router({
   system: systemRouter,
@@ -55,6 +56,7 @@ export const appRouter = router({
   stories: storiesRouter,
   media: mediaRouter,
   connections: connectionsRouter,
+  autoPost: autoPostRouter,
 });
 
 export type AppRouter = typeof appRouter;

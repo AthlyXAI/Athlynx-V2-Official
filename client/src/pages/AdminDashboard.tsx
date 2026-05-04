@@ -22,8 +22,10 @@ import {
   Clock,
   CheckCircle,
   XCircle,
-  AlertCircle
+  AlertCircle,
+  Send
 } from "lucide-react";
+import SocialCommandPanel from "@/components/SocialCommandPanel";
 
 function AdminDashboardInner() {
   const meQuery = trpc.auth.me.useQuery(undefined, { retry: false, refetchOnWindowFocus: false });
@@ -239,6 +241,10 @@ function AdminDashboardInner() {
             <TabsTrigger value="payroll" className="data-[state=active]:bg-green-500/20 data-[state=active]:text-green-400">
               <DollarSign className="h-4 w-4 mr-2" />
               Payroll
+            </TabsTrigger>
+            <TabsTrigger value="social" className="data-[state=active]:bg-blue-500/20 data-[state=active]:text-blue-400">
+              <Send className="h-4 w-4 mr-2" />
+              Social
             </TabsTrigger>
           </TabsList>
 
@@ -693,6 +699,11 @@ function AdminDashboardInner() {
           {/* Payroll Tab */}
           <TabsContent value="payroll">
             <PayrollPanel />
+          </TabsContent>
+
+          {/* Social Command Center */}
+          <TabsContent value="social">
+            <SocialCommandPanel />
           </TabsContent>
         </Tabs>
       </div>
