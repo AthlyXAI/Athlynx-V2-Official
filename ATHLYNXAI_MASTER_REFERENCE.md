@@ -1,4 +1,7 @@
 # ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
+## Last Updated: Monday, May 4, 2026 — Session 25
+## Session Summary (May 4 2026 — SESSION 25): APPLE BM DNS LIVE + INVESTOR ONE-PAGER BUILT + NEBIUS MONITOR SCHEDULED. Apple BM TXT record (apple-domain-verification=bJrYOUZpnt2fSugJ) added to Vercel DNS for athlynx.ai. Permanent rules added: DNS via Vercel only (Rule 13), deploy pipeline Manus→GitHub→Vercel (Rule 14). Investor one-pager built for Joseph Dragone meeting May 8 (ATHLYNXAI_INVESTOR_ONE_PAGER_DRAGONE.pdf). Nebius AI finalist check scheduled for May 15 9AM CST. Stripe Atlas + GCP cleanup deferred to Session 26. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY4_2026_S25.md
+
 ## Last Updated: Monday, May 4, 2026 — Session 24
 ## Session Summary (May 4 2026 — SESSION 24): NETLIFY CLOSED + REPOS CLEAN + GEMINI LIVE. All 5 Netlify projects deleted via API. Netlify account deploy@athlynx.ai permanently deleted (May 8 deadline met early). Reply sent to ticket #1010579. GitHub clean: AthlyXAI/Athlynx-V2-Official (production, 432 commits) + AthlyXAI/AthlynXAI (mirror, 915 files). Gemini new key AIzaSyBa2gMQ2yVTzR3uPe-0EbdzNuU46V2SfXI live ($100 prepaid, auto-reload). Nebius verified live. Full connector audit passed: athlynx.ai HTTP 200, Stripe charges+payouts enabled, webhook live. GCP cleanup (AthlynxAI14 + Default Gemini Project) deferred to next session. Apple BM verification deferred to Session 25. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY4_2026_S24.md
 
