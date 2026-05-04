@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -5,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Bot, CheckCircle2, Clock, Users, Zap, ArrowRight } from "lucide-react";
 import { Link } from "wouter";
 
-export default function Implementation() {
+function ImplementationInner() {
   const phases = [
     {
       phase: "Phase 1",
@@ -340,4 +341,7 @@ export default function Implementation() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function Implementation() {
+  return <RouteErrorBoundary><ImplementationInner /></RouteErrorBoundary>;
 }

@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import { Link } from "wouter";
 
@@ -81,7 +82,7 @@ const SUBSIDIARIES = [
   },
 ];
 
-export default function DHG() {
+function DHGInner() {
   return (
     <PlatformLayout>
       <div className="space-y-5 pb-20 lg:pb-6">
@@ -311,4 +312,7 @@ export default function DHG() {
       </div>
     </PlatformLayout>
   );
+}
+export default function DHG() {
+  return <RouteErrorBoundary><DHGInner /></RouteErrorBoundary>;
 }

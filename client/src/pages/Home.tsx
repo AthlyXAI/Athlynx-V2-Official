@@ -1,4 +1,5 @@
 // v1.4.0 - Apr 25 2026 - Clean Auth0 sign-up, no trial text
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import { useState, useEffect, useRef } from "react";
 import { ReverseFunnel } from "@/components/ReverseFunnel";
@@ -460,7 +461,7 @@ function HeroSignupForm() {
   );
 }
 
-export default function Home() {
+function HomeInner() {
   const countdown = useCountdown(LAUNCH_TARGET_DATE);
   const [email, setEmail] = useState("");
   const [joined, setJoined] = useState(false);
@@ -1023,3 +1024,6 @@ export default function Home() {
   );
 }
 // deploy-1776539237
+export default function Home() {
+  return <RouteErrorBoundary><HomeInner /></RouteErrorBoundary>;
+}

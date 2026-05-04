@@ -1,9 +1,10 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { FileSignature, Download, Shield, Users, DollarSign, Briefcase, FileText, CheckCircle, Star } from "lucide-react";
 
-export default function Contracts() {
+function ContractsInner() {
   const contractTypes = [
     {
       title: "NIL Representation Agreement",
@@ -209,4 +210,7 @@ export default function Contracts() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function Contracts() {
+  return <RouteErrorBoundary><ContractsInner /></RouteErrorBoundary>;
 }

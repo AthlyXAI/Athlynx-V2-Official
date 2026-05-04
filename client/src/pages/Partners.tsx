@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -113,7 +114,7 @@ const PARTNER_TIERS = [
   { name: "Platinum", commission: "25%", requirements: "$100K/month revenue", benefits: ["Everything in Gold", "Revenue share", "Board advisory", "Equity options"], color: "from-cyan-400 to-blue-500" },
 ];
 
-export default function Partners() {
+function PartnersInner() {
   const categories = Array.from(new Set(TECH_STACK.map(p => p.category)));
 
   return (
@@ -454,4 +455,7 @@ export default function Partners() {
       <MobileBottomNav />
     </div>
   );
+}
+export default function Partners() {
+  return <RouteErrorBoundary><PartnersInner /></RouteErrorBoundary>;
 }

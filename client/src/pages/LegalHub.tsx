@@ -1,9 +1,10 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Shield, FileText, Lock, Scale, Cookie, Database, Building, Users, FileSignature, Handshake } from "lucide-react";
 
-export default function LegalHub() {
+function LegalHubInner() {
   const legalSections = [
     {
       title: "HIPAA Compliance",
@@ -220,4 +221,7 @@ export default function LegalHub() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function LegalHub() {
+  return <RouteErrorBoundary><LegalHubInner /></RouteErrorBoundary>;
 }

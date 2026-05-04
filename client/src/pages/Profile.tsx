@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState, useRef, useEffect } from "react";
 import { trpc } from "@/lib/trpc";
@@ -451,7 +452,7 @@ function SocialTab() {
 }
 
 // ─── MAIN PROFILE COMPONENT ───────────────────────────────────────────────────
-export default function Profile() {
+function ProfileInner() {
   const { user, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState("posts");
   const [editMode, setEditMode] = useState(false);
@@ -961,4 +962,7 @@ export default function Profile() {
       </div>
     </PlatformLayout>
   );
+}
+export default function Profile() {
+  return <RouteErrorBoundary><ProfileInner /></RouteErrorBoundary>;
 }

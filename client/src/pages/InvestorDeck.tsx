@@ -1,8 +1,9 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 
-export default function InvestorDeck() {
+function InvestorDeckInner() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-[#0A1628] via-[#0d1f3c] to-[#0A1628]">
       {/* Hero Section */}
@@ -355,4 +356,7 @@ export default function InvestorDeck() {
       <MobileBottomNav />
     </div>
   );
+}
+export default function InvestorDeck() {
+  return <RouteErrorBoundary><InvestorDeckInner /></RouteErrorBoundary>;
 }

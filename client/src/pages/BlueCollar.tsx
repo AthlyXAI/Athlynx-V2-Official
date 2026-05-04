@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -143,7 +144,7 @@ const successStories = [
   }
 ];
 
-export default function BlueCollar() {
+function BlueCollarInner() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-red-950/20 to-slate-900">
       {/* Navigation */}
@@ -432,4 +433,7 @@ export default function BlueCollar() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function BlueCollar() {
+  return <RouteErrorBoundary><BlueCollarInner /></RouteErrorBoundary>;
 }

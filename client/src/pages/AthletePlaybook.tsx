@@ -5,6 +5,7 @@
  *
  * Required platform section — always present per ATHLYNXAI_MASTER_REFERENCE.md
  */
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import { Link } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -136,7 +137,7 @@ const STATS = [
   { value: "92%", label: "Better Recruiting Outcomes" },
 ];
 
-export default function AthletePlaybook() {
+function AthletePlaybookInner() {
   const { user, loading: authLoading } = useAuth();
 
   if (authLoading) {
@@ -328,4 +329,7 @@ export default function AthletePlaybook() {
       </div>
     </PlatformLayout>
   );
+}
+export default function AthletePlaybook() {
+  return <RouteErrorBoundary><AthletePlaybookInner /></RouteErrorBoundary>;
 }

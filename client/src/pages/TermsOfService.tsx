@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 
 const EFFECTIVE_DATE = "January 1, 2026";
@@ -170,7 +171,7 @@ For legal notices, please send written correspondence to the address above, Atte
   },
 ];
 
-export default function TermsOfService() {
+function TermsOfServiceInner() {
   return (
     <div className="min-h-screen bg-[#050c1a] text-white">
       {/* Nav */}
@@ -251,4 +252,7 @@ export default function TermsOfService() {
       </div>
     </div>
   );
+}
+export default function TermsOfService() {
+  return <RouteErrorBoundary><TermsOfServiceInner /></RouteErrorBoundary>;
 }

@@ -1,8 +1,9 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 
-export default function Notifications() {
+function NotificationsInner() {
   const { user } = useAuth();
   const { data: notifications = [], isLoading, refetch } = trpc.notifications.getRecent.useQuery(undefined, {
     enabled: !!user,
@@ -103,4 +104,7 @@ export default function Notifications() {
       </div>
     </PlatformLayout>
   );
+}
+export default function Notifications() {
+  return <RouteErrorBoundary><NotificationsInner /></RouteErrorBoundary>;
 }

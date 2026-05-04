@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -6,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Bot, CheckCircle2, Circle } from "lucide-react";
 import { Link } from "wouter";
 
-export default function Capabilities() {
+function CapabilitiesInner() {
   const capabilityMatrix = [
     {
       category: "Communication & Collaboration",
@@ -293,4 +294,7 @@ export default function Capabilities() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function Capabilities() {
+  return <RouteErrorBoundary><CapabilitiesInner /></RouteErrorBoundary>;
 }

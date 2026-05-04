@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -6,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Bot, Calendar, Mail, TrendingUp, Users, FileText, Presentation, Search, MessageSquare, Wrench, FolderKanban, AlertTriangle, Target, Megaphone, LineChart, PenTool, DollarSign, Handshake, Phone, Database } from "lucide-react";
 import { Link } from "wouter";
 
-export default function TeamBots() {
+function TeamBotsInner() {
   const bots = [
     {
       id: "executive",
@@ -278,4 +279,7 @@ export default function TeamBots() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function TeamBots() {
+  return <RouteErrorBoundary><TeamBotsInner /></RouteErrorBoundary>;
 }

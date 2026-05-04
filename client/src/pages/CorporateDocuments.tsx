@@ -1,9 +1,10 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Building, FileText, Users, Scale, Download, ExternalLink, Calendar, MapPin } from "lucide-react";
 
-export default function CorporateDocuments() {
+function CorporateDocumentsInner() {
   const companies = [
     {
       name: "Dozier Holdings Group, LLC",
@@ -245,4 +246,7 @@ export default function CorporateDocuments() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function CorporateDocuments() {
+  return <RouteErrorBoundary><CorporateDocumentsInner /></RouteErrorBoundary>;
 }

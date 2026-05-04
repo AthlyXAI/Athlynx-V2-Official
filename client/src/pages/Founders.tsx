@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Mail, Phone, ExternalLink } from "lucide-react";
@@ -75,7 +76,7 @@ const TEAM = [
   },
 ];
 
-export default function Founders() {
+function FoundersInner() {
   return (
     <PlatformLayout>
       <div className="space-y-4 pb-20 lg:pb-4">
@@ -231,4 +232,7 @@ export default function Founders() {
     </div>
     </PlatformLayout>
   );
+}
+export default function Founders() {
+  return <RouteErrorBoundary><FoundersInner /></RouteErrorBoundary>;
 }

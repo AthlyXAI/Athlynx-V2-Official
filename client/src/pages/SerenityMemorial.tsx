@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,7 +24,7 @@ import {
   Phone
 } from "lucide-react";
 
-export default function SerenityMemorial() {
+function SerenityMemorialInner() {
   const financials = [
     { year: "Year 1", revenue: "$629,300", ebitda: "$105,248", netIncome: "$49,686", margin: "7.9%", cases: 70 },
     { year: "Year 3", revenue: "$1,168,700", ebitda: "$410,069", netIncome: "$278,302", margin: "23.8%", cases: 130 },
@@ -413,4 +414,7 @@ export default function SerenityMemorial() {
       <UnifiedFooter />
     </div>
   );
+}
+export default function SerenityMemorial() {
+  return <RouteErrorBoundary><SerenityMemorialInner /></RouteErrorBoundary>;
 }

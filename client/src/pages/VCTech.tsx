@@ -1,9 +1,10 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from 'wouter';
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Code2, Cpu, Globe, Shield, Zap, ChevronRight, ArrowLeft, Building2, Layers, Database, Cloud } from 'lucide-react';
 
-export default function VCTech() {
+function VCTechInner() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 text-white">
       {/* Header */}
@@ -126,4 +127,7 @@ export default function VCTech() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function VCTech() {
+  return <RouteErrorBoundary><VCTechInner /></RouteErrorBoundary>;
 }

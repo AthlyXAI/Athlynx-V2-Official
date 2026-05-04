@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -298,7 +299,7 @@ function ECard({ person }: { person: typeof leadership[0] }) {
   );
 }
 
-export default function Team() {
+function TeamInner() {
   return (
     <div className="min-h-screen" style={{ background: 'linear-gradient(180deg, #0a1628 0%, #0d1f3c 50%, #061424 100%)' }}>
       {/* Header */}
@@ -419,4 +420,7 @@ export default function Team() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function Team() {
+  return <RouteErrorBoundary><TeamInner /></RouteErrorBoundary>;
 }

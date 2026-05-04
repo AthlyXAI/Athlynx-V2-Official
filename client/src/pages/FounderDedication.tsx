@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from 'wouter';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,7 +10,7 @@ import {
   Crown, Sparkles, BookOpen, Dog, Home, GraduationCap
 } from 'lucide-react';
 
-export default function FounderDedication() {
+function FounderDedicationInner() {
   const timestamp = "December 29, 2025 • 9:36 PM CST";
   
   return (
@@ -325,4 +326,7 @@ export default function FounderDedication() {
       <UnifiedFooter />
     </div>
   );
+}
+export default function FounderDedication() {
+  return <RouteErrorBoundary><FounderDedicationInner /></RouteErrorBoundary>;
 }

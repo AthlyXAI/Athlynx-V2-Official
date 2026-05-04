@@ -1,9 +1,10 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from 'wouter';
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Server, Zap, Globe, Shield, TrendingUp, ChevronRight, ArrowLeft, Building2, Cpu, Wifi } from 'lucide-react';
 
-export default function DataCenters() {
+function DataCentersInner() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 text-white">
       <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-700">
@@ -63,4 +64,7 @@ export default function DataCenters() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function DataCenters() {
+  return <RouteErrorBoundary><DataCentersInner /></RouteErrorBoundary>;
 }

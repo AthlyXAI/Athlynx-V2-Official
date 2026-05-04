@@ -1,6 +1,7 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 
-export default function Apps() {
+function AppsInner() {
   const apps = [
     {
       name: "ATHLYNX",
@@ -282,4 +283,7 @@ export default function Apps() {
       </div>
     </div>
   );
+}
+export default function Apps() {
+  return <RouteErrorBoundary><AppsInner /></RouteErrorBoundary>;
 }

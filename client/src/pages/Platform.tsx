@@ -1,7 +1,8 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import UnifiedFooter from "@/components/UnifiedFooter";
 import { Link } from "wouter";
 
-export default function Platform() {
+function PlatformInner() {
   const features = [
     {
       icon: "👤",
@@ -250,4 +251,7 @@ export default function Platform() {
       <UnifiedFooter />
     </div>
   );
+}
+export default function Platform() {
+  return <RouteErrorBoundary><PlatformInner /></RouteErrorBoundary>;
 }

@@ -1,9 +1,10 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from 'wouter';
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Monitor, Gamepad2, Users, Zap, Globe, ChevronRight, ArrowLeft, Building2, Play, Star } from 'lucide-react';
 
-export default function TheVirt() {
+function TheVirtInner() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-purple-950 to-slate-900 text-white">
       <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur border-b border-slate-700">
@@ -63,4 +64,7 @@ export default function TheVirt() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function TheVirt() {
+  return <RouteErrorBoundary><TheVirtInner /></RouteErrorBoundary>;
 }

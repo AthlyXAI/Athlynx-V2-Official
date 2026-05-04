@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { 
@@ -22,7 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import UnifiedFooter from "@/components/UnifiedFooter";
 
-export default function Studio() {
+function StudioInner() {
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
@@ -473,4 +474,7 @@ export default function Studio() {
       <UnifiedFooter />
     </div>
   );
+}
+export default function Studio() {
+  return <RouteErrorBoundary><StudioInner /></RouteErrorBoundary>;
 }

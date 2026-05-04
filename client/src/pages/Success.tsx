@@ -1,6 +1,7 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { useLocation } from "wouter";
 
-export default function Success() {
+function SuccessInner() {
   const [location] = useLocation();
   const params = new URLSearchParams(location.split('?')[1]);
   const accessCode = params.get('code') || '';
@@ -153,4 +154,7 @@ export default function Success() {
       </div>
     </div>
   );
+}
+export default function Success() {
+  return <RouteErrorBoundary><SuccessInner /></RouteErrorBoundary>;
 }

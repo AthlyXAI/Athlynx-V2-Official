@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { useLocation } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -18,7 +19,7 @@ const PLAN_LABELS: Record<string, { label: string; icon: React.ReactNode; color:
 
 const OWNER_EMAILS = ["cdozier14@athlynx.ai", "cdozier14@athlynx.ai"];
 
-export default function Billing() {
+function BillingInner() {
   const { user, loading: authLoading } = useAuth();
   const [, navigate] = useLocation();
 
@@ -232,4 +233,7 @@ export default function Billing() {
       <MobileBottomNav />
     </div>
   );
+}
+export default function Billing() {
+  return <RouteErrorBoundary><BillingInner /></RouteErrorBoundary>;
 }

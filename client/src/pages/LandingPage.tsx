@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 const BetaBanner = () => (
   <div style={{position:"fixed",top:0,left:0,right:0,zIndex:9999,background:"#ff6600",color:"white",textAlign:"center",padding:"12px",fontWeight:"700",fontSize:"14px"}}>
@@ -5,7 +6,7 @@ const BetaBanner = () => (
   </div>
 );
 
-export default function LandingPage() {
+function LandingPageInner() {
   const apps = [
     { name: "Portal", icon: "/athlynx-icon.png", badge: "LIVE", color: "bg-cyan-500", link: "/portal" },
     { name: "Messenger", icon: "/nil-messenger-logo.jpeg", badge: "LIVE", color: "bg-blue-500", link: "/comms" },
@@ -67,4 +68,7 @@ export default function LandingPage() {
       </div>
     </div>
   );
+}
+export default function LandingPage() {
+  return <RouteErrorBoundary><LandingPageInner /></RouteErrorBoundary>;
 }

@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -10,7 +11,7 @@ import { Button } from "@/components/ui/button";
  * "Logic will take you from A to B. Imagination will take you everywhere." - Einstein
  */
 
-export default function ManusPartnership() {
+function ManusPartnershipInner() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 text-white">
       {/* Header */}
@@ -322,4 +323,7 @@ export default function ManusPartnership() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function ManusPartnership() {
+  return <RouteErrorBoundary><ManusPartnershipInner /></RouteErrorBoundary>;
 }

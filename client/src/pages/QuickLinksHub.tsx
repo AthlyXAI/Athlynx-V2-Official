@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 
 const systems = {
@@ -26,7 +27,7 @@ const systems = {
   ],
 };
 
-export default function QuickLinksHub() {
+function QuickLinksHubInner() {
   return (
     <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%)' }}>
       {/* Header */}
@@ -111,4 +112,7 @@ export default function QuickLinksHub() {
       </div>
     </div>
   );
+}
+export default function QuickLinksHub() {
+  return <RouteErrorBoundary><QuickLinksHubInner /></RouteErrorBoundary>;
 }

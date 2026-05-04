@@ -1,9 +1,10 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Card, CardContent } from "@/components/ui/card";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 
-export default function WhiteLabel() {
+function WhiteLabelInner() {
   const sportApps = [
     {
       id: "diamond-grind",
@@ -231,4 +232,7 @@ export default function WhiteLabel() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function WhiteLabel() {
+  return <RouteErrorBoundary><WhiteLabelInner /></RouteErrorBoundary>;
 }

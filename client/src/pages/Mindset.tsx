@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { motion } from "framer-motion";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -20,7 +21,7 @@ import {
 import { Button } from "@/components/ui/button";
 import UnifiedFooter from "@/components/UnifiedFooter";
 
-export default function Mindset() {
+function MindsetInner() {
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
@@ -402,4 +403,7 @@ export default function Mindset() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function Mindset() {
+  return <RouteErrorBoundary><MindsetInner /></RouteErrorBoundary>;
 }

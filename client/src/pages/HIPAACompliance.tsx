@@ -1,9 +1,10 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Shield, CheckCircle, Lock, Server, Users, FileText, AlertTriangle, Phone } from "lucide-react";
 
-export default function HIPAACompliance() {
+function HIPAAComplianceInner() {
   const complianceFeatures = [
     {
       title: "Data Encryption",
@@ -251,4 +252,7 @@ export default function HIPAACompliance() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function HIPAACompliance() {
+  return <RouteErrorBoundary><HIPAAComplianceInner /></RouteErrorBoundary>;
 }

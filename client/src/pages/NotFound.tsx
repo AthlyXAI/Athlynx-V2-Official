@@ -1,8 +1,9 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 
 const CDN = "/athlynx-icon.png";
 
-export default function NotFound() {
+function NotFoundInner() {
   return (
     <div className="min-h-screen bg-[#050c1a] flex flex-col items-center justify-center px-4 relative overflow-hidden">
       {/* Animated background */}
@@ -94,4 +95,7 @@ export default function NotFound() {
       </div>
     </div>
   );
+}
+export default function NotFound() {
+  return <RouteErrorBoundary><NotFoundInner /></RouteErrorBoundary>;
 }

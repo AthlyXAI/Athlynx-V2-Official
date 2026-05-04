@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -25,7 +26,7 @@ import {
   Sparkles
 } from "lucide-react";
 
-export default function EmpireVision() {
+function EmpireVisionInner() {
   const empireBuilders = [
     {
       name: "Jeff Bezos",
@@ -368,4 +369,7 @@ export default function EmpireVision() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function EmpireVision() {
+  return <RouteErrorBoundary><EmpireVisionInner /></RouteErrorBoundary>;
 }

@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { motion } from "framer-motion";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -26,7 +27,7 @@ import {
 import { Button } from "@/components/ui/button";
 import UnifiedFooter from "@/components/UnifiedFooter";
 
-export default function LeadershipPrinciples() {
+function LeadershipPrinciplesInner() {
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
@@ -460,4 +461,7 @@ export default function LeadershipPrinciples() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function LeadershipPrinciples() {
+  return <RouteErrorBoundary><LeadershipPrinciplesInner /></RouteErrorBoundary>;
 }

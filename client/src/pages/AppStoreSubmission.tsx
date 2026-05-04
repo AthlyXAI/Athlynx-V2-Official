@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -26,7 +27,7 @@ import {
   ChevronRight
 } from "lucide-react";
 
-export default function AppStoreSubmission() {
+function AppStoreSubmissionInner() {
   const appInfo = {
     name: "ATHLYNX - NIL Portal",
     subtitle: "The Complete Athlete Ecosystem",
@@ -466,4 +467,7 @@ export default function AppStoreSubmission() {
       <UnifiedFooter />
     </div>
   );
+}
+export default function AppStoreSubmission() {
+  return <RouteErrorBoundary><AppStoreSubmissionInner /></RouteErrorBoundary>;
 }

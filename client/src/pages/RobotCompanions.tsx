@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -138,7 +139,7 @@ const dhgApplications = [
   }
 ];
 
-export default function RobotCompanions() {
+function RobotCompanionsInner() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
       {/* Navigation */}
@@ -398,4 +399,7 @@ export default function RobotCompanions() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function RobotCompanions() {
+  return <RouteErrorBoundary><RobotCompanionsInner /></RouteErrorBoundary>;
 }

@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -111,7 +112,7 @@ const partnerBrands = [
   "Healthcare and wellness brands"
 ];
 
-export default function Veterans() {
+function VeteransInner() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900">
       {/* Navigation */}
@@ -405,4 +406,7 @@ export default function Veterans() {
     <MobileBottomNav />
     </div>
   );
+}
+export default function Veterans() {
+  return <RouteErrorBoundary><VeteransInner /></RouteErrorBoundary>;
 }

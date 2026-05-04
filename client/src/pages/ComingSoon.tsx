@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 
 interface ComingSoonProps {
@@ -6,7 +7,7 @@ interface ComingSoonProps {
   icon: string;
 }
 
-export default function ComingSoon({ title, description, icon }: ComingSoonProps) {
+function ComingSoonInner({ title, description, icon }: ComingSoonProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#040c1a] via-[#0a1628] to-[#040c1a] text-white flex flex-col items-center justify-center p-8">
       <div className="max-w-2xl w-full text-center space-y-8">
@@ -56,4 +57,7 @@ export default function ComingSoon({ title, description, icon }: ComingSoonProps
       </div>
     </div>
   );
+}
+export default function ComingSoon() {
+  return <RouteErrorBoundary><ComingSoonInner /></RouteErrorBoundary>;
 }

@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 
 const EFFECTIVE_DATE = "January 1, 2026";
@@ -166,7 +167,7 @@ We are committed to resolving privacy concerns promptly and transparently.`,
   },
 ];
 
-export default function PrivacyPolicy() {
+function PrivacyPolicyInner() {
   return (
     <div className="min-h-screen bg-[#050c1a] text-white">
       {/* Nav */}
@@ -247,4 +248,7 @@ export default function PrivacyPolicy() {
       </div>
     </div>
   );
+}
+export default function PrivacyPolicy() {
+  return <RouteErrorBoundary><PrivacyPolicyInner /></RouteErrorBoundary>;
 }
