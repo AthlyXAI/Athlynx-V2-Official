@@ -349,4 +349,39 @@ export const stripeRouter = router({
       return { status: "none", plan: null };
     }
   }),
+
+  /** List all active products from Stripe for the Store */
+  getStoreProducts: publicProcedure
+    .input(z.object({ category: z.string().optional(), limit: z.number().default(50) }))
+    .query(async ({ input }) => {
+      try {
+        const stripe = getStripe();
+        const products = await stripe.products.list({
+          active: true,
+          limit: input.limit,
+          expand: ["data.default_price"],
+        });
+
+        return products.data
+          .filter((p: any) => !input.category || p.metadata?.category === input.category)
+          .map((p: any) => ({
+            id: p.id,
+            name: p.name,
+            description: p.description || "",
+            image: p.images?.[0] || null,
+            category: p.metadata?.category || "general",
+            sku: p.metadata?.sku || p.id,
+            price: p.default_price?.unit_amount ?? 0,
+            currency: p.default_price?.currency ?? "usd",
+            priceId: p.default_price?.id ?? null,
+            requiresQuote: p.metadata?.requires_quote === "true",
+            inStock: p.metadata?.in_stock !== "false",
+            rating: parseFloat(p.metadata?.rating || "5.0"),
+            reviews: parseInt(p.metadata?.reviews || "0"),
+          }));
+      } catch {
+        // Fallback to empty if Stripe not configured
+        return [];
+      }
+    }),
 });

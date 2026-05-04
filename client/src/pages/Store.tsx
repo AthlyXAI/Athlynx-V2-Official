@@ -194,9 +194,11 @@ function StoreInner() {
     { id: "training", name: "Training & Recovery", icon: "🏋️" },
   ];
 
-  // No backend store router — use static products only
-  const dbProducts: null = null;
-  const productsLoading = false;
+  // Live Stripe products — falls back to static if Stripe not configured
+  const { data: stripeProducts = [], isLoading: productsLoading } = trpc.stripe.getStoreProducts.useQuery(
+    { limit: 50 },
+    { retry: false, staleTime: 60000 }
+  );
   const createProductCheckout = trpc.stripe.createProductCheckout.useMutation({
     onSuccess: (data) => {
       if (data.url) window.location.href = data.url;
@@ -220,8 +222,25 @@ function StoreInner() {
     isPending: createProductCheckout.isPending,
   };
 
-  // Use static products
-  const products: Product[] = staticProducts.map(p => ({
+  // Use live Stripe products if available, otherwise fall back to static
+  const products: Product[] = stripeProducts.length > 0
+    ? stripeProducts.map((p: any) => ({
+        id: p.id,
+        sku: p.sku || p.id,
+        name: p.name,
+        description: p.description || "",
+        category: p.category || "general",
+        price: String(p.price / 100), // Stripe stores in cents
+        imageUrl: p.image || "/img-hardware.jpg",
+        image: p.image || "/img-hardware.jpg",
+        rating: String(p.rating || 5.0),
+        reviewCount: p.reviews || 0,
+        stockQuantity: p.inStock ? 100 : 0,
+        requiresQuote: p.requiresQuote ? 'yes' : 'no',
+        isActive: 'yes',
+        priceId: p.priceId,
+      }))
+    : staticProducts.map(p => ({
         id: p.id,
         sku: p.sku,
         name: p.name,
@@ -234,10 +253,8 @@ function StoreInner() {
         reviewCount: p.reviews,
         stockQuantity: 100,
         requiresQuote: p.requiresQuote ? 'yes' : 'no',
-        isActive: 'yes'
+        isActive: 'yes',
       }));
-  void productsLoading; // suppress unused warning
-  void dbProducts; // suppress unused warning
 
   const filteredProducts = useMemo(() => {
     if (selectedCategory === "all") return products;
