@@ -335,6 +335,41 @@ Success = `PostActionSuccess`. **NEVER use `... on Post { id }` — return type 
 
 ---
 
+## PERMANENT KEY VAULT — SESSION 25 (May 4, 2026)
+
+> **These are the live, working keys for the AthlynXAI platform. All are set in Vercel. Never lose these.**
+
+| Service | Key / Value |
+|---------|-------------|
+| **Gemini API Key (LIVE)** | `AIzaSyD-sBCpwbzlG4EgyPmC3RJg00mkYPn9u04` |
+| **Gemini Project ID** | `752093847574` |
+| **Gemini Billing Account** | `01F25A-3FE15E-646E10` |
+| **Nebius API Key** | `v1.CmQKHHN0YXRpY2tleS1lMDB6a3h2OXY0NXd3ejE1aGcSIXNlcnZpY2VhY2NvdW50LWUwMGpoeXB0eG5mZ2JldjE1djIMCJCDy88GEP36ksUBOgwIj4bjmgcQgLbu-QFAAloDZTAw.AAAAAAAAAAE953FV2ng69mdutC1iPxnzugOH4jcySQyuJoEJcLDEMDVqata5QDCnYPe98voBXE0zEC0shxtiq8f2bO5Pm98G` |
+| **Nebius Service Account** | `serviceaccount-e00jhyptxnfgbev15v` |
+| **Stripe Account** | `acct_1SqfSOGvvjXZw2uE` — AthlynXAI Corporation — LIVE MODE ONLY |
+| **Stripe Secret Key** | `sk_live_51SqfSOGvvjXZw2uE...` (in Vercel: STRIPE_SECRET_KEY) |
+| **Stripe Publishable Key** | `mk_1SqfSPGvvjXZw2uE3FSTWyRy` |
+| **Stripe Webhook Secret** | `whsec_sYcaDuTUJ4...` (in Vercel: STRIPE_WEBHOOK_SECRET) |
+| **Stripe Webhook Endpoint** | `https://athlynx.ai/api/webhooks/stripe` (we_1TT8LBGvvjXZw2uEEIRxkfyM) |
+| **Buffer Access Token** | `dAiVY17LAcoFkFv0iexUKHHkhgShIkytlaXz1SpWyqD` (expires May 2027) |
+| **Buffer Bot Token** | `gylqPGOh7hF12vJvtu8ZUTX40vM3k_K1u65X5VJkFv8` |
+| **Buffer Org ID** | `69e5eb4fa8900ccfe436f53a` |
+| **AWS Access Key ID** | `AKIAZTTXNG2O...` (in Vercel: AWS_ACCESS_KEY_ID) |
+| **AWS Secret Access Key** | `cXVQFonmI...` (in Vercel: AWS_SECRET_ACCESS_KEY) |
+| **AWS Region** | `us-east-1` |
+| **Gravatar API Key** | `8729:gk-grXtDF8joVCgKQuU7Fv0GbWvGiFvnXgks3R79wCxG7ftZNbNex1SxrQSDLIFd` |
+| **Gravatar Email** | `chaddozier75@gmail.com` |
+| **SendGrid API Key** | `SG.wNLANf0g...` (in Vercel: SENDGRID_API_KEY) |
+| **Vercel Token** | `vcp_73v7I7FP...` (in Vercel dashboard — never commit full token) |
+| **Vercel Project ID** | `prj_eL4LkEdQ3LJ9J4Jlt50b0jef9CsU` |
+| **Vercel Team ID** | `team_7neDSatyrDspOku2p0LxT8zO` (AthlynxChad) |
+| **Apple BM Org** | AthlynXAI Corporation — ID: `149833785256532752` — TXT: `apple-domain-verification=bJrYOUZpnt2fSugJ` |
+| **Stripe Atlas EIN** | `42-2183569` — 1209 Orange Street, Wilmington, DE 19801 |
+
+> **NEVER use Dozier Holdings Group Stripe account (`acct_1Sgy0SRjBH07kRLY`) for the platform. AthlynXAI Corporation ONLY.**
+
+---
+
 ## NON-NEGOTIABLE RULES
 
 1. **1 email everywhere:** cdozier14@athlynx.ai
