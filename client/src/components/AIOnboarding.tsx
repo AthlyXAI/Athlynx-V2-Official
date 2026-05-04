@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { trpc } from "@/lib/trpc";
 import { CheckCircle, ArrowRight, ChevronLeft, X } from "lucide-react";
+import MeetAthletes from "@/components/MeetAthletes";
 
 // ─── Role Definitions ─────────────────────────────────────────────────────────
 export const ROLES = [
@@ -256,11 +257,7 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
         setActivationStep(i + 1);
         if (i === totalSteps - 1) {
           setTimeout(() => {
-            setStep("done");
-            setTimeout(() => {
-              onComplete(answers);
-              window.location.href = "/portal";
-            }, 2000);
+            setStep("meet");
           }, 800);
         }
       }, i * 700);
@@ -578,6 +575,41 @@ export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProp
               )}
             </div>
           )}
+        </div>
+      </div>
+    );
+  }
+
+  // ── Meet Athletes Step ──
+  if (step === "meet") {
+    return (
+      <div className="fixed inset-0 z-50 bg-[#050c1a] backdrop-blur-sm overflow-y-auto">
+        <div className="min-h-screen flex items-start justify-center p-4 pt-8">
+          <div className="bg-[#0d1a3a] border border-blue-700/50 rounded-3xl w-full max-w-2xl shadow-2xl">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-blue-700 to-indigo-700 rounded-t-3xl p-6 text-center">
+              <div className="text-4xl mb-2">🏆</div>
+              <h2 className="text-2xl font-black text-white">You're In! Meet Your Athletes</h2>
+              <p className="text-blue-200 text-sm mt-1">Connect with athletes in your sport, at your school, and around the world.</p>
+            </div>
+            <div className="p-6">
+              <MeetAthletes variant="onboarding" showCoaches={true} />
+              <div className="mt-6 flex gap-3">
+                <button
+                  onClick={() => { onComplete(answers); window.location.href = "/portal"; }}
+                  className="flex-1 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-black py-4 rounded-2xl text-lg hover:scale-105 transition-all"
+                >
+                  Enter the Platform →
+                </button>
+              </div>
+              <button
+                onClick={() => { onComplete(answers); window.location.href = "/browse-athletes"; }}
+                className="w-full mt-3 text-blue-400 text-sm hover:text-white transition-colors"
+              >
+                See all athletes →
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     );

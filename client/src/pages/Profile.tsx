@@ -1,6 +1,7 @@
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState, useRef, useEffect } from "react";
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
+import SportStatsEditor from "@/components/SportStatsEditor";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Link } from "wouter";
@@ -642,25 +643,8 @@ function ProfileInner() {
                     placeholder="Tell your story..." rows={2}
                     className="w-full bg-[#0d1f3c] border border-blue-800 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500 placeholder-blue-600 resize-none" />
                 </div>
-                {/* Sport-Specific Stats */}
-                <div className="bg-[#0d1f3c] border border-blue-800 rounded-xl p-3">
-                  <div className="text-white font-bold text-xs mb-2">⚡ Sport Stats (for your recruiting profile)</div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {[
-                      { label: "40-Yd Dash", key: "fortyYardDash", placeholder: "4.62" },
-                      { label: "QB Rating", key: "qbRating", placeholder: "105.6" },
-                      { label: "Vertical Leap", key: "verticalLeap", placeholder: "36\"" },
-                      { label: "Bench Press", key: "benchPress", placeholder: "225 lbs" },
-                    ].map(f => (
-                      <div key={f.key}>
-                        <label className="text-blue-400 text-[10px] mb-1 block">{f.label}</label>
-                        <input value={(editForm as any)[f.key]} onChange={e => setEditForm(p => ({ ...p, [f.key]: e.target.value }))}
-                          placeholder={f.placeholder}
-                          className="w-full bg-[#1a3a8f] border border-blue-700 text-white text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue-500 placeholder-blue-600" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                {/* Sport-Specific Stats — All 20+ Sports */}
+                <SportStatsEditor sport={editForm.sport} editForm={editForm} setEditForm={setEditForm} />
                 {/* Social URLs */}
                 <div className="bg-[#0d1f3c] border border-blue-800 rounded-xl p-3">
                   <div className="text-white font-bold text-xs mb-2">🌐 Social Profiles (reverse funnel)</div>

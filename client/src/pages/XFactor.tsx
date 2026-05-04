@@ -4,6 +4,7 @@ import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import XFactorPhoneMockup from "../components/XFactorPhoneMockup";
+import MeetAthletes from "@/components/MeetAthletes";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import {
@@ -570,33 +571,8 @@ function XFactorInner() {
             </Link>
           </div>
 
-          {/* Who to Follow */}
-          <div className="bg-slate-900 rounded-2xl p-4 mb-4">
-            <h3 className="font-bold text-white mb-3 flex items-center gap-2">
-              <Users className="w-4 h-4 text-blue-400" />
-              Who to Follow
-            </h3>
-            <div className="space-y-3">
-              {[
-                { name: "Coach Davis", handle: "@coachdavis_nfl", role: "NFL Scout · Dallas Cowboys", xScore: null },
-                { name: "NIL Agency Pro", handle: "@nilagencypro", role: "Certified NIL Agent", xScore: null },
-                { name: "Jaylen Ross", handle: "@jross_safety", role: "Safety · 5-Star · Class 2026", xScore: 93 },
-              ].map((person, i) => (
-                <div key={i} className="flex items-center gap-2">
-                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-xs font-bold text-white flex-shrink-0">
-                    {person.name.split(" ").map(n => n[0]).join("")}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-sm font-semibold text-white truncate">{person.name}</div>
-                    <div className="text-xs text-slate-500 truncate">{person.role}</div>
-                  </div>
-                  <button className="text-xs border border-slate-600 hover:border-blue-500 hover:text-blue-400 text-slate-300 px-3 py-1 rounded-full transition-colors flex-shrink-0">
-                    Follow
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Meet New Athletes — Live DB */}
+          <MeetAthletes variant="sidebar" title="Meet New Athletes" showCoaches={true} />
 
           {/* Scout Spotlight */}
           <div className="bg-slate-900 rounded-2xl p-4">
