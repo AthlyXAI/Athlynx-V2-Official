@@ -198,9 +198,9 @@ const PRODUCTS = [
     tagline: "Next-generation quadruped robot for athlete training — coming to AthlynXAI",
     specs: ["Advanced quadruped locomotion AI", "Real-time athlete pace matching", "Guinness World Record speed capability", "Designed for elite sports training", "Partnership in discussions — launching soon"],
     image: `/img-ai-software.jpg`,
-    tag: "Coming Soon",
+    tag: "In Development",
     featured: false,
-    comingSoon: true,
+    comingSoon: false,
   },
   // ── Athletic Gear ──
   {

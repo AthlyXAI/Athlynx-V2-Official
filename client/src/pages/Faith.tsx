@@ -289,10 +289,10 @@ export default function Faith() {
               <div className="text-3xl mb-2">✝️</div>
               <h3 className="text-white font-black text-lg mb-1">Your Faith Story Matters</h3>
               <p className="text-blue-300 text-sm mb-4">Share how faith drives your athletic journey. Inspire the next generation of faith-driven athletes.</p>
-              <button onClick={() => toast({ title: "Coming Soon!", description: "Athlete faith story submissions launching soon." })}
-                className="bg-red-700 hover:bg-red-600 text-white font-bold py-2.5 px-6 rounded-xl transition-colors">
+              <a href="/community-feedback"
+                className="inline-block bg-red-700 hover:bg-red-600 text-white font-bold py-2.5 px-6 rounded-xl transition-colors">
                 Share Your Story ✝️
-              </button>
+              </a>
             </div>
           </div>
         )}

@@ -359,7 +359,7 @@ export default function CommsHub() {
                   <span className="text-white text-xs mt-1">WhatsApp</span>
                 </a>
                 <a 
-                  href="#" 
+                  href="https://web.wechat.com" target="_blank" rel="noopener noreferrer"
                   className="flex flex-col items-center p-3 bg-[#07C160]/20 rounded-lg hover:bg-[#07C160]/30 transition"
                 >
                   <span className="text-2xl">💬</span>

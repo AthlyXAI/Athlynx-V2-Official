@@ -56,6 +56,13 @@ const PILLARS = [
 
 const PARTNERSHIPS = [
   {
+    name: "Nebius AI Cloud",
+    role: "GPU Cloud & AI Model Hosting — $5,000 Credits ACTIVE",
+    desc: "Nebius AI Cloud powers the ATHLYNX secondary AI engine — Llama 3.1 70B on NVIDIA H200 GPUs. Automatic fallback when Gemini quota is reached. $5,000 in GPU credits activated May 3, 2026.",
+    icon: "🧠",
+    status: "LIVE — $5K Credits Active"
+  },
+  {
     name: "NVIDIA",
     role: "GPU Clusters & AI Compute",
     desc: "H100 and B200 GPU clusters powering ATHLYNX AI Trainers, real-time analytics, and athlete performance modeling at scale.",

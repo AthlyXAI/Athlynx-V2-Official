@@ -7,7 +7,21 @@ import { getUserById } from "../db";
 // Owner/Admin accounts — never charged, always have full access
 const OWNER_EMAILS = [
   "cdozier14@athlynx.ai",
-  "cdozier14@athlynx.ai",
+];
+
+// Team members eligible for automated Stripe payroll
+// Revenue is distributed automatically after each billing cycle
+const TEAM_PAYROLL: Array<{
+  name: string;
+  email: string;
+  role: string;
+  stripeConnectedAccountId?: string; // Set when they connect their Stripe account
+  percentageOfRevenue: number; // % of net revenue after operating costs
+}> = [
+  { name: "Glenn Tse",    email: "gtse@athlynx.ai",     role: "CFO/COO",           percentageOfRevenue: 15 },
+  { name: "Lee Marshall", email: "lmarshall@athlynx.ai", role: "VP Sales",          percentageOfRevenue: 10 },
+  { name: "Jimmy Boyd",   email: "jboyd@athlynx.ai",    role: "VP Real Estate",    percentageOfRevenue: 8  },
+  { name: "Andrew Kustes",email: "akustes@athlynx.ai",  role: "VP Technology",     percentageOfRevenue: 10 },
 ];
 
 function isOwner(email: string | null | undefined): boolean {

@@ -96,7 +96,7 @@ export default function Messages() {
               </button>
               <button
                 className="p-1.5 rounded-lg hover:bg-blue-900 text-blue-400 hover:text-white transition-colors"
-                onClick={() => toast.info("Start a new conversation from an athlete's profile.")}
+                onClick={() => window.location.href = '/browse-athletes'}
               >
                 <Plus className="w-4 h-4" />
               </button>
