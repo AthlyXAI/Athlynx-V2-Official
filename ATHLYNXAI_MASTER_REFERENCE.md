@@ -1,4 +1,7 @@
 # ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
+## Last Updated: Monday, May 4, 2026 — Session 22
+## Session Summary (May 4 2026 — SESSION 22): NEBIUS AI DISCOVERY AWARD NOMINATED. Full 4-page application submitted at nebius.com/ai-discovery-award/apply. Category: Digital Health. Product: AthlynxAI Fuel Bots. Confirmation received. Finalists announced May 15, 2026. Application email sent to dpol@nebius.com. AWS rescue email sent for account 436705618471. Zapier stack fully verified: Buffer, Jira, Confluence Cloud, GitHub, Trello, Gmail, Google Drive, Notion, Stripe, LinkedIn, Instagram, Facebook, Slack, Zoom — all live. Nebius + Gemini live in platform code. Gravatar live in DB. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY4_2026_S22.md
+
 ## Last Updated: Monday, May 4, 2026 — Session 21
 ## Session Summary (May 4 2026 — SESSION 21): INVESTOR HUB REBUILT + EXPIRY WARNINGS + BUFFER FIXED. Rebuilt InvestorHub to world-class with IPO end-game, real market data ($135B), 5-year P&L, competitive moat, and GTC San Jose context. Added prominent gold INVESTORS link to top nav. Built full subscription expiry email system (server cron job + email cadence at 7, 5, 4, 3, 2, 1 days) and wired Expiry Warnings tab into Admin Dashboard. Fixed Buffer social integration (corrected GraphQL mutation format and added all 10 channel IDs). Scheduled Stripe Connect payroll onboarding emails to team (Glenn, Lee, Jimmy, Andy) via AWS SES. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY4_2026_S21.md
 
