@@ -1,7 +1,13 @@
 /**
  * ATHLYNX — Social Command Center Router
- * Gemini AI post generation + Buffer (Instagram/Facebook/TikTok/X) + Zapier LinkedIn
+ * Gemini AI post generation + Buffer (all 10 channels) + Zapier LinkedIn
  * Gravatar avatar sync
+ *
+ * Buffer API rules (from ATHLYNXAI_MASTER_REFERENCE.md):
+ *   - NEVER use fragments (... on Post { id }) — return type is PostActionPayload
+ *   - NEVER use scheduledAt: null
+ *   - ALWAYS use schedulingType: automatic + mode: shareNow
+ *   - Success = PostActionSuccess __typename
  */
 import { z } from "zod";
 import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
@@ -14,43 +20,80 @@ import { eq } from "drizzle-orm";
 const BUFFER_TOKEN = process.env.BUFFER_ACCESS_TOKEN ?? "";
 const ZAPIER_MCP_TOKEN = process.env.ZAPIER_MCP_TOKEN ?? "";
 
+// ─── CORRECT Buffer Channel IDs (from ATHLYNXAI_MASTER_REFERENCE.md) ─────────
 const BUFFER_CHANNELS: Record<string, string> = {
-  twitter:   "69e5f1dd031bfa423c2229ad",
-  tiktok:    "69e613fb031bfa423c22ac3e",
-  facebook:  "69e61f4f031bfa423c22e698",
-  instagram: "69e61f6e031bfa423c22e6f4",
+  instagram:       "69e6cca6031bfa423c26478e", // Instagram chad_dozier
+  linkedin:        "69e6cd3f031bfa423c264c63", // LinkedIn
+  youtube:         "69e6cd7c031bfa423c264dd5", // YouTube
+  tiktok:          "69e6cd99031bfa423c264e8c", // TikTok chadadozierdozier (video only)
+  google_business: "69e6cdf3031bfa423c2650a8", // Google Business
+  twitter:         "69e6ce05031bfa423c265121", // X/Twitter ChadADozier2
+  tiktok2:         "69e6ce56031bfa423c2652c8", // TikTok cdozier75 (video only)
+  instagram2:      "69e6ce77031bfa423c265389", // Instagram chaddozier14
+  facebook:        "69f29ddf5c4c051afaf3e12e", // Facebook Athlynx Ecosystem
+  facebook2:       "69f3f06f5c4c051afaf9eeb7", // Facebook Chad Allen Dozier Sr
 };
 
 const PLATFORM_VOICE: Record<string, string> = {
-  linkedin:  "professional, thought-leadership, investor-facing, no emojis except 1-2 max, paragraph format",
-  instagram: "casual, energetic, heavy emojis, short punchy lines, 5-10 hashtags",
-  twitter:   "punchy, under 280 chars, 1-3 hashtags, bold statement or question",
-  tiktok:    "Gen-Z energy, hook in first line, call to action, trending hashtags",
-  facebook:  "conversational, community-focused, medium length, 3-5 hashtags",
+  linkedin:        "professional, thought-leadership, investor-facing, no emojis except 1-2 max, paragraph format",
+  instagram:       "casual, energetic, heavy emojis, short punchy lines, 5-10 hashtags",
+  instagram2:      "casual, energetic, heavy emojis, short punchy lines, 5-10 hashtags",
+  twitter:         "punchy, under 280 chars, 1-3 hashtags, bold statement or question",
+  tiktok:          "Gen-Z energy, hook in first line, call to action, trending hashtags",
+  tiktok2:         "Gen-Z energy, hook in first line, call to action, trending hashtags",
+  facebook:        "conversational, community-focused, medium length, 3-5 hashtags",
+  facebook2:       "conversational, community-focused, medium length, 3-5 hashtags",
+  google_business: "professional, local business tone, brief, include website athlynx.ai",
 };
 
-async function postToBuffer(channelIds: string[], text: string, imageUrl?: string) {
-  if (!BUFFER_TOKEN) return { success: false, error: "Buffer token not configured" };
-  const mutation = `mutation CreatePost($input: CreatePostInput!) { createPost(input: $input) { ... on Post { id status } ... on PostError { type message } } }`;
+// ─── CORRECT Buffer GraphQL mutation ─────────────────────────────────────────
+// NEVER use fragments. NEVER use scheduledAt. Use schedulingType + mode.
+const BUFFER_MUTATION = `
+  mutation CreatePost($channelId: String!, $text: String!) {
+    createPost(input: {
+      channelId: $channelId
+      text: $text
+      schedulingType: automatic
+      mode: shareNow
+    }) {
+      __typename
+    }
+  }
+`;
+
+async function postToBuffer(channelIds: string[], text: string, _imageUrl?: string) {
+  if (!BUFFER_TOKEN) return { results: [], posted: 0, error: "Buffer token not configured" };
+
   const results: { channel: string; success: boolean; id?: string; error?: string }[] = [];
+
   for (const [channel, channelId] of Object.entries(BUFFER_CHANNELS)) {
     if (!channelIds.includes(channelId)) continue;
     try {
-      const variables: any = { input: { channelId, text, scheduledAt: null } };
-      if (imageUrl) variables.input.media = [{ url: imageUrl }];
       const res = await fetch("https://api.buffer.com/graphql", {
         method: "POST",
-        headers: { Authorization: `Bearer ${BUFFER_TOKEN}`, "Content-Type": "application/json" },
-        body: JSON.stringify({ query: mutation, variables }),
+        headers: {
+          Authorization: `Bearer ${BUFFER_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: BUFFER_MUTATION,
+          variables: { channelId, text },
+        }),
       });
       const data = await res.json() as any;
       const post = data?.data?.createPost;
-      if (post?.id) results.push({ channel, success: true, id: post.id });
-      else results.push({ channel, success: false, error: post?.message || "Unknown error" });
+      // Success = PostActionSuccess __typename (any non-null __typename means success)
+      if (post?.__typename) {
+        results.push({ channel, success: true, id: post.__typename });
+      } else {
+        const errMsg = data?.errors?.[0]?.message || data?.data?.createPost?.message || "Unknown error";
+        results.push({ channel, success: false, error: errMsg });
+      }
     } catch (err: any) {
       results.push({ channel, success: false, error: err.message });
     }
   }
+
   return { results, posted: results.filter(r => r.success).length };
 }
 
@@ -90,6 +133,11 @@ async function postToLinkedInViaZapier(text: string, url?: string, title?: strin
   }
 }
 
+const CHANNEL_ENUM = z.enum([
+  "twitter", "facebook", "facebook2", "instagram", "instagram2",
+  "tiktok", "tiktok2", "google_business", "linkedin", "youtube",
+]);
+
 export const socialRouter = router({
   // ─── Generate AI post content for a specific platform ─────────────────────
   generatePost: protectedProcedure
@@ -101,7 +149,7 @@ export const socialRouter = router({
       includeEmoji: z.boolean().default(true),
       customContext: z.string().optional(),
     }))
-    .mutation(async ({ input, ctx }) => {
+    .mutation(async ({ input }) => {
       const platforms = input.platform === "all"
         ? ["linkedin", "instagram", "twitter", "tiktok", "facebook"]
         : [input.platform];
@@ -132,17 +180,16 @@ Write ONLY the post text — no explanations, no "Here's your post:", just the p
       return { posts: results };
     }),
 
-  // ─── Publish to Buffer (Instagram, Facebook, TikTok, X) ───────────────────
+  // ─── Publish to Buffer (all text channels) ────────────────────────────────
   publishToBuffer: protectedProcedure
     .input(z.object({
       text: z.string().min(1),
-      channels: z.array(z.enum(["twitter", "facebook", "instagram", "tiktok"])).min(1),
+      channels: z.array(CHANNEL_ENUM).min(1),
       imageUrl: z.string().optional(),
     }))
     .mutation(async ({ input }) => {
       const channelIds = input.channels.map(c => BUFFER_CHANNELS[c]).filter(Boolean);
-      const result = await postToBuffer(channelIds, input.text, input.imageUrl);
-      return result;
+      return postToBuffer(channelIds, input.text, input.imageUrl);
     }),
 
   // ─── Publish to LinkedIn via Zapier ───────────────────────────────────────
@@ -162,7 +209,10 @@ Write ONLY the post text — no explanations, no "Here's your post:", just the p
     .input(z.object({
       linkedinText: z.string(),
       socialText: z.string(),
-      channels: z.array(z.enum(["twitter", "facebook", "instagram", "tiktok"])).default(["twitter", "facebook", "instagram", "tiktok"]),
+      // Default: all text-capable channels (no TikTok — video only)
+      channels: z.array(CHANNEL_ENUM).default([
+        "twitter", "facebook", "facebook2", "instagram", "instagram2", "google_business",
+      ]),
       url: z.string().optional(),
       title: z.string().optional(),
       imageUrl: z.string().optional(),

@@ -22,10 +22,8 @@ import {
   Clock,
   CheckCircle,
   XCircle,
-  AlertCircle,
-  Send
+  AlertCircle
 } from "lucide-react";
-import SocialCommandPanel from "@/components/SocialCommandPanel";
 
 function AdminDashboardInner() {
   const meQuery = trpc.auth.me.useQuery(undefined, { retry: false, refetchOnWindowFocus: false });
@@ -242,9 +240,9 @@ function AdminDashboardInner() {
               <DollarSign className="h-4 w-4 mr-2" />
               Payroll
             </TabsTrigger>
-            <TabsTrigger value="social" className="data-[state=active]:bg-blue-500/20 data-[state=active]:text-blue-400">
-              <Send className="h-4 w-4 mr-2" />
-              Social
+            <TabsTrigger value="expiry" className="data-[state=active]:bg-red-500/20 data-[state=active]:text-red-400">
+              <AlertCircle className="h-4 w-4 mr-2" />
+              Expiry Warnings
             </TabsTrigger>
           </TabsList>
 
@@ -701,9 +699,9 @@ function AdminDashboardInner() {
             <PayrollPanel />
           </TabsContent>
 
-          {/* Social Command Center */}
-          <TabsContent value="social">
-            <SocialCommandPanel />
+          {/* Expiry Warnings Tab */}
+          <TabsContent value="expiry">
+            <ExpiryWarningsPanel />
           </TabsContent>
         </Tabs>
       </div>
@@ -924,4 +922,120 @@ function PayrollPanel() {
 
 export default function AdminDashboard() {
   return <RouteErrorBoundary><AdminDashboardInner /></RouteErrorBoundary>;
+}
+
+// ─── Expiry Warnings Panel ────────────────────────────────────────────────────
+function ExpiryWarningsPanel() {
+  const warnings = trpc.expiration.getWarnings.useQuery(undefined, { retry: false });
+  const overdue = trpc.expiration.getOverdue.useQuery(undefined, { retry: false });
+
+  const warningUsers = warnings.data ?? [];
+  const overdueUsers = overdue.data ?? [];
+
+  function daysColor(days: number) {
+    if (days <= 0) return "text-red-400";
+    if (days <= 2) return "text-red-300";
+    if (days <= 4) return "text-yellow-400";
+    return "text-green-400";
+  }
+
+  return (
+    <div className="space-y-6">
+      <Card className="bg-[#0d2847] border-red-500/20">
+        <CardHeader>
+          <CardTitle className="text-white flex items-center gap-2">
+            <AlertCircle className="h-5 w-5 text-red-400" />
+            Expiring Soon — Warning Emails Active
+          </CardTitle>
+          <CardDescription className="text-slate-400">
+            Users whose trial ends within 7 days. Warning emails sent automatically at 7, 5, 4, 3, 2, 1 days and on expiry.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {warnings.isLoading ? (
+            <div className="text-slate-400 text-sm">Loading...</div>
+          ) : warningUsers.length === 0 ? (
+            <div className="text-green-400 text-sm font-bold">✓ No users expiring in the next 7 days</div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-white/10 text-slate-400 text-xs uppercase tracking-wider">
+                    <th className="text-left py-2 pr-4">User</th>
+                    <th className="text-left py-2 pr-4">Email</th>
+                    <th className="text-left py-2 pr-4">Days Left</th>
+                    <th className="text-left py-2 pr-4">Trial Ends</th>
+                    <th className="text-left py-2">Last Email Sent</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(warningUsers as any[]).map((u: any) => (
+                    <tr key={u.id} className="border-b border-white/5 hover:bg-white/5">
+                      <td className="py-2 pr-4 text-white font-semibold">{u.name || "—"}</td>
+                      <td className="py-2 pr-4 text-slate-300">{u.email}</td>
+                      <td className={`py-2 pr-4 font-black ${daysColor(u.daysLeft)}`}>
+                        {u.daysLeft <= 0 ? "EXPIRED" : `${u.daysLeft}d`}
+                      </td>
+                      <td className="py-2 pr-4 text-slate-400 text-xs">
+                        {u.trialEndsAt ? new Date(u.trialEndsAt).toLocaleDateString() : "—"}
+                      </td>
+                      <td className="py-2 text-slate-400 text-xs">
+                        {u.emailLog?.[0]
+                          ? `${u.emailLog[0].emailType} — ${new Date(u.emailLog[0].emailSentAt).toLocaleString()}`
+                          : "None sent yet"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card className="bg-[#0d2847] border-red-700/30">
+        <CardHeader>
+          <CardTitle className="text-white flex items-center gap-2">
+            <XCircle className="h-5 w-5 text-red-500" />
+            Overdue — Expired Trial, No Subscription
+          </CardTitle>
+          <CardDescription className="text-slate-400">
+            Users whose trial has expired and have not converted to a paid plan.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {overdue.isLoading ? (
+            <div className="text-slate-400 text-sm">Loading...</div>
+          ) : overdueUsers.length === 0 ? (
+            <div className="text-green-400 text-sm font-bold">✓ No overdue accounts</div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-white/10 text-slate-400 text-xs uppercase tracking-wider">
+                    <th className="text-left py-2 pr-4">User</th>
+                    <th className="text-left py-2 pr-4">Email</th>
+                    <th className="text-left py-2 pr-4">Expired</th>
+                    <th className="text-left py-2">Days Overdue</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(overdueUsers as any[]).map((u: any) => (
+                    <tr key={u.id} className="border-b border-white/5 hover:bg-white/5">
+                      <td className="py-2 pr-4 text-white font-semibold">{u.name || "—"}</td>
+                      <td className="py-2 pr-4 text-slate-300">{u.email}</td>
+                      <td className="py-2 pr-4 text-slate-400 text-xs">
+                        {u.trialEndsAt ? new Date(u.trialEndsAt).toLocaleDateString() : "—"}
+                      </td>
+                      <td className="py-2 text-red-400 font-black">{u.expiredDaysAgo}d ago</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
+  );
 }

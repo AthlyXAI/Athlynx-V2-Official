@@ -318,6 +318,14 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
               </button>
             )}
 
+            {/* INVESTORS — gold accent, prominent in top nav */}
+            <Link
+              href="/investor-hub"
+              className="hidden sm:inline-flex items-center gap-1 ml-1 text-[10px] font-black px-2.5 py-1.5 rounded-lg transition-all border border-yellow-400/60 bg-yellow-400/10 text-yellow-300 hover:bg-yellow-400/20 hover:text-yellow-100 tracking-widest uppercase whitespace-nowrap"
+            >
+              💰 INVESTORS
+            </Link>
+
             {user ? (
               <Link href="/profile" className="ml-1 w-8 h-8 rounded-full bg-blue-700 flex items-center justify-center text-sm font-bold hover:bg-blue-600 transition-colors overflow-hidden shrink-0">
                 {user.avatarUrl ? (

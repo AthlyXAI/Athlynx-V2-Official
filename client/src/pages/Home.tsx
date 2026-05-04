@@ -583,7 +583,8 @@ export default function Home() {
           <h1 className="text-4xl md:text-6xl font-black text-white tracking-tight drop-shadow-2xl">
             THE ATHLETE'S PLAYBOOK
           </h1>
-          <p className="text-blue-200 text-lg mt-2 drop-shadow font-semibold">One platform. Every tool. Unlimited potential.</p>
+          <p className="text-blue-200 text-lg mt-2 drop-shadow font-semibold">Youth → High School → College → Pro → Retired</p>
+          <p className="text-blue-300/70 text-sm mt-1 drop-shadow">Every Level. Every Sport. One Platform.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6">
             <a href="/signup" className="inline-block bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-cyan-500 hover:to-blue-600 text-white font-black text-lg px-8 py-3 rounded-xl transition-all shadow-xl hover:scale-105">
               ENTER THE PORTAL →
