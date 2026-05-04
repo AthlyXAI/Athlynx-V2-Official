@@ -241,6 +241,83 @@ export const stripeRouter = router({
       return { url: session.url };
     }),
 
+  /** ─── STRIPE CONNECT PAYROLL ─────────────────────────────────────────────
+   * Automated revenue distribution to team members via Stripe Connect
+   * Each team member needs a Stripe Connect Express account
+   * Chad triggers payroll manually after each billing cycle
+   */
+
+  /** Get payroll config — admin only */
+  getPayrollConfig: protectedProcedure.query(async ({ ctx }) => {
+    if (!isOwner(ctx.user.email)) throw new Error("Unauthorized");
+    return TEAM_PAYROLL.map(member => ({
+      name: member.name,
+      email: member.email,
+      role: member.role,
+      percentageOfRevenue: member.percentageOfRevenue,
+      connected: !!member.stripeConnectedAccountId,
+      connectedAccountId: member.stripeConnectedAccountId ?? null,
+    }));
+  }),
+
+  /** Create Stripe Connect onboarding link for a team member */
+  createConnectOnboardingLink: protectedProcedure
+    .input(z.object({ email: z.string().email(), origin: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      if (!isOwner(ctx.user.email)) throw new Error("Unauthorized");
+      const stripe = getStripe();
+      // Create Express account for team member
+      const account = await stripe.accounts.create({
+        type: "express",
+        email: input.email,
+        capabilities: { transfers: { requested: true } },
+        business_type: "individual",
+        metadata: { platform: "athlynxai", invited_by: ctx.user.email ?? "" },
+      });
+      // Create onboarding link
+      const link = await stripe.accountLinks.create({
+        account: account.id,
+        refresh_url: `${input.origin}/admin?payroll=refresh`,
+        return_url: `${input.origin}/admin?payroll=connected&account=${account.id}`,
+        type: "account_onboarding",
+      });
+      return { url: link.url, accountId: account.id };
+    }),
+
+  /** Process payroll — distribute revenue to connected team members */
+  processPayroll: protectedProcedure
+    .input(z.object({ netRevenue: z.number().min(0) }))
+    .mutation(async ({ ctx, input }) => {
+      if (!isOwner(ctx.user.email)) throw new Error("Unauthorized");
+      const stripe = getStripe();
+      const results: Array<{ name: string; amount: number; status: string; error?: string }> = [];
+
+      for (const member of TEAM_PAYROLL) {
+        if (!member.stripeConnectedAccountId) {
+          results.push({ name: member.name, amount: 0, status: "not_connected", error: "No Stripe Connect account" });
+          continue;
+        }
+        const amountCents = Math.floor((input.netRevenue * member.percentageOfRevenue / 100) * 100);
+        if (amountCents < 100) {
+          results.push({ name: member.name, amount: amountCents, status: "skipped", error: "Amount too small" });
+          continue;
+        }
+        try {
+          await stripe.transfers.create({
+            amount: amountCents,
+            currency: "usd",
+            destination: member.stripeConnectedAccountId,
+            description: `AthlynXAI payroll — ${member.role} — ${member.percentageOfRevenue}% of $${(input.netRevenue).toFixed(2)}`,
+            metadata: { platform: "athlynxai", recipient: member.email, role: member.role },
+          });
+          results.push({ name: member.name, amount: amountCents, status: "paid" });
+        } catch (err: any) {
+          results.push({ name: member.name, amount: amountCents, status: "failed", error: err.message });
+        }
+      }
+      return { success: true, results, totalDistributed: results.filter(r => r.status === "paid").reduce((sum, r) => sum + r.amount, 0) };
+    }),
+
   /** Get current subscription status */
   getSubscription: protectedProcedure.query(async ({ ctx }) => {
     // Owner bypass — always return full owner plan
