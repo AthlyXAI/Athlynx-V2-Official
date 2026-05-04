@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
@@ -15,7 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 import { User, Bell, Shield, CreditCard, LogOut } from "lucide-react";
 import { Link } from "wouter";
 
-export default function Settings() {
+function SettingsInner() {
   const { user, logout } = useAuth();
   const { toast } = useToast();
   const [emailNotifs, setEmailNotifs] = useState(true);
@@ -232,4 +233,8 @@ export default function Settings() {
     </div>
     </PlatformLayout>
   );
+}
+
+export default function Settings() {
+  return <RouteErrorBoundary><SettingsInner /></RouteErrorBoundary>;
 }

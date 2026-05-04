@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Button } from "@/components/ui/button";
@@ -6,7 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Calendar, TrendingUp, Users, Video, MessageCircle, Trophy, Play } from "lucide-react";
 
-export default function SigningDay() {
+function SigningDayInner() {
   const [selectedSport, setSelectedSport] = useState("all");
 
   const sports = [
@@ -342,4 +343,8 @@ export default function SigningDay() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function SigningDay() {
+  return <RouteErrorBoundary><SigningDayInner /></RouteErrorBoundary>;
 }

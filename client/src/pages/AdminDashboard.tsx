@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { useLocation, Link } from "wouter";
@@ -24,7 +25,7 @@ import {
   AlertCircle
 } from "lucide-react";
 
-export default function AdminDashboard() {
+function AdminDashboardInner() {
   const meQuery = trpc.auth.me.useQuery(undefined, { retry: false, refetchOnWindowFocus: false });
   const [, navigate] = useLocation();
   const [activeTab, setActiveTab] = useState("overview");
@@ -908,4 +909,8 @@ function PayrollPanel() {
       </div>
     </div>
   );
+}
+
+export default function AdminDashboard() {
+  return <RouteErrorBoundary><AdminDashboardInner /></RouteErrorBoundary>;
 }

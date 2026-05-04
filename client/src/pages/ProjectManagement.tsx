@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 
 // DHG Company data
@@ -93,7 +94,7 @@ const PriorityBadge = ({ priority }: { priority: string }) => {
   );
 };
 
-export default function ProjectManagement() {
+function ProjectManagementInner() {
   const [activeTab, setActiveTab] = useState<"overview" | "companies" | "platform" | "team" | "timeline">("overview");
 
   return (
@@ -554,4 +555,8 @@ export default function ProjectManagement() {
       </footer>
     </div>
   );
+}
+
+export default function ProjectManagement() {
+  return <RouteErrorBoundary><ProjectManagementInner /></RouteErrorBoundary>;
 }

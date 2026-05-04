@@ -36,6 +36,7 @@ import { createRoot } from "react-dom/client";
 import superjson from "superjson";
 import App from "./App";
 import "./index.css";
+import { GlobalErrorBoundary } from "./components/GlobalErrorBoundary";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -98,9 +99,11 @@ const trpcClient = trpc.createClient({
 });
 
 createRoot(document.getElementById("root")!).render(
-  <QueryClientProvider client={queryClient}>
-    <trpc.Provider client={trpcClient} queryClient={queryClient}>
-      <App />
-    </trpc.Provider>
-  </QueryClientProvider>
+  <GlobalErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <trpc.Provider client={trpcClient} queryClient={queryClient}>
+        <App />
+      </trpc.Provider>
+    </QueryClientProvider>
+  </GlobalErrorBoundary>
 );

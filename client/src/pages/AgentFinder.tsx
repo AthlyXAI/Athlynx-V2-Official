@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { useLocation } from "wouter";
@@ -138,7 +139,7 @@ const HOW_IT_WORKS = [
   { step: "04", title: "Sign & Win", desc: "Choose your agent, sign your representation agreement, and let them go to work." }
 ];
 
-export default function AgentFinder() {
+function AgentFinderInner() {
   const [, navigate] = useLocation();
   const [search, setSearch] = useState("");
   const [selectedSport, setSelectedSport] = useState("All Sports");
@@ -357,4 +358,8 @@ export default function AgentFinder() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function AgentFinder() {
+  return <RouteErrorBoundary><AgentFinderInner /></RouteErrorBoundary>;
 }

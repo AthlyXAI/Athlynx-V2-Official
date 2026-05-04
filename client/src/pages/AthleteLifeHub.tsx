@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { useLocation } from "wouter";
@@ -137,7 +138,7 @@ const LIFE_STATS = [
   { value: "Life", label: "To Retirement" }
 ];
 
-export default function AthleteLifeHub() {
+function AthleteLifeHubInner() {
   const [, navigate] = useLocation();
   const [activeFilter, setActiveFilter] = useState("all");
 
@@ -449,4 +450,8 @@ export default function AthleteLifeHub() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function AthleteLifeHub() {
+  return <RouteErrorBoundary><AthleteLifeHubInner /></RouteErrorBoundary>;
 }

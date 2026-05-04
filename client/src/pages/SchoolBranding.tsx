@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -107,7 +108,7 @@ const brandingFeatures = [
   { icon: Users, title: "Multi-Role Access", desc: "Athletes, coaches, compliance officers, donors, and administrators — each with their own view." },
 ];
 
-export default function SchoolBranding() {
+function SchoolBrandingInner() {
   const [selectedSchool, setSelectedSchool] = useState(schools[0]);
   const [schoolName, setSchoolName] = useState("");
 
@@ -343,4 +344,8 @@ export default function SchoolBranding() {
       <UnifiedFooter />
     </div>
   );
+}
+
+export default function SchoolBranding() {
+  return <RouteErrorBoundary><SchoolBrandingInner /></RouteErrorBoundary>;
 }

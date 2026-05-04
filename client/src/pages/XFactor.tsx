@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -305,7 +306,7 @@ function PostCard({ post, onLike }: { post: any; onLike?: () => void }) {
   );
 }
 
-export default function XFactor() {
+function XFactorInner() {
   const [activeTab, setActiveTab] = useState("For You");
   const [activeCategory, setActiveCategory] = useState("All");
   const [postText, setPostText] = useState("");
@@ -617,4 +618,8 @@ export default function XFactor() {
       </div>
     </div>
   );
+}
+
+export default function XFactor() {
+  return <RouteErrorBoundary><XFactorInner /></RouteErrorBoundary>;
 }

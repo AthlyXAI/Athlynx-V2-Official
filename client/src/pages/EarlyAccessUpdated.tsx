@@ -5,7 +5,7 @@ import { useLocation, Link } from "wouter";
 import UnifiedFooter from "@/components/UnifiedFooter";
 import { trpc } from "@/lib/trpc";
 
-export default function EarlyAccess() {
+function EarlyAccessInner() {
   const [, setLocation] = useLocation();
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -425,4 +425,8 @@ export default function EarlyAccess() {
       <UnifiedFooter />
     </div>
   );
+}
+
+export default function EarlyAccess() {
+  return <RouteErrorBoundary><EarlyAccessInner /></RouteErrorBoundary>;
 }

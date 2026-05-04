@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 
 const videos = [
@@ -16,7 +17,7 @@ const appIcons = [
   { name: "NIL Deals", icon: "/nil-vault-icon.png", description: "Brand partnerships & deals", url: "/nil-marketplace" },
 ];
 
-export default function MediaShowcase() {
+function MediaShowcaseInner() {
   const [activeVideo, setActiveVideo] = useState(videos[0]);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -187,4 +188,8 @@ export default function MediaShowcase() {
       </footer>
     </div>
   );
+}
+
+export default function MediaShowcase() {
+  return <RouteErrorBoundary><MediaShowcaseInner /></RouteErrorBoundary>;
 }

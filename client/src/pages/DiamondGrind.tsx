@@ -1,9 +1,10 @@
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 
-export default function DiamondGrind() {
+function DiamondGrindInner() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("programs");
   const [aiPrompt, setAiPrompt] = useState("");
@@ -200,4 +201,8 @@ export default function DiamondGrind() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function DiamondGrind() {
+  return <RouteErrorBoundary><DiamondGrindInner /></RouteErrorBoundary>;
 }

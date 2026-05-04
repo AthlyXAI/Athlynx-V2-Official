@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -112,7 +113,7 @@ const STATS = [
   { value: "32", label: "Pro Sports Leagues" },
 ];
 
-export default function AthleteJourney() {
+function AthleteJourneyInner() {
   const [activeStage, setActiveStage] = useState("highschool");
   const stage = STAGES.find(s => s.id === activeStage)!;
   const StageIcon = stage.icon;
@@ -291,4 +292,8 @@ export default function AthleteJourney() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function AthleteJourney() {
+  return <RouteErrorBoundary><AthleteJourneyInner /></RouteErrorBoundary>;
 }

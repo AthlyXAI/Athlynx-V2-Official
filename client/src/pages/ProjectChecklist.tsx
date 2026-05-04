@@ -104,7 +104,7 @@ const phases: Phase[] = [
   }
 ];
 
-export default function ProjectChecklist() {
+function ProjectChecklistInner() {
   const [expandedPhases, setExpandedPhases] = useState<string[]>(['foundation', 'navigation', 'email', 'diamond-grind']);
 
   const togglePhase = (phaseId: string) => {
@@ -297,4 +297,8 @@ export default function ProjectChecklist() {
       </div>
     </div>
   );
+}
+
+export default function ProjectChecklist() {
+  return <RouteErrorBoundary><ProjectChecklistInner /></RouteErrorBoundary>;
 }

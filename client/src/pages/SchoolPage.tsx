@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useParams } from "wouter";
@@ -262,7 +263,7 @@ const schoolNews: Record<string, Array<{
   ],
 };
 
-export default function SchoolPage() {
+function SchoolPageInner() {
   const params = useParams();
   const slug = params.slug as string || "alabama";
   const school = schoolData[slug] || schoolData["alabama"];
@@ -586,4 +587,8 @@ export default function SchoolPage() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function SchoolPage() {
+  return <RouteErrorBoundary><SchoolPageInner /></RouteErrorBoundary>;
 }

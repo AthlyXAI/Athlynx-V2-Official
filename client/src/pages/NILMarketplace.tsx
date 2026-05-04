@@ -7,8 +7,9 @@ import { Badge } from "@/components/ui/badge";
 import { Trophy, DollarSign, Search, Filter, TrendingUp, Users, Star, Building2, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Link } from "wouter";
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 
-export default function NILMarketplace() {
+function NILMarketplaceInner() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const nilDeals = [
@@ -395,4 +396,8 @@ export default function NILMarketplace() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function NILMarketplace() {
+  return <RouteErrorBoundary><NILMarketplaceInner /></RouteErrorBoundary>;
 }

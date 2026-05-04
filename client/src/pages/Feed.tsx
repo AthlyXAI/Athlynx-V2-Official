@@ -4,6 +4,7 @@
  */
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState, useRef } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { toast } from "sonner";
@@ -341,7 +342,7 @@ function PostCard({ post, currentUserId, currentUserAvatar, currentUserName }: {
 }
 
 // ─── MAIN FEED ────────────────────────────────────────────────────────────────
-export default function Feed() {
+function FeedInner() {
   const { user } = useAuth();
   const [postText, setPostText] = useState("");
   const [postType, setPostType] = useState<"status" | "achievement" | "workout" | "nil_deal" | "announcement" | "milestone">("status");
@@ -425,4 +426,8 @@ export default function Feed() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function Feed() {
+  return <RouteErrorBoundary><FeedInner /></RouteErrorBoundary>;
 }

@@ -4,6 +4,7 @@
  * Roster management, contract tracking, scouting, training, and brand deals.
  */
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
@@ -143,7 +144,7 @@ const STATS = [
   { value: "$135B", label: "Sports Tech TAM", sub: "by 2035 · 21.9% CAGR" },
 ];
 
-export default function ProTeams() {
+function ProTeamsInner() {
   const [activeLeague, setActiveLeague] = useState<string | null>(null);
 
   return (
@@ -332,4 +333,8 @@ export default function ProTeams() {
     </div>
     </PlatformLayout>
   );
+}
+
+export default function ProTeams() {
+  return <RouteErrorBoundary><ProTeamsInner /></RouteErrorBoundary>;
 }

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -220,7 +221,7 @@ const appCategories = [
   },
 ];
 
-export default function Portal() {
+function PortalInner() {
   const { user, isAuthenticated, loading: isLoading } = useAuth();
   const [, navigate] = useLocation();
   const [newPostContent, setNewPostContent] = useState("");
@@ -611,4 +612,8 @@ export default function Portal() {
       </main>
     </div>
   );
+}
+
+export default function Portal() {
+  return <RouteErrorBoundary><PortalInner /></RouteErrorBoundary>;
 }

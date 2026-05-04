@@ -125,7 +125,7 @@ const UPCOMING_GUESTS = [
   { name: "Sports Attorney", topic: "Contracts Every Athlete Should Understand", date: "August 2026" },
 ];
 
-export default function Podcast() {
+function PodcastInner() {
   const [playingEpisode, setPlayingEpisode] = useState<number | null>(null);
   const [expandedEpisode, setExpandedEpisode] = useState<number | null>(null);
 
@@ -424,4 +424,8 @@ export default function Podcast() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function Podcast() {
+  return <RouteErrorBoundary><PodcastInner /></RouteErrorBoundary>;
 }

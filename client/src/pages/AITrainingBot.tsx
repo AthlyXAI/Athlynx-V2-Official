@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useLocation } from "wouter";
@@ -22,7 +23,7 @@ const QUICK_PROMPTS = [
   "Create a social media content plan for this week",
 ];
 
-export default function AITrainingBot() {
+function AITrainingBotInner() {
   const meQuery = trpc.auth.me.useQuery(undefined, { retry: false, refetchOnWindowFocus: false });
   const historyQuery = trpc.ai.trainerHistory.useQuery(undefined, { retry: false, refetchOnWindowFocus: false });
   const [, navigate] = useLocation();
@@ -236,4 +237,8 @@ export default function AITrainingBot() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function AITrainingBot() {
+  return <RouteErrorBoundary><AITrainingBotInner /></RouteErrorBoundary>;
 }

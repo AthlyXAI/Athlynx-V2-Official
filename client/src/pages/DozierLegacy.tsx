@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 const CREST_URL = "/athlynx-icon.png";
 
-export default function DozierLegacy() {
+function DozierLegacyInner() {
   const [revealed, setRevealed] = useState(false);
   const [year] = useState(new Date().getFullYear());
 
@@ -311,4 +311,8 @@ export default function DozierLegacy() {
       }} />
     </div>
   );
+}
+
+export default function DozierLegacy() {
+  return <RouteErrorBoundary><DozierLegacyInner /></RouteErrorBoundary>;
 }

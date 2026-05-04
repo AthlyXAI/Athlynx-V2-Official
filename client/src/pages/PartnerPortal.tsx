@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useLocation } from "wouter";
@@ -36,7 +37,7 @@ interface Document {
   created_at: string;
 }
 
-export default function PartnerPortal() {
+function PartnerPortalInner() {
   const meQuery = trpc.auth.me.useQuery(undefined, { retry: false, refetchOnWindowFocus: false });
   const [, navigate] = useLocation();
   const logoutMutation = trpc.auth.logout.useMutation();
@@ -286,4 +287,8 @@ export default function PartnerPortal() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function PartnerPortal() {
+  return <RouteErrorBoundary><PartnerPortalInner /></RouteErrorBoundary>;
 }

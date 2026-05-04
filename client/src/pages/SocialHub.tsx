@@ -52,7 +52,7 @@ const BUSINESS_PLATFORMS = [
 
 const ALL_PLATFORMS = [...MESSAGING_PLATFORMS, ...SOCIAL_PLATFORMS, ...BUSINESS_PLATFORMS];
 
-export default function SocialHub() {
+function SocialHubInner() {
   const { toast } = useToast();
   const [message, setMessage] = useState('');
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(['email']);
@@ -338,4 +338,8 @@ export default function SocialHub() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function SocialHub() {
+  return <RouteErrorBoundary><SocialHubInner /></RouteErrorBoundary>;
 }

@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 
-export default function Music() {
+function MusicInner() {
   const [selectedGenre, setSelectedGenre] = useState("all");
   const [isPlaying, setIsPlaying] = useState<number | null>(null);
 
@@ -226,4 +227,8 @@ export default function Music() {
       </div>
     </div>
   );
+}
+
+export default function Music() {
+  return <RouteErrorBoundary><MusicInner /></RouteErrorBoundary>;
 }

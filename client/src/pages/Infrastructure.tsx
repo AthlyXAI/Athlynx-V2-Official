@@ -153,7 +153,7 @@ const TIMELINE = [
   },
 ];
 
-export default function Infrastructure() {
+function InfrastructureInner() {
   const [, setLocation] = useLocation();
 
   useEffect(() => {
@@ -357,4 +357,8 @@ export default function Infrastructure() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function Infrastructure() {
+  return <RouteErrorBoundary><InfrastructureInner /></RouteErrorBoundary>;
 }

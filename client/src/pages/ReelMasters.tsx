@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -19,7 +20,7 @@ const features = [
   { icon: "📹", title: "Catch & Share", desc: "Post your catches, share your spots (selectively), build your angler profile. Go viral in the fishing community." },
 ];
 
-export default function ReelMasters() {
+function ReelMastersInner() {
   const [activeTab, setActiveTab] = useState<"overview" | "tournaments" | "spots" | "gear">("overview");
 
   return (
@@ -222,4 +223,8 @@ export default function ReelMasters() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function ReelMasters() {
+  return <RouteErrorBoundary><ReelMastersInner /></RouteErrorBoundary>;
 }

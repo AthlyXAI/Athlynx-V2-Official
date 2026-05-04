@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -31,7 +32,7 @@ const statusLabels: Record<string, string> = {
   declined: "Declined",
 };
 
-export default function CommunityFeedback() {
+function CommunityFeedbackInner() {
   const { user } = useAuth();
   const [activeCategory, setActiveCategory] = useState("all");
   const [formData, setFormData] = useState({ title: "", category: "feature", description: "", sport: "", email: "" });
@@ -332,4 +333,8 @@ export default function CommunityFeedback() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function CommunityFeedback() {
+  return <RouteErrorBoundary><CommunityFeedbackInner /></RouteErrorBoundary>;
 }

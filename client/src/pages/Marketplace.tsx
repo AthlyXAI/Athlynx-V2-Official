@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -261,7 +262,7 @@ const PRODUCTS = [
   },
 ];
 
-export default function Marketplace() {
+function MarketplaceInner() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [search, setSearch] = useState("");
   const [quoteProduct, setQuoteProduct] = useState<typeof PRODUCTS[0] | null>(null);
@@ -639,4 +640,8 @@ function ProductCard({ product, onQuote, onBuy, buyLoading }: { product: typeof 
       </div>
     </div>
   );
+}
+
+export default function Marketplace() {
+  return <RouteErrorBoundary><MarketplaceInner /></RouteErrorBoundary>;
 }

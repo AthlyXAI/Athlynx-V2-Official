@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
@@ -24,7 +25,7 @@ const MESSAGE_TEMPLATES = [
   { label: "Maintenance", subject: "🔧 Scheduled Maintenance", body: "Scheduled maintenance tonight from 2–4 AM EST. The platform will be briefly unavailable. We apologize for any inconvenience." },
 ];
 
-export default function MasterAdmin() {
+function MasterAdminInner() {
   const { user } = useAuth();
   const { toast } = useToast();
   const [subject, setSubject] = useState("");
@@ -298,4 +299,8 @@ export default function MasterAdmin() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function MasterAdmin() {
+  return <RouteErrorBoundary><MasterAdminInner /></RouteErrorBoundary>;
 }

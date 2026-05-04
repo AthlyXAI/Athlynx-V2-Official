@@ -13,7 +13,7 @@ import {
   BarChart3, Target, Coins, Factory, Wind, Sun
 } from 'lucide-react';
 
-export default function BitcoinMining() {
+function BitcoinMiningInner() {
   const [activeTab, setActiveTab] = useState<'overview' | 'technology' | 'financials' | 'hardware'>('overview');
 
   const facilityStats = [
@@ -514,4 +514,8 @@ export default function BitcoinMining() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function BitcoinMining() {
+  return <RouteErrorBoundary><BitcoinMiningInner /></RouteErrorBoundary>;
 }

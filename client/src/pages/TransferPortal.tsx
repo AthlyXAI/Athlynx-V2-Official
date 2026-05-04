@@ -1,5 +1,6 @@
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { toast } from "sonner";
@@ -25,7 +26,7 @@ const RECRUITING_SCHOOLS = [
 
 const SPORTS = ["All", "Football", "Basketball", "Baseball", "Soccer", "Track & Field", "Swimming", "Tennis", "Volleyball", "Wrestling", "Golf", "Lacrosse", "Hockey", "Softball", "Cross Country", "Gymnastics", "Rugby", "Cricket", "Rowing", "Water Polo", "Field Hockey", "Cheerleading"];
 
-export default function TransferPortal() {
+function TransferPortalInner() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("athletes");
   const [sport, setSport] = useState("All");
@@ -358,4 +359,8 @@ export default function TransferPortal() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function TransferPortal() {
+  return <RouteErrorBoundary><TransferPortalInner /></RouteErrorBoundary>;
 }

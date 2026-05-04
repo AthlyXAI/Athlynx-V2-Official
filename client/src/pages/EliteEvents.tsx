@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import PlatformLayout from "@/components/PlatformLayout";
 import {
@@ -264,7 +265,7 @@ const CATEGORIES: (EventCategory | "All")[] = [
   "All", "7v7 Tournament", "Elite Camp", "All-Star Game", "Combine", "Showcase", "Tournament", "Invitational",
 ];
 
-export default function EliteEvents() {
+function EliteEventsInner() {
   const [sportFilter, setSportFilter] = useState<SportType | "All">("All");
   const [categoryFilter, setCategoryFilter] = useState<EventCategory | "All">("All");
   const [tierFilter, setTierFilter] = useState<"All" | "National" | "Regional" | "State">("All");
@@ -571,4 +572,8 @@ function EventCard({ event, featured }: { event: EliteEvent; featured?: boolean 
 // ── Plus icon for CTA ──
 function Plus({ className }: { className?: string }) {
   return <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" /></svg>;
+}
+
+export default function EliteEvents() {
+  return <RouteErrorBoundary><EliteEventsInner /></RouteErrorBoundary>;
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -33,7 +34,7 @@ const familyPhotos = [
   { src: "/img-founder-houston.jpg", caption: "Building Legacy" },
 ];
 
-export default function FounderStory() {
+function FounderStoryInner() {
   const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null);
 
   return (
@@ -404,4 +405,8 @@ export default function FounderStory() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function FounderStory() {
+  return <RouteErrorBoundary><FounderStoryInner /></RouteErrorBoundary>;
 }

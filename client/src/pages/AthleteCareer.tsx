@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import {
@@ -169,7 +170,7 @@ const STATS = [
   { value: "$0", label: "cost to start planning — the cost of not planning is everything" }
 ];
 
-export default function AthleteCareer() {
+function AthleteCareerInner() {
   const [activeTab, setActiveTab] = useState<"careers" | "mentors" | "resources">("careers");
 
   return (
@@ -334,4 +335,8 @@ export default function AthleteCareer() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function AthleteCareer() {
+  return <RouteErrorBoundary><AthleteCareerInner /></RouteErrorBoundary>;
 }

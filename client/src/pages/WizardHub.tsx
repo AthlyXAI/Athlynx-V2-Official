@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -154,7 +155,7 @@ function WizardCard({ wizard }: { wizard: typeof wizards[0] }) {
   );
 }
 
-export default function WizardHub() {
+function WizardHubInner() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-900 to-blue-950">
       {/* Header */}
@@ -331,4 +332,8 @@ export default function WizardHub() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function WizardHub() {
+  return <RouteErrorBoundary><WizardHubInner /></RouteErrorBoundary>;
 }

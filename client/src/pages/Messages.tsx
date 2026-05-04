@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import {
@@ -8,7 +9,7 @@ import {
 import { toast } from "sonner";
 import PlatformLayout from "@/components/PlatformLayout";
 
-export default function Messages() {
+function MessagesInner() {
   const { user } = useAuth();
   const [selectedConvId, setSelectedConvId] = useState<number | null>(null);
   const [messageText, setMessageText] = useState("");
@@ -279,4 +280,8 @@ export default function Messages() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function Messages() {
+  return <RouteErrorBoundary><MessagesInner /></RouteErrorBoundary>;
 }

@@ -6,6 +6,7 @@
  */
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Link } from "wouter";
@@ -352,7 +353,7 @@ function DealsTab({ user }: { user: any }) {
   );
 }
 
-export default function NILPortal() {
+function NILPortalInner() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("feed");
   return (
@@ -394,4 +395,8 @@ export default function NILPortal() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function NILPortal() {
+  return <RouteErrorBoundary><NILPortalInner /></RouteErrorBoundary>;
 }

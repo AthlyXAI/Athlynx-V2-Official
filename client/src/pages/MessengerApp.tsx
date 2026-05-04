@@ -1,5 +1,6 @@
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState, useRef, useEffect } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { subscribeToMessages, broadcastMessage, trackUserPresence } from "@/lib/supabase-realtime";
@@ -20,7 +21,7 @@ function initials(name: string) {
   return (name || "?").split(" ").map(w => w[0]).join("").slice(0, 2).toUpperCase();
 }
 
-export default function MessengerApp() {
+function MessengerAppInner() {
   const { user, loading: authLoading } = useAuth();
   const [activeConvoId, setActiveConvoId] = useState<number | null>(null);
   const [message, setMessage] = useState("");
@@ -299,4 +300,8 @@ export default function MessengerApp() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function MessengerApp() {
+  return <RouteErrorBoundary><MessengerAppInner /></RouteErrorBoundary>;
 }

@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 
-export default function Training() {
+function TrainingInner() {
   const [selectedCategory, setSelectedCategory] = useState("all");
 
   const categories = [
@@ -231,4 +232,8 @@ export default function Training() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function Training() {
+  return <RouteErrorBoundary><TrainingInner /></RouteErrorBoundary>;
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -226,7 +227,7 @@ function InvestorRequestGate({ onGranted }: { onGranted: () => void }) {
   );
 }
 
-export default function InvestorHub() {
+function InvestorHubInner() {
   const [activeTab, setActiveTab] = useState<"revenue" | "pl">("revenue");
   const [accessGranted, setAccessGranted] = useState(false);
   if (!accessGranted) return <InvestorRequestGate onGranted={() => setAccessGranted(true)} />;
@@ -748,4 +749,8 @@ export default function InvestorHub() {
       </div>
     </div>
   );
+}
+
+export default function InvestorHub() {
+  return <RouteErrorBoundary><InvestorHubInner /></RouteErrorBoundary>;
 }

@@ -9,7 +9,7 @@ import {
   isFirebaseConfigured,
 } from '@/lib/firebase'
 
-export default function SignIn() {
+function SignInInner() {
   const [, setLocation] = useLocation()
   const urlParams = new URLSearchParams(window.location.search)
   const existingAccount = urlParams.get('msg') === 'existing'
@@ -196,4 +196,8 @@ export default function SignIn() {
       </div>
     </div>
   )
+}
+
+export default function SignIn() {
+  return <RouteErrorBoundary><SignInInner /></RouteErrorBoundary>;
 }

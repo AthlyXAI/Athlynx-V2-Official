@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -56,7 +57,7 @@ const upcomingEvents = [
   { name: "Film Review Session", date: "Apr 22", type: "Training", status: "Upcoming" },
 ];
 
-export default function AthleteDashboard() {
+function AthleteDashboardInner() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<"overview" | "nil" | "recruiting" | "training">("overview");
 
@@ -360,4 +361,8 @@ export default function AthleteDashboard() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function AthleteDashboard() {
+  return <RouteErrorBoundary><AthleteDashboardInner /></RouteErrorBoundary>;
 }

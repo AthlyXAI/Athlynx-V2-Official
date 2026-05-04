@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, Redirect } from "wouter";
@@ -123,7 +124,7 @@ function AddContactModal({ onClose, onSuccess }: { onClose: () => void; onSucces
 }
 
 // ─── Main Component ───────────────────────────────────────────────────────────
-export default function AdminCRM() {
+function AdminCRMInner() {
   const { user, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState<"overview" | "contacts" | "pipeline" | "waitlist" | "activity" | "expiry" | "concreator">("overview");
   const [search, setSearch] = useState("");
@@ -1052,4 +1053,8 @@ export default function AdminCRM() {
       )}
     </div>
   );
+}
+
+export default function AdminCRM() {
+  return <RouteErrorBoundary><AdminCRMInner /></RouteErrorBoundary>;
 }

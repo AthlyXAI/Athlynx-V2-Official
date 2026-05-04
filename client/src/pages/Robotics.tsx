@@ -1,6 +1,7 @@
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { useState, useRef, useEffect } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 
@@ -224,7 +225,7 @@ function RobotChat({ user }: { user: any }) {
   );
 }
 
-export default function Robotics() {
+function RoboticsInner() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<"chat" | "usecases" | "integration">("chat");
 
@@ -376,4 +377,8 @@ export default function Robotics() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function Robotics() {
+  return <RouteErrorBoundary><RoboticsInner /></RouteErrorBoundary>;
 }

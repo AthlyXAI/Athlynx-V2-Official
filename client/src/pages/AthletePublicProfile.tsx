@@ -5,6 +5,7 @@
  * Clean, Instagram/Twitter-style layout.
  */
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useRoute } from "wouter";
@@ -25,7 +26,7 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }
   transferred: { label: "Transfer Portal", color: "text-yellow-400", bg: "bg-yellow-500/10 border-yellow-500/30" },
 };
 
-export default function AthletePublicProfile() {
+function AthletePublicProfileInner() {
   const [, params] = useRoute("/athlete/:id");
   const athleteId = params?.id ? parseInt(params.id) : 0;
   const { user } = useAuth();
@@ -449,4 +450,8 @@ export default function AthletePublicProfile() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function AthletePublicProfile() {
+  return <RouteErrorBoundary><AthletePublicProfileInner /></RouteErrorBoundary>;
 }

@@ -87,7 +87,7 @@ const TEAM = [
   { name: 'David Ford', role: 'Advisor', email: 'david.ford@aocmedicalllc.com' },
 ];
 
-export default function CommsHub() {
+function CommsHubInner() {
   const { toast } = useToast();
   const [message, setMessage] = useState('');
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>(['email']);
@@ -392,4 +392,8 @@ export default function CommsHub() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function CommsHub() {
+  return <RouteErrorBoundary><CommsHubInner /></RouteErrorBoundary>;
 }

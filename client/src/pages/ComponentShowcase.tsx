@@ -170,10 +170,11 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { toast as sonnerToast } from "sonner";
 import { AIChatBox, type Message } from "@/components/AIChatBox";
 
-export default function ComponentsShowcase() {
+function ComponentsShowcaseInner() {
   const { theme, toggleTheme } = useTheme();
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [datePickerDate, setDatePickerDate] = useState<Date>();
@@ -1434,4 +1435,8 @@ export default function ComponentsShowcase() {
       </footer>
     </div>
   );
+}
+
+export default function ComponentsShowcase() {
+  return <RouteErrorBoundary><ComponentsShowcaseInner /></RouteErrorBoundary>;
 }

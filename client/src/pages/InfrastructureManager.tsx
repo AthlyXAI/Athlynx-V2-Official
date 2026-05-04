@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { 
@@ -175,7 +176,7 @@ const defaultColocation = [
   },
 ];
 
-export default function InfrastructureManager() {
+function InfrastructureManagerInner() {
   const [activeTab, setActiveTab] = useState("overview");
   const [clusters, setClusters] = useState(() => loadOrDefault("athlynx_clusters", defaultClusters));
   const [jobs, setJobs] = useState(() => loadOrDefault("athlynx_jobs", defaultJobs));
@@ -1001,4 +1002,8 @@ export default function InfrastructureManager() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function InfrastructureManager() {
+  return <RouteErrorBoundary><InfrastructureManagerInner /></RouteErrorBoundary>;
 }

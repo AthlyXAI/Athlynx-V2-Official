@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { useLocation } from "wouter";
@@ -27,7 +28,7 @@ const FILTER_LABELS: Record<string, string> = {
   free: "Free Users",
 };
 
-export default function AdminBroadcast() {
+function AdminBroadcastInner() {
   const [, navigate] = useLocation();
   const { user } = useAuth();
 
@@ -260,4 +261,8 @@ export default function AdminBroadcast() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function AdminBroadcast() {
+  return <RouteErrorBoundary><AdminBroadcastInner /></RouteErrorBoundary>;
 }

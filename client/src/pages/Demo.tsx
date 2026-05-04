@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 
 const DEMO_VIDEO_URL = "https://pub-e4ffb4c8e08a4770a064090220a8e31d.r2.dev/videos/TJIQEsjoLVlddltc.mp4";
 const ATHLYNX_LOGO = "/athlynx-icon.png";
@@ -146,7 +147,7 @@ const FEATURES = [
   { icon: "🌍", label: "Social Hub", desc: "Community", href: "/social-hub" },
 ];
 
-export default function Demo() {
+function DemoInner() {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
@@ -435,4 +436,8 @@ export default function Demo() {
       </footer>
     </div>
   );
+}
+
+export default function Demo() {
+  return <RouteErrorBoundary><DemoInner /></RouteErrorBoundary>;
 }

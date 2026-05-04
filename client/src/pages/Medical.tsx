@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 
-export default function Medical() {
+function MedicalInner() {
   const [selectedService, setSelectedService] = useState("all");
 
   const services = [
@@ -207,4 +208,8 @@ export default function Medical() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function Medical() {
+  return <RouteErrorBoundary><MedicalInner /></RouteErrorBoundary>;
 }

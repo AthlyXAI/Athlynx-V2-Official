@@ -64,7 +64,7 @@ interface BrowserTab {
   url: string;
 }
 
-export default function AthlynxBrowser() {
+function AthlynxBrowserInner() {
   const { toast } = useToast();
   const [url, setUrl] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -416,4 +416,8 @@ export default function AthlynxBrowser() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function AthlynxBrowser() {
+  return <RouteErrorBoundary><AthlynxBrowserInner /></RouteErrorBoundary>;
 }

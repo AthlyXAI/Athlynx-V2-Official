@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import AIOnboarding from "@/components/AIOnboarding";
 
-export default function Onboarding() {
+function OnboardingInner() {
   const { isAuthenticated, loading: isLoading } = useAuth();
 
   useEffect(() => {
@@ -47,4 +47,8 @@ export default function Onboarding() {
       />
     </div>
   );
+}
+
+export default function Onboarding() {
+  return <RouteErrorBoundary><OnboardingInner /></RouteErrorBoundary>;
 }

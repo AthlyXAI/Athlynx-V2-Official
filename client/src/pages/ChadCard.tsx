@@ -4,6 +4,7 @@
  * Matches his dot.card style exactly
  */
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -82,7 +83,7 @@ const LINKS = [
   },
 ];
 
-export default function ChadCard() {
+function ChadCardInner() {
   const [copied, setCopied] = useState(false);
 
   const handleSaveContact = () => {
@@ -226,4 +227,8 @@ END:VCARD`;
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function ChadCard() {
+  return <RouteErrorBoundary><ChadCardInner /></RouteErrorBoundary>;
 }

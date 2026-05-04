@@ -1,9 +1,10 @@
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 
-export default function NILVault() {
+function NILVaultInner() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("documents");
 
@@ -121,4 +122,8 @@ export default function NILVault() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function NILVault() {
+  return <RouteErrorBoundary><NILVaultInner /></RouteErrorBoundary>;
 }

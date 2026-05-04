@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import { 
   Trophy, Target, Users, Zap, Star, Clock, 
@@ -217,7 +218,7 @@ const gameSchedule = [
   }
 ];
 
-export default function ProjectPlaybook() {
+function ProjectPlaybookInner() {
   const [activeTab, setActiveTab] = useState<"lineup" | "bench" | "farm" | "schedule">("lineup");
 
   return (
@@ -596,4 +597,8 @@ export default function ProjectPlaybook() {
       </div>
     </div>
   );
+}
+
+export default function ProjectPlaybook() {
+  return <RouteErrorBoundary><ProjectPlaybookInner /></RouteErrorBoundary>;
 }

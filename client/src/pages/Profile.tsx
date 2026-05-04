@@ -1,5 +1,6 @@
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState, useRef, useEffect } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Link } from "wouter";
@@ -451,7 +452,7 @@ function SocialTab() {
 }
 
 // ─── MAIN PROFILE COMPONENT ───────────────────────────────────────────────────
-export default function Profile() {
+function ProfileInner() {
   const { user, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState("posts");
   const [editMode, setEditMode] = useState(false);
@@ -835,4 +836,8 @@ export default function Profile() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function Profile() {
+  return <RouteErrorBoundary><ProfileInner /></RouteErrorBoundary>;
 }

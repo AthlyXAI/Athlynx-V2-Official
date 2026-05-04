@@ -1,9 +1,10 @@
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 
-export default function AIRecruiter() {
+function AIRecruiterInner() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<"optimize" | "email" | "advice">("optimize");
 
@@ -396,4 +397,8 @@ export default function AIRecruiter() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function AIRecruiter() {
+  return <RouteErrorBoundary><AIRecruiterInner /></RouteErrorBoundary>;
 }

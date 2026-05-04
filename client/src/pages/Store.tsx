@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -160,7 +161,7 @@ interface Product {
   isActive: string;
 }
 
-export default function Store() {
+function StoreInner() {
   const { user } = useAuth();
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [localCart, setLocalCart] = useState<LocalCartItem[]>([]);
@@ -791,4 +792,8 @@ export default function Store() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function Store() {
+  return <RouteErrorBoundary><StoreInner /></RouteErrorBoundary>;
 }

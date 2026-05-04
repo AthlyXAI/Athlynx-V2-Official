@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { trpc } from "@/lib/trpc";
@@ -30,7 +31,7 @@ function trialStatus(trialEndsAt: Date | null | undefined, hasSubscription: bool
   return { label: "Trial Expired", color: "bg-red-500/20 text-red-300 border-red-500/30" };
 }
 
-export default function AdminUsers() {
+function AdminUsersInner() {
   const { user, loading: authLoading } = useAuth();
   const [, navigate] = useLocation();
   const { toast } = useToast();
@@ -322,4 +323,8 @@ export default function AdminUsers() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function AdminUsers() {
+  return <RouteErrorBoundary><AdminUsersInner /></RouteErrorBoundary>;
 }

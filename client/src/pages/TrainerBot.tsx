@@ -1,5 +1,6 @@
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 
 const ROLES = [
   {
@@ -107,7 +108,7 @@ const STATS = [
   { value: "0", label: "Days Off" },
 ];
 
-export default function TrainerBot() {
+function TrainerBotInner() {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   return (
@@ -277,4 +278,8 @@ export default function TrainerBot() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function TrainerBot() {
+  return <RouteErrorBoundary><TrainerBotInner /></RouteErrorBoundary>;
 }

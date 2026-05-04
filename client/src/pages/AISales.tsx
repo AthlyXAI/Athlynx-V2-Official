@@ -1,9 +1,10 @@
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 
-export default function AISales() {
+function AISalesInner() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<"pitch" | "analyze" | "ratecard" | "outreach">("pitch");
 
@@ -481,4 +482,8 @@ Looking forward to building something great together.
       </div>
     </PlatformLayout>
   );
+}
+
+export default function AISales() {
+  return <RouteErrorBoundary><AISalesInner /></RouteErrorBoundary>;
 }

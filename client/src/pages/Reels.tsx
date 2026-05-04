@@ -4,6 +4,7 @@
  * Athletes post highlight reels, training clips, game film
  */
 import { useState, useRef, useEffect, useCallback } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -318,7 +319,7 @@ function ReelCard({
   );
 }
 
-export default function Reels() {
+function ReelsInner() {
   const [, setLocation] = useLocation();
   const { user } = useAuth();
   const [reels, setReels] = useState(SEED_REELS.map(r => ({ ...r })));
@@ -478,4 +479,8 @@ export default function Reels() {
       )}
     </div>
   );
+}
+
+export default function Reels() {
+  return <RouteErrorBoundary><ReelsInner /></RouteErrorBoundary>;
 }

@@ -267,7 +267,7 @@ const divisionGradients: Record<string, string> = {
   trading: "from-teal-900/40 to-cyan-900/20 border-teal-800/40",
 };
 
-export default function DHGEmpire() {
+function DHGEmpireInner() {
   const [activeDiv, setActiveDiv] = useState<Division>("all");
   const filtered = activeDiv === "all" ? COMPANIES : COMPANIES.filter(c => c.division === activeDiv);
   const activeCount = COMPANIES.filter(c => c.status === "active").length;
@@ -456,4 +456,8 @@ export default function DHGEmpire() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function DHGEmpire() {
+  return <RouteErrorBoundary><DHGEmpireInner /></RouteErrorBoundary>;
 }

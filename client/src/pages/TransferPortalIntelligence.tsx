@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,7 +24,7 @@ import {
   Download
 } from "lucide-react";
 
-export default function TransferPortalIntelligence() {
+function TransferPortalIntelligenceInner() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSport, setSelectedSport] = useState<string>("");
   const [selectedPosition, setSelectedPosition] = useState<string>("");
@@ -511,4 +512,8 @@ export default function TransferPortalIntelligence() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function TransferPortalIntelligence() {
+  return <RouteErrorBoundary><TransferPortalIntelligenceInner /></RouteErrorBoundary>;
 }

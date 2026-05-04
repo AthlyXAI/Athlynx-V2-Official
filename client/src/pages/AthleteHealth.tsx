@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import {
@@ -166,7 +167,7 @@ const MENTAL_HEALTH_STATS = [
   { stat: "0", desc: "stigma — mental health is physical health" }
 ];
 
-export default function AthleteHealth() {
+function AthleteHealthInner() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [activeTab, setActiveTab] = useState<"professionals" | "services" | "resources">("professionals");
 
@@ -366,4 +367,8 @@ export default function AthleteHealth() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function AthleteHealth() {
+  return <RouteErrorBoundary><AthleteHealthInner /></RouteErrorBoundary>;
 }

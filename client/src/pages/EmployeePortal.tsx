@@ -5,6 +5,7 @@
  * Access: Admin role only
  */
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -41,7 +42,7 @@ const FUNNEL_STAGES = [
   { stage: "Revenue", action: "Subscriptions + NIL commissions + ConCreator B2B", status: "✅ LIVE", color: "#00c2ff" },
 ];
 
-export default function EmployeePortal() {
+function EmployeePortalInner() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<"overview" | "team" | "funnel" | "ai">("overview");
   const [aiQuery, setAiQuery] = useState("");
@@ -271,4 +272,8 @@ export default function EmployeePortal() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function EmployeePortal() {
+  return <RouteErrorBoundary><EmployeePortalInner /></RouteErrorBoundary>;
 }

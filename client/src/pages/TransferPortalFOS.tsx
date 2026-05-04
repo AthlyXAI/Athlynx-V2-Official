@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -248,7 +249,7 @@ function SchoolCard({ school, data }: { school: string; data: typeof schoolActiv
   );
 }
 
-export default function TransferPortalFOS() {
+function TransferPortalFOSInner() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedConference, setSelectedConference] = useState("all");
 
@@ -454,4 +455,8 @@ export default function TransferPortalFOS() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function TransferPortalFOS() {
+  return <RouteErrorBoundary><TransferPortalFOSInner /></RouteErrorBoundary>;
 }

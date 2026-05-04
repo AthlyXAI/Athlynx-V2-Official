@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Button } from "@/components/ui/button";
@@ -35,7 +36,7 @@ import {
   Lock
 } from "lucide-react";
 
-export default function FuelBots() {
+function FuelBotsInner() {
   const [activeIndustry, setActiveIndustry] = useState("sports");
 
   const industries = [
@@ -682,4 +683,8 @@ export default function FuelBots() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function FuelBots() {
+  return <RouteErrorBoundary><FuelBotsInner /></RouteErrorBoundary>;
 }

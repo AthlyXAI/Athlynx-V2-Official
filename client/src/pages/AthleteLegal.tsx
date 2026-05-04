@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import {
@@ -142,7 +143,7 @@ const CONTRACT_CHECKLIST = [
   "NCAA eligibility compliance language"
 ];
 
-export default function AthleteLegal() {
+function AthleteLegalInner() {
   const [activeTab, setActiveTab] = useState<"attorneys" | "services" | "resources">("attorneys");
   const [stateSearch, setStateSearch] = useState("");
 
@@ -338,4 +339,8 @@ export default function AthleteLegal() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function AthleteLegal() {
+  return <RouteErrorBoundary><AthleteLegalInner /></RouteErrorBoundary>;
 }

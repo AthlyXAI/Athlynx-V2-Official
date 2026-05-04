@@ -1,10 +1,11 @@
 import { toast } from "sonner";
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 
-export default function AIContent() {
+function AIContentInner() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState<"caption" | "bio" | "plan" | "hashtags" | "tips">("caption");
   const [captionForm, setCaptionForm] = useState({ platform: "instagram" as "instagram"|"twitter"|"tiktok"|"linkedin", contentType: "highlight" as "highlight"|"training"|"gameday"|"nil_deal"|"motivation"|"recruiting", context: "", sport: "" });
@@ -292,4 +293,8 @@ export default function AIContent() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function AIContent() {
+  return <RouteErrorBoundary><AIContentInner /></RouteErrorBoundary>;
 }

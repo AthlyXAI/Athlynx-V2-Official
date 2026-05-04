@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -30,7 +31,7 @@ import {
   Crosshair
 } from "lucide-react";
 
-export default function HuntPro() {
+function HuntProInner() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSeason, setSelectedSeason] = useState("all");
 
@@ -479,4 +480,8 @@ export default function HuntPro() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function HuntPro() {
+  return <RouteErrorBoundary><HuntProInner /></RouteErrorBoundary>;
 }

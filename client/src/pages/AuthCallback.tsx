@@ -9,7 +9,7 @@ import { trpc } from '@/lib/trpc'
  * 1. Firebase redirect result (mobile iOS/Android after Google/social sign-in)
  * 2. Server OAuth callback (desktop)
  */
-export default function AuthCallback() {
+function AuthCallbackInner() {
   const [, setLocation] = useLocation()
   const [status, setStatus] = useState('Signing you in...')
 
@@ -80,4 +80,8 @@ export default function AuthCallback() {
       </div>
     </div>
   )
+}
+
+export default function AuthCallback() {
+  return <RouteErrorBoundary><AuthCallbackInner /></RouteErrorBoundary>;
 }

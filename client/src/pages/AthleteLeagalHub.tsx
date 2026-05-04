@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -81,7 +82,7 @@ const TIER_COLORS: Record<string, string> = {
   elite: "bg-red-900/30 text-red-400 border-red-700/40",
 };
 
-export default function AthleteLeagalHub() {
+function AthleteLeagalHubInner() {
   const [activeTab, setActiveTab] = useState<"contracts" | "agents" | "advisors" | "endorsements">("contracts");
   const [contractCategory, setContractCategory] = useState("all");
   const [search, setSearch] = useState("");
@@ -412,4 +413,8 @@ export default function AthleteLeagalHub() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function AthleteLeagalHub() {
+  return <RouteErrorBoundary><AthleteLeagalHubInner /></RouteErrorBoundary>;
 }

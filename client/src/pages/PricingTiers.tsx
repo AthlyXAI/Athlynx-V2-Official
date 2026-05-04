@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -26,7 +27,7 @@ import {
   Crown
 } from "lucide-react";
 
-export default function PricingTiers() {
+function PricingTiersInner() {
   const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
 
   const lifetimeTiers = [
@@ -468,4 +469,8 @@ export default function PricingTiers() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function PricingTiers() {
+  return <RouteErrorBoundary><PricingTiersInner /></RouteErrorBoundary>;
 }

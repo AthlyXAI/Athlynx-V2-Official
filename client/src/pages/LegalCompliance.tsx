@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,7 +30,7 @@ import {
   ExternalLink
 } from "lucide-react";
 
-export default function LegalCompliance() {
+function LegalComplianceInner() {
   const [activeSection, setActiveSection] = useState("overview");
 
   const complianceCertifications = [
@@ -674,4 +675,8 @@ export default function LegalCompliance() {
       <UnifiedFooter />
     </div>
   );
+}
+
+export default function LegalCompliance() {
+  return <RouteErrorBoundary><LegalComplianceInner /></RouteErrorBoundary>;
 }

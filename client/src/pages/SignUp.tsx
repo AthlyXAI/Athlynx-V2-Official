@@ -9,7 +9,7 @@ import {
   isFirebaseConfigured,
 } from '@/lib/firebase'
 
-export default function SignUp() {
+function SignUpInner() {
   const [, setLocation] = useLocation()
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
@@ -445,4 +445,8 @@ export default function SignUp() {
       </div>
     </div>
   )
+}
+
+export default function SignUp() {
+  return <RouteErrorBoundary><SignUpInner /></RouteErrorBoundary>;
 }

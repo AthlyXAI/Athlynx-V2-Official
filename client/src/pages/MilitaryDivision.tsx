@@ -2,8 +2,9 @@ import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 
-export default function MilitaryDivision() {
+function MilitaryDivisionInner() {
   const [activeTab, setActiveTab] = useState<"pipeline" | "support" | "mentorship">("pipeline");
 
   const marketStats = [
@@ -602,4 +603,8 @@ export default function MilitaryDivision() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function MilitaryDivision() {
+  return <RouteErrorBoundary><MilitaryDivisionInner /></RouteErrorBoundary>;
 }

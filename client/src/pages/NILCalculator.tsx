@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -59,7 +60,7 @@ const DIVISION_MULTIPLIERS: Record<string, number> = {
   "High School": 0.2,
 };
 
-export default function NILCalculator() {
+function NILCalculatorInner() {
   const [formData, setFormData] = useState({
     name: "",
     sport: "football",
@@ -496,4 +497,8 @@ export default function NILCalculator() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function NILCalculator() {
+  return <RouteErrorBoundary><NILCalculatorInner /></RouteErrorBoundary>;
 }

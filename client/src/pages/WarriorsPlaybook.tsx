@@ -1,9 +1,10 @@
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 
-export default function WarriorsPlaybook() {
+function WarriorsPlaybookInner() {
   const { user } = useAuth();
   const [activeTab, setActiveTab] = useState("playbook");
   const [strategyInput, setStrategyInput] = useState("");
@@ -221,4 +222,8 @@ export default function WarriorsPlaybook() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function WarriorsPlaybook() {
+  return <RouteErrorBoundary><WarriorsPlaybookInner /></RouteErrorBoundary>;
 }

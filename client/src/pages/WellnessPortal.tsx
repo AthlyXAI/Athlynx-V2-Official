@@ -13,7 +13,7 @@ import {
   GraduationCap, Briefcase, Stethoscope, Medal
 } from 'lucide-react';
 
-export default function WellnessPortal() {
+function WellnessPortalInner() {
   const [selectedAudience, setSelectedAudience] = useState<'athletes' | 'executives' | 'military' | 'medical'>('athletes');
 
   const audiences = [
@@ -261,4 +261,8 @@ export default function WellnessPortal() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function WellnessPortal() {
+  return <RouteErrorBoundary><WellnessPortalInner /></RouteErrorBoundary>;
 }

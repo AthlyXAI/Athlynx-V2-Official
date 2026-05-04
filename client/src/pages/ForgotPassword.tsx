@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
@@ -9,7 +10,7 @@ const CDN = "/athlynx-icon.png";
 
 type Step = "email" | "code" | "newPassword" | "done";
 
-export default function ForgotPassword() {
+function ForgotPasswordInner() {
   const [step, setStep] = useState<Step>("email");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
@@ -299,4 +300,8 @@ export default function ForgotPassword() {
       </div>
     </div>
   );
+}
+
+export default function ForgotPassword() {
+  return <RouteErrorBoundary><ForgotPasswordInner /></RouteErrorBoundary>;
 }

@@ -4,6 +4,7 @@
  * Clean, branded, easy — like Netflix/Spotify upgrade screens.
  */
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 
@@ -37,7 +38,7 @@ const PLANS = [
   },
 ];
 
-export default function TrialExpired() {
+function TrialExpiredInner() {
   const { user } = useAuth();
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState("");
@@ -168,4 +169,8 @@ export default function TrialExpired() {
       </p>
     </div>
   );
+}
+
+export default function TrialExpired() {
+  return <RouteErrorBoundary><TrialExpiredInner /></RouteErrorBoundary>;
 }

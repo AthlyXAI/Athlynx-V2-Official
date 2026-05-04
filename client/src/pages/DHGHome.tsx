@@ -2,13 +2,14 @@ import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { 
   Building2, Trophy, Users, Globe, TrendingUp, Shield, 
   Briefcase, Heart, Home, Zap, ChevronRight, Play,
   Star, Award, Target, Crown, Rocket
 } from "lucide-react";
 
-export default function DHGHome() {
+function DHGHomeInner() {
   const [activeTab, setActiveTab] = useState("overview");
 
   const stats = [
@@ -472,4 +473,8 @@ export default function DHGHome() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function DHGHome() {
+  return <RouteErrorBoundary><DHGHomeInner /></RouteErrorBoundary>;
 }

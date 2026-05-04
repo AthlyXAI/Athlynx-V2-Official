@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -7,7 +8,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import LoginButton from "@/components/LoginButton";
 
-export default function Dashboard() {
+function DashboardInner() {
   const { user, loading } = useAuth();
   const [activeTab, setActiveTab] = useState("overview");
   const [displayName, setDisplayName] = useState("");
@@ -1009,4 +1010,8 @@ export default function Dashboard() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function Dashboard() {
+  return <RouteErrorBoundary><DashboardInner /></RouteErrorBoundary>;
 }

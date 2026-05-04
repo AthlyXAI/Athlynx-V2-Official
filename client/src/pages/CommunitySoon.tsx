@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 
-export default function CommunitySoon() {
+function CommunitySoonInner() {
   const [email, setEmail] = useState("");
   const [joined, setJoined] = useState(false);
 
@@ -236,4 +237,8 @@ export default function CommunitySoon() {
       }} />
     </div>
   );
+}
+
+export default function CommunitySoon() {
+  return <RouteErrorBoundary><CommunitySoonInner /></RouteErrorBoundary>;
 }

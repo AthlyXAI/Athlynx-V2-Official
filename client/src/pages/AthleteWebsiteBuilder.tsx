@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -91,7 +92,7 @@ const DEFAULT_PROFILE: AthleteProfile = {
   profileImage: "",
 };
 
-export default function AthleteWebsiteBuilder() {
+function AthleteWebsiteBuilderInner() {
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [profile, setProfile] = useState<AthleteProfile>(DEFAULT_PROFILE);
   const [step, setStep] = useState<"templates" | "profile" | "preview">("templates");
@@ -661,4 +662,8 @@ export default function AthleteWebsiteBuilder() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function AthleteWebsiteBuilder() {
+  return <RouteErrorBoundary><AthleteWebsiteBuilderInner /></RouteErrorBoundary>;
 }

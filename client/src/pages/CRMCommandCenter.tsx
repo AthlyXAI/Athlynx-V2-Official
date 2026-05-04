@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useLocation } from "wouter";
@@ -61,7 +62,7 @@ interface Document {
   category: string;
 }
 
-export default function CRMCommandCenter() {
+function CRMCommandCenterInner() {
   const meQuery = trpc.auth.me.useQuery(undefined, { retry: false, refetchOnWindowFocus: false });
   const [, navigate] = useLocation();
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -1383,4 +1384,8 @@ function AthleteSitesModule() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function CRMCommandCenter() {
+  return <RouteErrorBoundary><CRMCommandCenterInner /></RouteErrorBoundary>;
 }

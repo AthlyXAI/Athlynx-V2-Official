@@ -6,6 +6,7 @@
  * Real DB events — add, edit, delete, share
  */
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -53,7 +54,7 @@ const QUICK_EVENT_TEMPLATES = [
   { type: "life" as EventType,        title: "Life Event — ", icon: "🌟", desc: "Personal milestone" },
 ];
 
-export default function AthleteCalendar() {
+function AthleteCalendarInner() {
   const { user } = useAuth();
   const today = new Date();
   const [currentMonth, setCurrentMonth] = useState(today.getMonth());
@@ -445,4 +446,8 @@ export default function AthleteCalendar() {
       )}
     </PlatformLayout>
   );
+}
+
+export default function AthleteCalendar() {
+  return <RouteErrorBoundary><AthleteCalendarInner /></RouteErrorBoundary>;
 }

@@ -9,7 +9,7 @@ import {
   signInWithTwitter,
 } from '@/lib/firebase'
 
-export default function EarlyAccess() {
+function EarlyAccessInner() {
   const [, setLocation] = useLocation()
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
@@ -364,4 +364,8 @@ export default function EarlyAccess() {
       </div>
     </div>
   )
+}
+
+export default function EarlyAccess() {
+  return <RouteErrorBoundary><EarlyAccessInner /></RouteErrorBoundary>;
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -22,7 +23,7 @@ const ACTION_PHOTOS = [
   "/img-athlete-soccer.jpg",
 ];
 
-export default function About() {
+function AboutInner() {
   const [photoIdx, setPhotoIdx] = useState(0);
   const [actionIdx, setActionIdx] = useState(0);
 
@@ -223,4 +224,8 @@ export default function About() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function About() {
+  return <RouteErrorBoundary><AboutInner /></RouteErrorBoundary>;
 }

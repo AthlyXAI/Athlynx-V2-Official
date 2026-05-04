@@ -50,7 +50,7 @@ const stats = [
   { value: '99.9%', label: 'Uptime Guarantee', icon: <Shield className="w-5 h-5" /> },
 ];
 
-export default function DHGCorporate() {
+function DHGCorporateInner() {
   const [filter, setFilter] = useState<Division>('all');
   const filteredSubs = filter === 'all' ? subsidiaries : subsidiaries.filter(s => s.division === filter);
   const divisionColors: Record<string, string> = {
@@ -276,4 +276,8 @@ export default function DHGCorporate() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function DHGCorporate() {
+  return <RouteErrorBoundary><DHGCorporateInner /></RouteErrorBoundary>;
 }

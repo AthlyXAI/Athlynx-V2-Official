@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
@@ -70,7 +71,7 @@ const SCRIPTURE_SECTIONS = [
 
 const CATEGORIES = ["All", "Purpose", "Resilience", "Leadership", "Character", "Wellness", "Impact"];
 
-export default function Faith() {
+function FaithInner() {
   const { user } = useAuth();
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState<"devotionals" | "prayer" | "verses" | "athletes">("devotionals");
@@ -305,4 +306,8 @@ export default function Faith() {
       </div>
     </PlatformLayout>
   );
+}
+
+export default function Faith() {
+  return <RouteErrorBoundary><FaithInner /></RouteErrorBoundary>;
 }

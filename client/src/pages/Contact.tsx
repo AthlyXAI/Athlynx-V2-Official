@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { Mail, MapPin, Linkedin, Send, CheckCircle, MessageCircle, Building2, Users, Briefcase, Calendar, ExternalLink } from "lucide-react";
@@ -22,7 +23,7 @@ const CHAD_CONTACT = {
   website: "https://athlynx.ai",
 };
 
-export default function Contact() {
+function ContactInner() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -392,4 +393,8 @@ export default function Contact() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function Contact() {
+  return <RouteErrorBoundary><ContactInner /></RouteErrorBoundary>;
 }

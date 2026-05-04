@@ -59,7 +59,7 @@ const whiteLabelApps = [
   { name: 'Military Athletes', sport: 'Veterans', icon: '' }
 ];
 
-export default function Softmor() {
+function SoftmorInner() {
   const { user } = useAuth();
   const { toast } = useToast();
   const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
@@ -392,4 +392,8 @@ export default function Softmor() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function Softmor() {
+  return <RouteErrorBoundary><SoftmorInner /></RouteErrorBoundary>;
 }

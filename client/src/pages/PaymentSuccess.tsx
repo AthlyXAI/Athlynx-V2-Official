@@ -10,7 +10,7 @@ import confetti from "canvas-confetti";
  * "Dreams Do Come True" - Chad Allen Dozier Sr.
  */
 
-export default function PaymentSuccess() {
+function PaymentSuccessInner() {
   const searchString = useSearch();
   const [sessionId, setSessionId] = useState<string | null>(null);
 
@@ -137,4 +137,8 @@ export default function PaymentSuccess() {
       </div>
     </div>
   );
+}
+
+export default function PaymentSuccess() {
+  return <RouteErrorBoundary><PaymentSuccessInner /></RouteErrorBoundary>;
 }

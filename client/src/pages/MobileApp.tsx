@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 
 const appFeatures = [
@@ -17,7 +18,7 @@ const screenshots = [
   { label: "Tournaments", bg: "from-blue-950 to-indigo-900" },
 ];
 
-export default function MobileApp() {
+function MobileAppInner() {
   const [email, setEmail] = useState("");
   const [platform, setPlatform] = useState<"ios" | "android">("ios");
   const [notified, setNotified] = useState(false);
@@ -352,4 +353,8 @@ export default function MobileApp() {
       </footer>
     </div>
   );
+}
+
+export default function MobileApp() {
+  return <RouteErrorBoundary><MobileAppInner /></RouteErrorBoundary>;
 }

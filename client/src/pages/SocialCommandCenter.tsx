@@ -6,6 +6,7 @@
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Link } from "wouter";
@@ -37,7 +38,7 @@ const POST_TEMPLATES = [
   "Iron Sharpens Iron — Proverbs 27:17",
 ];
 
-export default function SocialCommandCenter() {
+function SocialCommandCenterInner() {
   const { user } = useAuth();
   const [topic, setTopic] = useState("");
   const [tone, setTone] = useState<"professional" | "casual" | "hype" | "inspirational" | "educational">("professional");
@@ -322,4 +323,8 @@ export default function SocialCommandCenter() {
     </div>
     </PlatformLayout>
   );
+}
+
+export default function SocialCommandCenter() {
+  return <RouteErrorBoundary><SocialCommandCenterInner /></RouteErrorBoundary>;
 }

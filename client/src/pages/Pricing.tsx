@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
@@ -96,7 +97,7 @@ const FALLBACK_PLANS = [
   },
 ];
 
-export default function Pricing() {
+function PricingInner() {
   const [yearly, setYearly] = useState(false);
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
   const { user } = useAuth();
@@ -392,4 +393,8 @@ export default function Pricing() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function Pricing() {
+  return <RouteErrorBoundary><PricingInner /></RouteErrorBoundary>;
 }

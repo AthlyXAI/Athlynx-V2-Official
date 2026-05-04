@@ -4,6 +4,7 @@
  * Scouts, coaches, and brands use this to discover athletes.
  */
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
@@ -97,7 +98,7 @@ function AthleteCard({ athlete }: { athlete: any }) {
   );
 }
 
-export default function BrowseAthletes() {
+function BrowseAthletesInner() {
   const [search, setSearch] = useState("");
   const [selectedSport, setSelectedSport] = useState("All");
   const [selectedStatus, setSelectedStatus] = useState("all");
@@ -293,4 +294,8 @@ export default function BrowseAthletes() {
     </div>
     </PlatformLayout>
   );
+}
+
+export default function BrowseAthletes() {
+  return <RouteErrorBoundary><BrowseAthletesInner /></RouteErrorBoundary>;
 }

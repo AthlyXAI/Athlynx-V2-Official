@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useLocation } from "wouter";
@@ -40,7 +41,7 @@ interface CRMStats {
   lastUpdated: string;
 }
 
-export default function CRMDashboard() {
+function CRMDashboardInner() {
   const meQuery = trpc.auth.me.useQuery(undefined, { retry: false, refetchOnWindowFocus: false });
   const [, navigate] = useLocation();
   const logoutMutation = trpc.auth.logout.useMutation();
@@ -464,4 +465,8 @@ function MilestoneCard({ target, current, label, isRevenue = false }: { target: 
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function CRMDashboard() {
+  return <RouteErrorBoundary><CRMDashboardInner /></RouteErrorBoundary>;
 }

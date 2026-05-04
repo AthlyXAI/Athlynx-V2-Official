@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -57,7 +58,7 @@ const CAREER_LADDER = [
   { tier: "💎 Legend", range: "$100K+/mo", req: "Pro contract, national brand deals", color: "border-blue-400", active: false },
 ];
 
-export default function NILJobs() {
+function NILJobsInner() {
   const [activeTier, setActiveTier] = useState("all");
   const [activeTab, setActiveTab] = useState<"jobs" | "score" | "ladder" | "post">("jobs");
   const [searchQuery, setSearchQuery] = useState("");
@@ -340,4 +341,8 @@ export default function NILJobs() {
       <MobileBottomNav />
     </div>
   );
+}
+
+export default function NILJobs() {
+  return <RouteErrorBoundary><NILJobsInner /></RouteErrorBoundary>;
 }

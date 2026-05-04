@@ -187,7 +187,7 @@ const AWARDS = [
   { title: "Inc. 5000 — No. 733", year: "2025", category: "Fastest-Growing Private Companies", org: "Inc. Magazine" },
 ];
 
-export default function ICCUSAPartner() {
+function ICCUSAPartnerInner() {
   const [activeCategory, setActiveCategory] = useState("All");
   const categories = ["All", ...ICC_PRODUCTS.map(p => p.category)];
 
@@ -435,4 +435,8 @@ export default function ICCUSAPartner() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function ICCUSAPartner() {
+  return <RouteErrorBoundary><ICCUSAPartnerInner /></RouteErrorBoundary>;
 }

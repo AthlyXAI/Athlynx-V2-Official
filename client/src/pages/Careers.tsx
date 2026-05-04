@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
@@ -87,7 +88,7 @@ const benefits = [
   { icon: Heart, title: "Mission-Driven", desc: "Help athletes succeed beyond the game" },
 ];
 
-export default function Careers() {
+function CareersInner() {
   const [selectedJob, setSelectedJob] = useState<typeof dhgJobs[0] | null>(null);
   const [showApplication, setShowApplication] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -392,4 +393,8 @@ export default function Careers() {
     <MobileBottomNav />
     </div>
   );
+}
+
+export default function Careers() {
+  return <RouteErrorBoundary><CareersInner /></RouteErrorBoundary>;
 }
