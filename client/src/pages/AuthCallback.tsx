@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'wouter'
 import { handleRedirectResult } from '@/lib/firebase'
 import { trpc } from '@/lib/trpc'
+import { RouteErrorBoundary } from '@/components/GlobalErrorBoundary'
 
 /**
  * ATHLYNXAI — Auth Callback Handler
@@ -27,17 +28,48 @@ function AuthCallbackInner() {
   })
 
   useEffect(() => {
+    // Retry helper — 1 automatic retry with 2s delay for DB cold-starts
+    async function doSync(payload: {
+      idToken: string
+      name: string
+      email: string
+      picture?: string
+      phone?: string
+    }, attempt = 1): Promise<void> {
+      try {
+        await syncFirebaseMutation.mutateAsync(payload)
+      } catch (err: any) {
+        if (attempt < 2) {
+          console.warn(`[AuthCallback] Sync attempt ${attempt} failed — retrying in 2s...`, err?.message)
+          setStatus('Almost there...')
+          await new Promise(r => setTimeout(r, 2000))
+          return doSync(payload, attempt + 1)
+        }
+        // Both attempts failed — CRITICAL log for Vercel function logs
+        console.error(`[AuthCallback] CRITICAL: Both sync attempts failed for email=${payload.email}`, err)
+        setStatus('Sign-in error. Redirecting...')
+        setTimeout(() => { setLocation('/signin') }, 2000)
+      }
+    }
+
     async function handleCallback() {
       try {
         // Try to get Firebase redirect result (mobile flow)
         const result = await handleRedirectResult()
         if (result) {
           setStatus('Completing sign-in...')
-          syncFirebaseMutation.mutate({
+          // Extract phone_number from ID token claims if present
+          let phone: string | undefined
+          try {
+            const tokenPayload = JSON.parse(atob(result.idToken.split('.')[1]))
+            phone = tokenPayload?.phone_number || tokenPayload?.phone || undefined
+          } catch { /* non-critical */ }
+          await doSync({
             idToken: result.idToken,
             name: result.user.displayName ?? '',
             email: result.user.email ?? '',
             picture: result.user.photoURL ?? undefined,
+            phone,
           })
           return
         }

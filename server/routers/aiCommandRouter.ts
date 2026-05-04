@@ -13,11 +13,14 @@
  */
 
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { router, protectedProcedure, adminProcedure } from "../_core/trpc";
 import OpenAI from "openai";
+import { getDb } from "../db";
+import { users, creditTransactions } from "../../drizzle/schema";
+import { eq, sql } from "drizzle-orm";
 
 // Gemini via OpenAI SDK (per Master Reference — always use this, not direct API)
-// API Key: AIzaSyCrriagmLHcCwzqBkt5VBH2A4UyPTI7ydg | Project: 752093847574
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "AIzaSyCrriagmLHcCwzqBkt5VBH2A4UyPTI7ydg";
 const gemini = new OpenAI({
   apiKey: GEMINI_API_KEY,
@@ -26,11 +29,49 @@ const gemini = new OpenAI({
 
 // All Gemini models available
 const GEMINI_MODELS = {
-  flash:   "gemini-2.5-flash",   // Fast, cost-efficient — default for all operations
-  pro:     "gemini-2.5-pro",     // Most capable — for complex reasoning
-  flash15: "gemini-1.5-flash",   // Fallback
-  vision:  "gemini-2.5-flash",   // Vision/multimodal (same model, pass image in content)
+  flash:   "gemini-2.5-flash",
+  pro:     "gemini-2.5-pro",
+  flash15: "gemini-1.5-flash",
+  vision:  "gemini-2.5-flash",
 } as const;
+
+// ── Credit costs for AI Command actions ────────────────────────────────────
+const CMD_CREDIT_COSTS: Record<string, number> = {
+  query:              5,   // Universal AI query
+  generateSocialPost: 5,   // Social post generation
+  captureLead:        2,   // Lead capture (low cost — drives signups)
+  analyzeImage:       8,   // Vision analysis
+};
+
+/**
+ * Deduct credits for an AI Command action.
+ * Throws FORBIDDEN if balance is insufficient.
+ * Writes audit row to credit_transactions (non-blocking).
+ */
+async function deductCommandCredits(userId: number, action: string): Promise<void> {
+  const cost = CMD_CREDIT_COSTS[action] ?? 5;
+  const db = await getDb();
+  if (!db) return; // DB unavailable — allow action, log warning
+  const [user] = await db.select({ credits: users.credits }).from(users).where(eq(users.id, userId)).limit(1);
+  if (!user) return;
+  if ((user.credits ?? 0) < cost) {
+    throw new TRPCError({
+      code: "FORBIDDEN",
+      message: `Insufficient credits. This action costs ${cost} credits. You have ${user.credits ?? 0} credits. Purchase more at athlynx.ai/billing.`,
+    });
+  }
+  await db.update(users).set({ credits: sql`${users.credits} - ${cost}` }).where(eq(users.id, userId));
+  const balanceAfter = (user.credits ?? 0) - cost;
+  // Audit log — non-blocking
+  db.insert(creditTransactions).values({
+    userId,
+    type: "deduction",
+    amount: -cost,
+    balanceAfter,
+    description: `AI Command: ${action}`,
+    aiAction: action,
+  }).catch((e: unknown) => console.warn(`[Credits] Audit log failed for ${action}:`, String(e)));
+}
 
 // ── SYSTEM PROMPT: The DHG AI Brain ────────────────────────────────────────
 const DHG_SYSTEM_PROMPT = `You are the ATHLYNX AI — the autonomous intelligence layer of the Dozier Holdings Group empire.
@@ -63,15 +104,17 @@ export const aiCommandRouter = router({
 
   /**
    * Universal AI Query — runs any command through Gemini
-   * Works from phone, laptop, anywhere in the world
+   * Costs 5 credits per query
    */
   query: protectedProcedure
     .input(z.object({
       message:  z.string().min(1).max(4000),
-      context:  z.string().optional(), // page context (crm, feed, profile, etc.)
+      context:  z.string().optional(),
       history:  z.array(z.object({ role: z.enum(["user", "assistant"]), content: z.string() })).optional(),
     }))
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      await deductCommandCredits(ctx.user!.id, "query");
+
       const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [
         { role: "system", content: DHG_SYSTEM_PROMPT },
         ...(input.history ?? []),
@@ -93,8 +136,7 @@ export const aiCommandRouter = router({
     }),
 
   /**
-   * Auto-Enrich Contact — AI pulls intelligence on any company/person
-   * Beats ZoomInfo: runs automatically when a new CRM contact is added
+   * Auto-Enrich Contact — admin only, no credit cost
    */
   enrichContact: adminProcedure
     .input(z.object({
@@ -135,8 +177,7 @@ Be concise. Real data only.`;
     }),
 
   /**
-   * Auto-Generate Proposal — creates a ConCreator™ or ATHLYNX proposal
-   * One tap from the CRM → professional proposal ready to send
+   * Auto-Generate Proposal — admin only, no credit cost
    */
   generateProposal: adminProcedure
     .input(z.object({
@@ -187,8 +228,7 @@ Requirements:
     }),
 
   /**
-   * Auto-Generate Social Post — creates platform-optimized posts
-   * Runs via Buffer to all 10 channels automatically
+   * Auto-Generate Social Post — costs 5 credits
    */
   generateSocialPost: protectedProcedure
     .input(z.object({
@@ -196,7 +236,9 @@ Requirements:
       platform: z.enum(["instagram", "linkedin", "twitter", "facebook", "tiktok", "all"]),
       tone:     z.enum(["motivational", "professional", "hype", "educational"]).default("motivational"),
     }))
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      await deductCommandCredits(ctx.user!.id, "generateSocialPost");
+
       const platformGuidelines = {
         instagram: "Instagram: 2200 chars max, 5-10 hashtags, visual storytelling, athlete-focused",
         linkedin:  "LinkedIn: Professional, thought leadership, business value, no hashtag spam",
@@ -231,8 +273,7 @@ Always end with: #ATHLYNX #TheAthletesPlaybook #DreamsDoComeTrue`;
     }),
 
   /**
-   * Daily Intelligence Report — auto-runs at 8 AM CST
-   * Covers: new signups, revenue, ConCreator clients, social performance
+   * Daily Intelligence Report — admin only, no credit cost
    */
   generateDailyReport: adminProcedure
     .input(z.object({
@@ -271,8 +312,7 @@ Tone: direct, no fluff, results-focused.`;
     }),
 
   /**
-   * Reverse Funnel Capture — called when any visitor hits a page
-   * Auto-routes to CRM, triggers follow-up sequence
+   * Reverse Funnel Capture — costs 2 credits (drives signups)
    */
   captureLead: protectedProcedure
     .input(z.object({
@@ -281,11 +321,12 @@ Tone: direct, no fluff, results-focused.`;
       phone:   z.string().optional(),
       sport:   z.string().optional(),
       school:  z.string().optional(),
-      source:  z.string(), // which page/app they came from
+      source:  z.string(),
       role:    z.string().default("Athlete"),
     }))
-    .mutation(async ({ input }) => {
-      // Generate personalized follow-up using Gemini
+    .mutation(async ({ input, ctx }) => {
+      await deductCommandCredits(ctx.user!.id, "captureLead");
+
       const followUpPrompt = `Write a brief, personalized welcome message for:
 Name: ${input.name ?? "Athlete"}
 Sport: ${input.sport ?? "Unknown"}
@@ -313,8 +354,7 @@ Sign as: The ATHLYNX Team`;
     }),
 
   /**
-   * Auto-Match NIL Deals — Gemini matches athletes to brands automatically
-   * Runs when a new brand enters the NIL Portal or a new athlete signs up
+   * Auto-Match NIL Deals — admin only, no credit cost
    */
   autoMatchNIL: adminProcedure
     .input(z.object({
@@ -360,8 +400,7 @@ Be specific and actionable. This is real money for a real athlete.`;
     }),
 
   /**
-   * Employee Task Assignment — Gemini assigns tasks to team members via Jira
-   * Every platform event auto-creates a Jira issue for the right team member
+   * Employee Task Assignment — admin only, no credit cost
    */
   assignEmployeeTask: adminProcedure
     .input(z.object({
@@ -371,7 +410,6 @@ Be specific and actionable. This is real money for a real athlete.`;
       assignee:    z.enum(["chad", "glenn", "andy", "lee", "jimmy", "auto"]).default("auto"),
     }))
     .mutation(async ({ input }) => {
-      // Gemini determines the best assignee and writes the Jira issue
       const assigneeMap = {
         chad:  "cdozier14@athlynx.ai",
         glenn: "gtse@athlynx.ai",
@@ -412,8 +450,7 @@ Provide:
     }),
 
   /**
-   * Full Funnel Analysis — Gemini analyzes the entire user journey
-   * Shows where users drop off and what to fix
+   * Full Funnel Analysis — admin only, no credit cost
    */
   analyzeFunnel: adminProcedure
     .input(z.object({
@@ -463,8 +500,7 @@ Provide:
     }),
 
   /**
-   * Gemini Vision — analyze images (athlete photos, highlight reels, documents)
-   * Used for profile verification, NIL deal document analysis, scouting
+   * Gemini Vision — analyze images — costs 8 credits
    */
   analyzeImage: protectedProcedure
     .input(z.object({
@@ -472,7 +508,9 @@ Provide:
       task:      z.enum(["profile_verify", "document_analyze", "highlight_analyze", "brand_logo", "general"]),
       context:   z.string().optional(),
     }))
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
+      await deductCommandCredits(ctx.user!.id, "analyzeImage");
+
       const taskPrompts = {
         profile_verify:    "Verify this is a real athlete profile photo. Check: Is it a real person? Professional quality? Appropriate for a sports platform?",
         document_analyze:  "Analyze this document. Extract key terms, dates, dollar amounts, and parties involved. Flag any concerning clauses.",
