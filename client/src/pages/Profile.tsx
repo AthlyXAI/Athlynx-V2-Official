@@ -1,8 +1,5 @@
 import PlatformLayout from "@/components/PlatformLayout";
 import { useState, useRef, useEffect } from "react";
-import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
-import SportStatsEditor from "@/components/SportStatsEditor";
-import VideoUploadHub from "@/components/VideoUploadHub";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Link } from "wouter";
@@ -454,7 +451,7 @@ function SocialTab() {
 }
 
 // ─── MAIN PROFILE COMPONENT ───────────────────────────────────────────────────
-function ProfileInner() {
+export default function Profile() {
   const { user, loading: authLoading } = useAuth();
   const [activeTab, setActiveTab] = useState("posts");
   const [editMode, setEditMode] = useState(false);
@@ -512,14 +509,17 @@ function ProfileInner() {
   };
 
   const handleEditSave = () => {
-    // Save ALL sport stats fields — every key in editForm that isn't a core profile field
-    const CORE_FIELDS = new Set(["sport","position","school","bio","height","weight","gpa","instagram","twitter","tiktokHandle","linkedinUrl","youtubeUrl","facebookUrl","hudlUrl"]);
-    const sportStats: any = {};
-    Object.entries(editForm).forEach(([key, value]) => {
-      if (!CORE_FIELDS.has(key) && value) {
-        sportStats[key] = value;
-      }
-    });
+    // Collect universal stats from editForm
+    const sportStats: any = { ...(profile?.sportStats as any || {}) };
+    if (editForm.fortyYardDash) sportStats.fortyYardDash = editForm.fortyYardDash;
+    if (editForm.verticalLeap) sportStats.verticalLeap = editForm.verticalLeap;
+    if (editForm.benchPress) sportStats.benchPress = editForm.benchPress;
+    if (editForm.height) sportStats.height = editForm.height;
+    if (editForm.gpa) sportStats.gpa = Number(editForm.gpa);
+    // Merge any sport-specific stats that were set via the sport-specific inputs
+    if ((editForm as any).sportStats) {
+      Object.assign(sportStats, (editForm as any).sportStats);
+    }
     updateProfileMutation.mutate({
       sport: editForm.sport || undefined, position: editForm.position || undefined,
       school: editForm.school || undefined, bio: editForm.bio || undefined,
@@ -538,7 +538,6 @@ function ProfileInner() {
 
   const TABS = [
     { id: "posts", label: "Posts" },
-    { id: "videos", label: "🎥 Videos" },
     { id: "stats", label: "Stats" },
     { id: "nil", label: "NIL" },
     { id: "trainer", label: "🤖 AI Trainer" },
@@ -646,8 +645,147 @@ function ProfileInner() {
                     placeholder="Tell your story..." rows={2}
                     className="w-full bg-[#0d1f3c] border border-blue-800 text-white text-sm rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500 placeholder-blue-600 resize-none" />
                 </div>
-                {/* Sport-Specific Stats — All 20+ Sports */}
-                <SportStatsEditor sport={editForm.sport} editForm={editForm} setEditForm={setEditForm} />
+                {/* Sport-Specific Stats — All 10 Sports */}
+                <div className="bg-[#0d1f3c] border border-blue-800 rounded-xl p-3">
+                  <div className="text-white font-bold text-xs mb-2">⚡ Sport Stats (visible to coaches on your recruiting profile)</div>
+                  {/* Universal Athletic Stats */}
+                  <div className="text-blue-500 text-[10px] mb-1 uppercase tracking-wider">Universal</div>
+                  <div className="grid grid-cols-2 gap-2 mb-3">
+                    {[
+                      { label: "40-Yd Dash", key: "fortyYardDash", placeholder: "4.62" },
+                      { label: "Vertical Leap", key: "verticalLeap", placeholder: "36\"" },
+                      { label: "Bench Press", key: "benchPress", placeholder: "225 lbs" },
+                      { label: "GPA", key: "gpa", placeholder: "3.6" },
+                    ].map(f => (
+                      <div key={f.key}>
+                        <label className="text-blue-400 text-[10px] mb-1 block">{f.label}</label>
+                        <input value={(editForm as any)[f.key] ?? (profile?.sportStats as any)?.[f.key] ?? ""}
+                          onChange={e => setEditForm(p => ({ ...p, [f.key]: e.target.value }))}
+                          placeholder={f.placeholder}
+                          className="w-full bg-[#1a3a8f] border border-blue-700 text-white text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue-500 placeholder-blue-600" />
+                      </div>
+                    ))}
+                  </div>
+                  {/* Football */}
+                  {(editForm.sport?.toLowerCase().includes("football") || !editForm.sport) && (
+                    <>
+                      <div className="text-red-400 text-[10px] mb-1 uppercase tracking-wider">Football</div>
+                      <div className="grid grid-cols-2 gap-2 mb-3">
+                        {[
+                          { label: "QB Rating", key: "qbRating", placeholder: "105.6" },
+                          { label: "Passing Yards", key: "passingYards", placeholder: "2,847" },
+                          { label: "Touchdowns", key: "touchdowns", placeholder: "28" },
+                          { label: "Rushing Yards", key: "rushingYards", placeholder: "876" },
+                          { label: "Receiving Yards", key: "receivingYards", placeholder: "1,204" },
+                          { label: "Sacks", key: "sacks", placeholder: "9.5" },
+                        ].map(f => (
+                          <div key={f.key}>
+                            <label className="text-blue-400 text-[10px] mb-1 block">{f.label}</label>
+                            <input value={(profile?.sportStats as any)?.[f.key] ?? ""}
+                              onChange={e => { const s = { ...(profile?.sportStats as any || {}), [f.key]: e.target.value }; setEditForm(p => ({ ...p, sportStats: s } as any)); }}
+                              placeholder={f.placeholder}
+                              className="w-full bg-[#1a3a8f] border border-blue-700 text-white text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue-500 placeholder-blue-600" />
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                  {/* Baseball */}
+                  {editForm.sport?.toLowerCase().includes("baseball") && (
+                    <>
+                      <div className="text-red-400 text-[10px] mb-1 uppercase tracking-wider">Baseball</div>
+                      <div className="grid grid-cols-2 gap-2 mb-3">
+                        {[
+                          { label: "ERA", key: "era", placeholder: "2.45" },
+                          { label: "Batting Avg", key: "battingAvg", placeholder: ".342" },
+                          { label: "Home Runs", key: "homeRuns", placeholder: "12" },
+                          { label: "RBI", key: "rbi", placeholder: "48" },
+                          { label: "Fastball (mph)", key: "fastballMph", placeholder: "88" },
+                          { label: "60-Yd Dash", key: "sixtyYardDash", placeholder: "6.8" },
+                        ].map(f => (
+                          <div key={f.key}>
+                            <label className="text-blue-400 text-[10px] mb-1 block">{f.label}</label>
+                            <input value={(profile?.sportStats as any)?.[f.key] ?? ""}
+                              onChange={e => { const s = { ...(profile?.sportStats as any || {}), [f.key]: e.target.value }; setEditForm(p => ({ ...p, sportStats: s } as any)); }}
+                              placeholder={f.placeholder}
+                              className="w-full bg-[#1a3a8f] border border-blue-700 text-white text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue-500 placeholder-blue-600" />
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                  {/* Basketball */}
+                  {editForm.sport?.toLowerCase().includes("basketball") && (
+                    <>
+                      <div className="text-red-400 text-[10px] mb-1 uppercase tracking-wider">Basketball</div>
+                      <div className="grid grid-cols-2 gap-2 mb-3">
+                        {[
+                          { label: "PPG", key: "ppg", placeholder: "22.4" },
+                          { label: "RPG", key: "rpg", placeholder: "8.1" },
+                          { label: "APG", key: "apg", placeholder: "5.3" },
+                          { label: "FG %", key: "fgPct", placeholder: "48.2%" },
+                          { label: "3PT %", key: "threePtPct", placeholder: "36.5%" },
+                          { label: "FT %", key: "ftPct", placeholder: "82.1%" },
+                        ].map(f => (
+                          <div key={f.key}>
+                            <label className="text-blue-400 text-[10px] mb-1 block">{f.label}</label>
+                            <input value={(profile?.sportStats as any)?.[f.key] ?? ""}
+                              onChange={e => { const s = { ...(profile?.sportStats as any || {}), [f.key]: e.target.value }; setEditForm(p => ({ ...p, sportStats: s } as any)); }}
+                              placeholder={f.placeholder}
+                              className="w-full bg-[#1a3a8f] border border-blue-700 text-white text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue-500 placeholder-blue-600" />
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                  {/* Soccer */}
+                  {editForm.sport?.toLowerCase().includes("soccer") && (
+                    <>
+                      <div className="text-red-400 text-[10px] mb-1 uppercase tracking-wider">Soccer</div>
+                      <div className="grid grid-cols-2 gap-2 mb-3">
+                        {[
+                          { label: "Goals", key: "goals", placeholder: "18" },
+                          { label: "Assists", key: "assists", placeholder: "12" },
+                          { label: "Saves (GK)", key: "saves", placeholder: "64" },
+                          { label: "Clean Sheets", key: "cleanSheets", placeholder: "8" },
+                        ].map(f => (
+                          <div key={f.key}>
+                            <label className="text-blue-400 text-[10px] mb-1 block">{f.label}</label>
+                            <input value={(profile?.sportStats as any)?.[f.key] ?? ""}
+                              onChange={e => { const s = { ...(profile?.sportStats as any || {}), [f.key]: e.target.value }; setEditForm(p => ({ ...p, sportStats: s } as any)); }}
+                              placeholder={f.placeholder}
+                              className="w-full bg-[#1a3a8f] border border-blue-700 text-white text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue-500 placeholder-blue-600" />
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                  {/* Track & Field */}
+                  {(editForm.sport?.toLowerCase().includes("track") || editForm.sport?.toLowerCase().includes("field")) && (
+                    <>
+                      <div className="text-red-400 text-[10px] mb-1 uppercase tracking-wider">Track & Field</div>
+                      <div className="grid grid-cols-2 gap-2 mb-3">
+                        {[
+                          { label: "100m", key: "time100m", placeholder: "10.87" },
+                          { label: "200m", key: "time200m", placeholder: "21.4" },
+                          { label: "400m", key: "time400m", placeholder: "46.2" },
+                          { label: "Mile", key: "timeMile", placeholder: "4:12" },
+                          { label: "Long Jump", key: "longJump", placeholder: "24'3\"" },
+                          { label: "Shot Put", key: "shotPut", placeholder: "52'6\"" },
+                        ].map(f => (
+                          <div key={f.key}>
+                            <label className="text-blue-400 text-[10px] mb-1 block">{f.label}</label>
+                            <input value={(profile?.sportStats as any)?.[f.key] ?? ""}
+                              onChange={e => { const s = { ...(profile?.sportStats as any || {}), [f.key]: e.target.value }; setEditForm(p => ({ ...p, sportStats: s } as any)); }}
+                              placeholder={f.placeholder}
+                              className="w-full bg-[#1a3a8f] border border-blue-700 text-white text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:border-blue-500 placeholder-blue-600" />
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                  <div className="text-blue-600 text-[10px] mt-1">Select your sport above to see sport-specific stat fields</div>
+                </div>
                 {/* Social URLs */}
                 <div className="bg-[#0d1f3c] border border-blue-800 rounded-xl p-3">
                   <div className="text-white font-bold text-xs mb-2">🌐 Social Profiles (reverse funnel)</div>
@@ -738,18 +876,10 @@ function ProfileInner() {
           </div>
         )}
 
-        {/* Videos Tab */}
-        {activeTab === "videos" && (
-          <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-4">
-            <VideoUploadHub userId={Number(user?.id ?? 0)} readOnly={false} />
-          </div>
-        )}
-
         {/* Stats Tab */}
         {activeTab === "stats" && (
-          <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-4 space-y-4">
-            <h3 className="text-white font-bold">Athlete Stats</h3>
-            {/* Core stats */}
+          <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-4">
+            <h3 className="text-white font-bold mb-3">Athlete Stats</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {[
                 { label: "Sport", value: sport }, { label: "Position", value: position },
@@ -764,32 +894,6 @@ function ProfileInner() {
                 </div>
               ))}
             </div>
-            {/* Sport-specific stats from DB */}
-            {(profile as any)?.sportStats && Object.keys((profile as any).sportStats).length > 0 && (
-              <div>
-                <div className="text-white font-black text-sm mb-2 flex items-center gap-2">
-                  <span className="text-yellow-400">⚡</span> {sport} Stats
-                </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {Object.entries((profile as any).sportStats as Record<string, any>)
-                    .filter(([_, v]) => v)
-                    .map(([key, value]) => (
-                      <div key={key} className="bg-[#0d1b3e] border border-blue-800/50 rounded-xl p-2.5 text-center">
-                        <div className="text-blue-300 font-black text-sm truncate">{String(value)}</div>
-                        <div className="text-blue-600 text-[10px] mt-0.5 truncate">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
-                      </div>
-                    ))}
-                </div>
-              </div>
-            )}
-            {!((profile as any)?.sportStats) || Object.keys((profile as any)?.sportStats || {}).length === 0 ? (
-              <div className="text-center py-4">
-                <div className="text-blue-500 text-sm">No sport stats yet.</div>
-                <button onClick={() => setEditMode(true)} className="mt-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-4 py-2 rounded-lg">
-                  Add Your Stats
-                </button>
-              </div>
-            ) : null}
           </div>
         )}
 
@@ -857,8 +961,4 @@ function ProfileInner() {
       </div>
     </PlatformLayout>
   );
-}
-
-export default function Profile() {
-  return <RouteErrorBoundary><ProfileInner /></RouteErrorBoundary>;
 }
