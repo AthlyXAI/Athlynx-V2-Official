@@ -27,8 +27,10 @@ We are raising a Pre-Seed round to accelerate user acquisition, expand our B2B b
 **Contact:**
 Chad A. Dozier Sr.
 Founder & CEO
-Dozier Holdings Group | AthlynXAI
-19039 CLOYANNA LN, HUMBLE, TX 77346 - 2746
+Dozier Holdings Group | AthlynXAI Corporation
+HQ: 12306 Lake Portal Drive, Houston, TX 77047
+SE: 831 West 28th Street, Laurel, MS 39440
+State of Incorporation: 1209 Orange Street, Wilmington, DE 19801
 USA/MS: +1-601-498-5282
 🌐 W: athlynx.ai
 ✉️ E: cdozier14@athlynx.ai
