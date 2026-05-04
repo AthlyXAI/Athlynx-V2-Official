@@ -1,7 +1,7 @@
 /**
  * Nebius AI Service — AthlynXAI Platform
  * Secondary AI Engine — Nebius AI Cloud (OpenAI-compatible API)
- * Models: meta-llama/Meta-Llama-3.1-70B-Instruct-fast, meta-llama/Meta-Llama-3.1-8B-Instruct-fast
+ * Models: meta-llama/Llama-3.3-70B-Instruct, meta-llama/Meta-Llama-3.1-8B-Instruct, NousResearch/Hermes-4-405B
  * $5,000 GPU Credits Active — Tenant: tenant-e00r74k0pbm4nqmw2w
  * Service Account: serviceaccount-e00jhyptxnfgbev15v
  *
@@ -17,11 +17,11 @@ import OpenAI from "openai";
 const NEBIUS_API_KEY = process.env.NEBIUS_API_KEY || "";
 const NEBIUS_BASE_URL = "https://api.studio.nebius.com/v1/";
 
-// ─── Models ──────────────────────────────────────────────────────────────────
+// ─── Models (verified live on Nebius API May 3 2026) ─────────────────────────
 export const NEBIUS_MODELS = {
-  LLAMA_70B: "meta-llama/Meta-Llama-3.1-70B-Instruct-fast",   // Most powerful — use for complex tasks
-  LLAMA_8B:  "meta-llama/Meta-Llama-3.1-8B-Instruct-fast",    // Fast + cheap — use for bulk tasks
-  LLAMA_405B: "meta-llama/Meta-Llama-3.1-405B-Instruct",      // Largest — use for elite analysis
+  LLAMA_70B:  "meta-llama/Llama-3.3-70B-Instruct",   // Most powerful — use for complex tasks
+  LLAMA_8B:   "meta-llama/Meta-Llama-3.1-8B-Instruct", // Fast + cheap — use for bulk tasks
+  LLAMA_405B: "NousResearch/Hermes-4-405B",            // Largest — use for elite analysis
 } as const;
 
 export type NebiusModel = typeof NEBIUS_MODELS[keyof typeof NEBIUS_MODELS];
