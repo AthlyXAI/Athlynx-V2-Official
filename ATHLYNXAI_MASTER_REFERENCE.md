@@ -346,6 +346,8 @@ Success = `PostActionSuccess`. **NEVER use `... on Post { id }` — return type 
 10. **Always commit and push before ending any task**
 11. **NEVER run `manus-config save-config`** — it disables ALL connectors in the Manus UI
 12. **NO SCREENSHOTS, NO PLACEHOLDERS, NO MOCK DATA** — use real logos, real data, real content always
+13. **DNS for athlynx.ai is managed through VERCEL — NEVER Cloudflare.** All DNS records (TXT, CNAME, A, MX) must be added/edited in the Vercel dashboard under the athlynx-platform project. Do NOT touch Cloudflare DNS for athlynx.ai under any circumstances.
+14. **Deploy pipeline is: Manus → GitHub (AthlyXAI/Athlynx-V2-Official main branch) → Vercel (auto-deploy).** Nothing else. No Netlify, no Cloudflare Pages, no manual deploys.
 
 ---
 
