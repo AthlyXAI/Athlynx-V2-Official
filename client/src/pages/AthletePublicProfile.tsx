@@ -11,6 +11,8 @@ import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link, useRoute } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
+import VideoUploadHub from "@/components/VideoUploadHub";
+import { toast } from "sonner";
 
 const SPORT_ICONS: Record<string, string> = {
   Football: "🏈", Basketball: "🏀", Baseball: "⚾", Soccer: "⚽",
@@ -32,6 +34,15 @@ function AthletePublicProfileInner() {
   const { user } = useAuth();
   const isOwnProfile = user?.id === athleteId;
   const [activeTab, setActiveTab] = useState<"posts" | "stats" | "highlights" | "nil">("posts");
+  const [connected, setConnected] = useState(false);
+  const sendConnection = trpc.connections.sendConnectionRequest.useMutation({
+    onSuccess: () => { setConnected(true); toast.success("Connection request sent!"); },
+  });
+  const handleShare = () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url);
+    toast.success("Profile link copied!");
+  };
 
   const { data: profile, isLoading } = trpc.profile.getProfile.useQuery(
     { userId: athleteId },
@@ -141,14 +152,29 @@ function AthletePublicProfileInner() {
                 </Link>
               ) : (
                 <>
-                  <button className="bg-[#00c2ff] hover:bg-[#00a8e0] text-black text-sm font-black px-5 py-2 rounded-full transition-all">
-                    Follow
+                  <button
+                    onClick={() => sendConnection.mutate({ targetUserId: athleteId })}
+                    disabled={connected || sendConnection.isPending}
+                    className={`text-sm font-black px-5 py-2 rounded-full transition-all ${
+                      connected
+                        ? "bg-green-600/30 border border-green-600/50 text-green-400"
+                        : "bg-[#00c2ff] hover:bg-[#00a8e0] text-black"
+                    }`}
+                  >
+                    {connected ? "✓ Connected" : "Connect"}
                   </button>
                   <Link href="/messenger">
                     <button className="bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-bold px-4 py-2 rounded-full transition-all">
                       Message
                     </button>
                   </Link>
+                  <button
+                    onClick={handleShare}
+                    className="bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-bold px-3 py-2 rounded-full transition-all"
+                    title="Share Profile"
+                  >
+                    🔗
+                  </button>
                 </>
               )}
             </div>
@@ -338,53 +364,54 @@ function AthletePublicProfileInner() {
             </div>
           )}
 
-          {/* Highlights tab */}
+          {/* Highlights tab — Full video gallery */}
           {activeTab === "highlights" && (
-            <div className="text-center py-10">
-              {profile.highlightUrl ? (
-                <div>
-                  <div className="rounded-2xl overflow-hidden mb-4 aspect-video bg-black">
-                    <video src={profile.highlightUrl} controls className="w-full h-full object-cover" />
-                  </div>
-                  <p className="text-white/40 text-sm">Highlight Reel</p>
-                </div>
-              ) : (
-                <div>
-                  <div className="text-5xl mb-3">🎬</div>
-                  <p className="text-white/40 text-sm">No highlight reel yet.</p>
-                  {isOwnProfile && (
-                    <Link href="/profile">
-                      <button className="mt-4 bg-[#00c2ff]/10 border border-[#00c2ff]/30 text-[#00c2ff] text-sm font-bold px-5 py-2.5 rounded-full">
-                        Add Highlight Reel URL
-                      </button>
-                    </Link>
-                  )}
-                </div>
-              )}
+            <div className="py-4">
+              <VideoUploadHub userId={athleteId} readOnly={!isOwnProfile} />
             </div>
           )}
 
           {/* Stats tab */}
           {activeTab === "stats" && (
-            <div className="space-y-3">
-              {[
-                { label: "Sport", value: profile.sport },
-                { label: "Position", value: profile.position },
-                { label: "School", value: profile.school },
-                { label: "Class Year", value: profile.classYear },
-                { label: "State", value: profile.state },
-                { label: "Height", value: profile.height },
-                { label: "Weight", value: profile.weight ? `${profile.weight} lbs` : null },
-                { label: "GPA", value: profile.gpa ? Number(profile.gpa).toFixed(2) : null },
-                { label: "Recruiting Score", value: profile.recruitingScore ? `${profile.recruitingScore}/100` : null },
-                { label: "NIL Value", value: profile.nilValue ? `$${Number(profile.nilValue).toLocaleString()}` : null },
-                { label: "Followers", value: profile.followers ? Number(profile.followers).toLocaleString() : null },
-              ].filter(s => s.value).map((s) => (
-                <div key={s.label} className="flex items-center justify-between bg-[#0d1b3e] border border-white/10 rounded-xl px-4 py-3">
-                  <span className="text-white/50 text-sm">{s.label}</span>
-                  <span className="text-white font-bold text-sm">{s.value}</span>
+            <div className="space-y-4">
+              {/* Core profile stats */}
+              <div className="space-y-2">
+                {[
+                  { label: "Sport", value: profile.sport },
+                  { label: "Position", value: profile.position },
+                  { label: "School", value: profile.school },
+                  { label: "Class Year", value: profile.classYear },
+                  { label: "State", value: profile.state },
+                  { label: "Height", value: profile.height },
+                  { label: "Weight", value: profile.weight ? `${profile.weight} lbs` : null },
+                  { label: "GPA", value: profile.gpa ? Number(profile.gpa).toFixed(2) : null },
+                  { label: "⚡ X-Factor Score", value: profile.recruitingScore ? `${profile.recruitingScore}/100` : null },
+                  { label: "NIL Value", value: profile.nilValue ? `$${Number(profile.nilValue).toLocaleString()}` : null },
+                ].filter(s => s.value).map((s) => (
+                  <div key={s.label} className="flex items-center justify-between bg-[#0d1b3e] border border-white/10 rounded-xl px-4 py-3">
+                    <span className="text-white/50 text-sm">{s.label}</span>
+                    <span className="text-white font-bold text-sm">{s.value}</span>
+                  </div>
+                ))}
+              </div>
+              {/* Sport-specific stats */}
+              {(profile as any)?.sportStats && Object.keys((profile as any).sportStats).length > 0 && (
+                <div>
+                  <div className="text-white font-black text-sm mb-2 flex items-center gap-2">
+                    <span className="text-yellow-400">⚡</span> {profile.sport} Performance Stats
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {Object.entries((profile as any).sportStats as Record<string, any>)
+                      .filter(([_, v]) => v)
+                      .map(([key, value]) => (
+                        <div key={key} className="bg-[#0d1b3e] border border-white/10 rounded-xl p-3 text-center">
+                          <div className="text-[#00c2ff] font-black text-base truncate">{String(value)}</div>
+                          <div className="text-white/30 text-[10px] mt-0.5 truncate">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
+                        </div>
+                      ))}
+                  </div>
                 </div>
-              ))}
+              )}
               {isOwnProfile && (
                 <Link href="/profile">
                   <button className="w-full mt-2 bg-[#00c2ff]/10 border border-[#00c2ff]/30 text-[#00c2ff] text-sm font-bold py-3 rounded-xl">

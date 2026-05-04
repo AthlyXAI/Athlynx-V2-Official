@@ -2,6 +2,7 @@ import PlatformLayout from "@/components/PlatformLayout";
 import { useState, useRef, useEffect } from "react";
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import SportStatsEditor from "@/components/SportStatsEditor";
+import VideoUploadHub from "@/components/VideoUploadHub";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { Link } from "wouter";
@@ -511,13 +512,14 @@ function ProfileInner() {
   };
 
   const handleEditSave = () => {
+    // Save ALL sport stats fields — every key in editForm that isn't a core profile field
+    const CORE_FIELDS = new Set(["sport","position","school","bio","height","weight","gpa","instagram","twitter","tiktokHandle","linkedinUrl","youtubeUrl","facebookUrl","hudlUrl"]);
     const sportStats: any = {};
-    if (editForm.fortyYardDash) sportStats.fortyYardDash = editForm.fortyYardDash;
-    if (editForm.qbRating) sportStats.qbRating = editForm.qbRating;
-    if (editForm.verticalLeap) sportStats.verticalLeap = editForm.verticalLeap;
-    if (editForm.benchPress) sportStats.benchPress = editForm.benchPress;
-    if (editForm.height) sportStats.height = editForm.height;
-    if (editForm.gpa) sportStats.gpa = Number(editForm.gpa);
+    Object.entries(editForm).forEach(([key, value]) => {
+      if (!CORE_FIELDS.has(key) && value) {
+        sportStats[key] = value;
+      }
+    });
     updateProfileMutation.mutate({
       sport: editForm.sport || undefined, position: editForm.position || undefined,
       school: editForm.school || undefined, bio: editForm.bio || undefined,
@@ -536,6 +538,7 @@ function ProfileInner() {
 
   const TABS = [
     { id: "posts", label: "Posts" },
+    { id: "videos", label: "🎥 Videos" },
     { id: "stats", label: "Stats" },
     { id: "nil", label: "NIL" },
     { id: "trainer", label: "🤖 AI Trainer" },
@@ -735,10 +738,18 @@ function ProfileInner() {
           </div>
         )}
 
+        {/* Videos Tab */}
+        {activeTab === "videos" && (
+          <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-4">
+            <VideoUploadHub userId={Number(user?.id ?? 0)} readOnly={false} />
+          </div>
+        )}
+
         {/* Stats Tab */}
         {activeTab === "stats" && (
-          <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-4">
-            <h3 className="text-white font-bold mb-3">Athlete Stats</h3>
+          <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-4 space-y-4">
+            <h3 className="text-white font-bold">Athlete Stats</h3>
+            {/* Core stats */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {[
                 { label: "Sport", value: sport }, { label: "Position", value: position },
@@ -753,6 +764,32 @@ function ProfileInner() {
                 </div>
               ))}
             </div>
+            {/* Sport-specific stats from DB */}
+            {(profile as any)?.sportStats && Object.keys((profile as any).sportStats).length > 0 && (
+              <div>
+                <div className="text-white font-black text-sm mb-2 flex items-center gap-2">
+                  <span className="text-yellow-400">⚡</span> {sport} Stats
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                  {Object.entries((profile as any).sportStats as Record<string, any>)
+                    .filter(([_, v]) => v)
+                    .map(([key, value]) => (
+                      <div key={key} className="bg-[#0d1b3e] border border-blue-800/50 rounded-xl p-2.5 text-center">
+                        <div className="text-blue-300 font-black text-sm truncate">{String(value)}</div>
+                        <div className="text-blue-600 text-[10px] mt-0.5 truncate">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
+            {!((profile as any)?.sportStats) || Object.keys((profile as any)?.sportStats || {}).length === 0 ? (
+              <div className="text-center py-4">
+                <div className="text-blue-500 text-sm">No sport stats yet.</div>
+                <button onClick={() => setEditMode(true)} className="mt-2 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-4 py-2 rounded-lg">
+                  Add Your Stats
+                </button>
+              </div>
+            ) : null}
           </div>
         )}
 
