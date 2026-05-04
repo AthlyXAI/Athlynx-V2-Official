@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { useState } from 'react'
 import { Link, useLocation } from 'wouter'
 import { trpc } from '@/lib/trpc'

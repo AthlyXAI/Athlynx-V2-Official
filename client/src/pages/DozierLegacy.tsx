@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { useEffect, useState } from "react";
 
 const CREST_URL = "/athlynx-icon.png";

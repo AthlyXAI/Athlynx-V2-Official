@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 // ATHLYNX SOCIAL HUB - ALL PLATFORMS SEAMLESSLY INTEGRATED
 // WhatsApp + WeChat + Telegram + Teams + Zoom + Facebook + Instagram + Twitter + LinkedIn + TikTok + YouTube + Discord
 // First Media Conglomerate to do it ALL IN ONE!

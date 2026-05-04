@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 // ATHLYNX UNIFIED COMMUNICATIONS HUB
 // WhatsApp + WeChat + Telegram + Teams + Zoom + Email - ALL IN ONE
 // First Media Conglomerate to do it!

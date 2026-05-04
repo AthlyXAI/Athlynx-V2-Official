@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { useEffect, useState } from "react";
 import { Link, useSearch } from "wouter";
 import { Button } from "@/components/ui/button";

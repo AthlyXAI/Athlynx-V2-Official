@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import LoginButton from "@/components/LoginButton";

@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 // ATHLYNX BROWSER - AI-POWERED WEB BROWSER
 // Better than Chrome, Safari, Edge - With Manus + Nebius AI Built In
 // The First AI-Native Browser for Athletes

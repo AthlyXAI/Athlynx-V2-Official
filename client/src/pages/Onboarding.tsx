@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 /**
  * ATHLYNX — Onboarding Page
  * New users land here after Firebase login to select their role.

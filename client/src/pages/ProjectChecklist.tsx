@@ -1,3 +1,4 @@
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { useState } from 'react';
 import { Link } from 'wouter';
 import { CheckCircle2, Circle, Clock, Target, Users, Rocket, Calendar } from 'lucide-react';
