@@ -165,28 +165,30 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [onboardingDismissed, setOnboardingDismissed] = useState(false);
+  const onboardingChecked = useRef(false);
   const { user, loading: authLoading } = useAuth();
 
-  // Check onboarding status — check DB flag first, then localStorage
+  // Check onboarding status — runs ONCE per session using a ref guard.
+  // Never fires on navigation/re-renders to prevent the splash screen loop.
   useEffect(() => {
-    if (user && !authLoading && !onboardingDismissed) {
-      const key = `onboarding_done_${user.email || user.id}`;
-      const completed = localStorage.getItem(key);
-      const legacyCompleted = localStorage.getItem(`onboarding_done_${user.id}`);
-      // Check DB onboardingCompleted flag (set to 1 for existing users)
-      const dbCompleted = (user as any)?.onboardingCompleted === 1 || (user as any)?.onboardingCompleted === true;
-      if (dbCompleted) {
-        // Sync localStorage so we don't check DB every time
-        localStorage.setItem(key, '1');
-        return;
-      }
-      if (!completed && !legacyCompleted && !dbCompleted) {
-        // Small delay so it doesn't flash on every page load
-        const timer = setTimeout(() => setShowOnboarding(true), 1500);
-        return () => clearTimeout(timer);
-      }
+    if (!user || authLoading || onboardingDismissed || onboardingChecked.current) return;
+    onboardingChecked.current = true;
+    const key = `onboarding_done_${user.email || user.id}`;
+    const completed = localStorage.getItem(key);
+    const legacyCompleted = localStorage.getItem(`onboarding_done_${user.id}`);
+    // Check DB onboardingCompleted flag (set to 1 for existing users)
+    const dbCompleted = (user as any)?.onboardingCompleted === 1 || (user as any)?.onboardingCompleted === true;
+    if (dbCompleted) {
+      // Sync localStorage so we don't check DB every time
+      localStorage.setItem(key, '1');
+      return;
     }
-  }, [user, authLoading, onboardingDismissed]);
+    if (!completed && !legacyCompleted && !dbCompleted) {
+      // Only show onboarding once — never interrupt navigation
+      const timer = setTimeout(() => setShowOnboarding(true), 800);
+      return () => clearTimeout(timer);
+    }
+  }, [user, authLoading]);
 
   const displayName = user?.name || "Athlete";
   const initials = displayName.split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase();
