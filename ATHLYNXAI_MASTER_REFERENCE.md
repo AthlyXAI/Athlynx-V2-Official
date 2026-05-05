@@ -1,5 +1,7 @@
 # ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
-## Last Updated: Monday, May 4, 2026 — Session 28
+## Last Updated: Tuesday, May 5, 2026 — Session 30
+## Session Summary (May 5 2026 — SESSION 30): NAV BUG FIXED + STRIPE ACCOUNTS AUDITED + MASTER REFERENCE LOCKED. Fixed "Your Apps" navigation splash screen loop — moved onboardingChecked guard to module-level (was useRef inside component, reset on every page mount). Pushed to both repos: Athlynx-V2-Official (e93b636) + AthlynXAI (f37408b). Stripe full audit complete: correct account is acct_1SqfSOGvvjXZw2uE (AthlynXAI Corporation, EIN 42-2183569, cdozier14@dozierholdingsgroup.com.mx). All other accounts to be closed. chaddozier75@gmail.com accounts ignored — let close on own. Regions bank (065305436 / 0375343630) to be added via dashboard. Bangladesh IP 103.124.180.124 seen on sessions — change Stripe password. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY5_2026_S29_CONT.md
+
 ## Session Summary (May 4 2026 — SESSION 28): STRIPE WEBHOOK REBUILT + VERCEL ENV UPDATED. Old webhook (we_1TT8LBGvvjXZw2uEEIRxkfyM) deleted. New webhook created (we_1TTXrjGvvjXZw2uEwUoVjjIC) on AthlynXAI Corp account. New secret (whsec_r4PjM2nTXexKPftCfFqZcAokeyw72odQ) deployed to Vercel. STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY all updated in Vercel. Stripe org cleaned: duplicate account deleted, only AthlynXAI Corporation remains. Twilio ticket 26619440 replied. Worldwide social media campaign fired across 8 Buffer channels. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY4_2026_S28.md
 
 ## Last Updated: Monday, May 4, 2026 — Session 26
@@ -355,7 +357,7 @@ Success = `PostActionSuccess`. **NEVER use `... on Post { id }` — return type 
 | **Gemini Billing Account** | `01F25A-3FE15E-646E10` |
 | **Nebius API Key** | `v1.CmQKHHN0YXRpY2tleS1lMDB6a3h2OXY0NXd3ejE1aGcSIXNlcnZpY2VhY2NvdW50LWUwMGpoeXB0eG5mZ2JldjE1djIMCJCDy88GEP36ksUBOgwIj4bjmgcQgLbu-QFAAloDZTAw.AAAAAAAAAAE953FV2ng69mdutC1iPxnzugOH4jcySQyuJoEJcLDEMDVqata5QDCnYPe98voBXE0zEC0shxtiq8f2bO5Pm98G` |
 | **Nebius Service Account** | `serviceaccount-e00jhyptxnfgbev15v` |
-| **Stripe Account** | `acct_1SqfSOGvvjXZw2uE` — AthlynXAI Corporation — LIVE MODE ONLY |
+| **Stripe Account** | `acct_1SqfSOGvvjXZw2uE` — **AthlynXAI Corporation** — LIVE MODE ONLY — login: cdozier14@dozierholdingsgroup.com.mx |
 | **Stripe Secret Key** | `sk_live_51SqfSOGvvjXZw2uE...jveUBPx` (full key in Vercel: STRIPE_SECRET_KEY — confirmed May 4, 2026) |
 | **Stripe Publishable Key** | `mk_1SqfSPGvvjXZw2uE3FSTWyRy` |
 | **Stripe Webhook Secret** | `whsec_r4PjM2nTXexKPftCfFqZcAokeyw72odQ` (in Vercel: STRIPE_WEBHOOK_SECRET — updated Session 28) |
@@ -374,8 +376,22 @@ Success = `PostActionSuccess`. **NEVER use `... on Post { id }` — return type 
 | **Vercel Team ID** | `team_7neDSatyrDspOku2p0LxT8zO` (AthlynxChad) |
 | **Apple BM Org** | AthlynXAI Corporation — ID: `149833785256532752` — TXT: `apple-domain-verification=bJrYOUZpnt2fSugJ` |
 | **Stripe Atlas EIN** | `42-2183569` — 1209 Orange Street, Wilmington, DE 19801 |
+| **Stripe Payout Bank** | Regions Bank — Routing: 065305436 — Account: 0375343630 (LifeGreen Business *3630) — ADD VIA DASHBOARD |
 
-> **NEVER use Dozier Holdings Group Stripe account (`acct_1Sgy0SRjBH07kRLY`) for the platform. AthlynXAI Corporation ONLY.**
+> **ONLY EVER USE: acct_1SqfSOGvvjXZw2uE (AthlynXAI Corporation) — cdozier14@dozierholdingsgroup.com.mx**
+> **NEVER use any other Stripe account. All others are being closed.**
+
+### Stripe Account Cleanup (May 2026)
+| Account | ID | Status |
+|---|---|---|
+| **AthlynXAI Corporation** ✅ | `acct_1SqfSOGvvjXZw2uE` | **KEEP — platform account, EIN 42-2183569** |
+| Athlynx A... | `acct_1SkhxSDWqFuLp4sz` | Close — duplicate |
+| Dozier Ho... | `acct_1Skh8DD79FeXCSQx` | Close — wrong account |
+| New busi... | `acct_1T0vG392zLqh0Znz` | Close — unused |
+| New Busi... | `acct_1TREYbDnIrpYtXwU` | Close — unused |
+| DHG (chaddozier75) | `acct_1Sgy0SRjBH07kRLY` | Close after May 11 (negative balance settling) |
+
+> **SECURITY ALERT:** Bangladesh IP `103.124.180.124` seen on Stripe sessions. Change Stripe password immediately.
 
 ---
 
