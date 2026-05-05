@@ -72,7 +72,8 @@
 | **Website** | athlynx.ai |
 | **GitHub Account** | chaddozier75-cmd |
 | **GitHub Repo** | AthlyXAI/Athlynx-V2-Official |
-| **Bank** | 1 business account — shared across all subsidiaries |
+| **Bank** | Regions Bank — 065305436 / 0375343630 — Chad A. Dozier Sr. SOLE AUTHORITY |
+| **Master Admin** | Chad A. Dozier Sr. — ONLY person with financial/bank/Stripe access |
 
 > **Backup emails (READ-ONLY — no accounts, no repos, no services):**
 > chaddozier75@gmail.com · chad.dozier@icloud.com · cdozier@dozierholdingsgroup.com · cdozier14@dozierholdingsgroup.com.mx
@@ -113,6 +114,9 @@
 7. **Always commit and push to GitHub before ending any task.**
 8. **NEVER run manus-config save-config** — it overwrites connector settings and disables Vercel and other connectors.
 9. **NO SCREENSHOTS, NO PLACEHOLDERS, NO MOCK DATA, NO EMPTY SHELLS** — ever. Use real logos, real data, real content.
+10. **CHAD A. DOZIER SR. IS THE ONLY ADMIN** — Only `cdozier14@athlynx.ai` and `chaddozier75@gmail.com` have admin role. Team members are `user` role only. Glenn has NO financial/bank/Stripe access.
+11. **ONE STRIPE ACCOUNT** — `acct_1SqfSOGvvjXZw2uE` (AthlynXAI Corporation, EIN 42-2183569, Regions Bank). All others to be closed. DHG falls off May 12.
+12. **MASTER ADMIN = CHAD ONLY** — Full platform ownership, financial authority, and admin access belongs solely to Chad A. Dozier Sr., Founder & CEO.
 
 ---
 
@@ -120,8 +124,8 @@
 
 | Name | Role | Personal Email | Platform Email |
 |------|------|---------------|----------------|
-| Chad A. Dozier Sr. | Founder & CEO | — | cdozier14@athlynx.ai |
-| Glenn Tse | CFO / COO | glenn.tse@gmail.com | gtse@athlynx.ai |
+| Chad A. Dozier Sr. | Founder & CEO · **MASTER ADMIN** · Sole Financial Authority | — | cdozier14@athlynx.ai |
+| Glenn Tse | COO (Operations only — NO bank/financial access) | glenn.tse@gmail.com | gtse@athlynx.ai |
 | Lee Marshall | VP Sales | leronious@gmail.com | lmarshall@athlynx.ai |
 | Jimmy Boyd | VP Real Estate | jboydbamabayou@yahoo.com | jboyd@athlynx.ai |
 | Andrew Kustes | VP Technology | andrewkustes1974@gmail.com | akustes@athlynx.ai |
