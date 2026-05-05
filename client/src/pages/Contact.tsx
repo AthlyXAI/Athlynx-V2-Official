@@ -17,7 +17,7 @@ const CHAD_CONTACT = {
   whatsapp: "https://wa.me/16015808869", // WhatsApp — no personal number exposed on page
   telegram: "https://t.me/chaddozier",
   wechat: "chaddozier",                   // WeChat ID — users must add manually
-  calendly: "https://calendly.com/cdozier14",
+  calendly: "/book",
   zoom: "https://zoom.us/j/chaddozier",
   dotcard: "https://athlynx.ai/card",
   website: "https://athlynx.ai",

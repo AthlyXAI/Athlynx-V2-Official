@@ -126,6 +126,7 @@ import EmployeePortal from "./pages/EmployeePortal";
 import RobotCompanions from "./pages/RobotCompanions";
 import AppStoreSubmission from "./pages/AppStoreSubmission";
 import Apps from "./pages/Apps";
+import BookingHub from "./pages/BookingHub";
 import MobileApp from "./pages/MobileApp";
 
 // ── DHG Corporate ──
@@ -376,6 +377,9 @@ function Router() {
       <Route path="/download" component={AppStoreSubmission} />
       <Route path="/app-store" component={AppStoreSubmission} />
       <Route path="/apps" component={Apps} />
+      <Route path="/book" component={BookingHub} />
+      <Route path="/booking" component={BookingHub} />
+      <Route path="/schedule" component={BookingHub} />
       <Route path="/mobile-app" component={MobileApp} />
 
       {/* ── DHG Corporate ── */}
