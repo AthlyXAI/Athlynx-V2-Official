@@ -376,7 +376,7 @@ Success = `PostActionSuccess`. **NEVER use `... on Post { id }` — return type 
 | **Vercel Team ID** | `team_7neDSatyrDspOku2p0LxT8zO` (AthlynxChad) |
 | **Apple BM Org** | AthlynXAI Corporation — ID: `149833785256532752` — TXT: `apple-domain-verification=bJrYOUZpnt2fSugJ` |
 | **Stripe Atlas EIN** | `42-2183569` — 1209 Orange Street, Wilmington, DE 19801 |
-| **Stripe Payout Bank** | Regions Bank — Routing: 065305436 — Account: 0375343630 (LifeGreen Business *3630) — ADD VIA DASHBOARD |
+| **Stripe Payout Bank** | Regions Bank — Routing: 065305436 — Account: 0375343630 (LifeGreen Business *3630) — ✅ LIVE as of May 5, 2026 (replaced Chase *3936) |
 
 > **ONLY EVER USE: acct_1SqfSOGvvjXZw2uE (AthlynXAI Corporation) — cdozier14@dozierholdingsgroup.com.mx**
 > **NEVER use any other Stripe account. All others are being closed.**
