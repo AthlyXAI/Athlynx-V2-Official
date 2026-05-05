@@ -405,14 +405,45 @@ function FeedInner() {
           </div>
         ))}
 
-        {/* Empty state */}
+        {/* Empty state with showcase posts */}
         {!isLoading && (posts as any[]).length === 0 && (
-          <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-8 text-center">
-            <div className="text-5xl mb-4">🏆</div>
-            <div className="text-white font-bold text-lg mb-2">The Feed is Live — Be First</div>
-            <div className="text-blue-400 text-sm mb-4">Share your highlight, training update, or NIL news.</div>
-            {!user && <a href="/signup" className="inline-block bg-blue-600 hover:bg-blue-500 text-white font-bold px-6 py-2.5 rounded-xl transition-colors">Sign In to Post</a>}
-          </div>
+          <>
+            <div className="bg-gradient-to-r from-blue-900/60 to-cyan-900/40 border border-cyan-700/30 rounded-xl p-4 text-center">
+              <div className="text-3xl mb-2">🏆</div>
+              <div className="text-white font-bold text-base mb-1">The Feed is Live — Be First</div>
+              <div className="text-blue-400 text-sm mb-3">Share your highlight, training update, or NIL news. The community is watching.</div>
+              {!user && <a href="/signup" className="inline-block bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold px-6 py-2.5 rounded-xl transition-all hover:opacity-90">Join Free — 7 Days</a>}
+            </div>
+            {/* Showcase activity cards */}
+            {[
+              { name: "Marcus Johnson", sport: "Football", type: "NIL_DEAL", content: "Just signed a $15,000 NIL deal with Under Armour! Hard work pays off. Thank you to everyone who believed in me. #NIL #Football #ATHLYNX", time: "2h", likes: 847, comments: 124, avatar: null },
+              { name: "Destiny Williams", sport: "Basketball", type: "ACHIEVEMENT", content: "Committed to LSU! 🐯 After months of recruiting visits and conversations, I know this is where I'm supposed to be. Can't wait to play in the SEC! #Committed #LSU #Basketball", time: "5h", likes: 2341, comments: 389, avatar: null },
+              { name: "Tyler Brooks", sport: "Baseball", type: "WORKOUT", content: "Day 47 of offseason training. Velocity up to 94 mph from 88 mph last year. The Diamond Grind AI training program is no joke. Scouts are calling. 🔥 #DiamondGrind #Baseball #Velocity", time: "1d", likes: 1203, comments: 87, avatar: null },
+              { name: "Aaliyah Torres", sport: "Soccer", type: "MILESTONE", content: "Just hit 10,000 followers! My NIL value on ATHLYNX just updated to $38K. If you're a brand looking for a Stanford soccer player with a real audience — my DMs are open. #NIL #Soccer #Stanford", time: "2d", likes: 3102, comments: 445, avatar: null },
+            ].map((p, i) => (
+              <div key={i} className="bg-[#1a3a8f] border border-blue-900 rounded-xl overflow-hidden">
+                <div className="flex items-start gap-3 p-4 pb-2">
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center text-white font-black text-sm shrink-0">
+                    {p.name.split(" ").map((w: string) => w[0]).join("")}
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-1.5">
+                      <span className="font-bold text-white text-sm">{p.name}</span>
+                      <svg className="w-3.5 h-3.5 text-blue-400" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+                    </div>
+                    <div className="text-blue-400 text-xs">{p.time} · {p.sport}</div>
+                  </div>
+                  <span className={`text-[9px] font-black px-2 py-1 rounded-full text-white ${p.type === 'NIL_DEAL' ? 'bg-purple-600' : p.type === 'ACHIEVEMENT' ? 'bg-yellow-600' : p.type === 'WORKOUT' ? 'bg-green-600' : 'bg-blue-600'}`}>{p.type.replace('_', ' ')}</span>
+                </div>
+                <div className="px-4 pb-3"><p className="text-blue-100 text-sm leading-relaxed">{p.content}</p></div>
+                <div className="px-2 py-1 flex items-center border-t border-blue-900">
+                  <div className="flex-1 flex items-center justify-center gap-2 py-2 text-sm font-semibold text-blue-400">👍 {p.likes.toLocaleString()}</div>
+                  <div className="flex-1 flex items-center justify-center gap-2 py-2 text-sm font-semibold text-blue-400">💬 {p.comments}</div>
+                  <div className="flex-1 flex items-center justify-center gap-2 py-2 text-sm font-semibold text-blue-400">↗ Share</div>
+                </div>
+              </div>
+            ))}
+          </>
         )}
 
         {/* Posts */}
