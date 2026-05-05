@@ -548,7 +548,7 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
       return result;
     }),
 
-  // calculateXFactor — AI-powered athlete X-Factor score using Nebius Llama 3.1 70B
+  // calculateXFactor — AI-powered athlete X-Factor score using Nebius Llama-3.3-70B
   calculateXFactor: protectedProcedure
     .input(z.object({
       name: z.string().optional(),
@@ -602,15 +602,15 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
       return result;
     }),
 
-  // nebiusChat — direct chat with Nebius Llama 3.1 70B (premium AI feature)
+  // nebiusChat — direct chat with Nebius Llama-3.3-70B on NVIDIA H200 (premium AI feature)
   nebiusChat: protectedProcedure
     .input(z.object({
       message: z.string().min(1).max(4000),
       systemPrompt: z.string().optional(),
       model: z.enum([
-        "meta-llama/Meta-Llama-3.1-70B-Instruct-fast",
-        "meta-llama/Meta-Llama-3.1-8B-Instruct-fast",
-        "meta-llama/Meta-Llama-3.1-405B-Instruct",
+        "meta-llama/Llama-3.3-70B-Instruct",
+        "meta-llama/Meta-Llama-3.1-8B-Instruct",
+        "nvidia/Llama-3_1-Nemotron-Ultra-253B-v1",
       ]).optional(),
     }))
     .mutation(async ({ input, ctx }) => {

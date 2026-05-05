@@ -7,7 +7,7 @@ import { Handshake, Users, DollarSign, BarChart3, Shield, Zap, Globe, Code, Buil
 const TECH_STACK = [
   // AI & Intelligence
   { name: "Manus AI", category: "AI Platform", role: "Autonomous AI Development & Automation", status: "LIVE", color: "from-blue-700 to-blue-800", badge: "AI" },
-  { name: "Nebius AI", category: "AI Engine", role: "Secondary AI Engine — Llama 3.1 70B on NVIDIA H200 | $5K Credits Active | Gemini Fallback", status: "LIVE", color: "from-blue-600 to-indigo-700", badge: "AI ENGINE" },
+  { name: "Nebius AI", category: "AI Engine", role: "Llama-3.3-70B on NVIDIA H200 GPUs — $5,000 GPU Credits Active — Faster loops, zero setup. Powers X-Factor scoring, AI Coach, Fuel Bots & athlete intelligence. Nebius AI Discovery Award Nominee (May 15 finalist announcement).", status: "LIVE", color: "from-[#7FBA00] to-[#4a7a00]", badge: "NEBIUS H200" },
   { name: "Claude (Anthropic)", category: "AI Platform", role: "AI Language Model & Reasoning", status: "LIVE", color: "from-red-500 to-red-600", badge: "AI" },
   { name: "NVIDIA", category: "Hardware", role: "H100/H200/B200/GB200 GPU Infrastructure", status: "LIVE", color: "from-green-600 to-emerald-700", badge: "GPU" },
   { name: "ICC-USA", category: "Hardware Partner", role: "Enterprise Server & GPU Hardware", status: "LIVE", color: "from-slate-600 to-gray-700", badge: "HW" },

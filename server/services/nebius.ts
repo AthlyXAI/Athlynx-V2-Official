@@ -15,13 +15,13 @@
 import OpenAI from "openai";
 
 const NEBIUS_API_KEY = process.env.NEBIUS_API_KEY || "";
-const NEBIUS_BASE_URL = "https://api.studio.nebius.com/v1/";
+const NEBIUS_BASE_URL = "https://api.studio.nebius.ai/v1/";
 
 // ─── Models (verified live on Nebius API May 3 2026) ─────────────────────────
 export const NEBIUS_MODELS = {
   LLAMA_70B:  "meta-llama/Llama-3.3-70B-Instruct",   // Most powerful — use for complex tasks
   LLAMA_8B:   "meta-llama/Meta-Llama-3.1-8B-Instruct", // Fast + cheap — use for bulk tasks
-  LLAMA_405B: "NousResearch/Hermes-4-405B",            // Largest — use for elite analysis
+  LLAMA_405B: "nvidia/Llama-3_1-Nemotron-Ultra-253B-v1", // Largest — use for elite analysis (253B on H200)
 } as const;
 
 export type NebiusModel = typeof NEBIUS_MODELS[keyof typeof NEBIUS_MODELS];

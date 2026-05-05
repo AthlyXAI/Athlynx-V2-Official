@@ -58,10 +58,10 @@ const PILLARS = [
 const PARTNERSHIPS = [
   {
     name: "Nebius AI Cloud",
-    role: "GPU Cloud & AI Model Hosting — $5,000 Credits ACTIVE · Never Stops",
-    desc: "Nebius AI Cloud is the backbone of the ATHLYNX AI engine — Llama 3.3 70B running on NVIDIA H200 GPUs, 24/7, no interruptions. $5,000 in GPU credits activated May 3, 2026. Paired with Google Gemini 2.5 Flash as the primary language model and Meta's infrastructure for scale. This stack never stops: Nebius handles the heavy GPU compute, Gemini handles intelligence, and Meta handles global reach. Together they power every AI Trainer, X-Factor score, NIL deal analysis, and Fuel Bot on the platform.",
-    icon: "🧠",
-    status: "LIVE — $5K Credits Active"
+    role: "NVIDIA H200 GPU Cloud — Llama-3.3-70B — $5,000 Credits ACTIVE — Faster loops, zero setup",
+    desc: "Nebius AI Cloud is the GPU backbone of ATHLYNX — Llama-3.3-70B running on NVIDIA H200 GPUs, 24/7, zero downtime. $5,000 in GPU credits activated. This is the same infrastructure powering the world's most advanced AI labs, now running every X-Factor score, AI Coach session, Fuel Bot conversation, and NIL deal analysis on the platform. Nebius AI Discovery Award Nominee — Digital Health category. Finalists announced May 15, 2026. Faster loops. Zero setup. Always on.",
+    icon: "🟢",
+    status: "LIVE — $5K H200 Credits Active"
   },
   {
     name: "Google Gemini 2.5 Flash",

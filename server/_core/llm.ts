@@ -210,7 +210,7 @@ const normalizeToolChoice = (
 
 const resolveApiUrl = (useNebius = false) => {
   if (useNebius) {
-    return "https://api.studio.nebius.com/v1/chat/completions";
+    return "https://api.studio.nebius.ai/v1/chat/completions";
   }
   // Use native Google AI endpoint if GOOGLE_AI_API_KEY is set (Gemini 2.5 Flash via OpenAI-compatible API)
   if (process.env.GOOGLE_AI_API_KEY) {
@@ -288,7 +288,7 @@ async function invokeLLMWithEngine(params: InvokeParams, useNebius: boolean): Pr
   } = params;
 
   const model = useNebius
-    ? "meta-llama/Meta-Llama-3.1-70B-Instruct-fast"
+    ? "meta-llama/Llama-3.3-70B-Instruct"
     : "gemini-2.5-flash";
 
   const payload: Record<string, unknown> = {
@@ -308,9 +308,10 @@ async function invokeLLMWithEngine(params: InvokeParams, useNebius: boolean): Pr
     payload.tool_choice = normalizedToolChoice;
   }
 
-  payload.max_tokens = 32768
-  payload.thinking = {
-    "budget_tokens": 128
+  payload.max_tokens = useNebius ? 4096 : 32768;
+  // Note: thinking/budget_tokens only supported by Gemini, not Nebius
+  if (!useNebius) {
+    payload.thinking = { budget_tokens: 128 };
   }
 
   const normalizedResponseFormat = normalizeResponseFormat({
@@ -345,7 +346,7 @@ async function invokeLLMWithEngine(params: InvokeParams, useNebius: boolean): Pr
 
 /**
  * Primary LLM invocation with automatic Nebius fallback.
- * Tries Gemini first. If Gemini fails (quota, error), falls back to Nebius Llama 3.1 70B.
+ * Tries Gemini first. If Gemini fails (quota, error), falls back to Nebius Llama-3.3-70B.
  * This ensures ATHLYNX AI is ALWAYS ON — zero downtime.
  */
 export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
@@ -361,7 +362,7 @@ export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
       const isServerError = errMsg.includes("500") || errMsg.includes("503") || errMsg.includes("502");
       // Fall back to Nebius on quota exhaustion or server errors
       if ((isQuotaError || isServerError) && process.env.NEBIUS_API_KEY) {
-        console.log("[LLM] Gemini quota/error — falling back to Nebius Llama 3.1 70B");
+        console.log("[LLM] Gemini quota/error — falling back to Nebius Llama-3.3-70B on NVIDIA H200");
         return await invokeLLMWithEngine(params, true);
       }
       throw geminiError;

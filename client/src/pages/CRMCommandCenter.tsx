@@ -509,7 +509,7 @@ function PartnersModule() {
 function ConnectorsModule() {
   const connectors: Connector[] = [
     // CORE AI INFRASTRUCTURE
-    { id: "nebius", name: "Nebius AI — $5K Credits ACTIVE", type: "AI Engine (Secondary)", status: "connected", lastSync: "Live — Llama 3.1 70B", icon: "🧠" },
+    { id: "nebius", name: "Nebius AI — $5K Credits ACTIVE", type: "AI Engine (Secondary)", status: "connected", lastSync: "Live — Llama-3.3-70B", icon: "🧠" },
     // STRATEGIC PARTNERSHIPS
     { id: "icc-usa", name: "ICC-USA", type: "Hardware Partner", status: "connected", lastSync: "Active Partnership", icon: "🖥️" },
     { id: "yovole", name: "Yovole Networks", type: "China Partnership", status: "connected", lastSync: "Active Partnership", icon: "🌏" },
@@ -585,7 +585,7 @@ function ConnectorsModule() {
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            <APIKeyItem name="Nebius AI API Key — $5,000 GPU Credits Active" status="configured" lastUsed="Live — Llama 3.1 70B on H200" />
+            <APIKeyItem name="Nebius AI API Key — $5,000 GPU Credits Active" status="configured" lastUsed="Live — Llama-3.3-70B on H200" />
             <APIKeyItem name="Stripe Secret Key" status="configured" lastUsed="Today" />
             <APIKeyItem name="Stripe Publishable Key" status="configured" lastUsed="Today" />
             <APIKeyItem name="Firebase API Key" status="configured" lastUsed="Live" />
