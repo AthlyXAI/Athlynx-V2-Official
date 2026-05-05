@@ -558,7 +558,7 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
       gpa: z.number().optional(),
       height: z.string().optional(),
       weight: z.number().optional(),
-      sportStats: z.record(z.union([z.string(), z.number()])).optional(),
+      sportStats: z.record(z.string(), z.union([z.string(), z.number()])).optional(),
       recruitingStatus: z.string().optional(),
       nilValue: z.number().optional(),
       followers: z.number().optional(),
@@ -582,7 +582,7 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
             sportStats: input.sportStats || (profile.sportStats as any) || {},
             recruitingStatus: input.recruitingStatus || profile.recruitingStatus || "available",
             nilValue: input.nilValue ?? (profile.nilValue ? Number(profile.nilValue) : undefined),
-            followers: input.followers ?? (profile.instagramFollowers ? Number(profile.instagramFollowers) : undefined),
+            followers: input.followers ?? (profile.followers ? Number(profile.followers) : undefined),
           };
         }
       }

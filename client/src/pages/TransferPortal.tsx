@@ -39,7 +39,7 @@ function TransferPortalInner() {
 
   // Live DB data — falls back to static if empty
   const { data: dbAthletes = [] } = trpc.nil.getTransferEntries.useQuery({ limit: 50 });
-  const liveAthletes = dbAthletes.length > 0 ? dbAthletes : FALLBACK_ATHLETES;
+  const liveAthletes: any[] = dbAthletes.length > 0 ? dbAthletes : SHOWCASE_ATHLETES;
   const filteredAthletes = sport === "All"
     ? liveAthletes
     : liveAthletes.filter((a: any) => a.sport === sport);
@@ -93,7 +93,7 @@ function TransferPortalInner() {
           </div>
           <div className="grid grid-cols-3 gap-3 mt-4">
             {[
-              { label: "Athletes in Portal", value: (dbAthletes.length || FALLBACK_ATHLETES.length).toString() },
+              { label: "Athletes in Portal", value: (dbAthletes.length || SHOWCASE_ATHLETES.length).toString() },
               { label: "Schools Recruiting", value: RECRUITING_SCHOOLS.length.toString() },
               { label: "Avg NIL Value", value: "$694K" },
             ].map((s, i) => (
@@ -228,7 +228,7 @@ function TransferPortalInner() {
             )}
 
             {/* Athlete cards */}
-            {filteredAthletes.map((athlete, i) => (
+            {filteredAthletes.map((athlete: any, i: number) => (
               <div key={i} className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-4">
                 <div className="flex items-start gap-3">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-blue-800 flex items-center justify-center text-sm font-black shrink-0 text-white">

@@ -45,13 +45,13 @@ export default function MeetAthletes({
 
   const followUser = trpc.connections.followUser.useMutation({
     onSuccess: (_, vars) => {
-      setConnected(prev => new Set([...prev, vars.targetUserId]));
+      setConnected(prev => { const s = new Set(Array.from(prev)); s.add(vars.targetUserId); return s; });
     },
   });
 
   const sendConnection = trpc.connections.sendConnectionRequest.useMutation({
     onSuccess: (_, vars) => {
-      setConnected(prev => new Set([...prev, vars.targetUserId]));
+      setConnected(prev => { const s = new Set(Array.from(prev)); s.add(vars.targetUserId); return s; });
     },
   });
 

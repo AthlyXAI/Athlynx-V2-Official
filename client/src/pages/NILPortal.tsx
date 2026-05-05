@@ -154,7 +154,7 @@ function MessengerTab({ user }: { user: any }) {
             <input value={newConvoName} onChange={e => setNewConvoName(e.target.value)} placeholder="Athlete name..."
               className="w-full bg-[#1a3a8f] border border-blue-700 text-white text-xs rounded-lg px-3 py-2 focus:outline-none mb-2" />
             <div className="flex gap-2">
-              <button onClick={() => newConvoName.trim() && startConvo.mutate({ name: newConvoName })} className="flex-1 bg-blue-600 text-white text-xs font-bold py-1.5 rounded-lg">Start</button>
+              <button onClick={() => newConvoName.trim() && startConvo.mutate({ recipientId: 1, initialMessage: `New conversation with: ${newConvoName}` })} className="flex-1 bg-blue-600 text-white text-xs font-bold py-1.5 rounded-lg">Start</button>
               <button onClick={() => setShowNew(false)} className="flex-1 border border-blue-700 text-blue-300 text-xs py-1.5 rounded-lg">Cancel</button>
             </div>
           </div>

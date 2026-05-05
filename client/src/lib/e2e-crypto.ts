@@ -71,7 +71,7 @@ async function encryptWithKey(plaintext: string, key: CryptoKey): Promise<string
   const combined = new Uint8Array(iv.byteLength + ciphertext.byteLength);
   combined.set(iv, 0);
   combined.set(new Uint8Array(ciphertext), iv.byteLength);
-  return btoa(String.fromCharCode(...combined));
+  return btoa(String.fromCharCode(...Array.from(combined)));
 }
 
 // ─── Decrypt ──────────────────────────────────────────────────────────────────

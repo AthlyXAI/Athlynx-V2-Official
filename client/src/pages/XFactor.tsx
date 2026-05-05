@@ -129,7 +129,7 @@ function XFactorFeed({ activeCategory, activeTab, postText, setPostText }: {
 
   const handlePost = () => {
     if (!postText.trim() || !user) return;
-    createPost.mutate({ content: postText, type: "update" });
+    createPost.mutate({ content: postText, postType: "status" });
   };
 
   return (

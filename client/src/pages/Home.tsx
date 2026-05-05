@@ -1,19 +1,35 @@
-// v1.4.0 - Apr 25 2026 - Clean Auth0 sign-up, no trial text
+// v1.5.0 - May 5 2026 - Smart routing, full stack layer cake, all TS errors fixed
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import { useState, useEffect, useRef } from "react";
 import { ReverseFunnel } from "@/components/ReverseFunnel";
 
+// Smart routing: logged-in users go to /feed, new visitors go to /signup
+function getPortalDestination(): string {
+  try {
+    // Check if user has a session token (stored by our auth system)
+    const hasSession = !!localStorage.getItem('athlynx_user_token') ||
+      !!localStorage.getItem('athlynx_session') ||
+      document.cookie.includes('athlynx_session') ||
+      document.cookie.includes('auth_token');
+    return hasSession ? '/feed' : '/signup';
+  } catch {
+    return '/signup';
+  }
+}
+
 function EnterPortalToggle() {
   const [visible, setVisible] = useState(false);
+  const [dest, setDest] = useState('/signup');
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 200);
     window.addEventListener('scroll', onScroll);
+    setDest(getPortalDestination());
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
   return (
     <a
-      href="/feed"
+      href={dest}
       className={`fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-cyan-500 hover:to-blue-600 text-white font-black text-sm px-5 py-3.5 rounded-2xl shadow-2xl shadow-blue-500/40 transition-all duration-300 hover:scale-105 active:scale-95 ${
         visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
       }`}
@@ -587,7 +603,7 @@ function HomeInner() {
           <p className="text-blue-200 text-lg mt-2 drop-shadow font-semibold">Youth → High School → College → Pro → Retired</p>
           <p className="text-blue-300/70 text-sm mt-1 drop-shadow">Every Level. Every Sport. One Platform.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6">
-            <a href="/feed" className="inline-block bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-cyan-500 hover:to-blue-600 text-white font-black text-lg px-8 py-4 rounded-xl transition-all shadow-xl hover:scale-105 border-2 border-cyan-400/30">
+            <a href={typeof window !== 'undefined' ? getPortalDestination() : '/signup'} className="inline-block bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-cyan-500 hover:to-blue-600 text-white font-black text-lg px-8 py-4 rounded-xl transition-all shadow-xl hover:scale-105 border-2 border-cyan-400/30">
               ENTER THE PORTAL →
             </a>
             <Link href="/demo" className="inline-block bg-red-500 hover:bg-red-400 text-black font-black text-lg px-8 py-3 rounded-xl transition-all shadow-xl hover:scale-105">

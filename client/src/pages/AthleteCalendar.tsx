@@ -41,17 +41,19 @@ const EVENT_CONFIG: Record<EventType, { color: string; bg: string; border: strin
 const MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const DAYS = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
-const QUICK_EVENT_TEMPLATES = [
-  { type: "game" as EventType,        title: "Game vs. ", icon: "🏆", desc: "Add a game" },
-  { type: "camp" as EventType,        title: "Camp — ",   icon: "⛺", desc: "Training camp" },
-  { type: "showcase" as EventType,    title: "Showcase — ", icon: "🌟", desc: "Recruiting showcase" },
-  { type: "nil" as EventType,         title: "NIL Meeting — ", icon: "💰", desc: "NIL deal/meeting" },
-  { type: "signing" as EventType,     title: "Signing Day", icon: "✍️", desc: "Sign your letter" },
-  { type: "scholarship" as EventType, title: "Scholarship — ", icon: "🎓", desc: "Scholarship event" },
-  { type: "endorsement" as EventType, title: "Brand Deal — ", icon: "🤝", desc: "Endorsement" },
-  { type: "tournament" as EventType,  title: "Tournament — ", icon: "🥇", desc: "Tournament" },
-  { type: "highlight" as EventType,   title: "Highlight Reel Drop", icon: "🎬", desc: "Share highlight" },
-  { type: "life" as EventType,        title: "Life Event — ", icon: "🌟", desc: "Personal milestone" },
+// Server only accepts: "game"|"practice"|"nil"|"recruiting"|"team"|"personal"|"training"|"media"
+type ServerEventType = "game" | "practice" | "nil" | "recruiting" | "team" | "personal" | "training" | "media";
+const QUICK_EVENT_TEMPLATES: Array<{ type: ServerEventType; label: string; title: string; icon: string; desc: string }> = [
+  { type: "game",       label: "Game",       title: "Game vs. ",          icon: "🏆", desc: "Add a game" },
+  { type: "training",  label: "Camp",       title: "Camp — ",             icon: "⛺", desc: "Training camp" },
+  { type: "recruiting",label: "Showcase",   title: "Showcase — ",         icon: "🌟", desc: "Recruiting showcase" },
+  { type: "nil",       label: "NIL",        title: "NIL Meeting — ",       icon: "💰", desc: "NIL deal/meeting" },
+  { type: "personal",  label: "Signing",    title: "Signing Day",         icon: "✍️", desc: "Sign your letter" },
+  { type: "media",     label: "Scholarship",title: "Scholarship — ",       icon: "🎓", desc: "Scholarship event" },
+  { type: "team",      label: "Brand Deal", title: "Brand Deal — ",        icon: "🤝", desc: "Endorsement" },
+  { type: "practice",  label: "Tournament", title: "Tournament — ",        icon: "🥇", desc: "Tournament" },
+  { type: "media",     label: "Highlight",  title: "Highlight Reel Drop", icon: "🎬", desc: "Share highlight" },
+  { type: "personal",  label: "Life Event", title: "Life Event — ",        icon: "🌟", desc: "Personal milestone" },
 ];
 
 function AthleteCalendarInner() {
@@ -121,7 +123,7 @@ function AthleteCalendarInner() {
   };
 
   const openAddWithTemplate = (template: typeof QUICK_EVENT_TEMPLATES[0]) => {
-    setNewEvent(p => ({ ...p, title: template.title, type: template.type }));
+    setNewEvent(p => ({ ...p, title: template.title, type: template.type as EventType }));
     setShowAddModal(true);
   };
 
@@ -429,7 +431,7 @@ function AthleteCalendarInner() {
                     updateEvent.mutate({ id: editingEvent.id, title: editingEvent.title, date: editingEvent.date, time: editingEvent.time, type: editingEvent.type, location: editingEvent.location, description: editingEvent.description, priority: editingEvent.priority });
                   } else {
                     if (!newEvent.title || !newEvent.date) { toast.error("Title and date are required"); return; }
-                    createEvent.mutate({ title: newEvent.title, date: newEvent.date, time: newEvent.time || undefined, type: newEvent.type, location: newEvent.location || undefined, description: newEvent.description || undefined, priority: newEvent.priority });
+                    createEvent.mutate({ title: newEvent.title, date: newEvent.date, time: newEvent.time || undefined, type: (newEvent.type as ServerEventType) || "personal", location: newEvent.location || undefined, description: newEvent.description || undefined, priority: newEvent.priority });
                   }
                 }}
                 disabled={createEvent.isPending || updateEvent.isPending}

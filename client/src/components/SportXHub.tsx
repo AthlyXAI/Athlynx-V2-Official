@@ -619,7 +619,7 @@ export default function SportXHub({ sport }: { sport: SportConfig }) {
                           <button className="hover:text-blue-300"><MapPin className="w-5 h-5" /></button>
                         </div>
                         <button
-                          onClick={() => { if (postText.trim() && user) createPost.mutate({ content: postText, type: sport.id }); }}
+                          onClick={() => { if (postText.trim() && user) createPost.mutate({ content: postText, postType: "status" }); }}
                           disabled={!postText.trim() || createPost.isPending}
                           className="bg-blue-600 hover:bg-blue-500 disabled:opacity-40 text-white font-black px-5 py-1.5 rounded-full text-sm transition-colors flex items-center gap-1.5"
                         >

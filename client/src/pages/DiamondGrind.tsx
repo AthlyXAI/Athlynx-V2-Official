@@ -332,7 +332,7 @@ function DiamondGrindInner() {
                 placeholder="Ask your AI baseball coach anything — pitching mechanics, hitting approach, recruiting strategy, showcase prep…"
                 rows={3} className="w-full bg-[#0d1f3c] border border-blue-800 text-white text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-red-500 placeholder-blue-500 resize-none mb-3" />
               <button
-                onClick={() => aiPrompt.trim() && generatePlanMutation.mutate({ sport: "Baseball", question: aiPrompt })}
+                onClick={() => aiPrompt.trim() && generatePlanMutation.mutate({ sport: "Baseball", question: aiPrompt, targetLevel: "D1" })}
                 disabled={generatePlanMutation.isPending || !aiPrompt.trim()}
                 className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 disabled:opacity-50 text-white font-bold py-3 rounded-xl transition-all">
                 {generatePlanMutation.isPending ? "⚾ Coaching…" : "Get AI Coaching Plan"}

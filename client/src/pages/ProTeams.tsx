@@ -83,11 +83,15 @@ const FEATURES = [
   },
 ];
 
-const PRICING_TIERS = [
+const PRICING_TIERS: Array<{
+  name: string; price: string; priceNote: string; features: string[];
+  color: string; badge: string; badgeColor: string; highlight?: boolean; stripeId?: string;
+}> = [
   {
     name: "Pro Teams Starter",
     price: "$2,500/mo",
     priceNote: "per organization",
+    stripeId: "price_1TSnkERjBH07kRLYYlitSqLm",
     features: [
       "Up to 100 roster slots",
       "Contract tracking (basic)",
@@ -104,6 +108,7 @@ const PRICING_TIERS = [
     name: "Pro Teams Pro",
     price: "$7,500/mo",
     priceNote: "per organization",
+    stripeId: "price_1TSnkMRjBH07kRLYf8UZwzKf",
     features: [
       "Unlimited roster slots",
       "Full contract + cap tracking",
@@ -146,6 +151,18 @@ const STATS = [
 
 function ProTeamsInner() {
   const [activeLeague, setActiveLeague] = useState<string | null>(null);
+  const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
+  const { user } = useAuth();
+  const checkoutMutation = trpc.stripe.createSubscriptionCheckout.useMutation({
+    onSuccess: (data) => { if (data.url) window.location.href = data.url; },
+    onError: () => setCheckoutLoading(null),
+    onSettled: () => setCheckoutLoading(null),
+  });
+  const handleCheckout = (stripeId: string, planName: string) => {
+    if (!user) { window.location.href = '/signup'; return; }
+    setCheckoutLoading(stripeId);
+    checkoutMutation.mutate({ planId: stripeId, interval: 'month', origin: window.location.origin });
+  };
 
   return (
     <PlatformLayout title="Pro Teams">

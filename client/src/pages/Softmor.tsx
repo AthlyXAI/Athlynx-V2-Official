@@ -82,7 +82,7 @@ function SoftmorInner() {
     if (!priceId) return;
     if (!user) { toast({ title: "Sign In Required", description: "Please sign in to subscribe.", variant: "destructive" }); return; }
     setCheckoutLoading(tierName);
-    checkoutMutation.mutate({ priceId, successUrl: window.location.origin + '/payment-success?plan=concreator-' + tierName.toLowerCase(), cancelUrl: window.location.href });
+    checkoutMutation.mutate({ planId: priceId, interval: 'month', origin: window.location.origin });
   };
 
   return (

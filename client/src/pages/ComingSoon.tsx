@@ -58,6 +58,6 @@ function ComingSoonInner({ title, description, icon }: ComingSoonProps) {
     </div>
   );
 }
-export default function ComingSoon() {
-  return <RouteErrorBoundary><ComingSoonInner /></RouteErrorBoundary>;
+export default function ComingSoon({ title = "Coming Soon", description = "This feature is launching soon. Stay tuned!", icon = "🚀" }: Partial<ComingSoonProps>) {
+  return <RouteErrorBoundary><ComingSoonInner title={title} description={description} icon={icon} /></RouteErrorBoundary>;
 }

@@ -227,7 +227,7 @@ interface AIOnboardingProps {
 }
 
 export default function AIOnboarding({ onComplete, onDismiss }: AIOnboardingProps) {
-  const [step, setStep] = useState<"welcome" | "role" | "questions" | "activating" | "done">("welcome");
+  const [step, setStep] = useState<"welcome" | "role" | "questions" | "activating" | "done" | "meet">("welcome");
   const [activationStep, setActivationStep] = useState(0);
   const [selectedRole, setSelectedRole] = useState<RoleId | null>(null);
   const [questionIndex, setQuestionIndex] = useState(0);

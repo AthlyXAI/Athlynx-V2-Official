@@ -94,9 +94,9 @@ function EmployeePortalInner() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-3">
             {[
               { label: "Total Users", value: stats?.totalUsers ?? "—", icon: "👥" },
-              { label: "Active Trial", value: stats?.trialUsers ?? "—", icon: "⏱️" },
-              { label: "Paid Subs", value: stats?.subscribedUsers ?? "—", icon: "💎" },
-              { label: "Revenue", value: stats?.revenue ? `$${stats.revenue.toLocaleString()}` : "—", icon: "💰" },
+              { label: "Active Trial", value: stats?.onTrial ?? "—", icon: "⏱️" },
+              { label: "Paid Subs", value: stats?.withSubscription ?? "—", icon: "💎" },
+              { label: "New This Week", value: stats?.newThisWeek ?? "—", icon: "💰" },
             ].map((s, i) => (
               <div key={i} className="bg-[#0d1b3e] rounded-xl p-3 text-center border border-blue-900">
                 <div className="text-xl">{s.icon}</div>
