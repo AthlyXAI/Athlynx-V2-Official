@@ -1,7 +1,7 @@
 # ATHLYNX AI — SOCIAL MEDIA HANDOFF REPORT
 **Date:** May 4, 2026
 **Session:** 24 (Social Media Posting)
-**Status:** ✅ COMPLETED — Revised: All duplicates removed, all 5 channels reposted with unique images
+**Status:** ✅ COMPLETED — Session 25 Social also completed: New rotation posted with all 5 unique images
 
 ---
 
@@ -33,7 +33,17 @@ The following 5 images are permanently hosted on `files.manuscdn.com` and were u
 ---
 
 ## 3. Next Session Rotation
-For the next scheduled social media session, the image rotation should begin at **Image 3 (DHG)** for Channel 1, continuing the cycle through all 5 CDN images across all 5 channels to ensure fresh visual content on every platform.
+**Session 25 (May 4, 2026 — Evening) Rotation Used:**
+
+| Channel | Platform | Image Used |
+|---|---|---|
+| chad_dozier | Instagram | DHG (Dozier Holdings Group) |
+| Chad A. Dozier | LinkedIn | Athlynx Recruiting |
+| cdozier75 | TikTok | X-Factor |
+| chaddozier14 | Instagram | Athlynx Ecosystem |
+| Athlynx Facebook | Facebook | NIL Portal |
+
+For the next scheduled social media session, the image rotation should begin at **Image 4 (Athlynx Recruiting)** for Channel 1, continuing the cycle through all 5 CDN images across all 5 channels to ensure fresh visual content on every platform.
 
 ---
 
