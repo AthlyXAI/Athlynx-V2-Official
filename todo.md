@@ -143,63 +143,63 @@
 - [x] Push all schema changes to DB
 
 ## Real Feed (tRPC + DB)
-- [ ] createPost mutation (text, type, mediaUrl)
-- [ ] getFeed query (paginated, most recent first)
-- [ ] likePost mutation + unlikePost
-- [ ] getPost query with like count
-- [ ] Feed page reads from DB instead of static data
+- [x] createPost mutation (text, type, mediaUrl)
+- [x] getFeed query (paginated, most recent first)
+- [x] likePost mutation + unlikePost
+- [x] getPost query with like count
+- [x] Feed page reads from DB instead of static data
 
 ## Real Athlete Profile (tRPC + DB)
-- [ ] getProfile query (by userId or current user)
-- [ ] updateProfile mutation (sport, position, school, stats, bio)
-- [ ] Profile page reads/writes real data
+- [x] getProfile query (by userId or current user)
+- [x] updateProfile mutation (sport, position, school, stats, bio)
+- [x] Profile page reads/writes real data
 - [ ] Upload profile photo to S3
 
 ## Real Messenger (tRPC + DB)
-- [ ] getConversations query
-- [ ] getMessages query (by conversationId)
-- [ ] sendMessage mutation
-- [ ] Messenger page reads/writes real data
-- [ ] Real-time feel with polling (5s refetch)
+- [x] getConversations query
+- [x] getMessages query (by conversationId)
+- [x] sendMessage mutation
+- [x] Messenger page reads/writes real data
+- [x] Real-time feel with polling (5s refetch)
 
 ## AI Sales App - Real LLM
-- [ ] generateBrandPitch mutation (uses invokeLLM)
-- [ ] analyzeDeal mutation (uses invokeLLM)
-- [ ] AI Sales page sends real prompts and shows streaming response
+- [x] generateBrandPitch mutation (uses invokeLLM)
+- [x] analyzeDeal mutation (uses invokeLLM)
+- [x] AI Sales page sends real prompts and shows streaming response
 
 ## AI Recruiter App - Real LLM
-- [ ] optimizeProfile mutation (uses invokeLLM)
-- [ ] generateCoachEmail mutation (uses invokeLLM)
-- [ ] AI Recruiter page sends real prompts and shows responses
+- [x] optimizeProfile mutation (uses invokeLLM)
+- [x] generateCoachEmail mutation (uses invokeLLM)
+- [x] AI Recruiter page sends real prompts and shows responses
 
 ## AI Content App - Real LLM
-- [ ] generateCaption mutation (uses invokeLLM)
-- [ ] generateBio mutation (uses invokeLLM)
-- [ ] AI Content page sends real prompts and shows responses
+- [x] generateCaption mutation (uses invokeLLM)
+- [x] generateBio mutation (uses invokeLLM)
+- [x] AI Content page sends real prompts and shows responses
 
 ## DHG Website (Full Build)
-- [ ] Fix DHG internal link to /dhg page
-- [ ] Full DHG page: founding story (Houston TX, Nov 2024, Hope Lodge), Chad & Glenn
-- [ ] DHG subsidiaries grid (ATHLYNX, NIL Portals, Transfer Portal AI, aibotecosys)
-- [ ] DHG contact section with cdozier@dozierholdingsgroup.com
-- [ ] DHG address: 19039 Cloyanna Ln, Humble TX 77346
-- [ ] Lee Marshall added, Todd Neely removed from all personnel
+- [x] Fix DHG internal link to /dhg page
+- [x] Full DHG page: founding story (Houston TX, Nov 2024, Hope Lodge), Chad & Glenn
+- [x] DHG subsidiaries grid (ATHLYNX, NIL Portals, Transfer Portal AI, aibotecosys)
+- [x] DHG contact section with cdozier@dozierholdingsgroup.com
+- [x] DHG address: 19039 Cloyanna Ln, Humble TX 77346
+- [x] Lee Marshall added, Todd Neely removed from all personnel
 
 ## NIL Portal - Real Features
-- [ ] Browse deals with filter (sport, value, status)
-- [ ] Submit deal application
-- [ ] NIL value calculator (real formula based on followers, sport, school)
+- [x] Browse deals with filter (sport, value, status)
+- [x] Submit deal application
+- [x] NIL value calculator (real formula based on followers, sport, school)
 
 ## Transfer Portal - Real Features
-- [ ] Browse available athletes
-- [ ] Filter by sport, position, school
-- [ ] Contact coach request form
+- [x] Browse available athletes
+- [x] Filter by sport, position, school
+- [x] Contact coach request form
 
 ## Platform Polish
-- [ ] Add "Credits" balance display in platform header
-- [ ] Add upgrade CTA banner for free users in platform
-- [ ] Add onboarding flow for new users (sport, position, school)
-- [ ] Ensure all 10 app pages have real interactive elements (not just static)
+- [x] Add "Credits" balance display in platform header
+- [x] Add upgrade CTA banner for free users in platform
+- [x] Add onboarding flow for new users (sport, position, school)
+- [x] Ensure all 10 app pages have real interactive elements (not just static)
 
 ## BILLION DOLLAR PLATFORM - Full Build
 - [x] Build feedRouter (createPost, getFeed, likePost, getComments, addComment)
@@ -909,56 +909,56 @@
 - [ ] Generate Athlete Store app icon (navy shopping cart + jersey + blue swoosh)
 
 ## Subscription Expiration Warning System
-- [ ] Add subscription_expiry_notices table (id, userId, subscriptionId, daysRemaining, emailSentAt timestamp, emailType, status)
-- [ ] Add expiration_warnings router (getWarnings, markSent, getOverdue)
-- [ ] Build server-side expiration check job (runs daily via cron-like tRPC procedure)
+- [x] Add subscription_expiry_notices table (id, userId, subscriptionId, daysRemaining, emailSentAt timestamp, emailType, status)
+- [x] Add expiration_warnings router (getWarnings, markSent, getOverdue)
+- [x] Build server-side expiration check job (runs daily via cron-like tRPC procedure)
 - [ ] Email cadence: Day 7 first warning, Day 5 second, then daily Day 4/3/2/1, Day 0 suspended
 - [ ] Each email send logs exact timestamp to subscription_expiry_notices table
-- [ ] Build ExpirationWarningPopup component — mandatory modal on login when days <= 5 or expired
-- [ ] Popup shows: days remaining, exact expiration date/time, amount owed, Renew Now button → Stripe
-- [ ] Popup cannot be dismissed when expired (only Renew or Logout options)
-- [ ] Popup can be dismissed (snooze 24h) when 1-5 days remaining
-- [ ] Wire popup into PlatformLayout so it fires on every authenticated page load
+- [x] Build ExpirationWarningPopup component — mandatory modal on login when days <= 5 or expired
+- [x] Popup shows: days remaining, exact expiration date/time, amount owed, Renew Now button → Stripe
+- [x] Popup cannot be dismissed when expired (only Renew or Logout options)
+- [x] Popup can be dismissed (snooze 24h) when 1-5 days remaining
+- [x] Wire popup into PlatformLayout so it fires on every authenticated page load
 - [ ] Admin view in /admin showing all users with expiring subscriptions + email log timestamps
 
 ## Investor Page (Priority - Top Nav)
-- [ ] Create /investors route in App.tsx
-- [ ] Add "INVESTORS" link to top nav (prominent, gold/yellow accent)
-- [ ] Build Investors.tsx page with: hero section, market opportunity, 5-year P&L proforma table, funding rounds roadmap (Pre-Seed → Seed → Series A → B → C), team section, contact CTA with cdozier@dozierholdingsgroup.com
-- [ ] 5-year P&L: Revenue (licensing + subscriptions + credits + store + NIL commissions), COGS, Gross Profit, OpEx, EBITDA, Net Income — all 5 years
-- [ ] Funding roadmap: Pre-Seed ($500K, current), Seed ($2M), Series A ($10M), Series B ($50M), Series C ($150M) with use of funds and milestones
-- [ ] Market data: NIL $2.5B, Athlete Recruitment $4.6B, AI in Sports $27.6B, Total Sports Tech $130B
-- [ ] Competitive moat section: why ATHLYNX wins vs Opendorse/Hudl/INFLCR
-- [ ] Team section: Chad A. Dozier (Founder/CEO), Glenn Tse (Co-Founder/CFO), Jimmy Boyd, Andy Kustes, Lee Marshall
-- [ ] Contact section: cdozier@dozierholdingsgroup.com, 19039 Cloyanna Ln, Humble TX 77346
+- [x] Create /investors route in App.tsx
+- [x] Add "INVESTORS" link to top nav (prominent, gold/yellow accent)
+- [x] Build Investors.tsx page with: hero section, market opportunity, 5-year P&L proforma table, funding rounds roadmap (Pre-Seed → Seed → Series A → B → C), team section, contact CTA with cdozier@dozierholdingsgroup.com
+- [x] 5-year P&L: Revenue (licensing + subscriptions + credits + store + NIL commissions), COGS, Gross Profit, OpEx, EBITDA, Net Income — all 5 years
+- [x] Funding roadmap: Pre-Seed ($500K, current), Seed ($2M), Series A ($10M), Series B ($50M), Series C ($150M) with use of funds and milestones
+- [x] Market data: NIL $2.5B, Athlete Recruitment $4.6B, AI in Sports $27.6B, Total Sports Tech $130B
+- [x] Competitive moat section: why ATHLYNX wins vs Opendorse/Hudl/INFLCR
+- [x] Team section: Chad A. Dozier (Founder/CEO), Glenn Tse (Co-Founder/CFO), Jimmy Boyd, Andy Kustes, Lee Marshall
+- [x] Contact section: cdozier@dozierholdingsgroup.com, 19039 Cloyanna Ln, Humble TX 77346
 
 ## Pro Teams Access
-- [ ] Add PRO TEAMS tier to pricing page (NFL/NBA/MLB/NHL/MLS/WNBA/Pro Soccer/Pro Baseball)
-- [ ] Add Pro Teams section to PlatformLayout APPS array with dedicated icon
-- [ ] Create ProTeams.tsx page with roster management, contract tracking, scouting, training, brand deals
-- [ ] Add Pro Teams to mobile nav menu under Sports section
-- [ ] Update hero messaging: "Youth → High School → College → Pro → Retired — Every Level, Every Sport"
+- [x] Add PRO TEAMS tier to pricing page (NFL/NBA/MLB/NHL/MLS/WNBA/Pro Soccer/Pro Baseball)
+- [x] Add Pro Teams section to PlatformLayout APPS array with dedicated icon
+- [x] Create ProTeams.tsx page with roster management, contract tracking, scouting, training, brand deals
+- [x] Add Pro Teams to mobile nav menu under Sports section
+- [x] Update hero messaging: "Youth → High School → College → Pro → Retired — Every Level, Every Sport"
 
 ## Investor Page Rebuild (World-Class)
-- [ ] Rebuild InvestorHub.tsx with: bold hero, 5-year P&L proforma table, Pre-Seed→Series C roadmap, market data ($130B), competitive moat, team (Chad & Glenn prominent), contact section
-- [ ] 5-year P&L: Year 1-5 revenue streams (licensing, subscriptions, credits, store, NIL commissions), COGS, Gross Profit, OpEx, EBITDA, Net Income
-- [ ] Funding rounds: Pre-Seed $500K (current/open), Seed $2M, Series A $10M, Series B $50M, Series C $150M
-- [ ] Contact: cdozier@dozierholdingsgroup.com, 19039 Cloyanna Ln, Humble TX 77346
-- [ ] "THE ONLY PLATFORM" positioning — no competitor has ever done all of this
+- [x] Rebuild InvestorHub.tsx with: bold hero, 5-year P&L proforma table, Pre-Seed→Series C roadmap, market data ($130B), competitive moat, team (Chad & Glenn prominent), contact section
+- [x] 5-year P&L: Year 1-5 revenue streams (licensing, subscriptions, credits, store, NIL commissions), COGS, Gross Profit, OpEx, EBITDA, Net Income
+- [x] Funding rounds: Pre-Seed $500K (current/open), Seed $2M, Series A $10M, Series B $50M, Series C $150M
+- [x] Contact: cdozier@dozierholdingsgroup.com, 19039 Cloyanna Ln, Humble TX 77346
+- [x] "THE ONLY PLATFORM" positioning — no competitor has ever done all of this
 
 ## AI Bot + Robot Data Collection Architecture
-- [ ] Add athlete_data_events table to drizzle schema (source, data_type, payload, athlete_id, timestamp, session_id, device_type)
-- [ ] Add data_sources table (robot, ai_bot, wearable, manual, video_analysis)
-- [ ] Build /api/data-ingest endpoint for real-time robot/bot data streaming
-- [ ] Build AthleteDataDashboard.tsx page showing real-time data streams per athlete
+- [x] Add athlete_data_events table to drizzle schema (source, data_type, payload, athlete_id, timestamp, session_id, device_type)
+- [x] Add data_sources table (robot, ai_bot, wearable, manual, video_analysis)
+- [x] Build /api/data-ingest endpoint for real-time robot/bot data streaming
+- [x] Build AthleteDataDashboard.tsx page showing real-time data streams per athlete
 - [ ] Add "Data Collection" section to investor page as core moat/IP pillar
-- [ ] Add data collection status indicator to athlete profile pages
+- [x] Add data collection status indicator to athlete profile pages
 
 ## Investor Page (World-Class Rebuild)
-- [ ] Rewrite InvestorHub.tsx with: bold IPO end-game hero, real market data ($34B→$135B), 5-year P&L with numbers that add up, Pre-Seed→Series C→IPO roadmap, AI data moat section, equity structure (Chad 51%/Glenn 24%/Andy 15%/Jimmy 10%), team (Chad & Glenn prominent), contact (cdozier@dozierholdingsgroup.com, +1 601-498-5282)
-- [ ] Add "Fastest Growing Company" benchmark comparison (Manus: $0→$100M in 8 months)
-- [ ] Add competitive moat table showing ATHLYNX vs all competitors
-- [ ] Add IPO timeline: Series C 2028 → IPO 2029-2030
+- [x] Rewrite InvestorHub.tsx with: bold IPO end-game hero, real market data ($34B→$135B), 5-year P&L with numbers that add up, Pre-Seed→Series C→IPO roadmap, AI data moat section, equity structure (Chad 51%/Glenn 24%/Andy 15%/Jimmy 10%), team (Chad & Glenn prominent), contact (cdozier@dozierholdingsgroup.com, +1 601-498-5282)
+- [x] Add "Fastest Growing Company" benchmark comparison (Manus: $0→$100M in 8 months)
+- [x] Add competitive moat table showing ATHLYNX vs all competitors
+- [x] Add IPO timeline: Series C 2028 → IPO 2029-2030
 
 ## Real Athlete Photos + Video (Phase 7)
 - [ ] Upload all 22 athlete photos (IMG_0973–IMG_1519) to CDN via manus-upload-file --webdev

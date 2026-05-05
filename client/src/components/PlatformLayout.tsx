@@ -45,6 +45,7 @@ const APPS = [
   { id: "pro-teams", label: "Pro Teams", icon: "/athlynx-icon.png", badge: "PRO", href: "/pro-teams" },
   { id: "community-feedback", label: "Talk to Founder", icon: "/athlynx-icon.png", badge: "NEW", href: "/community-feedback" },
   { id: "browse-athletes", label: "Browse Athletes", icon: "/athlynx-icon.png", badge: "NEW", href: "/browse-athletes" },
+  { id: "data-dashboard", label: "Data Dashboard", icon: "/athlynx-icon.png", badge: "LIVE", href: "/data-dashboard" },
   { id: "white-label", label: "White-Label", icon: "/athlynx-icon.png", badge: "BIZ", href: "/white-label" },
   { id: "crm", label: "CRM", icon: "/athlynx-icon.png", badge: "PRO", href: "/admin/crm" },
   { id: "analytics", label: "Analytics", icon: "/athlynx-icon.png", badge: "PRO", href: "/analytics" },

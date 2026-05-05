@@ -36,6 +36,7 @@ import NILVault from "./pages/NILVault";
 import NILMarketplace from "./pages/NILMarketplace";
 import NILJobs from "./pages/NILJobs";
 import AthleteCalendar from "./pages/AthleteCalendar";
+import AthleteDataDashboard from "./pages/AthleteDataDashboard";
 import EliteEvents from "./pages/EliteEvents";
 import XFactor from "./pages/XFactor";
 import NILCalculator from "./pages/NILCalculator";
@@ -263,6 +264,8 @@ function Router() {
       <Route path="/ai-training-bot" component={AITrainingBot} />
       <Route path="/faith" component={Faith} />
       <Route path="/athlete-dashboard" component={AthleteDashboard} />
+      <Route path="/data-dashboard" component={AthleteDataDashboard} />
+      <Route path="/athlete-data" component={AthleteDataDashboard} />
       <Route path="/athlete-playbook" component={AthletePlaybook} />
       <Route path="/athlete-website-builder" component={AthleteWebsiteBuilder} />
       <Route path="/athlynx-browser" component={AthlynxBrowser} />
