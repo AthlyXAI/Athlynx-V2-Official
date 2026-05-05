@@ -550,3 +550,38 @@ export const athleteStories = pgTable("athlete_stories", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 export type AthleteStory = typeof athleteStories.$inferSelect;
+
+// ─── License Agreements (White-Label Licensing) ───────────────────────────────
+export const licenseStatusValues = ["active", "pending", "suspended", "cancelled", "trial"] as const;
+export type LicenseStatus = (typeof licenseStatusValues)[number];
+export const licenseStatusEnum = pgEnum("license_status", licenseStatusValues);
+
+export const licenseTierValues = ["team", "school", "conference", "enterprise"] as const;
+export type LicenseTier = (typeof licenseTierValues)[number];
+export const licenseTierEnum = pgEnum("license_tier", licenseTierValues);
+
+export const licenseAgreements = pgTable("license_agreements", {
+  id: serial("id").primaryKey(),
+  orgName: varchar("orgName", { length: 255 }).notNull(),
+  orgType: varchar("orgType", { length: 64 }).notNull(),
+  tier: licenseTierEnum("tier").notNull(),
+  monthlyFee: integer("monthlyFee").notNull(), // in cents
+  athleteCount: integer("athleteCount").default(0),
+  status: licenseStatusEnum("status").default("pending").notNull(),
+  startDate: timestamp("startDate"),
+  renewalDate: timestamp("renewalDate"),
+  adminUserId: integer("adminUserId"),
+  brandColor: varchar("brandColor", { length: 16 }),
+  logoUrl: text("logoUrl"),
+  customDomain: varchar("customDomain", { length: 255 }),
+  contactName: varchar("contactName", { length: 255 }),
+  contactEmail: varchar("contactEmail", { length: 255 }),
+  contactPhone: varchar("contactPhone", { length: 32 }),
+  stripeSubscriptionId: varchar("stripeSubscriptionId", { length: 128 }),
+  stripeCustomerId: varchar("stripeCustomerId", { length: 128 }),
+  notes: text("notes"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+});
+export type LicenseAgreement = typeof licenseAgreements.$inferSelect;
+export type InsertLicenseAgreement = typeof licenseAgreements.$inferInsert;

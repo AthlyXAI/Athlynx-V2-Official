@@ -102,6 +102,9 @@ import Training from "./pages/Training";
 // ── Commerce & Infrastructure ──
 import Marketplace from "./pages/Marketplace";
 import Store from "./pages/Store";
+import AthleteStore from "./pages/AthleteStore";
+import AdminExpiry from "./pages/AdminExpiry";
+import LayerCake from "./pages/LayerCake";
 import Pricing from "./pages/Pricing";
 import PricingTiers from "./pages/PricingTiers";
 import Billing from "./pages/Billing";
@@ -362,6 +365,13 @@ function Router() {
       <Route path="/marketplace" component={Marketplace} />
       <Route path="/store" component={Store} />
       <Route path="/shop" component={Store} />
+      <Route path="/athlete-store" component={AthleteStore} />
+      <Route path="/gear" component={AthleteStore} />
+      <Route path="/admin/expiry" component={AdminExpiry} />
+      <Route path="/admin/subscriptions" component={AdminExpiry} />
+      <Route path="/layer-cake" component={LayerCake} />
+      <Route path="/stack" component={LayerCake} />
+      <Route path="/architecture" component={LayerCake} />
       <Route path="/pricing" component={Pricing} />
       <Route path="/pricing-tiers" component={PricingTiers} />
       <Route path="/billing" component={Billing} />
