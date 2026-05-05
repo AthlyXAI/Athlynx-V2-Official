@@ -119,6 +119,9 @@ export const athleteProfiles = pgTable("athlete_profiles", {
   youtubeUrl: text("youtubeUrl"),
   linkedinUrl: text("linkedinUrl"),
   tiktokHandle: varchar("tiktokHandle", { length: 128 }),
+  // ─── Media & Content platforms
+  spotifyUrl: text("spotifyUrl"),       // Athlete playlist / podcast
+  capcutUrl: text("capcutUrl"),         // CapCut highlight reel
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().notNull(),
 });

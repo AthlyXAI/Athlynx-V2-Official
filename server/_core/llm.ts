@@ -109,6 +109,9 @@ export type ResponseFormat =
   | { type: "json_object" }
   | { type: "json_schema"; json_schema: JsonSchema };
 
+// ─── Engine type ─────────────────────────────────────────────────────────────
+type Engine = "gemini" | "claude" | "nebius";
+
 const ensureArray = (
   value: MessageContent | MessageContent[]
 ): MessageContent[] => (Array.isArray(value) ? value : [value]);
@@ -208,25 +211,29 @@ const normalizeToolChoice = (
   return toolChoice;
 };
 
-const resolveApiUrl = (useNebius = false) => {
-  if (useNebius) {
-    return "https://api.studio.nebius.ai/v1/chat/completions";
-  }
-  // Use native Google AI endpoint if GOOGLE_AI_API_KEY is set (Gemini 2.5 Flash via OpenAI-compatible API)
-  if (process.env.GOOGLE_AI_API_KEY) {
-    return "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
-  }
+const resolveApiUrl = (engine: Engine = "gemini") => {
+  if (engine === "nebius") return "https://api.studio.nebius.ai/v1/chat/completions";
+  if (engine === "claude") return "https://api.anthropic.com/v1/messages";
+  if (process.env.GOOGLE_AI_API_KEY) return "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
   return "https://api.openai.com/v1/chat/completions";
 };
 
-const getApiKey = (useNebius = false): string => {
-  if (useNebius) return process.env.NEBIUS_API_KEY || "";
+const getApiKey = (engine: Engine = "gemini"): string => {
+  if (engine === "nebius") return process.env.NEBIUS_API_KEY || "";
+  if (engine === "claude") return process.env.ANTHROPIC_API_KEY || "";
   return process.env.GOOGLE_AI_API_KEY || process.env.OPENAI_API_KEY || "";
 };
 
 const assertApiKey = () => {
-  if (!process.env.GOOGLE_AI_API_KEY && !process.env.OPENAI_API_KEY && !process.env.NEBIUS_API_KEY) {
-    throw new Error("No AI API key configured — set GOOGLE_AI_API_KEY, OPENAI_API_KEY, or NEBIUS_API_KEY");
+  if (
+    !process.env.GOOGLE_AI_API_KEY &&
+    !process.env.OPENAI_API_KEY &&
+    !process.env.NEBIUS_API_KEY &&
+    !process.env.ANTHROPIC_API_KEY
+  ) {
+    throw new Error(
+      "No AI API key configured — set GOOGLE_AI_API_KEY, ANTHROPIC_API_KEY, NEBIUS_API_KEY, or OPENAI_API_KEY"
+    );
   }
 };
 
@@ -275,7 +282,7 @@ const normalizeResponseFormat = ({
   };
 };
 
-async function invokeLLMWithEngine(params: InvokeParams, useNebius: boolean): Promise<InvokeResult> {
+async function invokeLLMWithEngine(params: InvokeParams, engine: Engine = "gemini"): Promise<InvokeResult> {
   const {
     messages,
     tools,
@@ -287,6 +294,59 @@ async function invokeLLMWithEngine(params: InvokeParams, useNebius: boolean): Pr
     response_format,
   } = params;
 
+  // ─── Claude uses Anthropic's native API format ────────────────────────────
+  if (engine === "claude") {
+    const claudeMessages = messages
+      .filter(m => m.role !== "system")
+      .map(m => ({
+        role: m.role === "assistant" ? "assistant" : "user",
+        content: typeof m.content === "string" ? m.content : JSON.stringify(m.content),
+      }));
+    const systemMsg = messages.find(m => m.role === "system");
+    const claudePayload: Record<string, unknown> = {
+      model: "claude-opus-4-5",
+      max_tokens: 8192,
+      messages: claudeMessages,
+    };
+    if (systemMsg) {
+      claudePayload.system = typeof systemMsg.content === "string"
+        ? systemMsg.content
+        : JSON.stringify(systemMsg.content);
+    }
+    const claudeResp = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-api-key": getApiKey("claude"),
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify(claudePayload),
+    });
+    if (!claudeResp.ok) {
+      const errText = await claudeResp.text();
+      throw new Error(`Claude invoke failed: ${claudeResp.status} ${claudeResp.statusText} – ${errText}`);
+    }
+    const claudeData = await claudeResp.json() as any;
+    // Normalize to OpenAI-compatible InvokeResult
+    return {
+      id: claudeData.id || "claude-" + Date.now(),
+      created: Math.floor(Date.now() / 1000),
+      model: claudeData.model || "claude-opus-4-5",
+      choices: [{
+        index: 0,
+        message: { role: "assistant", content: claudeData.content?.[0]?.text || "" },
+        finish_reason: claudeData.stop_reason || "stop",
+      }],
+      usage: {
+        prompt_tokens: claudeData.usage?.input_tokens || 0,
+        completion_tokens: claudeData.usage?.output_tokens || 0,
+        total_tokens: (claudeData.usage?.input_tokens || 0) + (claudeData.usage?.output_tokens || 0),
+      },
+    } as InvokeResult;
+  }
+
+  // ─── Gemini & Nebius use OpenAI-compatible format ─────────────────────────
+  const useNebius = engine === "nebius";
   const model = useNebius
     ? "meta-llama/Llama-3.3-70B-Instruct"
     : "gemini-2.5-flash";
@@ -325,11 +385,11 @@ async function invokeLLMWithEngine(params: InvokeParams, useNebius: boolean): Pr
     payload.response_format = normalizedResponseFormat;
   }
 
-  const response = await fetch(resolveApiUrl(useNebius), {
+  const response = await fetch(resolveApiUrl(engine), {
     method: "POST",
     headers: {
       "content-type": "application/json",
-      authorization: `Bearer ${getApiKey(useNebius)}`,
+      authorization: `Bearer ${getApiKey(engine)}`,
     },
     body: JSON.stringify(payload),
   });
@@ -345,35 +405,68 @@ async function invokeLLMWithEngine(params: InvokeParams, useNebius: boolean): Pr
 }
 
 /**
- * Primary LLM invocation with automatic Nebius fallback.
- * Tries Gemini first. If Gemini fails (quota, error), falls back to Nebius Llama-3.3-70B.
- * This ensures ATHLYNX AI is ALWAYS ON — zero downtime.
+ * ATHLYNX AI — Triple-Engine Stack
+ * Layer 1: Google Gemini 2.5 Flash  — primary (fastest, best for sports AI)
+ * Layer 2: Anthropic Claude Opus    — secondary (deep reasoning, contract analysis)
+ * Layer 3: Nebius Llama-3.3-70B     — tertiary (NVIDIA H200, always-on fallback)
+ * ATHLYNX AI is ALWAYS ON — zero downtime guaranteed.
  */
 export async function invokeLLM(params: InvokeParams): Promise<InvokeResult> {
   assertApiKey();
 
-  // Try Gemini first (primary engine)
+  // Layer 1 — Gemini (primary)
   if (process.env.GOOGLE_AI_API_KEY) {
     try {
-      return await invokeLLMWithEngine(params, false);
+      return await invokeLLMWithEngine(params, "gemini");
     } catch (geminiError: unknown) {
       const errMsg = String(geminiError);
       const isQuotaError = errMsg.includes("429") || errMsg.includes("quota") || errMsg.includes("RESOURCE_EXHAUSTED");
       const isServerError = errMsg.includes("500") || errMsg.includes("503") || errMsg.includes("502");
-      // Fall back to Nebius on quota exhaustion or server errors
-      if ((isQuotaError || isServerError) && process.env.NEBIUS_API_KEY) {
-        console.log("[LLM] Gemini quota/error — falling back to Nebius Llama-3.3-70B on NVIDIA H200");
-        return await invokeLLMWithEngine(params, true);
+      if (isQuotaError || isServerError) {
+        // Layer 2 — Claude (deep reasoning fallback)
+        if (process.env.ANTHROPIC_API_KEY) {
+          try {
+            console.log("[LLM] Gemini quota/error — falling back to Anthropic Claude Opus");
+            return await invokeLLMWithEngine(params, "claude");
+          } catch (claudeError: unknown) {
+            console.warn("[LLM] Claude error — falling back to Nebius Llama-3.3-70B", claudeError);
+          }
+        }
+        // Layer 3 — Nebius (always-on)
+        if (process.env.NEBIUS_API_KEY) {
+          console.log("[LLM] Falling back to Nebius Llama-3.3-70B on NVIDIA H200");
+          return await invokeLLMWithEngine(params, "nebius");
+        }
       }
       throw geminiError;
     }
   }
 
-  // No Gemini key — use Nebius directly
-  if (process.env.NEBIUS_API_KEY) {
-    return await invokeLLMWithEngine(params, true);
+  // No Gemini — try Claude
+  if (process.env.ANTHROPIC_API_KEY) {
+    try {
+      return await invokeLLMWithEngine(params, "claude");
+    } catch { /* fall through to Nebius */ }
   }
 
-  // Last resort — OpenAI
-  return await invokeLLMWithEngine(params, false);
+  // No Gemini or Claude — use Nebius directly
+  if (process.env.NEBIUS_API_KEY) {
+    return await invokeLLMWithEngine(params, "nebius");
+  }
+
+  // Last resort — OpenAI-compatible
+  return await invokeLLMWithEngine(params, "gemini");
+}
+
+/**
+ * Invoke Claude directly for deep reasoning tasks:
+ * contract analysis, legal review, NIL deal evaluation, academic planning.
+ * Falls back to Gemini if no Anthropic key is set.
+ */
+export async function invokeClaudeDirectly(params: InvokeParams): Promise<InvokeResult> {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    console.log("[LLM] No ANTHROPIC_API_KEY — routing Claude request to Gemini");
+    return invokeLLM(params);
+  }
+  return invokeLLMWithEngine(params, "claude");
 }

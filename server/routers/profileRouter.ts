@@ -49,6 +49,8 @@ export const profileRouter = router({
           youtubeUrl: athleteProfiles.youtubeUrl,
           linkedinUrl: athleteProfiles.linkedinUrl,
           tiktokHandle: athleteProfiles.tiktokHandle,
+          spotifyUrl: athleteProfiles.spotifyUrl,
+          capcutUrl: athleteProfiles.capcutUrl,
           name: users.name,
           email: users.email,
           avatarUrl: users.avatarUrl,
@@ -83,6 +85,8 @@ export const profileRouter = router({
       youtubeUrl: z.string().optional(),
       linkedinUrl: z.string().optional(),
       tiktokHandle: z.string().optional(),
+      spotifyUrl: z.string().optional(),
+      capcutUrl: z.string().optional(),
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
@@ -114,6 +118,8 @@ export const profileRouter = router({
         youtubeUrl: input.youtubeUrl,
         linkedinUrl: input.linkedinUrl,
         tiktokHandle: input.tiktokHandle,
+        spotifyUrl: input.spotifyUrl,
+        capcutUrl: input.capcutUrl,
       };
       if (existing.length > 0) {
         await db.update(athleteProfiles).set(profileData).where(eq(athleteProfiles.userId, ctx.user.id));

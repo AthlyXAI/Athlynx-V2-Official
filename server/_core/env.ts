@@ -36,4 +36,7 @@ export const ENV = {
   awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? "",
   awsRegion: process.env.AWS_REGION ?? "us-east-1",
   awsS3Bucket: process.env.AWS_S3_BUCKET ?? "",
+
+  // Anthropic Claude — third AI engine (deep reasoning, contract analysis, NIL evaluation)
+  anthropicApiKey: process.env.ANTHROPIC_API_KEY ?? "",
 };

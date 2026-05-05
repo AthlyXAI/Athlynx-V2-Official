@@ -28,7 +28,91 @@ function SubscriptionBadge() {
   );
 }
 
-// ─── AI TRAINER TAB ──────────────────────────────────────────────────────────
+// ─── CLAUDE AI TAB ────────────────────────────────────────────────────────────────────────
+function ClaudeAITab({ user }: { user: any }) {
+  const [input, setInput] = useState("");
+  const [task, setTask] = useState<"contract_review" | "nil_analysis" | "legal_guidance" | "academic_planning" | "general">("general");
+  const [result, setResult] = useState("");
+  const [engine, setEngine] = useState("");
+  const claudeMutation = trpc.ai.claudeChat.useMutation({
+    onSuccess: (data) => { setResult(data.reply); setEngine(data.engine); },
+    onError: (err) => { setResult("Error: " + err.message); },
+  });
+  const TASKS = [
+    { id: "general", label: "🧠 General", desc: "Deep analysis & reasoning" },
+    { id: "contract_review", label: "📜 Contract Review", desc: "NIL contract analysis" },
+    { id: "nil_analysis", label: "💰 NIL Analysis", desc: "Deal valuation & strategy" },
+    { id: "legal_guidance", label: "⚖️ Legal Guidance", desc: "Eligibility & compliance" },
+    { id: "academic_planning", label: "🎓 Academic Planning", desc: "GPA & eligibility planning" },
+  ];
+  return (
+    <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl overflow-hidden">
+      {/* Header */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-blue-900 bg-gradient-to-r from-purple-900 to-indigo-900">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-xl">🧠</div>
+          <div>
+            <div className="text-white font-black text-sm">ATHLYNX Claude AI</div>
+            <div className="text-purple-300 text-xs flex items-center gap-1">
+              <span className="w-2 h-2 bg-purple-400 rounded-full inline-block"></span>
+              Powered by Anthropic · Deep Reasoning Engine
+            </div>
+          </div>
+        </div>
+        {engine && <div className="text-xs text-purple-300 bg-purple-900/40 px-2 py-1 rounded-full">{engine === "claude" ? "🧠 Claude" : "⚡ Gemini"}</div>}
+      </div>
+      {/* Task selector */}
+      <div className="p-3 border-b border-blue-900">
+        <div className="text-blue-400 text-xs mb-2 font-bold">SELECT TASK TYPE</div>
+        <div className="grid grid-cols-2 gap-2">
+          {TASKS.map(t => (
+            <button key={t.id} onClick={() => setTask(t.id as any)}
+              className={`text-left p-2 rounded-lg border text-xs transition-all ${
+                task === t.id
+                  ? "bg-purple-700/60 border-purple-500 text-white"
+                  : "bg-blue-900/40 border-blue-800/40 text-blue-300 hover:bg-blue-800/40"
+              }`}>
+              <div className="font-bold">{t.label}</div>
+              <div className="text-blue-400 text-[10px]">{t.desc}</div>
+            </button>
+          ))}
+        </div>
+      </div>
+      {/* Result */}
+      {result && (
+        <div className="p-4 border-b border-blue-900 max-h-64 overflow-y-auto">
+          <div className="flex items-start gap-2">
+            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-sm shrink-0">🧠</div>
+            <div className="bg-[#1530a0] border border-blue-800 px-4 py-3 rounded-2xl rounded-tl-sm text-sm text-blue-100 leading-relaxed whitespace-pre-wrap flex-1">{result}</div>
+          </div>
+        </div>
+      )}
+      {/* Input */}
+      <div className="p-3">
+        <div className="flex gap-2">
+          <textarea
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); if (input.trim()) { claudeMutation.mutate({ message: input, task }); setInput(""); } } }}
+            placeholder={task === "contract_review" ? "Paste your NIL contract here for analysis..." : task === "nil_analysis" ? "Describe the brand deal offer..." : "Ask Claude anything..."}
+            rows={2}
+            className="flex-1 bg-[#1530a0] border border-blue-800 text-white text-sm rounded-xl px-3 py-2.5 focus:outline-none focus:border-purple-500 placeholder-blue-500 resize-none"
+          />
+          <button
+            onClick={() => { if (input.trim()) { claudeMutation.mutate({ message: input, task }); setInput(""); } }}
+            disabled={!input.trim() || claudeMutation.isPending}
+            className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-bold px-4 py-2 rounded-xl disabled:opacity-50 transition-all hover:scale-105 active:scale-95 shrink-0"
+          >
+            {claudeMutation.isPending ? "..." : "Ask"}
+          </button>
+        </div>
+        <div className="text-purple-600 text-xs mt-1.5 text-center">Powered by Anthropic Claude · Deep Reasoning · 10 credits per query</div>
+      </div>
+    </div>
+  );
+}
+
+// ─── AI TRAINER TAB ──────────────────────────────────────────────
 function AITrainerTab({ user }: { user: any }) {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<{ role: "user" | "assistant"; content: string }[]>([]);
@@ -460,6 +544,7 @@ function ProfileInner() {
     sport: "", position: "", school: "", bio: "", height: "", weight: "", gpa: "",
     fortyYardDash: "", qbRating: "", verticalLeap: "", benchPress: "",
     instagram: "", twitter: "", tiktokHandle: "", linkedinUrl: "", youtubeUrl: "", facebookUrl: "", hudlUrl: "",
+    spotifyUrl: "", capcutUrl: "",
   });
   const utils = trpc.useUtils();
 
@@ -505,6 +590,8 @@ function ProfileInner() {
       youtubeUrl: (profile as any)?.youtubeUrl || "",
       facebookUrl: (profile as any)?.facebookUrl || "",
       hudlUrl: profile?.hudlUrl || "",
+      spotifyUrl: (profile as any)?.spotifyUrl || "",
+      capcutUrl: (profile as any)?.capcutUrl || "",
     });
     setEditMode(true);
   };
@@ -534,6 +621,8 @@ function ProfileInner() {
       linkedinUrl: editForm.linkedinUrl || undefined,
       youtubeUrl: editForm.youtubeUrl || undefined,
       facebookUrl: editForm.facebookUrl || undefined,
+      spotifyUrl: (editForm as any).spotifyUrl || undefined,
+      capcutUrl: (editForm as any).capcutUrl || undefined,
     });
   };
 
@@ -541,8 +630,10 @@ function ProfileInner() {
     { id: "posts", label: "Posts" },
     { id: "stats", label: "Stats" },
     { id: "nil", label: "NIL" },
+    { id: "media", label: "🎬 Media" },
     { id: "trainer", label: "🤖 AI Trainer" },
-    { id: "wizards", label: "🪄 Wizards" },
+    { id: "claude", label: "🧠 Claude AI" },
+    { id: "wizards", label: "🪴 Wizards" },
     { id: "social", label: "📱 Social" },
     { id: "recruiting", label: "Recruiting" },
   ];
@@ -797,6 +888,8 @@ function ProfileInner() {
                       { label: "🎵 TikTok", key: "tiktokHandle", placeholder: "@yourhandle" },
                       { label: "💼 LinkedIn", key: "linkedinUrl", placeholder: "https://linkedin.com/in/..." },
                       { label: "▶️ YouTube", key: "youtubeUrl", placeholder: "https://youtube.com/@..." },
+                      { label: "🎵 Spotify", key: "spotifyUrl", placeholder: "https://open.spotify.com/..." },
+                      { label: "🎬 CapCut", key: "capcutUrl", placeholder: "https://capcut.com/..." },
                       { label: "👥 Facebook", key: "facebookUrl", placeholder: "https://facebook.com/..." },
                       { label: "🎬 Hudl", key: "hudlUrl", placeholder: "https://hudl.com/profile/..." },
                     ].map(f => (
@@ -931,6 +1024,77 @@ function ProfileInner() {
             )}
           </div>
         )}
+
+        {/* Media Tab — YouTube, Spotify, CapCut */}
+        {activeTab === "media" && (
+          <div className="space-y-4">
+            <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-4">
+              <h3 className="text-white font-black text-base mb-4 flex items-center gap-2">⚡ Your Sports Journey</h3>
+              <p className="text-blue-300 text-sm mb-4">Your complete media presence — highlights, music, and content all in one place.</p>
+              <div className="space-y-3">
+                {/* YouTube */}
+                {(profile as any)?.youtubeUrl ? (
+                  <a href={(profile as any).youtubeUrl} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-3 bg-red-900/30 border border-red-800/40 rounded-xl p-3 hover:bg-red-900/50 transition-colors">
+                    <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center text-white font-black text-sm">▶</div>
+                    <div><div className="text-white font-bold text-sm">YouTube Channel</div><div className="text-red-400 text-xs truncate max-w-[200px]">{(profile as any).youtubeUrl}</div></div>
+                    <div className="ml-auto text-red-400 text-xs font-bold">WATCH →</div>
+                  </a>
+                ) : (
+                  <div className="flex items-center gap-3 bg-red-900/20 border border-red-800/30 rounded-xl p-3 opacity-60">
+                    <div className="w-10 h-10 bg-red-900/40 rounded-xl flex items-center justify-center text-red-400 font-black text-sm">▶</div>
+                    <div><div className="text-white font-bold text-sm">YouTube Channel</div><div className="text-red-400 text-xs">Add your YouTube link in Edit Profile</div></div>
+                  </div>
+                )}
+                {/* Spotify */}
+                {(profile as any)?.spotifyUrl ? (
+                  <a href={(profile as any).spotifyUrl} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-3 bg-green-900/30 border border-green-800/40 rounded-xl p-3 hover:bg-green-900/50 transition-colors">
+                    <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center text-black font-black text-lg">♫</div>
+                    <div><div className="text-white font-bold text-sm">Spotify Playlist</div><div className="text-green-400 text-xs truncate max-w-[200px]">{(profile as any).spotifyUrl}</div></div>
+                    <div className="ml-auto text-green-400 text-xs font-bold">LISTEN →</div>
+                  </a>
+                ) : (
+                  <div className="flex items-center gap-3 bg-green-900/20 border border-green-800/30 rounded-xl p-3 opacity-60">
+                    <div className="w-10 h-10 bg-green-900/40 rounded-xl flex items-center justify-center text-green-400 font-black text-lg">♫</div>
+                    <div><div className="text-white font-bold text-sm">Spotify Playlist</div><div className="text-green-400 text-xs">Add your Spotify link in Edit Profile</div></div>
+                  </div>
+                )}
+                {/* CapCut */}
+                {(profile as any)?.capcutUrl ? (
+                  <a href={(profile as any).capcutUrl} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-3 bg-purple-900/30 border border-purple-800/40 rounded-xl p-3 hover:bg-purple-900/50 transition-colors">
+                    <div className="w-10 h-10 bg-purple-600 rounded-xl flex items-center justify-center text-white font-black text-sm">🎬</div>
+                    <div><div className="text-white font-bold text-sm">CapCut Highlights</div><div className="text-purple-400 text-xs truncate max-w-[200px]">{(profile as any).capcutUrl}</div></div>
+                    <div className="ml-auto text-purple-400 text-xs font-bold">VIEW →</div>
+                  </a>
+                ) : (
+                  <div className="flex items-center gap-3 bg-purple-900/20 border border-purple-800/30 rounded-xl p-3 opacity-60">
+                    <div className="w-10 h-10 bg-purple-900/40 rounded-xl flex items-center justify-center text-purple-400 font-black text-sm">🎬</div>
+                    <div><div className="text-white font-bold text-sm">CapCut Highlights</div><div className="text-purple-400 text-xs">Add your CapCut link in Edit Profile</div></div>
+                  </div>
+                )}
+                {/* Hudl */}
+                {profile?.hudlUrl ? (
+                  <a href={profile.hudlUrl} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-3 bg-orange-900/30 border border-orange-800/40 rounded-xl p-3 hover:bg-orange-900/50 transition-colors">
+                    <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center text-white font-black text-xs">HUDL</div>
+                    <div><div className="text-white font-bold text-sm">Hudl Film</div><div className="text-orange-400 text-xs truncate max-w-[200px]">{profile.hudlUrl}</div></div>
+                    <div className="ml-auto text-orange-400 text-xs font-bold">FILM →</div>
+                  </a>
+                ) : null}
+              </div>
+              {!editMode && (
+                <button onClick={openEdit} className="mt-4 w-full text-center text-blue-400 text-xs hover:text-white transition-colors">
+                  + Add media links to your profile
+                </button>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Claude AI Tab — Deep Reasoning */}
+        {activeTab === "claude" && <ClaudeAITab user={user} />}
 
         {/* AI Trainer Tab */}
         {activeTab === "trainer" && <AITrainerTab user={user} />}

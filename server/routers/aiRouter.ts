@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
-import { invokeLLM } from "../_core/llm";
+import { invokeLLM, invokeClaudeDirectly } from "../_core/llm";
 import { chatWithGemini, buildTrainerBotSystemPrompt } from "../services/gemini";
 import { nebiusComplete, calculateXFactorScore, nebiusHealthCheck, NEBIUS_MODELS } from "../services/nebius";
 import { getDb, getTrainerHistory, saveTrainerMessage } from "../db";
@@ -600,6 +600,35 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
         followers: athleteData.followers,
       });
       return result;
+    }),
+
+  // claudeChat — Anthropic Claude Opus: contract review, NIL analysis, legal guidance, deep reasoning
+  claudeChat: protectedProcedure
+    .input(z.object({
+      message: z.string().min(1).max(8000),
+      systemPrompt: z.string().optional(),
+      task: z.enum(["contract_review", "nil_analysis", "legal_guidance", "academic_planning", "general"]).optional(),
+    }))
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "wizardAdvice");
+      const taskPrompts: Record<string, string> = {
+        contract_review: "You are ATHLYNX Claude — an expert sports contract attorney AI. Analyze NIL contracts, identify red flags, explain terms in plain English, and protect the athlete's interests. Be thorough and specific.",
+        nil_analysis: "You are ATHLYNX Claude — an NIL deal analyst. Evaluate brand partnerships, calculate fair market value, assess compliance risks, and maximize athlete earnings.",
+        legal_guidance: "You are ATHLYNX Claude — a sports law AI advisor. Guide athletes on eligibility rules, transfer regulations, NIL compliance, and NCAA/NAIA/NJCAA requirements.",
+        academic_planning: "You are ATHLYNX Claude — an academic advisor for student-athletes. Help with course planning, GPA management, eligibility requirements, and balancing sports with academics.",
+        general: "You are ATHLYNX Claude — powered by Anthropic. You are the deep reasoning engine of the ATHLYNX AI platform. Provide thoughtful, detailed analysis for athletes at every level.",
+      };
+      const systemPrompt = input.systemPrompt || taskPrompts[input.task || "general"];
+      const result = await invokeClaudeDirectly({
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: input.message },
+        ],
+      });
+      const reply = typeof result.choices[0].message.content === "string"
+        ? result.choices[0].message.content
+        : JSON.stringify(result.choices[0].message.content);
+      return { reply, engine: process.env.ANTHROPIC_API_KEY ? "claude" : "gemini" };
     }),
 
   // nebiusChat — direct chat with Nebius Llama-3.3-70B on NVIDIA H200 (premium AI feature)
