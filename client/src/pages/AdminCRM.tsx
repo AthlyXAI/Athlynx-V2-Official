@@ -909,10 +909,10 @@ function AdminCRMInner() {
                   </thead>
                   <tbody>
                     {[
-                      { tier: "Pulse", price: "$297/mo", credits: "500", reports: "Monthly only", priceId: "price_1TSno2RjBH07kRLYhcLTOiWk", color: "text-blue-400" },
-                      { tier: "Insight", price: "$597/mo", credits: "2,000", reports: "Weekly + Monthly", priceId: "price_1TSno2RjBH07kRLY4TxrGTu9", color: "text-cyan-400" },
-                      { tier: "Command ★", price: "$997/mo", credits: "5,000", reports: "Daily + Weekly + Monthly", priceId: "price_1TSno2RjBH07kRLYMSX2RcDm", color: "text-emerald-400", rec: true },
-                      { tier: "Enterprise", price: "$1,997/mo", credits: "Unlimited", reports: "Full Suite + Custom", priceId: "price_1TSno2RjBH07kRLYIX9Q1qR8", color: "text-purple-400" },
+                      { tier: "Pulse", price: "$297/mo", credits: "500", reports: "Monthly only", priceId: "price_1TTaLKGvvjXZw2uE0j4ZMU9J", color: "text-blue-400" },
+                      { tier: "Insight", price: "$597/mo", credits: "2,000", reports: "Weekly + Monthly", priceId: "price_1TTaLMGvvjXZw2uE8m5Imwtn", color: "text-cyan-400" },
+                      { tier: "Command ★", price: "$997/mo", credits: "5,000", reports: "Daily + Weekly + Monthly", priceId: "price_1TTaLNGvvjXZw2uEVbyQse2H", color: "text-emerald-400", rec: true },
+                      { tier: "Enterprise", price: "$1,997/mo", credits: "Unlimited", reports: "Full Suite + Custom", priceId: "price_1TTaLPGvvjXZw2uEOGZwzZUA", color: "text-purple-400" },
                     ].map((t) => (
                       <tr key={t.tier} className={`border-b border-white/5 hover:bg-white/5 transition-colors ${t.rec ? 'bg-emerald-900/10' : ''}`}>
                         <td className="py-3 pr-4">

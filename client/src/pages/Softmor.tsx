@@ -71,10 +71,10 @@ function SoftmorInner() {
   });
 
   const CONCREATOR_PRICES: Record<string, string> = {
-    'Pulse': 'price_1TSno2RjBH07kRLYhcLTOiWk',
-    'Insight': 'price_1TSno2RjBH07kRLY4TxrGTu9',
-    'Command': 'price_1TSno2RjBH07kRLYMSX2RcDm',
-    'Enterprise': 'price_1TSno2RjBH07kRLYIX9Q1qR8',
+    'Pulse': 'price_1TTaLKGvvjXZw2uE0j4ZMU9J',
+    'Insight': 'price_1TTaLMGvvjXZw2uE8m5Imwtn',
+    'Command': 'price_1TTaLNGvvjXZw2uEVbyQse2H',
+    'Enterprise': 'price_1TTaLPGvvjXZw2uEOGZwzZUA',
   };
 
   const handleConCreatorCheckout = (tierName: string) => {

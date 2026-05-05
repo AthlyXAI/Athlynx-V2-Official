@@ -4,10 +4,10 @@
  * Data Intelligence & AI Credit System
  *
  * All 4 tiers — per machine, per month:
- *   Pulse      → price_1TSno2RjBH07kRLYhcLTOiWk  ($297/mo · 500 credits)
- *   Insight    → price_1TSno2RjBH07kRLY4TxrGTu9  ($597/mo · 2,000 credits)
- *   Command    → price_1TSno2RjBH07kRLYMSX2RcDm  ($997/mo · 5,000 credits) ← RECOMMENDED
- *   Enterprise → price_1TSno2RjBH07kRLYIX9Q1qR8  ($1,997/mo · Unlimited)
+ *   Pulse      → price_1TTaLKGvvjXZw2uE0j4ZMU9J  ($297/mo · 500 credits)
+ *   Insight    → price_1TTaLMGvvjXZw2uE8m5Imwtn  ($597/mo · 2,000 credits)
+ *   Command    → price_1TTaLNGvvjXZw2uEVbyQse2H  ($997/mo · 5,000 credits) ← RECOMMENDED
+ *   Enterprise → price_1TTaLPGvvjXZw2uEOGZwzZUA  ($1,997/mo · Unlimited)
  *
  * Revenue flows to DHG bank account via Stripe LIVE mode.
  * IP owned by Dozier Holdings Group & Softmor Inc.
@@ -22,10 +22,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, { apiVersion: "2026-03
 
 // ConCreator™ Stripe Price IDs (LIVE mode)
 export const CONCREATOR_PRICES = {
-  pulse:      { priceId: "price_1TSno2RjBH07kRLYhcLTOiWk", amount: 29700,  credits: 500,       label: "Pulse"      },
-  insight:    { priceId: "price_1TSno2RjBH07kRLY4TxrGTu9", amount: 59700,  credits: 2000,      label: "Insight"    },
-  command:    { priceId: "price_1TSno2RjBH07kRLYMSX2RcDm", amount: 99700,  credits: 5000,      label: "Command"    },
-  enterprise: { priceId: "price_1TSno2RjBH07kRLYIX9Q1qR8", amount: 199700, credits: -1,        label: "Enterprise" }, // -1 = unlimited
+  pulse:      { priceId: "price_1TTaLKGvvjXZw2uE0j4ZMU9J", amount: 29700,  credits: 500,       label: "Pulse"      },
+  insight:    { priceId: "price_1TTaLMGvvjXZw2uE8m5Imwtn", amount: 59700,  credits: 2000,      label: "Insight"    },
+  command:    { priceId: "price_1TTaLNGvvjXZw2uEVbyQse2H", amount: 99700,  credits: 5000,      label: "Command"    },
+  enterprise: { priceId: "price_1TTaLPGvvjXZw2uEOGZwzZUA", amount: 199700, credits: -1,        label: "Enterprise" }, // -1 = unlimited
   // Add-on: extra credit block
   credits_1000: { priceId: "price_1TPlWyGvvjXZw2uET83zN0aZ", amount: 4900, credits: 1000, label: "1,000 Credits" },
 } as const;
