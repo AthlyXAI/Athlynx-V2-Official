@@ -1,4 +1,7 @@
 # ATHLYNX ATHLYNXAI MASTER REFERENCE FILE
+## Last Updated: Monday, May 4, 2026 — Session 28
+## Session Summary (May 4 2026 — SESSION 28): STRIPE WEBHOOK REBUILT + VERCEL ENV UPDATED. Old webhook (we_1TT8LBGvvjXZw2uEEIRxkfyM) deleted. New webhook created (we_1TTXrjGvvjXZw2uEwUoVjjIC) on AthlynXAI Corp account. New secret (whsec_r4PjM2nTXexKPftCfFqZcAokeyw72odQ) deployed to Vercel. STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET, NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY all updated in Vercel. Stripe org cleaned: duplicate account deleted, only AthlynXAI Corporation remains. Twilio ticket 26619440 replied. Worldwide social media campaign fired across 8 Buffer channels. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY4_2026_S28.md
+
 ## Last Updated: Monday, May 4, 2026 — Session 26
 ## Session Summary (May 4 2026 — SESSION 26): PLATFORM BULLETPROOFED + GCP CLEAN + STRIPE EMAIL SENT. Fixed stale-cache crash (vercel.json no-cache on ALL SPA routes). Added RouteErrorBoundary to all 63 missing pages (167/167 covered). Fixed nav tab splash screen loop (onboarding check now runs once per session via useRef guard). GCP cleanup: AthlynxAI14 + Default Gemini Project deleted. Stripe support email sent (business name correction + DHG account closure request). Apple BM DNS confirmed live — verification blocked by Apple server outage, retry tomorrow. Stripe keys confirmed: sk_live_51SqfSOGvvjXZw2uE... / whsec_sYcaDuTUJ4... / mk_1SqfSPGvvjXZw2uE3FSTWyRy. Handoff: ATHLYNXAI_HANDOFF_REPORT_MAY4_2026_S26.md
 
@@ -355,8 +358,8 @@ Success = `PostActionSuccess`. **NEVER use `... on Post { id }` — return type 
 | **Stripe Account** | `acct_1SqfSOGvvjXZw2uE` — AthlynXAI Corporation — LIVE MODE ONLY |
 | **Stripe Secret Key** | `sk_live_51SqfSOGvvjXZw2uE...jveUBPx` (full key in Vercel: STRIPE_SECRET_KEY — confirmed May 4, 2026) |
 | **Stripe Publishable Key** | `mk_1SqfSPGvvjXZw2uE3FSTWyRy` |
-| **Stripe Webhook Secret** | `whsec_sYcaDuTUJ4kUsPO8b5Rv8edIdp2x0tTo` (in Vercel: STRIPE_WEBHOOK_SECRET) |
-| **Stripe Webhook Endpoint** | `https://athlynx.ai/api/webhooks/stripe` (we_1TT8LBGvvjXZw2uEEIRxkfyM) |
+| **Stripe Webhook Secret** | `whsec_r4PjM2nTXexKPftCfFqZcAokeyw72odQ` (in Vercel: STRIPE_WEBHOOK_SECRET — updated Session 28) |
+| **Stripe Webhook Endpoint** | `https://athlynx.ai/api/webhooks/stripe` (we_1TTXrjGvvjXZw2uEwUoVjjIC — recreated Session 28) |
 | **Buffer Access Token** | `dAiVY17LAcoFkFv0iexUKHHkhgShIkytlaXz1SpWyqD` (expires May 2027) |
 | **Buffer Bot Token** | `gylqPGOh7hF12vJvtu8ZUTX40vM3k_K1u65X5VJkFv8` |
 | **Buffer Org ID** | `69e5eb4fa8900ccfe436f53a` |
