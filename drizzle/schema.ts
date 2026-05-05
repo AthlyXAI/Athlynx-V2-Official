@@ -133,16 +133,15 @@ export const posts = pgTable("posts", {
   userId: integer("userId").notNull(),
   content: text("content").notNull(),
   mediaUrls: json("mediaUrls"),
-  mediaType: postMediaTypeEnum("mediaType").default("none").notNull(),
+  mediaType: varchar("mediaType", { length: 50 }).default("none"),
   postType: postTypeEnum("postType").default("status").notNull(),
-  sourceApp: postSourceEnum("sourceApp").default("nil_portal").notNull(),
   visibility: postVisibilityEnum("visibility").default("public").notNull(),
   likesCount: integer("likesCount").default(0).notNull(),
   commentsCount: integer("commentsCount").default(0).notNull(),
   sharesCount: integer("sharesCount").default(0).notNull(),
-  isPinned: boolean("isPinned").default(false).notNull(),
+  isPinned: boolean("isPinned").default(false),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow(),
 });
 export type Post = typeof posts.$inferSelect;
 
@@ -166,35 +165,36 @@ export const conversations = pgTable("conversations", {
   id: serial("id").primaryKey(),
   type: convTypeEnum("type").default("direct").notNull(),
   name: varchar("name", { length: 255 }),
-  createdBy: integer("createdBy").notNull(),
+  createdBy: integer("createdBy"),
   lastMessageAt: timestamp("lastMessageAt"),
   lastMessagePreview: varchar("lastMessagePreview", { length: 255 }),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
 export const conversationParticipants = pgTable("conversation_participants", {
   id: serial("id").primaryKey(),
-  conversationId: integer("conversationId").notNull(),
-  userId: integer("userId").notNull(),
-  role: convParticipantRoleEnum("role").default("member").notNull(),
-  lastReadAt: timestamp("lastReadAt"),
-  unreadCount: integer("unreadCount").default(0).notNull(),
-  joinedAt: timestamp("joinedAt").defaultNow().notNull(),
+  conversationId: integer("conversation_id").notNull(),
+  userId: integer("user_id").notNull(),
+  role: varchar("role", { length: 50 }).default("member"),
+  lastReadAt: timestamp("last_read_at"),
+  unreadCount: integer("unreadCount").default(0),
+  joinedAt: timestamp("joined_at").defaultNow().notNull(),
 });
 
 export const messages = pgTable("messages", {
   id: serial("id").primaryKey(),
-  conversationId: integer("conversationId").notNull(),
-  senderId: integer("senderId").notNull(),
+  conversationId: integer("conversation_id").notNull(),
+  senderId: integer("sender_id").notNull(),
   content: text("content").notNull(),
-  messageType: msgTypeEnum("messageType").default("text").notNull(),
-  mediaUrl: text("mediaUrl"),
+  messageType: varchar("message_type", { length: 50 }).default("text").notNull(),
+  mediaUrl: text("media_url"),
   metadata: json("metadata"),
-  isEdited: boolean("isEdited").default(false).notNull(),
-  isDeleted: boolean("isDeleted").default(false).notNull(),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
-  updatedAt: timestamp("updatedAt").defaultNow().notNull(),
+  isEdited: boolean("isEdited").default(false),
+  isDeleted: boolean("isDeleted").default(false),
+  isRead: boolean("is_read").default(false),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at"),
 });
 export type Message = typeof messages.$inferSelect;
 
@@ -240,20 +240,21 @@ export const transferPortalEntries = pgTable("transfer_portal_entries", {
 });
 
 // ─── Notifications ────────────────────────────────────────────────────────────
+// DB uses snake_case columns: user_id, is_read, created_at, content
 export const notifications = pgTable("notifications", {
   id: serial("id").primaryKey(),
-  userId: integer("userId").notNull(),
-  type: notifTypeEnum("type").default("custom").notNull(),
+  userId: integer("user_id").notNull(),
+  type: varchar("type", { length: 100 }).default("custom").notNull(),
   title: varchar("title", { length: 255 }).notNull(),
-  message: text("message"),
+  message: text("content"),
   link: varchar("link", { length: 500 }),
   imageUrl: varchar("imageUrl", { length: 500 }),
-  priority: notifPriorityEnum("priority").default("normal").notNull(),
-  isRead: boolean("isRead").default(false).notNull(),
-  isDismissed: boolean("isDismissed").default(false).notNull(),
-  isBroadcast: boolean("isBroadcast").default(false).notNull(),
+  priority: varchar("priority", { length: 50 }).default("normal").notNull(),
+  isRead: boolean("is_read").default(false).notNull(),
+  isDismissed: boolean("isDismissed").default(false),
+  isBroadcast: boolean("isBroadcast").default(false),
   expiresAt: timestamp("expiresAt"),
-  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
   readAt: timestamp("readAt"),
 });
 

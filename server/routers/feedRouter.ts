@@ -54,9 +54,8 @@ export const feedRouter = router({
         mediaUrls: input.mediaUrls ?? null,
         mediaType: input.mediaType,
         visibility: input.visibility,
-        sourceApp: "nil_portal",
-      });
-      return { success: true, postId: (result as any)[0].insertId };
+      }).returning({ id: posts.id });
+      return { success: true, postId: result[0]?.id };
     }),
 
   likePost: protectedProcedure
