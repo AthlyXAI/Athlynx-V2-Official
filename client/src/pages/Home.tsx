@@ -13,7 +13,7 @@ function EnterPortalToggle() {
   }, []);
   return (
     <a
-      href="/signup"
+      href="/feed"
       className={`fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-cyan-500 hover:to-blue-600 text-white font-black text-sm px-5 py-3.5 rounded-2xl shadow-2xl shadow-blue-500/40 transition-all duration-300 hover:scale-105 active:scale-95 ${
         visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10 pointer-events-none'
       }`}
@@ -587,13 +587,156 @@ function HomeInner() {
           <p className="text-blue-200 text-lg mt-2 drop-shadow font-semibold">Youth → High School → College → Pro → Retired</p>
           <p className="text-blue-300/70 text-sm mt-1 drop-shadow">Every Level. Every Sport. One Platform.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6">
-            <a href="/signup" className="inline-block bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-cyan-500 hover:to-blue-600 text-white font-black text-lg px-8 py-3 rounded-xl transition-all shadow-xl hover:scale-105">
+            <a href="/feed" className="inline-block bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-cyan-500 hover:to-blue-600 text-white font-black text-lg px-8 py-4 rounded-xl transition-all shadow-xl hover:scale-105 border-2 border-cyan-400/30">
               ENTER THE PORTAL →
             </a>
             <Link href="/demo" className="inline-block bg-red-500 hover:bg-red-400 text-black font-black text-lg px-8 py-3 rounded-xl transition-all shadow-xl hover:scale-105">
               HOW IT WORKS
             </Link>
           </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ SCROLLING TICKER ═══ */}
+      <div className="bg-[#f5c518] overflow-hidden py-2 border-y-2 border-yellow-400">
+        <div className="flex gap-8 animate-[marquee_30s_linear_infinite] whitespace-nowrap">
+          {[
+            "EVERY SPORT", "FREE 7-DAY TRIAL", "NIL DEALS", "TRANSFER PORTAL", "AI TRAINER",
+            "RECRUITING", "DIAMOND GRIND", "GRIDIRON NEXUS", "COURT KINGS", "PITCH PULSE",
+            "WARRIORS PLAYBOOK", "X-FACTOR", "POWERED BY NEBIUS", "GOOGLE GEMINI AI", "ANTHROPIC CLAUDE",
+            "EVERY SPORT", "FREE 7-DAY TRIAL", "NIL DEALS", "TRANSFER PORTAL", "AI TRAINER",
+            "RECRUITING", "DIAMOND GRIND", "GRIDIRON NEXUS", "COURT KINGS", "PITCH PULSE",
+          ].map((item, i) => (
+            <span key={i} className="text-[#0a1628] font-black text-sm tracking-widest flex items-center gap-3">
+              {item} <span className="text-[#0a1628]/40">•</span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* ═══ SPORT CARDS — EVERY SPORT COVERED ═══ */}
+      <section className="bg-[#040c1a] py-10 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-6">
+            <div className="text-yellow-400 text-xs uppercase tracking-widest font-black mb-1">Every Sport. Every Tool.</div>
+            <h2 className="text-3xl md:text-4xl font-black text-white">YOUR SPORT IS HERE</h2>
+          </div>
+          <div className="flex flex-col gap-4">
+            {[
+              {
+                sport: "Basketball",
+                tag: "NIL Deals",
+                tagColor: "bg-yellow-500 text-black",
+                href: "/court-kings",
+                img: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80",
+                desc: "Court Kings™ — AAU, NIL, Recruiting"
+              },
+              {
+                sport: "Football",
+                tag: "Transfer Portal",
+                tagColor: "bg-yellow-500 text-black",
+                href: "/gridiron-nexus",
+                img: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=800&q=80",
+                desc: "Gridiron Nexus™ — Elite Football Platform"
+              },
+              {
+                sport: "Baseball",
+                tag: "Diamond Grind",
+                tagColor: "bg-yellow-500 text-black",
+                href: "/diamond-grind",
+                img: "https://images.unsplash.com/photo-1508344928928-7165b67de128?w=800&q=80",
+                desc: "Diamond Grind™ — Baseball & Softball"
+              },
+              {
+                sport: "Soccer",
+                tag: "Pitch Pulse",
+                tagColor: "bg-yellow-500 text-black",
+                href: "/pitch-pulse",
+                img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&q=80",
+                desc: "Pitch Pulse™ — Global Soccer Ecosystem"
+              },
+              {
+                sport: "Track & Field",
+                tag: "X-Factor",
+                tagColor: "bg-cyan-500 text-black",
+                href: "/x-factor",
+                img: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&q=80",
+                desc: "X-Factor™ — Performance Analytics"
+              },
+              {
+                sport: "Wrestling",
+                tag: "Warriors Playbook",
+                tagColor: "bg-cyan-500 text-black",
+                href: "/warriors-playbook",
+                img: "https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&q=80",
+                desc: "Warriors Playbook™ — Plays, Film & Strategy"
+              },
+            ].map((card) => (
+              <a key={card.sport} href={card.href}
+                className="relative rounded-2xl overflow-hidden block group cursor-pointer" style={{ height: '280px' }}>
+                <img src={card.img} alt={card.sport}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute top-4 left-4">
+                  <span className={`text-xs font-black px-3 py-1.5 rounded-full ${card.tagColor}`}>{card.tag}</span>
+                </div>
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="text-white font-black text-3xl mb-1">{card.sport}</div>
+                  <div className="text-white/70 text-sm">{card.desc}</div>
+                </div>
+                <div className="absolute bottom-4 right-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-xs font-bold px-3 py-1.5 rounded-full group-hover:bg-white/20 transition-colors">
+                  ENTER →
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ FULL STACK LAYER CAKE ═══ */}
+      <section className="bg-[#060e24] border-t border-blue-900 py-12 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-8">
+            <div className="text-yellow-400 text-xs uppercase tracking-widest font-black mb-1">The Infrastructure</div>
+            <h2 className="text-3xl font-black text-white">THE FULL STACK LAYER CAKE</h2>
+            <p className="text-blue-300 text-sm mt-2">The CERN of US sports tech. Every layer purpose-built.</p>
+          </div>
+          <div className="space-y-3">
+            {[
+              { layer: "AI Layer 1", name: "Google Gemini 2.5 Flash", desc: "Primary AI — fastest, sports intelligence, real-time", color: "from-blue-600 to-cyan-500", icon: "⚡" },
+              { layer: "AI Layer 2", name: "Anthropic Claude Opus", desc: "Deep reasoning — contract analysis, NIL evaluation, legal", color: "from-purple-600 to-indigo-600", icon: "🧠" },
+              { layer: "AI Layer 3", name: "Nebius Llama-3.3-70B on NVIDIA H200", desc: "Always-on fallback — zero downtime guaranteed", color: "from-green-600 to-teal-600", icon: "💻" },
+              { layer: "Compute", name: "Nebius AI Cloud", desc: "NVIDIA H200 GPUs — Finalist May 15, 2026", color: "from-green-700 to-emerald-700", icon: "📡" },
+              { layer: "Deploy", name: "Vercel + GitHub", desc: "Auto-deploy on every push — zero config", color: "from-slate-600 to-gray-700", icon: "🚀" },
+              { layer: "Database", name: "Neon PostgreSQL + PlanetScale", desc: "Dual failover — never loses connection", color: "from-blue-700 to-blue-900", icon: "🗄️" },
+              { layer: "Payments", name: "Stripe", desc: "Live payments — AthlynXAI Corporation", color: "from-indigo-600 to-violet-700", icon: "💳" },
+              { layer: "Email", name: "SendGrid", desc: "Transactional email — noreply@athlynx.ai", color: "from-blue-500 to-blue-700", icon: "✉️" },
+              { layer: "Social", name: "Buffer", desc: "347 posts fired worldwide — 8 channels", color: "from-orange-600 to-amber-600", icon: "📱" },
+              { layer: "Automation", name: "Zapier", desc: "Connecting every app in the ecosystem", color: "from-orange-500 to-red-600", icon: "⚡" },
+              { layer: "Identity", name: "Gravatar", desc: "Profile photos synced across the platform", color: "from-blue-600 to-blue-800", icon: "👤" },
+              { layer: "Storage", name: "AWS S3", desc: "Video, media, and file storage", color: "from-yellow-600 to-orange-600", icon: "☁️" },
+              { layer: "SMS", name: "Twilio", desc: "Phone verification and athlete alerts", color: "from-red-600 to-rose-700", icon: "💬" },
+              { layer: "Code", name: "GitHub", desc: "AthlyXAI/Athlynx-V2-Official — main branch", color: "from-gray-700 to-gray-900", icon: "🐙" },
+            ].map((item) => (
+              <div key={item.name} className="flex items-center gap-4 bg-[#0d1b3e] border border-blue-900 rounded-xl px-4 py-3 hover:border-blue-600 transition-colors">
+                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center text-lg shrink-0`}>{item.icon}</div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="text-blue-400 text-[10px] uppercase tracking-widest font-bold">{item.layer}</span>
+                  </div>
+                  <div className="text-white font-black text-sm">{item.name}</div>
+                  <div className="text-blue-400 text-xs truncate">{item.desc}</div>
+                </div>
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shrink-0"></div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 text-center">
+            <div className="inline-flex items-center gap-2 bg-green-900/30 border border-green-700 text-green-400 text-xs font-black px-4 py-2 rounded-full">
+              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+              ALL SYSTEMS LIVE — ZERO DOWNTIME ARCHITECTURE
+            </div>
           </div>
         </div>
       </section>
@@ -609,10 +752,10 @@ function HomeInner() {
           <p className="text-blue-300 text-base mb-8">Choose your portal below. All in one platform.</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Users — Athletes, Parents, Coaches, Brands */}
-            <a href="/signup" className="flex flex-col items-center gap-2 bg-[#007DC1] hover:bg-[#006aaa] text-white font-bold text-base py-5 px-4 rounded-2xl transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98] border border-blue-400/30">
+            <a href="/feed" className="flex flex-col items-center gap-2 bg-gradient-to-br from-blue-600 to-cyan-600 hover:from-cyan-600 hover:to-blue-600 text-white font-bold text-base py-5 px-4 rounded-2xl transition-all shadow-lg shadow-blue-500/30 hover:scale-[1.02] active:scale-[0.98] border-2 border-cyan-400/40">
               <span className="text-2xl">🏆</span>
-              <span className="font-black text-lg">Users</span>
-              <span className="text-blue-200 text-xs font-normal">Athletes · Parents · Coaches · Brands</span>
+              <span className="font-black text-lg">ENTER THE PORTAL</span>
+              <span className="text-blue-100 text-xs font-normal">Athletes · Parents · Coaches · Brands</span>
             </a>
             {/* Founders / Investors */}
             <a href="/investor-hub" className="flex flex-col items-center gap-2 bg-[#1a3a8f] hover:bg-[#1e4aaa] text-white font-bold text-base py-5 px-4 rounded-2xl transition-all shadow-lg hover:scale-[1.02] active:scale-[0.98] border border-blue-400/30">
