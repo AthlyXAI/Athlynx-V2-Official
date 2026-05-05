@@ -73,6 +73,13 @@ interface PlatformLayoutProps {
   title?: string;
 }
 
+// ── Module-level guard — persists across unmount/remount cycles during SPA navigation.
+// A useRef inside the component resets to false every time wouter mounts a new page
+// component (each page has its own PlatformLayout instance), causing the onboarding
+// splash to re-trigger on every "Your Apps" navigation. Moving this outside the
+// component ensures it is set once per browser session and never resets.
+let _onboardingSessionChecked = false;
+
 function NotificationBell({ user }: { user: any }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -166,14 +173,13 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [onboardingDismissed, setOnboardingDismissed] = useState(false);
-  const onboardingChecked = useRef(false);
   const { user, loading: authLoading } = useAuth();
 
   // Check onboarding status — runs ONCE per session using a ref guard.
   // Never fires on navigation/re-renders to prevent the splash screen loop.
   useEffect(() => {
-    if (!user || authLoading || onboardingDismissed || onboardingChecked.current) return;
-    onboardingChecked.current = true;
+    if (!user || authLoading || onboardingDismissed || _onboardingSessionChecked) return;
+    _onboardingSessionChecked = true;
     const key = `onboarding_done_${user.email || user.id}`;
     const completed = localStorage.getItem(key);
     const legacyCompleted = localStorage.getItem(`onboarding_done_${user.id}`);
