@@ -46,6 +46,7 @@ const APPS = [
   { id: "community-feedback", label: "Talk to Founder", icon: "/athlynx-icon.png", badge: "NEW", href: "/community-feedback" },
   { id: "book", label: "Book a Meeting", icon: "/athlynx-icon.png", badge: "NEW", href: "/book" },
   { id: "browse-athletes", label: "Browse Athletes", icon: "/athlynx-icon.png", badge: "NEW", href: "/browse-athletes" },
+  { id: "recruiting-hub", label: "Recruiting Hub", icon: "/athlynx-icon.png", badge: "HOT", href: "/recruiting-hub" },
   { id: "data-dashboard", label: "Data Dashboard", icon: "/athlynx-icon.png", badge: "LIVE", href: "/data-dashboard" },
   { id: "layer-cake", label: "Layer Cake", icon: "/athlynx-icon.png", badge: "AI", href: "/layer-cake" },
   { id: "white-label", label: "White-Label", icon: "/athlynx-icon.png", badge: "BIZ", href: "/white-label" },
