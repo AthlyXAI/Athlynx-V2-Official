@@ -106,6 +106,7 @@ import AthleteStore from "./pages/AthleteStore";
 import AdminExpiry from "./pages/AdminExpiry";
 import LayerCake from "./pages/LayerCake";
 import RecruitingHub from "./pages/RecruitingHub";
+import AgentOwnership from "./pages/AgentOwnership";
 import Pricing from "./pages/Pricing";
 import PricingTiers from "./pages/PricingTiers";
 import Billing from "./pages/Billing";
@@ -376,6 +377,9 @@ function Router() {
       <Route path="/recruiting-hub" component={RecruitingHub} />
       <Route path="/recruiting" component={RecruitingHub} />
       <Route path="/offers" component={RecruitingHub} />
+      <Route path="/agent-ownership" component={AgentOwnership} />
+      <Route path="/security" component={AgentOwnership} />
+      <Route path="/ip-ownership" component={AgentOwnership} />
       <Route path="/pricing" component={Pricing} />
       <Route path="/pricing-tiers" component={PricingTiers} />
       <Route path="/billing" component={Billing} />

@@ -52,6 +52,7 @@ const APPS = [
   { id: "white-label", label: "White-Label", icon: "/athlynx-icon.png", badge: "BIZ", href: "/white-label" },
   { id: "crm", label: "CRM", icon: "/athlynx-icon.png", badge: "PRO", href: "/admin/crm" },
   { id: "admin-expiry", label: "Expiry Monitor", icon: "/athlynx-icon.png", badge: "ADMIN", href: "/admin/expiry" },
+  { id: "agent-ownership", label: "Agent Security", icon: "/athlynx-icon.png", badge: "ADMIN", href: "/agent-ownership" },
   { id: "analytics", label: "Analytics", icon: "/athlynx-icon.png", badge: "PRO", href: "/analytics" },
   { id: "admin", label: "Admin", icon: "/logos/dhg-crab-logo.png", badge: "ADMIN", href: "/admin" },
   { id: "employee-portal", label: "Team Portal", icon: "/logos/dhg-crab-logo.png", badge: "TEAM", href: "/employee-portal" },
