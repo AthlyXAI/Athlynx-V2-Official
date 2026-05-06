@@ -21,7 +21,7 @@ import { users, creditTransactions } from "../../drizzle/schema";
 import { eq, sql } from "drizzle-orm";
 
 // Gemini via OpenAI SDK (per Master Reference — always use this, not direct API)
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "AIzaSyCrriagmLHcCwzqBkt5VBH2A4UyPTI7ydg";
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || "";
 const gemini = new OpenAI({
   apiKey: GEMINI_API_KEY,
   baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",

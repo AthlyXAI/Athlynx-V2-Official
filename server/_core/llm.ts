@@ -215,14 +215,15 @@ const resolveApiUrl = (engine: Engine = "gemini") => {
   if (engine === "nebius") return "https://api.studio.nebius.ai/v1/chat/completions";
   if (engine === "claude") return "https://api.anthropic.com/v1/messages";
   if (engine === "openai") return "https://api.openai.com/v1/chat/completions";
-  if (process.env.GOOGLE_AI_API_KEY) return "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
+  if (process.env.GEMINI_API_KEY || process.env.GOOGLE_AI_API_KEY) return "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
   return "https://api.openai.com/v1/chat/completions";
 };
 const getApiKey = (engine: Engine = "gemini"): string => {
   if (engine === "nebius") return process.env.NEBIUS_API_KEY || "";
   if (engine === "claude") return process.env.ANTHROPIC_API_KEY || "";
   if (engine === "openai") return process.env.OPENAI_API_KEY || "";
-  return process.env.GOOGLE_AI_API_KEY || process.env.OPENAI_API_KEY || "";
+  // S33: GEMINI_API_KEY takes priority (rotated key), fallback to GOOGLE_AI_API_KEY
+  return process.env.GEMINI_API_KEY || process.env.GOOGLE_AI_API_KEY || process.env.OPENAI_API_KEY || "";
 };
 
 const assertApiKey = () => {

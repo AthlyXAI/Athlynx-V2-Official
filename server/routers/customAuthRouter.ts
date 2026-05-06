@@ -150,7 +150,7 @@ export const customAuthRouter = router({
             try {
               const OpenAI = (await import("openai")).default;
               const gemini = new OpenAI({
-                apiKey: process.env.GEMINI_API_KEY || "AIzaSyCrriagmLHcCwzqBkt5VBH2A4UyPTI7ydg",
+                apiKey: process.env.GEMINI_API_KEY || "",
                 baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
               });
               const enrichPrompt = `New ATHLYNX user signed up: ${name} (${email}) via ${loginMethod}.
