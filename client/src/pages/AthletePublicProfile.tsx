@@ -504,26 +504,113 @@ function AthletePublicProfileInner() {
 
       <div className="max-w-4xl mx-auto">
 
-        {/* ── Cover Photo ── */}
-        <div className="h-44 sm:h-56 relative overflow-hidden">
-          <img src={coverImg} alt={sport} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#040c1a] via-[#040c1a]/30 to-transparent" />
-          {/* Sport badge */}
-          <div className="absolute top-4 right-4 bg-black/60 backdrop-blur rounded-xl px-3 py-1.5 flex items-center gap-2 border border-white/10">
-            <Trophy className="w-4 h-4 text-[#00c2ff]" />
-            <span className="text-white text-xs font-black">{sport}</span>
+        {/* ── PLAYERPROFILER-STYLE HERO ── */}
+        <div className="relative bg-[#040c1a] border-b border-[#0066ff]/20">
+          {/* Name + School row */}
+          <div className="px-4 pt-5 pb-2">
+            <div className="flex items-center gap-2 flex-wrap mb-1">
+              <h1 className="text-2xl font-black text-white">{displayName}</h1>
+              <CheckCircle className="w-5 h-5 text-[#00c2ff]" />
+            </div>
+            <div className="flex items-center gap-2 text-[#8ba3c7] text-sm mb-3">
+              {profile.school && <span className="flex items-center gap-1 font-bold text-white"><GraduationCap className="w-4 h-4 text-[#00c2ff]" />{profile.school}</span>}
+              {profile.position && <><span className="text-white/20">·</span><span className="text-[#00c2ff] font-black">{profile.position}</span></>}
+              {profile.state && <><span className="text-white/20">·</span><span>{profile.state}</span></>}
+            </div>
           </div>
-          {/* Verified badge */}
-          <div className="absolute top-4 left-4 bg-[#00c2ff]/20 backdrop-blur rounded-xl px-3 py-1.5 flex items-center gap-1.5 border border-[#00c2ff]/30">
-            <Shield className="w-3.5 h-3.5 text-[#00c2ff]" />
-            <span className="text-[#00c2ff] text-[10px] font-black">VERIFIED ATHLETE</span>
+
+          {/* Stats left | Photo center | Stats right */}
+          <div className="grid grid-cols-3 items-center gap-0 px-2 pb-3" style={{minHeight: "200px"}}>
+            {/* Left stats */}
+            <div className="space-y-3 px-2">
+              {[
+                { label: "Height", value: profile.height || "—" },
+                { label: "Weight", value: profile.weight ? `${profile.weight} lbs` : "—" },
+                { label: "GPA", value: profile.gpa ? Number(profile.gpa).toFixed(1) : "—" },
+              ].map(s => (
+                <div key={s.label}>
+                  <div className="text-[#4a6080] text-[11px] font-bold">{s.label}</div>
+                  <div className="text-white font-black text-base leading-tight">{s.value}</div>
+                  <div className="h-px bg-[#0066ff]/20 mt-1" />
+                </div>
+              ))}
+            </div>
+
+            {/* Center: Large athlete photo */}
+            <div className="flex flex-col items-center justify-center">
+              <div className="w-32 h-40 rounded-2xl overflow-hidden bg-gradient-to-b from-[#0a1628] to-[#040c1a] border-2 border-[#0066ff]/40 shadow-2xl shadow-[#0066ff]/20 flex items-center justify-center relative">
+                {profile.avatarUrl ? (
+                  <img src={profile.avatarUrl} alt={displayName} className="w-full h-full object-cover object-top" />
+                ) : (
+                  <div className="flex flex-col items-center gap-2 px-2 text-center">
+                    <span className="text-white font-black text-4xl">{initials}</span>
+                    {isOwnProfile && (
+                      <Link href="/profile">
+                        <span className="text-[#00c2ff] text-[9px] font-bold bg-[#0066ff]/20 px-2 py-1 rounded-full whitespace-nowrap">+ Add Photo</span>
+                      </Link>
+                    )}
+                  </div>
+                )}
+                <div className="absolute bottom-1.5 left-1.5 right-1.5 bg-black/70 backdrop-blur rounded-lg px-2 py-0.5 flex items-center justify-between">
+                  <span className="text-[#00c2ff] text-[9px] font-black">X-FACTOR</span>
+                  <span className="text-white font-black text-xs">{xScore}</span>
+                </div>
+              </div>
+              <div className="mt-1.5">
+                <span className={`text-[9px] font-black px-2 py-0.5 rounded-full border ${statusInfo.bg} ${statusInfo.color}`}>{statusInfo.label}</span>
+              </div>
+            </div>
+
+            {/* Right stats */}
+            <div className="space-y-3 px-2">
+              {[
+                { label: "X-Factor", value: `${xScore}/100` },
+                { label: "NIL Value", value: profile.nilValue && Number(profile.nilValue) > 0 ? `$${(Number(profile.nilValue)/1000).toFixed(0)}K` : "—" },
+                { label: "Class", value: profile.classYear ? `'${String(profile.classYear).slice(-2)}` : "—" },
+              ].map(s => (
+                <div key={s.label}>
+                  <div className="text-[#4a6080] text-[11px] font-bold">{s.label}</div>
+                  <div className="text-white font-black text-base leading-tight">{s.value}</div>
+                  <div className="h-px bg-[#0066ff]/20 mt-1" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Action buttons */}
+          <div className="flex gap-2 px-4 pb-4">
+            {isOwnProfile ? (
+              <Link href="/profile" className="flex-1">
+                <button className="w-full bg-[#0066ff] hover:bg-[#0052cc] text-white text-sm font-black py-2.5 rounded-xl transition-all flex items-center justify-center gap-2">
+                  <Edit3 className="w-4 h-4" /> Edit Profile
+                </button>
+              </Link>
+            ) : (
+              <>
+                <button
+                  onClick={() => sendConnection.mutate({ targetUserId: athleteId })}
+                  disabled={connected || sendConnection.isPending}
+                  className={`flex-1 text-sm font-black py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 ${connected ? "bg-emerald-600/30 border border-emerald-600/50 text-emerald-400" : "bg-[#0066ff] hover:bg-[#0052cc] text-white"}`}
+                >
+                  {connected ? <CheckCircle className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
+                  {connected ? "Connected" : "Connect"}
+                </button>
+                <Link href="/messenger">
+                  <button className="bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-black px-4 py-2.5 rounded-xl transition-all">
+                    <MessageCircle className="w-4 h-4" />
+                  </button>
+                </Link>
+                <button onClick={handleShare} className="bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-black px-3 py-2.5 rounded-xl transition-all">
+                  <Share2 className="w-4 h-4" />
+                </button>
+              </>
+            )}
           </div>
         </div>
 
-        {/* ── Profile Header ── */}
-        <div className="px-4 -mt-16 relative">
+        {/* ── Legacy profile header (hidden) ── */}
+        <div className="px-4 relative" style={{display:"none"}}>
           <div className="flex items-end justify-between mb-4">
-            {/* Avatar */}
             <div className="w-28 h-28 rounded-2xl border-4 border-[#040c1a] overflow-hidden bg-gradient-to-br from-[#00c2ff] to-blue-700 flex items-center justify-center shadow-2xl flex-shrink-0">
               {profile.avatarUrl ? (
                 <img src={profile.avatarUrl} alt={displayName} className="w-full h-full object-cover" />
@@ -531,6 +618,7 @@ function AthletePublicProfileInner() {
                 <span className="text-white font-black text-4xl">{initials}</span>
               )}
             </div>
+
             {/* Action buttons */}
             <div className="flex gap-2 pb-1">
               {isOwnProfile ? (
