@@ -56,6 +56,32 @@
 ## READ THIS FILE AT THE START OF EVERY NEW SESSION
 
 ---
+## ⚡ MANDATORY SESSION-START CHECKLIST — DO THIS FIRST, EVERY SESSION
+
+**Step 1 — Run the hardening scripts (takes 5 seconds):**
+```bash
+cd /home/ubuntu/athlynx_repo
+python3 scripts/harden-routers.py
+python3 scripts/harden-mutations.py
+```
+
+**Why:** 180+ pages, 30+ server routers. Every new router added without error handling will silently fail in production. These scripts fix all silent failures before they reach real users.
+
+**Step 2 — Verify the platform is live:**
+```bash
+curl -s https://athlynx.ai/api/system/health
+```
+Expected: `{"status":"ok","platform":"ATHLYNX"}`
+
+**Step 3 — Check latest commit:**
+```bash
+git log --oneline -3
+```
+
+**DO NOT SKIP. This is a live production platform with real users and real money.**
+
+
+---
 
 ## UNIFIED IDENTITY — 1 PERSON · 1 COMPANY · 1 AI · 1 EMAIL · 1 PHONE · 1 BANK
 
