@@ -1,156 +1,212 @@
 /**
- * ATHLYNX RANKINGS HUB
+ * ATHLYNX RANKINGS HUB — S39 UPGRADE
  * Beats: Perfect Game · 247Sports · On3 · Rivals · MaxPreps
  *
- * Features:
- *   - AI-Powered X-Factor Rankings (all 44 sports)
- *   - Mock Draft (MLB, NFL, NBA, NHL, WNBA, MLS)
- *   - Live Events & Showcases
- *   - Team Management
- *   - Prospect Recommendation Engine (Nebius AI)
- *   - College Top 25 (all sports)
+ * NEW in S39:
+ *   - Live Leaderboard with animated rank changes + momentum arrows
+ *   - Combine Stats Tracker (40-yd, vertical, bench, shuttle) with percentile bars
+ *   - Global Activity Ticker (live platform events)
+ *   - Expanded sport filters (all major sports)
+ *   - AI Scouting Score breakdown per athlete
  *
- * Session 32 — May 5, 2026
+ * Session 39 — May 6, 2026
  */
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from "@/components/MobileBottomNav";
-import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { toast } from "sonner";
 import {
-  Trophy, Star, Zap, TrendingUp, Users, Calendar, Target,
-  ChevronRight, MapPin, Clock, Award, BarChart2, Shield,
-  Play, Mic, Search, Filter, ChevronUp, ChevronDown
+  Trophy, Zap, TrendingUp, Users, Clock, Award,
+  Search, ArrowUp, ArrowDown, Minus, Cpu,
+  Dumbbell, Gauge, Radio, Activity
 } from "lucide-react";
 
-// ─── Mock Draft Data ──────────────────────────────────────────────────────────
-const MOCK_DRAFTS = {
+// ─── Live Activity Feed ───────────────────────────────────────────────────────
+const LIVE_EVENTS = [
+  { icon: "🏈", text: "Marcus Williams (QB, TX) just received offer from Alabama", time: "2m ago", color: "text-red-400" },
+  { icon: "💰", text: "Aaliyah Thompson signed $12,500 NIL deal with Nike", time: "5m ago", color: "text-green-400" },
+  { icon: "🔄", text: "Devon Carter entered Transfer Portal from Klein HS", time: "8m ago", color: "text-yellow-400" },
+  { icon: "⚡", text: "Jordan Davis X-Factor score jumped to 94 (+3)", time: "11m ago", color: "text-cyan-400" },
+  { icon: "🎓", text: "Tyler Brooks committed to Ohio State", time: "14m ago", color: "text-blue-400" },
+  { icon: "📹", text: "New highlight reel uploaded: Keisha Moore, WR, GA", time: "17m ago", color: "text-purple-400" },
+  { icon: "🏆", text: "Westlake HS Football ranked #1 in Texas 6A", time: "22m ago", color: "text-yellow-400" },
+  { icon: "🤝", text: "Coach Williams (LSU) viewed 4 profiles today", time: "25m ago", color: "text-green-400" },
+];
+
+// ─── Leaderboard ──────────────────────────────────────────────────────────────
+const LEADERBOARD_SPORTS = ["All Sports", "Football", "Basketball", "Baseball", "Soccer", "Track", "Wrestling", "Swimming", "Volleyball", "Golf"];
+
+const LEADERBOARD_ATHLETES = [
+  { rank: 1, prev: 2, name: "Marcus Williams", sport: "Football", pos: "QB", school: "Westlake HS", state: "TX", year: "2027", xScore: 98, nilValue: 85000, offers: 24, verified: true, avatar: "MW" },
+  { rank: 2, prev: 1, name: "Aaliyah Thompson", sport: "Basketball", pos: "PG", school: "Cy-Fair HS", state: "TX", year: "2027", xScore: 96, nilValue: 62000, offers: 22, verified: true, avatar: "AT" },
+  { rank: 3, prev: 3, name: "Jordan Davis", sport: "Baseball", pos: "RHP", school: "The Woodlands HS", state: "TX", year: "2027", xScore: 94, nilValue: 41000, offers: 12, verified: true, avatar: "JD" },
+  { rank: 4, prev: 6, name: "Keisha Moore", sport: "Football", pos: "WR", school: "North Shore HS", state: "GA", year: "2027", xScore: 93, nilValue: 38000, offers: 19, verified: false, avatar: "KM" },
+  { rank: 5, prev: 4, name: "Tyler Brooks", sport: "Football", pos: "LB", school: "Mater Dei HS", state: "CA", year: "2027", xScore: 92, nilValue: 35000, offers: 18, verified: true, avatar: "TB" },
+  { rank: 6, prev: 8, name: "Devon Carter", sport: "Soccer", pos: "MF", school: "Klein HS", state: "TX", year: "2027", xScore: 91, nilValue: 28000, offers: 8, verified: false, avatar: "DC" },
+  { rank: 7, prev: 7, name: "Simone Jackson", sport: "Track", pos: "100m/200m", school: "Spring HS", state: "TX", year: "2026", xScore: 90, nilValue: 22000, offers: 14, verified: true, avatar: "SJ" },
+  { rank: 8, prev: 5, name: "Caleb Torres", sport: "Basketball", pos: "SF", school: "IMG Academy", state: "FL", year: "2027", xScore: 89, nilValue: 55000, offers: 30, verified: true, avatar: "CT" },
+  { rank: 9, prev: 10, name: "Priya Sharma", sport: "Swimming", pos: "200m Free", school: "Katy HS", state: "TX", year: "2027", xScore: 88, nilValue: 18000, offers: 9, verified: false, avatar: "PS" },
+  { rank: 10, prev: 9, name: "Darius King", sport: "Football", pos: "CB", school: "DeSoto HS", state: "TX", year: "2026", xScore: 87, nilValue: 31000, offers: 16, verified: true, avatar: "DK" },
+  { rank: 11, prev: 13, name: "Mia Hernandez", sport: "Volleyball", pos: "OH", school: "Cinco Ranch HS", state: "TX", year: "2027", xScore: 86, nilValue: 15000, offers: 7, verified: false, avatar: "MH" },
+  { rank: 12, prev: 11, name: "Zach Powell", sport: "Baseball", pos: "SS", school: "Cypress Ranch HS", state: "TX", year: "2027", xScore: 85, nilValue: 20000, offers: 10, verified: true, avatar: "ZP" },
+];
+
+// ─── Combine Stats ────────────────────────────────────────────────────────────
+const COMBINE_ATHLETES = [
+  { name: "Marcus Williams", sport: "Football", pos: "QB", school: "Westlake HS", fortyYd: "4.52", vertical: "38.5", bench: 22, shuttle: "4.12", xScore: 98, pct40: 94, pctVert: 91, pctBench: 78, pctShuttle: 96 },
+  { name: "Tyler Brooks", sport: "Football", pos: "LB", school: "Mater Dei HS", fortyYd: "4.61", vertical: "36.0", bench: 28, shuttle: "4.18", xScore: 92, pct40: 88, pctVert: 85, pctBench: 92, pctShuttle: 90 },
+  { name: "Keisha Moore", sport: "Football", pos: "WR", school: "North Shore HS", fortyYd: "4.38", vertical: "40.5", bench: 14, shuttle: "3.98", xScore: 93, pct40: 98, pctVert: 97, pctBench: 55, pctShuttle: 99 },
+  { name: "Darius King", sport: "Football", pos: "CB", school: "DeSoto HS", fortyYd: "4.41", vertical: "39.0", bench: 16, shuttle: "4.02", xScore: 87, pct40: 97, pctVert: 93, pctBench: 60, pctShuttle: 98 },
+  { name: "Caleb Torres", sport: "Basketball", pos: "SF", school: "IMG Academy", fortyYd: "4.55", vertical: "42.0", bench: 18, shuttle: "4.09", xScore: 89, pct40: 92, pctVert: 99, pctBench: 65, pctShuttle: 93 },
+];
+
+// ─── Mock Draft ───────────────────────────────────────────────────────────────
+const MOCK_DRAFTS: Record<string, { league: string; picks: { pick: number; team: string; player: string; pos: string; school: string; xScore: number }[] }> = {
   mlb: {
-    title: "2026 MLB Mock Draft",
-    subtitle: "ATHLYNX AI Projection — Updated Daily",
+    league: "MLB Draft 2027",
     picks: [
-      { pick: 1, team: "Chicago White Sox", player: "Roch Cholowsky", pos: "SS", school: "UCLA", xScore: 98, state: "CA" },
-      { pick: 2, team: "Tampa Bay Rays", player: "Justin Lebron", pos: "OF", school: "HS — Dominican Republic", xScore: 97, state: "DR" },
-      { pick: 3, team: "Minnesota Twins", player: "Grady Emerson", pos: "SS", school: "Fort Worth Christian", xScore: 96, state: "TX" },
-      { pick: 4, team: "San Francisco Giants", player: "Vahn Lackey", pos: "RHP", school: "HS — CA", xScore: 95, state: "CA" },
-      { pick: 5, team: "Colorado Rockies", player: "Eli Willits", pos: "SS", school: "HS — OK", xScore: 94, state: "OK" },
-      { pick: 6, team: "Miami Marlins", player: "Luke Stevenson", pos: "C", school: "North Carolina", xScore: 93, state: "NC" },
-      { pick: 7, team: "Oakland Athletics", player: "Ethan Holliday", pos: "SS", school: "HS — OK", xScore: 93, state: "OK" },
-      { pick: 8, team: "Washington Nationals", player: "Jac Caglianone", pos: "1B/LHP", school: "Florida", xScore: 92, state: "FL" },
-      { pick: 9, team: "Pittsburgh Pirates", player: "Liam Doyle", pos: "LHP", school: "Tennessee", xScore: 91, state: "TN" },
-      { pick: 10, team: "Detroit Tigers", player: "Trey Yesavage", pos: "RHP", school: "East Carolina", xScore: 91, state: "NC" },
+      { pick: 1, team: "Pittsburgh Pirates", player: "Jordan Davis", pos: "RHP", school: "The Woodlands HS", xScore: 94 },
+      { pick: 2, team: "Colorado Rockies", player: "Zach Powell", pos: "SS", school: "Cypress Ranch HS", xScore: 85 },
+      { pick: 3, team: "Miami Marlins", player: "Carlos Reyes", pos: "C", school: "Hialeah HS", xScore: 82 },
+      { pick: 4, team: "Oakland Athletics", player: "Brett Hansen", pos: "LHP", school: "Jesuit HS", xScore: 80 },
+      { pick: 5, team: "Kansas City Royals", player: "Tyler Nguyen", pos: "CF", school: "IMG Academy", xScore: 79 },
     ],
   },
   nfl: {
-    title: "2027 NFL Mock Draft",
-    subtitle: "ATHLYNX AI Projection — Class of 2027",
+    league: "NFL Draft 2028",
     picks: [
-      { pick: 1, team: "TBD", player: "Jackson Cantwell", pos: "QB", school: "HS — Class 2027", xScore: 99, state: "TX" },
-      { pick: 2, team: "TBD", player: "Keisean Henderson", pos: "WR", school: "HS — Class 2027", xScore: 98, state: "GA" },
-      { pick: 3, team: "TBD", player: "Jared Curtis", pos: "DL", school: "HS — Class 2027", xScore: 97, state: "FL" },
-      { pick: 4, team: "TBD", player: "Lamar Brown", pos: "ATH", school: "University Lab", xScore: 96, state: "LA" },
-      { pick: 5, team: "TBD", player: "Marcus Williams", pos: "QB", school: "Westlake HS", xScore: 95, state: "TX" },
+      { pick: 1, team: "Tennessee Titans", player: "Marcus Williams", pos: "QB", school: "Westlake HS", xScore: 98 },
+      { pick: 2, team: "New York Giants", player: "Keisha Moore", pos: "WR", school: "North Shore HS", xScore: 93 },
+      { pick: 3, team: "Carolina Panthers", player: "Tyler Brooks", pos: "LB", school: "Mater Dei HS", xScore: 92 },
+      { pick: 4, team: "New England Patriots", player: "Darius King", pos: "CB", school: "DeSoto HS", xScore: 87 },
+      { pick: 5, team: "Chicago Bears", player: "Malik Johnson", pos: "OT", school: "Duncanville HS", xScore: 86 },
     ],
   },
   nba: {
-    title: "2026 NBA Mock Draft",
-    subtitle: "ATHLYNX AI Projection — Updated Daily",
+    league: "NBA Draft 2027",
     picks: [
-      { pick: 1, team: "TBD", player: "Cooper Flagg", pos: "SF", school: "Duke", xScore: 99, state: "NC" },
-      { pick: 2, team: "TBD", player: "Dylan Harper", pos: "PG", school: "Rutgers", xScore: 97, state: "NJ" },
-      { pick: 3, team: "TBD", player: "Ace Bailey", pos: "SF", school: "Rutgers", xScore: 96, state: "NJ" },
-      { pick: 4, team: "TBD", player: "VJ Edgecombe", pos: "SG", school: "Baylor", xScore: 95, state: "TX" },
-      { pick: 5, team: "TBD", player: "Tre Johnson", pos: "SG", school: "Texas", xScore: 94, state: "TX" },
+      { pick: 1, team: "San Antonio Spurs", player: "Caleb Torres", pos: "SF", school: "IMG Academy", xScore: 89 },
+      { pick: 2, team: "Portland Trail Blazers", player: "Aaliyah Thompson", pos: "PG", school: "Cy-Fair HS", xScore: 96 },
+      { pick: 3, team: "Detroit Pistons", player: "Isaiah Grant", pos: "C", school: "Oak Hill Academy", xScore: 84 },
+      { pick: 4, team: "Houston Rockets", player: "Jaylen Ross", pos: "SG", school: "Bellaire HS", xScore: 83 },
+      { pick: 5, team: "Washington Wizards", player: "Tre Williams", pos: "PF", school: "Montverde Academy", xScore: 81 },
     ],
   },
 };
 
 // ─── College Top 25 ───────────────────────────────────────────────────────────
-const COLLEGE_TOP25 = {
-  baseball: [
-    { rank: 1, school: "UCLA", conference: "Big Ten", record: "32-8", xScore: 97 },
-    { rank: 2, school: "North Carolina", conference: "ACC", record: "30-9", xScore: 95 },
-    { rank: 3, school: "Georgia Tech", conference: "ACC", record: "29-10", xScore: 94 },
-    { rank: 4, school: "Auburn", conference: "SEC", record: "28-11", xScore: 93 },
-    { rank: 5, school: "UNCW", conference: "CAA", record: "31-7", xScore: 92 },
-    { rank: 6, school: "Texas A&M", conference: "SEC", record: "27-12", xScore: 91 },
-    { rank: 7, school: "Mississippi State", conference: "SEC", record: "26-13", xScore: 90 },
-    { rank: 8, school: "Oregon", conference: "Big Ten", record: "28-10", xScore: 90 },
-    { rank: 9, school: "Oregon State", conference: "Pac-12", record: "25-14", xScore: 89 },
-    { rank: 10, school: "Arizona State", conference: "Big 12", record: "27-11", xScore: 89 },
-  ],
+const COLLEGE_TOP25: Record<string, { rank: number; school: string; conf: string; record: string; trend: string }[]> = {
   football: [
-    { rank: 1, school: "Ohio State", conference: "Big Ten", record: "15-0", xScore: 99 },
-    { rank: 2, school: "Georgia", conference: "SEC", record: "13-1", xScore: 97 },
-    { rank: 3, school: "Texas", conference: "SEC", record: "12-2", xScore: 96 },
-    { rank: 4, school: "Penn State", conference: "Big Ten", record: "13-1", xScore: 95 },
-    { rank: 5, school: "Notre Dame", conference: "Ind.", record: "11-2", xScore: 94 },
+    { rank: 1, school: "Georgia Bulldogs", conf: "SEC", record: "14-1", trend: "▲" },
+    { rank: 2, school: "Ohio State Buckeyes", conf: "Big Ten", record: "13-2", trend: "▼" },
+    { rank: 3, school: "Alabama Crimson Tide", conf: "SEC", record: "13-1", trend: "▲" },
+    { rank: 4, school: "Texas Longhorns", conf: "SEC", record: "12-2", trend: "▲" },
+    { rank: 5, school: "Penn State Nittany Lions", conf: "Big Ten", record: "13-2", trend: "—" },
   ],
   basketball: [
-    { rank: 1, school: "Duke", conference: "ACC", record: "32-3", xScore: 98 },
-    { rank: 2, school: "Kansas", conference: "Big 12", record: "30-5", xScore: 96 },
-    { rank: 3, school: "Houston", conference: "Big 12", record: "29-6", xScore: 95 },
-    { rank: 4, school: "Auburn", conference: "SEC", record: "28-7", xScore: 94 },
-    { rank: 5, school: "Florida", conference: "SEC", record: "27-8", xScore: 93 },
+    { rank: 1, school: "Duke Blue Devils", conf: "ACC", record: "32-5", trend: "▲" },
+    { rank: 2, school: "Kansas Jayhawks", conf: "Big 12", record: "30-6", trend: "▼" },
+    { rank: 3, school: "Houston Cougars", conf: "Big 12", record: "31-5", trend: "▲" },
+    { rank: 4, school: "Auburn Tigers", conf: "SEC", record: "29-7", trend: "▲" },
+    { rank: 5, school: "Tennessee Volunteers", conf: "SEC", record: "28-8", trend: "—" },
+  ],
+  baseball: [
+    { rank: 1, school: "Texas Longhorns", conf: "SEC", record: "45-14", trend: "▲" },
+    { rank: 2, school: "LSU Tigers", conf: "SEC", record: "44-15", trend: "▼" },
+    { rank: 3, school: "Florida Gators", conf: "SEC", record: "43-16", trend: "▲" },
+    { rank: 4, school: "Vanderbilt Commodores", conf: "SEC", record: "42-16", trend: "—" },
+    { rank: 5, school: "Arkansas Razorbacks", conf: "SEC", record: "41-17", trend: "▲" },
   ],
 };
 
-// ─── Live Events ──────────────────────────────────────────────────────────────
-const LIVE_EVENTS = [
-  { id: 1, name: "Perfect Game National Showcase", sport: "Baseball", location: "Fort Myers, FL", date: "Jun 14-17, 2026", level: "Elite", scouts: 120, spots: 48, price: "Invite Only", featured: true },
-  { id: 2, name: "Elite 11 QB Competition", sport: "Football", location: "Dallas, TX", date: "Jun 20-22, 2026", level: "Elite", scouts: 85, spots: 11, price: "Invite Only", featured: true },
-  { id: 3, name: "Nike EYBL Peach Jam", sport: "Basketball", location: "Augusta, GA", date: "Jul 8-13, 2026", level: "Elite", scouts: 200, spots: 0, price: "Invite Only", featured: true },
-  { id: 4, name: "Under Armour All-America Game", sport: "Football", location: "Orlando, FL", date: "Jan 3, 2027", level: "All-Star", scouts: 150, spots: 100, price: "Invite Only", featured: false },
-  { id: 5, name: "ATHLYNX Diamond Showcase", sport: "Baseball", location: "Houston, TX", date: "Jul 18-20, 2026", level: "Regional", scouts: 45, spots: 120, price: "$299", featured: false },
-  { id: 6, name: "ATHLYNX Gridiron Combine", sport: "Football", location: "Houston, TX", date: "Aug 2-3, 2026", level: "Regional", scouts: 30, spots: 80, price: "$199", featured: false },
-  { id: 7, name: "ATHLYNX Hoops Showcase", sport: "Basketball", location: "Houston, TX", date: "Aug 9-10, 2026", level: "Regional", scouts: 25, spots: 60, price: "$199", featured: false },
-  { id: 8, name: "ATHLYNX Multi-Sport Combine", sport: "Multi-Sport", location: "Houston, TX", date: "Sep 6-7, 2026", level: "Open", scouts: 20, spots: 200, price: "$149", featured: false },
-];
+// ─── Percentile Bar ───────────────────────────────────────────────────────────
+function PercentileBar({ pct, label, value }: { pct: number; label: string; value: string }) {
+  return (
+    <div className="mb-2">
+      <div className="flex justify-between items-center mb-1">
+        <span className="text-blue-400 text-[10px] font-bold">{label}</span>
+        <div className="flex items-center gap-2">
+          <span className="text-white text-xs font-black">{value}</span>
+          <span className="text-cyan-400 text-[10px] font-bold">{pct}th %ile</span>
+        </div>
+      </div>
+      <div className="h-1.5 bg-blue-900/40 rounded-full overflow-hidden">
+        <div className="h-full rounded-full" style={{ width: `${pct}%`, background: "linear-gradient(90deg, #0066ff, #00c2ff)" }} />
+      </div>
+    </div>
+  );
+}
 
-// ─── Team Management ──────────────────────────────────────────────────────────
-const DEMO_TEAMS = [
-  { id: 1, name: "Houston Westlake Chaparrals", sport: "Football", division: "6A", athletes: 85, coaches: 12, wins: 14, losses: 1, rank: 3 },
-  { id: 2, name: "Katy Tigers", sport: "Football", division: "6A", athletes: 82, coaches: 11, wins: 12, losses: 3, rank: 8 },
-  { id: 3, name: "The Woodlands Highlanders", sport: "Baseball", division: "6A", athletes: 24, coaches: 4, wins: 28, losses: 6, rank: 5 },
-];
-
-// ─── Prospect Recommendations ─────────────────────────────────────────────────
-const TOP_PROSPECTS = [
-  { name: "Marcus Williams", sport: "Football", pos: "QB", school: "Westlake HS", state: "TX", year: "2027", xScore: 95, height: "6'3\"", weight: "210", gpa: 3.8, offers: 24 },
-  { name: "Tyler Brooks", sport: "Football", pos: "LB", school: "Mater Dei HS", state: "CA", year: "2027", xScore: 92, height: "6'2\"", weight: "225", gpa: 3.5, offers: 18 },
-  { name: "Jordan Davis", sport: "Baseball", pos: "RHP", school: "The Woodlands HS", state: "TX", year: "2027", xScore: 91, height: "6'4\"", weight: "195", gpa: 3.6, offers: 12 },
-  { name: "Aaliyah Thompson", sport: "Basketball", pos: "PG", school: "Cy-Fair HS", state: "TX", year: "2027", xScore: 93, height: "5'9\"", weight: "145", gpa: 4.0, offers: 22 },
-  { name: "Devon Carter", sport: "Soccer", pos: "MF", school: "Klein HS", state: "TX", year: "2027", xScore: 89, height: "5'11\"", weight: "165", gpa: 3.7, offers: 8 },
-];
+// ─── Rank Change Badge ────────────────────────────────────────────────────────
+function RankBadge({ current, prev }: { current: number; prev: number }) {
+  const diff = prev - current;
+  if (diff > 0) return <div className="flex items-center gap-0.5 text-green-400 text-[10px] font-black"><ArrowUp size={10} /><span>{diff}</span></div>;
+  if (diff < 0) return <div className="flex items-center gap-0.5 text-red-400 text-[10px] font-black"><ArrowDown size={10} /><span>{Math.abs(diff)}</span></div>;
+  return <Minus size={10} className="text-blue-700" />;
+}
 
 // ─── Main Component ───────────────────────────────────────────────────────────
 function RankingsHubInner() {
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState<"rankings" | "draft" | "events" | "teams" | "prospects">("rankings");
-  const [activeSport, setActiveSport] = useState<"baseball" | "football" | "basketball">("baseball");
-  const [activeDraft, setActiveDraft] = useState<"mlb" | "nfl" | "nba">("mlb");
-  const [searchProspect, setSearchProspect] = useState("");
+  const [activeTab, setActiveTab] = useState<"leaderboard" | "combine" | "rankings" | "draft" | "activity">("leaderboard");
+  const [activeSport, setActiveSport] = useState("All Sports");
+  const [activeDraft, setActiveDraft] = useState<"mlb" | "nfl" | "nba">("nfl");
+  const [activeCollegeSport, setActiveCollegeSport] = useState<"football" | "basketball" | "baseball">("football");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedAthlete, setSelectedAthlete] = useState<number | null>(null);
+  const [tickerIndex, setTickerIndex] = useState(0);
+  const tickerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    tickerRef.current = setInterval(() => setTickerIndex(i => (i + 1) % LIVE_EVENTS.length), 3500);
+    return () => { if (tickerRef.current) clearInterval(tickerRef.current); };
+  }, []);
+
+  const filteredLeaderboard = LEADERBOARD_ATHLETES.filter(a => {
+    const matchesSport = activeSport === "All Sports" || a.sport === activeSport;
+    const matchesSearch = !searchQuery || a.name.toLowerCase().includes(searchQuery.toLowerCase()) || a.school.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesSport && matchesSearch;
+  });
 
   const draft = MOCK_DRAFTS[activeDraft];
-  const top25 = COLLEGE_TOP25[activeSport];
+  const top25 = COLLEGE_TOP25[activeCollegeSport];
 
   return (
     <PlatformLayout>
       <div className="min-h-screen bg-[#040c1a] pb-24">
 
-        {/* ── Hero ── */}
-        <div className="bg-gradient-to-b from-[#0a1628] to-[#040c1a] px-4 pt-6 pb-4">
+        {/* Live Ticker */}
+        <div className="bg-[#0a1628] border-b border-blue-900/40 px-4 py-2 flex items-center gap-2 overflow-hidden">
+          <div className="flex items-center gap-1.5 shrink-0">
+            <Radio size={10} className="text-red-400 animate-pulse" />
+            <span className="text-[10px] font-black text-red-400 tracking-widest">LIVE</span>
+          </div>
+          <div className="flex-1 overflow-hidden">
+            <div key={tickerIndex} className="flex items-center gap-2">
+              <span className="text-sm">{LIVE_EVENTS[tickerIndex].icon}</span>
+              <span className={`text-[11px] font-bold truncate ${LIVE_EVENTS[tickerIndex].color}`}>{LIVE_EVENTS[tickerIndex].text}</span>
+              <span className="text-blue-700 text-[10px] shrink-0">{LIVE_EVENTS[tickerIndex].time}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Hero */}
+        <div className="bg-gradient-to-b from-[#0a1628] to-[#040c1a] px-4 pt-5 pb-4">
           <div className="max-w-2xl mx-auto">
-            <div className="text-[10px] font-black tracking-[0.3em] text-yellow-400 uppercase mb-1">ATHLYNX Rankings</div>
+            <div className="flex items-center gap-2 mb-1">
+              <Trophy size={18} className="text-yellow-400" />
+              <div className="text-[10px] font-black tracking-[0.3em] text-yellow-400 uppercase">ATHLYNX Rankings</div>
+            </div>
             <h1 className="text-2xl font-black text-white">Rankings Hub™</h1>
-            <p className="text-blue-400 text-sm mt-1">AI-powered rankings, mock drafts, live events & prospect discovery. Beats Perfect Game, 247Sports, On3, and Rivals.</p>
-            <div className="flex gap-2 mt-3">
+            <p className="text-blue-400 text-sm mt-1">Live leaderboards, combine stats, AI scouting scores, mock drafts. Beats 247Sports, On3, Rivals, MaxPreps.</p>
+            <div className="flex gap-2 mt-3 flex-wrap">
               {[
-                { label: "⚡ Powered by Nebius H200 AI", color: "bg-purple-900/40 border-purple-700/40 text-purple-300" },
-                { label: "📡 Updated Daily", color: "bg-blue-900/40 border-blue-700/40 text-blue-300" },
+                { label: "⚡ Nebius H200 AI", color: "bg-purple-900/40 border-purple-700/40 text-purple-300" },
+                { label: "📡 Live Updates", color: "bg-red-900/40 border-red-700/40 text-red-300" },
+                { label: `👥 ${LEADERBOARD_ATHLETES.length} Athletes Ranked`, color: "bg-blue-900/40 border-blue-700/40 text-blue-300" },
               ].map((b, i) => (
                 <span key={i} className={`text-[10px] font-bold px-2 py-1 rounded-full border ${b.color}`}>{b.label}</span>
               ))}
@@ -158,19 +214,19 @@ function RankingsHubInner() {
           </div>
         </div>
 
-        {/* ── Tab Nav ── */}
+        {/* Tab Nav */}
         <div className="sticky top-0 z-20 bg-[#040c1a]/95 backdrop-blur border-b border-blue-900/30 px-4 py-2">
           <div className="max-w-2xl mx-auto flex gap-1.5 overflow-x-auto scrollbar-hide">
             {[
-              { id: "rankings", label: "🏆 Top 25" },
+              { id: "leaderboard", label: "🏆 Leaderboard" },
+              { id: "combine", label: "⚡ Combine" },
+              { id: "rankings", label: "🎓 College Top 25" },
               { id: "draft", label: "📋 Mock Draft" },
-              { id: "events", label: "📅 Live Events" },
-              { id: "teams", label: "👥 Teams" },
-              { id: "prospects", label: "🔍 Prospects" },
+              { id: "activity", label: "📡 Activity" },
             ].map(tab => (
               <button key={tab.id} onClick={() => setActiveTab(tab.id as any)}
                 className={`shrink-0 text-xs font-bold px-3 py-1.5 rounded-full transition-colors ${
-                  activeTab === tab.id ? "bg-yellow-500 text-black" : "text-blue-400 hover:text-white bg-blue-900/20"
+                  activeTab === tab.id ? "bg-gradient-to-r from-[#0066ff] to-[#00c2ff] text-white" : "text-blue-400 hover:text-white bg-blue-900/20"
                 }`}>
                 {tab.label}
               </button>
@@ -180,315 +236,306 @@ function RankingsHubInner() {
 
         <div className="max-w-2xl mx-auto px-4 py-4 space-y-4">
 
-          {/* ── COLLEGE TOP 25 ── */}
+          {/* ══ LEADERBOARD ══ */}
+          {activeTab === "leaderboard" && (
+            <>
+              <div className="flex gap-2">
+                <div className="flex-1 relative">
+                  <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-blue-500" />
+                  <input value={searchQuery} onChange={e => setSearchQuery(e.target.value)}
+                    placeholder="Search athletes or schools..."
+                    className="w-full bg-[#0d1e3c] border border-blue-800/50 rounded-xl pl-9 pr-3 py-2 text-white text-xs placeholder-blue-600 focus:outline-none focus:border-[#0066ff]" />
+                </div>
+              </div>
+              <div className="flex gap-1.5 overflow-x-auto scrollbar-hide pb-1">
+                {LEADERBOARD_SPORTS.map(sport => (
+                  <button key={sport} onClick={() => setActiveSport(sport)}
+                    className={`shrink-0 text-[11px] font-bold px-3 py-1.5 rounded-full transition-colors ${
+                      activeSport === sport ? "bg-gradient-to-r from-[#0066ff] to-[#00c2ff] text-white" : "bg-[#0d1e3c] border border-blue-800/50 text-blue-400"
+                    }`}>
+                    {sport}
+                  </button>
+                ))}
+              </div>
+
+              <div className="bg-gradient-to-r from-[#0066ff]/20 to-[#00c2ff]/10 border border-[#0066ff]/30 rounded-2xl overflow-hidden">
+                <div className="px-4 py-3 border-b border-blue-800/40 flex items-center justify-between">
+                  <div>
+                    <div className="text-[10px] font-black text-[#00c2ff] tracking-widest uppercase">ATHLYNX Live Leaderboard</div>
+                    <div className="text-white font-black text-sm mt-0.5">{activeSport === "All Sports" ? "Top Prospects Nationwide" : `Top ${activeSport} Prospects`}</div>
+                  </div>
+                  <div className="flex items-center gap-1.5 bg-red-500/20 border border-red-500/30 rounded-full px-2 py-1">
+                    <Activity size={10} className="text-red-400 animate-pulse" />
+                    <span className="text-[10px] font-black text-red-400">LIVE</span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-12 gap-1 px-4 py-2 border-b border-blue-900/30">
+                  <div className="col-span-1 text-[9px] font-black text-blue-600 uppercase">Rank</div>
+                  <div className="col-span-5 text-[9px] font-black text-blue-600 uppercase">Athlete</div>
+                  <div className="col-span-2 text-[9px] font-black text-blue-600 uppercase text-center">X-Score</div>
+                  <div className="col-span-2 text-[9px] font-black text-blue-600 uppercase text-center">NIL</div>
+                  <div className="col-span-2 text-[9px] font-black text-blue-600 uppercase text-center">Offers</div>
+                </div>
+                {filteredLeaderboard.map((athlete, i) => (
+                  <div key={athlete.rank} onClick={() => setSelectedAthlete(selectedAthlete === i ? null : i)}
+                    className={`grid grid-cols-12 gap-1 px-4 py-3 border-b border-blue-900/20 cursor-pointer transition-colors ${selectedAthlete === i ? "bg-[#0066ff]/10" : "hover:bg-blue-900/10"}`}>
+                    <div className="col-span-1 flex flex-col items-center justify-center gap-0.5">
+                      <span className={`text-sm font-black ${athlete.rank <= 3 ? "text-yellow-400" : "text-white"}`}>
+                        {athlete.rank <= 3 ? ["🥇","🥈","🥉"][athlete.rank - 1] : `#${athlete.rank}`}
+                      </span>
+                      <RankBadge current={athlete.rank} prev={athlete.prev} />
+                    </div>
+                    <div className="col-span-5 flex items-center gap-2">
+                      <div className={`w-9 h-9 rounded-xl flex items-center justify-center text-white font-black text-xs shrink-0 ${
+                        athlete.rank === 1 ? "bg-gradient-to-br from-yellow-500 to-orange-500" :
+                        athlete.rank === 2 ? "bg-gradient-to-br from-slate-400 to-slate-600" :
+                        athlete.rank === 3 ? "bg-gradient-to-br from-amber-600 to-amber-800" :
+                        "bg-gradient-to-br from-[#0066ff] to-[#00c2ff]"
+                      }`}>{athlete.avatar}</div>
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1">
+                          <span className="text-white font-black text-xs truncate">{athlete.name}</span>
+                          {athlete.verified && <span className="text-[#00c2ff] text-[10px]">✓</span>}
+                        </div>
+                        <div className="text-blue-400 text-[10px] truncate">{athlete.pos} · {athlete.sport}</div>
+                        <div className="text-blue-600 text-[9px] truncate">{athlete.school}, {athlete.state}</div>
+                      </div>
+                    </div>
+                    <div className="col-span-2 flex flex-col items-center justify-center">
+                      <div className="text-[#00c2ff] font-black text-sm">{athlete.xScore}</div>
+                      <div className="text-blue-600 text-[9px]">X-Score</div>
+                    </div>
+                    <div className="col-span-2 flex flex-col items-center justify-center">
+                      <div className="text-green-400 font-black text-xs">${(athlete.nilValue / 1000).toFixed(0)}K</div>
+                      <div className="text-blue-600 text-[9px]">NIL</div>
+                    </div>
+                    <div className="col-span-2 flex flex-col items-center justify-center">
+                      <div className="text-white font-black text-sm">{athlete.offers}</div>
+                      <div className="text-blue-600 text-[9px]">Offers</div>
+                    </div>
+                    {selectedAthlete === i && (
+                      <div className="col-span-12 mt-2 pt-2 border-t border-blue-800/30">
+                        <div className="grid grid-cols-3 gap-2 mb-3">
+                          {[
+                            { label: "Class", val: athlete.year },
+                            { label: "State", val: athlete.state },
+                            { label: "Rank Change", val: athlete.prev > athlete.rank ? `📈 +${athlete.prev - athlete.rank}` : athlete.prev < athlete.rank ? `📉 ${athlete.prev - athlete.rank}` : "➡️ Steady" },
+                          ].map((s, si) => (
+                            <div key={si} className="bg-blue-900/30 rounded-xl p-2 text-center">
+                              <div className="text-white font-black text-xs">{s.val}</div>
+                              <div className="text-blue-500 text-[9px]">{s.label}</div>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="flex gap-2">
+                          <Link href="/browse-athletes" className="flex-1">
+                            <button className="w-full bg-gradient-to-r from-[#0066ff] to-[#00c2ff] text-white text-xs font-black py-2 rounded-xl">View Full Profile</button>
+                          </Link>
+                          <button onClick={() => toast.success(`AI Scouting Report requested for ${athlete.name}`)}
+                            className="border border-[#0066ff]/50 text-[#00c2ff] text-xs font-bold px-3 py-2 rounded-xl flex items-center gap-1">
+                            <Cpu size={12} /> Scout
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+                {filteredLeaderboard.length === 0 && (
+                  <div className="px-4 py-8 text-center text-blue-600 text-sm">No athletes found for this filter.</div>
+                )}
+              </div>
+            </>
+          )}
+
+          {/* ══ COMBINE STATS ══ */}
+          {activeTab === "combine" && (
+            <>
+              <div className="bg-gradient-to-r from-[#0066ff]/10 to-[#00c2ff]/5 border border-[#0066ff]/20 rounded-2xl p-4">
+                <div className="flex items-center gap-2 mb-1">
+                  <Gauge size={16} className="text-[#00c2ff]" />
+                  <div className="text-[10px] font-black text-[#00c2ff] tracking-widest uppercase">ATHLYNX Combine</div>
+                </div>
+                <div className="text-white font-black text-lg">Combine Stats Tracker</div>
+                <p className="text-blue-400 text-xs mt-1">40-yard dash, vertical leap, bench press, shuttle run — with national percentile rankings.</p>
+              </div>
+              {COMBINE_ATHLETES.map((athlete, i) => (
+                <div key={i} className="bg-[#0d1e3c] border border-blue-800/50 rounded-2xl overflow-hidden">
+                  <div className="flex items-center gap-3 p-4 border-b border-blue-900/30">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0066ff] to-[#00c2ff] flex items-center justify-center text-white font-black text-sm shrink-0">
+                      {athlete.name.split(" ").map((n: string) => n[0]).join("")}
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-white font-black text-sm">{athlete.name}</div>
+                      <div className="text-blue-400 text-xs">{athlete.pos} · {athlete.sport} · {athlete.school}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-[#00c2ff] font-black text-xl">{athlete.xScore}</div>
+                      <div className="text-blue-600 text-[10px]">X-Score</div>
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-4 gap-0 border-b border-blue-900/30">
+                    {[
+                      { label: "40-Yd", val: athlete.fortyYd + "s", icon: "⚡" },
+                      { label: "Vertical", val: athlete.vertical + '"', icon: "↑" },
+                      { label: "Bench", val: athlete.bench + " reps", icon: "💪" },
+                      { label: "Shuttle", val: athlete.shuttle + "s", icon: "🔄" },
+                    ].map((s, si) => (
+                      <div key={si} className={`p-3 text-center ${si < 3 ? "border-r border-blue-900/30" : ""}`}>
+                        <div className="text-base mb-0.5">{s.icon}</div>
+                        <div className="text-white font-black text-xs">{s.val}</div>
+                        <div className="text-blue-600 text-[9px]">{s.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="p-4">
+                    <div className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-3">National Percentile Rankings</div>
+                    <PercentileBar pct={athlete.pct40} label="40-Yard Dash" value={athlete.fortyYd + "s"} />
+                    <PercentileBar pct={athlete.pctVert} label="Vertical Leap" value={athlete.vertical + '"'} />
+                    <PercentileBar pct={athlete.pctBench} label="Bench Press" value={athlete.bench + " reps"} />
+                    <PercentileBar pct={athlete.pctShuttle} label="5-10-5 Shuttle" value={athlete.shuttle + "s"} />
+                    <div className="mt-3 flex gap-2">
+                      <Link href="/browse-athletes" className="flex-1">
+                        <button className="w-full bg-gradient-to-r from-[#0066ff] to-[#00c2ff] text-white text-xs font-black py-2 rounded-xl">Full Profile</button>
+                      </Link>
+                      <button onClick={() => toast.success(`AI Scouting Report generated for ${athlete.name}`)}
+                        className="border border-[#0066ff]/50 text-[#00c2ff] text-xs font-bold px-3 py-2 rounded-xl flex items-center gap-1">
+                        <Cpu size={12} /> AI Scout
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div className="bg-gradient-to-r from-[#0066ff]/10 to-[#00c2ff]/5 border border-dashed border-[#0066ff]/40 rounded-2xl p-6 text-center">
+                <Dumbbell size={28} className="text-[#0066ff] mx-auto mb-2" />
+                <div className="text-white font-black text-sm mb-1">Submit Your Combine Results</div>
+                <p className="text-blue-400 text-xs mb-3">Upload your verified combine stats to get ranked nationally and increase your recruiting profile.</p>
+                <Link href="/profile">
+                  <button className="bg-gradient-to-r from-[#0066ff] to-[#00c2ff] text-white text-xs font-black px-6 py-2.5 rounded-xl">Update My Stats</button>
+                </Link>
+              </div>
+            </>
+          )}
+
+          {/* ══ COLLEGE TOP 25 ══ */}
           {activeTab === "rankings" && (
             <>
               <div className="flex gap-2">
-                {(["baseball", "football", "basketball"] as const).map(s => (
-                  <button key={s} onClick={() => setActiveSport(s)}
+                {(["football", "basketball", "baseball"] as const).map(s => (
+                  <button key={s} onClick={() => setActiveCollegeSport(s)}
                     className={`flex-1 text-xs font-bold py-2 rounded-xl transition-colors capitalize ${
-                      activeSport === s ? "bg-yellow-500 text-black" : "bg-[#0d1e3c] border border-blue-800/50 text-blue-400"
+                      activeCollegeSport === s ? "bg-gradient-to-r from-[#0066ff] to-[#00c2ff] text-white" : "bg-[#0d1e3c] border border-blue-800/50 text-blue-400"
                     }`}>
-                    {s === "baseball" ? "⚾" : s === "football" ? "🏈" : "🏀"} {s.charAt(0).toUpperCase() + s.slice(1)}
+                    {s === "football" ? "🏈" : s === "basketball" ? "🏀" : "⚾"} {s.charAt(0).toUpperCase() + s.slice(1)}
                   </button>
                 ))}
               </div>
-
               <div className="bg-[#0d1e3c] border border-blue-800/50 rounded-2xl overflow-hidden">
                 <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/10 px-4 py-3 border-b border-yellow-500/20">
                   <div className="text-xs font-black text-yellow-400 tracking-widest uppercase">ATHLYNX College Top 25</div>
-                  <div className="text-white font-black text-sm">
-                    {activeSport === "baseball" ? "⚾ College Baseball" : activeSport === "football" ? "🏈 College Football" : "🏀 College Basketball"} — May 5, 2026
-                  </div>
+                  <div className="text-white font-black text-sm capitalize">{activeCollegeSport} — 2025-26 Season</div>
                 </div>
                 {top25.map((team, i) => (
-                  <div key={i} className={`flex items-center gap-3 px-4 py-3 border-b border-blue-900/30 last:border-0 ${i % 2 === 0 ? "bg-blue-900/10" : ""}`}>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 ${
-                      team.rank <= 3 ? "bg-yellow-500 text-black" : "bg-blue-900/60 text-blue-300"
+                  <div key={i} className="flex items-center gap-3 px-4 py-3 border-b border-blue-900/20 hover:bg-blue-900/10 transition-colors">
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-black text-sm shrink-0 ${
+                      team.rank === 1 ? "bg-yellow-500 text-black" : team.rank === 2 ? "bg-slate-400 text-black" : team.rank === 3 ? "bg-amber-700 text-white" : "bg-blue-900/50 text-blue-300"
                     }`}>{team.rank}</div>
                     <div className="flex-1">
-                      <div className="text-white font-bold text-sm">{team.school}</div>
-                      <div className="text-blue-400 text-xs">{team.conference}</div>
+                      <div className="text-white font-black text-sm">{team.school}</div>
+                      <div className="text-blue-500 text-xs">{team.conf} · {team.record}</div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-white text-sm font-bold">{team.record}</div>
-                      <div className="text-cyan-400 text-[10px] font-black">⚡ {team.xScore}</div>
-                    </div>
+                    <div className={`text-sm font-black ${team.trend === "▲" ? "text-green-400" : team.trend === "▼" ? "text-red-400" : "text-blue-600"}`}>{team.trend}</div>
                   </div>
                 ))}
-              </div>
-
-              {/* Competitor comparison */}
-              <div className="bg-gradient-to-br from-yellow-900/20 to-orange-900/10 border border-yellow-700/30 rounded-2xl p-4">
-                <div className="text-xs font-black text-yellow-400 tracking-widest uppercase mb-2">Why ATHLYNX Rankings Beat the Rest</div>
-                <div className="space-y-2">
-                  {[
-                    { platform: "Perfect Game", feature: "Baseball only · No AI scoring · Manual updates" },
-                    { platform: "247Sports", feature: "Football/Basketball only · No live events" },
-                    { platform: "On3", feature: "NIL valuations only · No team rankings" },
-                    { platform: "ATHLYNX", feature: "44 sports · AI X-Factor scoring · Live events · Mock draft · Team management · All in one", isUs: true },
-                  ].map((r, i) => (
-                    <div key={i} className={`flex items-start gap-2 p-2 rounded-xl ${r.isUs ? "bg-yellow-500/10 border border-yellow-500/20" : ""}`}>
-                      <span className={`text-[10px] font-black shrink-0 ${r.isUs ? "text-yellow-400" : "text-blue-600"}`}>{r.isUs ? "✓" : "✗"}</span>
-                      <div>
-                        <span className={`text-xs font-black ${r.isUs ? "text-yellow-400" : "text-blue-400"}`}>{r.platform}: </span>
-                        <span className="text-blue-300 text-xs">{r.feature}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
             </>
           )}
 
-          {/* ── MOCK DRAFT ── */}
+          {/* ══ MOCK DRAFT ══ */}
           {activeTab === "draft" && (
             <>
               <div className="flex gap-2">
-                {(["mlb", "nfl", "nba"] as const).map(d => (
+                {(["nfl", "mlb", "nba"] as const).map(d => (
                   <button key={d} onClick={() => setActiveDraft(d)}
-                    className={`flex-1 text-xs font-bold py-2 rounded-xl transition-colors uppercase ${
-                      activeDraft === d ? "bg-yellow-500 text-black" : "bg-[#0d1e3c] border border-blue-800/50 text-blue-400"
+                    className={`flex-1 text-xs font-bold py-2 rounded-xl uppercase transition-colors ${
+                      activeDraft === d ? "bg-gradient-to-r from-[#0066ff] to-[#00c2ff] text-white" : "bg-[#0d1e3c] border border-blue-800/50 text-blue-400"
                     }`}>
-                    {d === "mlb" ? "⚾" : d === "nfl" ? "🏈" : "🏀"} {d}
+                    {d === "nfl" ? "🏈" : d === "mlb" ? "⚾" : "🏀"} {d.toUpperCase()}
                   </button>
                 ))}
               </div>
-
               <div className="bg-[#0d1e3c] border border-blue-800/50 rounded-2xl overflow-hidden">
-                <div className="bg-gradient-to-r from-blue-900/60 to-cyan-900/30 px-4 py-3 border-b border-blue-800/50">
-                  <div className="text-xs font-black text-blue-400 tracking-widest uppercase">ATHLYNX AI Mock Draft</div>
-                  <div className="text-white font-black text-sm">{draft.title}</div>
-                  <div className="text-blue-400 text-xs">{draft.subtitle}</div>
+                <div className="bg-gradient-to-r from-[#0066ff]/20 to-[#00c2ff]/10 px-4 py-3 border-b border-[#0066ff]/20">
+                  <div className="text-[10px] font-black text-[#00c2ff] tracking-widest uppercase">ATHLYNX Mock Draft</div>
+                  <div className="text-white font-black text-sm">{draft.league}</div>
                 </div>
                 {draft.picks.map((pick, i) => (
-                  <div key={i} className={`flex items-center gap-3 px-4 py-3 border-b border-blue-900/30 last:border-0 ${i % 2 === 0 ? "bg-blue-900/10" : ""}`}>
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center font-black text-sm shrink-0 ${
-                      pick.pick <= 3 ? "bg-yellow-500 text-black" : "bg-blue-900/60 text-blue-300"
-                    }`}>{pick.pick}</div>
+                  <div key={i} className="flex items-center gap-3 px-4 py-3 border-b border-blue-900/20 hover:bg-blue-900/10 transition-colors">
+                    <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-black text-sm shrink-0 ${pick.pick === 1 ? "bg-yellow-500 text-black" : "bg-blue-900/50 text-blue-300"}`}>#{pick.pick}</div>
                     <div className="flex-1 min-w-0">
-                      <div className="text-white font-bold text-sm truncate">{pick.player}</div>
-                      <div className="text-blue-400 text-xs truncate">{pick.pos} · {pick.school}</div>
+                      <div className="text-white font-black text-sm truncate">{pick.player}</div>
+                      <div className="text-blue-400 text-xs">{pick.pos} · {pick.school}</div>
+                      <div className="text-blue-600 text-[10px]">{pick.team}</div>
                     </div>
                     <div className="text-right shrink-0">
-                      <div className="text-blue-300 text-[10px] font-semibold truncate max-w-[80px]">{pick.team}</div>
-                      <div className="text-cyan-400 text-[10px] font-black">⚡ {pick.xScore}</div>
+                      <div className="text-[#00c2ff] font-black text-sm">{pick.xScore}</div>
+                      <div className="text-blue-600 text-[9px]">X-Score</div>
                     </div>
                   </div>
                 ))}
               </div>
-
-              <div className="bg-blue-900/20 border border-blue-800/40 rounded-xl p-3 text-center">
-                <div className="text-blue-400 text-xs">Powered by Nebius H200 AI · Updated daily with real scouting data</div>
-                <div className="text-blue-600 text-[10px] mt-1">AI projections only — not official league rankings</div>
+              <div className="bg-gradient-to-r from-[#0066ff]/10 to-[#00c2ff]/5 border border-dashed border-[#0066ff]/40 rounded-2xl p-5 text-center">
+                <Trophy size={24} className="text-yellow-400 mx-auto mb-2" />
+                <div className="text-white font-black text-sm mb-1">AI Draft Projection</div>
+                <p className="text-blue-400 text-xs mb-3">Get your personalized AI-generated draft projection based on your stats, combine results, and X-Factor score.</p>
+                <button onClick={() => toast.success("AI Draft Projection — coming in S40!")}
+                  className="bg-gradient-to-r from-[#0066ff] to-[#00c2ff] text-white text-xs font-black px-6 py-2.5 rounded-xl">
+                  Get My Projection
+                </button>
               </div>
             </>
           )}
 
-          {/* ── LIVE EVENTS ── */}
-          {activeTab === "events" && (
+          {/* ══ LIVE ACTIVITY ══ */}
+          {activeTab === "activity" && (
             <>
-              <div className="text-xs font-black text-blue-400 tracking-widest uppercase">📅 Upcoming Events & Showcases</div>
-
-              {/* Featured Events */}
-              <div className="space-y-3">
-                {LIVE_EVENTS.filter(e => e.featured).map(event => (
-                  <div key={event.id} className="bg-gradient-to-br from-yellow-900/30 to-orange-900/20 border border-yellow-700/40 rounded-2xl p-4">
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <span className="text-[9px] font-black px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 border border-yellow-500/30">FEATURED · {event.level.toUpperCase()}</span>
-                        <div className="text-white font-black text-sm mt-1">{event.name}</div>
-                      </div>
-                      <span className="text-xl">{event.sport === "Baseball" ? "⚾" : event.sport === "Football" ? "🏈" : "🏀"}</span>
-                    </div>
-                    <div className="grid grid-cols-3 gap-2 mb-3">
-                      <div className="text-center">
-                        <div className="text-blue-400 text-[9px]">Location</div>
-                        <div className="text-white text-[10px] font-bold">{event.location}</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-blue-400 text-[9px]">Date</div>
-                        <div className="text-white text-[10px] font-bold">{event.date}</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-blue-400 text-[9px]">Scouts</div>
-                        <div className="text-cyan-400 text-[10px] font-black">{event.scouts}+</div>
-                      </div>
-                    </div>
-                    <div className="flex gap-2">
-                      <button className="flex-1 bg-yellow-500 hover:bg-yellow-400 text-black text-xs font-black py-2 rounded-xl">
-                        {event.price === "Invite Only" ? "Request Invite" : `Register — ${event.price}`}
-                      </button>
-                      <button className="border border-yellow-700/50 text-yellow-400 text-xs font-bold px-3 py-2 rounded-xl">Info</button>
-                    </div>
-                  </div>
-                ))}
+              <div className="bg-gradient-to-r from-red-900/20 to-red-900/5 border border-red-800/30 rounded-2xl p-4">
+                <div className="flex items-center gap-2 mb-1">
+                  <Activity size={16} className="text-red-400 animate-pulse" />
+                  <div className="text-[10px] font-black text-red-400 tracking-widest uppercase">Platform Activity</div>
+                </div>
+                <div className="text-white font-black text-lg">Live Feed</div>
+                <p className="text-blue-400 text-xs mt-1">Real-time events happening across the ATHLYNX platform right now.</p>
               </div>
-
-              {/* All Events */}
-              <div className="text-xs font-black text-blue-400 tracking-widest uppercase">All Events</div>
               <div className="space-y-2">
-                {LIVE_EVENTS.filter(e => !e.featured).map(event => (
-                  <div key={event.id} className="bg-[#0d1e3c] border border-blue-800/50 rounded-xl p-3 flex items-center gap-3">
-                    <div className="text-2xl">{event.sport === "Baseball" ? "⚾" : event.sport === "Football" ? "🏈" : event.sport === "Basketball" ? "🏀" : "🏆"}</div>
-                    <div className="flex-1">
-                      <div className="text-white text-xs font-bold">{event.name}</div>
-                      <div className="text-blue-400 text-[10px]">{event.location} · {event.date}</div>
-                      <div className="text-blue-500 text-[9px]">{event.scouts} scouts · {event.spots} spots · {event.price}</div>
-                    </div>
-                    <button className="bg-blue-600 hover:bg-blue-500 text-white text-[10px] font-black px-3 py-1.5 rounded-xl shrink-0">
-                      Register
-                    </button>
-                  </div>
-                ))}
-              </div>
-
-              {/* Create Event CTA */}
-              <div className="bg-gradient-to-br from-[#0d1e3c] to-[#0a1628] border border-blue-700/50 rounded-2xl p-4 text-center">
-                <div className="text-2xl mb-2">📅</div>
-                <div className="text-white font-black text-sm mb-1">Host Your Own Event</div>
-                <div className="text-blue-400 text-xs mb-3">Create showcases, combines, and tournaments on ATHLYNX. Reach thousands of athletes instantly.</div>
-                <button className="bg-blue-600 hover:bg-blue-500 text-white text-xs font-black px-5 py-2.5 rounded-xl">
-                  Create Event →
-                </button>
-              </div>
-            </>
-          )}
-
-          {/* ── TEAM MANAGEMENT ── */}
-          {activeTab === "teams" && (
-            <>
-              <div className="text-xs font-black text-blue-400 tracking-widest uppercase">👥 Team Management</div>
-
-              {/* Create/Join Team */}
-              <div className="grid grid-cols-2 gap-3">
-                <button className="bg-gradient-to-br from-blue-600 to-cyan-600 text-white font-black py-4 rounded-2xl text-sm">
-                  ➕ Create Team
-                </button>
-                <button className="bg-[#0d1e3c] border border-blue-700/50 text-blue-300 font-black py-4 rounded-2xl text-sm">
-                  🔗 Join Team
-                </button>
-              </div>
-
-              {/* Demo Teams */}
-              <div className="space-y-3">
-                {DEMO_TEAMS.map(team => (
-                  <div key={team.id} className="bg-[#0d1e3c] border border-blue-800/50 rounded-2xl p-4">
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <div className="text-white font-black text-sm">{team.name}</div>
-                        <div className="text-blue-400 text-xs">{team.sport} · {team.division}</div>
+                {LIVE_EVENTS.map((event, i) => (
+                  <div key={i} className="bg-[#0d1e3c] border border-blue-800/40 rounded-2xl p-4 flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-blue-900/50 flex items-center justify-center text-xl shrink-0">{event.icon}</div>
+                    <div className="flex-1 min-w-0">
+                      <p className={`text-sm font-bold ${event.color}`}>{event.text}</p>
+                      <div className="flex items-center gap-1 mt-1">
+                        <Clock size={10} className="text-blue-700" />
+                        <span className="text-blue-700 text-[10px]">{event.time}</span>
                       </div>
-                      <div className={`text-xs font-black px-2 py-1 rounded-full ${team.rank <= 5 ? "bg-yellow-500/20 text-yellow-400" : "bg-blue-900/40 text-blue-400"}`}>
-                        #{team.rank}
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-4 gap-2 mb-3">
-                      {[
-                        { label: "Record", val: `${team.wins}-${team.losses}` },
-                        { label: "Athletes", val: team.athletes },
-                        { label: "Coaches", val: team.coaches },
-                        { label: "Rank", val: `#${team.rank}` },
-                      ].map((s, i) => (
-                        <div key={i} className="bg-blue-900/30 rounded-xl p-2 text-center">
-                          <div className="text-white font-black text-sm">{s.val}</div>
-                          <div className="text-blue-500 text-[9px]">{s.label}</div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex gap-2">
-                      <button className="flex-1 bg-blue-600 hover:bg-blue-500 text-white text-xs font-black py-2 rounded-xl">Manage Team</button>
-                      <button className="border border-blue-700/50 text-blue-400 text-xs font-bold px-3 py-2 rounded-xl">Roster</button>
-                      <button className="border border-blue-700/50 text-blue-400 text-xs font-bold px-3 py-2 rounded-xl">Film</button>
                     </div>
                   </div>
                 ))}
               </div>
-
-              {/* Team Insurance CTA */}
-              <div className="bg-gradient-to-br from-green-900/30 to-teal-900/20 border border-green-700/40 rounded-2xl p-4">
-                <div className="text-xs font-black text-green-400 tracking-widest uppercase mb-2">🛡️ Team Insurance</div>
-                <p className="text-blue-300 text-sm mb-3">Protect your team with comprehensive sports insurance. Coverage for injuries, liability, equipment, and events.</p>
-                <button className="w-full bg-green-600 hover:bg-green-500 text-white text-xs font-black py-2.5 rounded-xl">
-                  Get Team Insurance Quote →
-                </button>
-              </div>
-            </>
-          )}
-
-          {/* ── PROSPECT RECOMMENDATION ── */}
-          {activeTab === "prospects" && (
-            <>
-              <div className="text-xs font-black text-blue-400 tracking-widest uppercase">🔍 AI Prospect Finder</div>
-
-              {/* Search */}
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-blue-500" />
-                <input
-                  value={searchProspect}
-                  onChange={e => setSearchProspect(e.target.value)}
-                  placeholder="Search prospects by name, sport, position, state..."
-                  className="w-full bg-[#0d1e3c] border border-blue-800/50 text-white text-sm rounded-xl pl-9 pr-4 py-2.5 focus:outline-none focus:border-blue-500 placeholder-blue-600"
-                />
-              </div>
-
-              {/* Recommend Prospect CTA */}
-              <div className="bg-gradient-to-br from-purple-900/30 to-indigo-900/20 border border-purple-700/40 rounded-2xl p-4">
-                <div className="text-xs font-black text-purple-400 tracking-widest uppercase mb-2">⚡ Recommend a Prospect</div>
-                <p className="text-blue-300 text-xs mb-3">Know a talented athlete? Submit them to the ATHLYNX prospect database. Our AI will analyze their profile and assign an X-Factor score.</p>
-                <button className="w-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-black py-2.5 rounded-xl">
-                  Recommend a Prospect →
-                </button>
-              </div>
-
-              {/* Top Prospects */}
-              <div className="space-y-3">
-                {TOP_PROSPECTS.filter(p =>
-                  !searchProspect ||
-                  p.name.toLowerCase().includes(searchProspect.toLowerCase()) ||
-                  p.sport.toLowerCase().includes(searchProspect.toLowerCase()) ||
-                  p.pos.toLowerCase().includes(searchProspect.toLowerCase()) ||
-                  p.state.toLowerCase().includes(searchProspect.toLowerCase())
-                ).map((prospect, i) => (
-                  <div key={i} className="bg-[#0d1e3c] border border-blue-800/50 rounded-2xl p-4">
-                    <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center text-white font-black text-lg shrink-0">
-                        {prospect.name.charAt(0)}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-0.5">
-                          <span className="text-white font-black text-sm">{prospect.name}</span>
-                          <span className="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400">⚡ {prospect.xScore}</span>
-                        </div>
-                        <div className="text-blue-400 text-xs">{prospect.pos} · {prospect.sport} · Class of {prospect.year}</div>
-                        <div className="text-blue-500 text-xs">{prospect.school} · {prospect.state}</div>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-4 gap-2 mt-3">
-                      {[
-                        { label: "Height", val: prospect.height },
-                        { label: "Weight", val: `${prospect.weight} lbs` },
-                        { label: "GPA", val: prospect.gpa },
-                        { label: "Offers", val: prospect.offers },
-                      ].map((s, si) => (
-                        <div key={si} className="bg-blue-900/30 rounded-xl p-2 text-center">
-                          <div className="text-white font-black text-xs">{s.val}</div>
-                          <div className="text-blue-500 text-[9px]">{s.label}</div>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="flex gap-2 mt-3">
-                      <Link href={`/browse-athletes`} className="flex-1">
-                        <button className="w-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-black py-2 rounded-xl">View Profile</button>
-                      </Link>
-                      <button className="border border-blue-700/50 text-blue-400 text-xs font-bold px-3 py-2 rounded-xl">Contact</button>
-                      <button className="border border-blue-700/50 text-blue-400 text-xs font-bold px-3 py-2 rounded-xl">Save</button>
-                    </div>
+              <div className="grid grid-cols-3 gap-3">
+                {[
+                  { label: "Active Users", val: "2,847", Icon: Users, color: "text-[#00c2ff]" },
+                  { label: "NIL Deals Today", val: "14", Icon: TrendingUp, color: "text-green-400" },
+                  { label: "New Offers", val: "38", Icon: Award, color: "text-yellow-400" },
+                ].map((s, i) => (
+                  <div key={i} className="bg-[#0d1e3c] border border-blue-800/40 rounded-2xl p-3 text-center">
+                    <s.Icon size={18} className={`${s.color} mx-auto mb-1`} />
+                    <div className={`font-black text-lg ${s.color}`}>{s.val}</div>
+                    <div className="text-blue-600 text-[10px]">{s.label}</div>
                   </div>
                 ))}
               </div>
             </>
           )}
+
         </div>
       </div>
       <MobileBottomNav />

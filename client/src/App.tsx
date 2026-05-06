@@ -225,6 +225,9 @@ import LifeWizard from "./pages/wizards/LifeWizard";
 import ScholarshipWizard from "./pages/wizards/ScholarshipWizard";
 import ScoutWizard from "./pages/wizards/ScoutWizard";
 import TransferWizard from "./pages/wizards/TransferWizard";
+import AIScoutingReport from "./pages/AIScoutingReport";
+import NotificationCenter from "./pages/NotificationCenter";
+import HighlightReelStudio from "./pages/HighlightReelStudio";
 
 function Router() {
   return (
@@ -537,6 +540,13 @@ function Router() {
       <Route path="/credits" component={TokenFactory} />
       <Route path="/ai-credits" component={TokenFactory} />
       <Route path="/auth-strategy" component={AuthStrategy} />
+      {/* S39 — New Features */}
+      <Route path="/ai-scouting-report" component={AIScoutingReport} />
+      <Route path="/scouting-report" component={AIScoutingReport} />
+      <Route path="/notification-center" component={NotificationCenter} />
+      <Route path="/notifications" component={NotificationCenter} />
+      <Route path="/highlight-reel-studio" component={HighlightReelStudio} />
+      <Route path="/reel-studio" component={HighlightReelStudio} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

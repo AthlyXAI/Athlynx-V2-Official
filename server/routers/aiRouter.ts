@@ -631,6 +631,44 @@ Be motivating, specific, and actionable. The athlete should be able to start thi
       return { reply, engine: process.env.ANTHROPIC_API_KEY ? "claude" : "gemini" };
     }),
 
+  // generateScoutingReport — AI-powered scouting report (S39)
+  generateScoutingReport: protectedProcedure
+    .input(z.object({
+      athleteName: z.string(),
+      sport: z.string(),
+      position: z.string(),
+      school: z.string(),
+      year: z.string().optional(),
+      state: z.string().optional(),
+      xScore: z.number().optional(),
+      fortyYd: z.string().optional(),
+      vertical: z.string().optional(),
+      bench: z.number().optional(),
+      gpa: z.number().optional(),
+      offers: z.number().optional(),
+      nilValue: z.number().optional(),
+      highlights: z.string().optional(),
+    }))
+    .mutation(async ({ input, ctx }) => {
+      await deductCredits(ctx.user!.id, "wizardAdvice");
+      const statsBlock = [
+        input.fortyYd ? `40-Yard Dash: ${input.fortyYd}s` : null,
+        input.vertical ? `Vertical Leap: ${input.vertical}"` : null,
+        input.bench ? `Bench Press: ${input.bench} reps` : null,
+        input.gpa ? `GPA: ${input.gpa}` : null,
+        input.offers ? `College Offers: ${input.offers}` : null,
+        input.nilValue ? `NIL Value: $${input.nilValue.toLocaleString()}` : null,
+        input.xScore ? `ATHLYNX X-Factor Score: ${input.xScore}/100` : null,
+      ].filter(Boolean).join("\n");
+      const prompt = `Generate a professional, detailed AI scouting report for the following athlete. Structure it with these exact sections:\n\n## EXECUTIVE SUMMARY\n## ATHLETIC PROFILE\n## PERFORMANCE METRICS\n## RECRUITING OUTLOOK\n## NIL POTENTIAL\n## STRENGTHS\n## AREAS FOR DEVELOPMENT\n## SCOUT RECOMMENDATION\n\nBe specific, data-driven, and professional — like a D1 recruiting coordinator would write.\n\nAthlete: ${input.athleteName}\nSport: ${input.sport}\nPosition: ${input.position}\nSchool: ${input.school}${input.state ? `, ${input.state}` : ""}\nClass Year: ${input.year || "2027"}\n\nStats & Metrics:\n${statsBlock || "Stats not yet submitted"}\n\n${input.highlights ? `Additional Notes: ${input.highlights}` : ""}`;
+      const reply = await nebiusComplete(
+        prompt,
+        "You are an elite college recruiting scout with 20 years of experience evaluating talent across all major sports. You write detailed, professional scouting reports used by D1 programs and professional organizations. Your reports are data-driven, honest, and actionable.",
+        NEBIUS_MODELS.LLAMA_70B
+      );
+      return { report: reply, athleteName: input.athleteName, generatedAt: new Date().toISOString() };
+    }),
+
   // nebiusChat — direct chat with Nebius Llama-3.3-70B on NVIDIA H200 (premium AI feature)
   nebiusChat: protectedProcedure
     .input(z.object({
