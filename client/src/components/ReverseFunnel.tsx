@@ -101,7 +101,7 @@ export function ReverseFunnel({
       headline: "Your NIL. Your Career. Your Future.",
       sub: "Join thousands of athletes already on ATHLYNX — NIL deals, recruiting, AI training.",
       cta: "Start Free — 7 Days",
-      badge: "🏆 FREE 7-DAY ACCESS",
+      badge: "⚡ FREE 7-DAY ACCESS",
       color: "from-[#0a1540] to-[#1565c0]",
     },
     b2b: {

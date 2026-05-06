@@ -330,7 +330,7 @@ function MobileNavMenu({ onClose, onInstall }: { onClose: () => void; onInstall:
       <div className="px-5 py-5 border-t border-white/10 flex flex-col gap-3" style={{ paddingBottom: 'max(20px, env(safe-area-inset-bottom))' }}>
         <Link href="/signup" onClick={onClose}
           className="flex items-center justify-center bg-[#00c2ff] hover:bg-[#00a8e0] text-black font-black text-lg py-4 rounded-2xl transition-all shadow-lg shadow-[#00c2ff]/20">
-          JOIN FREE — 7 DAYS 🏆
+          JOIN FREE — 7 DAYS →
         </Link>
         <div className="flex gap-3">
           <Link href="/signin" onClick={onClose}

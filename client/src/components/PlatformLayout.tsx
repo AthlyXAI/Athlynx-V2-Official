@@ -507,7 +507,7 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
                 <>
                   <Link href="/signup" onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center justify-center bg-[#00c2ff] hover:bg-[#00a8e0] text-black font-black text-lg py-4 rounded-2xl shadow-lg shadow-[#00c2ff]/20 transition-all">
-                    JOIN FREE — 7 DAYS 🏆
+                    JOIN FREE — 7 DAYS →
                   </Link>
                   <Link href="/signin" onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center justify-center border border-white/20 text-white font-bold py-3.5 rounded-2xl hover:bg-white/5 transition-colors">
@@ -543,7 +543,7 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
           {/* Sign In CTA — only show when not logged in */}
           {!user && (
             <div className="bg-gradient-to-br from-[#1a3a8f] to-[#0d1b3e] rounded-xl border border-blue-600 p-4 text-center">
-              <div className="text-white font-black text-sm mb-1">🏆 Join ATHLYNX Free</div>
+              <div className="text-white font-black text-sm mb-1">⚡ Join ATHLYNX Free</div>
               <div className="text-blue-300 text-xs mb-3">7-day free trial. No credit card needed.</div>
               <Link href="/signup" className="block w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-400 hover:to-blue-500 text-white font-black text-sm py-2.5 rounded-xl transition-all mb-2">
                 Start Free Trial →

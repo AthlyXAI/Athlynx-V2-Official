@@ -14,7 +14,7 @@ const TEAM = [
   {
     name: "Chad A. Dozier Sr.",
     title: "Founder, CEO & Chairman",
-    photo: "/images/team/chad-dozier-ceo.png",
+    photo: "/images/team/chad-dozier-headshot.png",
     bio: "Visionary entrepreneur and the driving force behind ATHLYNX, the NIL Portal, and the entire Dozier Holdings Group ecosystem. Former professional baseball player. Chad spent years building what the sports world didn't know it needed — a complete athlete empowerment platform. Houston, TX.",
     email: "cdozier14@athlynx.ai",
     tag: "MASTER ADMIN",
