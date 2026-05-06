@@ -1119,12 +1119,17 @@ function HomeInner() {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {[
-              { label: "Dozier Holdings Group", url: "/dhg", tag: "PARENT CO", color: "border-red-600 text-red-400", tagColor: "bg-red-700", domain: "athlynx.ai/dhg" },
+              { label: "Dozier Holdings Group", url: "https://dozierholdingsgroup.com", tag: "PARENT CO", color: "border-red-600 text-red-400", tagColor: "bg-red-700", domain: "dozierholdingsgroup.com" },
+              { label: "ATHLYNX", url: "https://athlynx.ai", tag: "LIVE", color: "border-[#0066ff] text-[#00c2ff]", tagColor: "bg-[#0066ff]", domain: "athlynx.ai" },
+              { label: "ATHLYNX Pro", url: "https://athlynx.pro", tag: "LIVE", color: "border-[#0066ff] text-[#00c2ff]", tagColor: "bg-[#0066ff]", domain: "athlynx.pro" },
+              { label: "ATHLYNX Net", url: "https://athlynx.net", tag: "LIVE", color: "border-[#0066ff] text-[#00c2ff]", tagColor: "bg-[#0066ff]", domain: "athlynx.net" },
+              { label: "ATHLYNX IO", url: "https://athlynx.io", tag: "LIVE", color: "border-[#0066ff] text-[#00c2ff]", tagColor: "bg-[#0066ff]", domain: "athlynx.io" },
               { label: "NIL Portal", url: "https://nilportals.com", tag: "LIVE", color: "border-green-600 text-green-400", tagColor: "bg-green-700", domain: "nilportals.com" },
-              { label: "NIL Portal AI", url: "https://nilportal.ai", tag: "LIVE", color: "border-[#00c2ff] text-[#00c2ff]", tagColor: "bg-[#0066ff]", domain: "nilportal.ai" },
-              { label: "Transfer Portal AI", url: "https://transferportal.ai", tag: "LIVE", color: "border-green-600 text-green-400", tagColor: "bg-green-700", domain: "transferportal.ai" },
-              { label: "ATHLYNX Platform", url: "https://athlynx.ai", tag: "LIVE", color: "border-[#0066ff] text-[#00c2ff]", tagColor: "bg-[#0066ff]", domain: "athlynx.ai" },
-              { label: "dozierholdingsgroup.com", url: "https://dozierholdingsgroup.com", tag: "LIVE", color: "border-red-600 text-red-400", tagColor: "bg-red-700", domain: "dozierholdingsgroup.com" },
+              { label: "NIL Portal AI", url: "https://nilportal.ai", tag: "LIVE", color: "border-green-600 text-green-400", tagColor: "bg-green-700", domain: "nilportal.ai" },
+              { label: "NIL Gateway", url: "https://nilgateway.com", tag: "LIVE", color: "border-green-600 text-green-400", tagColor: "bg-green-700", domain: "nilgateway.com" },
+              { label: "NIL Gateway Org", url: "https://nilgateway.org", tag: "LIVE", color: "border-green-600 text-green-400", tagColor: "bg-green-700", domain: "nilgateway.org" },
+              { label: "Transfer Portal Live", url: "https://transferportal.live", tag: "LIVE", color: "border-[#00c2ff] text-[#00c2ff]", tagColor: "bg-[#0066ff]", domain: "transferportal.live" },
+              { label: "Transfer Portal 360", url: "https://transferportal360.com", tag: "LIVE", color: "border-[#00c2ff] text-[#00c2ff]", tagColor: "bg-[#0066ff]", domain: "transferportal360.com" },
             ].map((site) => site.url.startsWith('/') ? (
                 <Link
                   key={site.url}
