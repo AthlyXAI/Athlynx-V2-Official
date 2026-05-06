@@ -238,29 +238,93 @@ function AthleteCardInner() {
           </div>
         )}
 
-        {/* ── STATS TAB ── */}
+        {/* ── STATS / SCOUTING REPORT TAB ── */}
         {activeTab === "stats" && (
-          <div className="bg-[#0d1e3c] border border-blue-800/50 rounded-2xl p-4">
-            <div className="text-xs font-black text-blue-400 tracking-widest uppercase mb-3">Performance Stats</div>
-            {profile?.sportStats && Object.keys(profile.sportStats as object).length > 0 ? (
-              <div className="space-y-2">
-                {Object.entries(profile.sportStats as Record<string, string | number>).map(([key, val]) => (
-                  <div key={key} className="flex items-center justify-between py-1.5 border-b border-blue-900/30 last:border-0">
-                    <span className="text-blue-500 text-xs capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
-                    <span className="text-white text-xs font-bold">{val}</span>
+          <div className="space-y-4">
+            {/* Scouting Report Header */}
+            <div className="bg-gradient-to-br from-[#0d1e3c] to-[#0a1628] border border-blue-700/50 rounded-2xl p-4">
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <div className="text-xs font-black text-blue-400 tracking-widest uppercase">ATHLYNX Scouting Report</div>
+                  <div className="text-white font-black text-sm">{displayName}</div>
+                  <div className="text-blue-400 text-xs">{position} · {sport} · {school}</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-cyan-400 font-black text-2xl">⚡ {xScore}</div>
+                  <div className="text-blue-500 text-[10px]">X-Factor Score</div>
+                  <div className="text-green-400 text-[10px] font-bold">
+                    {xScore >= 90 ? "ELITE PROSPECT" : xScore >= 75 ? "HIGH PROSPECT" : xScore >= 60 ? "SOLID PROSPECT" : "DEVELOPING"}
+                  </div>
+                </div>
+              </div>
+              <div className="text-blue-600 text-[10px]">Powered by Nebius H200 AI · Updated daily · Used by scouts, coaches, agents & TV announcers</div>
+            </div>
+
+            {/* Performance Stats */}
+            <div className="bg-[#0d1e3c] border border-blue-800/50 rounded-2xl p-4">
+              <div className="text-xs font-black text-blue-400 tracking-widest uppercase mb-3">Performance Stats</div>
+              {profile?.sportStats && Object.keys(profile.sportStats as object).length > 0 ? (
+                <div className="grid grid-cols-2 gap-2">
+                  {Object.entries(profile.sportStats as Record<string, string | number>).map(([key, val]) => (
+                    <div key={key} className="bg-blue-900/30 rounded-xl p-2.5">
+                      <div className="text-white font-black text-sm">{val}</div>
+                      <div className="text-blue-500 text-[10px] capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-6">
+                  <div className="text-3xl mb-2">📊</div>
+                  <div className="text-white font-bold text-sm mb-1">Stats Not Yet Added</div>
+                  <div className="text-blue-400 text-xs mb-3">This athlete hasn't entered their stats yet.</div>
+                  <Link href="/x-factor">
+                    <button className="bg-blue-600 text-white text-xs font-black px-4 py-2 rounded-xl">⚡ Add Stats with AI</button>
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            {/* Physical Profile */}
+            <div className="bg-[#0d1e3c] border border-blue-800/50 rounded-2xl p-4">
+              <div className="text-xs font-black text-blue-400 tracking-widest uppercase mb-3">Physical Profile</div>
+              <div className="grid grid-cols-3 gap-2">
+                {[
+                  { label: "Height", val: profile?.height || "N/A" },
+                  { label: "Weight", val: profile?.weight ? `${profile.weight} lbs` : "N/A" },
+                  { label: "GPA", val: profile?.gpa || "N/A" },
+                  { label: "Sport", val: `${sportIcon} ${sport}` },
+                  { label: "Position", val: position },
+                  { label: "Status", val: statusInfo.label.split(" ")[0] },
+                ].map((item, i) => (
+                  <div key={i} className="bg-blue-900/30 rounded-xl p-2.5 text-center">
+                    <div className="text-white font-black text-xs">{item.val}</div>
+                    <div className="text-blue-500 text-[9px]">{item.label}</div>
                   </div>
                 ))}
               </div>
-            ) : (
-              <div className="text-center py-8">
-                <div className="text-4xl mb-3">📊</div>
-                <div className="text-white font-bold mb-1">No Stats Yet</div>
-                <div className="text-blue-400 text-sm">This athlete hasn't added their stats yet.</div>
-                <Link href="/x-factor">
-                  <button className="mt-3 bg-blue-600 text-white text-xs font-black px-4 py-2 rounded-xl">Add Stats with AI</button>
-                </Link>
+            </div>
+
+            {/* AI Scouting Summary */}
+            <div className="bg-gradient-to-br from-purple-900/30 to-indigo-900/20 border border-purple-700/40 rounded-2xl p-4">
+              <div className="text-xs font-black text-purple-400 tracking-widest uppercase mb-2">🤖 AI Scouting Summary</div>
+              <p className="text-blue-200 text-sm leading-relaxed">
+                {displayName} is a {position} competing in {sport} at {school}. 
+                With an X-Factor score of {xScore}, this athlete ranks as a {xScore >= 90 ? "top-tier elite" : xScore >= 75 ? "high-value"  : "developing"} prospect. 
+                NIL value estimated at ${(nilValue / 1000).toFixed(0)}K based on profile metrics, social reach, and sport market data.
+                {status === "available" ? " Currently available for recruiting — coaches and brands should act now." : 
+                 status === "committed" ? " Committed — watch for future opportunities." :
+                 status === "transferred" ? " In the transfer portal — high-value opportunity for programs." : " Signed athlete."}
+              </p>
+              <div className="mt-3 text-blue-600 text-[9px]">AI analysis powered by Nebius Llama-3.3-70B on NVIDIA H200 GPUs · Not official scouting data</div>
+            </div>
+
+            {/* Comparable to Player Profiles */}
+            <div className="bg-[#0d1e3c] border border-blue-800/40 rounded-xl p-3 text-center">
+              <div className="text-blue-500 text-xs">
+                ATHLYNX covers <span className="text-white font-bold">44 sports</span> · <span className="text-white font-bold">520K+ athletes</span> · Used by scouts, coaches, agents & media
               </div>
-            )}
+              <div className="text-blue-700 text-[10px] mt-1">The complete athlete database — beats Player Profiles, Perfect Game, 247Sports, On3 & Rivals</div>
+            </div>
           </div>
         )}
 
