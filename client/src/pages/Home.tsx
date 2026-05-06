@@ -617,21 +617,161 @@ function HomeInner() {
       </section>
 
       {/* ═══ SCROLLING TICKER ═══ */}
-      <div className="bg-[#0066ff] overflow-hidden py-2.5">
-        <div className="flex gap-8 animate-[marquee_30s_linear_infinite] whitespace-nowrap">
+      <div className="bg-[#0066ff] overflow-hidden py-4">
+        <div className="flex animate-[marquee_40s_linear_infinite] whitespace-nowrap" style={{gap: '3rem'}}>
           {[
-            "EVERY SPORT", "FREE 7-DAY TRIAL", "NIL DEALS", "TRANSFER PORTAL", "AI TRAINER",
-            "RECRUITING", "DIAMOND GRIND", "GRIDIRON NEXUS", "COURT KINGS", "PITCH PULSE",
-            "WARRIORS PLAYBOOK", "X-FACTOR", "POWERED BY NEBIUS", "GOOGLE GEMINI AI", "ANTHROPIC CLAUDE",
-            "EVERY SPORT", "FREE 7-DAY TRIAL", "NIL DEALS", "TRANSFER PORTAL", "AI TRAINER",
-            "RECRUITING", "DIAMOND GRIND", "GRIDIRON NEXUS", "COURT KINGS", "PITCH PULSE",
+            "EVERY SPORT", "NIL DEALS", "TRANSFER PORTAL", "AI TRAINER",
+            "RECRUITING", "DIAMOND GRIND", "COURT KINGS", "X-FACTOR",
+            "WARRIORS PLAYBOOK", "PITCH PULSE", "FREE 7-DAY TRIAL", "POWERED BY AI",
+            "EVERY SPORT", "NIL DEALS", "TRANSFER PORTAL", "AI TRAINER",
+            "RECRUITING", "DIAMOND GRIND", "COURT KINGS", "X-FACTOR",
           ].map((item, i) => (
-            <span key={i} className="text-white font-black text-sm tracking-widest flex items-center gap-3">
-              {item} <span className="text-white/50">⚡</span>
+            <span key={i} className="text-white font-black text-base tracking-[0.15em] uppercase flex items-center shrink-0" style={{marginRight: '2rem'}}>
+              {item}&nbsp;&nbsp;<span className="text-white/60 text-lg">⚡</span>
             </span>
           ))}
         </div>
       </div>
+
+
+      {/* ═══ ATHLYNXAI INTRODUCTION ═══ */}
+      <section className="bg-[#040c1a] py-14 px-4 border-b border-[#0066ff]/20">
+        <div className="max-w-5xl mx-auto">
+
+          {/* Header */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-[#0066ff]/10 border border-[#0066ff]/30 rounded-full px-5 py-2 mb-6">
+              <span className="w-2 h-2 bg-[#00c2ff] rounded-full animate-pulse" />
+              <span className="text-[#00c2ff] text-xs font-black tracking-[0.2em] uppercase">Platform v1.0 · Live Now</span>
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-white leading-none tracking-tighter mb-4">
+              WHAT IS <span className="text-[#0066ff]">ATHLYNX</span><span className="text-[#00c2ff]">AI</span>?
+            </h2>
+            <p className="text-[#8ba3c7] text-lg max-w-2xl mx-auto leading-relaxed">
+              The first and only all-in-one athlete empowerment platform. NIL deals. Transfer portal. AI recruiting. X-Factor scoring. One login. Built by athletes. Built for athletes.
+            </p>
+          </div>
+
+          {/* Live Platform Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            {[
+              { value: "44", label: "Sports Covered", sub: "Every level. Both genders.", color: "text-[#0066ff]" },
+              { value: "213+", label: "Platform Features", sub: "Built from scratch", color: "text-[#00c2ff]" },
+              { value: "$47B", label: "Market Opportunity", sub: "Sports tech + NIL + recruiting", color: "text-green-400" },
+              { value: "5", label: "AI Engines", sub: "Nebius · Gemini · Claude · GPT · Llama", color: "text-purple-400" },
+            ].map((s, i) => (
+              <div key={i} className="bg-[#0a1628] border border-[#0066ff]/20 rounded-2xl p-5 text-center hover:border-[#0066ff]/50 transition-all">
+                <div className={`font-black text-4xl md:text-5xl ${s.color} mb-1`}>{s.value}</div>
+                <div className="text-white font-black text-sm mb-1">{s.label}</div>
+                <div className="text-[#4a6080] text-xs">{s.sub}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* X-Factor Live Scores */}
+          <div className="bg-[#0a1628] border border-[#0066ff]/20 rounded-3xl p-6 mb-8">
+            <div className="flex items-center justify-between mb-5">
+              <div>
+                <div className="text-[#00c2ff] text-xs font-black uppercase tracking-widest mb-1">Live X-Factor™ Scores</div>
+                <div className="text-white font-black text-xl">Top Prospects Right Now</div>
+              </div>
+              <div className="flex items-center gap-1.5 bg-red-500/20 border border-red-500/30 rounded-full px-3 py-1.5">
+                <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+                <span className="text-red-400 text-xs font-black">LIVE</span>
+              </div>
+            </div>
+            <div className="space-y-3">
+              {[
+                { name: "Marcus Williams", sport: "Football · QB", school: "Westlake HS, TX", score: 98, nil: "$85K", offers: 24, trend: "+3" },
+                { name: "Aaliyah Thompson", sport: "Basketball · PG", school: "Cy-Fair HS, TX", score: 96, nil: "$62K", offers: 22, trend: "+1" },
+                { name: "Jordan Davis", sport: "Baseball · RHP", school: "The Woodlands HS, TX", score: 94, nil: "$41K", offers: 12, trend: "+2" },
+                { name: "Keisha Moore", sport: "Football · WR", school: "North Shore HS, GA", score: 93, nil: "$38K", offers: 19, trend: "+4" },
+              ].map((a, i) => (
+                <div key={i} className="flex items-center gap-3 bg-[#040c1a] rounded-2xl px-4 py-3">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-white font-black text-sm shrink-0 ${
+                    i === 0 ? "bg-gradient-to-br from-[#0066ff] to-[#00c2ff]" :
+                    i === 1 ? "bg-gradient-to-br from-[#0066ff] to-purple-600" :
+                    "bg-gradient-to-br from-[#0a1628] to-[#0066ff]"
+                  }`}>
+                    #{i + 1}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-white font-black text-sm truncate">{a.name}</div>
+                    <div className="text-[#4a6080] text-xs truncate">{a.sport} · {a.school}</div>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <div className="text-[#00c2ff] font-black text-xl">{a.score}</div>
+                    <div className="text-green-400 text-xs font-bold">{a.trend} this week</div>
+                  </div>
+                  <div className="text-right shrink-0 hidden sm:block">
+                    <div className="text-green-400 font-black text-sm">{a.nil}</div>
+                    <div className="text-[#4a6080] text-xs">NIL Value</div>
+                  </div>
+                  <div className="text-right shrink-0 hidden sm:block">
+                    <div className="text-white font-black text-sm">{a.offers}</div>
+                    <div className="text-[#4a6080] text-xs">Offers</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <a href="/rankings-hub" className="block mt-4 text-center text-[#0066ff] text-sm font-black hover:text-[#00c2ff] transition-colors">
+              View Full Leaderboard →
+            </a>
+          </div>
+
+          {/* Platform Pillars */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            {[
+              {
+                icon: "💰",
+                title: "NIL Deals",
+                stat: "$2.1B+",
+                statLabel: "Total NIL market tracked",
+                desc: "Connect with brands, manage contracts, track earnings. The complete NIL ecosystem in one place.",
+                color: "border-green-500/30 hover:border-green-500/60",
+                statColor: "text-green-400",
+              },
+              {
+                icon: "🔄",
+                title: "Transfer Portal",
+                stat: "847",
+                statLabel: "Athletes in portal today",
+                desc: "Find your next school, connect with coaches, check eligibility. The most powerful transfer tool in sports.",
+                color: "border-[#0066ff]/30 hover:border-[#0066ff]/60",
+                statColor: "text-[#00c2ff]",
+              },
+              {
+                icon: "⚡",
+                title: "X-Factor Score",
+                stat: "0–100",
+                statLabel: "AI-powered athlete rating",
+                desc: "Your X-Factor score grows as you perform. Coaches see it. Scouts track it. Brands pay for it.",
+                color: "border-purple-500/30 hover:border-purple-500/60",
+                statColor: "text-purple-400",
+              },
+            ].map((p, i) => (
+              <div key={i} className={`bg-[#0a1628] border rounded-2xl p-6 transition-all ${p.color}`}>
+                <div className="text-4xl mb-3">{p.icon}</div>
+                <div className="text-white font-black text-lg mb-1">{p.title}</div>
+                <div className={`font-black text-3xl ${p.statColor} mb-1`}>{p.stat}</div>
+                <div className="text-[#4a6080] text-xs mb-3">{p.statLabel}</div>
+                <p className="text-[#8ba3c7] text-sm leading-relaxed">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="text-center">
+            <a href="/signup" className="inline-block bg-[#0066ff] hover:bg-[#0052cc] text-white font-black text-xl px-12 py-5 rounded-2xl transition-all hover:scale-105 shadow-2xl shadow-[#0066ff]/30 mr-4">
+              START FREE — 7 DAYS →
+            </a>
+            <a href="/portal" className="inline-block bg-white/5 hover:bg-white/10 text-white font-bold text-xl px-12 py-5 rounded-2xl border border-white/20 transition-all">
+              ENTER PLATFORM
+            </a>
+          </div>
+
+        </div>
+      </section>
 
       {/* ═══ SPORT CARDS — EVERY SPORT COVERED ═══ */}
       <section className="bg-[#040c1a] py-10 px-4">
