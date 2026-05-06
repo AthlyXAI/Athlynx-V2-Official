@@ -1,9 +1,10 @@
-// ATHLYNX Service Worker — v2.0.0
+// ATHLYNX Service Worker — v2.1.0
 // Layer Cake Architecture: Offline-first, background sync, push notifications
 // Facebook-scale PWA: works perfectly on any phone, anywhere in the world
 // Chad A. Dozier Sr. — Founder & CEO, ATHLYNX AI | Dozier Holdings Group
 
-const CACHE_VERSION = 'athlynx-v2.0.0';
+// v2.1.0 — May 5 2026 — Force cache clear to fix mobile homepage redirect bug
+const CACHE_VERSION = 'athlynx-v2.1.0';
 const STATIC_CACHE  = `${CACHE_VERSION}-static`;
 const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`;
 const API_CACHE     = `${CACHE_VERSION}-api`;
@@ -31,7 +32,7 @@ const OFFLINE_ROUTES = ['/', '/feed', '/profile', '/nil-portal', '/transfer-port
 
 // ── INSTALL ──────────────────────────────────────────────────────────────────
 self.addEventListener('install', (event) => {
-  console.log('[SW v2.0] Installing ATHLYNX service worker...');
+  console.log('[SW v2.1] Installing ATHLYNX service worker...');
   event.waitUntil(
     Promise.all([
       caches.open(STATIC_CACHE).then((cache) =>
@@ -49,7 +50,7 @@ self.addEventListener('install', (event) => {
         )
       ),
     ]).then(() => {
-      console.log('[SW v2.0] Installed. Skipping waiting...');
+      console.log('[SW v2.1] Installed. Skipping waiting...');
       return self.skipWaiting();
     })
   );
@@ -57,7 +58,7 @@ self.addEventListener('install', (event) => {
 
 // ── ACTIVATE ─────────────────────────────────────────────────────────────────
 self.addEventListener('activate', (event) => {
-  console.log('[SW v2.0] Activating...');
+  console.log('[SW v2.1] Activating...');
   event.waitUntil(
     caches.keys().then((cacheNames) =>
       Promise.all(
@@ -69,7 +70,7 @@ self.addEventListener('activate', (event) => {
           })
       )
     ).then(() => {
-      console.log('[SW v2.0] Active. Claiming clients...');
+      console.log('[SW v2.1] Active. Claiming clients...');
       return self.clients.claim();
     })
   );
@@ -220,4 +221,4 @@ self.addEventListener('sync', (event) => {
   }
 });
 
-console.log('[SW v2.0] ATHLYNX Service Worker loaded — Layer Cake Architecture active');
+console.log('[SW v2.1] ATHLYNX Service Worker loaded — Layer Cake Architecture active');

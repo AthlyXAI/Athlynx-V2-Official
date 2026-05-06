@@ -257,7 +257,7 @@ function DHGCorporateInner() {
             <Link href="/feed" className="px-8 py-3 bg-blue-600 rounded-xl font-bold hover:bg-blue-700 transition text-white">ATHLYNX Platform</Link>
           </div>
           <div className="mt-8 pt-8 border-t border-white/10 text-sm text-gray-500">
-            <p>Dozier Holdings Group | 12306 Lake Portal Drive, Houston, TX 77047</p>
+            <p>Dozier Holdings Group | 19039 Cloyanna Ln, Humble, TX 77346-2746</p>
             <p className="mt-1">cdozier14@athlynx.ai</p>
           </div>
         </div>
