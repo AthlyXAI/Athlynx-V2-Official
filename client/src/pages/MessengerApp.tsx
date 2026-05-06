@@ -4,7 +4,6 @@
  * Lucide icons only · E2EE badge · Real-time via Supabase
  */
 import PlatformLayout from "@/components/PlatformLayout";
-import { toast } from "sonner";
 import { useState, useRef, useEffect } from "react";
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
@@ -80,8 +79,7 @@ function MessengerAppInner() {
     onSuccess: (data: any) => {
       setMessage("");
       if (activeConvoId) broadcastMessage(activeConvoId, data);
-      utils.messenger.getMessages.invalidate({ conversationId: activeConvoId ?? 0,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
+      utils.messenger.getMessages.invalidate({ conversationId: activeConvoId ?? 0 });
       utils.messenger.getConversations.invalidate();
     },
   });
@@ -92,8 +90,7 @@ function MessengerAppInner() {
       setNewConvoName("");
       setActiveConvoId(data.conversationId);
       utils.messenger.getConversations.invalidate();
-    },,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
+    },
   });
 
   useEffect(() => {

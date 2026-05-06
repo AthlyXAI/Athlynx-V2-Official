@@ -5,7 +5,6 @@
  * NIL value, key stats, verified badge, connect button.
  */
 import { useState } from "react";
-import { toast } from "sonner";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -87,8 +86,7 @@ export function AthleteProfileCard({ athlete, variant = "grid", showConnect = tr
   const [imgError, setImgError] = useState(false);
 
   const sendConnection = trpc.connections.sendConnectionRequest.useMutation({
-    onSuccess: () => setConnected(true),,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
+    onSuccess: () => setConnected(true),
   });
 
   const sport = athlete.sport || "Multi-Sport";

@@ -7,7 +7,6 @@ import { getDb } from "../db";
 import { users, subscriptionExpiryNotices } from "../../drizzle/schema";
 import { eq, and, isNotNull, lt, gte, desc } from "drizzle-orm";
 import { z } from "zod";
-import { TRPCError } from "@trpc/server";
 
 export const expirationRouter = router({
   /**
@@ -19,7 +18,7 @@ export const expirationRouter = router({
       throw new Error("Admin access required");
     }
     const db = await getDb();
-    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
+    if (!db) throw new Error("Database unavailable");
 
     const now = new Date();
     const eightDaysFromNow = new Date(now.getTime() + 8 * 24 * 60 * 60 * 1000);
@@ -87,7 +86,7 @@ export const expirationRouter = router({
       throw new Error("Admin access required");
     }
     const db = await getDb();
-    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
+    if (!db) throw new Error("Database unavailable");
 
     const now = new Date();
 
@@ -130,7 +129,7 @@ export const expirationRouter = router({
         throw new Error("Admin access required");
       }
       const db = await getDb();
-      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
+      if (!db) throw new Error("Database unavailable");
 
       await db
         .update(subscriptionExpiryNotices)

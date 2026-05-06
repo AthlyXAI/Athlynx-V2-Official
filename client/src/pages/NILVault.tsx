@@ -1,5 +1,4 @@
 import PlatformLayout from "@/components/PlatformLayout";
-import { toast } from "sonner";
 import { useState } from "react";
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
@@ -25,8 +24,7 @@ function NILVaultInner() {
   const createDealMutation = trpc.nil.createDeal.useMutation({
     onSuccess: () => {
       setAddDealOpen(false);
-      setDealForm({ brandName: "", dealValue: "", description: "", category: "",
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
+      setDealForm({ brandName: "", dealValue: "", description: "", category: "" });
       setDealSaving(false);
       refetchDeals();
     },

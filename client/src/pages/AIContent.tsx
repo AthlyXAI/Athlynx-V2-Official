@@ -14,12 +14,9 @@ function AIContentInner() {
   const [bioResult, setBioResult] = useState("");
   const [planForm, setPlanForm] = useState({ sport: "", season: "in-season" as "preseason"|"in-season"|"offseason"|"postseason", goals: "", platforms: ["instagram", "twitter"] });
   const [planResult, setPlanResult] = useState("");
-  const captionMutation = trpc.ai.generateCaption.useMutation({ onSuccess: (d) => setCaptionResult(String(d.captions ?? "")),
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
-  const bioMutation = trpc.ai.generateBio.useMutation({ onSuccess: (d) => setBioResult(String(d.bios ?? "")),
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
-  const planMutation = trpc.ai.generateContentPlan.useMutation({ onSuccess: (d) => setPlanResult(String(d.plan ?? "")),
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
+  const captionMutation = trpc.ai.generateCaption.useMutation({ onSuccess: (d) => setCaptionResult(String(d.captions ?? "")) });
+  const bioMutation = trpc.ai.generateBio.useMutation({ onSuccess: (d) => setBioResult(String(d.bios ?? "")) });
+  const planMutation = trpc.ai.generateContentPlan.useMutation({ onSuccess: (d) => setPlanResult(String(d.plan ?? "")) });
   const bufferMutation = trpc.ai.scheduleToBuffer.useMutation({
     onSuccess: (d) => toast.success(`Posted to ${d.posted} channel${d.posted !== 1 ? "s" : ""} via Buffer!`),
     onError: (e) => toast.error(e.message || "Buffer post failed"),

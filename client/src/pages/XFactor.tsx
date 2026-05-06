@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { toast } from "sonner";
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -112,15 +111,13 @@ function XFactorFeed({ activeCategory, activeTab, postText, setPostText }: {
     retry: 1,
   });
   const likePost = trpc.feed.likePost.useMutation({
-    onSuccess: () => utils.feed.getFeed.invalidate(),,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
+    onSuccess: () => utils.feed.getFeed.invalidate(),
   });
   const createPost = trpc.feed.createPost.useMutation({
     onSuccess: () => {
       setPostText("");
       utils.feed.getFeed.invalidate();
-    },,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
+    },
   });
 
   const posts = feedData?.posts ?? [];

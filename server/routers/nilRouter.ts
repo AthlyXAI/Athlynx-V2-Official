@@ -43,10 +43,7 @@ export const nilRouter = router({
     }))
     .query(async ({ input }) => {
       const db = await getDb();
-      throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Database temporarily unavailable. Please try again in a moment.",
-        });
+      if (!db) return [];
       const deals = await db
         .select({
           id: nilDeals.id,
@@ -167,10 +164,7 @@ export const nilRouter = router({
     }))
     .query(async ({ input }) => {
       const db = await getDb();
-      throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Database temporarily unavailable. Please try again in a moment.",
-        });
+      if (!db) return [];
       return db
         .select({
           id: transferPortalEntries.id,

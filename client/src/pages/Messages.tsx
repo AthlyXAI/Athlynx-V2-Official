@@ -29,8 +29,7 @@ function MessagesInner() {
 
   const sendMutation = trpc.messenger.sendMessage.useMutation({
     onSuccess: () => {
-      utils.messenger.getMessages.invalidate({ conversationId: selectedConvId!,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
+      utils.messenger.getMessages.invalidate({ conversationId: selectedConvId! });
       utils.messenger.getConversations.invalidate();
       setMessageText("");
     },

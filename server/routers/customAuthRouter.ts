@@ -21,7 +21,6 @@ import { sdk } from "../_core/sdk";
 import { getDb, upsertUser, getUserByOpenId } from "../db";
 import { users } from "../../drizzle/schema";
 import { eq } from "drizzle-orm";
-import { TRPCError } from "@trpc/server";
 
 export const customAuthRouter = router({
   // ─── Get current session user ─────────────────────────────────────────────
@@ -184,7 +183,7 @@ Max 3 sentences. Be specific.`;
     )
     .mutation(async ({ input, ctx }) => {
       const db = await getDb();
-      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
+      if (!db) throw new Error("Database unavailable");
 
       const rows = await db
         .select()
@@ -228,7 +227,7 @@ Max 3 sentences. Be specific.`;
     )
     .mutation(async ({ input, ctx }) => {
       const db = await getDb();
-      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
+      if (!db) throw new Error("Database unavailable");
 
       // Check for existing account
       const existing = await db
@@ -368,7 +367,7 @@ Max 3 sentences. Be specific.`;
     .input(z.object({ phone: z.string().min(7) }))
     .mutation(async ({ input, ctx }) => {
       const db = await getDb();
-      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
+      if (!db) throw new Error("Database unavailable");
       await db
         .update(users)
         .set({ phone: input.phone })
@@ -396,7 +395,7 @@ Max 3 sentences. Be specific.`;
     )
     .mutation(async ({ input }) => {
       const db = await getDb();
-      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
+      if (!db) throw new Error("Database unavailable");
 
       // Verify the code via the verification service
       const { verifyCode } = await import("../services/verification");

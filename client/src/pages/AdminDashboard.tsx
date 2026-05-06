@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { toast } from "sonner";
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -33,8 +32,7 @@ function AdminDashboardInner() {
 
   const statsQuery = trpc.admin.getStats.useQuery(undefined, { retry: false });
   const usersQuery = trpc.admin.getUsers.useQuery({ page: 1, limit: 100 } as any, { retry: false });
-  const setUserRole = trpc.admin.setUserRole.useMutation({ onSuccess: () => usersQuery.refetch(),
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
+  const setUserRole = trpc.admin.setUserRole.useMutation({ onSuccess: () => usersQuery.refetch() });
   // Stub data for features not yet implemented in backend
   const inquiries: any[] = [];
   const orders: any[] = [];
@@ -721,12 +719,10 @@ function PayrollPanel() {
 
   const payrollConfig = trpc.stripe.getPayrollConfig.useQuery(undefined, { retry: false });
   const processPayroll = trpc.stripe.processPayroll.useMutation({
-    onSuccess: (data) => { setPayrollResult(data); payrollConfig.refetch(); },,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
+    onSuccess: (data) => { setPayrollResult(data); payrollConfig.refetch(); },
   });
   const createOnboarding = trpc.stripe.createConnectOnboardingLink.useMutation({
-    onSuccess: (data) => { setOnboardingLink(data.url); },,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
+    onSuccess: (data) => { setOnboardingLink(data.url); },
   });
 
   const team = payrollConfig.data ?? [];

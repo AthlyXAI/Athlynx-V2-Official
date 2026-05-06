@@ -123,8 +123,7 @@ function AITrainerTab({ user }: { user: any }) {
     onSuccess: (data) => { setTyping(false); setMessages(p => [...p, { role: "assistant", content: data.reply }]); },
     onError: (e) => { setTyping(false); toast.error(e.message || "Trainer unavailable"); },
   });
-  const clearMutation = trpc.ai.trainerClear.useMutation({ onSuccess: () => setMessages([]),
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
+  const clearMutation = trpc.ai.trainerClear.useMutation({ onSuccess: () => setMessages([]) });
 
   useEffect(() => {
     if (historyQuery.data?.messages?.length) {
@@ -554,8 +553,7 @@ function ProfileInner() {
   const { data: nilDeals = [] } = trpc.nil.getMyDeals.useQuery(undefined, { enabled: !!user, retry: false, refetchOnWindowFocus: false });
 
   const updateProfileMutation = trpc.profile.updateProfile.useMutation({
-    onSuccess: () => { setEditMode(false); utils.profile.getMyProfile.invalidate(); },,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
+    onSuccess: () => { setEditMode(false); utils.profile.getMyProfile.invalidate(); },
   });
 
   const displayName = user?.name || "Athlete";

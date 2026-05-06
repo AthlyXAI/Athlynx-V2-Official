@@ -3,17 +3,13 @@ import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
 import { posts, postLikes, postComments, users } from "../../drizzle/schema";
 import { eq, desc, and, sql } from "drizzle-orm";
-import { TRPCError } from "@trpc/server";
 
 export const feedRouter = router({
   getFeed: publicProcedure
     .input(z.object({ limit: z.number().default(20), offset: z.number().default(0) }).optional())
     .query(async ({ input }) => {
       const db = await getDb();
-      throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Database temporarily unavailable. Please try again in a moment.",
-        });
+      if (!db) return [];
       const { limit = 20, offset = 0 } = input ?? {};
       return db
         .select({
@@ -107,10 +103,7 @@ export const feedRouter = router({
     .input(z.object({ postId: z.number() }))
     .query(async ({ input }) => {
       const db = await getDb();
-      throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Database temporarily unavailable. Please try again in a moment.",
-        });
+      if (!db) return [];
       return db
         .select({
           id: postComments.id,
@@ -146,10 +139,7 @@ export const feedRouter = router({
     .input(z.object({ userId: z.number() }))
     .query(async ({ input }) => {
       const db = await getDb();
-      throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Database temporarily unavailable. Please try again in a moment.",
-        });
+      if (!db) return [];
       return db
         .select()
         .from(posts)

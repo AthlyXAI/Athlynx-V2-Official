@@ -70,13 +70,11 @@ function NotificationCenterInner() {
   });
 
   const markAllRead = trpc.notifications.markAllRead.useMutation({
-    onSuccess: () => { toast.success("All notifications marked as read"); refetch(); },,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
+    onSuccess: () => { toast.success("All notifications marked as read"); refetch(); },
   });
 
   const markRead = trpc.notifications.markRead.useMutation({
-    onSuccess: () => refetch(),,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
+    onSuccess: () => refetch(),
   });
 
   // Use live data if available, otherwise demo

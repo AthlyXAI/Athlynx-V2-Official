@@ -67,8 +67,7 @@ function AITrainingBotInner() {
     onSuccess: () => {
       setLocalMessages([]);
       toast.success("Conversation cleared. Fresh start!");
-    },,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
+    },
   });
 
   const handleSend = () => {

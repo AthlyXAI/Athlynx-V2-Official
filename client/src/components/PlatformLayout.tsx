@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { toast } from "sonner";
 import { Link, useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -101,8 +100,7 @@ function NotificationBell({ user }: { user: any }) {
   });
   const utils = trpc.useUtils();
   const markReadMutation = trpc.notifications.markAllRead.useMutation({
-    onSuccess: () => utils.notifications.getRecent.invalidate(),,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
+    onSuccess: () => utils.notifications.getRecent.invalidate(),
   });
 
   // isRead is stored as enum 'yes'/'no' in DB — not a boolean

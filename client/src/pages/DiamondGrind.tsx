@@ -62,8 +62,7 @@ function DiamondGrindInner() {
       utils.training.getHistory.invalidate();
       utils.training.getStats.invalidate();
       toast.success("Workout logged!");
-    },,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
+    },
   });
 
   const updateProfileMutation = trpc.profile.updateProfile.useMutation({

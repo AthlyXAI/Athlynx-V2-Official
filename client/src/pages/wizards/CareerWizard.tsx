@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -31,8 +30,7 @@ export default function CareerWizard() {
   const [aiResult, setAiResult] = useState("");
 
   const wizardMutation = trpc.ai.wizardAdvice.useMutation({
-    onSuccess: (data) => { setAiResult(data.result ?? ""); setDone(true); },,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
+    onSuccess: (data) => { setAiResult(data.result ?? ""); setDone(true); },
   });
 
   const toggleGoal = (g: string) => {

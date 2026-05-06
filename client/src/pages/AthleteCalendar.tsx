@@ -80,8 +80,7 @@ function AthleteCalendarInner() {
     onSuccess: () => {
       utils.calendar.getMyEvents.invalidate();
       setShowAddModal(false);
-      setNewEvent({ title: "", date: today.toISOString().split("T")[0], time: "", type: "game", location: "", description: "", priority: "medium", shareToFeed: false,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
+      setNewEvent({ title: "", date: today.toISOString().split("T")[0], time: "", type: "game", location: "", description: "", priority: "medium", shareToFeed: false });
       toast.success("Event added to your calendar!");
     },
     onError: (e) => toast.error(e.message),

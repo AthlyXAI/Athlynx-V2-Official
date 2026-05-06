@@ -5,7 +5,6 @@
  * Powers every sport on AthlynXAI with the full X-style experience.
  */
 import { useState } from "react";
-import { toast } from "sonner";
 import { Link } from "wouter";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import { trpc } from "@/lib/trpc";
@@ -676,12 +675,9 @@ export default function SportXHub({ sport }: { sport: SportConfig }) {
 
   const utils = trpc.useUtils();
   const { data: feedData, isLoading: feedLoading } = trpc.feed.getFeed.useQuery({ limit: 20 }, { refetchInterval: 30000, retry: 1 });
-  const likePost = trpc.feed.likePost.useMutation({ onSuccess: () => utils.feed.getFeed.invalidate(),
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
-  const createPost = trpc.feed.createPost.useMutation({ onSuccess: () => { setPostText(""); utils.feed.getFeed.invalidate(); },
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
-  const calcXFactor = trpc.ai.calculateXFactor.useMutation({ onSuccess: (data) => setXScoreResult(data),
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
+  const likePost = trpc.feed.likePost.useMutation({ onSuccess: () => utils.feed.getFeed.invalidate() });
+  const createPost = trpc.feed.createPost.useMutation({ onSuccess: () => { setPostText(""); utils.feed.getFeed.invalidate(); } });
+  const calcXFactor = trpc.ai.calculateXFactor.useMutation({ onSuccess: (data) => setXScoreResult(data) });
 
   const dbPosts = feedData?.posts ?? [];
   const sportPosts = dbPosts.filter((p: any) =>

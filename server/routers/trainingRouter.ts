@@ -3,7 +3,6 @@ import { protectedProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
 import { trainingLogs } from "../../drizzle/schema";
 import { eq, desc } from "drizzle-orm";
-import { TRPCError } from "@trpc/server";
 
 export const trainingRouter = router({
   logWorkout: protectedProcedure
@@ -16,7 +15,7 @@ export const trainingRouter = router({
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
+      if (!db) throw new Error("Database unavailable");
       await db.insert(trainingLogs).values({
         userId: ctx.user.id,
         workout: input.workout,
@@ -32,10 +31,7 @@ export const trainingRouter = router({
     .input(z.object({ limit: z.number().default(30) }))
     .query(async ({ ctx, input }) => {
       const db = await getDb();
-      throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Database temporarily unavailable. Please try again in a moment.",
-        });
+      if (!db) return [];
       return db
         .select()
         .from(trainingLogs)

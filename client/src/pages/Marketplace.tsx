@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { toast } from "sonner";
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -273,8 +272,7 @@ function MarketplaceInner() {
   const { user } = useAuth();
   // notifyOwner removed
   const createProductCheckout = trpc.stripe.createProductCheckout.useMutation({
-    onSuccess: ({ url,
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } }) => {
+    onSuccess: ({ url }) => {
       if (url) {
         toast({ title: "Redirecting to checkout...", description: "Opening Stripe checkout in a new tab." });
         window.open(url, "_blank");

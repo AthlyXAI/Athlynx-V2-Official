@@ -1,5 +1,4 @@
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
-import { toast } from "sonner";
 import { useState } from 'react'
 import { useLocation } from 'wouter'
 import { trpc } from '@/lib/trpc'
@@ -42,8 +41,7 @@ function SignUpInner() {
 
   const registerMutation = trpc.auth.register.useMutation({
     onSuccess: () => {
-      if (phone.trim()) savePhoneMutation.mutate({ phone: phone.trim(),
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } })
+      if (phone.trim()) savePhoneMutation.mutate({ phone: phone.trim() })
       window.location.href = '/onboarding'
     },
     onError: (err) => {

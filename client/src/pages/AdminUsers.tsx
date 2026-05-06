@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { toast } from "sonner";
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
@@ -65,8 +64,7 @@ function AdminUsersInner() {
 
   const setRoleMutation = trpc.admin.setUserRole.useMutation({
     onSuccess: () => {
-      toast({ title: "Role updated",
-    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
+      toast({ title: "Role updated" });
       refetch();
     },
     onError: (e) => toast({ title: "Error", description: e.message, variant: "destructive" }),
