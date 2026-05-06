@@ -201,7 +201,7 @@ export function ReverseFunnel({
                 <button
                   type="submit"
                   className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-black text-sm transition-all hover:scale-105 hover:shadow-lg"
-                  style={{ background: "linear-gradient(135deg, #FFD700, #FF8F00)", color: "#040c20" }}
+                  style={{ background: "linear-gradient(135deg, #0066ff, #00c2ff)", color: "#ffffff" }}
                 >
                   {content.cta} <ArrowRight className="w-4 h-4" />
                 </button>
@@ -336,7 +336,7 @@ export function AIAssistantButton() {
                   onClick={handleSend}
                   disabled={loading || !message.trim()}
                   className="px-3 py-2 rounded-xl font-bold text-xs transition-all disabled:opacity-40"
-                  style={{ background: "linear-gradient(135deg, #FFD700, #FF8F00)", color: "#040c20" }}
+                  style={{ background: "linear-gradient(135deg, #0066ff, #00c2ff)", color: "#ffffff" }}
                 >
                   Send
                 </button>

@@ -149,8 +149,8 @@ function StoriesBar({ user }: { user: any }) {
 
       {/* Add Story Modal */}
       {showAddStory && (
-        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-          <div className="bg-[#0d1b3e] border border-blue-700 rounded-2xl w-full max-w-sm p-5 space-y-4">
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-black/70 backdrop-blur-sm">
+          <div className="bg-[#0d1b3e] border border-blue-700 rounded-t-2xl sm:rounded-2xl w-full max-w-sm p-5 space-y-4 overflow-y-auto" style={{maxHeight: "85vh", paddingBottom: "80px"}}>
             <div className="flex items-center justify-between">
               <h3 className="text-white font-black text-lg">Add to Your Story</h3>
               <button onClick={() => setShowAddStory(false)} className="w-8 h-8 bg-blue-900 rounded-full flex items-center justify-center text-white hover:bg-blue-700">✕</button>
@@ -383,8 +383,8 @@ function FeedInner() {
                 {[
                   { label: "📸 Photo", value: "achievement", color: "text-green-400" },
                   { label: "🎬 Video", value: "workout", color: "text-red-400" },
-                  { label: "💰 NIL Deal", value: "nil_deal", color: "text-yellow-400" },
-                  { label: "🏆 Highlight", value: "status", color: "text-blue-400" },
+                  { label: "💰 NIL Deal", value: "nil_deal", color: "text-green-400" },
+                  { label: "⚡ Highlight", value: "status", color: "text-[#00c2ff]" },
                 ].map(btn => (
                   <button key={btn.value} onClick={() => setPostType(btn.value as any)}
                     className={`text-xs font-semibold px-2 py-1.5 rounded-lg transition-colors ${postType === btn.value ? `${btn.color} bg-blue-900/60` : `${btn.color} hover:bg-blue-900/30`}`}>
