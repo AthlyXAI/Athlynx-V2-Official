@@ -524,15 +524,115 @@ function LandingPageInner() {
         </div>
       </section>
 
-      {/* ── ALL 44 SPORTS ── */}
+      {/* ── SPORT PHOTO GALLERY ── */}
       <section className="py-20 px-4 bg-[#060f1e]">
         <div className="max-w-7xl mx-auto">
           <p className="text-yellow-400 text-sm font-bold uppercase tracking-widest text-center mb-2">Every Sport. Every Level.</p>
-          <h2 className="text-4xl lg:text-5xl font-black text-white text-center mb-12">
-            ALL <span className="text-yellow-400">44 SPORTS</span> COVERED
+          <h2 className="text-4xl lg:text-6xl font-black text-white text-center mb-4">
+            YOUR SPORT <span className="text-yellow-400">IS HERE</span>
           </h2>
-          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-11 gap-3">
-            {SPORTS_44.map((s, i) => (
+          <p className="text-blue-200 text-center text-lg mb-12 max-w-2xl mx-auto">
+            44 sports. Every level. Youth to Pro. All in one platform.
+          </p>
+
+          {/* Primary sport cards — large */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+            {[
+              {sport:"Football",sub:"Gridiron Nexus™",img:"/landing/IMG_4072.PNG",href:"/gridiron-nexus",badge:"LIVE"},
+              {sport:"Basketball",sub:"Court Kings™",img:"/landing/IMG_4073.PNG",href:"/court-kings",badge:"LIVE"},
+              {sport:"Baseball",sub:"Diamond Grind™",img:"/landing/IMG_4074.PNG",href:"/diamond-grind",badge:"NEW"},
+            ].map((c,i)=>(
+              <Link key={i} href={c.href}>
+                <div className="relative rounded-2xl overflow-hidden cursor-pointer group h-72 hover:scale-[1.02] transition-transform duration-300">
+                  <img src={c.img} alt={c.sport} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                  <div className="absolute top-3 left-3">
+                    <span className="bg-yellow-400 text-[#0a1628] text-xs font-black px-3 py-1 rounded-full">{c.badge}</span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 p-5">
+                    <p className="text-white font-black text-3xl drop-shadow-lg">{c.sport}</p>
+                    <p className="text-yellow-400 text-sm font-bold">{c.sub}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Secondary sport cards — medium */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+            {[
+              {sport:"Soccer",sub:"Pitch Pulse™",img:"/landing/IMG_4075.PNG",href:"/pitch-pulse",badge:"LIVE"},
+              {sport:"Track & Field",sub:"X-Factor™",img:"/landing/IMG_4077.PNG",href:"/x-factor",badge:"HOT"},
+              {sport:"Wrestling",sub:"Warriors Playbook™",img:"/landing/IMG_4079.PNG",href:"/warriors-playbook",badge:"HOT"},
+              {sport:"Swimming",sub:"Swim Surge™",img:"/landing/IMG_4080.PNG",href:"/swim-surge",badge:"LIVE"},
+            ].map((c,i)=>(
+              <Link key={i} href={c.href}>
+                <div className="relative rounded-2xl overflow-hidden cursor-pointer group h-52 hover:scale-[1.02] transition-transform duration-300">
+                  <img src={c.img} alt={c.sport} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                  <div className="absolute top-2 left-2">
+                    <span className="bg-blue-600 text-white text-xs font-black px-2 py-0.5 rounded-full">{c.badge}</span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 p-4">
+                    <p className="text-white font-black text-xl drop-shadow-lg">{c.sport}</p>
+                    <p className="text-blue-300 text-xs font-bold">{c.sub}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Tertiary sport cards — small grid */}
+          <div className="grid grid-cols-3 md:grid-cols-5 gap-3 mb-8">
+            {[
+              {sport:"Tennis",img:"/landing/IMG_4081.PNG",href:"/racket-kings"},
+              {sport:"Golf",img:"/landing/IMG_4084.PNG",href:"/fairway-elite"},
+              {sport:"Volleyball",img:"/landing/IMG_4088.PNG",href:"/net-setters"},
+              {sport:"Gymnastics",img:"/landing/IMG_4089.PNG",href:"/gymnastics"},
+              {sport:"Rugby",img:"/landing/IMG_4090.PNG",href:"/rugby-elite"},
+              {sport:"Lacrosse",img:"/landing/IMG_4091.PNG",href:"/lacrosse"},
+              {sport:"Hockey",img:"/landing/IMG_4092.PNG",href:"/hockey"},
+              {sport:"Softball",img:"/landing/IMG_4093.PNG",href:"/softball-nation"},
+              {sport:"Rowing",img:"/landing/IMG_4094.PNG",href:"/rowing-elite"},
+              {sport:"Cycling",img:"/landing/IMG_4095.PNG",href:"/cycling"},
+            ].map((c,i)=>(
+              <Link key={i} href={c.href}>
+                <div className="relative rounded-xl overflow-hidden cursor-pointer group h-36 hover:scale-[1.02] transition-transform duration-300">
+                  <img src={c.img} alt={c.sport} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                  <div className="absolute bottom-0 left-0 p-3">
+                    <p className="text-white font-black text-sm drop-shadow-lg">{c.sport}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* Boxing + MMA + remaining sports */}
+          <div className="grid grid-cols-2 gap-4 mb-8">
+            {[
+              {sport:"Boxing",sub:"Boxing Elite™",img:"/landing/IMG_4098.PNG",href:"/boxing",badge:"LIVE"},
+              {sport:"MMA",sub:"MMA Elite™",img:"/landing/IMG_4099.PNG",href:"/mma",badge:"LIVE"},
+            ].map((c,i)=>(
+              <Link key={i} href={c.href}>
+                <div className="relative rounded-2xl overflow-hidden cursor-pointer group h-48 hover:scale-[1.02] transition-transform duration-300">
+                  <img src={c.img} alt={c.sport} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                  <div className="absolute top-3 left-3">
+                    <span className="bg-red-600 text-white text-xs font-black px-3 py-1 rounded-full">{c.badge}</span>
+                  </div>
+                  <div className="absolute bottom-0 left-0 p-5">
+                    <p className="text-white font-black text-2xl drop-shadow-lg">{c.sport}</p>
+                    <p className="text-red-300 text-sm font-bold">{c.sub}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* All remaining 24 sports — emoji grid */}
+          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3">
+            {SPORTS_44.slice(10).map((s, i) => (
               <Link key={i} href={s.h}>
                 <div className="bg-[#1a2a4a] border border-blue-800 rounded-xl p-3 hover:border-yellow-400 hover:bg-[#1e3055] transition-all cursor-pointer text-center group">
                   <div className="text-2xl mb-1">{s.e}</div>
@@ -540,6 +640,16 @@ function LandingPageInner() {
                 </div>
               </Link>
             ))}
+          </div>
+
+          {/* CTA into full platform */}
+          <div className="text-center mt-12">
+            <Link href="/portal">
+              <button className="bg-blue-600 hover:bg-blue-500 text-white font-black text-xl px-12 py-5 rounded-2xl border border-blue-400 transition-all hover:scale-105 shadow-2xl shadow-blue-900/50">
+                ENTER THE FULL PLATFORM →
+              </button>
+            </Link>
+            <p className="text-blue-400 text-sm mt-3">athlynx.ai · All 44 Sports · Free 7-Day Trial</p>
           </div>
         </div>
       </section>
