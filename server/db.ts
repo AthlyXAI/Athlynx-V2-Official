@@ -23,7 +23,7 @@ import { ENV } from './_core/env';
 let _db: any = null;
 let _pool: Pool | null = null;
 let _lastConnectAttempt = 0;
-const RECONNECT_COOLDOWN_MS = 30_000; // don't hammer DB — wait 30s between retries
+const RECONNECT_COOLDOWN_MS = 5_000; // retry after 5s on failure
 
 // Lazily create the drizzle instance so local tooling can run without a DB.
 // If the pool goes stale or the initial connect fails, reset and retry after cooldown.

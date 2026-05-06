@@ -46,23 +46,36 @@ export const feedRouter = router({
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
-      const result = await db.insert(posts).values({
-        userId: ctx.user.id,
-        content: input.content,
-        postType: input.postType,
-        mediaUrls: input.mediaUrls ?? null,
-        mediaType: input.mediaType,
-        visibility: input.visibility,
-      }).returning({ id: posts.id });
-      return { success: true, postId: result[0]?.id };
+      if (!db) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Database is temporarily unavailable. Please try again in a moment.",
+        });
+      }
+      try {
+        const result = await db.insert(posts).values({
+          userId: ctx.user.id,
+          content: input.content,
+          postType: input.postType,
+          mediaUrls: input.mediaUrls ?? null,
+          mediaType: input.mediaType,
+          visibility: input.visibility,
+        }).returning({ id: posts.id });
+        return { success: true, postId: result[0]?.id };
+      } catch (err) {
+        console.error("[Feed] createPost error:", err);
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to create post. Please try again.",
+        });
+      }
     }),
 
   likePost: protectedProcedure
     .input(z.object({ postId: z.number() }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       const existing = await db
         .select()
         .from(postLikes)
@@ -110,7 +123,7 @@ export const feedRouter = router({
     .input(z.object({ postId: z.number(), content: z.string().min(1).max(500) }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       await db.insert(postComments).values({
         postId: input.postId,
         userId: ctx.user.id,

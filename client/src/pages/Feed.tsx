@@ -245,6 +245,7 @@ function PostCard({ post, currentUserId, currentUserAvatar, currentUserName }: {
   });
   const addCommentMutation = trpc.feed.addComment.useMutation({
     onSuccess: () => { setComment(""); utils.feed.getComments.invalidate({ postId: post.id }); },
+    onError: (err) => { toast.error(err.message || "Failed to add comment."); },
   });
   const { data: comments = [] } = trpc.feed.getComments.useQuery({ postId: post.id }, { enabled: showComments });
 
@@ -351,7 +352,14 @@ function FeedInner() {
   const posts = feedData ?? [];
 
   const createPostMutation = trpc.feed.createPost.useMutation({
-    onSuccess: () => { setPostText(""); utils.feed.getFeed.invalidate(); },
+    onSuccess: () => {
+      setPostText("");
+      utils.feed.getFeed.invalidate();
+      toast.success("Post shared!");
+    },
+    onError: (err) => {
+      toast.error(err.message || "Failed to post. Please try again.");
+    },
   });
 
   return (
