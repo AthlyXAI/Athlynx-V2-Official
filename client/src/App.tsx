@@ -468,7 +468,9 @@ function Router() {
 
       {/* ── Legal ── */}
       <Route path="/privacy-policy" component={PrivacyPolicy} />
+      <Route path="/privacy" component={PrivacyPolicy} />
       <Route path="/terms-of-service" component={TermsOfService} />
+      <Route path="/terms" component={TermsOfService} />
       <Route path="/legal-compliance" component={LegalCompliance} />
 
       {/* ── School Branding & Licensing ── */}
@@ -477,6 +479,13 @@ function Router() {
       <Route path="/nil-foundation" component={SchoolBranding} />
 
       {/* ── Utility ── */}
+      {/* Alias routes to fix broken links across the platform */}
+      <Route path="/home" component={Home} />
+      <Route path="/our-story" component={About} />
+      <Route path="/ai-trainer" component={AITrainingBot} />
+      <Route path="/bots" component={TeamBots} />
+      <Route path="/analytics" component={AthleteDataDashboard} />
+      <Route path="/portal-news" component={NILPortal} />
       <Route path="/notifications" component={Notifications} />
       <Route path="/contact" component={Contact} />
       <Route path="/card" component={ChadCard} />

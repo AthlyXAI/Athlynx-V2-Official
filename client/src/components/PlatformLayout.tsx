@@ -190,12 +190,16 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
     const legacyCompleted = localStorage.getItem(`onboarding_done_${user.id}`);
     // Check DB onboardingCompleted flag (set to 1 for existing users)
     const dbCompleted = (user as any)?.onboardingCompleted === 1 || (user as any)?.onboardingCompleted === true;
-    if (dbCompleted) {
-      // Sync localStorage so we don't check DB every time
+    // Any user with a loginMethod (google, email, seed) is a real returning user — never show splash
+    const hasLoginMethod = !!(user as any)?.loginMethod;
+    // Admins never see onboarding
+    const isAdminUser = (user as any)?.role === 'admin';
+    if (dbCompleted || hasLoginMethod || isAdminUser) {
+      // Sync localStorage so we don't re-check every time
       localStorage.setItem(key, '1');
       return;
     }
-    if (!completed && !legacyCompleted && !dbCompleted) {
+    if (!completed && !legacyCompleted) {
       // Only show onboarding once — never interrupt navigation
       const timer = setTimeout(() => setShowOnboarding(true), 800);
       return () => clearTimeout(timer);
@@ -563,6 +567,14 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
               <div className="text-red-400/70 text-xs">All 20+ Companies</div>
             </div>
           </Link>
+          {/* Parent Company external link */}
+          <a href="https://dozierholdingsgroup.com" target="_blank" rel="noopener noreferrer" className="bg-[#0d1b3e] rounded-xl border border-blue-900/60 p-2.5 flex items-center gap-2.5 hover:bg-blue-950 hover:border-blue-700 transition-colors">
+            <img src="/logos/dhg-crab-logo.png" alt="Dozier Holdings Group" className="w-7 h-7 rounded-md object-cover" />
+            <div>
+              <div className="text-xs font-bold text-blue-300">Parent Company</div>
+              <div className="text-blue-500 text-[10px]">dozierholdingsgroup.com ↗</div>
+            </div>
+          </a>
 
           {/* Upgrade CTA for free users */}
           {user && (!sub?.plan || sub.plan === "free") && (
