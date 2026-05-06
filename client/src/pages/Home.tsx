@@ -1317,7 +1317,7 @@ function HomeInner() {
               <a href="https://nilportals.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">nilportals.com</a>
               <a href="https://nilportal.ai" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">nilportal.ai</a>
               <a href="https://transferportal.ai" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">transferportal.ai</a>
-              <a href="https://aibotecosys.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">aibotecosys.com</a>
+              <a href="https://athlynx.ai" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">athlynx.ai</a>
               <Link href="/gridiron-nexus" className="hover:text-white transition-colors">Gridiron Nexus</Link>
               <Link href="/pitch-pulse" className="hover:text-white transition-colors">Pitch Pulse</Link>
               <Link href="/court-kings" className="hover:text-white transition-colors">Court Kings</Link>

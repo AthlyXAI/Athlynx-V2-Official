@@ -71,5 +71,22 @@
     "deploymentEnabled": {
       "main": true
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/transfer-portal-redirect",
+      "destination": "/transfer-portal",
+      "permanent": true
+    },
+    {
+      "source": "/nil-portal-redirect",
+      "destination": "/nil-portal",
+      "permanent": true
+    },
+    {
+      "source": "/dhg-redirect",
+      "destination": "/dhg",
+      "permanent": true
+    }
+  ]
 }

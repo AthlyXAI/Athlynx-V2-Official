@@ -61,7 +61,7 @@ const SUBSIDIARIES = [
     desc: "The AI automation ecosystem powering the next generation of athlete and business intelligence across the DHG portfolio.",
     status: "BUILDING",
     icon: "/images/logos/dhg-logo.png",
-    href: "https://aibotecosys.com",
+    href: "https://athlynx.ai",
   },
   {
     name: "ATHLYNX Robotics",

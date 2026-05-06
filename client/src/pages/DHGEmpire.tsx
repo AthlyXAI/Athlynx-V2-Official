@@ -119,7 +119,7 @@ const COMPANIES: Company[] = [
     description: "The AI automation ecosystem powering the next generation of athlete and business intelligence across the entire DHG portfolio.",
     icon: <Database className="w-6 h-6" />,
     status: "active",
-    link: "https://aibotecosys.com",
+    link: "https://athlynx.ai",
   },
   {
     name: "The VIRT, LLC",

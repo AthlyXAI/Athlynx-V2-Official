@@ -47,7 +47,7 @@ You may not create an account on behalf of another person without their explicit
     title: "4. Free Trial & Subscription",
     body: `Free Trial: New users receive a 7-day free trial with access to all Platform features. Credit card is required — you will not be charged for 7 days. At the end of the trial period, continued access to premium features requires a paid subscription.
 
-Subscription Plans: We offer multiple subscription tiers. Current pricing is available at athlynx.io/pricing. Prices are subject to change with 30 days' notice.
+Subscription Plans: We offer multiple subscription tiers. Current pricing is available at athlynx.ai/pricing. Prices are subject to change with 30 days' notice.
 
 Billing: Subscriptions are billed on a recurring basis (monthly or annually, depending on your plan) through Stripe, Inc. By subscribing, you authorize us to charge your payment method on a recurring basis.
 
