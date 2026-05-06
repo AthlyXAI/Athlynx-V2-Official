@@ -7,6 +7,7 @@ import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
 import { sql } from "drizzle-orm";
 import { VAPID_PUBLIC_KEY } from "../services/push-notifications";
+import { TRPCError } from "@trpc/server";
 
 export const pushRouter = router({
   // Get the VAPID public key for the client to subscribe
@@ -25,7 +26,7 @@ export const pushRouter = router({
     )
     .mutation(async ({ input, ctx }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
 
       // Upsert subscription
       await db.execute(
@@ -45,7 +46,7 @@ export const pushRouter = router({
     .input(z.object({ endpoint: z.string() }))
     .mutation(async ({ input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       await db.execute(sql`DELETE FROM push_subscriptions WHERE endpoint = ${input.endpoint}`);
       return { success: true };
     }),

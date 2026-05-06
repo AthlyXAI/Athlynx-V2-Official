@@ -378,7 +378,8 @@ function AthletePublicProfileInner() {
   const [collegeSearch, setCollegeSearch] = useState("");
 
   const sendConnection = trpc.connections.sendConnectionRequest.useMutation({
-    onSuccess: () => { setConnected(true); toast.success("Connection request sent!"); },
+    onSuccess: () => { setConnected(true); toast.success("Connection request sent!"); },,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);

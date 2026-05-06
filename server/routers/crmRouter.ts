@@ -184,7 +184,10 @@ export const crmRouter = router({
   // ─── Admin: Get pipeline ──────────────────────────────────────────────────
   getPipeline: adminProcedure.query(async () => {
     const db = await getDb();
-    if (!db) return [];
+    throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Database temporarily unavailable. Please try again in a moment.",
+        });
     const { crmPipeline, crmContacts } = await import("../../drizzle/schema");
     const { desc, eq } = await import("drizzle-orm");
     const rows = await db

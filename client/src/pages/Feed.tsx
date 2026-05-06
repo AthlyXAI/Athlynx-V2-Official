@@ -54,7 +54,8 @@ function StoriesBar({ user }: { user: any }) {
     onSuccess: () => {
       utils.stories.getActiveStories.invalidate();
       setShowAddStory(false);
-      setNewStory({ caption: "", storyType: "update" });
+      setNewStory({ caption: "", storyType: "update",
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
       toast.success("Story posted! Visible for 24 hours.");
     },
     onError: (e) => toast.error(e.message),
@@ -241,10 +242,12 @@ function PostCard({ post, currentUserId, currentUserAvatar, currentUserName }: {
 
   const likeMutation = trpc.feed.likePost.useMutation({
     onMutate: () => { setLiked(l => !l); setLikeCount((c: number) => liked ? c - 1 : c + 1); },
-    onSettled: () => utils.feed.getFeed.invalidate(),
+    onSettled: () => utils.feed.getFeed.invalidate(),,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
   const addCommentMutation = trpc.feed.addComment.useMutation({
-    onSuccess: () => { setComment(""); utils.feed.getComments.invalidate({ postId: post.id }); },
+    onSuccess: () => { setComment(""); utils.feed.getComments.invalidate({ postId: post.id,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } }); },
     onError: (err) => { toast.error(err.message || "Failed to add comment."); },
   });
   const { data: comments = [] } = trpc.feed.getComments.useQuery({ postId: post.id }, { enabled: showComments });

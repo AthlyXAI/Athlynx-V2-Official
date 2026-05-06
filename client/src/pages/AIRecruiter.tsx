@@ -1,4 +1,5 @@
 import PlatformLayout from "@/components/PlatformLayout";
+import { toast } from "sonner";
 import { useState } from "react";
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
@@ -38,15 +39,18 @@ function AIRecruiterInner() {
   const [adviceResult, setAdviceResult] = useState("");
 
   const optimizeMutation = trpc.ai.optimizeProfile.useMutation({
-    onSuccess: (d) => setOptimizeResult(String(d.optimized ?? "")),
+    onSuccess: (d) => setOptimizeResult(String(d.optimized ?? "")),,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
 
   const emailMutation = trpc.ai.generateCoachEmail.useMutation({
-    onSuccess: (d) => setEmailResult(String(d.email ?? "")),
+    onSuccess: (d) => setEmailResult(String(d.email ?? "")),,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
 
   const adviceMutation = trpc.ai.getRecruitingAdvice.useMutation({
-    onSuccess: (d) => setAdviceResult(String(d.advice ?? "")),
+    onSuccess: (d) => setAdviceResult(String(d.advice ?? "")),,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
 
   if (!user) {

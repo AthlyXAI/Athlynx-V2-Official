@@ -16,6 +16,7 @@ import { getGravatarUrl } from "../services/gravatar";
 import { getDb } from "../db";
 import { users } from "../../drizzle/schema";
 import { eq } from "drizzle-orm";
+import { TRPCError } from "@trpc/server";
 
 const BUFFER_TOKEN = process.env.BUFFER_ACCESS_TOKEN ?? "";
 const ZAPIER_MCP_TOKEN = process.env.ZAPIER_MCP_TOKEN ?? "";
@@ -237,7 +238,7 @@ Write ONLY the post text — no explanations, no "Here's your post:", just the p
   syncGravatar: protectedProcedure
     .mutation(async ({ ctx }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       const email = ctx.user.email;
       if (!email) throw new Error("No email on account");
       const avatarUrl = await getGravatarUrl(email);

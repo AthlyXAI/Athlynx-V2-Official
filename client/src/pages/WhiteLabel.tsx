@@ -4,6 +4,7 @@
  * Stripe checkout wired for Team/School/Conference. Enterprise → contact form.
  */
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
+import { toast } from "sonner";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import { trpc } from "@/lib/trpc";
@@ -126,11 +127,13 @@ function WhiteLabelInner() {
   const checkoutMutation = trpc.licensing.createCheckout.useMutation({
     onSuccess: (data) => {
       if (data.url) window.location.href = data.url;
-    },
+    },,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
 
   const inquiryMutation = trpc.licensing.createInquiry.useMutation({
-    onSuccess: () => setSubmitted(true),
+    onSuccess: () => setSubmitted(true),,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
 
   const handleGetStarted = (tier: typeof TIERS[0]) => {

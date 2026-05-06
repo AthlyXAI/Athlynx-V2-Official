@@ -49,7 +49,8 @@ function FeedTab({ user }: { user: any }) {
   const utils = trpc.useUtils();
   const { data: feedData, isLoading } = trpc.feed.getFeed.useQuery({ limit: 20 });
   const createPost = trpc.feed.createPost.useMutation({
-    onSuccess: () => { setPostText(""); utils.feed.getFeed.invalidate(); toast.success("Posted!"); },
+    onSuccess: () => { setPostText(""); utils.feed.getFeed.invalidate(); toast.success("Posted!"); },,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
   const posts = feedData ?? [];
   const timeAgo = (date: Date) => {
@@ -130,10 +131,12 @@ function MessengerTab({ user }: { user: any }) {
   const { data: conversations = [] } = trpc.messenger.getConversations.useQuery(undefined, { enabled: !!user, refetchInterval: 10000 });
   const { data: messages = [] } = trpc.messenger.getMessages.useQuery({ conversationId: activeConvoId ?? 0 }, { enabled: !!user && !!activeConvoId });
   const sendMsg = trpc.messenger.sendMessage.useMutation({
-    onSuccess: () => { setMessage(""); utils.messenger.getMessages.invalidate({ conversationId: activeConvoId ?? 0 }); utils.messenger.getConversations.invalidate(); },
+    onSuccess: () => { setMessage(""); utils.messenger.getMessages.invalidate({ conversationId: activeConvoId ?? 0,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } }); utils.messenger.getConversations.invalidate(); },
   });
   const startConvo = trpc.messenger.startConversation.useMutation({
-    onSuccess: (data: any) => { setShowNew(false); setNewConvoName(""); setActiveConvoId(data.conversationId); utils.messenger.getConversations.invalidate(); },
+    onSuccess: (data: any) => { setShowNew(false); setNewConvoName(""); setActiveConvoId(data.conversationId); utils.messenger.getConversations.invalidate(); },,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
   if (!user) return (
     <div className="text-center py-8">
@@ -207,7 +210,8 @@ function SocialHubTab({ user }: { user: any }) {
   const { data: profile } = trpc.profile.getMyProfile.useQuery(undefined, { enabled: !!user });
   const [links, setLinks] = useState<Record<string, string>>({});
   const updateProfile = trpc.profile.updateProfile.useMutation({
-    onSuccess: () => { toast.success("Social links saved! All platforms connected."); },
+    onSuccess: () => { toast.success("Social links saved! All platforms connected."); },,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
   const handleSave = () => {
     updateProfile.mutate({
@@ -298,7 +302,8 @@ function DealsTab({ user }: { user: any }) {
   const utils = trpc.useUtils();
   const { data: myDeals = [] } = trpc.nil.getMyDeals.useQuery(undefined, { enabled: !!user, retry: false });
   const createDeal = trpc.nil.createDeal.useMutation({
-    onSuccess: () => { utils.nil.getMyDeals.invalidate(); setShowAdd(false); setNewDeal({ brandName: "", dealValue: "", description: "", category: "Apparel" }); toast.success("NIL Deal added!"); },
+    onSuccess: () => { utils.nil.getMyDeals.invalidate(); setShowAdd(false); setNewDeal({ brandName: "", dealValue: "", description: "", category: "Apparel",
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } }); toast.success("NIL Deal added!"); },
   });
   const totalValue = (myDeals as any[]).reduce((sum: number, d: any) => sum + (d.dealValue ?? 0), 0);
   return (

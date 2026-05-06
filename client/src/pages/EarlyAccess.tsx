@@ -1,4 +1,5 @@
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
+import { toast } from "sonner";
 import { useState } from 'react'
 import { Link, useLocation } from 'wouter'
 import { trpc } from '@/lib/trpc'
@@ -43,7 +44,8 @@ function EarlyAccessInner() {
     onSuccess: () => {
       // Save phone number if provided — this also triggers the Welcome SMS on the server
       if (phone.trim()) {
-        savePhoneMutation.mutate({ phone: phone.trim() })
+        savePhoneMutation.mutate({ phone: phone.trim(),
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } })
       }
       // Redirect to onboarding to set up profile
       window.location.href = '/onboarding'

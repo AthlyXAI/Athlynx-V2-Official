@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import DashboardLayout from "@/components/DashboardLayout";
@@ -10,7 +11,8 @@ export default function FinancialWizard() {
   const [asked, setAsked] = useState(false);
 
   const wizardMutation = trpc.ai.wizardAdvice.useMutation({
-    onSuccess: (data) => { setResult(String(data.result ?? "")); setAsked(true); },
+    onSuccess: (data) => { setResult(String(data.result ?? "")); setAsked(true); },,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
 
   const handleAsk = () => {

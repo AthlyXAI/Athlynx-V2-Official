@@ -53,10 +53,12 @@ export default function VideoUploadHub({ userId, readOnly = false }: VideoUpload
       setVideoDesc("");
       setIsHighlightReel(false);
       toast.success("Video uploaded successfully!");
-    },
+    },,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
   const deleteVideo = trpc.media.deleteVideo.useMutation({
-    onSuccess: () => { refetch(); toast.success("Video deleted"); },
+    onSuccess: () => { refetch(); toast.success("Video deleted"); },,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
   const recordView = trpc.media.recordView.useMutation();
 

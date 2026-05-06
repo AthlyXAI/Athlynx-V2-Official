@@ -1,4 +1,5 @@
 import PlatformLayout from "@/components/PlatformLayout";
+import { toast } from "sonner";
 import { useState } from "react";
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
@@ -31,11 +32,13 @@ function AISalesInner() {
   const [analyzeResult, setAnalyzeResult] = useState("");
 
   const pitchMutation = trpc.ai.generateBrandPitch.useMutation({
-    onSuccess: (d) => setPitchResult(String(d.pitch ?? "")),
+    onSuccess: (d) => setPitchResult(String(d.pitch ?? "")),,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
 
   const analyzeMutation = trpc.ai.analyzeDeal.useMutation({
-    onSuccess: (d) => setAnalyzeResult(String(d.analysis ?? "")),
+    onSuccess: (d) => setAnalyzeResult(String(d.analysis ?? "")),,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
 
   const handleGeneratePitch = () => {

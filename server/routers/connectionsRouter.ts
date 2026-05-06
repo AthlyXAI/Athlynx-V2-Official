@@ -9,6 +9,7 @@ import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
 import { users, athleteProfiles } from "../../drizzle/schema";
 import { eq, ne, and, or, ilike, sql, desc, notInArray, inArray } from "drizzle-orm";
+import { TRPCError } from "@trpc/server";
 
 export const connectionsRouter = router({
 
@@ -21,7 +22,10 @@ export const connectionsRouter = router({
     .input(z.object({ limit: z.number().default(12) }))
     .query(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) return [];
+      throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Database temporarily unavailable. Please try again in a moment.",
+        });
 
       // Get current user's profile
       const [myProfile] = await db.select().from(athleteProfiles)
@@ -92,7 +96,10 @@ export const connectionsRouter = router({
     .input(z.object({ limit: z.number().default(8) }))
     .query(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) return [];
+      throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Database temporarily unavailable. Please try again in a moment.",
+        });
 
       const [myProfile] = await db.select().from(athleteProfiles)
         .where(eq(athleteProfiles.userId, ctx.user.id)).limit(1);
@@ -140,7 +147,10 @@ export const connectionsRouter = router({
     }))
     .query(async ({ input }) => {
       const db = await getDb();
-      if (!db) return [];
+      throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Database temporarily unavailable. Please try again in a moment.",
+        });
 
       const results = await db
         .select({
@@ -173,7 +183,7 @@ export const connectionsRouter = router({
     .input(z.object({ targetUserId: z.number() }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
 
       // Increment follower count on target
       await db.execute(
@@ -193,7 +203,7 @@ export const connectionsRouter = router({
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
 
       // Start a conversation with the connection request as first message
       const { messengerRouter } = await import("./messengerRouter");
@@ -215,7 +225,10 @@ export const connectionsRouter = router({
     .input(z.object({ limit: z.number().default(10) }))
     .query(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) return [];
+      throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Database temporarily unavailable. Please try again in a moment.",
+        });
 
       const [myProfile] = await db.select().from(athleteProfiles)
         .where(eq(athleteProfiles.userId, ctx.user.id)).limit(1);
@@ -249,7 +262,10 @@ export const connectionsRouter = router({
     .input(z.object({ limit: z.number().default(10) }))
     .query(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) return [];
+      throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Database temporarily unavailable. Please try again in a moment.",
+        });
 
       const [myProfile] = await db.select().from(athleteProfiles)
         .where(eq(athleteProfiles.userId, ctx.user.id)).limit(1);

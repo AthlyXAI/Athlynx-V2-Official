@@ -6,6 +6,7 @@
  * The world connects on AthlynXAI.
  */
 import { useState } from "react";
+import { toast } from "sonner";
 import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -45,13 +46,15 @@ export default function MeetAthletes({
 
   const followUser = trpc.connections.followUser.useMutation({
     onSuccess: (_, vars) => {
-      setConnected(prev => { const s = new Set(Array.from(prev)); s.add(vars.targetUserId); return s; });
+      setConnected(prev => { const s = new Set(Array.from(prev)); s.add(vars.targetUserId); return s;,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
     },
   });
 
   const sendConnection = trpc.connections.sendConnectionRequest.useMutation({
     onSuccess: (_, vars) => {
-      setConnected(prev => { const s = new Set(Array.from(prev)); s.add(vars.targetUserId); return s; });
+      setConnected(prev => { const s = new Set(Array.from(prev)); s.add(vars.targetUserId); return s;,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
     },
   });
 

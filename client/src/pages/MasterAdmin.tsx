@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "sonner";
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -42,7 +43,8 @@ function MasterAdminInner() {
   const sendBroadcastMutation = trpc.admin.sendBroadcast.useMutation({
     onSuccess: (result) => {
       setSent(true);
-      toast({ title: "Broadcast Sent!", description: `Delivered to ${result.recipientCount} users.` });
+      toast({ title: "Broadcast Sent!", description: `Delivered to ${result.recipientCount} users.`,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); } });
       setTimeout(() => { setSent(false); setSubject(""); setBody(""); }, 3000);
     },
     onError: (err) => toast({ title: "Error", description: err.message, variant: "destructive" }),

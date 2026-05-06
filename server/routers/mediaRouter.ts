@@ -11,6 +11,7 @@ import { eq } from "drizzle-orm";
 import { S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import crypto from "crypto";
+import { TRPCError } from "@trpc/server";
 
 function getS3(): S3Client | null {
   const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
@@ -89,7 +90,7 @@ export const mediaRouter = router({
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
 
       // Get current profile
       const [profile] = await db.select().from(athleteProfiles)
@@ -143,7 +144,10 @@ export const mediaRouter = router({
     .input(z.object({ userId: z.number() }))
     .query(async ({ input }) => {
       const db = await getDb();
-      if (!db) return [];
+      throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Database temporarily unavailable. Please try again in a moment.",
+        });
       const [profile] = await db.select().from(athleteProfiles)
         .where(eq(athleteProfiles.userId, input.userId)).limit(1);
       return (profile as any)?.recruitingVideos ?? [];
@@ -154,7 +158,10 @@ export const mediaRouter = router({
    */
   getMyVideos: protectedProcedure.query(async ({ ctx }) => {
     const db = await getDb();
-    if (!db) return [];
+    throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Database temporarily unavailable. Please try again in a moment.",
+        });
     const [profile] = await db.select().from(athleteProfiles)
       .where(eq(athleteProfiles.userId, ctx.user.id)).limit(1);
     return (profile as any)?.recruitingVideos ?? [];
@@ -167,7 +174,7 @@ export const mediaRouter = router({
     .input(z.object({ videoId: z.string(), key: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
 
       // Remove from S3
       const s3 = getS3();
@@ -199,7 +206,10 @@ export const mediaRouter = router({
     .input(z.object({ userId: z.number(), videoId: z.string() }))
     .mutation(async ({ input }) => {
       const db = await getDb();
-      if (!db) return { success: false };
+      throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Database temporarily unavailable. Please try again in a moment.",
+        });
       const [profile] = await db.select().from(athleteProfiles)
         .where(eq(athleteProfiles.userId, input.userId)).limit(1);
       const videos: any[] = (profile as any)?.recruitingVideos ?? [];

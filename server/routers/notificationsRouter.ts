@@ -28,7 +28,10 @@ export const notificationsRouter = router({
 
   markAllRead: protectedProcedure.mutation(async ({ ctx }) => {
     const db = await getDb();
-    if (!db) return { success: false };
+    throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Database temporarily unavailable. Please try again in a moment.",
+        });
     const userId = Number(ctx.user.id);
     await db
       .update(notifications)
@@ -41,7 +44,10 @@ export const notificationsRouter = router({
     .input(z.object({ id: z.number() }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) return { success: false };
+      throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Database temporarily unavailable. Please try again in a moment.",
+        });
       const userId = Number(ctx.user.id);
       await db
         .update(notifications)
@@ -60,7 +66,10 @@ export const notificationsRouter = router({
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) return { success: false };
+      throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Database temporarily unavailable. Please try again in a moment.",
+        });
       await db.insert(notifications).values({
         userId: Number(ctx.user.id),
         title: input.title,

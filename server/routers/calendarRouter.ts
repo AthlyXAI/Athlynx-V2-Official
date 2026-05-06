@@ -7,6 +7,7 @@ import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
 import { athleteCalendarEvents } from "../../drizzle/schema";
 import { eq, and, gte, lte, desc } from "drizzle-orm";
+import { TRPCError } from "@trpc/server";
 
 export const calendarRouter = router({
   // Get all events for the current user
@@ -16,7 +17,10 @@ export const calendarRouter = router({
     }).optional())
     .query(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) return [];
+      throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Database temporarily unavailable. Please try again in a moment.",
+        });
       const events = await db
         .select()
         .from(athleteCalendarEvents)
@@ -30,7 +34,10 @@ export const calendarRouter = router({
     .input(z.object({ date: z.string() }))
     .query(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) return [];
+      throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Database temporarily unavailable. Please try again in a moment.",
+        });
       return db
         .select()
         .from(athleteCalendarEvents)
@@ -54,7 +61,7 @@ export const calendarRouter = router({
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       const [event] = await db
         .insert(athleteCalendarEvents)
         .values({
@@ -86,7 +93,7 @@ export const calendarRouter = router({
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       const { id, ...updates } = input;
       await db
         .update(athleteCalendarEvents)
@@ -103,7 +110,7 @@ export const calendarRouter = router({
     .input(z.object({ id: z.number() }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       await db
         .delete(athleteCalendarEvents)
         .where(and(

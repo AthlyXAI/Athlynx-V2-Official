@@ -1,4 +1,5 @@
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
+import { toast } from "sonner";
 import PlatformLayout from "@/components/PlatformLayout";
 import { trpc } from "@/lib/trpc";
 import { useAuth } from "@/_core/hooks/useAuth";
@@ -11,10 +12,12 @@ function NotificationsInner() {
     refetchOnWindowFocus: false,
   });
   const markAllReadMutation = trpc.notifications.markAllRead.useMutation({
-    onSuccess: () => refetch(),
+    onSuccess: () => refetch(),,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
   const markReadMutation = trpc.notifications.markRead.useMutation({
-    onSuccess: () => refetch(),
+    onSuccess: () => refetch(),,
+    onError: (err: any) => { toast.error(err?.message || "Something went wrong. Please try again."); }
   });
 
   if (!user) {
