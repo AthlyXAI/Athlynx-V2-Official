@@ -617,7 +617,7 @@ function HomeInner() {
       </section>
 
       {/* ═══ SCROLLING TICKER ═══ */}
-      <div className="bg-[#040c1a] overflow-hidden py-2 border-y border-[#0066ff]/40">
+      <div className="bg-[#0066ff] overflow-hidden py-2.5">
         <div className="flex gap-8 animate-[marquee_30s_linear_infinite] whitespace-nowrap">
           {[
             "EVERY SPORT", "FREE 7-DAY TRIAL", "NIL DEALS", "TRANSFER PORTAL", "AI TRAINER",
@@ -626,8 +626,8 @@ function HomeInner() {
             "EVERY SPORT", "FREE 7-DAY TRIAL", "NIL DEALS", "TRANSFER PORTAL", "AI TRAINER",
             "RECRUITING", "DIAMOND GRIND", "GRIDIRON NEXUS", "COURT KINGS", "PITCH PULSE",
           ].map((item, i) => (
-            <span key={i} className="text-[#00c2ff] font-black text-sm tracking-widest flex items-center gap-3">
-              {item} <span className="text-[#0066ff]/60">•</span>
+            <span key={i} className="text-white font-black text-sm tracking-widest flex items-center gap-3">
+              {item} <span className="text-white/50">⚡</span>
             </span>
           ))}
         </div>
@@ -645,7 +645,7 @@ function HomeInner() {
               {
                 sport: "Basketball",
                 tag: "NIL Deals",
-                tagColor: "bg-[#0066ff] text-white",
+                tagColor: "bg-green-500 text-white",
                 href: "/court-kings",
                 img: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80",
                 desc: "Court Kings™ — AAU, NIL, Recruiting"
@@ -653,7 +653,7 @@ function HomeInner() {
               {
                 sport: "Football",
                 tag: "Transfer Portal",
-                tagColor: "bg-[#0066ff] text-white",
+                tagColor: "bg-red-500 text-white",
                 href: "/gridiron-nexus",
                 img: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=800&q=80",
                 desc: "Gridiron Nexus™ — Elite Football Platform"
@@ -669,7 +669,7 @@ function HomeInner() {
               {
                 sport: "Soccer",
                 tag: "Pitch Pulse",
-                tagColor: "bg-[#0066ff] text-white",
+                tagColor: "bg-[#00c2ff] text-[#050d1a]",
                 href: "/pitch-pulse",
                 img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&q=80",
                 desc: "Pitch Pulse™ — Global Soccer Ecosystem"
@@ -677,7 +677,7 @@ function HomeInner() {
               {
                 sport: "Track & Field",
                 tag: "X-Factor",
-                tagColor: "bg-cyan-500 text-black",
+                tagColor: "bg-orange-500 text-white",
                 href: "/x-factor",
                 img: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&q=80",
                 desc: "X-Factor™ — Performance Analytics"
@@ -685,7 +685,7 @@ function HomeInner() {
               {
                 sport: "Wrestling",
                 tag: "Warriors Playbook",
-                tagColor: "bg-cyan-500 text-black",
+                tagColor: "bg-purple-500 text-white",
                 href: "/warriors-playbook",
                 img: "https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&q=80",
                 desc: "Warriors Playbook™ — Plays, Film & Strategy"

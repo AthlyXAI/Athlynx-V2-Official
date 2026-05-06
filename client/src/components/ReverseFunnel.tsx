@@ -262,10 +262,10 @@ export function AIAssistantButton() {
       <button
         onClick={() => setOpen(true)}
         className="fixed bottom-20 right-4 lg:bottom-6 z-50 w-12 h-12 rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110"
-        style={{ background: "linear-gradient(135deg, #FFD700, #FF8F00)" }}
+        style={{ background: "linear-gradient(135deg, #0066ff, #00c2ff)" }}
         title="Ask ATHLYNX AI"
       >
-        <Zap className="w-5 h-5 text-[#040c20]" />
+        <Zap className="w-5 h-5 text-white" />
       </button>
 
       {/* Chat panel */}
