@@ -207,6 +207,10 @@ import ICCUSAPartner from "./pages/ICCUSAPartner";
 import LandingPage from "./pages/LandingPage";
 import ComponentShowcase from "./pages/ComponentShowcase";
 
+// ── Session 38 New Pages ──
+import TokenFactory from "./pages/TokenFactory";
+import AuthStrategy from "./pages/AuthStrategy";
+
 // ── Session 32 New Pages ──
 import CFactorHub from "./pages/CFactorHub";
 import RankingsHub from "./pages/RankingsHub";
@@ -528,6 +532,11 @@ function Router() {
 
       <Route path="/landing" component={LandingPage} />
       <Route path="/components" component={ComponentShowcase} />
+      {/* ── Session 38 ── */}
+      <Route path="/token-factory" component={TokenFactory} />
+      <Route path="/credits" component={TokenFactory} />
+      <Route path="/ai-credits" component={TokenFactory} />
+      <Route path="/auth-strategy" component={AuthStrategy} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
