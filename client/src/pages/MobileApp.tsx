@@ -54,9 +54,10 @@ function MobileAppInner() {
         <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-[#060d1a] to-blue-950 opacity-60" />
         <div className="relative max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
           <div className="flex-1">
-            <div className="inline-flex items-center gap-2 bg-blue-900/40 border border-blue-700/50 rounded-full px-4 py-1.5 mb-6">
-              <span className="text-blue-400 text-xs font-bold tracking-widest">COMING SOON</span>
-              <span className="bg-red-500 text-black text-xs font-bold px-2 py-0.5 rounded-full">BETA</span>
+            <div className="inline-flex items-center gap-2 bg-green-900/40 border border-green-700/50 rounded-full px-4 py-1.5 mb-6">
+              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+              <span className="text-green-400 text-xs font-bold tracking-widest">LIVE NOW — PWA</span>
+              <span className="bg-blue-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">iOS & Android</span>
             </div>
             <h1 className="text-5xl md:text-6xl font-black text-white mb-4 leading-none">
               ATHLYNX<br />
@@ -98,9 +99,9 @@ function MobileAppInner() {
               </button>
             </div>
 
-            <div className="bg-blue-900/30 border border-blue-700/40 rounded-xl p-4">
-              <p className="text-blue-300 text-sm">
-                <span className="font-bold">🚀 Beta launching soon.</span> Sign up below to be first in line and get exclusive early access perks.
+            <div className="bg-green-900/30 border border-green-700/40 rounded-xl p-4">
+              <p className="text-green-300 text-sm">
+                <span className="font-bold">🚀 ATHLYNX is live now as a Progressive Web App (PWA).</span> Open athlynx.ai in your browser and tap “Add to Home Screen” — works on iOS & Android. Native app store versions coming soon.
               </p>
             </div>
           </div>

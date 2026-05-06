@@ -216,11 +216,11 @@ function WarriorsPlaybookInner() {
                 </div>
               ))}
             </div>
-            <button
-              onClick={() => { if (!user) { window.location.href = "/signin"; return; } toast.info("Film upload coming soon — connect Hudl or upload directly."); }}
-              className="w-full border-2 border-dashed border-red-700 text-red-400 hover:text-white hover:border-red-500 text-sm font-bold py-4 rounded-xl transition-colors">
-              🎥 Upload Film / Connect Hudl
-            </button>
+            <Link href={user ? "/studio" : "/signin"}>
+              <button className="w-full border-2 border-dashed border-red-700 text-red-400 hover:text-white hover:border-red-500 text-sm font-bold py-4 rounded-xl transition-colors">
+                🎥 Upload Film / Connect Hudl →
+              </button>
+            </Link>
             <div className="bg-[#1a3a8f] border border-blue-900 rounded-xl p-4">
               <div className="text-white font-bold text-sm mb-2">Connect Your Hudl Profile</div>
               <div className="text-blue-400 text-xs mb-3">Link your Hudl account so coaches can access your full film library directly from your ATHLYNX profile.</div>

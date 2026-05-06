@@ -39,24 +39,38 @@ function StudioInner() {
 
   const upcomingEpisodes = [
     {
-      title: "The Mental Game: How Champions Think",
-      guest: "Coming Soon",
-      date: "January 2025",
-      category: "Mindset",
-      live: false
-    },
-    {
-      title: "From College to Pro: The NIL Revolution",
-      guest: "Coming Soon",
-      date: "January 2025",
+      title: "NIL in 2026: Every Athlete Gets Paid",
+      guest: "Chad A. Dozier — Founder & CEO, ATHLYNX",
+      date: "May 13, 2026",
       category: "NIL",
       live: false
     },
     {
+      title: "The Mental Game: How Champions Think",
+      guest: "Sports Performance Coach — Episode 2",
+      date: "May 20, 2026",
+      category: "Mindset",
+      live: false
+    },
+    {
+      title: "From College to Pro: The Transfer Portal AI",
+      guest: "ATHLYNX AI Recruiter Deep Dive",
+      date: "May 27, 2026",
+      category: "Recruiting",
+      live: false
+    },
+    {
       title: "Parents in the Game: Supporting Your Athlete",
-      guest: "Coming Soon",
-      date: "February 2025",
+      guest: "Family & Recruiting Advisor — Episode 4",
+      date: "Jun 3, 2026",
       category: "Family",
+      live: false
+    },
+    {
+      title: "Building Your Brand: NIL from Day One",
+      guest: "NIL Attorney & Brand Strategist — Episode 5",
+      date: "Jun 10, 2026",
+      category: "Business",
       live: false
     }
   ];
@@ -166,9 +180,9 @@ function StudioInner() {
             </motion.div>
             
             <motion.div variants={fadeInUp} className="mb-4">
-              <Badge className="bg-red-500/20 text-red-400 border-red-500/30 px-4 py-1">
-                <span className="w-2 h-2 bg-red-500 rounded-full mr-2 animate-pulse inline-block" />
-                COMING SOON
+              <Badge className="bg-green-500/20 text-green-400 border-green-500/30 px-4 py-1">
+                <span className="w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse inline-block" />
+                NOW LIVE — NEW EPISODES WEEKLY
               </Badge>
             </motion.div>
             
@@ -377,10 +391,10 @@ function StudioInner() {
             <motion.div variants={fadeInUp}>
               <Calendar className="w-16 h-16 text-cyan-400 mx-auto mb-4" />
               <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-                COMING <span className="text-cyan-400">SOON</span>
+                UPCOMING <span className="text-cyan-400">EPISODES</span>
               </h2>
               <p className="text-white/60 text-xl max-w-2xl mx-auto">
-                First episodes launching January 2025
+                New episodes every Tuesday — The Athlete's Playbook Podcast
               </p>
             </motion.div>
           </motion.div>
