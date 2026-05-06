@@ -617,7 +617,7 @@ function HomeInner() {
       </section>
 
       {/* ═══ SCROLLING TICKER ═══ */}
-      <div className="bg-[#f5c518] overflow-hidden py-2 border-y-2 border-yellow-400">
+      <div className="bg-[#040c1a] overflow-hidden py-2 border-y border-[#0066ff]/40">
         <div className="flex gap-8 animate-[marquee_30s_linear_infinite] whitespace-nowrap">
           {[
             "EVERY SPORT", "FREE 7-DAY TRIAL", "NIL DEALS", "TRANSFER PORTAL", "AI TRAINER",
@@ -626,8 +626,8 @@ function HomeInner() {
             "EVERY SPORT", "FREE 7-DAY TRIAL", "NIL DEALS", "TRANSFER PORTAL", "AI TRAINER",
             "RECRUITING", "DIAMOND GRIND", "GRIDIRON NEXUS", "COURT KINGS", "PITCH PULSE",
           ].map((item, i) => (
-            <span key={i} className="text-[#0a1628] font-black text-sm tracking-widest flex items-center gap-3">
-              {item} <span className="text-[#0a1628]/40">•</span>
+            <span key={i} className="text-[#00c2ff] font-black text-sm tracking-widest flex items-center gap-3">
+              {item} <span className="text-[#0066ff]/60">•</span>
             </span>
           ))}
         </div>
@@ -637,7 +637,7 @@ function HomeInner() {
       <section className="bg-[#040c1a] py-10 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-6">
-            <div className="text-yellow-400 text-xs uppercase tracking-widest font-black mb-1">Every Sport. Every Tool.</div>
+            <div className="text-[#00c2ff] text-xs uppercase tracking-widest font-black mb-1">Every Sport. Every Tool.</div>
             <h2 className="text-3xl md:text-4xl font-black text-white">YOUR SPORT IS HERE</h2>
           </div>
           <div className="flex flex-col gap-4">
@@ -645,7 +645,7 @@ function HomeInner() {
               {
                 sport: "Basketball",
                 tag: "NIL Deals",
-                tagColor: "bg-yellow-500 text-black",
+                tagColor: "bg-[#0066ff] text-white",
                 href: "/court-kings",
                 img: "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80",
                 desc: "Court Kings™ — AAU, NIL, Recruiting"
@@ -653,7 +653,7 @@ function HomeInner() {
               {
                 sport: "Football",
                 tag: "Transfer Portal",
-                tagColor: "bg-yellow-500 text-black",
+                tagColor: "bg-[#0066ff] text-white",
                 href: "/gridiron-nexus",
                 img: "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=800&q=80",
                 desc: "Gridiron Nexus™ — Elite Football Platform"
@@ -661,7 +661,7 @@ function HomeInner() {
               {
                 sport: "Baseball",
                 tag: "Diamond Grind",
-                tagColor: "bg-yellow-500 text-black",
+                tagColor: "bg-[#0066ff] text-white",
                 href: "/diamond-grind",
                 img: "https://images.unsplash.com/photo-1508344928928-7165b67de128?w=800&q=80",
                 desc: "Diamond Grind™ — Baseball & Softball"
@@ -669,7 +669,7 @@ function HomeInner() {
               {
                 sport: "Soccer",
                 tag: "Pitch Pulse",
-                tagColor: "bg-yellow-500 text-black",
+                tagColor: "bg-[#0066ff] text-white",
                 href: "/pitch-pulse",
                 img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&q=80",
                 desc: "Pitch Pulse™ — Global Soccer Ecosystem"
@@ -716,7 +716,7 @@ function HomeInner() {
       <section className="bg-[#060e24] border-t border-blue-900 py-12 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
-            <div className="text-yellow-400 text-xs uppercase tracking-widest font-black mb-1">The Infrastructure</div>
+            <div className="text-[#00c2ff] text-xs uppercase tracking-widest font-black mb-1">The Infrastructure</div>
             <h2 className="text-3xl font-black text-white">THE FULL STACK LAYER CAKE</h2>
             <p className="text-blue-300 text-sm mt-2">The CERN of US sports tech. Every layer purpose-built.</p>
           </div>
@@ -733,7 +733,7 @@ function HomeInner() {
               { layer: "Social", name: "Buffer", desc: "347 posts fired worldwide — 8 channels", color: "from-orange-600 to-amber-600", icon: "📱" },
               { layer: "Automation", name: "Zapier", desc: "Connecting every app in the ecosystem", color: "from-orange-500 to-red-600", icon: "⚡" },
               { layer: "Identity", name: "Gravatar", desc: "Profile photos synced across the platform", color: "from-blue-600 to-blue-800", icon: "👤" },
-              { layer: "Storage", name: "AWS S3", desc: "Video, media, and file storage", color: "from-yellow-600 to-orange-600", icon: "☁️" },
+              { layer: "Storage", name: "AWS S3", desc: "Video, media, and file storage", color: "from-[#0066ff] to-[#00c2ff]", icon: "☁️" },
               { layer: "SMS", name: "Twilio", desc: "Phone verification and athlete alerts", color: "from-red-600 to-rose-700", icon: "💬" },
               { layer: "Code", name: "GitHub", desc: "AthlyXAI/Athlynx-V2-Official — main branch", color: "from-gray-700 to-gray-900", icon: "🐙" },
             ].map((item) => (
@@ -897,7 +897,7 @@ function HomeInner() {
               { value: "44", label: "Sports Covered", sub: "Every sport. Every level.", color: "text-cyan-400", icon: "🏆" },
               { value: "213+", label: "Platform Routes", sub: "Features & tools built", color: "text-green-400", icon: "⚡" },
               { value: "5", label: "AI Engines", sub: "Gemini · Claude · Nebius · OpenAI · Manus", color: "text-purple-400", icon: "🧠" },
-              { value: "$135B", label: "Market Opportunity", sub: "Sports tech + NIL + recruiting", color: "text-yellow-400", icon: "💰" },
+              { value: "$135B", label: "Market Opportunity", sub: "Sports tech + NIL + recruiting", color: "text-[#00c2ff]", icon: "💰" },
             ].map((stat, i) => (
               <div key={i} className="bg-gradient-to-br from-[#0d1b3e] to-[#1a3a8f] border border-blue-800 rounded-2xl p-5 text-center hover:border-blue-600 transition-all">
                 <div className="text-3xl mb-1">{stat.icon}</div>

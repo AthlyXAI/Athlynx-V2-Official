@@ -20,15 +20,15 @@ const APP_ICONS: Record<string, { emoji: string; bg: string }> = {
   "Profile": { emoji: "👤", bg: "from-indigo-500 to-blue-600" },
   "Social Hub": { emoji: "🌐", bg: "from-teal-500 to-cyan-600" },
   "Comms Hub": { emoji: "📡", bg: "from-blue-500 to-violet-600" },
-  "Notifications": { emoji: "🔔", bg: "from-yellow-500 to-orange-500" },
+  "Notifications": { emoji: "🔔", bg: "from-[#0066ff] to-[#00c2ff]" },
   // NIL & Business
-  "NIL Portal": { emoji: "💰", bg: "from-yellow-500 to-orange-500" },
-  "NIL Vault": { emoji: "🔐", bg: "from-amber-500 to-yellow-600" },
+  "NIL Portal": { emoji: "💰", bg: "from-[#0066ff] to-[#00c2ff]" },
+  "NIL Vault": { emoji: "🔐", bg: "from-[#0066ff] to-[#0052cc]" },
   "NIL Marketplace": { emoji: "🛒", bg: "from-orange-500 to-red-500" },
-  "NIL Calculator": { emoji: "🧮", bg: "from-yellow-600 to-amber-500" },
+  "NIL Calculator": { emoji: "🧮", bg: "from-[#00c2ff] to-[#0066ff]" },
   "NIL Jobs": { emoji: "💼", bg: "from-orange-600 to-amber-500" },
-  "Elite Events": { emoji: "🏆", bg: "from-yellow-400 to-orange-500" },
-  "X-Factor": { emoji: "⚡", bg: "from-yellow-500 to-red-500" },
+  "Elite Events": { emoji: "🏆", bg: "from-[#0066ff] to-[#00c2ff]" },
+  "X-Factor": { emoji: "⚡", bg: "from-[#0066ff] to-[#00c2ff]" },
   "Athlete Calendar": { emoji: "📅", bg: "from-blue-500 to-indigo-500" },
   "Contracts": { emoji: "📝", bg: "from-slate-500 to-blue-600" },
   "Athlete Legal Hub": { emoji: "⚖️", bg: "from-slate-600 to-blue-700" },
@@ -43,7 +43,7 @@ const APP_ICONS: Record<string, { emoji: string; bg: string }> = {
   "AI Training Bot": { emoji: "🧠", bg: "from-violet-500 to-purple-600" },
   "AI Content": { emoji: "✨", bg: "from-fuchsia-500 to-purple-600" },
   "AI Sales": { emoji: "📣", bg: "from-purple-600 to-indigo-600" },
-  "Fuel Bots": { emoji: "⚡", bg: "from-yellow-500 to-orange-500" },
+  "Fuel Bots": { emoji: "⚡", bg: "from-[#0066ff] to-[#00c2ff]" },
   "Team Bots": { emoji: "👥", bg: "from-blue-500 to-indigo-600" },
   "Wizards Hub": { emoji: "🪄", bg: "from-violet-600 to-purple-700" },
   "CRM Command": { emoji: "🎯", bg: "from-red-500 to-rose-600" },
@@ -59,11 +59,11 @@ const APP_ICONS: Record<string, { emoji: string; bg: string }> = {
   // Sports Apps
   "Diamond Grind": { emoji: "⚾", bg: "from-red-500 to-rose-600" },
   "Warriors Playbook": { emoji: "🏀", bg: "from-orange-500 to-red-500" },
-  "Court Kings": { emoji: "👑", bg: "from-yellow-500 to-orange-500" },
+  "Court Kings": { emoji: "👑", bg: "from-[#0066ff] to-[#00c2ff]" },
   "Gridiron Nexus": { emoji: "🏈", bg: "from-green-600 to-emerald-700" },
   "Pitch Pulse": { emoji: "⚽", bg: "from-green-500 to-lime-600" },
   "Fairway Elite": { emoji: "⛳", bg: "from-green-400 to-teal-500" },
-  "Hunt Pro": { emoji: "🦌", bg: "from-amber-700 to-yellow-800" },
+  "Hunt Pro": { emoji: "🦌", bg: "from-[#0a1628] to-[#0066ff]" },
   "Reel Masters": { emoji: "🎣", bg: "from-blue-600 to-teal-600" },
   // Media & Content
   "Studio": { emoji: "🎬", bg: "from-pink-500 to-fuchsia-600" },
@@ -79,7 +79,7 @@ const APP_ICONS: Record<string, { emoji: string; bg: string }> = {
   "Wellness Portal": { emoji: "🧘", bg: "from-teal-400 to-green-500" },
   "Mindset": { emoji: "🧠", bg: "from-cyan-500 to-teal-600" },
   "Nutrition": { emoji: "🥗", bg: "from-green-500 to-lime-500" },
-  "Faith": { emoji: "✝️", bg: "from-amber-500 to-yellow-500" },
+  "Faith": { emoji: "✝️", bg: "from-[#0066ff] to-[#00c2ff]" },
   // DHG Empire
   "DHG Home": { emoji: "🦀", bg: "from-slate-500 to-blue-700" },
   "Investor Hub": { emoji: "💎", bg: "from-blue-600 to-indigo-700" },
@@ -87,7 +87,7 @@ const APP_ICONS: Record<string, { emoji: string; bg: string }> = {
   "White Label": { emoji: "🏷️", bg: "from-slate-500 to-blue-600" },
   "Partners": { emoji: "🤝", bg: "from-blue-600 to-slate-700" },
   "Softmor": { emoji: "🏗️", bg: "from-orange-600 to-amber-700" },
-  "Bitcoin Mining": { emoji: "₿", bg: "from-yellow-500 to-orange-600" },
+  "Bitcoin Mining": { emoji: "₿", bg: "from-[#0066ff] to-[#00c2ff]" },
   "Robotics": { emoji: "🤖", bg: "from-slate-500 to-cyan-700" },
 };
 
@@ -110,7 +110,7 @@ const appCategories = [
   },
   {
     category: "NIL & Business",
-    color: "from-yellow-500 to-orange-500",
+    color: "from-[#0066ff] to-[#00c2ff]",
     borderColor: "border-yellow-500/40",
     apps: [
       { name: "NIL Portal", icon: "/nil-portal-logo.jpeg", href: "/nil-portal", desc: "Name, Image & Likeness deals" },
@@ -437,7 +437,7 @@ function PortalInner() {
                 <CardHeader><CardTitle className="text-white text-lg">Quick Access</CardTitle></CardHeader>
                 <CardContent className="space-y-2">
                   {[
-                    { label: "NIL Portal", href: "/nil-portal", color: "text-yellow-400" },
+                    { label: "NIL Portal", href: "/nil-portal", color: "text-[#00c2ff]" },
                     { label: "Transfer Portal", href: "/transfer-portal", color: "text-green-400" },
                     { label: "AI Recruiter", href: "/ai-recruiter", color: "text-purple-400" },
                     { label: "Messenger", href: "/messenger", color: "text-cyan-400" },

@@ -1,226 +1,197 @@
-import { useState } from "react";
+/**
+ * ATHLYNX — ABOUT PAGE
+ * Clean, professional, eye-popping. Real photos. No yellow. No gold.
+ * Colors: #050d1a navy, #0066ff blue, #00c2ff cyan.
+ * Real team photos from /images/team/
+ *
+ * Updated: S39 — May 6, 2026
+ */
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
-import MobileBottomNav from '@/components/MobileBottomNav'
+import MobileBottomNav from "@/components/MobileBottomNav";
 import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { ChevronLeft, ChevronRight, Play, Quote } from "lucide-react";
 
-const CHAD_PHOTOS = [
-  "/chad-dozier-ceo.png",
-  "/img-athlete-multisport.jpg",
-  "/img-athlete-football.jpg",
-  "/img-athlete-basketball.jpg",
-  "/img-athlete-baseball.jpg",
-  "/img-athlete-track.jpg",
-  "/img-athlete-training.jpg",
+const TEAM = [
+  {
+    name: "Chad A. Dozier Sr.",
+    title: "Founder, CEO & Chairman",
+    photo: "/images/team/chad-dozier-ceo.png",
+    bio: "Visionary entrepreneur and the driving force behind ATHLYNX, the NIL Portal, and the entire Dozier Holdings Group ecosystem. Former professional baseball player. Chad spent years building what the sports world didn't know it needed — a complete athlete empowerment platform. Houston, TX.",
+    email: "cdozier14@athlynx.ai",
+    tag: "MASTER ADMIN",
+    tagColor: "bg-[#0066ff]",
+  },
+  {
+    name: "Glenn Tse",
+    title: "Co-Founder & CTO",
+    photo: "/images/team/glenn-tse-cfo.png",
+    bio: "Technical architect and co-founder who partnered with Chad after they met at Hope Lodge in Houston, November 2024. Glenn brings the engineering expertise to turn the vision into reality — building the infrastructure that powers the entire ecosystem.",
+    email: "gtse@dozierholdingsgroup.com",
+    tag: "CO-FOUNDER",
+    tagColor: "bg-[#00c2ff] text-[#050d1a]",
+  },
+  {
+    name: "Andrew Kustes",
+    title: "Partner & Chief Strategy Officer",
+    photo: "/images/team/andrew-kustes-cto.png",
+    bio: "Strategic partner driving growth, partnerships, and platform direction. Andrew brings deep expertise in sports technology and business development to the AthlynXAI mission.",
+    email: "akustes@athlynx.ai",
+    tag: "PARTNER",
+    tagColor: "bg-[#0066ff]/80",
+  },
+  {
+    name: "Lee Marshall",
+    title: "Partner & Brand Director",
+    photo: "/images/team/lee-marshall.png",
+    bio: "Brand and marketing partner responsible for athlete outreach, NIL partnerships, and platform visibility. Lee connects the platform to the athletes and brands that make it real.",
+    email: "lmarshall@athlynx.ai",
+    tag: "PARTNER",
+    tagColor: "bg-[#0066ff]/80",
+  },
 ];
 
-const ACTION_PHOTOS = [
-  "/img-athlete-football.jpg",
-  "/img-athlete-basketball.jpg",
-  "/img-athlete-baseball.jpg",
-  "/img-athlete-soccer.jpg",
+const STATS = [
+  { value: "44", label: "Sports Covered" },
+  { value: "213+", label: "Platform Features" },
+  { value: "5", label: "AI Engines" },
+  { value: "$47B", label: "Market Opportunity" },
 ];
 
 function AboutInner() {
-  const [photoIdx, setPhotoIdx] = useState(0);
-  const [actionIdx, setActionIdx] = useState(0);
-
-  const prevPhoto = () => setPhotoIdx((i) => (i === 0 ? CHAD_PHOTOS.length - 1 : i - 1));
-  const nextPhoto = () => setPhotoIdx((i) => (i === CHAD_PHOTOS.length - 1 ? 0 : i + 1));
-  const prevAction = () => setActionIdx((i) => (i === 0 ? ACTION_PHOTOS.length - 1 : i - 1));
-  const nextAction = () => setActionIdx((i) => (i === ACTION_PHOTOS.length - 1 ? 0 : i + 1));
-
   return (
-    <div className="min-h-screen bg-[#0a0f1e] text-white">
-      {/* Hero */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-900/30 to-[#0a0f1e]" />
-        <div className="relative max-w-6xl mx-auto px-4 pt-16 pb-12 text-center">
-          <Badge className="mb-4 bg-blue-600/20 text-blue-400 border-blue-600/30 text-sm px-4 py-1">
-            Our Story
-          </Badge>
-          <h1 className="text-4xl md:text-6xl font-black mb-4 bg-gradient-to-r from-white to-blue-400 bg-clip-text text-transparent">
-            Built for Athletes.<br />By Someone Who Knows.
+    <div className="min-h-screen bg-[#050d1a] text-white" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+
+      {/* HERO */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#0a1628] to-[#050d1a] px-5 pt-20 pb-16 text-center">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,102,255,0.10),transparent_70%)]" />
+        <div className="relative max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 bg-[#0066ff]/10 border border-[#0066ff]/30 rounded-full px-5 py-2 mb-8">
+            <span className="w-2 h-2 bg-[#00c2ff] rounded-full animate-pulse" />
+            <span className="text-sm font-bold text-[#00c2ff] tracking-wider">ATHLYNX · HOUSTON, TX · FOUNDED NOVEMBER 2024</span>
+          </div>
+          <h1 className="text-5xl sm:text-7xl font-black leading-none tracking-tighter mb-6">
+            <span className="text-white">BUILT FOR</span><br />
+            <span className="text-[#0066ff]">ATHLETES.</span>
           </h1>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
-            ATHLYNX was built from the ground up with one purpose — to give every athlete, at every level, the tools and connections they deserve.
+          <p className="text-xl text-[#8ba3c7] max-w-2xl mx-auto leading-relaxed mb-10">
+            ATHLYNX was built from the ground up with one purpose — to give every athlete, at every level, the tools, connections, and opportunities they deserve. NIL. Recruiting. Transfer Portal. AI. All in one platform.
           </p>
-        </div>
-      </div>
-
-      {/* Photo Gallery + Story */}
-      <div className="max-w-6xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
-          {/* Photo Carousel */}
-          <div className="relative">
-            <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-gray-900 shadow-2xl shadow-blue-900/30">
-              <img
-                src={CHAD_PHOTOS[photoIdx]}
-                alt="Chad A. Dozier"
-                className="w-full h-full object-cover object-top transition-all duration-500"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4">
-                <p className="font-bold text-white text-lg">Chad A. Dozier Sr.</p>
-                <p className="text-blue-300 text-sm">Founder & CEO, ATHLYNX</p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
+            {STATS.map((s, i) => (
+              <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-5 text-center backdrop-blur">
+                <p className="text-[#0066ff] font-black text-3xl">{s.value}</p>
+                <p className="text-[#8ba3c7] text-xs font-semibold mt-1">{s.label}</p>
               </div>
-            </div>
-            {/* Carousel controls */}
-            <button
-              onClick={prevPhoto}
-              className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 rounded-full p-2 transition-all"
-            >
-              <ChevronLeft className="w-5 h-5 text-white" />
-            </button>
-            <button
-              onClick={nextPhoto}
-              className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 rounded-full p-2 transition-all"
-            >
-              <ChevronRight className="w-5 h-5 text-white" />
-            </button>
-            {/* Dots */}
-            <div className="flex justify-center gap-2 mt-4">
-              {CHAD_PHOTOS.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setPhotoIdx(i)}
-                  className={`w-2 h-2 rounded-full transition-all ${i === photoIdx ? "bg-blue-400 w-6" : "bg-gray-600"}`}
-                />
-              ))}
-            </div>
+            ))}
           </div>
+        </div>
+      </section>
 
-          {/* Story */}
-          <div className="space-y-6">
-            <div className="flex items-start gap-3">
-              <Quote className="w-8 h-8 text-blue-400 flex-shrink-0 mt-1" />
-              <p className="text-xl text-gray-200 leading-relaxed italic">
-                "I built ATHLYNX because I lived the athlete's journey — and I saw how many athletes were left without the right tools, the right connections, and the right guidance at the most critical moments of their careers."
-              </p>
-            </div>
+      {/* FOUNDING STORY */}
+      <section className="py-20 px-5 bg-[#050d1a]">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-[#0066ff] text-sm font-black uppercase tracking-[0.3em] mb-3">The Origin</p>
+            <h2 className="text-4xl font-black text-white">Iron Sharpens Iron</h2>
+            <p className="text-[#8ba3c7] text-lg mt-4 max-w-2xl mx-auto">
+              Two men met at Hope Lodge in Houston, Texas in November 2024. One had a vision. One had the technical skill to build it. Together, they built AthlynXAI.
+            </p>
+          </div>
+          <div className="bg-gradient-to-r from-[#0066ff]/10 to-[#00c2ff]/5 border border-[#0066ff]/20 rounded-3xl p-8 md:p-12 text-center">
+            <blockquote className="text-2xl md:text-3xl font-black text-white leading-snug mb-4">
+              "We met at Hope Lodge in Houston, November 2024. Two people with a shared vision and the determination to build something that would change how athletes navigate their careers forever."
+            </blockquote>
+            <p className="text-[#00c2ff] font-bold">— Chad A. Dozier Sr., Founder & CEO</p>
+            <p className="text-[#8ba3c7] text-sm mt-1">Iron Sharpens Iron — Proverbs 27:17</p>
+          </div>
+        </div>
+      </section>
 
-            <div className="space-y-4 text-gray-300 leading-relaxed">
-              <p>
-                Chad A. Dozier Sr. played professional baseball and experienced firsthand what it means to navigate the recruiting process, NIL opportunities, contracts, and the transition from sports to life after the game — often without a roadmap.
-              </p>
-              <p>
-                ATHLYNX is the platform he wished existed when he was coming up. From high school recruiting to college NIL deals, transfer portal decisions, professional contracts, and retirement planning — every feature on this platform was designed around real athlete needs.
-              </p>
-              <p>
-                The mission is simple: <strong className="text-white">no athlete should have to figure it out alone.</strong> Whether you're a 9th grader trying to get recruited, a college athlete navigating NIL, or a pro planning your next chapter — ATHLYNX is your playbook.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-3 gap-4 pt-4">
-              {[
-                { label: "Pro Baseball", sub: "Played at the highest level" },
-                { label: "18 Roles", sub: "Athlete ecosystem covered" },
-                { label: "One Platform", sub: "Start to finish career support" },
-              ].map((stat) => (
-                <div key={stat.label} className="bg-blue-900/20 border border-blue-800/30 rounded-xl p-4 text-center">
-                  <p className="font-bold text-white text-sm">{stat.label}</p>
-                  <p className="text-gray-400 text-xs mt-1">{stat.sub}</p>
+      {/* TEAM */}
+      <section className="py-20 px-5 bg-[#040c1a]">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-14">
+            <p className="text-[#00c2ff] text-sm font-black uppercase tracking-[0.3em] mb-3">The People Behind It</p>
+            <h2 className="text-4xl font-black text-white">The Team</h2>
+            <p className="text-[#8ba3c7] text-lg mt-4 max-w-xl mx-auto">
+              Built by people who believe every athlete deserves a complete support system.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {TEAM.map((member, i) => (
+              <div key={i} className="bg-[#0a1628] border border-[#0066ff]/20 rounded-3xl overflow-hidden hover:border-[#0066ff]/60 transition-all duration-300 group">
+                <div className="relative h-80 overflow-hidden">
+                  <img
+                    src={member.photo}
+                    alt={member.name}
+                    className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&background=0066ff&color=fff&size=400&bold=true`;
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628] via-[#0a1628]/10 to-transparent" />
+                  <div className="absolute top-4 left-4">
+                    <span className={`text-white text-[10px] font-black px-3 py-1.5 rounded-full tracking-widest uppercase ${member.tagColor}`}>
+                      {member.tag}
+                    </span>
+                  </div>
                 </div>
-              ))}
-            </div>
-
-            <div className="flex gap-3 pt-2">
-              <Link href="/signup">
-                <Button className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6">
-                  Join ATHLYNX
-                </Button>
-              </Link>
-              <Link href="/athlete-journey">
-                <Button variant="outline" className="border-blue-600/50 text-blue-400 hover:bg-blue-900/30 px-6">
-                  See the Journey
-                </Button>
-              </Link>
-            </div>
+                <div className="p-6">
+                  <h3 className="text-white font-black text-xl mb-1">{member.name}</h3>
+                  <p className="text-[#00c2ff] text-sm font-bold uppercase tracking-wider mb-4">{member.title}</p>
+                  <p className="text-[#8ba3c7] text-sm leading-relaxed mb-4">{member.bio}</p>
+                  <a href={`mailto:${member.email}`} className="text-[#0066ff] text-xs font-bold hover:text-[#00c2ff] transition-colors">
+                    {member.email} →
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* Action Photos */}
-        <div className="mb-20">
-          <h2 className="text-2xl font-bold text-center mb-8 text-white">On the Field</h2>
-          <div className="relative max-w-2xl mx-auto">
-            <div className="aspect-video rounded-2xl overflow-hidden bg-gray-900 shadow-2xl">
-              <img
-                src={ACTION_PHOTOS[actionIdx]}
-                alt="Chad Dozier in action"
-                className="w-full h-full object-cover transition-all duration-500"
-              />
-            </div>
-            <button
-              onClick={prevAction}
-              className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 rounded-full p-2 transition-all"
-            >
-              <ChevronLeft className="w-5 h-5 text-white" />
-            </button>
-            <button
-              onClick={nextAction}
-              className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 rounded-full p-2 transition-all"
-            >
-              <ChevronRight className="w-5 h-5 text-white" />
-            </button>
-            <div className="flex justify-center gap-2 mt-4">
-              {ACTION_PHOTOS.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActionIdx(i)}
-                  className={`w-2 h-2 rounded-full transition-all ${i === actionIdx ? "bg-blue-400 w-6" : "bg-gray-600"}`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Mission Statement */}
-        <div className="bg-gradient-to-r from-blue-900/30 to-indigo-900/30 border border-blue-800/30 rounded-2xl p-10 text-center mb-20">
-          <h2 className="text-3xl font-black text-white mb-4">The Mission</h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+      {/* MISSION */}
+      <section className="py-20 px-5 bg-[#050d1a]">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-[#0066ff] text-sm font-black uppercase tracking-[0.3em] mb-3">Why We Built This</p>
+          <h2 className="text-4xl font-black text-white mb-6">The Mission</h2>
+          <p className="text-xl text-[#8ba3c7] max-w-3xl mx-auto leading-relaxed mb-12">
             Every athlete — from the unrecruited kid at a small school to the pro managing their brand — deserves a complete support system. ATHLYNX brings together the tools, the people, and the opportunities to make that possible.
           </p>
-          <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-14">
             {[
               { emoji: "🏈", label: "High School Recruiting" },
               { emoji: "🎓", label: "College NIL Deals" },
               { emoji: "🔄", label: "Transfer Portal" },
               { emoji: "🏆", label: "Pro Career & Beyond" },
-            ].map((item) => (
-              <div key={item.label} className="text-center">
-                <div className="text-3xl mb-2">{item.emoji}</div>
-                <p className="text-sm text-gray-300 font-medium">{item.label}</p>
+            ].map((item, i) => (
+              <div key={i} className="bg-[#0a1628] border border-[#0066ff]/20 rounded-2xl p-6 text-center hover:border-[#0066ff]/50 transition-all">
+                <div className="text-4xl mb-3">{item.emoji}</div>
+                <p className="text-white text-sm font-bold">{item.label}</p>
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Story Photo */}
-        <div className="mb-20">
-          <div className="max-w-3xl mx-auto rounded-2xl overflow-hidden shadow-2xl">
-            <img
-              src="/img-athlete-multisport.jpg"
-              alt="Chad Dozier story"
-              className="w-full object-cover"
-            />
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/signup">
+              <button className="bg-[#0066ff] hover:bg-[#0052cc] text-white font-black text-lg px-10 py-4 rounded-2xl transition-all hover:scale-105 shadow-2xl shadow-[#0066ff]/30">
+                JOIN FREE — 7 DAYS →
+              </button>
+            </Link>
+            <Link href="/portal">
+              <button className="bg-white/5 hover:bg-white/10 text-white font-bold text-lg px-10 py-4 rounded-2xl border border-white/20 transition-all">
+                ENTER THE PLATFORM
+              </button>
+            </Link>
           </div>
         </div>
+      </section>
 
-        {/* CTA */}
-        <div className="text-center pb-16">
-          <h2 className="text-3xl font-black text-white mb-4">Ready to Write Your Story?</h2>
-          <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-            Join thousands of athletes already using ATHLYNX to manage their careers, find opportunities, and build their legacy.
-          </p>
-          <Link href="/signup">
-            <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-10 py-6 rounded-xl">
-              Start Free — credit card required — not charged for 7 days
-            </Button>
-          </Link>
-        </div>
+      <div className="bg-[#030810] border-t border-[#0066ff]/10 py-8 px-5 text-center">
+        <p className="text-[#4a6080] text-sm">
+          © 2026 AthlynXAI Corporation · A Dozier Holdings Group Company · Houston, TX · EIN 42-2183569
+        </p>
+        <p className="text-[#4a6080] text-xs mt-1">Iron Sharpens Iron — Proverbs 27:17 · Founded November 2024</p>
       </div>
+
       <MobileBottomNav />
     </div>
   );

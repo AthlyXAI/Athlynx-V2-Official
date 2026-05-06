@@ -355,7 +355,7 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
             {/* INVESTORS — gold accent, prominent in top nav */}
             <Link
               href="/investor-hub"
-              className="hidden sm:inline-flex items-center gap-1 ml-1 text-[10px] font-black px-2.5 py-1.5 rounded-lg transition-all border border-yellow-400/60 bg-yellow-400/10 text-yellow-300 hover:bg-yellow-400/20 hover:text-yellow-100 tracking-widest uppercase whitespace-nowrap"
+              className="hidden sm:inline-flex items-center gap-1 ml-1 text-[10px] font-black px-2.5 py-1.5 rounded-lg transition-all border border-[#0066ff]/50 bg-[#0066ff]/10 text-[#00c2ff] hover:bg-[#0066ff]/20 hover:text-white tracking-widest uppercase whitespace-nowrap"
             >
               💰 INVESTORS
             </Link>
