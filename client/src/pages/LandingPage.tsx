@@ -6,12 +6,37 @@ import { useState, useEffect } from "react";
 const TICKER = ["20+ PLATFORMS BUILT","$47B MARKET","FREE 7-DAY TRIAL","1M+ ATHLETES SERVED","NIL DEALS","TRANSFER PORTAL","AI TRAINING","DIAMOND GRIND","X-FACTOR FEED","C-FACTOR HUB","WARRIORS PLAYBOOK","COURT KINGS","PITCH PULSE","POWERED BY NEBIUS + GEMINI"];
 
 const SPORT_CARDS = [
-  { sport:"Basketball", badge:"NIL Deals", color:"#c8a84b", img:"https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80", href:"/court-kings" },
   { sport:"Football", badge:"Transfer Portal", color:"#c8a84b", img:"https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=800&q=80", href:"/gridiron-nexus" },
+  { sport:"Basketball", badge:"NIL Deals", color:"#c8a84b", img:"https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80", href:"/court-kings" },
   { sport:"Baseball", badge:"Diamond Grind", color:"#3b82f6", img:"https://images.unsplash.com/photo-1529768167801-9173d94c2a42?w=800&q=80", href:"/diamond-grind" },
   { sport:"Soccer", badge:"Pitch Pulse", color:"#22c55e", img:"https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?w=800&q=80", href:"/pitch-pulse" },
   { sport:"Track & Field", badge:"X-Factor", color:"#f97316", img:"https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&q=80", href:"/x-factor" },
   { sport:"Wrestling", badge:"Warriors Playbook", color:"#ef4444", img:"https://images.unsplash.com/photo-1544717305-2782549b5136?w=800&q=80", href:"/warriors-playbook" },
+];
+
+const ALL_44_SPORTS = [
+  {emoji:"🏈",name:"Football",href:"/gridiron-nexus"},{emoji:"🏀",name:"Basketball",href:"/court-kings"},
+  {emoji:"⚾",name:"Baseball",href:"/diamond-grind"},{emoji:"⚽",name:"Soccer",href:"/pitch-pulse"},
+  {emoji:"🏃",name:"Track & Field",href:"/x-factor"},{emoji:"🏊",name:"Swimming",href:"/swim-surge"},
+  {emoji:"🤼",name:"Wrestling",href:"/warriors-playbook"},{emoji:"🎾",name:"Tennis",href:"/racket-kings"},
+  {emoji:"🏐",name:"Volleyball",href:"/net-setters"},{emoji:"🏒",name:"Hockey",href:"/hockey"},
+  {emoji:"🥍",name:"Lacrosse",href:"/lacrosse"},{emoji:"🥎",name:"Softball",href:"/softball-nation"},
+  {emoji:"🤸",name:"Gymnastics",href:"/gymnastics"},{emoji:"⛳",name:"Golf",href:"/fairway-elite"},
+  {emoji:"🏉",name:"Rugby",href:"/rugby-elite"},{emoji:"🏏",name:"Cricket",href:"/cricket"},
+  {emoji:"🏃",name:"Cross Country",href:"/track-elite"},{emoji:"🚣",name:"Rowing",href:"/rowing-elite"},
+  {emoji:"🤽",name:"Water Polo",href:"/water-polo-elite"},{emoji:"🏑",name:"Field Hockey",href:"/field-hockey"},
+  {emoji:"📣",name:"Cheerleading",href:"/cheer"},{emoji:"🥊",name:"Boxing",href:"/boxing"},
+  {emoji:"🥋",name:"MMA",href:"/mma"},{emoji:"🏸",name:"Badminton",href:"/badminton"},
+  {emoji:"🏓",name:"Table Tennis",href:"/table-tennis"},{emoji:"🏹",name:"Archery",href:"/archery"},
+  {emoji:"🤺",name:"Fencing",href:"/fencing"},{emoji:"🏋️",name:"Weightlifting",href:"/weightlifting"},
+  {emoji:"🚴",name:"Cycling",href:"/cycling"},{emoji:"🏇",name:"Equestrian",href:"/equestrian"},
+  {emoji:"⛷️",name:"Skiing",href:"/skiing"},{emoji:"🏂",name:"Snowboarding",href:"/snowboarding"},
+  {emoji:"🏊",name:"Triathlon",href:"/triathlon"},{emoji:"🏖️",name:"Beach Volleyball",href:"/beach-volleyball"},
+  {emoji:"💃",name:"Dance",href:"/dance"},{emoji:"🎮",name:"Esports",href:"/esports"},
+  {emoji:"🏓",name:"Pickleball",href:"/pickleball"},{emoji:"🎾",name:"Paddle Tennis",href:"/paddle-tennis"},
+  {emoji:"🏄",name:"Surfing",href:"/surfing"},{emoji:"🛹",name:"Skateboarding",href:"/skateboarding"},
+  {emoji:"🧗",name:"Rock Climbing",href:"/climbing"},{emoji:"🎾",name:"Racquetball",href:"/racquetball"},
+  {emoji:"🏊",name:"Diving",href:"/diving"},{emoji:"🥅",name:"Futsal",href:"/futsal"},
 ];
 
 const ALL_APPS = [
@@ -162,6 +187,24 @@ function LandingPageInner() {
                     <span className="inline-block text-xs font-black px-3 py-1 rounded-full mb-2" style={{ backgroundColor: card.color, color: '#0a1628' }}>{card.badge}</span>
                     <p className="text-white font-black text-xl">{card.sport}</p>
                   </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ALL 44 SPORTS */}
+      <section className="bg-[#060f1e] py-16 px-6">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-yellow-400 text-sm font-bold uppercase tracking-widest text-center mb-2">Every Sport. Every Level.</p>
+          <h2 className="text-3xl lg:text-5xl font-black text-white text-center mb-10">ALL <span className="text-yellow-400">44 SPORTS</span> COVERED</h2>
+          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-11 gap-3">
+            {ALL_44_SPORTS.map((s, i) => (
+              <Link key={i} href={s.href}>
+                <div className="bg-[#1a2a4a] border border-blue-800 rounded-xl p-3 hover:border-yellow-400 hover:bg-[#1e3055] transition-all cursor-pointer text-center group">
+                  <div className="text-2xl mb-1">{s.emoji}</div>
+                  <p className="text-blue-200 text-xs font-semibold group-hover:text-yellow-400 transition-colors leading-tight">{s.name}</p>
                 </div>
               </Link>
             ))}
