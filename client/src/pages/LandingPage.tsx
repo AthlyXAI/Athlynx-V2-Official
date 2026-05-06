@@ -37,6 +37,7 @@ const PLATFORM_SCREENS = [
     badge: "LIVE",
     badgeColor: "#22c55e",
     href: "/portal",
+    img: "/landing/IMG_7176.PNG",
     preview: (
       <div className="p-3 space-y-2 text-xs">
         <div className="flex items-center gap-2 mb-3">
@@ -64,6 +65,7 @@ const PLATFORM_SCREENS = [
     badge: "NEW",
     badgeColor: "#3b82f6",
     href: "/diamond-grind",
+    img: "/landing/IMG_7148.PNG",
     preview: (
       <div className="p-3 text-xs">
         <div className="flex items-center gap-2 mb-3">
@@ -89,6 +91,7 @@ const PLATFORM_SCREENS = [
     badge: "LIVE",
     badgeColor: "#22c55e",
     href: "/messenger",
+    img: "/landing/IMG_7147.PNG",
     preview: (
       <div className="p-3 text-xs">
         <div className="flex items-center gap-2 mb-3">
@@ -122,6 +125,7 @@ const PLATFORM_SCREENS = [
     badge: "HOT",
     badgeColor: "#f97316",
     href: "/x-factor",
+    img: "/landing/IMG_7120.PNG",
     preview: (
       <div className="p-3 text-xs">
         <div className="flex items-center gap-2 mb-3">
@@ -149,6 +153,7 @@ const PLATFORM_SCREENS = [
     badge: "NEW",
     badgeColor: "#8b5cf6",
     href: "/cfactor",
+    img: "/landing/IMG_7134.PNG",
     preview: (
       <div className="p-3 text-xs">
         <div className="flex items-center gap-2 mb-3">
@@ -184,6 +189,7 @@ const PLATFORM_SCREENS = [
     badge: "LIVE",
     badgeColor: "#22c55e",
     href: "/athlete-calendar",
+    img: "/landing/IMG_7136.PNG",
     preview: (
       <div className="p-3 text-xs">
         <div className="flex items-center gap-2 mb-3">
@@ -210,6 +216,7 @@ const PLATFORM_SCREENS = [
     badge: "NEW",
     badgeColor: "#c8a84b",
     href: "/rankings-hub",
+    img: "/landing/IMG_7135.PNG",
     preview: (
       <div className="p-3 text-xs">
         <div className="flex items-center gap-2 mb-3">
@@ -238,6 +245,7 @@ const PLATFORM_SCREENS = [
     badge: "LIVE",
     badgeColor: "#22c55e",
     href: "/nil-portal",
+    img: "/landing/IMG_7115.PNG",
     preview: (
       <div className="p-3 text-xs">
         <div className="flex items-center gap-2 mb-3">
@@ -263,6 +271,7 @@ const PLATFORM_SCREENS = [
     badge: "LIVE",
     badgeColor: "#22c55e",
     href: "/transfer-portal",
+    img: "/landing/IMG_7116.PNG",
     preview: (
       <div className="p-3 text-xs">
         <div className="flex items-center gap-2 mb-3">
@@ -284,6 +293,7 @@ const PLATFORM_SCREENS = [
     badge: "HOT",
     badgeColor: "#ef4444",
     href: "/warriors-playbook",
+    img: "/landing/IMG_7119.PNG",
     preview: (
       <div className="p-3 text-xs">
         <div className="flex items-center gap-2 mb-3">
@@ -309,6 +319,7 @@ const PLATFORM_SCREENS = [
     badge: "LIVE",
     badgeColor: "#22c55e",
     href: "/profile",
+    img: "/landing/IMG_7178.PNG",
     preview: (
       <div className="p-3 text-xs">
         <div className="text-center mb-3">
@@ -341,6 +352,7 @@ const PLATFORM_SCREENS = [
     badge: "HOT",
     badgeColor: "#c8a84b",
     href: "/recruiting-hub",
+    img: "/landing/IMG_7118.PNG",
     preview: (
       <div className="p-3 text-xs">
         <div className="flex items-center gap-2 mb-3">
@@ -371,36 +383,33 @@ function PhoneMockup({ screen, size = "md" }: { screen: typeof PLATFORM_SCREENS[
   const dims = size === "lg" ? "w-72 h-[560px]" : size === "sm" ? "w-44 h-[340px]" : "w-56 h-[440px]";
   return (
     <Link href={screen.href}>
-      <div className={`${dims} bg-[#0d1f3c] rounded-[2.5rem] border-[3px] border-blue-700 shadow-2xl shadow-blue-900/60 overflow-hidden cursor-pointer hover:border-yellow-400 hover:scale-[1.02] transition-all duration-300 flex-shrink-0`}>
-        {/* Phone status bar */}
-        <div className="bg-[#060f1e] px-4 py-2 flex items-center justify-between">
-          <span className="text-white text-xs font-bold">9:41</span>
-          <div className="w-16 h-4 bg-[#060f1e] rounded-full border border-blue-900" />
-          <div className="flex gap-1">
-            <span className="text-white text-xs">●●●</span>
+      <div className={`${dims} rounded-[2.5rem] border-[3px] border-blue-700 shadow-2xl shadow-blue-900/60 overflow-hidden cursor-pointer hover:border-yellow-400 hover:scale-[1.02] transition-all duration-300 flex-shrink-0 bg-[#0a1628] relative`}>
+        {/* Real platform screenshot fills the entire phone */}
+        {screen.img ? (
+          <img
+            src={screen.img}
+            alt={screen.title}
+            className="w-full h-full object-cover object-top absolute inset-0"
+          />
+        ) : (
+          <div className="w-full h-full bg-[#0a1628]">
+            {/* Phone status bar */}
+            <div className="bg-[#060f1e] px-4 py-2 flex items-center justify-between">
+              <span className="text-white text-xs font-bold">9:41</span>
+              <div className="w-16 h-4 bg-[#060f1e] rounded-full border border-blue-900" />
+              <span className="text-white text-xs">●●●</span>
+            </div>
+            <div className="overflow-hidden flex-1">{screen.preview}</div>
           </div>
+        )}
+        {/* Overlay gradient + badge + title */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute top-3 right-3">
+          <span className="text-xs font-black px-2 py-1 rounded-full shadow-lg" style={{backgroundColor: screen.badgeColor, color:'#0a1628'}}>{screen.badge}</span>
         </div>
-        {/* App header */}
-        <div className="bg-[#0a1628] px-3 py-2 flex items-center justify-between border-b border-blue-900">
-          <div className="flex items-center gap-1.5">
-            <img src="/athlynx-icon.png" alt="" className="w-5 h-5 rounded" onError={e=>(e.currentTarget.style.display='none')} />
-            <span className="text-white font-black text-xs">ATHLYNX</span>
-          </div>
-          <span className="text-xs font-black px-2 py-0.5 rounded-full" style={{backgroundColor: screen.badgeColor, color:'#0a1628'}}>{screen.badge}</span>
-        </div>
-        {/* Screen title */}
-        <div className="bg-[#0d1f3c] px-3 py-1.5 border-b border-blue-900">
-          <p className="text-white font-black text-xs">{screen.title}</p>
-        </div>
-        {/* Screen content */}
-        <div className="overflow-hidden flex-1 bg-[#0a1628]">
-          {screen.preview}
-        </div>
-        {/* Bottom nav */}
-        <div className="bg-[#060f1e] border-t border-blue-900 px-2 py-2 flex justify-around">
-          {["🏠","💬","⚡","👤","⚙️"].map((i,idx)=>(
-            <span key={idx} className={`text-sm ${idx===0?"text-blue-400":"text-blue-700"}`}>{i}</span>
-          ))}
+        <div className="absolute bottom-0 left-0 right-0 p-3">
+          <p className="text-white font-black text-sm drop-shadow-lg">{screen.title}</p>
+          <p className="text-blue-200 text-xs">athlynx.ai →</p>
         </div>
       </div>
     </Link>
