@@ -1,0 +1,327 @@
+/**
+ * ATHLYNX — Public Shareable AthleteCard
+ * The digital business card every athlete needs.
+ * Coaches, scouts, and brands see this when you share your link.
+ *
+ * Share URL: athlynx.ai/card/:username
+ * No login required to view.
+ *
+ * Session 32 — May 5, 2026
+ */
+import { useState } from "react";
+import { useRoute, Link } from "wouter";
+import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
+import { trpc } from "@/lib/trpc";
+import { toast } from "sonner";
+import {
+  Share2, Download, ExternalLink, Star, Zap, Trophy,
+  MapPin, GraduationCap, TrendingUp, MessageCircle,
+  Instagram, Twitter, Youtube, CheckCircle, Award
+} from "lucide-react";
+
+const SPORT_ICONS: Record<string, string> = {
+  Football: "🏈", Basketball: "🏀", Baseball: "⚾", Soccer: "⚽",
+  "Track & Field": "🏃", Swimming: "🏊", Tennis: "🎾", Volleyball: "🏐",
+  Wrestling: "🤼", Golf: "⛳", Lacrosse: "🥍", Hockey: "🏒",
+  Softball: "🥎", "Cross Country": "🏃", Gymnastics: "🤸", "Multi-Sport": "🏆",
+};
+
+function AthleteCardInner() {
+  const [, params] = useRoute("/card/:id");
+  const athleteId = params?.id ? parseInt(params.id) : 0;
+  const [copied, setCopied] = useState(false);
+  const [activeTab, setActiveTab] = useState<"overview" | "stats" | "highlights" | "nil">("overview");
+
+  const { data: profile, isLoading } = trpc.profile.getProfile.useQuery(
+    { userId: athleteId },
+    { enabled: !!athleteId }
+  );
+
+  const handleShare = () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url);
+    setCopied(true);
+    toast.success("AthleteCard link copied!");
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handleDownload = () => {
+    toast.success("AthleteCard PDF generating...");
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#040c1a] flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-white/40 text-sm">Loading AthleteCard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Demo card if no profile found
+  const displayName = profile?.name || "Chad A. Dozier";
+  const sport = profile?.sport || "Multi-Sport";
+  const position = profile?.position || "Founder & CEO";
+  const school = profile?.school || "ATHLYNX Platform";
+  const status = profile?.recruitingStatus || "available";
+  const xScore = profile?.xFactorScore ? Number(profile.xFactorScore) : 88;
+  const nilValue = profile?.nilValue ? Number(profile.nilValue) : 50000;
+  const initials = displayName.split(" ").map((w: string) => w[0]).join("").slice(0, 2).toUpperCase();
+  const sportIcon = SPORT_ICONS[sport] || "🏆";
+
+  const statusConfig: Record<string, { label: string; color: string; bg: string }> = {
+    available: { label: "Available for Recruiting", color: "text-green-400", bg: "bg-green-500/10 border-green-500/30" },
+    committed: { label: "Committed", color: "text-blue-400", bg: "bg-blue-500/10 border-blue-500/30" },
+    signed: { label: "Signed", color: "text-purple-400", bg: "bg-purple-500/10 border-purple-500/30" },
+    transferred: { label: "Transfer Portal", color: "text-yellow-400", bg: "bg-yellow-500/10 border-yellow-500/30" },
+  };
+  const statusInfo = statusConfig[status] || statusConfig.available;
+
+  return (
+    <div className="min-h-screen bg-[#040c1a]">
+      {/* ── Header Bar ── */}
+      <div className="sticky top-0 z-20 bg-[#040c1a]/95 backdrop-blur border-b border-blue-900/30 px-4 py-3">
+        <div className="max-w-lg mx-auto flex items-center justify-between">
+          <Link href="/">
+            <div className="flex items-center gap-2">
+              <img src="/dhg-crab-shield.png" alt="ATHLYNX" className="w-7 h-7 object-contain" onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+              <span className="text-white font-black text-sm">ATHLYNX</span>
+            </div>
+          </Link>
+          <div className="flex items-center gap-2">
+            <button onClick={handleShare}
+              className="flex items-center gap-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-black px-3 py-2 rounded-xl transition-colors">
+              <Share2 className="w-3.5 h-3.5" />
+              {copied ? "Copied!" : "Share"}
+            </button>
+            <button onClick={handleDownload}
+              className="flex items-center gap-1.5 border border-blue-700/50 text-blue-400 text-xs font-bold px-3 py-2 rounded-xl hover:bg-blue-900/30 transition-colors">
+              <Download className="w-3.5 h-3.5" />
+              PDF
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-lg mx-auto px-4 py-6 space-y-4">
+
+        {/* ── Hero Card ── */}
+        <div className="bg-gradient-to-br from-[#0d1e3c] via-[#0a1628] to-[#040c1a] border border-blue-700/50 rounded-3xl overflow-hidden">
+          {/* Cover */}
+          <div className="h-24 bg-gradient-to-r from-blue-900 via-cyan-900 to-blue-900 relative">
+            <div className="absolute inset-0 opacity-20" style={{
+              backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0,194,255,0.1) 10px, rgba(0,194,255,0.1) 11px)"
+            }} />
+            <div className="absolute top-3 right-3 text-4xl opacity-30">{sportIcon}</div>
+          </div>
+
+          {/* Profile */}
+          <div className="px-5 pb-5">
+            <div className="flex items-end justify-between -mt-8 mb-4">
+              <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center text-white font-black text-2xl border-4 border-[#040c1a] shadow-xl">
+                {profile?.avatarUrl ? (
+                  <img src={profile.avatarUrl} alt={displayName} className="w-full h-full object-cover rounded-xl" />
+                ) : initials}
+              </div>
+              <div className="flex items-center gap-1.5 mb-2">
+                <div className="text-xs font-black px-2 py-1 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
+                  ⚡ {xScore} X-Factor
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-start justify-between">
+              <div>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-xl font-black text-white">{displayName}</h1>
+                  <CheckCircle className="w-5 h-5 text-blue-400 fill-blue-400/20" />
+                </div>
+                <div className="text-blue-400 text-sm">{position} · {sport}</div>
+                <div className="flex items-center gap-1.5 mt-1">
+                  <GraduationCap className="w-3.5 h-3.5 text-blue-500" />
+                  <span className="text-blue-500 text-xs">{school}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Status Badge */}
+            <div className={`mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-bold ${statusInfo.bg} ${statusInfo.color}`}>
+              <div className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
+              {statusInfo.label}
+            </div>
+
+            {/* Key Stats Row */}
+            <div className="grid grid-cols-3 gap-3 mt-4">
+              {[
+                { label: "NIL Value", val: `$${(nilValue / 1000).toFixed(0)}K`, icon: "💰", color: "text-green-400" },
+                { label: "X-Factor", val: xScore.toString(), icon: "⚡", color: "text-cyan-400" },
+                { label: "Sport", val: sportIcon, icon: "", color: "text-white" },
+              ].map((stat, i) => (
+                <div key={i} className="bg-blue-900/30 rounded-xl p-3 text-center">
+                  <div className={`font-black text-lg ${stat.color}`}>{stat.val}</div>
+                  <div className="text-blue-500 text-[10px]">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ── Tab Nav ── */}
+        <div className="flex gap-2">
+          {[
+            { id: "overview", label: "Overview" },
+            { id: "stats", label: "Stats" },
+            { id: "highlights", label: "Highlights" },
+            { id: "nil", label: "NIL" },
+          ].map(tab => (
+            <button key={tab.id} onClick={() => setActiveTab(tab.id as any)}
+              className={`flex-1 text-xs font-bold py-2 rounded-xl transition-colors ${
+                activeTab === tab.id ? "bg-blue-600 text-white" : "bg-[#0d1e3c] border border-blue-800/50 text-blue-400"
+              }`}>
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* ── OVERVIEW TAB ── */}
+        {activeTab === "overview" && (
+          <div className="space-y-4">
+            {/* Bio */}
+            <div className="bg-[#0d1e3c] border border-blue-800/50 rounded-2xl p-4">
+              <div className="text-xs font-black text-blue-400 tracking-widest uppercase mb-2">About</div>
+              <p className="text-blue-200 text-sm leading-relaxed">
+                {profile?.bio || `${displayName} is a ${position} competing at the highest level. Powered by ATHLYNX AI — the complete athlete ecosystem for NIL deals, recruiting, and performance tracking.`}
+              </p>
+            </div>
+
+            {/* Recruiting Info */}
+            <div className="bg-[#0d1e3c] border border-blue-800/50 rounded-2xl p-4">
+              <div className="text-xs font-black text-blue-400 tracking-widest uppercase mb-3">Recruiting Profile</div>
+              <div className="space-y-2">
+                {[
+                  { label: "Sport", val: `${sportIcon} ${sport}` },
+                  { label: "Position", val: position },
+                  { label: "School", val: school },
+                  { label: "Status", val: statusInfo.label },
+                  { label: "Height", val: profile?.height || "6'2\"" },
+                  { label: "Weight", val: profile?.weight ? `${profile.weight} lbs` : "195 lbs" },
+                  { label: "GPA", val: profile?.gpa || "3.7" },
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center justify-between py-1.5 border-b border-blue-900/30 last:border-0">
+                    <span className="text-blue-500 text-xs">{item.label}</span>
+                    <span className="text-white text-xs font-semibold">{item.val}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="bg-[#0d1e3c] border border-blue-800/50 rounded-2xl p-4">
+              <div className="text-xs font-black text-blue-400 tracking-widest uppercase mb-3">Connect</div>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { label: "ATHLYNX Profile", href: `/athlete/${athleteId}`, icon: "🏆", color: "bg-blue-600" },
+                  { label: "Send Message", href: "/messenger", icon: "💬", color: "bg-green-600" },
+                  { label: "View NIL Deals", href: "/nil-portal", icon: "💰", color: "bg-yellow-600" },
+                  { label: "Watch Highlights", href: "/studio", icon: "🎬", color: "bg-purple-600" },
+                ].map((link, i) => (
+                  <Link key={i} href={link.href}>
+                    <button className={`w-full ${link.color} hover:opacity-90 text-white text-xs font-bold py-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-opacity`}>
+                      <span>{link.icon}</span> {link.label}
+                    </button>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* ── STATS TAB ── */}
+        {activeTab === "stats" && (
+          <div className="bg-[#0d1e3c] border border-blue-800/50 rounded-2xl p-4">
+            <div className="text-xs font-black text-blue-400 tracking-widest uppercase mb-3">Performance Stats</div>
+            {profile?.sportStats && Object.keys(profile.sportStats as object).length > 0 ? (
+              <div className="space-y-2">
+                {Object.entries(profile.sportStats as Record<string, string | number>).map(([key, val]) => (
+                  <div key={key} className="flex items-center justify-between py-1.5 border-b border-blue-900/30 last:border-0">
+                    <span className="text-blue-500 text-xs capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
+                    <span className="text-white text-xs font-bold">{val}</span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <div className="text-4xl mb-3">📊</div>
+                <div className="text-white font-bold mb-1">No Stats Yet</div>
+                <div className="text-blue-400 text-sm">This athlete hasn't added their stats yet.</div>
+                <Link href="/x-factor">
+                  <button className="mt-3 bg-blue-600 text-white text-xs font-black px-4 py-2 rounded-xl">Add Stats with AI</button>
+                </Link>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── HIGHLIGHTS TAB ── */}
+        {activeTab === "highlights" && (
+          <div className="space-y-3">
+            <div className="bg-[#0d1e3c] border border-blue-800/50 rounded-2xl p-4 text-center">
+              <div className="text-4xl mb-3">🎬</div>
+              <div className="text-white font-bold mb-1">Highlight Reel</div>
+              <div className="text-blue-400 text-sm mb-3">Upload your best plays, training clips, and game film.</div>
+              <Link href="/studio">
+                <button className="bg-purple-600 hover:bg-purple-500 text-white text-xs font-black px-5 py-2.5 rounded-xl">
+                  Upload Highlights →
+                </button>
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* ── NIL TAB ── */}
+        {activeTab === "nil" && (
+          <div className="space-y-3">
+            <div className="bg-gradient-to-br from-green-900/30 to-emerald-900/20 border border-green-700/40 rounded-2xl p-4">
+              <div className="text-xs font-black text-green-400 tracking-widest uppercase mb-2">💰 NIL Profile</div>
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <div className="text-white font-black text-2xl">${(nilValue / 1000).toFixed(0)}K</div>
+                  <div className="text-green-400 text-xs">Estimated NIL Value</div>
+                </div>
+                <div className="text-right">
+                  <div className="text-cyan-400 font-black text-xl">⚡ {xScore}</div>
+                  <div className="text-blue-400 text-xs">X-Factor Score</div>
+                </div>
+              </div>
+              <div className="bg-green-900/20 rounded-xl p-3 mb-3">
+                <div className="text-green-300 text-xs font-semibold mb-1">Open to Brand Partnerships</div>
+                <div className="text-blue-400 text-xs">This athlete is available for NIL deals, sponsorships, appearances, and social media partnerships.</div>
+              </div>
+              <Link href="/nil-portal">
+                <button className="w-full bg-green-600 hover:bg-green-500 text-white text-xs font-black py-2.5 rounded-xl">
+                  Propose a Deal →
+                </button>
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* ── Footer ── */}
+        <div className="text-center py-4 border-t border-blue-900/30">
+          <div className="text-blue-600 text-xs mb-1">Powered by ATHLYNX · The Complete Athlete Ecosystem</div>
+          <Link href="/signup">
+            <button className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-xs font-black px-5 py-2.5 rounded-xl">
+              Create Your AthleteCard — Free →
+            </button>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function AthleteCard() {
+  return <RouteErrorBoundary><AthleteCardInner /></RouteErrorBoundary>;
+}

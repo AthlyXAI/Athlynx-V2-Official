@@ -641,23 +641,22 @@ function InvestorHubInner() {
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-8">
             {[
-              "/chad-dozier-ceo.png",
-              "/athlete-football.jpg",
-              "/athlete-basketball.jpg",
-              "/athlete-baseball.jpg",
-              "/athlete-track.jpg",
-              "/app-mockup-hero.png",
-              "/athlete-soccer.jpg",
-              "/athlete-training.jpg",
-              "/professional-athlete-dashboard.png",
-              "/app-mockup-profile.png",
-              "/athlete-football.jpg",
-              "/athlete-basketball.jpg",
-              "/athlete-baseball.jpg",
-              "/athlete-track.jpg",
-            ].map((src, i) => (
-              <div key={i} className="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-blue-400/50 transition-all group">
-                <img src={src} alt={`GTC San Jose 2026 — ${i + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+              { src: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/ZJpHzjtdpFeKROTQ.png", label: "Chad A. Dozier Sr. — Founder & CEO" },
+              { src: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/erHGyrjEOZTzJWOZ.png", label: "Glenn Tse — Co-Founder & CFO" },
+              { src: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/MWJyNAYAEGaStEit.png", label: "Andrew Kustes — Technology Partner" },
+              { src: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/FThqDljbtKNLlKlD.png", label: "Lee Marshall — Operations Partner" },
+              { src: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/exAAgSixBHgQljNl.png", label: "NIL Portal App — Live Platform" },
+              { src: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/xlwTkEHOFgfMcnmi.png", label: "ATHLYNX Main Logo" },
+              { src: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/xhCABOQVEmpNnSWz.png", label: "Dozier Holdings Group Logo" },
+              { src: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/jPfDDFrCxeVdxfwJ.png", label: "NIL Portal Logo" },
+              { src: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/BSBBRqHMyWquLBeF.png", label: "ATHLYNX App Icon" },
+              { src: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/DzxLLSERMYZAxrht.png", label: "DHG Crab Shield" },
+              { src: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/ZJpHzjtdpFeKROTQ.png", label: "Chad A. Dozier Sr. — NVIDIA GTC 2026" },
+              { src: "https://files.manuscdn.com/user_upload_by_module/session_file/310419663028706780/erHGyrjEOZTzJWOZ.png", label: "Glenn Tse — NVIDIA GTC 2026" },
+            ].map(({ src, label }, i) => (
+              <div key={i} className="aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10 hover:border-blue-400/50 transition-all group relative">
+                <img src={src} alt={label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+                <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-[9px] px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity truncate">{label}</div>
               </div>
             ))}
           </div>

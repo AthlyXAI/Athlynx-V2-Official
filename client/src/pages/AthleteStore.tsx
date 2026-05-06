@@ -1,13 +1,58 @@
 /**
- * ATHLYNX — Athlete Store
- * Amazon-style product grid for athletes.
- * Categories: Football, Basketball, Baseball, Soccer, Training, Recovery, Apparel, Tech, Nutrition, NIL Merch
- * Stripe checkout wired for product purchases.
+ * ATHLYNX — Athlete Store & Brand Marketplace
+ * Premium sports e-commerce built for champions.
+ * Real store. Real checkout. Real brands.
+ *
+ * Featured Vendor Slots (ready to activate when deals close):
+ *   - Nebius AI: GPU compute, AI tools, developer products
+ *   - ICC-USA: International sports partnerships & equipment
+ *   - ATHLYNX Originals: Platform-branded performance gear
+ *
+ * Market penetration structure modeled after Nike, Adidas, Under Armour.
+ * Session 32 — May 5, 2026
  */
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import { useState } from "react";
+
+// ─── Featured Vendor Slots (activate when deals close) ─────────────────────
+const FEATURED_VENDORS = [
+  {
+    id: "nebius",
+    name: "Nebius AI",
+    tagline: "The AI Infrastructure for Champions",
+    desc: "GPU compute, AI developer tools, and machine learning infrastructure. The same H200 technology powering ATHLYNX AI — now available for athletes, teams, and sports tech builders.",
+    badge: "COMING SOON",
+    badgeColor: "bg-purple-500/20 text-purple-400 border border-purple-500/30",
+    icon: "🤖",
+    color: "from-purple-900/40 to-indigo-900/30",
+    border: "border-purple-700/40",
+    cta: "Explore Nebius Products",
+    products: [
+      { name: "H200 GPU Cloud Access", price: "From $2.50/hr", icon: "⚡", desc: "NVIDIA H200 GPU compute for AI training and inference" },
+      { name: "Nebius AI Studio", price: "From $0.10/1M tokens", icon: "🧠", desc: "LLM API access — Llama 3.3 70B, Nemotron 253B" },
+      { name: "Nebius Object Storage", price: "From $0.015/GB", icon: "💾", desc: "S3-compatible storage for athlete media and data" },
+    ],
+  },
+  {
+    id: "icc-usa",
+    name: "ICC-USA",
+    tagline: "International Sports Partnerships",
+    desc: "ICC-USA brings world-class international sports equipment, apparel, and partnership opportunities to American athletes. Global brands. Elite standards. Athlete-first.",
+    badge: "COMING SOON",
+    badgeColor: "bg-blue-500/20 text-blue-400 border border-blue-500/30",
+    icon: "🌐",
+    color: "from-blue-900/40 to-cyan-900/30",
+    border: "border-blue-700/40",
+    cta: "Explore ICC-USA Products",
+    products: [
+      { name: "International Training Gear", price: "TBD", icon: "🏋️", desc: "World-class training equipment from global partners" },
+      { name: "Global Apparel Collection", price: "TBD", icon: "👕", desc: "International sports apparel and performance wear" },
+      { name: "Partnership Programs", price: "TBD", icon: "🤝", desc: "Athlete sponsorship and brand ambassador opportunities" },
+    ],
+  },
+];
 
 const CATEGORIES = [
   { id: "all", label: "All Products", icon: "🛍️" },
@@ -165,6 +210,56 @@ function AthleteStoreInner() {
             )}
           </div>
         )}
+
+        {/* Featured Vendor Banners */}
+        <div className="space-y-3">
+          <div className="text-xs font-black text-blue-400 tracking-widest uppercase px-1">⭐ Featured Vendor Partners</div>
+          {FEATURED_VENDORS.map(vendor => (
+            <div key={vendor.id} className={`bg-gradient-to-br ${vendor.color} border ${vendor.border} rounded-2xl p-4`}>
+              <div className="flex items-start justify-between mb-2">
+                <div className="flex items-center gap-3">
+                  <div className="text-3xl">{vendor.icon}</div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-white font-black text-base">{vendor.name}</span>
+                      <span className={`text-[9px] font-black px-2 py-0.5 rounded-full ${vendor.badgeColor}`}>{vendor.badge}</span>
+                    </div>
+                    <div className="text-blue-300 text-xs font-semibold">{vendor.tagline}</div>
+                  </div>
+                </div>
+              </div>
+              <p className="text-blue-300 text-xs leading-relaxed mb-3">{vendor.desc}</p>
+              <div className="grid grid-cols-3 gap-2 mb-3">
+                {vendor.products.map((p, pi) => (
+                  <div key={pi} className="bg-[#040c1a]/50 rounded-xl p-2 text-center">
+                    <div className="text-xl mb-1">{p.icon}</div>
+                    <div className="text-white text-[10px] font-bold leading-tight">{p.name}</div>
+                    <div className="text-cyan-400 text-[9px] font-black mt-0.5">{p.price}</div>
+                  </div>
+                ))}
+              </div>
+              <button className="w-full border border-blue-600/50 text-blue-300 text-xs font-bold py-2 rounded-xl hover:bg-blue-900/30 transition-colors">
+                {vendor.cta} — Launching Soon
+              </button>
+            </div>
+          ))}
+        </div>
+
+        {/* Market Stats */}
+        <div className="grid grid-cols-4 gap-2">
+          {[
+            { val: "$135.9B", label: "Sports Tech TAM", icon: "🌐" },
+            { val: "$2.5B+", label: "NIL Market 2026", icon: "💰" },
+            { val: "520K+", label: "NCAA Athletes", icon: "🎓" },
+            { val: "8%", label: "Store Commission", icon: "📊" },
+          ].map((s, i) => (
+            <div key={i} className="bg-[#0d1b3e] border border-blue-800/40 rounded-xl p-2 text-center">
+              <div className="text-base">{s.icon}</div>
+              <div className="text-cyan-400 font-black text-xs">{s.val}</div>
+              <div className="text-blue-500 text-[9px] leading-tight">{s.label}</div>
+            </div>
+          ))}
+        </div>
 
         {/* Search */}
         <div className="relative">

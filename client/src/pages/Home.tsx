@@ -60,6 +60,8 @@ const APPS = [
   { id: "court-kings", label: "Court Kings™", icon: "/court-kings-icon.png", badge: "HOOPS", href: "/court-kings", desc: "Basketball AAU & NIL" },
   { id: "reel-masters", label: "Reel Masters™", icon: "/reel-masters-icon.png", badge: "FISHING", href: "/reel-masters", desc: "Ultimate fishing platform" },
   { id: "marketplace", label: "Marketplace™", icon: "/athlynx-app-icon.png", badge: "SHOP", href: "/marketplace", desc: "Athlete gear & deals" },
+  { id: "cfactor", label: "C-Factor Hub™", icon: "/athlynxai-icon.png", badge: "HOT", href: "/cfactor", desc: "The operating system of your sports life" },
+  { id: "rankings-hub", label: "Rankings Hub™", icon: "/diamond-grind-icon.png", badge: "NEW", href: "/rankings-hub", desc: "Top 25 · Mock Draft · Live Events" },
   { id: "athlete-dashboard", label: "My Dashboard™", icon: "/professional-athlete-dashboard.png", badge: "PERSONAL", href: "/athlete-dashboard", desc: "Your athlete command center" },
   { id: "community-feedback", label: "Community™", icon: "/fuelbots-icon.png", badge: "VOICE", href: "/community-feedback", desc: "Shape the platform" },
   { id: "mobile-app", label: "Mobile App™", icon: "/images/logos/mobile-app-icon.png", badge: "BETA", href: "/mobile-app", desc: "ATHLYNX in your pocket" },

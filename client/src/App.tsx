@@ -207,6 +207,11 @@ import ICCUSAPartner from "./pages/ICCUSAPartner";
 import LandingPage from "./pages/LandingPage";
 import ComponentShowcase from "./pages/ComponentShowcase";
 
+// ── Session 32 New Pages ──
+import CFactorHub from "./pages/CFactorHub";
+import RankingsHub from "./pages/RankingsHub";
+import AthleteCard from "./pages/AthleteCard";
+
 // ── Wizards ──
 import AgentWizard from "./pages/wizards/AgentWizard";
 import CareerWizard from "./pages/wizards/CareerWizard";
@@ -492,6 +497,20 @@ function Router() {
       <Route path="/wizards/scholarship" component={ScholarshipWizard} />
       <Route path="/wizards/scout" component={ScoutWizard} />
       <Route path="/wizards/transfer" component={TransferWizard} />
+
+      {/* ── Session 32: C-Factor Hub, Rankings, AthleteCard ── */}
+      <Route path="/cfactor" component={CFactorHub} />
+      <Route path="/c-factor" component={CFactorHub} />
+      <Route path="/command-center" component={CFactorHub} />
+      <Route path="/athlete-command-center" component={CFactorHub} />
+      <Route path="/rankings-hub" component={RankingsHub} />
+      <Route path="/rankings" component={RankingsHub} />
+      <Route path="/mock-draft" component={RankingsHub} />
+      <Route path="/top-25" component={RankingsHub} />
+      <Route path="/live-events" component={RankingsHub} />
+      <Route path="/prospect-finder" component={RankingsHub} />
+      <Route path="/card/:id" component={AthleteCard} />
+      <Route path="/athlete-card/:id" component={AthleteCard} />
 
       {/* ── 404 ── */}
       {/* ── Founder's Legacy ── */}
