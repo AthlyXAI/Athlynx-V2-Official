@@ -12,6 +12,7 @@
  *  - resetPassword    : reset password using email + verification code (public)
  */
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import bcrypt from "bcryptjs";
 import { COOKIE_NAME, ONE_YEAR_MS } from "@shared/const";
 import { getSessionCookieOptions } from "../_core/cookies";
@@ -183,7 +184,7 @@ Max 3 sentences. Be specific.`;
     )
     .mutation(async ({ input, ctx }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
 
       const rows = await db
         .select()
@@ -227,7 +228,7 @@ Max 3 sentences. Be specific.`;
     )
     .mutation(async ({ input, ctx }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
 
       // Check for existing account
       const existing = await db
@@ -367,7 +368,7 @@ Max 3 sentences. Be specific.`;
     .input(z.object({ phone: z.string().min(7) }))
     .mutation(async ({ input, ctx }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       await db
         .update(users)
         .set({ phone: input.phone })
@@ -395,7 +396,7 @@ Max 3 sentences. Be specific.`;
     )
     .mutation(async ({ input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
 
       // Verify the code via the verification service
       const { verifyCode } = await import("../services/verification");

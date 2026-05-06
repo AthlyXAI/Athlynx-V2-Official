@@ -3,6 +3,7 @@
  * Admin-only endpoints for viewing subscription expiry notices and overdue accounts.
  */
 import { router, protectedProcedure } from "../_core/trpc";
+import { TRPCError } from "@trpc/server";
 import { getDb } from "../db";
 import { users, subscriptionExpiryNotices } from "../../drizzle/schema";
 import { eq, and, isNotNull, lt, gte, desc } from "drizzle-orm";
@@ -18,7 +19,7 @@ export const expirationRouter = router({
       throw new Error("Admin access required");
     }
     const db = await getDb();
-    if (!db) throw new Error("Database unavailable");
+    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
 
     const now = new Date();
     const eightDaysFromNow = new Date(now.getTime() + 8 * 24 * 60 * 60 * 1000);
@@ -86,7 +87,7 @@ export const expirationRouter = router({
       throw new Error("Admin access required");
     }
     const db = await getDb();
-    if (!db) throw new Error("Database unavailable");
+    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
 
     const now = new Date();
 
@@ -129,7 +130,7 @@ export const expirationRouter = router({
         throw new Error("Admin access required");
       }
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
 
       await db
         .update(subscriptionExpiryNotices)

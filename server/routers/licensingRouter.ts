@@ -3,6 +3,7 @@
  * Manages license agreements for teams, schools, conferences, and enterprises.
  */
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { router, publicProcedure, protectedProcedure } from "../_core/trpc";
 import { getDb } from "../db";
 import { licenseAgreements, LicenseAgreement } from "../../drizzle/schema";
@@ -30,7 +31,7 @@ export const licensingRouter = router({
   getLicenses: protectedProcedure.query(async ({ ctx }) => {
     if (ctx.user.role !== "admin") throw new Error("Admin only");
     const db = await getDb();
-    if (!db) throw new Error("Database unavailable");
+    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
     return await db
       .select()
       .from(licenseAgreements)
@@ -41,7 +42,7 @@ export const licensingRouter = router({
   getLicenseStats: protectedProcedure.query(async ({ ctx }) => {
     if (ctx.user.role !== "admin") throw new Error("Admin only");
     const db = await getDb();
-    if (!db) throw new Error("Database unavailable");
+    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
     const all: LicenseAgreement[] = await db.select().from(licenseAgreements);
     return {
       total: all.length,
@@ -73,7 +74,7 @@ export const licensingRouter = router({
     }))
     .mutation(async ({ input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       const [license] = await db.insert(licenseAgreements).values({
         orgName: input.orgName,
         orgType: input.orgType,
@@ -153,7 +154,7 @@ export const licensingRouter = router({
     .mutation(async ({ ctx, input }) => {
       if (ctx.user.role !== "admin") throw new Error("Admin only");
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       const { id, ...updates } = input;
       await db.update(licenseAgreements)
         .set({ ...updates, updatedAt: new Date() })

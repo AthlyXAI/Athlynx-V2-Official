@@ -3,6 +3,7 @@
  * Instagram/Facebook-style 24-hour stories
  */
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
 import { athleteStories, users } from "../../drizzle/schema";
@@ -13,7 +14,7 @@ export const storiesRouter = router({
   // Get active stories for the feed (last 24 hours)
   getActiveStories: publicProcedure.query(async () => {
     const db = await getDb();
-    if (!db) return [];
+    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
     const now = new Date();
     const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
     const stories = await db
@@ -52,7 +53,7 @@ export const storiesRouter = router({
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
       const [story] = await db
         .insert(athleteStories)
@@ -86,7 +87,7 @@ export const storiesRouter = router({
     .input(z.object({ storyId: z.number() }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       await db
         .update(athleteStories)
         .set({ isActive: false })

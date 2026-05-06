@@ -4,6 +4,7 @@
  * HIPAA-compliant · End-to-end encrypted · Athlete privacy protected
  */
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { protectedProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
 import { conversations, conversationParticipants, messages, users } from "../../drizzle/schema";
@@ -13,7 +14,7 @@ import { encryptMessage, decryptMessage } from "../services/encryption";
 export const messengerRouter = router({
   getConversations: protectedProcedure.query(async ({ ctx }) => {
     const db = await getDb();
-    if (!db) return [];
+    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
     const participantRows = await db
       .select({ conversationId: conversationParticipants.conversationId })
       .from(conversationParticipants)
@@ -41,7 +42,7 @@ export const messengerRouter = router({
     .input(z.object({ conversationId: z.number(), limit: z.number().default(50) }))
     .query(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) return [];
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       const isParticipant = await db
         .select()
         .from(conversationParticipants)
@@ -86,7 +87,7 @@ export const messengerRouter = router({
     .input(z.object({ conversationId: z.number(), content: z.string().min(1).max(2000) }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
 
       // Encrypt before storing
       const encryptedContent = encryptMessage(input.content, input.conversationId);
@@ -109,7 +110,7 @@ export const messengerRouter = router({
     .input(z.object({ recipientId: z.number(), initialMessage: z.string().min(1).max(2000) }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
 
       const myConvs = await db
         .select({ conversationId: conversationParticipants.conversationId })

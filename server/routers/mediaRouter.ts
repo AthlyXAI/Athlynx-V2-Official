@@ -4,6 +4,7 @@
  * Supports: highlight reels, recruiting videos, profile photos, game film
  */
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
 import { athleteProfiles, users } from "../../drizzle/schema";
@@ -89,7 +90,7 @@ export const mediaRouter = router({
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
 
       // Get current profile
       const [profile] = await db.select().from(athleteProfiles)
@@ -143,7 +144,7 @@ export const mediaRouter = router({
     .input(z.object({ userId: z.number() }))
     .query(async ({ input }) => {
       const db = await getDb();
-      if (!db) return [];
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       const [profile] = await db.select().from(athleteProfiles)
         .where(eq(athleteProfiles.userId, input.userId)).limit(1);
       return (profile as any)?.recruitingVideos ?? [];
@@ -154,7 +155,7 @@ export const mediaRouter = router({
    */
   getMyVideos: protectedProcedure.query(async ({ ctx }) => {
     const db = await getDb();
-    if (!db) return [];
+    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
     const [profile] = await db.select().from(athleteProfiles)
       .where(eq(athleteProfiles.userId, ctx.user.id)).limit(1);
     return (profile as any)?.recruitingVideos ?? [];
@@ -167,7 +168,7 @@ export const mediaRouter = router({
     .input(z.object({ videoId: z.string(), key: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
 
       // Remove from S3
       const s3 = getS3();
@@ -199,7 +200,7 @@ export const mediaRouter = router({
     .input(z.object({ userId: z.number(), videoId: z.string() }))
     .mutation(async ({ input }) => {
       const db = await getDb();
-      if (!db) return { success: false };
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       const [profile] = await db.select().from(athleteProfiles)
         .where(eq(athleteProfiles.userId, input.userId)).limit(1);
       const videos: any[] = (profile as any)?.recruitingVideos ?? [];

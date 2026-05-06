@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { getDb } from "../db";
 import { athleteProfiles, users } from "../../drizzle/schema";
@@ -7,7 +8,7 @@ import { eq, sql } from "drizzle-orm";
 export const profileRouter = router({
   getMyProfile: protectedProcedure.query(async ({ ctx }) => {
     const db = await getDb();
-    if (!db) return null;
+    if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
     const profile = await db
       .select()
       .from(athleteProfiles)
@@ -20,7 +21,7 @@ export const profileRouter = router({
     .input(z.object({ userId: z.number() }))
     .query(async ({ input }) => {
       const db = await getDb();
-      if (!db) return null;
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       const [profile] = await db
         .select({
           id: athleteProfiles.id,
@@ -94,7 +95,7 @@ export const profileRouter = router({
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       const existing = await db
         .select({ id: athleteProfiles.id })
         .from(athleteProfiles)
@@ -147,7 +148,7 @@ export const profileRouter = router({
     .input(z.object({ avatarUrl: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       await db.update(users).set({ avatarUrl: input.avatarUrl }).where(eq(users.id, ctx.user.id));
       return { success: true };
     }),
@@ -162,7 +163,7 @@ export const profileRouter = router({
     }))
     .query(async ({ input }) => {
       const db = await getDb();
-      if (!db) return [];
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       const query = db
         .select({
           id: athleteProfiles.id,
@@ -191,7 +192,7 @@ export const profileRouter = router({
     }))
     .mutation(async ({ ctx, input }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       // Save onboarding data to users table
       await db.update(users)
         .set({

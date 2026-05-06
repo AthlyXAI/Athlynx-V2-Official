@@ -10,6 +10,7 @@
  *   - Success = PostActionSuccess __typename
  */
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { chatWithGemini } from "../services/gemini";
 import { getGravatarUrl } from "../services/gravatar";
@@ -237,7 +238,7 @@ Write ONLY the post text — no explanations, no "Here's your post:", just the p
   syncGravatar: protectedProcedure
     .mutation(async ({ ctx }) => {
       const db = await getDb();
-      if (!db) throw new Error("Database unavailable");
+      if (!db) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR", message: "Database temporarily unavailable. Please try again." });
       const email = ctx.user.email;
       if (!email) throw new Error("No email on account");
       const avatarUrl = await getGravatarUrl(email);
