@@ -1117,19 +1117,14 @@ function HomeInner() {
             <h2 className="text-2xl font-black text-white">OUR FULL ECOSYSTEM</h2>
             <p className="text-blue-400 text-sm mt-1">Every platform. One empire.</p>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {[
-              { label: "Dozier Holdings Group", url: "/dhg", tag: "PARENT CO", color: "border-red-600 text-red-400", tagColor: "bg-red-700" },
-              { label: "NIL Portal", url: "https://nilportals.com", tag: "LIVE", color: "border-green-600 text-green-400", tagColor: "bg-green-700" },
-              { label: "NIL Portal AI", url: "https://nilportal.ai", tag: "AI", color: "border-cyan-600 text-cyan-400", tagColor: "bg-cyan-700" },
-              { label: "Transfer Portal", url: "https://transferportal.ai", tag: "LIVE", color: "border-green-600 text-green-400", tagColor: "bg-green-700" },
-              { label: "ATHLYNX App", url: "https://athlynx.ai", tag: "VIP", color: "border-blue-700 text-blue-500", tagColor: "bg-blue-800" },
-              { label: "ATHLYNX Pro", url: "https://athlynx.pro", tag: "PRO", color: "border-blue-500 text-blue-300", tagColor: "bg-blue-700" },
-              { label: "ATHLYNX Net", url: "https://athlynx.net", tag: "NET", color: "border-blue-500 text-blue-300", tagColor: "bg-blue-700" },
-              { label: "ATHLYNX IO", url: "https://athlynx.io", tag: "IO", color: "border-blue-500 text-blue-300", tagColor: "bg-blue-700" },
-              { label: "ATHLYNX AI", url: "https://athlynx.ai", tag: "AI", color: "border-cyan-600 text-cyan-400", tagColor: "bg-cyan-700" },
-              { label: "ATHLYNX App .com", url: "https://athlynxapp.com", tag: "NEW", color: "border-blue-500 text-blue-300", tagColor: "bg-blue-600" },
-              { label: "AI Bot Ecosystem", url: "https://aibotecosys.com", tag: "AI", color: "border-cyan-600 text-cyan-400", tagColor: "bg-cyan-700" },
+              { label: "Dozier Holdings Group", url: "/dhg", tag: "PARENT CO", color: "border-red-600 text-red-400", tagColor: "bg-red-700", domain: "athlynx.ai/dhg" },
+              { label: "NIL Portal", url: "https://nilportals.com", tag: "LIVE", color: "border-green-600 text-green-400", tagColor: "bg-green-700", domain: "nilportals.com" },
+              { label: "NIL Portal AI", url: "https://nilportal.ai", tag: "LIVE", color: "border-[#00c2ff] text-[#00c2ff]", tagColor: "bg-[#0066ff]", domain: "nilportal.ai" },
+              { label: "Transfer Portal AI", url: "https://transferportal.ai", tag: "LIVE", color: "border-green-600 text-green-400", tagColor: "bg-green-700", domain: "transferportal.ai" },
+              { label: "ATHLYNX Platform", url: "https://athlynx.ai", tag: "LIVE", color: "border-[#0066ff] text-[#00c2ff]", tagColor: "bg-[#0066ff]", domain: "athlynx.ai" },
+              { label: "dozierholdingsgroup.com", url: "https://dozierholdingsgroup.com", tag: "LIVE", color: "border-red-600 text-red-400", tagColor: "bg-red-700", domain: "dozierholdingsgroup.com" },
             ].map((site) => site.url.startsWith('/') ? (
                 <Link
                   key={site.url}
@@ -1141,7 +1136,7 @@ function HomeInner() {
                     <span className="text-blue-600 group-hover:text-blue-400 text-xs transition-colors">→</span>
                   </div>
                   <div className={`font-bold text-sm leading-tight ${site.color.split(' ')[1]}`}>{site.label}</div>
-                  <div className="text-blue-600 text-[10px] truncate">athlynx.ai{site.url}</div>
+                  <div className="text-blue-600 text-[10px] truncate">{site.domain}</div>
                 </Link>
               ) : (
                 <a
@@ -1156,7 +1151,7 @@ function HomeInner() {
                     <span className="text-blue-600 group-hover:text-blue-400 text-xs transition-colors">↗</span>
                   </div>
                   <div className={`font-bold text-sm leading-tight ${site.color.split(' ')[1]}`}>{site.label}</div>
-                  <div className="text-blue-600 text-[10px] truncate">{site.url.replace('https://', '')}</div>
+                  <div className="text-blue-600 text-[10px] truncate">{site.domain}</div>
                 </a>
               )
             )}

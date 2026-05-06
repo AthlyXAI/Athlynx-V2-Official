@@ -110,7 +110,7 @@ function ContractsInner() {
           </h1>
           <p className="text-xl text-slate-300 mb-8">
             Professional, legally-reviewed contract templates for NIL deals, brand partnerships, 
-            and athlete representation. Built for athlynx.ai, transferportal.ai, and the entire DHG ecosystem.
+            and athlete representation. Built for athlynx.ai, nilportals.com, transferportal.ai, and the entire DHG ecosystem.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             {features.map((feature) => (
@@ -161,9 +161,9 @@ function ContractsInner() {
           <div className="grid md:grid-cols-4 gap-6">
             {[
               { domain: "athlynx.ai", desc: "Main Platform", color: "from-blue-500 to-cyan-500" },
-              { domain: "athlynx.io", desc: "Developer Portal", color: "from-blue-600 to-red-500" },
-              { domain: "athlynx.net", desc: "Network Hub", color: "from-green-500 to-emerald-500" },
-              { domain: "transferportal.ai", desc: "Transfer Portal", color: "from-red-500 to-red-500" },
+              { domain: "athlynx.ai", desc: "Main Platform", color: "from-[#0066ff] to-[#00c2ff]" },
+              { domain: "nilportals.com", desc: "NIL Portal", color: "from-green-500 to-emerald-500" },
+              { domain: "transferportal.ai", desc: "Transfer Portal AI", color: "from-blue-600 to-cyan-500" },
             ].map((site) => (
               <div key={site.domain} className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 text-center">
                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${site.color} mx-auto mb-4 flex items-center justify-center`}>
@@ -203,7 +203,7 @@ function ContractsInner() {
         <div className="max-w-6xl mx-auto text-center">
           <p className="text-slate-400 text-sm">© 2026 Dozier Holdings Group, LLC. All rights reserved.</p>
           <p className="text-slate-500 text-xs mt-2">
-            athlynx.ai • athlynx.io • athlynx.net • transferportal.ai
+            athlynx.ai • nilportals.com • transferportal.ai • dozierholdingsgroup.com
           </p>
         </div>
       </footer>
