@@ -2,7 +2,7 @@ import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import { Link } from "wouter";
 import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
-import { Mail, Phone, Linkedin, Globe, MapPin, Building2, Download, Camera } from "lucide-react";
+import { Mail, Phone, ExternalLink, Globe, MapPin, Building2, Download, Camera } from "lucide-react";
 
 const leadership = [
   {
@@ -255,7 +255,7 @@ function ECard({ person }: { person: typeof leadership[0] }) {
             {/* LinkedIn */}
             <a href={`https://${person.linkedin}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 text-white/70 hover:text-cyan-400 transition-colors group/link">
               <div className="w-10 h-10 bg-cyan-500/10 rounded-xl flex items-center justify-center group-hover/link:bg-cyan-500/20 transition-colors">
-                <Linkedin className="w-5 h-5 text-cyan-400" />
+                <ExternalLink className="w-5 h-5 text-cyan-400" />
               </div>
               <span className="text-sm">{person.linkedin}</span>
             </a>

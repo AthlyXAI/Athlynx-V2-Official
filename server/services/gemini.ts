@@ -1,7 +1,7 @@
 /**
  * Google Gemini AI Service — AthlynXAI Platform
- * Native @google/generative-ai SDK — FULL BETA FEATURES ENABLED
- * Models: gemini-2.5-pro-exp-03-25 (beta), gemini-2.5-flash (production)
+ * @google/generative-ai SDK — Latest stable models
+ * Models: gemini-2.5-pro (flagship), gemini-2.5-flash (production primary)
  * Features: Google Search Grounding, Code Execution, Function Calling, Streaming
  * Project: AthlynxAI14 (Tier 1 — highest rate limits)
  */
@@ -17,12 +17,15 @@ import {
 
 const API_KEY = process.env.GOOGLE_AI_API_KEY || "";
 
-// ─── Models ──────────────────────────────────────────────────────────────────
+// ─── Models (latest stable — updated S37 May 2026) ──────────────────────────
 export const GEMINI_MODELS = {
-  PRO_BETA: "gemini-2.5-pro-exp-03-25",       // Most powerful — beta, Tier 1 only
-  FLASH: "gemini-2.5-flash",                   // Fast, production-ready
-  FLASH_THINKING: "gemini-2.0-flash-thinking-exp", // Experimental reasoning
-  FLASH_EXP: "gemini-2.0-flash-exp",           // Latest experimental flash
+  PRO: "gemini-2.5-pro",                       // Flagship — most powerful, Tier 1
+  FLASH: "gemini-2.5-flash",                   // Production primary — fast + accurate
+  FLASH_LITE: "gemini-2.5-flash-lite",         // Lightest — lowest latency, high volume
+  // Backward-compat aliases
+  PRO_BETA: "gemini-2.5-pro",
+  FLASH_THINKING: "gemini-2.5-flash",
+  FLASH_EXP: "gemini-2.5-flash",
 } as const;
 
 function getClient(): GoogleGenerativeAI {
@@ -59,7 +62,7 @@ export interface GeminiOptions {
   history?: GeminiChatMessage[];
   grounding?: boolean;       // Enable Google Search grounding (real-time web data)
   codeExecution?: boolean;   // Enable code execution (run Python in the model)
-  usePro?: boolean;          // Use gemini-2.5-pro-exp (more powerful, slower)
+  usePro?: boolean;          // Use gemini-2.5-pro (flagship, more powerful, slower)
   tools?: FunctionDeclaration[]; // Custom function calling tools
 }
 
@@ -72,7 +75,7 @@ export async function generateWithGemini(
   options: GeminiOptions = {}
 ): Promise<string> {
   const genAI = getClient();
-  const modelName = options.usePro ? GEMINI_MODELS.PRO_BETA : GEMINI_MODELS.FLASH;
+  const modelName = options.usePro ? GEMINI_MODELS.PRO : GEMINI_MODELS.FLASH;
 
   const tools: Tool[] = [];
   if (options.grounding) tools.push(GOOGLE_SEARCH_TOOL);
@@ -102,7 +105,7 @@ export async function chatWithGemini(
   options: GeminiOptions = {}
 ): Promise<string> {
   const genAI = getClient();
-  const modelName = options.usePro ? GEMINI_MODELS.PRO_BETA : GEMINI_MODELS.FLASH;
+  const modelName = options.usePro ? GEMINI_MODELS.PRO : GEMINI_MODELS.FLASH;
 
   const tools: Tool[] = [];
   if (options.grounding) tools.push(GOOGLE_SEARCH_TOOL);
@@ -138,7 +141,7 @@ export async function streamWithGemini(
   options: GeminiOptions = {}
 ): Promise<string> {
   const genAI = getClient();
-  const modelName = options.usePro ? GEMINI_MODELS.PRO_BETA : GEMINI_MODELS.FLASH;
+  const modelName = options.usePro ? GEMINI_MODELS.PRO : GEMINI_MODELS.FLASH;
 
   const model = genAI.getGenerativeModel({
     model: modelName,

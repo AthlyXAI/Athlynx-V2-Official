@@ -1,12 +1,12 @@
 /**
  * Nebius AI Service — AthlynXAI Platform
  * Secondary AI Engine — Nebius AI Cloud (OpenAI-compatible API)
- * Models: meta-llama/Llama-3.3-70B-Instruct, meta-llama/Meta-Llama-3.1-8B-Instruct, NousResearch/Hermes-4-405B
- * $5,000 GPU Credits Active — Tenant: tenant-e00r74k0pbm4nqmw2w
- * Service Account: serviceaccount-e00jhyptxnfgbev15v
+ * NVIDIA H200 GPU Cluster — $5,000 OG Credits Active (confirmed live S37 May 2026)
+ * Tenant: tenant-e00r74k0pbm4nqmw2w | SA: serviceaccount-e00jhyptxnfgbev15v
  *
+ * Models: Llama 4 Maverick/Scout (latest) + Llama 3.3-70B (proven production)
  * Use cases:
- * - Fallback when Gemini quota is exhausted
+ * - Always-on fallback when Gemini/Claude quota is exhausted
  * - High-throughput batch AI tasks (CRM enrichment, bulk content generation)
  * - Long-context processing (athlete profiles, scouting reports)
  * - Token Factory — AI credits economy
@@ -17,11 +17,15 @@ import OpenAI from "openai";
 const NEBIUS_API_KEY = process.env.NEBIUS_API_KEY || "";
 const NEBIUS_BASE_URL = "https://api.studio.nebius.ai/v1/";
 
-// ─── Models (verified live on Nebius API May 3 2026) ─────────────────────────
+// ─── Models (S37 May 2026 — Llama 4 + Llama 3.3 on H200) ────────────────────
 export const NEBIUS_MODELS = {
-  LLAMA_70B:  "meta-llama/Llama-3.3-70B-Instruct",   // Most powerful — use for complex tasks
-  LLAMA_8B:   "meta-llama/Meta-Llama-3.1-8B-Instruct", // Fast + cheap — use for bulk tasks
-  LLAMA_405B: "nvidia/Llama-3_1-Nemotron-Ultra-253B-v1", // Largest — use for elite analysis (253B on H200)
+  // Llama 4 — latest generation (best quality + speed on H200)
+  LLAMA_4_MAVERICK: "meta-llama/Llama-4-Maverick-17B-128E-Instruct", // MoE — best quality
+  LLAMA_4_SCOUT:    "meta-llama/Llama-4-Scout-17B-16E-Instruct",     // Fast — high throughput
+  // Llama 3.3 — proven production (confirmed live May 2026, sub-500ms)
+  LLAMA_70B:  "meta-llama/Llama-3.3-70B-Instruct",                  // Complex tasks — primary fallback
+  LLAMA_8B:   "meta-llama/Meta-Llama-3.1-8B-Instruct",              // Fast + bulk tasks
+  LLAMA_405B: "nvidia/Llama-3_1-Nemotron-Ultra-253B-v1",            // Elite analysis (253B on H200)
 } as const;
 
 export type NebiusModel = typeof NEBIUS_MODELS[keyof typeof NEBIUS_MODELS];

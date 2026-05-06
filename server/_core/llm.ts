@@ -306,7 +306,7 @@ async function invokeLLMWithEngine(params: InvokeParams, engine: Engine = "gemin
       }));
     const systemMsg = messages.find(m => m.role === "system");
     const claudePayload: Record<string, unknown> = {
-      model: "claude-opus-4-5",
+      model: "claude-opus-4",
       max_tokens: 8192,
       messages: claudeMessages,
     };
@@ -333,7 +333,7 @@ async function invokeLLMWithEngine(params: InvokeParams, engine: Engine = "gemin
     return {
       id: claudeData.id || "claude-" + Date.now(),
       created: Math.floor(Date.now() / 1000),
-      model: claudeData.model || "claude-opus-4-5",
+      model: claudeData.model || "claude-opus-4",
       choices: [{
         index: 0,
         message: { role: "assistant", content: claudeData.content?.[0]?.text || "" },

@@ -20,7 +20,7 @@ import {
   MapPin, GraduationCap, Calendar, DollarSign, Video, FileText,
   Users, Eye, Activity, ChevronRight, Flame, Cpu, Radio,
   BookOpen, Newspaper, Briefcase, Film, Trophy, Building2,
-  ExternalLink, Instagram, Twitter, Youtube, Music2, Linkedin,
+  ExternalLink, Camera, Share2, Play, Music2, ExternalLink,
   Heart, RefreshCw, Download, Verified, Globe, Phone, Mail,
   Dumbbell, Timer, Ruler, Weight, Gauge, Percent, TrendingDown,
   PlayCircle, Camera, Medal, Flag, Clock, Info, ChevronDown,
@@ -642,19 +642,19 @@ function AthletePublicProfileInner() {
               {profile.instagram && (
                 <a href={`https://instagram.com/${profile.instagram}`} target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-xs text-pink-400 hover:text-pink-300 bg-pink-500/10 border border-pink-500/20 px-3 py-1.5 rounded-full transition-all">
-                  <Instagram className="w-3.5 h-3.5" /> @{profile.instagram}
+                  <Camera className="w-3.5 h-3.5" /> @{profile.instagram}
                 </a>
               )}
               {profile.twitter && (
                 <a href={`https://twitter.com/${profile.twitter}`} target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-xs text-sky-400 hover:text-sky-300 bg-sky-500/10 border border-sky-500/20 px-3 py-1.5 rounded-full transition-all">
-                  <Twitter className="w-3.5 h-3.5" /> @{profile.twitter}
+                  <Share2 className="w-3.5 h-3.5" /> @{profile.twitter}
                 </a>
               )}
               {profile.youtubeUrl && (
                 <a href={profile.youtubeUrl} target="_blank" rel="noopener noreferrer"
                   className="flex items-center gap-1.5 text-xs text-red-400 hover:text-red-300 bg-red-500/10 border border-red-500/20 px-3 py-1.5 rounded-full transition-all">
-                  <Youtube className="w-3.5 h-3.5" /> YouTube
+                  <Play className="w-3.5 h-3.5" /> YouTube
                 </a>
               )}
               {profile.highlightUrl && (
@@ -871,10 +871,10 @@ function AthletePublicProfileInner() {
                 </div>
                 <div className="space-y-3">
                   {[
-                    { label: "Instagram", value: profile.instagram, href: `https://instagram.com/${profile.instagram}`, icon: Instagram, color: "text-pink-400" },
-                    { label: "Twitter / X", value: profile.twitter, href: `https://twitter.com/${profile.twitter}`, icon: Twitter, color: "text-sky-400" },
-                    { label: "YouTube", value: profile.youtubeUrl, href: profile.youtubeUrl, icon: Youtube, color: "text-red-400" },
-                    { label: "LinkedIn", value: profile.linkedinUrl, href: profile.linkedinUrl, icon: Linkedin, color: "text-blue-400" },
+                    { label: "Camera", value: profile.instagram, href: `https://instagram.com/${profile.instagram}`, icon: Camera, color: "text-pink-400" },
+                    { label: "Share2 / X", value: profile.twitter, href: `https://twitter.com/${profile.twitter}`, icon: Share2, color: "text-sky-400" },
+                    { label: "YouTube", value: profile.youtubeUrl, href: profile.youtubeUrl, icon: Play, color: "text-red-400" },
+                    { label: "LinkedIn", value: profile.linkedinUrl, href: profile.linkedinUrl, icon: ExternalLink, color: "text-blue-400" },
                     { label: "Highlight Reel", value: profile.highlightUrl, href: profile.highlightUrl, icon: PlayCircle, color: "text-violet-400" },
                   ].filter(s => s.value).map(s => (
                     <a key={s.label} href={s.href || "#"} target="_blank" rel="noopener noreferrer"

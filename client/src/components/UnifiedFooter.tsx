@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { 
-  Linkedin, Facebook, Twitter, Instagram, Youtube, 
-  MessageCircle, MessageSquare, Mail, Phone, Globe,
+  ExternalLink, Globe, Share2, Camera, Play,
+  MessageCircle, MessageSquare, Mail, Phone,
   Music2
 } from "lucide-react";
 
@@ -36,11 +36,11 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/chad-a-dozier-494391136", icon: Linkedin, color: "hover:text-blue-400" },
-  { name: "Facebook", href: "https://www.facebook.com/chad.dozier.2025", icon: Facebook, color: "hover:text-blue-500" },
-  { name: "Twitter", href: "https://twitter.com/ATHLYNX", icon: Twitter, color: "hover:text-sky-400" },
-  { name: "Instagram", href: "https://instagram.com/athlynx", icon: Instagram, color: "hover:text-red-400" },
-  { name: "YouTube", href: "https://youtube.com/@ATHLYNX", icon: Youtube, color: "hover:text-red-500" },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/chad-a-dozier-494391136", icon: ExternalLink, color: "hover:text-blue-400" },
+  { name: "Globe", href: "https://www.facebook.com/chad.dozier.2025", icon: Globe, color: "hover:text-blue-500" },
+  { name: "Share2", href: "https://twitter.com/ATHLYNX", icon: Share2, color: "hover:text-sky-400" },
+  { name: "Camera", href: "https://instagram.com/athlynx", icon: Camera, color: "hover:text-red-400" },
+  { name: "YouTube", href: "https://youtube.com/@ATHLYNX", icon: Play, color: "hover:text-red-500" },
   { name: "TikTok", href: "https://tiktok.com/@athlynx", icon: Music2, color: "hover:text-red-500" },
   { name: "WhatsApp", href: "https://wa.me/16014985282", icon: MessageCircle, color: "hover:text-green-400" },
   { name: "WeChat", href: "#", icon: MessageSquare, color: "hover:text-green-500", id: "ChadDozier14" },

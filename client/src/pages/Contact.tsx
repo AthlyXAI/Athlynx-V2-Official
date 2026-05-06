@@ -2,7 +2,7 @@ import { useState } from "react";
 import { RouteErrorBoundary } from "@/components/GlobalErrorBoundary";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
-import { Mail, MapPin, Linkedin, Send, CheckCircle, MessageCircle, Building2, Users, Briefcase, Calendar, ExternalLink } from "lucide-react";
+import { Mail, MapPin, ExternalLink, Send, CheckCircle, MessageCircle, Building2, Users, Briefcase, Calendar, ExternalLink } from "lucide-react";
 import { toast } from "sonner";
 
 // ── Chad A. Dozier — Official Contact Block ──────────────────────────────────
@@ -264,7 +264,7 @@ function ContactInner() {
                 {/* LinkedIn */}
                 <div className="flex items-start gap-3">
                   <div className="w-9 h-9 bg-blue-700/20 rounded-lg flex items-center justify-center shrink-0">
-                    <Linkedin className="w-4 h-4 text-blue-400" />
+                    <ExternalLink className="w-4 h-4 text-blue-400" />
                   </div>
                   <div>
                     <p className="text-white/40 text-xs mb-0.5">LinkedIn</p>

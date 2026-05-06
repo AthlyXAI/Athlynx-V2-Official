@@ -27,12 +27,12 @@ const gemini = new OpenAI({
   baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
 });
 
-// All Gemini models available
+// All Gemini models available — latest stable (S37 May 2026)
 const GEMINI_MODELS = {
-  flash:   "gemini-2.5-flash",
-  pro:     "gemini-2.5-pro",
-  flash15: "gemini-1.5-flash",
-  vision:  "gemini-2.5-flash",
+  flash:     "gemini-2.5-flash",       // Production primary — fast + accurate
+  pro:       "gemini-2.5-pro",         // Flagship — most powerful
+  flashLite: "gemini-2.5-flash-lite",  // Lightest — high volume tasks
+  vision:    "gemini-2.5-flash",       // Vision tasks
 } as const;
 
 // ── Credit costs for AI Command actions ────────────────────────────────────
