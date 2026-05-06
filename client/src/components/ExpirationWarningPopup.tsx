@@ -45,12 +45,19 @@ export default function ExpirationWarningPopup() {
     : null;
 
   const isAdmin = (user as any)?.role === 'admin';
-  const isExpired = !isAdmin && !!trialEndsAt && trialEndsAt <= now && !stripeSubscriptionId;
-  const isWarning = !isAdmin && !!trialEndsAt && trialEndsAt > now && !stripeSubscriptionId && daysRemaining !== null && daysRemaining <= 5;
+  // Partners have full access — same bypass as admin for expiry popup
+  const PARTNER_EMAILS = [
+    "gtse@athlynx.ai", "lmarshall@athlynx.ai", "leronious@gmail.com",
+    "jboyd@athlynx.ai", "akustes@athlynx.ai",
+  ];
+  const isPartner = !!user?.email && PARTNER_EMAILS.includes(user.email.toLowerCase());
+  const hasFullAccess = isAdmin || isPartner;
+  const isExpired = !hasFullAccess && !!trialEndsAt && trialEndsAt <= now && !stripeSubscriptionId;
+  const isWarning = !hasFullAccess && !!trialEndsAt && trialEndsAt > now && !stripeSubscriptionId && daysRemaining !== null && daysRemaining <= 5;
 
   useEffect(() => {
     if (!user) return;
-    if (isAdmin) return; // admin — always full access, never show expiry popup
+    if (hasFullAccess) return; // owner/partner — always full access, never show expiry popup
     if (stripeSubscriptionId) return; // paid user — never show
 
     if (isExpired) {

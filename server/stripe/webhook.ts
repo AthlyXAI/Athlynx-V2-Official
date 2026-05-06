@@ -181,12 +181,17 @@ export function registerStripeWebhook(app: Application) {
 
                 console.log(`[Stripe Webhook] Added ${creditsToAdd} credits to user ${userId} (balance: ${balanceAfter})`);
               } else {
-                // Subscription purchase — just save customer ID and plan ID
+                // Subscription purchase — save customer ID, plan ID, and subscription ID
                 const updateData: Record<string, unknown> = {};
                 if (stripeCustomerId) updateData.stripeCustomerId = stripeCustomerId;
                 if (session.metadata?.plan_id) updateData.stripePlanId = session.metadata.plan_id;
+                // Also capture subscription ID from the session if available
+                if (session.subscription) {
+                  updateData.stripeSubscriptionId = session.subscription as string;
+                }
                 if (Object.keys(updateData).length > 0) {
                   await db.update(users).set(updateData).where(eq(users.id, userId));
+                  console.log(`[Stripe Webhook] Subscription activated for user ${userId} — plan: ${session.metadata?.plan_id}, sub: ${session.subscription}`);
                 }
               }
             }
@@ -212,23 +217,37 @@ export function registerStripeWebhook(app: Application) {
           case "customer.subscription.updated": {
             const subscription = event.data.object as Stripe.Subscription;
             const customerId = subscription.customer as string;
+            const planId = (subscription.metadata?.plan_id as string) ?? null;
 
-            // Find user by customer ID
-            const userResult = await db
-              .select()
+            // Primary: find user by Stripe customer ID
+            let subUserResult = await db
+              .select({ id: users.id })
               .from(users)
               .where(eq(users.stripeCustomerId, customerId))
               .limit(1);
 
-            if (userResult.length > 0) {
-              const planId = (subscription.metadata?.plan_id as string) ?? null;
+            // Fallback: find user by user_id in subscription metadata
+            if (subUserResult.length === 0 && subscription.metadata?.user_id) {
+              const metaUserId = parseInt(subscription.metadata.user_id);
+              if (!isNaN(metaUserId)) {
+                subUserResult = await db
+                  .select({ id: users.id })
+                  .from(users)
+                  .where(eq(users.id, metaUserId))
+                  .limit(1);
+              }
+            }
+
+            if (subUserResult.length > 0) {
               await db
                 .update(users)
                 .set({
+                  stripeCustomerId: customerId,
                   stripeSubscriptionId: subscription.id,
-                  stripePlanId: planId,
+                  ...(planId ? { stripePlanId: planId } : {}),
                 })
-                .where(eq(users.stripeCustomerId, customerId));
+                .where(eq(users.id, subUserResult[0].id));
+              console.log(`[Stripe Webhook] Subscription ${event.type} for user ${subUserResult[0].id} — sub: ${subscription.id}, plan: ${planId}`);
             }
             break;
           }

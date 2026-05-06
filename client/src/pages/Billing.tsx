@@ -11,13 +11,24 @@ import { toast } from "sonner";
 import { CreditCard, CheckCircle, AlertCircle, ArrowUpRight, Zap, Star, Shield } from "lucide-react";
 
 const PLAN_LABELS: Record<string, { label: string; icon: React.ReactNode; color: string }> = {
-  athlete_pro: { label: "Athlete Pro", icon: <Zap className="w-4 h-4" />, color: "#0066ff" },
-  athlete_elite: { label: "Athlete Elite", icon: <Star className="w-4 h-4" />, color: "#00c2ff" },
-  nil_vault: { label: "NIL Vault", icon: <Shield className="w-4 h-4" />, color: "#1e3a8a" },
-  owner: { label: "Owner — Full Access", icon: <Shield className="w-4 h-4" />, color: "#FFD700" },
+  athlete_starter:  { label: "Athlete Starter",  icon: <CheckCircle className="w-4 h-4" />, color: "#0099ff" },
+  athlete_pro:      { label: "Athlete Pro",      icon: <Zap className="w-4 h-4" />,         color: "#0066ff" },
+  athlete_elite:    { label: "Athlete Elite",    icon: <Star className="w-4 h-4" />,        color: "#00c2ff" },
+  athlete_champion: { label: "Athlete Champion", icon: <Star className="w-4 h-4" />,        color: "#f59e0b" },
+  athlete_mvp:      { label: "Athlete MVP",      icon: <Shield className="w-4 h-4" />,      color: "#ef4444" },
+  pro_teams:        { label: "Pro Teams",        icon: <Shield className="w-4 h-4" />,      color: "#ef4444" },
+  nil_vault:        { label: "NIL Vault",        icon: <Shield className="w-4 h-4" />,      color: "#1e3a8a" },
+  owner:            { label: "Master Admin — Full Access", icon: <Shield className="w-4 h-4" />, color: "#FFD700" },
+  partner:          { label: "Partner — Full Access",      icon: <Shield className="w-4 h-4" />, color: "#00c2ff" },
 };
 
-const OWNER_EMAILS = ["cdozier14@athlynx.ai", "cdozier14@athlynx.ai"];
+// Master Admin — Chad A. Dozier Sr. only
+const OWNER_EMAILS = ["cdozier14@athlynx.ai"];
+// Partners — full platform access, no paywall
+const PARTNER_EMAILS = [
+  "gtse@athlynx.ai", "lmarshall@athlynx.ai", "leronious@gmail.com",
+  "jboyd@athlynx.ai", "akustes@athlynx.ai",
+];
 
 function BillingInner() {
   const { user, loading: authLoading } = useAuth();
@@ -70,10 +81,13 @@ function BillingInner() {
   };
 
   const isOwnerAccount = user?.email && OWNER_EMAILS.includes(user.email.toLowerCase());
+  const isPartnerAccount = user?.email && PARTNER_EMAILS.includes(user.email.toLowerCase());
   const planInfo = isOwnerAccount
     ? PLAN_LABELS["owner"]
+    : isPartnerAccount
+    ? PLAN_LABELS["partner"]
     : subscription?.plan ? PLAN_LABELS[subscription.plan] : null;
-  const isActive = isOwnerAccount || subscription?.status === "active" || subscription?.status === "trialing";
+  const isActive = isOwnerAccount || isPartnerAccount || subscription?.status === "active" || subscription?.status === "trialing";
 
   // Check for success/cancelled query params
   const params = new URLSearchParams(window.location.search);
@@ -130,7 +144,7 @@ function BillingInner() {
                     <div className="text-white font-bold text-lg">{planInfo.label}</div>
                     <div className="text-blue-200/60 text-sm capitalize">
                       Status:{" "}
-                      <span className="text-green-400 font-medium">{subscription?.status}</span>
+                      <span className="text-green-400 font-medium">{isOwnerAccount || isPartnerAccount ? "active" : subscription?.status}</span>
                       {subscription?.cancelAtPeriodEnd && (
                         <span className="ml-2 text-red-400">(Cancels at period end)</span>
                       )}

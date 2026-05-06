@@ -4,10 +4,35 @@ import { protectedProcedure, publicProcedure, router } from "../_core/trpc";
 import { STRIPE_PLANS, CREDIT_PACKS } from "./products";
 import { getUserById } from "../db";
 
-// Owner/Admin accounts — never charged, always have full access
+// ─── MASTER ADMIN — Chad A. Dozier Sr. only ───────────────────────────────────
+// Never charged. Full admin control. Only account with backend admin access.
 const OWNER_EMAILS = [
   "cdozier14@athlynx.ai",
 ];
+
+// ─── PARTNERS — Full platform access, no paywall, no trial limits ─────────────
+// Partners have full access to all platform features but are NOT admins.
+// Chad A. Dozier Sr. remains the sole MASTER ADMIN with backend control.
+const PARTNER_EMAILS = [
+  "gtse@athlynx.ai",           // Glenn Tse — CFO/COO
+  "lmarshall@athlynx.ai",      // Lee Marshall — VP Sales
+  "leronious@gmail.com",        // Lee Marshall — personal (production test)
+  "jboyd@athlynx.ai",          // Jimmy Boyd — VP Real Estate
+  "akustes@athlynx.ai",        // Andrew Kustes — VP Technology
+];
+
+// ─── FULL ACCESS — owner OR partner ──────────────────────────────────────────
+function isOwner(email: string | null | undefined): boolean {
+  return !!email && OWNER_EMAILS.includes(email.toLowerCase());
+}
+
+function isPartner(email: string | null | undefined): boolean {
+  return !!email && PARTNER_EMAILS.includes(email.toLowerCase());
+}
+
+function hasFullAccess(email: string | null | undefined): boolean {
+  return isOwner(email) || isPartner(email);
+}
 
 // Team members eligible for automated Stripe payroll
 // Revenue is distributed automatically after each billing cycle
@@ -15,18 +40,14 @@ const TEAM_PAYROLL: Array<{
   name: string;
   email: string;
   role: string;
-  stripeConnectedAccountId?: string; // Set when they connect their Stripe account
-  percentageOfRevenue: number; // % of net revenue after operating costs
+  stripeConnectedAccountId?: string;
+  percentageOfRevenue: number;
 }> = [
-  { name: "Glenn Tse",    email: "gtse@athlynx.ai",     role: "CFO/COO",           percentageOfRevenue: 15 },
-  { name: "Lee Marshall", email: "lmarshall@athlynx.ai", role: "VP Sales",          percentageOfRevenue: 10 },
-  { name: "Jimmy Boyd",   email: "jboyd@athlynx.ai",    role: "VP Real Estate",    percentageOfRevenue: 8  },
-  { name: "Andrew Kustes",email: "akustes@athlynx.ai",  role: "VP Technology",     percentageOfRevenue: 10 },
+  { name: "Glenn Tse",    email: "gtse@athlynx.ai",     role: "CFO/COO",        percentageOfRevenue: 15 },
+  { name: "Lee Marshall", email: "lmarshall@athlynx.ai", role: "VP Sales",       percentageOfRevenue: 10 },
+  { name: "Jimmy Boyd",   email: "jboyd@athlynx.ai",    role: "VP Real Estate", percentageOfRevenue: 8  },
+  { name: "Andrew Kustes",email: "akustes@athlynx.ai",  role: "VP Technology",  percentageOfRevenue: 10 },
 ];
-
-function isOwner(email: string | null | undefined): boolean {
-  return !!email && OWNER_EMAILS.includes(email.toLowerCase());
-}
 
 let _stripe: Stripe | null = null;
 function getStripe(): Stripe {
@@ -73,9 +94,9 @@ export const stripeRouter = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      // Owner bypass — never charge the platform owner
-      if (isOwner(ctx.user.email)) {
-        return { url: input.origin + "/dashboard?owner=true" };
+      // Owner + Partner bypass — never charge full-access accounts
+      if (hasFullAccess(ctx.user.email)) {
+        return { url: input.origin + "/feed?access=full" };
       }
       const stripe = getStripe();
       const plan = STRIPE_PLANS.find(p => p.id === input.planId);
@@ -99,27 +120,35 @@ export const stripeRouter = router({
             quantity: 1,
           };
 
+      // Use existing Stripe customer ID if available to avoid duplicate customers
+      const dbUser = await getUserById(ctx.user.id);
+      const customerField: Record<string, string | undefined> = dbUser?.stripeCustomerId
+        ? { customer: dbUser.stripeCustomerId }
+        : { customer_email: ctx.user.email ?? undefined };
+
       const session = await stripe.checkout.sessions.create({
         mode: "subscription",
         line_items: [lineItem],
-        customer_email: ctx.user.email ?? undefined,
+        ...customerField,
         client_reference_id: ctx.user.id.toString(),
         metadata: {
           user_id: ctx.user.id.toString(),
           customer_email: ctx.user.email ?? "",
           customer_name: ctx.user.name ?? "",
           plan_id: input.planId,
+          plan_name: plan.name,          // ← FIX: was missing, needed for confirmation email
           interval: input.interval,
         },
         // 7-day free trial — card required upfront, no charge until day 8
         subscription_data: {
-          trial_period_days: 7,
+          trial_period_days: plan.trialDays ?? 7,
           trial_settings: {
             end_behavior: { missing_payment_method: "cancel" },
           },
           metadata: {
             user_id: ctx.user.id.toString(),
             plan_id: input.planId,
+            plan_name: plan.name,
           },
         },
         payment_method_collection: "always",
@@ -169,7 +198,9 @@ export const stripeRouter = router({
         metadata: {
           user_id: ctx.user.id.toString(),
           customer_email: ctx.user.email ?? "",
+          customer_name: ctx.user.name ?? "",
           pack_id: input.packId,
+          plan_name: pack.name,          // ← FIX: consistent plan_name for email
           credits: pack.credits.toString(),
         },
         allow_promotion_codes: true,
@@ -233,6 +264,7 @@ export const stripeRouter = router({
           customer_email: ctx.user.email ?? "",
           customer_name: ctx.user.name ?? "",
           product_name: input.productName,
+          plan_name: input.productName,
         },
         allow_promotion_codes: true,
         success_url: `${input.origin}/marketplace?success=1&product=${encodeURIComponent(input.productName)}`,
@@ -247,9 +279,9 @@ export const stripeRouter = router({
    * Chad triggers payroll manually after each billing cycle
    */
 
-  /** Get payroll config — admin only */
+  /** Get payroll config — MASTER ADMIN (Chad) only */
   getPayrollConfig: protectedProcedure.query(async ({ ctx }) => {
-    if (!isOwner(ctx.user.email)) throw new Error("Unauthorized");
+    if (!isOwner(ctx.user.email)) throw new Error("Unauthorized — Master Admin only");
     return TEAM_PAYROLL.map(member => ({
       name: member.name,
       email: member.email,
@@ -260,13 +292,12 @@ export const stripeRouter = router({
     }));
   }),
 
-  /** Create Stripe Connect onboarding link for a team member */
+  /** Create Stripe Connect onboarding link for a team member — MASTER ADMIN only */
   createConnectOnboardingLink: protectedProcedure
     .input(z.object({ email: z.string().email(), origin: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      if (!isOwner(ctx.user.email)) throw new Error("Unauthorized");
+      if (!isOwner(ctx.user.email)) throw new Error("Unauthorized — Master Admin only");
       const stripe = getStripe();
-      // Create Express account for team member
       const account = await stripe.accounts.create({
         type: "express",
         email: input.email,
@@ -274,7 +305,6 @@ export const stripeRouter = router({
         business_type: "individual",
         metadata: { platform: "athlynxai", invited_by: ctx.user.email ?? "" },
       });
-      // Create onboarding link
       const link = await stripe.accountLinks.create({
         account: account.id,
         refresh_url: `${input.origin}/admin?payroll=refresh`,
@@ -284,11 +314,11 @@ export const stripeRouter = router({
       return { url: link.url, accountId: account.id };
     }),
 
-  /** Process payroll — distribute revenue to connected team members */
+  /** Process payroll — MASTER ADMIN (Chad) only */
   processPayroll: protectedProcedure
     .input(z.object({ netRevenue: z.number().min(0) }))
     .mutation(async ({ ctx, input }) => {
-      if (!isOwner(ctx.user.email)) throw new Error("Unauthorized");
+      if (!isOwner(ctx.user.email)) throw new Error("Unauthorized — Master Admin only");
       const stripe = getStripe();
       const results: Array<{ name: string; amount: number; status: string; error?: string }> = [];
 
@@ -315,15 +345,29 @@ export const stripeRouter = router({
           results.push({ name: member.name, amount: amountCents, status: "failed", error: err.message });
         }
       }
-      return { success: true, results, totalDistributed: results.filter(r => r.status === "paid").reduce((sum, r) => sum + r.amount, 0) };
+      return {
+        success: true,
+        results,
+        totalDistributed: results.filter(r => r.status === "paid").reduce((sum, r) => sum + r.amount, 0),
+      };
     }),
 
   /** Get current subscription status */
   getSubscription: protectedProcedure.query(async ({ ctx }) => {
-    // Owner bypass — always return full owner plan
+    // Master Admin bypass — Chad always has full owner plan
     if (isOwner(ctx.user.email)) {
       return {
         plan: "owner",
+        status: "active",
+        currentPeriodEnd: null,
+        cancelAtPeriodEnd: false,
+      };
+    }
+
+    // Partner bypass — full access, no subscription required
+    if (isPartner(ctx.user.email)) {
+      return {
+        plan: "partner",
         status: "active",
         currentPeriodEnd: null,
         cancelAtPeriodEnd: false,
@@ -380,7 +424,6 @@ export const stripeRouter = router({
             reviews: parseInt(p.metadata?.reviews || "0"),
           }));
       } catch {
-        // Fallback to empty if Stripe not configured
         return [];
       }
     }),

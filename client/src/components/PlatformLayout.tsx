@@ -194,7 +194,13 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
     const hasLoginMethod = !!(user as any)?.loginMethod;
     // Admins never see onboarding
     const isAdminUser = (user as any)?.role === 'admin';
-    if (dbCompleted || hasLoginMethod || isAdminUser) {
+    // Partners bypass onboarding splash — same as admin
+    const PARTNER_EMAILS_SPLASH = [
+      "gtse@athlynx.ai", "lmarshall@athlynx.ai", "leronious@gmail.com",
+      "jboyd@athlynx.ai", "akustes@athlynx.ai",
+    ];
+    const isPartnerUser = !!(user as any)?.email && PARTNER_EMAILS_SPLASH.includes(((user as any)?.email ?? "").toLowerCase());
+    if (dbCompleted || hasLoginMethod || isAdminUser || isPartnerUser) {
       // Sync localStorage so we don't re-check every time
       localStorage.setItem(key, '1');
       return;
@@ -216,12 +222,19 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
   const liveCredits = creditsData?.credits ?? user?.credits ?? 0;
   // Trial state derived from DB user
   const isAdmin = (user as any)?.role === 'admin';
+  // Partners have full access — never show trial UI or paywall
+  const PARTNER_EMAILS = [
+    "gtse@athlynx.ai", "lmarshall@athlynx.ai", "leronious@gmail.com",
+    "jboyd@athlynx.ai", "akustes@athlynx.ai",
+  ];
+  const isPartner = !!(user as any)?.email && PARTNER_EMAILS.includes(((user as any)?.email ?? "").toLowerCase());
+  const hasFullAccess = isAdmin || isPartner;
   const trialEndsAt = (user as any)?.trialEndsAt ? new Date((user as any).trialEndsAt) : null;
   const _now = new Date();
   const trialDaysLeft = trialEndsAt ? Math.max(0, Math.ceil((trialEndsAt.getTime() - _now.getTime()) / (1000 * 60 * 60 * 24))) : 0;
-  // Admins always have full access — never show trial UI or paywall
-  const isInTrial = !isAdmin && !!trialEndsAt && trialEndsAt > _now && !(user as any)?.stripeSubscriptionId;
-  const trialExpired = !isAdmin && !!trialEndsAt && trialEndsAt <= _now && !(user as any)?.stripeSubscriptionId;
+  // Owner/Partners always have full access — never show trial UI or paywall
+  const isInTrial = !hasFullAccess && !!trialEndsAt && trialEndsAt > _now && !(user as any)?.stripeSubscriptionId;
+  const trialExpired = !hasFullAccess && !!trialEndsAt && trialEndsAt <= _now && !(user as any)?.stripeSubscriptionId;
 
   const planLabel = sub?.plan === "athlete_pro" ? "PRO" :
     sub?.plan === "athlete_elite" ? "ELITE" :
