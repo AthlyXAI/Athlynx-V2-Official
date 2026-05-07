@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getMe, login, logout, register, User } from "../lib/auth";
+import { identifyDevice } from "vexo-analytics";
 
 interface AuthContextType {
   user: User | null;
@@ -43,11 +44,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   async function signIn(email: string, password: string) {
     const { user: u } = await login(email, password);
     setUser(u);
+    try { identifyDevice(u.email); } catch {}
   }
 
   async function signUp(data: { name: string; email: string; password: string; sport?: string }) {
     const { user: u } = await register(data);
     setUser(u);
+    try { identifyDevice(data.email); } catch {}
   }
 
   async function signOut() {
