@@ -39,6 +39,7 @@
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      "./plugins/withGradleFix",
       "expo-router",
       [
         "expo-splash-screen",
