@@ -61,8 +61,8 @@
             "targetSdkVersion": 35,
             "minSdkVersion": 24,
             "kotlinVersion": "1.9.24",
-            "gradleVersion": "8.13",
-            "androidGradlePluginVersion": "8.7.3"
+            "gradleVersion": "8.10.2",
+            "androidGradlePluginVersion": "8.6.1"
           }
         }
       ]
