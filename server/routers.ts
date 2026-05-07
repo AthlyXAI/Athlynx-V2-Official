@@ -28,6 +28,7 @@ import { mediaRouter } from "./routers/mediaRouter";
 import { connectionsRouter } from "./routers/connectionsRouter";
 import { autoPostRouter } from "./routers/autoPostRouter";
 import { licensingRouter } from "./routers/licensingRouter";
+import { buildMonitorRouter } from "./routers/buildMonitorRouter";
 
 export const appRouter = router({
   system: systemRouter,
@@ -59,6 +60,7 @@ export const appRouter = router({
   connections: connectionsRouter,
   autoPost: autoPostRouter,
   licensing: licensingRouter,
+  buildMonitor: buildMonitorRouter,
 });
 
 export type AppRouter = typeof appRouter;

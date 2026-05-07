@@ -228,6 +228,7 @@ import TransferWizard from "./pages/wizards/TransferWizard";
 import AIScoutingReport from "./pages/AIScoutingReport";
 import NotificationCenter from "./pages/NotificationCenter";
 import HighlightReelStudio from "./pages/HighlightReelStudio";
+import BuildMonitor from "./pages/BuildMonitor";
 
 function Router() {
   return (
@@ -547,6 +548,8 @@ function Router() {
       <Route path="/notifications" component={NotificationCenter} />
       <Route path="/highlight-reel-studio" component={HighlightReelStudio} />
       <Route path="/reel-studio" component={HighlightReelStudio} />
+      <Route path="/admin/build-monitor" component={BuildMonitor} />
+      <Route path="/build-monitor" component={BuildMonitor} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
