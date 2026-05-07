@@ -40,7 +40,6 @@
     "react-native-screens": "~4.4.0",
     "react-native-svg": "15.8.0",
     "superjson": "^2.2.1",
-    "vexo-analytics": "^1.5.5",
     "zod": "^3.22.0"
   },
   "devDependencies": {

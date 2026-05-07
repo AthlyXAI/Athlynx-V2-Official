@@ -3,11 +3,6 @@ import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { AuthProvider } from "../contexts/AuthContext";
-import { vexo } from "vexo-analytics";
-
-// Initialize Vexo analytics — tracks screen views, sessions, and events
-vexo("5c0b1865-f655-4664-bc5a-b65786bdee1a");
-
 export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>

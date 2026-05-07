@@ -1,6 +1,15 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { getMe, login, logout, register, User } from "../lib/auth";
-import { identifyDevice } from "vexo-analytics";
+// Vexo analytics — lightweight event tracking
+async function vexoIdentify(email: string) {
+  try {
+    await fetch("https://api.vexo.co/v1/identify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ apiKey: "5c0b1865-f655-4664-bc5a-b65786bdee1a", userId: email, traits: { email } }),
+    });
+  } catch {}
+}
 
 interface AuthContextType {
   user: User | null;
@@ -44,13 +53,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   async function signIn(email: string, password: string) {
     const { user: u } = await login(email, password);
     setUser(u);
-    try { identifyDevice(u.email); } catch {}
+    try { vexoIdentify(u.email); } catch {}
   }
 
   async function signUp(data: { name: string; email: string; password: string; sport?: string }) {
     const { user: u } = await register(data);
     setUser(u);
-    try { identifyDevice(data.email); } catch {}
+    try { vexoIdentify(data.email); } catch {}
   }
 
   async function signOut() {
