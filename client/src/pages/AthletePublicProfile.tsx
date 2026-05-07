@@ -377,6 +377,10 @@ function AthletePublicProfileInner() {
   const [connected, setConnected] = useState(false);
   const [collegeSearch, setCollegeSearch] = useState("");
 
+  const updateAvatarMutation = trpc.profile.updateAvatar.useMutation({
+    onSuccess: () => { utils.profile.getPublicProfile.invalidate(); toast.success("Photo updated!"); },
+    onError: (err: any) => { toast.error(err?.message || "Failed to update photo."); },
+  });
   const sendConnection = trpc.connections.sendConnectionRequest.useMutation({
     onSuccess: () => { setConnected(true); toast.success("Connection request sent!"); },
   });
@@ -504,105 +508,139 @@ function AthletePublicProfileInner() {
 
       <div className="max-w-4xl mx-auto">
 
-        {/* ── Cover Photo ── */}
-        <div className="h-44 sm:h-56 relative overflow-hidden">
-          <img src={coverImg} alt={sport} className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#040c1a] via-[#040c1a]/30 to-transparent" />
-          {/* Sport badge */}
-          <div className="absolute top-4 right-4 bg-black/60 backdrop-blur rounded-xl px-3 py-1.5 flex items-center gap-2 border border-white/10">
-            <Trophy className="w-4 h-4 text-[#00c2ff]" />
-            <span className="text-white text-xs font-black">{sport}</span>
-          </div>
-          {/* Verified badge */}
-          <div className="absolute top-4 left-4 bg-[#00c2ff]/20 backdrop-blur rounded-xl px-3 py-1.5 flex items-center gap-1.5 border border-[#00c2ff]/30">
-            <Shield className="w-3.5 h-3.5 text-[#00c2ff]" />
-            <span className="text-[#00c2ff] text-[10px] font-black">VERIFIED ATHLETE</span>
-          </div>
-        </div>
+        {/* ── MLB.COM STYLE HERO ── */}
+        <div className="relative">
+          {/* Full-width action/cover photo */}
+          <div className="relative h-56 sm:h-72 overflow-hidden">
+            <img src={coverImg} alt={sport} className="w-full h-full object-cover object-center" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#040c1a] via-[#040c1a]/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#040c1a]/60 via-transparent to-transparent" />
 
-        {/* ── Profile Header ── */}
-        <div className="px-4 -mt-16 relative">
-          <div className="flex items-end justify-between mb-4">
-            {/* Avatar */}
-            <div className="w-28 h-28 rounded-2xl border-4 border-[#040c1a] overflow-hidden bg-gradient-to-br from-[#00c2ff] to-blue-700 flex items-center justify-center shadow-2xl flex-shrink-0">
-              {profile.avatarUrl ? (
-                <img src={profile.avatarUrl} alt={displayName} className="w-full h-full object-cover" />
-              ) : (
-                <span className="text-white font-black text-4xl">{initials}</span>
-              )}
+            {/* Top badges */}
+            <div className="absolute top-3 right-3 flex gap-2">
+              <div className="bg-[#00c2ff]/20 backdrop-blur rounded-full px-2.5 py-1 flex items-center gap-1 border border-[#00c2ff]/30">
+                <Shield className="w-3 h-3 text-[#00c2ff]" />
+                <span className="text-[#00c2ff] text-[10px] font-black">VERIFIED</span>
+              </div>
             </div>
-            {/* Action buttons */}
-            <div className="flex gap-2 pb-1">
-              {isOwnProfile ? (
-                <Link href="/profile">
-                  <button className="bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-black px-5 py-2.5 rounded-xl transition-all flex items-center gap-2">
+
+            {/* Bottom-left: small headshot + name + stats — MLB.com style */}
+            <div className="absolute bottom-0 left-0 right-0 px-4 pb-4">
+              <div className="flex items-end gap-3">
+                {/* Small headshot inset */}
+                <div
+                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl border-2 border-white/30 overflow-hidden bg-gradient-to-br from-[#0066ff] to-[#00c2ff] flex items-center justify-center flex-shrink-0 shadow-2xl cursor-pointer relative group"
+                  onClick={() => isOwnProfile && document.getElementById('avatar-upload')?.click()}
+                >
+                  {profile.avatarUrl ? (
+                    <img src={profile.avatarUrl} alt={displayName} className="w-full h-full object-cover object-top" />
+                  ) : (
+                    <span className="text-white font-black text-2xl">{initials}</span>
+                  )}
+                  {isOwnProfile && (
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-xl">
+                      <Camera className="w-5 h-5 text-white" />
+                    </div>
+                  )}
+                </div>
+                {isOwnProfile && (
+                  <input
+                    id="avatar-upload"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={async (e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+                      try {
+                        const reader = new FileReader();
+                        reader.onloadend = async () => {
+                          const avatarUrl = reader.result as string;
+                          await updateAvatarMutation.mutateAsync({ avatarUrl });
+                          toast.success("Profile photo updated!");
+                        };
+                        reader.readAsDataURL(file);
+                      } catch (err: any) {
+                        toast.error("Failed to upload photo.");
+                      }
+                    }}
+                  />
+                )}
+
+                {/* Name + info overlay */}
+                <div className="flex-1 min-w-0 pb-1">
+                  <div className="flex items-center gap-2 flex-wrap mb-0.5">
+                    <h1 className="text-xl sm:text-2xl font-black text-white leading-tight">{displayName}</h1>
+                    <CheckCircle className="w-4 h-4 text-[#00c2ff] flex-shrink-0" />
+                  </div>
+                  <div className="flex items-center gap-2 text-white/70 text-xs flex-wrap">
+                    {profile.position && <span className="font-bold text-[#00c2ff]">{profile.position}</span>}
+                    {profile.position && profile.school && <span className="text-white/40">|</span>}
+                    {profile.height && <span>{profile.height}</span>}
+                    {profile.height && profile.weight && <span className="text-white/40">/</span>}
+                    {profile.weight && <span>{profile.weight} lbs</span>}
+                    {profile.school && <><span className="text-white/40">|</span><span>{profile.school}</span></>}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Action buttons row — below the banner */}
+          <div className="flex gap-2 px-4 py-3 bg-[#040c1a] border-b border-[#0066ff]/20">
+            {isOwnProfile ? (
+              <>
+                <Link href="/profile" className="flex-1">
+                  <button className="w-full bg-[#0066ff] hover:bg-[#0052cc] text-white text-sm font-black py-2.5 rounded-xl transition-all flex items-center justify-center gap-2">
                     <Edit3 className="w-4 h-4" /> Edit Profile
                   </button>
                 </Link>
-              ) : (
-                <>
-                  <button
-                    onClick={() => sendConnection.mutate({ targetUserId: athleteId })}
-                    disabled={connected || sendConnection.isPending}
-                    className={`text-sm font-black px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 ${
-                      connected ? "bg-emerald-600/30 border border-emerald-600/50 text-emerald-400" : "bg-[#00c2ff] hover:bg-[#00a8e0] text-black"
-                    }`}
-                  >
-                    {connected ? <CheckCircle className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
-                    {connected ? "Connected" : "Connect"}
+                <Link href={`/athlete/${athleteId}`}>
+                  <button className="border border-white/20 text-white text-sm font-black px-4 py-2.5 rounded-xl hover:bg-white/10 transition-all">
+                    <Eye className="w-4 h-4" />
                   </button>
-                  <Link href="/messenger">
-                    <button className="bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-black px-4 py-2.5 rounded-xl transition-all flex items-center gap-2">
-                      <MessageCircle className="w-4 h-4" />
-                      <span className="hidden sm:inline">Message</span>
-                    </button>
-                  </Link>
-                  <button onClick={handleShare} className="bg-white/10 hover:bg-white/20 border border-white/20 text-white text-sm font-black px-3 py-2.5 rounded-xl transition-all">
-                    <Share2 className="w-4 h-4" />
+                </Link>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => sendConnection.mutate({ targetUserId: athleteId })}
+                  disabled={connected || sendConnection.isPending}
+                  className={`flex-1 text-sm font-black py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 ${connected ? "bg-emerald-600/30 border border-emerald-600/50 text-emerald-400" : "bg-white text-black hover:bg-white/90"}`}
+                >
+                  {connected ? <CheckCircle className="w-4 h-4" /> : <UserPlus className="w-4 h-4" />}
+                  {connected ? "Connected" : "Follow"}
+                </button>
+                <Link href="/messenger">
+                  <button className="bg-[#0066ff] hover:bg-[#0052cc] text-white text-sm font-black px-5 py-2.5 rounded-xl transition-all flex items-center gap-2">
+                    <MessageCircle className="w-4 h-4" /> Message
                   </button>
-                </>
-              )}
-            </div>
-          </div>
-
-          {/* Name + badges */}
-          <div className="flex items-center gap-2 flex-wrap mb-1">
-            <h1 className="text-2xl font-black text-white">{displayName}</h1>
-            <CheckCircle className="w-5 h-5 text-[#00c2ff]" />
-            {profile.stripePlanId && profile.stripePlanId !== "athlete_free" && (
-              <span className="text-[10px] font-black bg-[#00c2ff]/20 text-[#00c2ff] border border-[#00c2ff]/30 px-2 py-0.5 rounded-full uppercase tracking-wider">
-                {profile.stripePlanId.replace("athlete_", "")}
-              </span>
-            )}
-            {(profile as any)?.nilVerified && (
-              <span className="text-[10px] font-black bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
-                <DollarSign className="w-2.5 h-2.5" /> NIL Verified
-              </span>
+                </Link>
+                <button onClick={handleShare} className="border border-white/20 text-white text-sm font-black px-3 py-2.5 rounded-xl hover:bg-white/10 transition-all">
+                  <Share2 className="w-4 h-4" />
+                </button>
+              </>
             )}
           </div>
 
-          {/* Position · School · Class · State */}
-          <div className="flex flex-wrap items-center gap-2 text-white/50 text-sm mb-3">
-            {profile.position && <span className="flex items-center gap-1"><Target className="w-3.5 h-3.5" />{profile.position}</span>}
-            {profile.school && <><span className="text-white/20">·</span><span className="flex items-center gap-1"><GraduationCap className="w-3.5 h-3.5" />{profile.school}</span></>}
-            {profile.classYear && <><span className="text-white/20">·</span><span className="flex items-center gap-1"><Calendar className="w-3.5 h-3.5" />Class of {profile.classYear}</span></>}
-            {profile.state && <><span className="text-white/20">·</span><span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{profile.state}</span></>}
+          {/* Quick stats bar — position, X-Factor, NIL, offers */}
+          <div className="grid grid-cols-4 gap-0 bg-[#0a1628] border-b border-[#0066ff]/20">
+            {[
+              { label: "Position", value: profile.position || "—" },
+              { label: "X-Factor", value: `${xScore}` },
+              { label: "NIL Value", value: profile.nilValue && Number(profile.nilValue) > 0 ? `$${(Number(profile.nilValue)/1000).toFixed(0)}K` : "—" },
+              { label: "Class", value: profile.classYear ? `'${String(profile.classYear).slice(-2)}` : "—" },
+            ].map((s, i) => (
+              <div key={s.label} className={`py-3 text-center ${i < 3 ? "border-r border-[#0066ff]/10" : ""}`}>
+                <div className="text-white font-black text-base leading-tight">{s.value}</div>
+                <div className="text-[#4a6080] text-[10px] font-bold">{s.label}</div>
+              </div>
+            ))}
           </div>
-
-          {/* Recruiting status */}
-          <div className="flex flex-wrap gap-2 mb-5">
-            <span className={`text-xs font-black px-3 py-1.5 rounded-full border flex items-center gap-1.5 ${statusInfo.bg} ${statusInfo.color}`}>
-              <StatusIcon className="w-3.5 h-3.5" />
-              {statusInfo.label}
-            </span>
-            {profile.nilValue && Number(profile.nilValue) > 0 && (
-              <span className="text-xs font-black px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center gap-1.5">
-                <DollarSign className="w-3.5 h-3.5" />
-                NIL Value: ${Number(profile.nilValue).toLocaleString()}
-              </span>
-            )}
-          </div>
-
+        </div>
+      </div>
+      <div className="max-w-4xl mx-auto">
+        <div className="px-4 py-4">
           {/* ── Score Cards Row ── */}
           <div className="grid grid-cols-3 gap-3 mb-5">
             {/* X-Factor Ring */}
