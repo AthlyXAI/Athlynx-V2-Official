@@ -57,7 +57,7 @@ function MobileAppInner() {
             <div className="inline-flex items-center gap-2 bg-green-900/40 border border-green-700/50 rounded-full px-4 py-1.5 mb-6">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
               <span className="text-green-400 text-xs font-bold tracking-widest">LIVE NOW — PWA</span>
-              <span className="bg-blue-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">iOS & Android</span>
+              <span className="bg-blue-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">iOS & Android (PWA)</span>
             </div>
             <h1 className="text-5xl md:text-6xl font-black text-white mb-4 leading-none">
               ATHLYNX<br />
@@ -79,8 +79,9 @@ function MobileAppInner() {
               >
                 <span className="text-2xl">🍎</span>
                 <div className="text-left">
-                  <div className="text-xs opacity-70">Download on the</div>
+                  <div className="text-xs opacity-70">Coming soon to</div>
                   <div className="font-black">App Store</div>
+                  <div className="text-[10px] text-yellow-400 font-bold">PENDING DEV ACCOUNT</div>
                 </div>
               </button>
               <button
@@ -93,15 +94,16 @@ function MobileAppInner() {
               >
                 <span className="text-2xl">🤖</span>
                 <div className="text-left">
-                  <div className="text-xs opacity-70">Get it on</div>
+                  <div className="text-xs opacity-70">In testing on</div>
                   <div className="font-black">Google Play</div>
+                  <div className="text-[10px] text-cyan-400 font-bold">INTERNAL TESTING</div>
                 </div>
               </button>
             </div>
 
             <div className="bg-green-900/30 border border-green-700/40 rounded-xl p-4">
               <p className="text-green-300 text-sm">
-                <span className="font-bold">🚀 ATHLYNX is live now as a Progressive Web App (PWA).</span> Open athlynx.ai in your browser and tap “Add to Home Screen” — works on iOS & Android. Native app store versions coming soon.
+                <span className="font-bold">🚀 ATHLYNX is live now as a Progressive Web App (PWA).</span> Open athlynx.ai in your browser and tap “Add to Home Screen” — works on iOS & Android. Google Play native app is in internal testing pending APK upload; Apple App Store is pending developer account enrollment.
               </p>
             </div>
           </div>
@@ -147,10 +149,10 @@ function MobileAppInner() {
       <section className="py-10 px-4 border-y border-blue-900/20 bg-black/20">
         <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {[
-            { value: "4.9★", label: "App Store Rating", icon: "⭐" },
+            { value: "PWA Live", label: "Available Now", icon: "✅" },
             { value: "<2s", label: "Load Time", icon: "⚡" },
-            { value: "iOS & Android", label: "Platforms", icon: "📱" },
-            { value: "Free", label: "Download", icon: "🎁" },
+            { value: "iOS & Android", label: "PWA Platforms", icon: "📱" },
+            { value: "Free", label: "Install", icon: "🎁" },
           ].map((s) => (
             <div key={s.label}>
               <div className="text-2xl mb-1">{s.icon}</div>

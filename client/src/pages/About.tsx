@@ -52,8 +52,8 @@ const TEAM = [
 const STATS = [
   { value: "44", label: "Sports Covered" },
   { value: "213+", label: "Platform Features" },
-  { value: "5", label: "AI Engines" },
-  { value: "$47B", label: "Market Opportunity" },
+  { value: "4", label: "AI Engines" },
+  { value: "$135B", label: "Market Opportunity" },
 ];
 
 function AboutInner() {

@@ -505,7 +505,7 @@ function HomeInner() {
             <span className="hidden sm:block w-px h-3.5 bg-blue-700/70" />
             <span className="hidden sm:flex items-center gap-1.5 text-[10px] font-black tracking-widest px-3 py-1 rounded-full" style={{ background: 'rgba(12,37,99,0.8)', border: '1px solid rgba(99,179,237,0.35)', color: '#90cdf4' }}>
               <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse" />
-              PRE-SEED · $47B MARKET
+              PRE-SEED · $135B MARKET
             </span>
             <span className="font-black text-xs sm:text-sm tracking-widest uppercase" style={{ background: 'linear-gradient(90deg, #63b3ed, #bee3f8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', borderBottom: '1px solid rgba(99,179,237,0.5)', paddingBottom: '1px' }}>
               VIEW INVESTOR DECK →
@@ -657,8 +657,8 @@ function HomeInner() {
             {[
               { value: "44", label: "Sports Covered", sub: "Every level. Both genders.", color: "text-[#0066ff]" },
               { value: "213+", label: "Platform Features", sub: "Built from scratch", color: "text-[#00c2ff]" },
-              { value: "$47B", label: "Market Opportunity", sub: "Sports tech + NIL + recruiting", color: "text-green-400" },
-              { value: "5", label: "AI Engines", sub: "Nebius · Gemini · Claude · GPT · Llama", color: "text-purple-400" },
+              { value: "$135B", label: "Market Opportunity", sub: "Sports tech TAM by 2035 · 21.9% CAGR", color: "text-green-400" },
+              { value: "4", label: "AI Engines", sub: "Gemini · Claude · Nebius H200 · OpenAI", color: "text-purple-400" },
             ].map((s, i) => (
               <div key={i} className="bg-[#0a1628] border border-[#0066ff]/20 rounded-2xl p-5 text-center hover:border-[#0066ff]/50 transition-all">
                 <div className={`font-black text-4xl md:text-5xl ${s.color} mb-1`}>{s.value}</div>
@@ -668,16 +668,17 @@ function HomeInner() {
             ))}
           </div>
 
-          {/* X-Factor Live Scores */}
+          {/* X-Factor Demo Scores */}
           <div className="bg-[#0a1628] border border-[#0066ff]/20 rounded-3xl p-6 mb-8">
             <div className="flex items-center justify-between mb-5">
               <div>
-                <div className="text-[#00c2ff] text-xs font-black uppercase tracking-widest mb-1">Live X-Factor™ Scores</div>
-                <div className="text-white font-black text-xl">Top Prospects Right Now</div>
+                <div className="text-[#00c2ff] text-xs font-black uppercase tracking-widest mb-1">X-Factor™ — Demo Preview</div>
+                <div className="text-white font-black text-xl">Sample Top Prospects</div>
+                <div className="text-[#4a6080] text-[10px] mt-1">Illustrative example · not real users · live leaderboard launches with public release</div>
               </div>
-              <div className="flex items-center gap-1.5 bg-red-500/20 border border-red-500/30 rounded-full px-3 py-1.5">
-                <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
-                <span className="text-red-400 text-xs font-black">LIVE</span>
+              <div className="flex items-center gap-1.5 bg-yellow-500/20 border border-yellow-500/30 rounded-full px-3 py-1.5">
+                <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
+                <span className="text-yellow-400 text-xs font-black">DEMO</span>
               </div>
             </div>
             <div className="space-y-3">
@@ -865,7 +866,7 @@ function HomeInner() {
               { layer: "AI Layer 1", name: "Google Gemini 2.5 Flash", desc: "Primary AI — fastest, sports intelligence, real-time", color: "from-blue-600 to-cyan-500", icon: "⚡" },
               { layer: "AI Layer 2", name: "Anthropic Claude Opus", desc: "Deep reasoning — contract analysis, NIL evaluation, legal", color: "from-purple-600 to-indigo-600", icon: "🧠" },
               { layer: "AI Layer 3", name: "Nebius Llama-3.3-70B on NVIDIA H200", desc: "Always-on fallback — zero downtime guaranteed", color: "from-green-600 to-teal-600", icon: "💻" },
-              { layer: "Compute", name: "Nebius AI Cloud", desc: "NVIDIA H200 GPUs — Finalist May 15, 2026", color: "from-green-700 to-emerald-700", icon: "📡" },
+              { layer: "Compute", name: "Nebius AI Cloud", desc: "NVIDIA H200 GPUs — Nebius AI Discovery Award nominee · $5K GPU credits active", color: "from-green-700 to-emerald-700", icon: "📡" },
               { layer: "Deploy", name: "Vercel + GitHub", desc: "Auto-deploy on every push — zero config", color: "from-slate-600 to-gray-700", icon: "🚀" },
               { layer: "Database", name: "Neon PostgreSQL + PlanetScale", desc: "Dual failover — never loses connection", color: "from-blue-700 to-blue-900", icon: "🗄️" },
               { layer: "Payments", name: "Stripe", desc: "Live payments — AthlynXAI Corporation", color: "from-indigo-600 to-violet-700", icon: "💳" },
@@ -904,7 +905,7 @@ function HomeInner() {
         <div className="max-w-2xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-red-500/20 border border-red-500 text-red-300 text-xs font-black px-4 py-1.5 rounded-full mb-4 tracking-widest">
             <span className="w-2 h-2 bg-red-400 rounded-full animate-pulse"></span>
-            FREE 7-DAY ACCESS — NO CREDIT CARD
+            FREE 7-DAY ACCESS — NOT CHARGED UNTIL DAY 8
           </div>
           <h2 className="text-3xl md:text-4xl font-black text-white mb-2">ACCESS THE PLATFORM</h2>
           <p className="text-blue-300 text-base mb-8">Choose your portal below. All in one platform.</p>
@@ -1036,8 +1037,8 @@ function HomeInner() {
             {[
               { value: "44", label: "Sports Covered", sub: "Every sport. Every level.", color: "text-cyan-400", icon: "🏆" },
               { value: "213+", label: "Platform Routes", sub: "Features & tools built", color: "text-green-400", icon: "⚡" },
-              { value: "5", label: "AI Engines", sub: "Gemini · Claude · Nebius · OpenAI · Manus", color: "text-purple-400", icon: "🧠" },
-              { value: "$135B", label: "Market Opportunity", sub: "Sports tech + NIL + recruiting", color: "text-[#00c2ff]", icon: "💰" },
+              { value: "4", label: "AI Engines", sub: "Gemini · Claude · Nebius H200 · OpenAI", color: "text-purple-400", icon: "🧠" },
+              { value: "$135B", label: "Market Opportunity", sub: "Sports tech TAM by 2035 · 21.9% CAGR", color: "text-[#00c2ff]", icon: "💰" },
             ].map((stat, i) => (
               <div key={i} className="bg-gradient-to-br from-[#0d1b3e] to-[#1a3a8f] border border-blue-800 rounded-2xl p-5 text-center hover:border-blue-600 transition-all">
                 <div className="text-3xl mb-1">{stat.icon}</div>
@@ -1219,8 +1220,8 @@ function HomeInner() {
             ATHLYNX ON YOUR PHONE
           </h2>
           <p className="text-blue-300 text-base md:text-lg mb-10 max-w-2xl mx-auto">
-            Native iOS and Android apps are coming to the App Store and Google Play. 
-            Until then, install the PWA directly from your browser — same speed, same power, zero App Store wait.
+            ATHLYNX is live now as a Progressive Web App on iOS &amp; Android. Native apps are on the way — Google Play is in internal testing pending APK upload, Apple App Store is pending developer account enrollment.
+            Install the PWA directly from your browser — same speed, same power, zero App Store wait.
           </p>
 
           {/* App Icons + Store Badges */}
@@ -1242,11 +1243,11 @@ function HomeInner() {
                     <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                   </svg>
                   <div className="text-left">
-                    <div className="text-white/60 text-[9px] leading-none">Download on the</div>
+                    <div className="text-white/60 text-[9px] leading-none">Coming soon to</div>
                     <div className="text-white font-black text-sm leading-tight">App Store</div>
                   </div>
                 </div>
-                <div className="text-red-400 text-xs font-bold tracking-widest">COMING SOON</div>
+                <div className="text-yellow-400 text-xs font-bold tracking-widest">PENDING DEV ACCOUNT</div>
               </div>
             </div>
 
@@ -1265,7 +1266,7 @@ function HomeInner() {
               </div>
               <div className="flex flex-col items-center gap-2">
                 <div className="text-white font-black text-sm">Google Play</div>
-                <div className="flex items-center gap-2 bg-black border border-white/20 rounded-xl px-5 py-3 opacity-60 cursor-not-allowed select-none">
+                <div className="flex items-center gap-2 bg-black border border-white/20 rounded-xl px-5 py-3 opacity-70 cursor-not-allowed select-none">
                   <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none">
                     <path d="M3.18 23.76c.3.16.64.2.97.12l11.4-11.4L12 9l-8.82 14.76z" fill="#EA4335"/>
                     <path d="M20.82 10.5l-2.88-1.65L14.55 12l3.39 3.39 2.88-1.65c.82-.47.82-1.77 0-2.24z" fill="#FBBC04"/>
@@ -1273,11 +1274,11 @@ function HomeInner() {
                     <path d="M3.18 23.76l11.37-11.37L12 9.49 3.18 23.76z" fill="#34A853"/>
                   </svg>
                   <div className="text-left">
-                    <div className="text-white/60 text-[9px] leading-none">Get it on</div>
+                    <div className="text-white/60 text-[9px] leading-none">In testing on</div>
                     <div className="text-white font-black text-sm leading-tight">Google Play</div>
                   </div>
                 </div>
-                <div className="text-red-400 text-xs font-bold tracking-widest">COMING SOON</div>
+                <div className="text-cyan-400 text-xs font-bold tracking-widest">INTERNAL TESTING · APK PENDING</div>
               </div>
             </div>
           </div>

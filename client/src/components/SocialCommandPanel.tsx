@@ -27,7 +27,7 @@ const QUICK_TOPICS = [
   "NIL deals for every sport on AthlynXAI",
   "Transfer Portal — find your next school",
   "Meet new athletes worldwide on AthlynXAI",
-  "7-day free trial — no credit card needed",
+  "7-day free trial — card required, not charged until day 8",
 ];
 
 export default function SocialCommandPanel() {

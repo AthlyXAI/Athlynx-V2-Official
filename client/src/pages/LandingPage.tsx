@@ -296,8 +296,8 @@ function LandingPageInner() {
             {[
               { n: "44", l: "Sports Covered" },
               { n: "213+", l: "Platform Features" },
-              { n: "5", l: "AI Engines" },
-              { n: "$47B", l: "Market Opportunity" },
+              { n: "4", l: "AI Engines" },
+              { n: "$135B", l: "Market Opportunity" },
             ].map((s, i) => (
               <div key={i} className="bg-white/5 border border-white/10 rounded-2xl p-4 text-center backdrop-blur">
                 <p className="text-white font-black text-2xl">{s.n}</p>
@@ -442,7 +442,7 @@ function LandingPageInner() {
           <div className="flex justify-center mb-8">
             <span className="inline-flex items-center gap-2 bg-[#0066ff]/10 border border-[#0066ff]/30 rounded-full px-5 py-2">
               <span className="w-2 h-2 bg-[#00c2ff] rounded-full animate-pulse" />
-              <span className="text-[#00c2ff] text-sm font-bold tracking-wider">FREE 7-DAY ACCESS — NO CREDIT CARD</span>
+              <span className="text-[#00c2ff] text-sm font-bold tracking-wider">FREE 7-DAY ACCESS — NOT CHARGED UNTIL DAY 8</span>
             </span>
           </div>
           <h2 className="text-4xl lg:text-5xl font-black text-white text-center mb-2 tracking-tight">
@@ -497,7 +497,7 @@ function LandingPageInner() {
               className="w-full bg-[#0066ff] hover:bg-[#0052cc] text-white font-black text-lg py-4 rounded-xl transition-all hover:scale-[1.02] shadow-xl shadow-[#0066ff]/30">
               JOIN FREE — START MY 7 DAYS →
             </button>
-            <p className="text-center text-[#4a6080] text-xs">No credit card required · Cancel anytime · 7 days free</p>
+            <p className="text-center text-[#4a6080] text-xs">Credit card required · Not charged until day 8 · Cancel anytime</p>
           </form>
         </div>
       </section>

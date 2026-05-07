@@ -15,7 +15,7 @@ const AI_ENGINES = [
   { layer: "Layer 2", name: "Anthropic Claude", role: "Deep Reasoning Engine", desc: "Contract analysis, NIL deal valuation, legal guidance, academic planning, attorney AI, long-context reasoning", color: "from-orange-500 to-red-500", icon: "⚖️", badge: "REASONING", badgeColor: "bg-orange-600" },
   { layer: "Layer 3", name: "Nebius Llama-3.3-70B (H200)", role: "Always-On GPU Fallback", desc: "NVIDIA H200 GPU cluster — $5K OG credits active, zero downtime guarantee, 24/7 availability, sub-500ms latency CONFIRMED", color: "from-green-500 to-emerald-500", icon: "🖥️", badge: "H200 LIVE", badgeColor: "bg-green-600" },
   { layer: "Layer 4", name: "OpenAI GPT", role: "Generative Intelligence", desc: "Content generation, social captions, brand pitches, athlete bio writing, NIL copy, creative AI", color: "from-purple-500 to-violet-500", icon: "✨", badge: "GENERATIVE", badgeColor: "bg-purple-600" },
-  { layer: "Layer 5", name: "Manus AI Agent", role: "Autonomous Builder", desc: "Full-stack autonomous agent — builds, deploys, manages, and evolves the entire ATHLYNX platform 24/7", color: "from-cyan-500 to-blue-600", icon: "🤖", badge: "AUTONOMOUS", badgeColor: "bg-cyan-600" },
+  { layer: "Build Agent", name: "Manus AI Agent", role: "Autonomous Build Partner (not an inference model)", desc: "Full-stack autonomous build agent — ships, deploys, manages, and evolves the entire ATHLYNX platform 24/7. Separate from the inference engines above.", color: "from-cyan-500 to-blue-600", icon: "🤖", badge: "BUILD AGENT", badgeColor: "bg-cyan-600" },
 ];
 
 const PLATFORM_LAYERS = [
@@ -152,13 +152,14 @@ function LayerCakeInner() {
               Full Stack <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Layer Cake</span>
             </h1>
             <p className="text-blue-300 text-base max-w-3xl mx-auto mb-4">
-              Tokenization of intelligence across every layer. Five AI engines. {ALL_SERVICES.length} platform services.
+              Tokenization of intelligence across every layer. Four AI engines plus an autonomous build agent. {ALL_SERVICES.length} platform services.
               One unified athlete platform. Built at the intersection of AI and sports.
             </p>
             <div className="flex flex-wrap gap-2 justify-center text-xs">
-              {["Gemini", "Claude", "Nebius H200", "OpenAI", "Manus"].map(e => (
+              {["Gemini", "Claude", "Nebius H200", "OpenAI"].map(e => (
                 <span key={e} className="bg-blue-900/50 border border-blue-600 text-blue-300 px-3 py-1 rounded-full font-bold">✅ {e}</span>
               ))}
+              <span className="bg-cyan-900/50 border border-cyan-600 text-cyan-300 px-3 py-1 rounded-full font-bold">🤖 Manus (Build Agent)</span>
             </div>
           </div>
         </div>
@@ -285,8 +286,8 @@ function LayerCakeInner() {
               </p>
               <p className="text-blue-300 text-sm leading-relaxed mb-3">
                 ATHLYNX has realized this vision:{" "}
-                <strong className="text-white">5 AI engines</strong> (Gemini, Claude, Nebius H200, OpenAI, Manus) operating
-                in a cascading fallback architecture, with{" "}
+                <strong className="text-white">4 AI engines</strong> (Gemini, Claude, Nebius H200, OpenAI) operating
+                in a cascading fallback architecture, plus the Manus autonomous build agent that ships and evolves the platform itself, with{" "}
                 <strong className="text-white">{ALL_SERVICES.length} platform services</strong> unified under one codebase,
                 one database, and one deployment pipeline. The $5,000 OG Nebius credits are active and the H200 cluster
                 is confirmed live at sub-500ms latency.
