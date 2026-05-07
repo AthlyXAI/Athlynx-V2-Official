@@ -4,11 +4,14 @@ import { Colors } from "../../lib/theme";
 
 function TabIcon({ name, focused }: { name: string; focused: boolean }) {
   const icons: Record<string, string> = {
-    index: "⚡",
-    recruiting: "🏆",
-    nil: "💰",
-    messages: "💬",
-    profile: "👤",
+    index:         "⚡",
+    recruiting:    "🏆",
+    nil:           "💰",
+    training:      "🏋️",
+    scouting:      "📊",
+    messages:      "💬",
+    notifications: "🔔",
+    profile:       "👤",
   };
   return (
     <View style={styles.tabIcon}>
@@ -58,11 +61,35 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="training"
+        options={{
+          title: "Training Hub",
+          tabBarLabel: "Train",
+          tabBarIcon: ({ focused }) => <TabIcon name="training" focused={focused} />,
+        }}
+      />
+      <Tabs.Screen
+        name="scouting"
+        options={{
+          title: "AI Scout",
+          tabBarLabel: "Scout",
+          tabBarIcon: ({ focused }) => <TabIcon name="scouting" focused={focused} />,
+        }}
+      />
+      <Tabs.Screen
         name="messages"
         options={{
           title: "Messages",
           tabBarLabel: "Messages",
           tabBarIcon: ({ focused }) => <TabIcon name="messages" focused={focused} />,
+        }}
+      />
+      <Tabs.Screen
+        name="notifications"
+        options={{
+          title: "Notifications",
+          tabBarLabel: "Alerts",
+          tabBarIcon: ({ focused }) => <TabIcon name="notifications" focused={focused} />,
         }}
       />
       <Tabs.Screen
@@ -84,14 +111,14 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     paddingTop: 4,
     paddingBottom: 4,
-    height: 60,
+    height: 62,
   },
   tabLabel: {
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: "600",
     marginBottom: 2,
   },
   tabIcon: { alignItems: "center", justifyContent: "center" },
-  tabEmoji: { fontSize: 20, opacity: 0.5 },
+  tabEmoji: { fontSize: 18, opacity: 0.5 },
   tabEmojiActive: { opacity: 1 },
 });

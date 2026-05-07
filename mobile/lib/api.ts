@@ -94,8 +94,14 @@ export const messagingApi = {
 
 // ─── Training ─────────────────────────────────────────────────────────────────
 export const trainingApi = {
-  getMyStats: () => apiQuery<any>("training.getMyStats"),
-  logWorkout: (data: any) => apiMutation("training.logWorkout", data),
+  getStats: () => apiQuery<any>("training.getStats"),
+  getHistory: (limit = 30) => apiQuery<any[]>("training.getHistory", { limit }),
+  logWorkout: (data: {
+    workout: string;
+    duration?: number;
+    notes?: string;
+    performance?: number;
+  }) => apiMutation("training.logWorkout", data),
 };
 
 // ─── AI ───────────────────────────────────────────────────────────────────────
@@ -104,4 +110,21 @@ export const aiApi = {
     apiMutation("ai.generateCaption", { context }),
   getXFactorScore: (userId?: number) =>
     apiQuery<any>("ai.getXFactorScore", userId ? { userId } : undefined),
+  generateScoutingReport: (data: {
+    athleteName: string;
+    sport: string;
+    position: string;
+    school: string;
+    year?: string;
+    state?: string;
+    xScore?: number;
+    fortyYd?: string;
+    vertical?: string;
+    bench?: number;
+    gpa?: number;
+    offers?: number;
+    nilValue?: number;
+    highlights?: string;
+  }) => apiMutation("ai.generateScoutingReport", data),
+  getCredits: () => apiQuery<any>("ai.getCredits"),
 };
