@@ -42,7 +42,7 @@ export const CAREER_TIERS = [
   {
     id: "high_school",
     label: "High School Athlete",
-    emoji: "🏆",
+    emoji: "⚡",
     ageRange: "Ages 14–18",
     color: "from-blue-500 to-cyan-400",
     glow: "rgba(59,130,246,0.4)",
@@ -283,7 +283,7 @@ export default function AIWizard({
       setIsTyping(false);
       setChatHistory(prev => [...prev, {
         role: "ai",
-        text: `Sign in to unlock your personal AI Trainer powered by Google Gemini. I can help you with recruiting, NIL deals, training, and your entire athletic career. 🏆`,
+        text: `Sign in to unlock your personal AI Trainer powered by Google Gemini. I can help you with recruiting, NIL deals, training, and your entire athletic career.`,
       }]);
     }
   };
