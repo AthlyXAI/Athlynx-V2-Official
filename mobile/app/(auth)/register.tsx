@@ -35,7 +35,7 @@ export default function RegisterScreen() {
     setLoading(true);
     try {
       await signUp({ name: name.trim(), email: email.trim().toLowerCase(), password, sport });
-      router.replace("/(tabs)");
+      router.replace("/(auth)/onboarding");
     } catch (err: any) {
       Alert.alert("Registration Failed", err.message || "Please try again");
     } finally {

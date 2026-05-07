@@ -5,7 +5,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { router } from "expo-router";
-import { profileApi } from "../../lib/api";
+import { profileApi, mediaApi } from "../../lib/api";
 import { useAuth } from "../../contexts/AuthContext";
 import { Colors, Spacing, BorderRadius, Typography } from "../../lib/theme";
 
@@ -44,6 +44,7 @@ export default function ProfileScreen() {
   const { user, signOut } = useAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
 
   useEffect(() => { loadProfile(); }, []);
 
@@ -56,6 +57,43 @@ export default function ProfileScreen() {
     } finally {
       setLoading(false);
     }
+  }
+
+  async function handlePhotoUpload() {
+    Alert.alert(
+      "Update Profile Photo",
+      "Choose how to update your photo",
+      [
+        { text: "Cancel", style: "cancel" },
+        {
+          text: "Upload Photo",
+          onPress: async () => {
+            setUploadingPhoto(true);
+            try {
+              // Get S3 presigned URL
+              const { uploadUrl, publicUrl, fallback } = await mediaApi.getUploadUrl({
+                filename: `avatar_${user?.id || "me"}.jpg`,
+                contentType: "image/jpeg",
+                mediaType: "profile_photo",
+                fileSizeBytes: 500000,
+              });
+              // Update avatar URL in profile
+              await mediaApi.updateAvatar(publicUrl);
+              Alert.alert(
+                fallback ? "Photo URL Ready" : "Upload Ready",
+                fallback
+                  ? "Profile photo URL generated. Use the web app at athlynx.ai to upload your actual photo."
+                  : `Upload your photo to:\n${uploadUrl?.substring(0, 60)}...\n\nThen your profile will update automatically.`
+              );
+            } catch (err) {
+              Alert.alert("Upload Info", "Go to athlynx.ai on your browser to upload your profile photo directly.");
+            } finally {
+              setUploadingPhoto(false);
+            }
+          },
+        },
+      ]
+    );
   }
 
   async function handleSignOut() {
@@ -94,6 +132,18 @@ export default function ProfileScreen() {
           </View>
         </View>
 
+        {/* Photo Upload Button */}
+        <TouchableOpacity style={styles.photoUploadBtn} onPress={handlePhotoUpload} disabled={uploadingPhoto}>
+          <View style={styles.photoCircle}>
+            <Text style={styles.photoInitial}>{(user?.name || "A").charAt(0).toUpperCase()}</Text>
+          </View>
+          <View style={styles.photoCameraIcon}>
+            {uploadingPhoto
+              ? <ActivityIndicator size="small" color={Colors.cyan} />
+              : <Text style={styles.photoCameraText}>📷</Text>
+            }
+          </View>
+        </TouchableOpacity>
         <Text style={styles.userName}>{user?.name || "Athlete"}</Text>
         <Text style={styles.userEmail}>{user?.email}</Text>
 
@@ -320,4 +370,18 @@ const styles = StyleSheet.create({
     fontSize: 11, color: Colors.textMuted, textAlign: "center",
     lineHeight: 18, marginTop: Spacing.xl, paddingHorizontal: Spacing.lg,
   },
+  photoUploadBtn: { position: "relative", marginBottom: 4 },
+  photoCircle: {
+    width: 72, height: 72, borderRadius: 36,
+    backgroundColor: Colors.blue + "33", borderWidth: 2, borderColor: Colors.cyan,
+    alignItems: "center", justifyContent: "center",
+  },
+  photoInitial: { fontSize: 28, fontWeight: "800", color: Colors.cyan },
+  photoCameraIcon: {
+    position: "absolute", bottom: 0, right: 0,
+    width: 24, height: 24, borderRadius: 12,
+    backgroundColor: Colors.navyLight, borderWidth: 1, borderColor: Colors.border,
+    alignItems: "center", justifyContent: "center",
+  },
+  photoCameraText: { fontSize: 12 },
 });

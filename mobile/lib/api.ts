@@ -104,6 +104,25 @@ export const trainingApi = {
   }) => apiMutation("training.logWorkout", data),
 };
 
+// ─── Media / S3 ──────────────────────────────────────────────────────────────
+export const mediaApi = {
+  getUploadUrl: (data: {
+    filename: string;
+    contentType: string;
+    mediaType: "highlight" | "game_film" | "training" | "profile_photo" | "cover_photo" | "other";
+    fileSizeBytes: number;
+  }) => apiMutation<{ uploadUrl: string | null; key: string; publicUrl: string; fallback: boolean }>("media.getUploadUrl", data),
+  saveMedia: (data: {
+    key: string;
+    publicUrl: string;
+    mediaType: string;
+    title?: string;
+    sport?: string;
+  }) => apiMutation<any>("media.saveMedia", data),
+  updateAvatar: (avatarUrl: string) =>
+    apiMutation<any>("profile.updateProfile", { avatarUrl }),
+};
+
 // ─── AI ───────────────────────────────────────────────────────────────────────
 export const aiApi = {
   generateCaption: (context: string) =>
