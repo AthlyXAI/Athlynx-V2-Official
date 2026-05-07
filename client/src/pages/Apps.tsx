@@ -133,26 +133,28 @@ function AppsInner() {
               Download Our <span className="text-cyan-400">Apps</span>
             </h1>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-              The complete ATHLYNX ecosystem in your pocket. Available on iOS and Android.
+              The full ATHLYNX platform is live now as a Progressive Web App (PWA). Native apps are on the way — Google Play is in internal testing pending APK upload, Apple App Store is pending developer account enrollment.
             </p>
           </div>
 
           {/* App Store Badges */}
           <div className="flex justify-center gap-4 mb-12">
-            <button className="flex items-center gap-3 bg-black border border-white/20 rounded-xl px-6 py-3 hover:bg-white/10 transition-all">
+            <div className="flex items-center gap-3 bg-black border border-white/20 rounded-xl px-6 py-3 opacity-70">
               <span className="text-3xl">🍎</span>
               <div className="text-left">
-                <p className="text-gray-400 text-xs">Download on the</p>
+                <p className="text-gray-400 text-xs">Coming soon to</p>
                 <p className="text-white font-semibold">App Store</p>
+                <p className="text-yellow-400 text-[10px] font-bold tracking-wider">PENDING APPLE DEV ACCOUNT</p>
               </div>
-            </button>
-            <button className="flex items-center gap-3 bg-black border border-white/20 rounded-xl px-6 py-3 hover:bg-white/10 transition-all">
+            </div>
+            <div className="flex items-center gap-3 bg-black border border-white/20 rounded-xl px-6 py-3 opacity-90">
               <span className="text-3xl">▶️</span>
               <div className="text-left">
-                <p className="text-gray-400 text-xs">Get it on</p>
+                <p className="text-gray-400 text-xs">In testing on</p>
                 <p className="text-white font-semibold">Google Play</p>
+                <p className="text-cyan-400 text-[10px] font-bold tracking-wider">INTERNAL TESTING · APK UPLOAD PENDING</p>
               </div>
-            </button>
+            </div>
           </div>
 
           {/* Apps Grid */}

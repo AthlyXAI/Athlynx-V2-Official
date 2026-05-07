@@ -59,7 +59,7 @@ const PARTNERSHIPS = [
   {
     name: "Nebius AI Cloud",
     role: "NVIDIA H200 GPU Cloud — Llama-3.3-70B — $5,000 Credits ACTIVE — Faster loops, zero setup",
-    desc: "Nebius AI Cloud is the GPU backbone of ATHLYNX — Llama-3.3-70B running on NVIDIA H200 GPUs, 24/7, zero downtime. $5,000 in GPU credits activated. This is the same infrastructure powering the world's most advanced AI labs, now running every X-Factor score, AI Coach session, Fuel Bot conversation, and NIL deal analysis on the platform. Nebius AI Discovery Award Nominee — Digital Health category. Finalists announced May 15, 2026. Faster loops. Zero setup. Always on.",
+    desc: "Nebius AI Cloud is the GPU backbone of ATHLYNX — Llama-3.3-70B running on NVIDIA H200 GPUs, 24/7, zero downtime. $5,000 in GPU credits activated. This is the same infrastructure powering the world's most advanced AI labs, now running every X-Factor score, AI Coach session, Fuel Bot conversation, and NIL deal analysis on the platform. Nebius AI Discovery Award nominee — Digital Health category. Faster loops. Zero setup. Always on.",
     icon: "🟢",
     status: "LIVE — $5K H200 Credits Active"
   },
@@ -73,7 +73,7 @@ const PARTNERSHIPS = [
   {
     name: "NVIDIA H200 GPUs via Nebius",
     role: "World's Most Powerful AI Chips — Running AthlynXAI",
-    desc: "NVIDIA H200 GPUs — the same chips powering the world's most advanced AI labs — are running AthlynXAI's Fuel Bots, X-Factor AI, and athlete intelligence models through Nebius AI Cloud. Nominated for the Nebius AI Discovery Award (Digital Health category, May 15 finalist announcement). AthlynXAI is the first athlete platform in the world running H200-grade AI compute.",
+    desc: "NVIDIA H200 GPUs — the same chips powering the world's most advanced AI labs — are running AthlynXAI's Fuel Bots, X-Factor AI, and athlete intelligence models through Nebius AI Cloud. Nominated for the Nebius AI Discovery Award (Digital Health category). AthlynXAI is the first athlete platform in the world running H200-grade AI compute.",
     icon: "🟢",
     status: "LIVE via Nebius"
   },

@@ -548,7 +548,7 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
           {!user && (
             <div className="bg-gradient-to-br from-[#1a3a8f] to-[#0d1b3e] rounded-xl border border-blue-600 p-4 text-center">
               <div className="text-white font-black text-sm mb-1">⚡ Join ATHLYNX Free</div>
-              <div className="text-blue-300 text-xs mb-3">7-day free trial. No credit card needed.</div>
+              <div className="text-blue-300 text-xs mb-3">7-day free trial. Card required, not charged until day 8.</div>
               <Link href="/signup" className="block w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-400 hover:to-blue-500 text-white font-black text-sm py-2.5 rounded-xl transition-all mb-2">
                 Start Free Trial →
               </Link>

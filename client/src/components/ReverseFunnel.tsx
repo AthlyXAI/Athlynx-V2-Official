@@ -207,7 +207,7 @@ export function ReverseFunnel({
                 </button>
               </form>
 
-              <p className="text-white/20 text-xs text-center mt-3">No credit card required · Cancel anytime</p>
+              <p className="text-white/20 text-xs text-center mt-3">Credit card required · Not charged until day 8 · Cancel anytime</p>
             </>
           ) : (
             <div className="text-center py-4">
