@@ -682,56 +682,15 @@ function ProfileInner() {
           </div>
           <div className="px-4 pb-4">
             <div className="flex items-end justify-between -mt-10 mb-3">
-              <div className="relative cursor-pointer group" onClick={() => { const inp = document.getElementById('avatar-upload-input') as HTMLInputElement; inp?.click(); }}>
-                <input
-                  id="avatar-upload-input"
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={async (e) => {
-                    const file = e.target.files?.[0];
-                    if (!file) return;
-                    try {
-                      // Get presigned URL from S3
-                      const result = await utils.client.media.getUploadUrl.mutate({
-                        filename: file.name,
-                        contentType: file.type,
-                        mediaType: "profile_photo",
-                        fileSizeBytes: file.size,
-                      }).catch(() => null);
-                      
-                      let avatarUrl: string;
-                      if (result && result.uploadUrl && !result.fallback) {
-                        // Upload to S3
-                        await fetch(result.uploadUrl, { method: 'PUT', body: file, headers: { 'Content-Type': file.type } });
-                        avatarUrl = result.publicUrl;
-                      } else {
-                        // Fallback: use object URL (works without S3)
-                        avatarUrl = URL.createObjectURL(file);
-                      }
-                      
-                      // Save to profile
-                      await updateAvatarMutation.mutateAsync({ avatarUrl });
-                      toast.success("Profile photo updated!");
-                    } catch (err: any) {
-                      toast.error(err?.message || "Failed to upload photo. Please try again.");
-                    }
-                  }}
-                />
-                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#0066ff] to-[#00c2ff] border-4 border-[#0d1b3e] flex items-center justify-center text-2xl font-black overflow-hidden relative">
+              <div className="relative">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-600 to-blue-800 border-4 border-[#0d1b3e] flex items-center justify-center text-2xl font-black overflow-hidden">
                   {user.avatarUrl ? (
                     <img src={user.avatarUrl} alt={displayName} className="w-full h-full object-cover" />
                   ) : (
                     <span className="text-white">{initials}</span>
                   )}
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center rounded-full">
-                    <span className="text-white text-xs font-black">📷</span>
-                  </div>
                 </div>
-                <div className="absolute bottom-0 right-0 w-6 h-6 bg-[#0066ff] rounded-full border-2 border-[#0d1b3e] flex items-center justify-center">
-                  <span className="text-white text-[10px]">+</span>
-                </div>
+                <div className="absolute bottom-1 right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-[#0d1b3e]"></div>
               </div>
               <div className="flex gap-2 mb-1">
                 {editMode ? (
