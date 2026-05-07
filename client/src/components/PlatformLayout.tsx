@@ -313,8 +313,8 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
           <div className="flex items-center gap-1">
             {/* Plan badge + Credits */}
             {user && (
-              <div className="hidden sm:flex items-center gap-1 mr-1">
-                <Link href="/billing">
+              <div className="flex items-center gap-1 mr-1">
+                <Link href="/billing" className="hidden sm:inline-flex">
                   <span
                     className="inline-flex text-[10px] font-black px-2 py-1 rounded-full cursor-pointer"
                     style={{ backgroundColor: planColor + "22", color: planColor, border: `1px solid ${planColor}44` }}
@@ -323,8 +323,12 @@ export default function PlatformLayout({ children, title }: PlatformLayoutProps)
                   </span>
                 </Link>
                 <Link href="/billing">
-                  <span className="inline-flex items-center gap-0.5 text-[10px] font-bold px-2 py-1 rounded-full bg-red-500/10 text-red-400 border border-red-500/30 cursor-pointer hover:bg-red-500/20 transition-colors">
-                    ⚡ {liveCredits.toLocaleString()} credits
+                  <span className={`inline-flex items-center gap-0.5 text-[10px] font-bold px-2 py-1 rounded-full cursor-pointer transition-colors ${
+                    liveCredits < 50
+                      ? 'bg-red-500/20 text-red-400 border border-red-500/40 animate-pulse'
+                      : 'bg-[#0066ff]/10 text-[#00c2ff] border border-[#0066ff]/30 hover:bg-[#0066ff]/20'
+                  }`}>
+                    ⚡ {liveCredits.toLocaleString()}
                   </span>
                 </Link>
               </div>
