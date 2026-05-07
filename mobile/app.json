@@ -53,7 +53,10 @@
         "expo-build-properties",
         {
           "android": {
-            "buildArchs": ["armeabi-v7a", "arm64-v8a"]
+            "buildArchs": [
+              "armeabi-v7a",
+              "arm64-v8a"
+            ]
           }
         }
       ]
@@ -63,9 +66,13 @@
     },
     "extra": {
       "apiUrl": "https://athlynx.ai",
+      "router": {
+        "origin": false
+      },
       "eas": {
-        "projectId": "athlynxai-mobile"
+        "projectId": "b1ac40c9-4a90-4f9c-99cd-b1cea06189ad"
       }
-    }
+    },
+    "owner": "cdozier14"
   }
 }
