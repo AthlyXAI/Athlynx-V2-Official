@@ -26,7 +26,7 @@ const leadership = [
     initials: "CD",
     gradient: "from-cyan-500 to-blue-600",
     role: "founder",
-    photo: "/chad-dozier-ceo.png",
+    photo: "/team/chad-dozier.jpg",
   },
   {
     name: "Glenn Tse",
@@ -43,7 +43,7 @@ const leadership = [
     initials: "GT",
     gradient: "from-red-500 to-red-600",
     role: "executive",
-    photo: "https://www.gravatar.com/avatar/400fe18dbc29cd824f277af7e41710b0?s=200&d=mp",
+    photo: "/team/glenn-tse.jpg",
     chineseName: "謝文傑",
   },
 ];
@@ -55,6 +55,7 @@ const executives = [
     responsibilities: "Product Development, Engineering, Patents",
     bio: "Leads all technology initiatives including platform development, patent filings, and technical architecture.",
     initials: "AK",
+    photo: "/team/andrew-kustes.jpg",
   },
   {
     name: "Lee Marshall",
@@ -62,6 +63,7 @@ const executives = [
     responsibilities: "Sales, Brand Partnerships, Trademarks",
     bio: "Drives revenue through brand partnerships and athlete onboarding. Manages trademark protection.",
     initials: "LM",
+    photo: "/team/lee-marshall.jpg",
   },
   {
     name: "Jimmy Boyd",
@@ -69,6 +71,7 @@ const executives = [
     responsibilities: "Real Estate, Strategic Partnerships",
     bio: "Manages Softmor datacenter real estate strategy and site selection.",
     initials: "JB",
+    photo: "/team/jimmy-boyd.jpg",
   },
 ];
 
@@ -331,8 +334,12 @@ function TeamInner() {
           {executives.map((exec) => (
             <div key={exec.name} className="bg-slate-900/80 border border-white/10 rounded-2xl p-6 hover:border-cyan-500/50 transition-colors">
               <div className="flex items-start gap-4 mb-4">
-                <div className="w-14 h-14 bg-gradient-to-br from-slate-600 to-slate-700 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <span className="text-xl font-bold text-white">{exec.initials}</span>
+                <div className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden bg-gradient-to-br from-slate-600 to-slate-700">
+                  {(exec as any).photo ? (
+                    <img src={(exec as any).photo} alt={exec.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="text-xl font-bold text-white">{exec.initials}</span>
+                  )}
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-white">{exec.name}</h3>

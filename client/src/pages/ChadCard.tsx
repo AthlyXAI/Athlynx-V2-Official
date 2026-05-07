@@ -9,7 +9,7 @@ import PlatformLayout from "@/components/PlatformLayout";
 import MobileBottomNav from '@/components/MobileBottomNav'
 import { Link } from "wouter";
 
-const CHAD_PHOTO = "https://www.gravatar.com/avatar/400fe18dbc29cd824f277af7e41710b0?s=400&d=mp";
+const CHAD_PHOTO = "/images/team/chad-dozier-headshot.png";
 const DHG_LOGO = "/dhg-crab-shield.png";
 const ATHLYNX_LOGO = "/athlynx-icon.png";
 

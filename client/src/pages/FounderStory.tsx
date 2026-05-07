@@ -25,7 +25,7 @@ const familyPhotos = [
   { src: "/img-founder-mission.jpg", caption: "The Mission" },
   { src: "/img-founder-houston.jpg", caption: "Houston — Our Home Base" },
   { src: "/img-founder-vision.jpg", caption: "Eyes on the Future" },
-  { src: "/chad-dozier-ceo.png", caption: "Chad A. Dozier Sr. — Founder & CEO" },
+  { src: "/images/team/chad-dozier-headshot.png", caption: "Chad A. Dozier Sr. — Founder & CEO" },
   { src: "/img-founder-team.jpg", caption: "Together We Rise" },
   { src: "/img-founder-mission.jpg", caption: "Faith, Family, Future" },
   { src: "/img-founder-houston.jpg", caption: "Where It All Began" },

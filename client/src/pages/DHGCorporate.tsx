@@ -37,11 +37,11 @@ const subsidiaries: Subsidiary[] = [
 ];
 
 const leadership = [
-  { name: 'Chad A. Dozier', title: 'Founder, CEO & Chairman', bio: "Visionary entrepreneur and founder of Dozier Holdings Group. Chad brings decades of business acumen across technology, real estate, and energy sectors. His leadership philosophy — Iron Sharpens Iron — drives the company's culture of excellence and continuous improvement.", email: 'cdozier14@athlynx.ai', initials: 'CD', color: 'from-blue-500 to-cyan-500' },
-  { name: 'Glenn Tse', title: 'CFO / COO', bio: "Co-founder and financial architect of DHG. Glenn's expertise in financial strategy, operations management, and business development has been instrumental in building DHG's diversified portfolio from the ground up since the company's founding at Hope Lodge in November 2024.", initials: 'GT', color: 'from-emerald-500 to-teal-500', email: '' },
-  { name: 'Andy Kustes', title: 'VP Technology', bio: "Technology visionary leading DHG's digital transformation and AI initiatives. Andy architects the technical infrastructure powering ATHLYNX, Softmor AI, and VC Data Centers — building the technological backbone of the DHG ecosystem.", initials: 'AK', color: 'from-blue-600 to-blue-600', email: '' },
-  { name: 'Lee Marshall', title: 'VP Sales & Partnerships', bio: "Sales leader and partnership architect driving DHG's business development strategy. Lee builds the relationships and revenue channels that fuel DHG's growth across all divisions.", initials: 'LM', color: 'from-red-500 to-red-500', email: '' },
-  { name: 'Jimmy Boyd', title: 'VP Real Estate', bio: "Real estate executive overseeing DHG's property portfolio and development pipeline. Jimmy leads acquisitions, development, and management across DHG's residential and commercial real estate divisions.", initials: 'JB', color: 'from-teal-500 to-green-500', email: '' },
+  { name: 'Chad A. Dozier', title: 'Founder, CEO & Chairman', bio: "Visionary entrepreneur and founder of Dozier Holdings Group. Chad brings decades of business acumen across technology, real estate, and energy sectors. His leadership philosophy — Iron Sharpens Iron — drives the company's culture of excellence and continuous improvement.", email: 'cdozier14@athlynx.ai', initials: 'CD', color: 'from-blue-500 to-cyan-500', photo: '/team/chad-dozier.jpg' },
+  { name: 'Glenn Tse', title: 'CFO / COO', bio: "Co-founder and financial architect of DHG. Glenn's expertise in financial strategy, operations management, and business development has been instrumental in building DHG's diversified portfolio from the ground up since the company's founding at Hope Lodge in November 2024.", initials: 'GT', color: 'from-emerald-500 to-teal-500', email: '', photo: '/team/glenn-tse.jpg' },
+  { name: 'Andy Kustes', title: 'VP Technology', bio: "Technology visionary leading DHG's digital transformation and AI initiatives. Andy architects the technical infrastructure powering ATHLYNX, Softmor AI, and VC Data Centers — building the technological backbone of the DHG ecosystem.", initials: 'AK', color: 'from-blue-600 to-blue-600', email: '', photo: '/team/andrew-kustes.jpg' },
+  { name: 'Lee Marshall', title: 'VP Sales & Partnerships', bio: "Sales leader and partnership architect driving DHG's business development strategy. Lee builds the relationships and revenue channels that fuel DHG's growth across all divisions.", initials: 'LM', color: 'from-red-500 to-red-500', email: '', photo: '/team/lee-marshall.jpg' },
+  { name: 'Jimmy Boyd', title: 'VP Real Estate', bio: "Real estate executive overseeing DHG's property portfolio and development pipeline. Jimmy leads acquisitions, development, and management across DHG's residential and commercial real estate divisions.", initials: 'JB', color: 'from-teal-500 to-green-500', email: '', photo: '/team/jimmy-boyd.jpg' },
 ];
 
 const stats = [
@@ -187,7 +187,13 @@ function DHGCorporateInner() {
         <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
           {leadership.map((person) => (
             <div key={person.name} className="bg-white/5 border border-white/10 rounded-2xl p-8 text-center hover:border-emerald-500/30 transition-all">
-              <div className={`w-20 h-20 mx-auto rounded-full bg-gradient-to-br ${person.color} flex items-center justify-center text-2xl font-black text-white mb-5`}>{person.initials}</div>
+              <div className={`w-20 h-20 mx-auto rounded-full bg-gradient-to-br ${person.color} flex items-center justify-center text-2xl font-black text-white mb-5 overflow-hidden`}>
+                {(person as any).photo ? (
+                  <img src={(person as any).photo} alt={person.name} className="w-full h-full object-cover" />
+                ) : (
+                  person.initials
+                )}
+              </div>
               <h3 className="text-white font-black text-xl mb-1">{person.name}</h3>
               <p className="text-emerald-400 text-sm font-semibold mb-4">{person.title}</p>
               <p className="text-gray-400 text-sm leading-relaxed">{person.bio}</p>
